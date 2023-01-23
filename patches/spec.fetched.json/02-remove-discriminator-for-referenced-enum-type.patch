@@ -1,0 +1,34 @@
+diff --git a/fabric-java/spec/oas3.fabric.patched.json b/fabric-java/spec/oas3.fabric.patched.json
+index e548be4..38d9eb7 100644
+--- a/fabric-java/spec/oas3.fabric.patched.json
++++ b/fabric-java/spec/oas3.fabric.patched.json
+@@ -15175,15 +15175,6 @@
+           "type": {
+             "$ref": "#/components/schemas/LinkProtocolType"
+           }
+-        },
+-        "discriminator": {
+-          "propertyName": "type",
+-          "mapping": {
+-            "EVPN_VXLAN": "#/components/schemas/LinkProtocolEvpnVxlan",
+-            "DOT1Q": "#/components/schemas/LinkProtocolDot1q",
+-            "UNTAGGED": "#/components/schemas/LinkProtocolUntagged",
+-            "QINQ": "#/components/schemas/LinkProtocolQinq"
+-          }
+         }
+       },
+       "AddOperation": {
+@@ -16677,13 +16668,6 @@
+           "uuid": {
+             "type": "string"
+           }
+-        },
+-        "discriminator": {
+-          "propertyName": "type",
+-          "mapping": {
+-            "COLO": "#/components/schemas/ServiceProfileAccessPointTypeCOLO",
+-            "VD": "#/components/schemas/ServiceProfileAccessPointTypeVD"
+-          }
+         }
+       },
+       "metros": {
