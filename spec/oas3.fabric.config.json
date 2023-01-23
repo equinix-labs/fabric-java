@@ -1,0 +1,12 @@
+{
+   "groupId": "com.equinix",
+   "artifactId": "equinix-openapi-fabric",
+   "artifactVersion": "1.0.0",
+   "library": "okhttp-gson",
+   "invokerPackage": "com.equinix.openapi.fabric",
+   "modelPackage": "com.equinix.openapi.fabric.v4.model",
+   "apiPackage": "com.equinix.openapi.fabric.v4.api",
+   "hideGenerationTimestamp": true,
+   "disallowAdditionalPropertiesIfNotPresent": false,
+   "legacyDiscriminatorBehavior": true
+}
