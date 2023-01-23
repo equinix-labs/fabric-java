@@ -1,0 +1,43 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Auto commit client updates
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "**" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: maven
+      
+    - name: Commit to branch if client is updated after executing make.
+      run: |
+        git config --global user.name 'equinix-labs@auto-commit-workflow'
+        git config --global user.email 'bot@equinix.noreply.github.com'
+        git config advice.addIgnoredFile false
+        git fetch
+        echo -e "\nThis is executing for branch: ${GITHUB_REF##*/}."
+        git checkout ${GITHUB_REF##*/}
+        make docker_run
+        echo -e "Make execution completed."
+        git add equinix-openapi-fabric/.
+        echo -e "\nGit status:"
+        echo `git status`
+        cdate=`date`
+        cmsg="Auto commit generated client changes - $cdate"
+        echo -e "\nCommit message created : $cmsg"
+        echo -e "\nCommitting if there are files to update in client dir:"
+        echo `git commit -m "$cmsg"`
+        echo `git push`
