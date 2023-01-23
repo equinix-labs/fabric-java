@@ -21,16 +21,17 @@ OPENAPI_GENERATED_CLIENT=equinix-openapi-fabric/
 SPEC_FETCHED_PATCHES=patches/spec.fetched.json
 
 ##
-# Swagger codegen - docker
+# OpenAPI codegen container
 ##
+CRI:=docker # nerdctl
 OPENAPI_CODEGEN_TAG=latest
 OPENAPI_CODEGEN_IMAGE=openapitools/openapi-generator-cli:${OPENAPI_CODEGEN_TAG}
-DOCKER_OPENAPI=docker run --rm -u ${CURRENT_UID}:${CURRENT_GID} -v $(CURDIR):/local ${OPENAPI_CODEGEN_IMAGE}
+DOCKER_OPENAPI=${CRI} run --rm -u ${CURRENT_UID}:${CURRENT_GID} -v $(CURDIR):/local ${OPENAPI_CODEGEN_IMAGE}
 
 docker_run: clean pre-spec-patch pull docker_generate build_client
 
 pull:
-	docker pull ${OPENAPI_CODEGEN_IMAGE}
+	${CRI} pull ${OPENAPI_CODEGEN_IMAGE}
 
 docker_generate:
 	${DOCKER_OPENAPI} generate \
