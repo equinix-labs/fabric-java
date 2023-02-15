@@ -12508,8 +12508,6 @@ components:
           description: An absolute URL for the selected project
           format: url
           type: string
-      required:
-      - projectId
       type: object
     ServiceTokenUUID:
       description: Service Token UUID
