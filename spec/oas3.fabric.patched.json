@@ -11709,9 +11709,6 @@
       },
       "Project": {
         "type": "object",
-        "required": [
-          "projectId"
-        ],
         "properties": {
           "projectId": {
             "type": "string",
