@@ -9,6 +9,8 @@
 
 * `PROVISIONING` (value: `"PROVISIONING"`)
 
+* `PROVISIONED` (value: `"PROVISIONED"`)
+
 * `ACTIVE` (value: `"ACTIVE"`)
 
 * `DEPROVISIONING` (value: `"DEPROVISIONING"`)

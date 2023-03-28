@@ -8,11 +8,11 @@ Connection link protocol configuration - DOT1Q
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
+|**type** | **LinkProtocolType** |  |  [optional] |
 |**tagProtocolId** | **String** | Tag protocol identifier |  [optional] |
 |**vlanTag** | **String** | VLAN tag |  |
-|**vlanTagMax** | **Integer** | VLAN tag Max value specified for DOT1Q connections |  [optional] |
 |**vlanTagMin** | **Integer** | VLAN tag Min value specified for DOT1Q connections |  [optional] |
-|**type** | **LinkProtocolType** |  |  |
+|**vlanTagMax** | **Integer** | VLAN tag Max value specified for DOT1Q connections |  [optional] |
 
 
 

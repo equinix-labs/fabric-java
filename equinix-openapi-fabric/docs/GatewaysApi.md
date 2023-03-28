@@ -1,6 +1,6 @@
 # GatewaysApi
 
-All URIs are relative to *https://api.equinix.com*
+All URIs are relative to *https://virtserver.swaggerhub.com/equinix-api/fabric/4.6*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
@@ -17,7 +17,7 @@ All URIs are relative to *https://api.equinix.com*
 
 <a name="createGateway"></a>
 # **createGateway**
-> VirtualGateway createGateway(virtualGatewayPostRequest)
+> FabricGateway createGateway(fabricGatewayPostRequest)
 
 Create Gateway
 
@@ -36,16 +36,16 @@ import com.equinix.openapi.fabric.v4.api.GatewaysApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
     BearerAuth.setBearerToken("BEARER TOKEN");
 
     GatewaysApi apiInstance = new GatewaysApi(defaultClient);
-    VirtualGatewayPostRequest virtualGatewayPostRequest = new VirtualGatewayPostRequest(); // VirtualGatewayPostRequest | 
+    FabricGatewayPostRequest fabricGatewayPostRequest = new FabricGatewayPostRequest(); // FabricGatewayPostRequest | 
     try {
-      VirtualGateway result = apiInstance.createGateway(virtualGatewayPostRequest);
+      FabricGateway result = apiInstance.createGateway(fabricGatewayPostRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling GatewaysApi#createGateway");
@@ -62,11 +62,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **virtualGatewayPostRequest** | [**VirtualGatewayPostRequest**](VirtualGatewayPostRequest.md)|  | |
+| **fabricGatewayPostRequest** | [**FabricGatewayPostRequest**](FabricGatewayPostRequest.md)|  | |
 
 ### Return type
 
-[**VirtualGateway**](VirtualGateway.md)
+[**FabricGateway**](FabricGateway.md)
 
 ### Authorization
 
@@ -85,6 +85,7 @@ public class Example {
 | **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
 | **415** | Unsupported Media Type |  -  |
+| **500** | Internal server error |  -  |
 
 <a name="createGatewayAction"></a>
 # **createGatewayAction**
@@ -107,7 +108,7 @@ import com.equinix.openapi.fabric.v4.api.GatewaysApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -157,7 +158,9 @@ public class Example {
 | **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
 | **415** | Internal server error |  -  |
+| **500** | Internal server error |  -  |
 
 <a name="deleteGatewayByUuid"></a>
 # **deleteGatewayByUuid**
@@ -180,7 +183,7 @@ import com.equinix.openapi.fabric.v4.api.GatewaysApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -228,6 +231,7 @@ null (empty response body)
 | **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
 | **404** | Not Found |  -  |
+| **500** | Internal server error |  -  |
 
 <a name="getGatewayActions"></a>
 # **getGatewayActions**
@@ -250,7 +254,7 @@ import com.equinix.openapi.fabric.v4.api.GatewaysApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -300,11 +304,13 @@ public class Example {
 | **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
 | **415** | Internal server error |  -  |
+| **500** | Internal server error |  -  |
 
 <a name="getGatewayByUuid"></a>
 # **getGatewayByUuid**
-> VirtualGateway getGatewayByUuid(gatewayId)
+> FabricGateway getGatewayByUuid(gatewayId)
 
 Get Gateway
 
@@ -323,7 +329,7 @@ import com.equinix.openapi.fabric.v4.api.GatewaysApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -332,7 +338,7 @@ public class Example {
     GatewaysApi apiInstance = new GatewaysApi(defaultClient);
     UUID gatewayId = UUID.randomUUID(); // UUID | Gateway UUID
     try {
-      VirtualGateway result = apiInstance.getGatewayByUuid(gatewayId);
+      FabricGateway result = apiInstance.getGatewayByUuid(gatewayId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling GatewaysApi#getGatewayByUuid");
@@ -353,7 +359,7 @@ public class Example {
 
 ### Return type
 
-[**VirtualGateway**](VirtualGateway.md)
+[**FabricGateway**](FabricGateway.md)
 
 ### Authorization
 
@@ -371,10 +377,11 @@ public class Example {
 | **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
 | **404** | Not Found |  -  |
+| **500** | Internal server error |  -  |
 
 <a name="getGatewayPackageByCode"></a>
 # **getGatewayPackageByCode**
-> VirtualGatewayPackage getGatewayPackageByCode(gatewayPackageCode)
+> FabricGatewayPackage getGatewayPackageByCode(gatewayPackageCode)
 
 Get Package Details
 
@@ -393,16 +400,16 @@ import com.equinix.openapi.fabric.v4.api.GatewaysApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
     BearerAuth.setBearerToken("BEARER TOKEN");
 
     GatewaysApi apiInstance = new GatewaysApi(defaultClient);
-    GatewayPackageCode gatewayPackageCode = GatewayPackageCode.fromValue("LIMITED"); // GatewayPackageCode | Equinix-assigned gateway package identifier
+    GatewayPackageCode gatewayPackageCode = GatewayPackageCode.fromValue("LAB"); // GatewayPackageCode | Equinix-assigned gateway package identifier
     try {
-      VirtualGatewayPackage result = apiInstance.getGatewayPackageByCode(gatewayPackageCode);
+      FabricGatewayPackage result = apiInstance.getGatewayPackageByCode(gatewayPackageCode);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling GatewaysApi#getGatewayPackageByCode");
@@ -419,11 +426,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **gatewayPackageCode** | [**GatewayPackageCode**](.md)| Equinix-assigned gateway package identifier | [enum: LIMITED, BASIC, ADVANCED, PREMIUM] |
+| **gatewayPackageCode** | [**GatewayPackageCode**](.md)| Equinix-assigned gateway package identifier | [enum: LAB, BASIC, PRO, PREMIUM] |
 
 ### Return type
 
-[**VirtualGatewayPackage**](VirtualGatewayPackage.md)
+[**FabricGatewayPackage**](FabricGatewayPackage.md)
 
 ### Authorization
 
@@ -442,6 +449,7 @@ public class Example {
 | **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
 | **404** | Not Found |  -  |
+| **500** | Internal server error |  -  |
 
 <a name="getGatewayPackages"></a>
 # **getGatewayPackages**
@@ -464,15 +472,15 @@ import com.equinix.openapi.fabric.v4.api.GatewaysApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
     BearerAuth.setBearerToken("BEARER TOKEN");
 
     GatewaysApi apiInstance = new GatewaysApi(defaultClient);
-    Integer offset = 56; // Integer | offset
-    Integer limit = 56; // Integer | number of records to fetch
+    Integer offset = 1; // Integer | offset
+    Integer limit = 10; // Integer | number of records to fetch
     try {
       PackageResponse result = apiInstance.getGatewayPackages(offset, limit);
       System.out.println(result);
@@ -519,7 +527,7 @@ public class Example {
 
 <a name="searchGateways"></a>
 # **searchGateways**
-> SearchResponse searchGateways(virtualGatewaySearchRequest)
+> SearchResponse searchGateways(fabricGatewaySearchRequest)
 
 Search Gateway
 
@@ -538,16 +546,16 @@ import com.equinix.openapi.fabric.v4.api.GatewaysApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
     BearerAuth.setBearerToken("BEARER TOKEN");
 
     GatewaysApi apiInstance = new GatewaysApi(defaultClient);
-    VirtualGatewaySearchRequest virtualGatewaySearchRequest = new VirtualGatewaySearchRequest(); // VirtualGatewaySearchRequest | 
+    FabricGatewaySearchRequest fabricGatewaySearchRequest = new FabricGatewaySearchRequest(); // FabricGatewaySearchRequest | 
     try {
-      SearchResponse result = apiInstance.searchGateways(virtualGatewaySearchRequest);
+      SearchResponse result = apiInstance.searchGateways(fabricGatewaySearchRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling GatewaysApi#searchGateways");
@@ -564,7 +572,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **virtualGatewaySearchRequest** | [**VirtualGatewaySearchRequest**](VirtualGatewaySearchRequest.md)|  | |
+| **fabricGatewaySearchRequest** | [**FabricGatewaySearchRequest**](FabricGatewaySearchRequest.md)|  | |
 
 ### Return type
 
@@ -587,10 +595,11 @@ public class Example {
 | **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
 | **415** | Unsupported Media Type |  -  |
+| **500** | Internal server error |  -  |
 
 <a name="updateGatewayByUuid"></a>
 # **updateGatewayByUuid**
-> VirtualGateway updateGatewayByUuid(gatewayId, virtualGatewayChangeOperation)
+> FabricGateway updateGatewayByUuid(gatewayId, fabricGatewayChangeOperation)
 
 Update Gateway
 
@@ -609,7 +618,7 @@ import com.equinix.openapi.fabric.v4.api.GatewaysApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -617,9 +626,9 @@ public class Example {
 
     GatewaysApi apiInstance = new GatewaysApi(defaultClient);
     UUID gatewayId = UUID.randomUUID(); // UUID | Gateway UUID
-    List<VirtualGatewayChangeOperation> virtualGatewayChangeOperation = Arrays.asList(); // List<VirtualGatewayChangeOperation> | 
+    List<FabricGatewayChangeOperation> fabricGatewayChangeOperation = Arrays.asList(); // List<FabricGatewayChangeOperation> | 
     try {
-      VirtualGateway result = apiInstance.updateGatewayByUuid(gatewayId, virtualGatewayChangeOperation);
+      FabricGateway result = apiInstance.updateGatewayByUuid(gatewayId, fabricGatewayChangeOperation);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling GatewaysApi#updateGatewayByUuid");
@@ -637,11 +646,11 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **gatewayId** | **UUID**| Gateway UUID | |
-| **virtualGatewayChangeOperation** | [**List&lt;VirtualGatewayChangeOperation&gt;**](VirtualGatewayChangeOperation.md)|  | |
+| **fabricGatewayChangeOperation** | [**List&lt;FabricGatewayChangeOperation&gt;**](FabricGatewayChangeOperation.md)|  | |
 
 ### Return type
 
-[**VirtualGateway**](VirtualGateway.md)
+[**FabricGateway**](FabricGateway.md)
 
 ### Authorization
 
@@ -661,4 +670,5 @@ public class Example {
 | **403** | Forbidden |  -  |
 | **404** | Not Found |  -  |
 | **415** | Unsupported Media Type |  -  |
+| **500** | Internal server error |  -  |
 

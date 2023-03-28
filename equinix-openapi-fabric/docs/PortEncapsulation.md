@@ -28,10 +28,10 @@ Port encapsulation configuration
 
 | Name | Value |
 |---- | -----|
-| _33024 | &quot;33024&quot; |
-| _34984 | &quot;34984&quot; |
-| _37120 | &quot;37120&quot; |
-| _37376 | &quot;37376&quot; |
+| _0X8100_ | &quot;&#39;0x8100&#39;&quot; |
+| _0X88A8_ | &quot;&#39;0x88a8&#39;&quot; |
+| _0X9100_ | &quot;&#39;0x9100&#39;&quot; |
+| _0X9200_ | &quot;&#39;0x9200&#39;&quot; |
 | NONE | &quot;NONE&quot; |
 
 

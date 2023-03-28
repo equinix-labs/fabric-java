@@ -7,9 +7,9 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**location** | [**PriceLocation**](PriceLocation.md) |  |  [optional] |
-|**type** | **VirtualConnectionPriceAccessPointType** |  |  [optional] |
 |**uuid** | **UUID** |  |  [optional] |
+|**type** | **VirtualConnectionPriceAccessPointType** |  |  [optional] |
+|**location** | [**PriceLocation**](PriceLocation.md) |  |  [optional] |
 |**port** | [**VirtualConnectionPriceASideAccessPointPort**](VirtualConnectionPriceASideAccessPointPort.md) |  |  [optional] |
 
 

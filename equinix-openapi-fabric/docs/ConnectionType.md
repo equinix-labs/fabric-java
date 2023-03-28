@@ -5,8 +5,6 @@
 ## Enum
 
 
-* `VG_VC` (value: `"VG_VC"`)
-
 * `EVPL_VC` (value: `"EVPL_VC"`)
 
 * `EPL_VC` (value: `"EPL_VC"`)

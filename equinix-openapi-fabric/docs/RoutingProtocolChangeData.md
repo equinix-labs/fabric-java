@@ -8,15 +8,15 @@ Current state of latest Routing Protocol change
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**updatedBy** | **String** | Updated by User Key |  [optional] |
-|**data** | [**RoutingProtocolChangeOperation**](RoutingProtocolChangeOperation.md) |  |  [optional] |
+|**status** | [**StatusEnum**](#StatusEnum) | Current outcome of the change flow |  [optional] |
 |**createdBy** | **String** | Created by User Key |  [optional] |
 |**createdDateTime** | **OffsetDateTime** | Set when change flow starts |  [optional] |
-|**information** | **String** | Additional information |  [optional] |
-|**status** | [**StatusEnum**](#StatusEnum) | Current outcome of the change flow |  [optional] |
+|**updatedBy** | **String** | Updated by User Key |  [optional] |
 |**updatedDateTime** | **OffsetDateTime** | Set when change object is updated |  [optional] |
-|**type** | [**TypeEnum**](#TypeEnum) | Type of change |  |
+|**information** | **String** | Additional information |  [optional] |
+|**data** | [**RoutingProtocolChangeOperation**](RoutingProtocolChangeOperation.md) |  |  [optional] |
 |**uuid** | **String** | Uniquely identifies a change |  |
+|**type** | [**TypeEnum**](#TypeEnum) | Type of change |  |
 |**href** | **URI** | Routing Protocol Change URI |  [optional] |
 
 

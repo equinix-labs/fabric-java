@@ -8,12 +8,12 @@ Error Response with details
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**errorMessage** | **String** |  |  |
-|**additionalInfo** | [**List&lt;PriceErrorAdditionalInfo&gt;**](PriceErrorAdditionalInfo.md) |  |  [optional] |
 |**errorCode** | **String** |  |  |
-|**help** | **String** |  |  [optional] |
+|**errorMessage** | **String** |  |  |
 |**correlationId** | **String** |  |  [optional] |
 |**details** | **String** |  |  [optional] |
+|**help** | **String** |  |  [optional] |
+|**additionalInfo** | [**List&lt;PriceErrorAdditionalInfo&gt;**](PriceErrorAdditionalInfo.md) |  |  [optional] |
 
 
 

@@ -8,12 +8,12 @@ Define Custom Attributes
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**options** | **List&lt;String&gt;** |  |  [optional] |
-|**description** | **String** |  |  |
 |**label** | **String** |  |  |
+|**description** | **String** |  |  |
 |**required** | **Boolean** |  |  [optional] |
-|**captureInEmail** | **Boolean** | capture this field as a part of email notification |  [optional] |
 |**dataType** | [**DataTypeEnum**](#DataTypeEnum) |  |  |
+|**options** | **List&lt;String&gt;** |  |  [optional] |
+|**captureInEmail** | **Boolean** | capture this field as a part of email notification |  [optional] |
 
 
 

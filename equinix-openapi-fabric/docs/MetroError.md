@@ -8,12 +8,23 @@ Error with details
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**errorMessage** | [**ErrorMessageEnum**](#ErrorMessageEnum) |  |  |
-|**additionalInfo** | [**List&lt;PriceErrorAdditionalInfo&gt;**](PriceErrorAdditionalInfo.md) |  |  [optional] |
 |**errorCode** | [**ErrorCodeEnum**](#ErrorCodeEnum) |  |  |
-|**help** | **String** |  |  [optional] |
+|**errorMessage** | [**ErrorMessageEnum**](#ErrorMessageEnum) |  |  |
 |**correlationId** | **String** |  |  [optional] |
 |**details** | **String** |  |  [optional] |
+|**help** | **String** |  |  [optional] |
+|**additionalInfo** | [**List&lt;PriceErrorAdditionalInfo&gt;**](PriceErrorAdditionalInfo.md) |  |  [optional] |
+
+
+
+## Enum: ErrorCodeEnum
+
+| Name | Value |
+|---- | -----|
+| _3036001 | &quot;EQ-3036001&quot; |
+| _3036013 | &quot;EQ-3036013&quot; |
+| _3036030 | &quot;EQ-3036030&quot; |
+| _3036100 | &quot;EQ-3036100&quot; |
 
 
 
@@ -27,17 +38,6 @@ Error with details
 | INVALID_QUERY_OR_PATH_PARAMETER | &quot;Invalid Query or Path Parameter&quot; |
 | INTERNAL_SERVER_ERROR | &quot;Internal Server Error&quot; |
 | METRO_NOT_FOUND | &quot;Metro Not Found&quot; |
-
-
-
-## Enum: ErrorCodeEnum
-
-| Name | Value |
-|---- | -----|
-| _3036001 | &quot;EQ-3036001&quot; |
-| _3036013 | &quot;EQ-3036013&quot; |
-| _3036030 | &quot;EQ-3036030&quot; |
-| _3036100 | &quot;EQ-3036100&quot; |
 
 
 

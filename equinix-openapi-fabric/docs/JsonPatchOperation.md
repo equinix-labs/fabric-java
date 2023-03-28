@@ -8,18 +8,9 @@ Service Profile Access Points
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**op** | [**OpEnum**](#OpEnum) | the operation to be performed |  |
+|**op** | **OpEnum** |  |  |
 |**path** | **String** | A JSON Pointer path. |  |
-
-
-
-## Enum: OpEnum
-
-| Name | Value |
-|---- | -----|
-| ADD | &quot;add&quot; |
-| REMOVE | &quot;remove&quot; |
-| REPLACE | &quot;replace&quot; |
+|**value** | **Object** | value to replace with |  |
 
 
 

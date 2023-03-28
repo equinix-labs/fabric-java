@@ -8,9 +8,9 @@ Configuration details for port used at the access point.
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**type** | **String** | Type of Port |  [optional] |
-|**uuid** | **UUID** | Equinix assigned Identifier |  [optional] |
 |**href** | **URI** | url to entity |  [optional] |
+|**uuid** | **UUID** | Equinix assigned Identifier |  [optional] |
+|**type** | **String** | Type of Port |  [optional] |
 
 
 

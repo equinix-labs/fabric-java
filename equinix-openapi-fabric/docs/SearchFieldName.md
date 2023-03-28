@@ -23,6 +23,10 @@
 
 * `_ASIDE_ACCESSPOINT_LINKPROTOCOL_VLANSTAG` (value: `"/aSide/accessPoint/linkProtocol/vlanSTag"`)
 
+* `_ASIDE_ACCESSPOINT_LINKPROTOCOL_VLANTAGMIN` (value: `"/aSide/accessPoint/linkProtocol/vlanTagMin"`)
+
+* `_ASIDE_ACCESSPOINT_LINKPROTOCOL_VLANTAGMAX` (value: `"/aSide/accessPoint/linkProtocol/vlanTagMax"`)
+
 * `_ASIDE_ACCESSPOINT_LOCATION_METROCODE` (value: `"/aSide/accessPoint/location/metroCode"`)
 
 * `_ASIDE_ACCESSPOINT_LOCATION_METRONAME` (value: `"/aSide/accessPoint/location/metroName"`)
@@ -60,6 +64,10 @@
 * `_ZSIDE_ACCESSPOINT_LINKPROTOCOL_VLANCTAG` (value: `"/zSide/accessPoint/linkProtocol/vlanCTag"`)
 
 * `_ZSIDE_ACCESSPOINT_LINKPROTOCOL_VLANSTAG` (value: `"/zSide/accessPoint/linkProtocol/vlanSTag"`)
+
+* `_ZSIDE_ACCESSPOINT_LINKPROTOCOL_VLANTAGMIN` (value: `"/zSide/accessPoint/linkProtocol/vlanTagMin"`)
+
+* `_ZSIDE_ACCESSPOINT_LINKPROTOCOL_VLANTAGMAX` (value: `"/zSide/accessPoint/linkProtocol/vlanTagMax"`)
 
 * `_ZSIDE_ACCESSPOINT_LOCATION_METROCODE` (value: `"/zSide/accessPoint/location/metroCode"`)
 

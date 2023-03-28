@@ -7,20 +7,20 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**bgpIpv6** | [**BGPConnectionIpv6**](BGPConnectionIpv6.md) |  |  [optional] |
-|**bfd** | [**RoutingProtocolBFD**](RoutingProtocolBFD.md) |  |  [optional] |
-|**bgpIpv4** | [**BGPConnectionIpv4**](BGPConnectionIpv4.md) |  |  [optional] |
-|**equinixAsn** | **Long** | Equinix asn |  [optional] |
-|**change** | [**RoutingProtocolChange**](RoutingProtocolChange.md) |  |  [optional] |
-|**changelog** | [**Changelog**](Changelog.md) |  |  [optional] |
 |**type** | [**TypeEnum**](#TypeEnum) | Routing protocol type |  [optional] |
-|**uuid** | **UUID** | Routing protocol identifier |  [optional] |
-|**bgpAuthKey** | **String** | BGP authorization key |  [optional] |
 |**name** | **String** |  |  [optional] |
+|**bgpIpv4** | [**BGPConnectionIpv4**](BGPConnectionIpv4.md) |  |  [optional] |
+|**bgpIpv6** | [**BGPConnectionIpv6**](BGPConnectionIpv6.md) |  |  [optional] |
+|**customerAsn** | **Long** | Customer asn |  [optional] |
+|**equinixAsn** | **Long** | Equinix asn |  [optional] |
+|**bgpAuthKey** | **String** | BGP authorization key |  [optional] |
+|**bfd** | [**RoutingProtocolBFD**](RoutingProtocolBFD.md) |  |  [optional] |
 |**href** | **URI** | Routing Protocol URI |  [optional] |
+|**uuid** | **UUID** | Routing protocol identifier |  [optional] |
 |**state** | [**StateEnum**](#StateEnum) |  |  [optional] |
 |**operation** | [**RoutingProtocolOperation**](RoutingProtocolOperation.md) |  |  [optional] |
-|**customerAsn** | **Long** | Customer asn |  [optional] |
+|**change** | [**RoutingProtocolChange**](RoutingProtocolChange.md) |  |  [optional] |
+|**changelog** | [**Changelog**](Changelog.md) |  |  [optional] |
 
 
 
@@ -29,7 +29,6 @@
 | Name | Value |
 |---- | -----|
 | BGP | &quot;BGP&quot; |
-| DIRECT | &quot;DIRECT&quot; |
 
 
 

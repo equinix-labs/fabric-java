@@ -8,25 +8,25 @@ Metadata. Response attribute. Ignored on request payload.
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**limitAuthKeyConn** | **Boolean** |  |  [optional] |
-|**eqxManagedPort** | **Boolean** |  |  [optional] |
-|**vlanRangeMaxValue** | **Integer** |  |  [optional] |
-|**connectionNameEditable** | **Boolean** |  |  [optional] |
-|**redundantProfileId** | **String** |  |  [optional] |
 |**props** | **String** |  |  [optional] |
-|**globalOrganization** | **String** |  |  [optional] |
+|**regEx** | **String** |  |  [optional] |
+|**regExMsg** | **String** |  |  [optional] |
+|**vlanRangeMaxValue** | **Integer** |  |  [optional] |
+|**vlanRangeMinValue** | **Integer** |  |  [optional] |
 |**maxQinq** | **String** |  |  [optional] |
 |**maxDot1q** | **Integer** |  |  [optional] |
-|**regEx** | **String** |  |  [optional] |
+|**variableBilling** | **Boolean** |  |  [optional] |
+|**globalOrganization** | **String** |  |  [optional] |
+|**limitAuthKeyConn** | **Boolean** |  |  [optional] |
+|**allowSecondaryLocation** | **Boolean** |  |  [optional] |
+|**redundantProfileId** | **String** |  |  [optional] |
+|**allowVcMigration** | **Boolean** |  |  [optional] |
+|**connectionEditable** | **Boolean** |  |  [optional] |
 |**releaseVlan** | **Boolean** |  |  [optional] |
 |**maxConnectionsOnPort** | **Integer** |  |  [optional] |
-|**allowVcMigration** | **Boolean** |  |  [optional] |
-|**variableBilling** | **Boolean** |  |  [optional] |
-|**regExMsg** | **String** |  |  [optional] |
 |**portAssignmentStrategy** | **String** |  |  [optional] |
-|**allowSecondaryLocation** | **Boolean** |  |  [optional] |
-|**connectionEditable** | **Boolean** |  |  [optional] |
-|**vlanRangeMinValue** | **Integer** |  |  [optional] |
+|**eqxManagedPort** | **Boolean** |  |  [optional] |
+|**connectionNameEditable** | **Boolean** |  |  [optional] |
 
 
 

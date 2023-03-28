@@ -7,9 +7,9 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**property** | **NetworkSearchFieldName** |  |  [optional] |
-|**or** | [**List&lt;NetworkFilter&gt;**](NetworkFilter.md) |  |  [optional] |
 |**and** | [**List&lt;NetworkFilter&gt;**](NetworkFilter.md) |  |  [optional] |
+|**or** | [**List&lt;NetworkFilter&gt;**](NetworkFilter.md) |  |  [optional] |
+|**property** | **NetworkSearchFieldName** |  |  [optional] |
 |**operator** | [**OperatorEnum**](#OperatorEnum) |  |  [optional] |
 |**values** | **List&lt;String&gt;** |  |  [optional] |
 

@@ -8,21 +8,21 @@ Network specification
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
+|**href** | **URI** | Network URI |  [readonly] |
+|**uuid** | **UUID** | Equinix-assigned network identifier |  |
+|**state** | **NetworkState** |  |  |
+|**connectionsCount** | **BigDecimal** | number of connections created on the network |  [optional] |
+|**account** | [**SimplifiedAccount**](SimplifiedAccount.md) |  |  [optional] |
 |**change** | [**SimplifiedNetworkChange**](SimplifiedNetworkChange.md) |  |  [optional] |
+|**operation** | [**NetworkOperation**](NetworkOperation.md) |  |  [optional] |
 |**changeLog** | [**Changelog**](Changelog.md) |  |  |
 |**links** | [**List&lt;Link&gt;**](Link.md) | Network sub-resources links |  [optional] [readonly] |
-|**href** | **URI** | Network URI |  [readonly] |
-|**state** | **NetworkState** |  |  |
-|**uuid** | **UUID** | Equinix-assigned network identifier |  |
-|**connectionsCount** | **BigDecimal** | number of connections created on the network |  [optional] |
-|**operation** | [**NetworkOperation**](NetworkOperation.md) |  |  [optional] |
-|**account** | [**SimplifiedAccount**](SimplifiedAccount.md) |  |  [optional] |
-|**name** | **String** | Customer-provided network name |  |
-|**project** | [**Project**](Project.md) |  |  [optional] |
-|**location** | [**SimplifiedLocation**](SimplifiedLocation.md) |  |  [optional] |
 |**type** | **NetworkType** |  |  |
-|**notifications** | [**List&lt;SimplifiedNotification&gt;**](SimplifiedNotification.md) | Preferences for notifications on network configuration or status changes |  |
+|**name** | **String** | Customer-provided network name |  |
 |**scope** | **NetworkScope** |  |  |
+|**location** | [**SimplifiedLocation**](SimplifiedLocation.md) |  |  [optional] |
+|**project** | [**Project**](Project.md) |  |  [optional] |
+|**notifications** | [**List&lt;SimplifiedNotification&gt;**](SimplifiedNotification.md) | Preferences for notifications on network configuration or status changes |  |
 
 
 

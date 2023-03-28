@@ -23,6 +23,8 @@
 
 * `ACCOUNT_ORGID` (value: `"/account/orgId"`)
 
+* `DELETEDDATE` (value: `"/deletedDate"`)
+
 * `STAR` (value: `"/_*"`)
 
 

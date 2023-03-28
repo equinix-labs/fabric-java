@@ -5,11 +5,11 @@
 ## Enum
 
 
-* `LIMITED` (value: `"LIMITED"`)
+* `LAB` (value: `"LAB"`)
 
 * `BASIC` (value: `"BASIC"`)
 
-* `ADVANCED` (value: `"ADVANCED"`)
+* `PRO` (value: `"PRO"`)
 
 * `PREMIUM` (value: `"PREMIUM"`)
 

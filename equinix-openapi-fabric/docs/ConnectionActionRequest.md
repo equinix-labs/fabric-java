@@ -9,8 +9,8 @@ Connection action request
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**type** | **Actions** |  |  |
-|**data** | [**ConnectionAcceptanceData**](ConnectionAcceptanceData.md) |  |  [optional] |
 |**description** | **String** | Connection rejection reason datail |  [optional] |
+|**data** | [**ConnectionAcceptanceData**](ConnectionAcceptanceData.md) |  |  [optional] |
 
 
 

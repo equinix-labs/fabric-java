@@ -1,6 +1,6 @@
 # ServiceTokensApi
 
-All URIs are relative to *https://api.equinix.com*
+All URIs are relative to *https://virtserver.swaggerhub.com/equinix-api/fabric/4.6*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
@@ -10,7 +10,7 @@ All URIs are relative to *https://api.equinix.com*
 | [**getServiceTokenByUuid**](ServiceTokensApi.md#getServiceTokenByUuid) | **GET** /fabric/v4/serviceTokens/{serviceTokenId} | Get Token by uuid |
 | [**getServiceTokens**](ServiceTokensApi.md#getServiceTokens) | **GET** /fabric/v4/serviceTokens | Get All Tokens |
 | [**searchServiceTokens**](ServiceTokensApi.md#searchServiceTokens) | **POST** /fabric/v4/serviceTokens/search | Search servicetokens |
-| [**updateServiceToken**](ServiceTokensApi.md#updateServiceToken) | **PATCH** /fabric/v4/serviceTokens/{serviceTokenId} | Update Token |
+| [**updateServiceTokenByUuid**](ServiceTokensApi.md#updateServiceTokenByUuid) | **PATCH** /fabric/v4/serviceTokens/{serviceTokenId} | Update Token By ID |
 
 
 <a name="createServiceToken"></a>
@@ -19,7 +19,7 @@ All URIs are relative to *https://api.equinix.com*
 
 Create Service Token
 
-Create Service Tokens generates Equinix Fabric™ service tokens. These tokens authorize users to access protected resources and services.
+Create Service Tokens generates Equinix Fabric? service tokens. These tokens authorize users to access protected resources and services.
 
 ### Example
 ```java
@@ -34,7 +34,7 @@ import com.equinix.openapi.fabric.v4.api.ServiceTokensApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -104,7 +104,7 @@ import com.equinix.openapi.fabric.v4.api.ServiceTokensApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -177,7 +177,7 @@ import com.equinix.openapi.fabric.v4.api.ServiceTokensApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -245,7 +245,7 @@ import com.equinix.openapi.fabric.v4.api.ServiceTokensApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -315,7 +315,7 @@ import com.equinix.openapi.fabric.v4.api.ServiceTokensApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -385,7 +385,7 @@ import com.equinix.openapi.fabric.v4.api.ServiceTokensApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -435,13 +435,13 @@ public class Example {
 | **404** | Not Found |  -  |
 | **500** | Internal server error |  -  |
 
-<a name="updateServiceToken"></a>
-# **updateServiceToken**
-> ServiceToken updateServiceToken(serviceTokenId, jsonPatchOperation)
+<a name="updateServiceTokenByUuid"></a>
+# **updateServiceTokenByUuid**
+> ServiceToken updateServiceTokenByUuid(serviceTokenId, serviceTokenChangeOperation)
 
-Update Token
+Update Token By ID
 
-Update Specified Service Token uses the uuid of an Equinix Fabric service token to update emails,A-Side bandwidth,Z-Side bandwidths and Expiration date.
+This API provides capability to update user&#39;s Service Token
 
 ### Example
 ```java
@@ -456,7 +456,7 @@ import com.equinix.openapi.fabric.v4.api.ServiceTokensApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -464,12 +464,12 @@ public class Example {
 
     ServiceTokensApi apiInstance = new ServiceTokensApi(defaultClient);
     UUID serviceTokenId = UUID.randomUUID(); // UUID | Service Token UUID
-    List<JsonPatchOperation> jsonPatchOperation = Arrays.asList(); // List<JsonPatchOperation> | 
+    List<ServiceTokenChangeOperation> serviceTokenChangeOperation = Arrays.asList(); // List<ServiceTokenChangeOperation> | 
     try {
-      ServiceToken result = apiInstance.updateServiceToken(serviceTokenId, jsonPatchOperation);
+      ServiceToken result = apiInstance.updateServiceTokenByUuid(serviceTokenId, serviceTokenChangeOperation);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling ServiceTokensApi#updateServiceToken");
+      System.err.println("Exception when calling ServiceTokensApi#updateServiceTokenByUuid");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -484,7 +484,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **serviceTokenId** | **UUID**| Service Token UUID | |
-| **jsonPatchOperation** | [**List&lt;JsonPatchOperation&gt;**](JsonPatchOperation.md)|  | |
+| **serviceTokenChangeOperation** | [**List&lt;ServiceTokenChangeOperation&gt;**](ServiceTokenChangeOperation.md)|  | |
 
 ### Return type
 
@@ -496,7 +496,7 @@ public class Example {
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: application/json-patch+json
  - **Accept**: application/json
 
 ### HTTP response details
@@ -505,5 +505,4 @@ public class Example {
 | **200** | Successful operation |  -  |
 | **400** | Bad request |  -  |
 | **403** | Forbidden |  -  |
-| **500** | Internal server error |  -  |
 

@@ -8,8 +8,8 @@ This API provides service-level traffic metrics for the top utilized ports so th
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**data** | [**List&lt;Statistics&gt;**](Statistics.md) | Data returned from the API call. |  [optional] |
 |**pagination** | [**Pagination**](Pagination.md) |  |  [optional] |
+|**data** | [**List&lt;Statistics&gt;**](Statistics.md) | Data returned from the API call. |  [optional] |
 
 
 

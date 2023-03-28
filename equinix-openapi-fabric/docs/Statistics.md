@@ -8,10 +8,10 @@ This API provides service-level traffic metrics so that you can view access and 
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**bandwidthUtilization** | [**BandwidthUtilization**](BandwidthUtilization.md) |  |  [optional] |
 |**startDateTime** | **OffsetDateTime** | Start and duration of the statistical analysis interval. |  [optional] |
-|**viewPoint** | [**ViewPointEnum**](#ViewPointEnum) | Point of view for connection metrics - aSide or zSide |  [optional] |
 |**endDateTime** | **OffsetDateTime** | End and duration of the statistical analysis interval. |  [optional] |
+|**viewPoint** | [**ViewPointEnum**](#ViewPointEnum) | Point of view for connection metrics - aSide or zSide |  [optional] |
+|**bandwidthUtilization** | [**BandwidthUtilization**](BandwidthUtilization.md) |  |  [optional] |
 
 
 

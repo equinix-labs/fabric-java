@@ -8,8 +8,8 @@ Current state of latest Routing Protocol change
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**type** | [**TypeEnum**](#TypeEnum) | Type of change |  |
 |**uuid** | **String** | Uniquely identifies a change |  |
+|**type** | [**TypeEnum**](#TypeEnum) | Type of change |  |
 |**href** | **URI** | Routing Protocol Change URI |  [optional] |
 
 

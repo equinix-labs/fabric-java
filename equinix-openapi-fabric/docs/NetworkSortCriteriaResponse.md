@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**property** | **NetworkSortByResponse** |  |  [optional] |
 |**direction** | **NetworkSortDirectionResponse** |  |  [optional] |
+|**property** | **NetworkSortByResponse** |  |  [optional] |
 
 
 
