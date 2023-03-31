@@ -7,20 +7,20 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**code** | **String** | Equinix-assigned product code |  [optional] |
-|**catgory** | **PriceCategory** |  |  [optional] |
-|**ipBlock** | [**IpBlockPrice**](IpBlockPrice.md) |  |  [optional] |
-|**description** | **String** | Product description |  [optional] |
-|**type** | **ProductType** |  |  [optional] |
-|**charges** | [**List&lt;PriceCharge&gt;**](PriceCharge.md) |  |  [optional] |
-|**termLength** | [**TermLengthEnum**](#TermLengthEnum) | In months. No value means unlimited |  [optional] |
-|**port** | [**VirtualPortPrice**](VirtualPortPrice.md) |  |  [optional] |
-|**name** | **String** | Full product name |  [optional] |
-|**currency** | **String** | Product offering price currency |  [optional] |
-|**connection** | [**VirtualConnectionPrice**](VirtualConnectionPrice.md) |  |  [optional] |
 |**href** | **String** | An absolute URL that returns specified pricing data |  [optional] |
+|**type** | **ProductType** |  |  [optional] |
+|**code** | **String** | Equinix-assigned product code |  [optional] |
+|**name** | **String** | Full product name |  [optional] |
+|**description** | **String** | Product description |  [optional] |
 |**account** | [**SimplifiedAccount**](SimplifiedAccount.md) |  |  [optional] |
+|**charges** | [**List&lt;PriceCharge&gt;**](PriceCharge.md) |  |  [optional] |
+|**currency** | **String** | Product offering price currency |  [optional] |
+|**termLength** | [**TermLengthEnum**](#TermLengthEnum) | In months. No value means unlimited |  [optional] |
+|**catgory** | **PriceCategory** |  |  [optional] |
+|**connection** | [**VirtualConnectionPrice**](VirtualConnectionPrice.md) |  |  [optional] |
+|**ipBlock** | [**IpBlockPrice**](IpBlockPrice.md) |  |  [optional] |
 |**gateway** | [**FabricGatewayPrice**](FabricGatewayPrice.md) |  |  [optional] |
+|**port** | [**VirtualPortPrice**](VirtualPortPrice.md) |  |  [optional] |
 
 
 

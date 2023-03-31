@@ -9,14 +9,14 @@ Port configuration settings
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**product** | **String** | Product name |  [optional] |
-|**productCode** | **String** |  |  [optional] |
-|**layer3Enabled** | **Boolean** |  |  [optional] |
 |**buyout** | **Boolean** |  |  [optional] |
 |**viewPortPermission** | **Boolean** |  |  [optional] |
 |**placeVcOrderPermission** | **Boolean** |  |  [optional] |
+|**layer3Enabled** | **Boolean** |  |  [optional] |
+|**productCode** | **String** |  |  [optional] |
 |**sharedPortType** | **Boolean** |  |  [optional] |
-|**packageType** | [**PackageTypeEnum**](#PackageTypeEnum) | Type of Port Package |  [optional] |
 |**sharedPortProduct** | **String** |  |  [optional] |
+|**packageType** | [**PackageTypeEnum**](#PackageTypeEnum) | Type of Port Package |  [optional] |
 
 
 

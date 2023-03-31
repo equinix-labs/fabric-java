@@ -8,8 +8,8 @@ Device redundancy
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**priority** | [**PriorityEnum**](#PriorityEnum) | Device redundancy priority |  [optional] |
 |**group** | **String** | Device redundancy group |  [optional] |
+|**priority** | [**PriorityEnum**](#PriorityEnum) | Device redundancy priority |  [optional] |
 
 
 

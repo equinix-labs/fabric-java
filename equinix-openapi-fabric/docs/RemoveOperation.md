@@ -8,6 +8,8 @@ Remove sub-resource from an existing model
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
+|**op** | **OpEnum** |  |  |
+|**path** | **String** | A JSON Pointer path. |  |
 
 
 

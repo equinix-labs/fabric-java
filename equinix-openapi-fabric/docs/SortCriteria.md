@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**property** | **SortBy** |  |  [optional] |
 |**direction** | **SortDirection** |  |  [optional] |
+|**property** | **SortBy** |  |  [optional] |
 
 
 

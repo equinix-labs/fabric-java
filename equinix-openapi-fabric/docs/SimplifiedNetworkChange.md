@@ -8,9 +8,9 @@ Current state of latest network change
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**type** | **NetworkChangeType** |  |  [optional] |
-|**uuid** | **UUID** | Uniquely identifies a change |  [optional] |
 |**href** | **URI** | Network URI |  [optional] [readonly] |
+|**uuid** | **UUID** | Uniquely identifies a change |  [optional] |
+|**type** | **NetworkChangeType** |  |  [optional] |
 
 
 

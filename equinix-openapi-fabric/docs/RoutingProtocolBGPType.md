@@ -7,14 +7,14 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**bgpIpv6** | [**BGPConnectionIpv6**](BGPConnectionIpv6.md) |  |  [optional] |
-|**bfd** | [**RoutingProtocolBFD**](RoutingProtocolBFD.md) |  |  [optional] |
-|**bgpIpv4** | [**BGPConnectionIpv4**](BGPConnectionIpv4.md) |  |  [optional] |
-|**bgpAuthKey** | **String** | BGP authorization key |  [optional] |
-|**equinixAsn** | **Long** | Equinix asn |  [optional] |
-|**name** | **String** |  |  [optional] |
 |**type** | [**TypeEnum**](#TypeEnum) | Routing protocol type |  |
+|**name** | **String** |  |  [optional] |
+|**bgpIpv4** | [**BGPConnectionIpv4**](BGPConnectionIpv4.md) |  |  [optional] |
+|**bgpIpv6** | [**BGPConnectionIpv6**](BGPConnectionIpv6.md) |  |  [optional] |
 |**customerAsn** | **Long** | Customer asn |  [optional] |
+|**equinixAsn** | **Long** | Equinix asn |  [optional] |
+|**bgpAuthKey** | **String** | BGP authorization key |  [optional] |
+|**bfd** | [**RoutingProtocolBFD**](RoutingProtocolBFD.md) |  |  [optional] |
 
 
 
@@ -23,7 +23,6 @@
 | Name | Value |
 |---- | -----|
 | BGP | &quot;BGP&quot; |
-| DIRECT | &quot;DIRECT&quot; |
 
 
 

@@ -8,11 +8,11 @@ Colo Access Point
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**sellerRegionDescription** | **String** |  |  [optional] |
-|**location** | [**SimplifiedLocation**](SimplifiedLocation.md) |  |  [optional] |
 |**type** | [**TypeEnum**](#TypeEnum) |  |  |
 |**uuid** | **UUID** |  |  |
+|**location** | [**SimplifiedLocation**](SimplifiedLocation.md) |  |  [optional] |
 |**sellerRegion** | **String** |  |  [optional] |
+|**sellerRegionDescription** | **String** |  |  [optional] |
 |**crossConnectId** | **String** |  |  [optional] |
 
 

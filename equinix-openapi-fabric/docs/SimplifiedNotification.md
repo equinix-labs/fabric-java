@@ -7,9 +7,9 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**emails** | **List&lt;String&gt;** | Array of contact emails |  |
-|**sendInterval** | **String** |  |  [optional] |
 |**type** | [**TypeEnum**](#TypeEnum) | Notification Type |  |
+|**sendInterval** | **String** |  |  [optional] |
+|**emails** | **List&lt;String&gt;** | Array of contact emails |  |
 |**registeredUsers** | **List&lt;String&gt;** | Array of registered users |  [optional] |
 
 

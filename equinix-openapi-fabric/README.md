@@ -1,7 +1,7 @@
 # equinix-openapi-fabric
 
 Equinix Fabric API v4
-- API version: 4.4
+- API version: 4.6
 
 Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br>
 
@@ -40,7 +40,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.equinix</groupId>
   <artifactId>equinix-openapi-fabric</artifactId>
-  <version>1.0.0</version>
+  <version>0.1.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -56,7 +56,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "com.equinix:equinix-openapi-fabric:1.0.0"
+     implementation "com.equinix:equinix-openapi-fabric:0.1.0"
   }
 ```
 
@@ -70,7 +70,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/equinix-openapi-fabric-1.0.0.jar`
+* `target/equinix-openapi-fabric-0.1.0.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -90,7 +90,7 @@ import com.equinix.openapi.fabric.v4.api.ConnectionsApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -115,18 +115,17 @@ public class Example {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://api.equinix.com*
+All URIs are relative to *https://virtserver.swaggerhub.com/equinix-api/fabric/4.6*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *ConnectionsApi* | [**createConnection**](docs/ConnectionsApi.md#createConnection) | **POST** /fabric/v4/connections | Create Connection
 *ConnectionsApi* | [**createConnectionAction**](docs/ConnectionsApi.md#createConnectionAction) | **POST** /fabric/v4/connections/{connectionId}/actions | Connection Actions
-*ConnectionsApi* | [**createConnectionsInBulk**](docs/ConnectionsApi.md#createConnectionsInBulk) | **POST** /fabric/v4/connections/bulk | Bulk Connections
 *ConnectionsApi* | [**deleteConnectionByUuid**](docs/ConnectionsApi.md#deleteConnectionByUuid) | **DELETE** /fabric/v4/connections/{connectionId} | Delete by ID
 *ConnectionsApi* | [**getConnectionByUuid**](docs/ConnectionsApi.md#getConnectionByUuid) | **GET** /fabric/v4/connections/{connectionId} | Get Connection by ID
 *ConnectionsApi* | [**searchConnections**](docs/ConnectionsApi.md#searchConnections) | **POST** /fabric/v4/connections/search | Search connections
 *ConnectionsApi* | [**updateConnectionByUuid**](docs/ConnectionsApi.md#updateConnectionByUuid) | **PATCH** /fabric/v4/connections/{connectionId} | Update by ID
-*ConnectionsApi* | [**validateConnections**](docs/ConnectionsApi.md#validateConnections) | **POST** /fabric/v4/connections/validate | Validate AuthKey
+*ConnectionsApi* | [**validateConnections**](docs/ConnectionsApi.md#validateConnections) | **POST** /fabric/v4/connections/validate | Validate Connection
 *GatewaysApi* | [**createGateway**](docs/GatewaysApi.md#createGateway) | **POST** /fabric/v4/gateways | Create Gateway
 *GatewaysApi* | [**createGatewayAction**](docs/GatewaysApi.md#createGatewayAction) | **POST** /fabric/v4/gateways/{gatewayId}/actions | Route table actions
 *GatewaysApi* | [**deleteGatewayByUuid**](docs/GatewaysApi.md#deleteGatewayByUuid) | **DELETE** /fabric/v4/gateways/{gatewayId} | Delete Gateway
@@ -136,15 +135,17 @@ Class | Method | HTTP request | Description
 *GatewaysApi* | [**getGatewayPackages**](docs/GatewaysApi.md#getGatewayPackages) | **GET** /fabric/v4/gatewayPackages | List Packages
 *GatewaysApi* | [**searchGateways**](docs/GatewaysApi.md#searchGateways) | **POST** /fabric/v4/gateways/search | Search Gateway
 *GatewaysApi* | [**updateGatewayByUuid**](docs/GatewaysApi.md#updateGatewayByUuid) | **PATCH** /fabric/v4/gateways/{gatewayId} | Update Gateway
+*HealthApi* | [**getStatus**](docs/HealthApi.md#getStatus) | **GET** /fabric/v4/health | Get service status
 *MetrosApi* | [**getMetroByCode**](docs/MetrosApi.md#getMetroByCode) | **GET** /fabric/v4/metros/{metroCode} | Get Metro by Code
 *MetrosApi* | [**getMetros**](docs/MetrosApi.md#getMetros) | **GET** /fabric/v4/metros | Get all Metros
 *NetworksApi* | [**createNetwork**](docs/NetworksApi.md#createNetwork) | **POST** /fabric/v4/networks | Create Network
 *NetworksApi* | [**deleteNetworkByUuid**](docs/NetworksApi.md#deleteNetworkByUuid) | **DELETE** /fabric/v4/networks/{networkId} | Delete Network By ID
 *NetworksApi* | [**getConnectionsByNetworkUuid**](docs/NetworksApi.md#getConnectionsByNetworkUuid) | **GET** /fabric/v4/networks/{networkId}/connections | Get Connections
 *NetworksApi* | [**getNetworkByUuid**](docs/NetworksApi.md#getNetworkByUuid) | **GET** /fabric/v4/networks/{networkId} | Get Network By ID
+*NetworksApi* | [**getNetworkChangeByUuid**](docs/NetworksApi.md#getNetworkChangeByUuid) | **GET** /fabric/v4/networks/{networkId}/changes/{changeId} | Get Change By ID
+*NetworksApi* | [**getNetworkChanges**](docs/NetworksApi.md#getNetworkChanges) | **GET** /fabric/v4/networks/{networkId}/changes | Get Network Changes
 *NetworksApi* | [**searchNetworks**](docs/NetworksApi.md#searchNetworks) | **POST** /fabric/v4/networks/search | Search Network
 *NetworksApi* | [**updateNetworkByUuid**](docs/NetworksApi.md#updateNetworkByUuid) | **PATCH** /fabric/v4/networks/{networkId} | Update Network By ID
-*PortsApi* | [**createPort**](docs/PortsApi.md#createPort) | **POST** /fabric/v4/ports | Create Port
 *PortsApi* | [**getPortByUuid**](docs/PortsApi.md#getPortByUuid) | **GET** /fabric/v4/ports/{portId} | Get Port by uuid
 *PortsApi* | [**getPorts**](docs/PortsApi.md#getPorts) | **GET** /fabric/v4/ports | Get All Ports
 *PricesApi* | [**searchPrices**](docs/PricesApi.md#searchPrices) | **POST** /fabric/v4/prices/search | Get Prices
@@ -152,10 +153,14 @@ Class | Method | HTTP request | Description
 *RoutingProtocolsApi* | [**createConnectionRoutingProtocol**](docs/RoutingProtocolsApi.md#createConnectionRoutingProtocol) | **POST** /fabric/v4/connections/{connectionId}/routingProtocols | Create Protocol
 *RoutingProtocolsApi* | [**createConnectionRoutingProtocolsInBulk**](docs/RoutingProtocolsApi.md#createConnectionRoutingProtocolsInBulk) | **POST** /fabric/v4/connections/{connectionId}/routingProtocols/bulk | Bulk Create Protocol
 *RoutingProtocolsApi* | [**deleteConnectionRoutingProtocolByUuid**](docs/RoutingProtocolsApi.md#deleteConnectionRoutingProtocolByUuid) | **DELETE** /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId} | Delete Protocol
+*RoutingProtocolsApi* | [**getConnectionRoutingProtocolAllBgpActions**](docs/RoutingProtocolsApi.md#getConnectionRoutingProtocolAllBgpActions) | **GET** /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}/actions | Get BGP Actions
 *RoutingProtocolsApi* | [**getConnectionRoutingProtocolByUuid**](docs/RoutingProtocolsApi.md#getConnectionRoutingProtocolByUuid) | **GET** /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId} | Get Protocol
 *RoutingProtocolsApi* | [**getConnectionRoutingProtocols**](docs/RoutingProtocolsApi.md#getConnectionRoutingProtocols) | **GET** /fabric/v4/connections/{connectionId}/routingProtocols | GetRoutingProtocols
+*RoutingProtocolsApi* | [**getConnectionRoutingProtocolsBgpActionByUuid**](docs/RoutingProtocolsApi.md#getConnectionRoutingProtocolsBgpActionByUuid) | **GET** /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}/actions/{actionId} | Get BGP Action
 *RoutingProtocolsApi* | [**getConnectionRoutingProtocolsChangeByUuid**](docs/RoutingProtocolsApi.md#getConnectionRoutingProtocolsChangeByUuid) | **GET** /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}/changes/{changeId} | Get Change By ID
 *RoutingProtocolsApi* | [**getConnectionRoutingProtocolsChanges**](docs/RoutingProtocolsApi.md#getConnectionRoutingProtocolsChanges) | **GET** /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}/changes | Get Changes
+*RoutingProtocolsApi* | [**patchConnectionRoutingProtocolByUuid**](docs/RoutingProtocolsApi.md#patchConnectionRoutingProtocolByUuid) | **PATCH** /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId} | Patch Protocol
+*RoutingProtocolsApi* | [**postConnectionRoutingProtocolBgpActionByUuid**](docs/RoutingProtocolsApi.md#postConnectionRoutingProtocolBgpActionByUuid) | **POST** /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}/actions | Clear/Reset BGP
 *RoutingProtocolsApi* | [**replaceConnectionRoutingProtocolByUuid**](docs/RoutingProtocolsApi.md#replaceConnectionRoutingProtocolByUuid) | **PUT** /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId} | Replace Protocol
 *ServiceProfilesApi* | [**createServiceProfile**](docs/ServiceProfilesApi.md#createServiceProfile) | **POST** /fabric/v4/serviceProfiles | Create Profile
 *ServiceProfilesApi* | [**deleteServiceProfileByUuid**](docs/ServiceProfilesApi.md#deleteServiceProfileByUuid) | **DELETE** /fabric/v4/serviceProfiles/{serviceProfileId} | Delete Profile
@@ -170,7 +175,7 @@ Class | Method | HTTP request | Description
 *ServiceTokensApi* | [**getServiceTokenByUuid**](docs/ServiceTokensApi.md#getServiceTokenByUuid) | **GET** /fabric/v4/serviceTokens/{serviceTokenId} | Get Token by uuid
 *ServiceTokensApi* | [**getServiceTokens**](docs/ServiceTokensApi.md#getServiceTokens) | **GET** /fabric/v4/serviceTokens | Get All Tokens
 *ServiceTokensApi* | [**searchServiceTokens**](docs/ServiceTokensApi.md#searchServiceTokens) | **POST** /fabric/v4/serviceTokens/search | Search servicetokens
-*ServiceTokensApi* | [**updateServiceToken**](docs/ServiceTokensApi.md#updateServiceToken) | **PATCH** /fabric/v4/serviceTokens/{serviceTokenId} | Update Token
+*ServiceTokensApi* | [**updateServiceTokenByUuid**](docs/ServiceTokensApi.md#updateServiceTokenByUuid) | **PATCH** /fabric/v4/serviceTokens/{serviceTokenId} | Update Token By ID
 *StatisticsApi* | [**getConnectionStatsByPortUuid**](docs/StatisticsApi.md#getConnectionStatsByPortUuid) | **GET** /fabric/v4/connections/{connectionId}/stats | Get Stats by uuid
 *StatisticsApi* | [**getPortStats**](docs/StatisticsApi.md#getPortStats) | **GET** /fabric/v4/ports/stats | Top Port Statistics
 *StatisticsApi* | [**getPortStatsByPortUuid**](docs/StatisticsApi.md#getPortStatsByPortUuid) | **GET** /fabric/v4/ports/{portId}/stats | Get Stats by uuid
@@ -183,29 +188,29 @@ Class | Method | HTTP request | Description
  - [AccessPointType](docs/AccessPointType.md)
  - [Actions](docs/Actions.md)
  - [AddOperation](docs/AddOperation.md)
- - [AllPhysicalPortsResponse](docs/AllPhysicalPortsResponse.md)
  - [AllPortsResponse](docs/AllPortsResponse.md)
  - [ApiConfig](docs/ApiConfig.md)
+ - [ApiServices](docs/ApiServices.md)
  - [AuthenticationKey](docs/AuthenticationKey.md)
+ - [BGPActionData](docs/BGPActionData.md)
+ - [BGPActionRequest](docs/BGPActionRequest.md)
+ - [BGPActionStates](docs/BGPActionStates.md)
+ - [BGPActions](docs/BGPActions.md)
+ - [BGPActionsBulkData](docs/BGPActionsBulkData.md)
  - [BGPConnectionIpv4](docs/BGPConnectionIpv4.md)
  - [BGPConnectionIpv6](docs/BGPConnectionIpv6.md)
  - [BandwidthUtilization](docs/BandwidthUtilization.md)
- - [BulkPhysicalPort](docs/BulkPhysicalPort.md)
- - [BulkPort](docs/BulkPort.md)
  - [Change](docs/Change.md)
  - [Changelog](docs/Changelog.md)
  - [Code](docs/Code.md)
  - [ConnectedMetro](docs/ConnectedMetro.md)
  - [Connection](docs/Connection.md)
  - [ConnectionAcceptanceData](docs/ConnectionAcceptanceData.md)
+ - [ConnectionAction](docs/ConnectionAction.md)
  - [ConnectionActionRequest](docs/ConnectionActionRequest.md)
- - [ConnectionBulk](docs/ConnectionBulk.md)
- - [ConnectionBulkPostRequest](docs/ConnectionBulkPostRequest.md)
  - [ConnectionChangeOperation](docs/ConnectionChangeOperation.md)
  - [ConnectionCompanyProfile](docs/ConnectionCompanyProfile.md)
  - [ConnectionDirection](docs/ConnectionDirection.md)
- - [ConnectionInvitation](docs/ConnectionInvitation.md)
- - [ConnectionIpv4](docs/ConnectionIpv4.md)
  - [ConnectionOperation](docs/ConnectionOperation.md)
  - [ConnectionPostRequest](docs/ConnectionPostRequest.md)
  - [ConnectionPriority](docs/ConnectionPriority.md)
@@ -227,9 +232,23 @@ Class | Method | HTTP request | Description
  - [EquinixStatus](docs/EquinixStatus.md)
  - [Error](docs/Error.md)
  - [Expression](docs/Expression.md)
+ - [FabricGateway](docs/FabricGateway.md)
+ - [FabricGatewayAccessPointState](docs/FabricGatewayAccessPointState.md)
+ - [FabricGatewayChangeOperation](docs/FabricGatewayChangeOperation.md)
  - [FabricGatewayCode](docs/FabricGatewayCode.md)
+ - [FabricGatewayFilter](docs/FabricGatewayFilter.md)
+ - [FabricGatewayFilters](docs/FabricGatewayFilters.md)
+ - [FabricGatewayOrFilter](docs/FabricGatewayOrFilter.md)
  - [FabricGatewayPackage](docs/FabricGatewayPackage.md)
+ - [FabricGatewayPackageType](docs/FabricGatewayPackageType.md)
+ - [FabricGatewayPackages](docs/FabricGatewayPackages.md)
+ - [FabricGatewayPostRequest](docs/FabricGatewayPostRequest.md)
  - [FabricGatewayPrice](docs/FabricGatewayPrice.md)
+ - [FabricGatewaySearchRequest](docs/FabricGatewaySearchRequest.md)
+ - [FabricGatewaySimpleExpression](docs/FabricGatewaySimpleExpression.md)
+ - [FabricGatewaySortBy](docs/FabricGatewaySortBy.md)
+ - [FabricGatewaySortCriteria](docs/FabricGatewaySortCriteria.md)
+ - [FabricGatewaySortDirection](docs/FabricGatewaySortDirection.md)
  - [FilterBody](docs/FilterBody.md)
  - [GatewayActionRequest](docs/GatewayActionRequest.md)
  - [GatewayActionResponse](docs/GatewayActionResponse.md)
@@ -239,6 +258,7 @@ Class | Method | HTTP request | Description
  - [GatewayPackageCode](docs/GatewayPackageCode.md)
  - [GeoCoordinates](docs/GeoCoordinates.md)
  - [GetResponse](docs/GetResponse.md)
+ - [HealthResponse](docs/HealthResponse.md)
  - [IpBlockPrice](docs/IpBlockPrice.md)
  - [IpBlockType](docs/IpBlockType.md)
  - [JsonPatchOperation](docs/JsonPatchOperation.md)
@@ -260,7 +280,10 @@ Class | Method | HTTP request | Description
  - [ModelInterface](docs/ModelInterface.md)
  - [Network](docs/Network.md)
  - [NetworkAllOf](docs/NetworkAllOf.md)
+ - [NetworkChange](docs/NetworkChange.md)
  - [NetworkChangeOperation](docs/NetworkChangeOperation.md)
+ - [NetworkChangeResponse](docs/NetworkChangeResponse.md)
+ - [NetworkChangeStatus](docs/NetworkChangeStatus.md)
  - [NetworkChangeType](docs/NetworkChangeType.md)
  - [NetworkConnections](docs/NetworkConnections.md)
  - [NetworkEquinixStatus](docs/NetworkEquinixStatus.md)
@@ -279,6 +302,7 @@ Class | Method | HTTP request | Description
  - [NetworkSortDirectionResponse](docs/NetworkSortDirectionResponse.md)
  - [NetworkState](docs/NetworkState.md)
  - [NetworkType](docs/NetworkType.md)
+ - [OpEnum](docs/OpEnum.md)
  - [Order](docs/Order.md)
  - [PackageChangeLog](docs/PackageChangeLog.md)
  - [PackageResponse](docs/PackageResponse.md)
@@ -294,11 +318,11 @@ Class | Method | HTTP request | Description
  - [PortDeviceRedundancy](docs/PortDeviceRedundancy.md)
  - [PortEncapsulation](docs/PortEncapsulation.md)
  - [PortInterface](docs/PortInterface.md)
- - [PortLAG](docs/PortLAG.md)
  - [PortLoa](docs/PortLoa.md)
  - [PortNotification](docs/PortNotification.md)
  - [PortOperation](docs/PortOperation.md)
  - [PortOrder](docs/PortOrder.md)
+ - [PortOrderPurchaseOrder](docs/PortOrderPurchaseOrder.md)
  - [PortOrderSignature](docs/PortOrderSignature.md)
  - [PortOrderSignatureDelegate](docs/PortOrderSignatureDelegate.md)
  - [PortPriority](docs/PortPriority.md)
@@ -336,9 +360,7 @@ Class | Method | HTTP request | Description
  - [RouteTableEntrySortDirection](docs/RouteTableEntrySortDirection.md)
  - [RouteTableEntryState](docs/RouteTableEntryState.md)
  - [RouteTableEntryType](docs/RouteTableEntryType.md)
- - [RoutingProtocol](docs/RoutingProtocol.md)
  - [RoutingProtocolBFD](docs/RoutingProtocolBFD.md)
- - [RoutingProtocolBGP](docs/RoutingProtocolBGP.md)
  - [RoutingProtocolBGPData](docs/RoutingProtocolBGPData.md)
  - [RoutingProtocolBGPType](docs/RoutingProtocolBGPType.md)
  - [RoutingProtocolBase](docs/RoutingProtocolBase.md)
@@ -346,13 +368,10 @@ Class | Method | HTTP request | Description
  - [RoutingProtocolChangeData](docs/RoutingProtocolChangeData.md)
  - [RoutingProtocolChangeDataResponse](docs/RoutingProtocolChangeDataResponse.md)
  - [RoutingProtocolChangeOperation](docs/RoutingProtocolChangeOperation.md)
- - [RoutingProtocolCustomerRoutes](docs/RoutingProtocolCustomerRoutes.md)
  - [RoutingProtocolData](docs/RoutingProtocolData.md)
- - [RoutingProtocolDirect](docs/RoutingProtocolDirect.md)
  - [RoutingProtocolDirectData](docs/RoutingProtocolDirectData.md)
  - [RoutingProtocolDirectType](docs/RoutingProtocolDirectType.md)
  - [RoutingProtocolOperation](docs/RoutingProtocolOperation.md)
- - [RoutingProtocolStatic](docs/RoutingProtocolStatic.md)
  - [SearchExpression](docs/SearchExpression.md)
  - [SearchFieldName](docs/SearchFieldName.md)
  - [SearchRequest](docs/SearchRequest.md)
@@ -382,6 +401,7 @@ Class | Method | HTTP request | Description
  - [ServiceToken](docs/ServiceToken.md)
  - [ServiceTokenActionRequest](docs/ServiceTokenActionRequest.md)
  - [ServiceTokenActions](docs/ServiceTokenActions.md)
+ - [ServiceTokenChangeOperation](docs/ServiceTokenChangeOperation.md)
  - [ServiceTokenConnection](docs/ServiceTokenConnection.md)
  - [ServiceTokenSearchExpression](docs/ServiceTokenSearchExpression.md)
  - [ServiceTokenSearchFieldName](docs/ServiceTokenSearchFieldName.md)
@@ -400,6 +420,7 @@ Class | Method | HTTP request | Description
  - [SimplifiedNotification](docs/SimplifiedNotification.md)
  - [SimplifiedPort](docs/SimplifiedPort.md)
  - [SimplifiedServiceProfile](docs/SimplifiedServiceProfile.md)
+ - [SimplifiedServiceToken](docs/SimplifiedServiceToken.md)
  - [Sort](docs/Sort.md)
  - [SortBy](docs/SortBy.md)
  - [SortCriteria](docs/SortCriteria.md)
@@ -407,11 +428,9 @@ Class | Method | HTTP request | Description
  - [SortDirection](docs/SortDirection.md)
  - [Statistics](docs/Statistics.md)
  - [TopUtilizedStatistics](docs/TopUtilizedStatistics.md)
- - [ValidateByAuthKeyPostRequest](docs/ValidateByAuthKeyPostRequest.md)
- - [ValidateByAuthKeyPostRequestFilter](docs/ValidateByAuthKeyPostRequestFilter.md)
- - [ValidateByAuthKeyPostRequestFilterAnd](docs/ValidateByAuthKeyPostRequestFilterAnd.md)
- - [ValidateByAuthKeyPostRequestPagination](docs/ValidateByAuthKeyPostRequestPagination.md)
- - [ValidateByAuthKeyPostRequestSort](docs/ValidateByAuthKeyPostRequestSort.md)
+ - [ValidateConnectionRequest](docs/ValidateConnectionRequest.md)
+ - [ValidateConnectionRequestFilter](docs/ValidateConnectionRequestFilter.md)
+ - [ValidateConnectionRequestFilterAnd](docs/ValidateConnectionRequestFilterAnd.md)
  - [ViewPoint](docs/ViewPoint.md)
  - [VirtualConnectionBridgePackageCode](docs/VirtualConnectionBridgePackageCode.md)
  - [VirtualConnectionPrice](docs/VirtualConnectionPrice.md)
@@ -427,20 +446,6 @@ Class | Method | HTTP request | Description
  - [VirtualConnectionPriceZSideAccessPointBridgePackage](docs/VirtualConnectionPriceZSideAccessPointBridgePackage.md)
  - [VirtualConnectionPriceZSideAccessPointProfile](docs/VirtualConnectionPriceZSideAccessPointProfile.md)
  - [VirtualDevice](docs/VirtualDevice.md)
- - [VirtualGateway](docs/VirtualGateway.md)
- - [VirtualGatewayAccessPointState](docs/VirtualGatewayAccessPointState.md)
- - [VirtualGatewayChangeOperation](docs/VirtualGatewayChangeOperation.md)
- - [VirtualGatewayFilter](docs/VirtualGatewayFilter.md)
- - [VirtualGatewayFilters](docs/VirtualGatewayFilters.md)
- - [VirtualGatewayOrFilter](docs/VirtualGatewayOrFilter.md)
- - [VirtualGatewayPackage](docs/VirtualGatewayPackage.md)
- - [VirtualGatewayPackageType](docs/VirtualGatewayPackageType.md)
- - [VirtualGatewayPostRequest](docs/VirtualGatewayPostRequest.md)
- - [VirtualGatewaySearchRequest](docs/VirtualGatewaySearchRequest.md)
- - [VirtualGatewaySimpleExpression](docs/VirtualGatewaySimpleExpression.md)
- - [VirtualGatewaySortBy](docs/VirtualGatewaySortBy.md)
- - [VirtualGatewaySortCriteria](docs/VirtualGatewaySortCriteria.md)
- - [VirtualGatewaySortDirection](docs/VirtualGatewaySortDirection.md)
  - [VirtualPortConfiguration](docs/VirtualPortConfiguration.md)
  - [VirtualPortLocation](docs/VirtualPortLocation.md)
  - [VirtualPortPrice](docs/VirtualPortPrice.md)

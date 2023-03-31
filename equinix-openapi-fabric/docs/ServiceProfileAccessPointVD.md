@@ -8,9 +8,9 @@ Virtual Device Point
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**location** | [**SimplifiedLocation**](SimplifiedLocation.md) |  |  [optional] |
 |**type** | [**TypeEnum**](#TypeEnum) |  |  |
 |**uuid** | **UUID** |  |  |
+|**location** | [**SimplifiedLocation**](SimplifiedLocation.md) |  |  [optional] |
 |**interfaceUuid** | **UUID** |  |  [optional] |
 
 

@@ -10,7 +10,7 @@ Fabric Gateway Product configuration
 |------------ | ------------- | ------------- | -------------|
 |**uuid** | **UUID** | Unique identifier assigned to the Fabric Gateway |  [optional] |
 |**location** | [**PriceLocation**](PriceLocation.md) |  |  [optional] |
-|**_package** | [**FabricGatewayPackage**](FabricGatewayPackage.md) |  |  [optional] |
+|**_package** | [**FabricGatewayPackages**](FabricGatewayPackages.md) |  |  [optional] |
 
 
 

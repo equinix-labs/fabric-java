@@ -24,9 +24,10 @@ SPEC_FETCHED_PATCHES=patches/spec.fetched.json
 # OpenAPI codegen container
 ##
 CRI:=docker # nerdctl
-OPENAPI_CODEGEN_TAG=latest
+OPENAPI_CODEGEN_TAG=v6.4.0
 OPENAPI_CODEGEN_IMAGE=openapitools/openapi-generator-cli:${OPENAPI_CODEGEN_TAG}
 DOCKER_OPENAPI=${CRI} run --rm -u ${CURRENT_UID}:${CURRENT_GID} -v $(CURDIR):/local ${OPENAPI_CODEGEN_IMAGE}
+OPENAPI_URL=https://app.swaggerhub.com/apiproxy/registry/equinix-api/fabric/4.6
 
 docker_run: clean pre-spec-patch pull docker_generate build_client
 
@@ -46,8 +47,10 @@ docker_generate:
 # Utility functions
 ##
 
-# fetch:
-# 	curl ${OPENAPI_URL} | jq . > ${SPEC_FETCHED_FILE}
+# Fetch any public available version of Fabric V4 API specification. Send the URL to the specification as input argument
+# Example: make fetch OPENAPI_URL=https://app.swaggerhub.com/apiproxy/registry/equinix-api/fabric/4.6
+fetch:
+	curl ${OPENAPI_URL} | jq . > ${SPEC_FETCHED_FILE}
 
 clean:
 	rm -rf ${OPENAPI_GENERATED_CLIENT}

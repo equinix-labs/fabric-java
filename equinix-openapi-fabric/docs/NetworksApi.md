@@ -1,6 +1,6 @@
 # NetworksApi
 
-All URIs are relative to *https://api.equinix.com*
+All URIs are relative to *https://virtserver.swaggerhub.com/equinix-api/fabric/4.6*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
@@ -8,6 +8,8 @@ All URIs are relative to *https://api.equinix.com*
 | [**deleteNetworkByUuid**](NetworksApi.md#deleteNetworkByUuid) | **DELETE** /fabric/v4/networks/{networkId} | Delete Network By ID |
 | [**getConnectionsByNetworkUuid**](NetworksApi.md#getConnectionsByNetworkUuid) | **GET** /fabric/v4/networks/{networkId}/connections | Get Connections |
 | [**getNetworkByUuid**](NetworksApi.md#getNetworkByUuid) | **GET** /fabric/v4/networks/{networkId} | Get Network By ID |
+| [**getNetworkChangeByUuid**](NetworksApi.md#getNetworkChangeByUuid) | **GET** /fabric/v4/networks/{networkId}/changes/{changeId} | Get Change By ID |
+| [**getNetworkChanges**](NetworksApi.md#getNetworkChanges) | **GET** /fabric/v4/networks/{networkId}/changes | Get Network Changes |
 | [**searchNetworks**](NetworksApi.md#searchNetworks) | **POST** /fabric/v4/networks/search | Search Network |
 | [**updateNetworkByUuid**](NetworksApi.md#updateNetworkByUuid) | **PATCH** /fabric/v4/networks/{networkId} | Update Network By ID |
 
@@ -33,7 +35,7 @@ import com.equinix.openapi.fabric.v4.api.NetworksApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -105,7 +107,7 @@ import com.equinix.openapi.fabric.v4.api.NetworksApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -176,7 +178,7 @@ import com.equinix.openapi.fabric.v4.api.NetworksApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -247,7 +249,7 @@ import com.equinix.openapi.fabric.v4.api.NetworksApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -296,6 +298,150 @@ public class Example {
 | **403** | Forbidden |  -  |
 | **404** | Not Found |  -  |
 
+<a name="getNetworkChangeByUuid"></a>
+# **getNetworkChangeByUuid**
+> NetworkChange getNetworkChangeByUuid(networkId, changeId)
+
+Get Change By ID
+
+This API provides capability to retrieve user&#39;s Fabric Network Change
+
+### Example
+```java
+// Import classes:
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.NetworksApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
+
+    NetworksApi apiInstance = new NetworksApi(defaultClient);
+    UUID networkId = UUID.randomUUID(); // UUID | Network UUID
+    UUID changeId = UUID.randomUUID(); // UUID | Network Change UUID
+    try {
+      NetworkChange result = apiInstance.getNetworkChangeByUuid(networkId, changeId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling NetworksApi#getNetworkChangeByUuid");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **networkId** | **UUID**| Network UUID | |
+| **changeId** | **UUID**| Network Change UUID | |
+
+### Return type
+
+[**NetworkChange**](NetworkChange.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Fabric Network Access point object |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+
+<a name="getNetworkChanges"></a>
+# **getNetworkChanges**
+> NetworkChangeResponse getNetworkChanges(networkId)
+
+Get Network Changes
+
+The API provides capability to get list of user&#39;s Fabric Network changes
+
+### Example
+```java
+// Import classes:
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.NetworksApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
+
+    NetworksApi apiInstance = new NetworksApi(defaultClient);
+    UUID networkId = UUID.randomUUID(); // UUID | Network UUID
+    try {
+      NetworkChangeResponse result = apiInstance.getNetworkChanges(networkId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling NetworksApi#getNetworkChanges");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **networkId** | **UUID**| Network UUID | |
+
+### Return type
+
+[**NetworkChangeResponse**](NetworkChangeResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Fabric Network Access point object |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **415** | Unsupported Media Type |  -  |
+
 <a name="searchNetworks"></a>
 # **searchNetworks**
 > NetworkSearchResponse searchNetworks(networkSearchRequest)
@@ -317,7 +463,7 @@ import com.equinix.openapi.fabric.v4.api.NetworksApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -388,7 +534,7 @@ import com.equinix.openapi.fabric.v4.api.NetworksApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");

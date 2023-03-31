@@ -8,11 +8,11 @@ Gateway actions response object
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**description** | **String** |  |  [optional] |
-|**changeLog** | [**Changelog**](Changelog.md) |  |  |
-|**state** | **GatewayActionState** |  |  |
 |**type** | **GatewayActionType** |  |  |
 |**uuid** | **UUID** |  |  |
+|**description** | **String** |  |  [optional] |
+|**state** | **GatewayActionState** |  |  |
+|**changeLog** | [**Changelog**](Changelog.md) |  |  |
 
 
 

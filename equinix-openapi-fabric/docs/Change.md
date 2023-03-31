@@ -8,13 +8,13 @@ Current state of latest connection change
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**data** | [**ConnectionChangeOperation**](ConnectionChangeOperation.md) |  |  [optional] |
-|**createdDateTime** | **OffsetDateTime** | Set when change flow starts |  |
-|**information** | **String** | Additional information |  [optional] |
-|**type** | [**TypeEnum**](#TypeEnum) | Type of change |  |
 |**uuid** | **String** | Uniquely identifies a change |  [optional] |
+|**type** | [**TypeEnum**](#TypeEnum) | Type of change |  |
 |**status** | [**StatusEnum**](#StatusEnum) | Current outcome of the change flow |  [optional] |
+|**createdDateTime** | **OffsetDateTime** | Set when change flow starts |  |
 |**updatedDateTime** | **OffsetDateTime** | Set when change object is updated |  [optional] |
+|**information** | **String** | Additional information |  [optional] |
+|**data** | [**ConnectionChangeOperation**](ConnectionChangeOperation.md) |  |  [optional] |
 
 
 

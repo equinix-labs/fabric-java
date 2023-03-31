@@ -8,8 +8,8 @@ Port signature Type
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**delegate** | [**PortOrderSignatureDelegate**](PortOrderSignatureDelegate.md) |  |  [optional] |
 |**signatory** | [**SignatoryEnum**](#SignatoryEnum) | Port signature Type |  [optional] |
+|**delegate** | [**PortOrderSignatureDelegate**](PortOrderSignatureDelegate.md) |  |  [optional] |
 
 
 
@@ -19,6 +19,7 @@ Port signature Type
 |---- | -----|
 | ECHOSIGN | &quot;ECHOSIGN&quot; |
 | DELEGATE | &quot;DELEGATE&quot; |
+| SELF | &quot;SELF&quot; |
 | ACCOUNT_SUPPORT | &quot;ACCOUNT_SUPPORT&quot; |
 
 

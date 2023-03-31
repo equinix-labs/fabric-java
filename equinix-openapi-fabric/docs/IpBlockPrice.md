@@ -8,10 +8,10 @@ IP Block Product configuration
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
+|**uuid** | **UUID** | Either uuid or rest of attributes are required |  [optional] |
+|**type** | **IpBlockType** |  |  [optional] |
 |**prefixLength** | **Integer** |  |  [optional] |
 |**location** | [**PriceLocation**](PriceLocation.md) |  |  [optional] |
-|**type** | **IpBlockType** |  |  [optional] |
-|**uuid** | **UUID** | Either uuid or rest of attributes are required |  [optional] |
 
 
 

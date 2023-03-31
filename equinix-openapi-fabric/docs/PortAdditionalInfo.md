@@ -8,8 +8,8 @@ Additional information
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**value** | **String** | Value |  [optional] |
 |**key** | **String** | Key |  [optional] |
+|**value** | **String** | Value |  [optional] |
 
 
 

@@ -1,17 +1,16 @@
 # ConnectionsApi
 
-All URIs are relative to *https://api.equinix.com*
+All URIs are relative to *https://virtserver.swaggerhub.com/equinix-api/fabric/4.6*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**createConnection**](ConnectionsApi.md#createConnection) | **POST** /fabric/v4/connections | Create Connection |
 | [**createConnectionAction**](ConnectionsApi.md#createConnectionAction) | **POST** /fabric/v4/connections/{connectionId}/actions | Connection Actions |
-| [**createConnectionsInBulk**](ConnectionsApi.md#createConnectionsInBulk) | **POST** /fabric/v4/connections/bulk | Bulk Connections |
 | [**deleteConnectionByUuid**](ConnectionsApi.md#deleteConnectionByUuid) | **DELETE** /fabric/v4/connections/{connectionId} | Delete by ID |
 | [**getConnectionByUuid**](ConnectionsApi.md#getConnectionByUuid) | **GET** /fabric/v4/connections/{connectionId} | Get Connection by ID |
 | [**searchConnections**](ConnectionsApi.md#searchConnections) | **POST** /fabric/v4/connections/search | Search connections |
 | [**updateConnectionByUuid**](ConnectionsApi.md#updateConnectionByUuid) | **PATCH** /fabric/v4/connections/{connectionId} | Update by ID |
-| [**validateConnections**](ConnectionsApi.md#validateConnections) | **POST** /fabric/v4/connections/validate | Validate AuthKey |
+| [**validateConnections**](ConnectionsApi.md#validateConnections) | **POST** /fabric/v4/connections/validate | Validate Connection |
 
 
 <a name="createConnection"></a>
@@ -35,7 +34,7 @@ import com.equinix.openapi.fabric.v4.api.ConnectionsApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -87,7 +86,7 @@ public class Example {
 
 <a name="createConnectionAction"></a>
 # **createConnectionAction**
-> Connection createConnectionAction(connectionId, connectionActionRequest)
+> ConnectionAction createConnectionAction(connectionId, connectionActionRequest)
 
 Connection Actions
 
@@ -106,7 +105,7 @@ import com.equinix.openapi.fabric.v4.api.ConnectionsApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -116,7 +115,7 @@ public class Example {
     String connectionId = "connectionId_example"; // String | Connection Id
     ConnectionActionRequest connectionActionRequest = new ConnectionActionRequest(); // ConnectionActionRequest | 
     try {
-      Connection result = apiInstance.createConnectionAction(connectionId, connectionActionRequest);
+      ConnectionAction result = apiInstance.createConnectionAction(connectionId, connectionActionRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ConnectionsApi#createConnectionAction");
@@ -138,7 +137,7 @@ public class Example {
 
 ### Return type
 
-[**Connection**](Connection.md)
+[**ConnectionAction**](ConnectionAction.md)
 
 ### Authorization
 
@@ -157,78 +156,6 @@ public class Example {
 | **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
 | **404** | Not Found |  -  |
-
-<a name="createConnectionsInBulk"></a>
-# **createConnectionsInBulk**
-> ConnectionBulk createConnectionsInBulk(connectionBulkPostRequest)
-
-Bulk Connections
-
-This API provides capability to create bulk virtual connections
-
-### Example
-```java
-// Import classes:
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
-import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.ConnectionsApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
-
-    ConnectionsApi apiInstance = new ConnectionsApi(defaultClient);
-    ConnectionBulkPostRequest connectionBulkPostRequest = new ConnectionBulkPostRequest(); // ConnectionBulkPostRequest | 
-    try {
-      ConnectionBulk result = apiInstance.createConnectionsInBulk(connectionBulkPostRequest);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConnectionsApi#createConnectionsInBulk");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **connectionBulkPostRequest** | [**ConnectionBulkPostRequest**](ConnectionBulkPostRequest.md)|  | |
-
-### Return type
-
-[**ConnectionBulk**](ConnectionBulk.md)
-
-### Authorization
-
-[BearerAuth](../README.md#BearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful operation |  -  |
-| **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **500** | Internal server error |  -  |
 
 <a name="deleteConnectionByUuid"></a>
 # **deleteConnectionByUuid**
@@ -251,14 +178,14 @@ import com.equinix.openapi.fabric.v4.api.ConnectionsApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
     BearerAuth.setBearerToken("BEARER TOKEN");
 
     ConnectionsApi apiInstance = new ConnectionsApi(defaultClient);
-    UUID connectionId = UUID.randomUUID(); // UUID | Connection UUID
+    String connectionId = "connectionId_example"; // String | Connection UUID
     try {
       Connection result = apiInstance.deleteConnectionByUuid(connectionId);
       System.out.println(result);
@@ -277,7 +204,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **connectionId** | **UUID**| Connection UUID | |
+| **connectionId** | **String**| Connection UUID | |
 
 ### Return type
 
@@ -323,7 +250,7 @@ import com.equinix.openapi.fabric.v4.api.ConnectionsApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -395,7 +322,7 @@ import com.equinix.openapi.fabric.v4.api.ConnectionsApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -466,7 +393,7 @@ import com.equinix.openapi.fabric.v4.api.ConnectionsApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -519,9 +446,9 @@ public class Example {
 
 <a name="validateConnections"></a>
 # **validateConnections**
-> ConnectionResponse validateConnections(validateByAuthKeyPostRequest)
+> ConnectionResponse validateConnections(validateConnectionRequest)
 
-Validate AuthKey
+Validate Connection
 
 This API provides capability to validate by auth key
 
@@ -538,16 +465,16 @@ import com.equinix.openapi.fabric.v4.api.ConnectionsApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
     BearerAuth.setBearerToken("BEARER TOKEN");
 
     ConnectionsApi apiInstance = new ConnectionsApi(defaultClient);
-    ValidateByAuthKeyPostRequest validateByAuthKeyPostRequest = new ValidateByAuthKeyPostRequest(); // ValidateByAuthKeyPostRequest | 
+    ValidateConnectionRequest validateConnectionRequest = new ValidateConnectionRequest(); // ValidateConnectionRequest | 
     try {
-      ConnectionResponse result = apiInstance.validateConnections(validateByAuthKeyPostRequest);
+      ConnectionResponse result = apiInstance.validateConnections(validateConnectionRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ConnectionsApi#validateConnections");
@@ -564,7 +491,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **validateByAuthKeyPostRequest** | [**ValidateByAuthKeyPostRequest**](ValidateByAuthKeyPostRequest.md)|  | |
+| **validateConnectionRequest** | [**ValidateConnectionRequest**](ValidateConnectionRequest.md)|  | |
 
 ### Return type
 

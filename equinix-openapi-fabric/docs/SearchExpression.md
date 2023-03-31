@@ -7,9 +7,9 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**property** | **String** |  |  [optional] |
-|**or** | [**List&lt;SearchExpression&gt;**](SearchExpression.md) |  |  [optional] |
 |**and** | [**List&lt;SearchExpression&gt;**](SearchExpression.md) |  |  [optional] |
+|**or** | [**List&lt;SearchExpression&gt;**](SearchExpression.md) |  |  [optional] |
+|**property** | **String** |  |  [optional] |
 |**operator** | [**OperatorEnum**](#OperatorEnum) |  |  [optional] |
 |**values** | **List&lt;String&gt;** |  |  [optional] |
 

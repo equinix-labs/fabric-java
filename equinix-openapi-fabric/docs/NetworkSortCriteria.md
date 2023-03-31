@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**property** | **NetworkSortBy** |  |  [optional] |
 |**direction** | **NetworkSortDirection** |  |  [optional] |
+|**property** | **NetworkSortBy** |  |  [optional] |
 
 
 

@@ -8,9 +8,9 @@ Port Loas
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**type** | [**TypeEnum**](#TypeEnum) | Loa type |  [optional] |
 |**uuid** | **String** | uuid |  [optional] |
 |**href** | **URI** | Loa uri. |  [optional] [readonly] |
+|**type** | [**TypeEnum**](#TypeEnum) | Loa type |  [optional] |
 
 
 

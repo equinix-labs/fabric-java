@@ -1,6 +1,6 @@
 # ServiceProfilesApi
 
-All URIs are relative to *https://api.equinix.com*
+All URIs are relative to *https://virtserver.swaggerhub.com/equinix-api/fabric/4.6*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
@@ -19,7 +19,7 @@ All URIs are relative to *https://api.equinix.com*
 
 Create Profile
 
-Create Service Profile creates Equinix Fabric™ Service Profile.
+Create Service Profile creates Equinix Fabric? Service Profile.
 
 ### Example
 ```java
@@ -34,7 +34,7 @@ import com.equinix.openapi.fabric.v4.api.ServiceProfilesApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -105,7 +105,7 @@ import com.equinix.openapi.fabric.v4.api.ServiceProfilesApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -177,7 +177,7 @@ import com.equinix.openapi.fabric.v4.api.ServiceProfilesApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -250,15 +250,15 @@ import com.equinix.openapi.fabric.v4.api.ServiceProfilesApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
     BearerAuth.setBearerToken("BEARER TOKEN");
 
     ServiceProfilesApi apiInstance = new ServiceProfilesApi(defaultClient);
-    Integer offset = 56; // Integer | offset
-    Integer limit = 56; // Integer | number of records to fetch
+    Integer offset = 1; // Integer | offset
+    Integer limit = 10; // Integer | number of records to fetch
     String viewPoint = "aSide"; // String | flips view between buyer and seller representation
     try {
       ServiceProfiles result = apiInstance.getServiceProfiles(offset, limit, viewPoint);
@@ -325,7 +325,7 @@ import com.equinix.openapi.fabric.v4.api.ServiceProfilesApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -401,7 +401,7 @@ import com.equinix.openapi.fabric.v4.api.ServiceProfilesApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -471,7 +471,7 @@ import com.equinix.openapi.fabric.v4.api.ServiceProfilesApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");

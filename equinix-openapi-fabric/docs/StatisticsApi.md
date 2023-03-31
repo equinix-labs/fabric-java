@@ -1,6 +1,6 @@
 # StatisticsApi
 
-All URIs are relative to *https://api.equinix.com*
+All URIs are relative to *https://virtserver.swaggerhub.com/equinix-api/fabric/4.6*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
@@ -30,16 +30,16 @@ import com.equinix.openapi.fabric.v4.api.StatisticsApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
     BearerAuth.setBearerToken("BEARER TOKEN");
 
     StatisticsApi apiInstance = new StatisticsApi(defaultClient);
-    UUID connectionId = UUID.randomUUID(); // UUID | Connection UUID
-    OffsetDateTime startDateTime = OffsetDateTime.parse("Fri Nov 06 07:00:00 UTC 2020"); // OffsetDateTime | startDateTime
-    OffsetDateTime endDateTime = OffsetDateTime.parse("Tue Nov 10 07:00:00 UTC 2020"); // OffsetDateTime | endDateTime
+    String connectionId = "connectionId_example"; // String | Connection UUID
+    OffsetDateTime startDateTime = OffsetDateTime.parse("2020-11-06T07:00:00Z"); // OffsetDateTime | startDateTime
+    OffsetDateTime endDateTime = OffsetDateTime.parse("2020-11-10T07:00:00Z"); // OffsetDateTime | endDateTime
     ViewPoint viewPoint = ViewPoint.fromValue("aSide"); // ViewPoint | viewPoint
     try {
       Statistics result = apiInstance.getConnectionStatsByPortUuid(connectionId, startDateTime, endDateTime, viewPoint);
@@ -59,7 +59,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **connectionId** | **UUID**| Connection UUID | |
+| **connectionId** | **String**| Connection UUID | |
 | **startDateTime** | **OffsetDateTime**| startDateTime | |
 | **endDateTime** | **OffsetDateTime**| endDateTime | |
 | **viewPoint** | [**ViewPoint**](.md)| viewPoint | [enum: aSide, zSide] |
@@ -105,7 +105,7 @@ import com.equinix.openapi.fabric.v4.api.StatisticsApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -113,12 +113,12 @@ public class Example {
 
     StatisticsApi apiInstance = new StatisticsApi(defaultClient);
     List<String> metros = Arrays.asList(); // List<String> | Two-letter prefix indicating the metropolitan area in which a specified Equinix asset is located.
-    Sort sort = Sort.fromValue("-bandwidthUtilization"); // Sort | Key or set of keys that organizes the search payload by property (such as createdDate or metroCode) or by direction. Ascending (ASC) is the default value. The \"‒\" prefix indicates descending (DESC) order.
+    Sort sort = Sort.fromValue("-bandwidthUtilization"); // Sort | Key or set of keys that organizes the search payload by property (such as createdDate or metroCode) or by direction. Ascending (ASC) is the default value. The \"?\" prefix indicates descending (DESC) order.
     Integer top = 5; // Integer | Filter returning only the specified number of most heavily trafficked ports. The standard value is [1...10], and the default is 5.
     Duration duration = Duration.fromValue("P7D"); // Duration | duration
     QueryDirection direction = QueryDirection.fromValue("inbound"); // QueryDirection | Direction of traffic from the requester's viewpoint. The default is outbound.
     MetricInterval metricInterval = MetricInterval.fromValue("P7D"); // MetricInterval | metricInterval
-    String projectId = "123456789"; // String | projectId
+    String projectId = "projectId_example"; // String | projectId
     try {
       TopUtilizedStatistics result = apiInstance.getPortStats(metros, sort, top, duration, direction, metricInterval, projectId);
       System.out.println(result);
@@ -138,12 +138,12 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **metros** | [**List&lt;String&gt;**](String.md)| Two-letter prefix indicating the metropolitan area in which a specified Equinix asset is located. | |
-| **sort** | [**Sort**](.md)| Key or set of keys that organizes the search payload by property (such as createdDate or metroCode) or by direction. Ascending (ASC) is the default value. The \&quot;‒\&quot; prefix indicates descending (DESC) order. | [optional] [default to -bandwidthUtilization] [enum: -bandwidthUtilization] |
+| **sort** | [**Sort**](.md)| Key or set of keys that organizes the search payload by property (such as createdDate or metroCode) or by direction. Ascending (ASC) is the default value. The \&quot;?\&quot; prefix indicates descending (DESC) order. | [optional] [default to -bandwidthUtilization] [enum: -bandwidthUtilization] |
 | **top** | **Integer**| Filter returning only the specified number of most heavily trafficked ports. The standard value is [1...10], and the default is 5. | [optional] [default to 5] |
 | **duration** | [**Duration**](.md)| duration | [optional] [default to P7D] [enum: P7D, P1M, P3M] |
 | **direction** | [**QueryDirection**](.md)| Direction of traffic from the requester&#39;s viewpoint. The default is outbound. | [optional] [default to outbound] [enum: inbound, outbound] |
 | **metricInterval** | [**MetricInterval**](.md)| metricInterval | [optional] [default to P7D] [enum: P7D] |
-| **projectId** | **String**| projectId | [optional] [default to 123456789] |
+| **projectId** | **String**| projectId | [optional] |
 
 ### Return type
 
@@ -186,7 +186,7 @@ import com.equinix.openapi.fabric.v4.api.StatisticsApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -194,8 +194,8 @@ public class Example {
 
     StatisticsApi apiInstance = new StatisticsApi(defaultClient);
     UUID portId = UUID.randomUUID(); // UUID | Port UUID
-    OffsetDateTime startDateTime = OffsetDateTime.parse("Fri Nov 06 07:00:00 UTC 2020"); // OffsetDateTime | startDateTime
-    OffsetDateTime endDateTime = OffsetDateTime.parse("Tue Nov 10 07:00:00 UTC 2020"); // OffsetDateTime | endDateTime
+    OffsetDateTime startDateTime = OffsetDateTime.parse("2020-11-06T07:00:00Z"); // OffsetDateTime | startDateTime
+    OffsetDateTime endDateTime = OffsetDateTime.parse("2020-11-10T07:00:00Z"); // OffsetDateTime | endDateTime
     try {
       Statistics result = apiInstance.getPortStatsByPortUuid(portId, startDateTime, endDateTime);
       System.out.println(result);

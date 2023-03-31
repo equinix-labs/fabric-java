@@ -8,12 +8,12 @@ Create Network
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**name** | **String** | Customer-provided network name |  |
-|**project** | [**Project**](Project.md) |  |  [optional] |
-|**location** | [**SimplifiedLocation**](SimplifiedLocation.md) |  |  [optional] |
 |**type** | **NetworkType** |  |  |
-|**notifications** | [**List&lt;SimplifiedNotification&gt;**](SimplifiedNotification.md) | Preferences for notifications on network configuration or status changes |  |
+|**name** | **String** | Customer-provided network name |  |
 |**scope** | **NetworkScope** |  |  |
+|**location** | [**SimplifiedLocation**](SimplifiedLocation.md) |  |  [optional] |
+|**project** | [**Project**](Project.md) |  |  [optional] |
+|**notifications** | [**List&lt;SimplifiedNotification&gt;**](SimplifiedNotification.md) | Preferences for notifications on network configuration or status changes |  |
 
 
 

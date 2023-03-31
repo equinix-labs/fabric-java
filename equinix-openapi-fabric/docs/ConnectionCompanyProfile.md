@@ -8,9 +8,9 @@ Connection Company Profile Details
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
+|**id** | **BigDecimal** | company profile identifier |  [optional] |
 |**name** | **String** | company profile name |  [optional] |
 |**globalOrgId** | **String** | global customer organization value |  [optional] |
-|**id** | **BigDecimal** | company profile identifier |  [optional] |
 
 
 

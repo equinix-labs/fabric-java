@@ -8,17 +8,17 @@ Route table entry object
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**nextHop** | **String** |  |  [optional] |
-|**metric** | **Integer** |  |  [optional] |
-|**prefix** | **String** |  |  [optional] |
-|**localPreference** | **Integer** |  |  [optional] |
-|**asPath** | **List&lt;Integer&gt;** |  |  [optional] |
-|**changeLog** | [**Changelog**](Changelog.md) |  |  |
-|**connection** | [**RouteTableEntryConnection**](RouteTableEntryConnection.md) |  |  [optional] |
+|**type** | **RouteTableEntryType** |  |  |
 |**protocolType** | **RouteTableEntryProtocolType** |  |  [optional] |
 |**state** | **RouteTableEntryState** |  |  |
-|**type** | **RouteTableEntryType** |  |  |
 |**age** | **String** |  |  [optional] |
+|**prefix** | **String** |  |  [optional] |
+|**nextHop** | **String** |  |  [optional] |
+|**metric** | **Integer** |  |  [optional] |
+|**localPreference** | **Integer** |  |  [optional] |
+|**asPath** | **List&lt;Integer&gt;** |  |  [optional] |
+|**connection** | [**RouteTableEntryConnection**](RouteTableEntryConnection.md) |  |  [optional] |
+|**changeLog** | [**Changelog**](Changelog.md) |  |  |
 
 
 
