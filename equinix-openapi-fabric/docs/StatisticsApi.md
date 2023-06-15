@@ -1,6 +1,6 @@
 # StatisticsApi
 
-All URIs are relative to *https://virtserver.swaggerhub.com/equinix-api/fabric/4.6*
+All URIs are relative to *https://api.equinix.com*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
@@ -23,18 +23,13 @@ This API provides service-level metrics so that you can view access and gather k
 import com.equinix.openapi.fabric.ApiClient;
 import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
 import com.equinix.openapi.fabric.models.*;
 import com.equinix.openapi.fabric.v4.api.StatisticsApi;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+    defaultClient.setBasePath("https://api.equinix.com");
 
     StatisticsApi apiInstance = new StatisticsApi(defaultClient);
     String connectionId = "connectionId_example"; // String | Connection UUID
@@ -70,7 +65,7 @@ public class Example {
 
 ### Authorization
 
-[BearerAuth](../README.md#BearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -98,18 +93,13 @@ This API provides top utilized service-level traffic metrics so that you can vie
 import com.equinix.openapi.fabric.ApiClient;
 import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
 import com.equinix.openapi.fabric.models.*;
 import com.equinix.openapi.fabric.v4.api.StatisticsApi;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+    defaultClient.setBasePath("https://api.equinix.com");
 
     StatisticsApi apiInstance = new StatisticsApi(defaultClient);
     List<String> metros = Arrays.asList(); // List<String> | Two-letter prefix indicating the metropolitan area in which a specified Equinix asset is located.
@@ -151,7 +141,7 @@ public class Example {
 
 ### Authorization
 
-[BearerAuth](../README.md#BearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -179,18 +169,13 @@ This API provides service-level traffic metrics so that you can view access and 
 import com.equinix.openapi.fabric.ApiClient;
 import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
 import com.equinix.openapi.fabric.models.*;
 import com.equinix.openapi.fabric.v4.api.StatisticsApi;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+    defaultClient.setBasePath("https://api.equinix.com");
 
     StatisticsApi apiInstance = new StatisticsApi(defaultClient);
     UUID portId = UUID.randomUUID(); // UUID | Port UUID
@@ -224,7 +209,7 @@ public class Example {
 
 ### Authorization
 
-[BearerAuth](../README.md#BearerAuth)
+No authorization required
 
 ### HTTP request headers
 

@@ -16,7 +16,7 @@ Port specification
 |**description** | **String** | Equinix assigned response attribute for Port description |  [optional] |
 |**physicalPortsSpeed** | **Integer** | Physical Ports Speed in Mbps |  |
 |**connectionsCount** | **Integer** | Equinix assigned response attribute for Connection count |  [optional] |
-|**physicalPortsType** | **String** | Physical Ports Type |  |
+|**physicalPortsType** | [**PhysicalPortsTypeEnum**](#PhysicalPortsTypeEnum) | Physical Ports Type |  |
 |**physicalPortsCount** | **Integer** |  |  [optional] |
 |**connectivitySourceType** | [**ConnectivitySourceTypeEnum**](#ConnectivitySourceTypeEnum) | Port connectivity type |  |
 |**bmmrType** | [**BmmrTypeEnum**](#BmmrTypeEnum) |  |  [optional] |
@@ -34,7 +34,8 @@ Port specification
 |**location** | [**SimplifiedLocation**](SimplifiedLocation.md) |  |  |
 |**device** | [**PortDevice**](PortDevice.md) |  |  [optional] |
 |**_interface** | [**PortInterface**](PortInterface.md) |  |  [optional] |
-|**tether** | [**PortTether**](PortTether.md) |  |  [optional] |
+|**demarcationPointIbx** | **String** | A-side/Equinix ibx |  [optional] |
+|**tetherIbx** | **String** | z-side/Equinix ibx |  [optional] |
 |**demarcationPoint** | [**PortDemarcationPoint**](PortDemarcationPoint.md) |  |  [optional] |
 |**redundancy** | [**PortRedundancy**](PortRedundancy.md) |  |  [optional] |
 |**encapsulation** | [**PortEncapsulation**](PortEncapsulation.md) |  |  |
@@ -46,6 +47,18 @@ Port specification
 |**additionalInfo** | [**List&lt;PortAdditionalInfo&gt;**](PortAdditionalInfo.md) | Port additional information |  [optional] |
 |**physicalPorts** | [**List&lt;PhysicalPort&gt;**](PhysicalPort.md) | Physical ports that implement this port |  [optional] |
 |**loas** | [**List&lt;PortLoa&gt;**](PortLoa.md) | Port Loas |  [optional] |
+
+
+
+## Enum: PhysicalPortsTypeEnum
+
+| Name | Value |
+|---- | -----|
+| _1000BASE_LX | &quot;1000BASE_LX&quot; |
+| _10GBASE_LR | &quot;10GBASE_LR&quot; |
+| _100GBASE_LR4 | &quot;100GBASE_LR4&quot; |
+| _10GBASE_ER | &quot;10GBASE_ER&quot; |
+| _1000BASE_SX | &quot;1000BASE_SX&quot; |
 
 
 

@@ -1,6 +1,6 @@
 # MetrosApi
 
-All URIs are relative to *https://virtserver.swaggerhub.com/equinix-api/fabric/4.6*
+All URIs are relative to *https://api.equinix.com*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
@@ -22,18 +22,13 @@ GET Metros retrieves all Equinix Fabric metros, as well as latency data between 
 import com.equinix.openapi.fabric.ApiClient;
 import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
 import com.equinix.openapi.fabric.models.*;
 import com.equinix.openapi.fabric.v4.api.MetrosApi;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+    defaultClient.setBasePath("https://api.equinix.com");
 
     MetrosApi apiInstance = new MetrosApi(defaultClient);
     String metroCode = "metroCode_example"; // String | Metro Code
@@ -63,7 +58,7 @@ public class Example {
 
 ### Authorization
 
-[BearerAuth](../README.md#BearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -92,18 +87,13 @@ GET All Subscriber Metros with an option query parameter to return all Equinix F
 import com.equinix.openapi.fabric.ApiClient;
 import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
 import com.equinix.openapi.fabric.models.*;
 import com.equinix.openapi.fabric.v4.api.MetrosApi;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+    defaultClient.setBasePath("https://api.equinix.com");
 
     MetrosApi apiInstance = new MetrosApi(defaultClient);
     Presence presence = Presence.fromValue("MY_PORTS"); // Presence | User On Boarded Metros based on Fabric resource availability
@@ -137,7 +127,7 @@ public class Example {
 
 ### Authorization
 
-[BearerAuth](../README.md#BearerAuth)
+No authorization required
 
 ### HTTP request headers
 

@@ -1,7 +1,7 @@
 # equinix-openapi-fabric
 
 Equinix Fabric API v4
-- API version: 4.6
+- API version: 4.8
 
 Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br>
 
@@ -40,7 +40,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.equinix</groupId>
   <artifactId>equinix-openapi-fabric</artifactId>
-  <version>0.1.0</version>
+  <version>0.2.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -56,7 +56,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "com.equinix:equinix-openapi-fabric:0.1.0"
+     implementation "com.equinix:equinix-openapi-fabric:0.2.0"
   }
 ```
 
@@ -70,7 +70,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/equinix-openapi-fabric-0.1.0.jar`
+* `target/equinix-openapi-fabric-0.2.0.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -83,18 +83,13 @@ Please follow the [installation](#installation) instruction and execute the foll
 import com.equinix.openapi.fabric.ApiClient;
 import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
 import com.equinix.openapi.fabric.models.*;
 import com.equinix.openapi.fabric.v4.api.ConnectionsApi;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+    defaultClient.setBasePath("https://api.equinix.com");
 
     ConnectionsApi apiInstance = new ConnectionsApi(defaultClient);
     ConnectionPostRequest connectionPostRequest = new ConnectionPostRequest(); // ConnectionPostRequest | 
@@ -115,7 +110,7 @@ public class Example {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://virtserver.swaggerhub.com/equinix-api/fabric/4.6*
+All URIs are relative to *https://api.equinix.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -146,8 +141,12 @@ Class | Method | HTTP request | Description
 *NetworksApi* | [**getNetworkChanges**](docs/NetworksApi.md#getNetworkChanges) | **GET** /fabric/v4/networks/{networkId}/changes | Get Network Changes
 *NetworksApi* | [**searchNetworks**](docs/NetworksApi.md#searchNetworks) | **POST** /fabric/v4/networks/search | Search Network
 *NetworksApi* | [**updateNetworkByUuid**](docs/NetworksApi.md#updateNetworkByUuid) | **PATCH** /fabric/v4/networks/{networkId} | Update Network By ID
+*PortsApi* | [**addToLag**](docs/PortsApi.md#addToLag) | **POST** /fabric/v4/ports/{portId}/physicalPorts/bulk | Add to Lag
+*PortsApi* | [**createBulkPort**](docs/PortsApi.md#createBulkPort) | **POST** /fabric/v4/ports/bulk | Create Port
+*PortsApi* | [**createPort**](docs/PortsApi.md#createPort) | **POST** /fabric/v4/ports | Create Port
 *PortsApi* | [**getPortByUuid**](docs/PortsApi.md#getPortByUuid) | **GET** /fabric/v4/ports/{portId} | Get Port by uuid
 *PortsApi* | [**getPorts**](docs/PortsApi.md#getPorts) | **GET** /fabric/v4/ports | Get All Ports
+*PortsApi* | [**getVlans**](docs/PortsApi.md#getVlans) | **GET** /fabric/v4/ports/{portUuid}/linkProtocols | Get Vlans
 *PricesApi* | [**searchPrices**](docs/PricesApi.md#searchPrices) | **POST** /fabric/v4/prices/search | Get Prices
 *RoutesApi* | [**searchRoutes**](docs/RoutesApi.md#searchRoutes) | **POST** /fabric/v4/gateways/{gatewayId}/routes/search | Search Route Table
 *RoutingProtocolsApi* | [**createConnectionRoutingProtocol**](docs/RoutingProtocolsApi.md#createConnectionRoutingProtocol) | **POST** /fabric/v4/connections/{connectionId}/routingProtocols | Create Protocol
@@ -188,6 +187,8 @@ Class | Method | HTTP request | Description
  - [AccessPointType](docs/AccessPointType.md)
  - [Actions](docs/Actions.md)
  - [AddOperation](docs/AddOperation.md)
+ - [AdditionalInfo](docs/AdditionalInfo.md)
+ - [AllPhysicalPortsResponse](docs/AllPhysicalPortsResponse.md)
  - [AllPortsResponse](docs/AllPortsResponse.md)
  - [ApiConfig](docs/ApiConfig.md)
  - [ApiServices](docs/ApiServices.md)
@@ -200,6 +201,8 @@ Class | Method | HTTP request | Description
  - [BGPConnectionIpv4](docs/BGPConnectionIpv4.md)
  - [BGPConnectionIpv6](docs/BGPConnectionIpv6.md)
  - [BandwidthUtilization](docs/BandwidthUtilization.md)
+ - [BulkPhysicalPort](docs/BulkPhysicalPort.md)
+ - [BulkPort](docs/BulkPort.md)
  - [Change](docs/Change.md)
  - [Changelog](docs/Changelog.md)
  - [Code](docs/Code.md)
@@ -211,6 +214,7 @@ Class | Method | HTTP request | Description
  - [ConnectionChangeOperation](docs/ConnectionChangeOperation.md)
  - [ConnectionCompanyProfile](docs/ConnectionCompanyProfile.md)
  - [ConnectionDirection](docs/ConnectionDirection.md)
+ - [ConnectionInvitation](docs/ConnectionInvitation.md)
  - [ConnectionOperation](docs/ConnectionOperation.md)
  - [ConnectionPostRequest](docs/ConnectionPostRequest.md)
  - [ConnectionPriority](docs/ConnectionPriority.md)
@@ -265,10 +269,16 @@ Class | Method | HTTP request | Description
  - [Link](docs/Link.md)
  - [LinkAggregationGroup](docs/LinkAggregationGroup.md)
  - [LinkProtocol](docs/LinkProtocol.md)
+ - [LinkProtocolConnection](docs/LinkProtocolConnection.md)
  - [LinkProtocolDot1q](docs/LinkProtocolDot1q.md)
  - [LinkProtocolEvpnVxlan](docs/LinkProtocolEvpnVxlan.md)
+ - [LinkProtocolGetResponse](docs/LinkProtocolGetResponse.md)
  - [LinkProtocolIpv4Ipv6Config](docs/LinkProtocolIpv4Ipv6Config.md)
  - [LinkProtocolQinq](docs/LinkProtocolQinq.md)
+ - [LinkProtocolRequestType](docs/LinkProtocolRequestType.md)
+ - [LinkProtocolResponse](docs/LinkProtocolResponse.md)
+ - [LinkProtocolServiceToken](docs/LinkProtocolServiceToken.md)
+ - [LinkProtocolState](docs/LinkProtocolState.md)
  - [LinkProtocolType](docs/LinkProtocolType.md)
  - [LinkProtocolUntagged](docs/LinkProtocolUntagged.md)
  - [MarketingInfo](docs/MarketingInfo.md)
@@ -420,13 +430,13 @@ Class | Method | HTTP request | Description
  - [SimplifiedNotification](docs/SimplifiedNotification.md)
  - [SimplifiedPort](docs/SimplifiedPort.md)
  - [SimplifiedServiceProfile](docs/SimplifiedServiceProfile.md)
- - [SimplifiedServiceToken](docs/SimplifiedServiceToken.md)
  - [Sort](docs/Sort.md)
  - [SortBy](docs/SortBy.md)
  - [SortCriteria](docs/SortCriteria.md)
  - [SortCriteriaResponse](docs/SortCriteriaResponse.md)
  - [SortDirection](docs/SortDirection.md)
  - [Statistics](docs/Statistics.md)
+ - [SubInterface](docs/SubInterface.md)
  - [TopUtilizedStatistics](docs/TopUtilizedStatistics.md)
  - [ValidateConnectionRequest](docs/ValidateConnectionRequest.md)
  - [ValidateConnectionRequestFilter](docs/ValidateConnectionRequestFilter.md)

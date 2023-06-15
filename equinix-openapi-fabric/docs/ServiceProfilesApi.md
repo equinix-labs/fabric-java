@@ -1,6 +1,6 @@
 # ServiceProfilesApi
 
-All URIs are relative to *https://virtserver.swaggerhub.com/equinix-api/fabric/4.6*
+All URIs are relative to *https://api.equinix.com*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
@@ -27,18 +27,13 @@ Create Service Profile creates Equinix Fabric? Service Profile.
 import com.equinix.openapi.fabric.ApiClient;
 import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
 import com.equinix.openapi.fabric.models.*;
 import com.equinix.openapi.fabric.v4.api.ServiceProfilesApi;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+    defaultClient.setBasePath("https://api.equinix.com");
 
     ServiceProfilesApi apiInstance = new ServiceProfilesApi(defaultClient);
     ServiceProfileRequest serviceProfileRequest = new ServiceProfileRequest(); // ServiceProfileRequest | 
@@ -68,7 +63,7 @@ public class Example {
 
 ### Authorization
 
-[BearerAuth](../README.md#BearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -98,18 +93,13 @@ delete Service Profile by UUID
 import com.equinix.openapi.fabric.ApiClient;
 import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
 import com.equinix.openapi.fabric.models.*;
 import com.equinix.openapi.fabric.v4.api.ServiceProfilesApi;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+    defaultClient.setBasePath("https://api.equinix.com");
 
     ServiceProfilesApi apiInstance = new ServiceProfilesApi(defaultClient);
     UUID serviceProfileId = UUID.randomUUID(); // UUID | Service Profile UUID
@@ -139,7 +129,7 @@ public class Example {
 
 ### Authorization
 
-[BearerAuth](../README.md#BearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -170,18 +160,13 @@ Get service profile by UUID. View Point parameter if set to zSide will give sell
 import com.equinix.openapi.fabric.ApiClient;
 import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
 import com.equinix.openapi.fabric.models.*;
 import com.equinix.openapi.fabric.v4.api.ServiceProfilesApi;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+    defaultClient.setBasePath("https://api.equinix.com");
 
     ServiceProfilesApi apiInstance = new ServiceProfilesApi(defaultClient);
     UUID serviceProfileId = UUID.randomUUID(); // UUID | Service Profile UUID
@@ -213,7 +198,7 @@ public class Example {
 
 ### Authorization
 
-[BearerAuth](../README.md#BearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -243,18 +228,13 @@ The API request returns all Equinix Fabric Service Profiles in accordance with t
 import com.equinix.openapi.fabric.ApiClient;
 import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
 import com.equinix.openapi.fabric.models.*;
 import com.equinix.openapi.fabric.v4.api.ServiceProfilesApi;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+    defaultClient.setBasePath("https://api.equinix.com");
 
     ServiceProfilesApi apiInstance = new ServiceProfilesApi(defaultClient);
     Integer offset = 1; // Integer | offset
@@ -288,7 +268,7 @@ public class Example {
 
 ### Authorization
 
-[BearerAuth](../README.md#BearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -318,18 +298,13 @@ This API request replaces a service profile definition
 import com.equinix.openapi.fabric.ApiClient;
 import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
 import com.equinix.openapi.fabric.models.*;
 import com.equinix.openapi.fabric.v4.api.ServiceProfilesApi;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+    defaultClient.setBasePath("https://api.equinix.com");
 
     ServiceProfilesApi apiInstance = new ServiceProfilesApi(defaultClient);
     UUID serviceProfileId = UUID.randomUUID(); // UUID | Service Profile UUID
@@ -363,7 +338,7 @@ public class Example {
 
 ### Authorization
 
-[BearerAuth](../README.md#BearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -394,18 +369,13 @@ Search service profiles by search criteria
 import com.equinix.openapi.fabric.ApiClient;
 import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
 import com.equinix.openapi.fabric.models.*;
 import com.equinix.openapi.fabric.v4.api.ServiceProfilesApi;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+    defaultClient.setBasePath("https://api.equinix.com");
 
     ServiceProfilesApi apiInstance = new ServiceProfilesApi(defaultClient);
     ServiceProfileSearchRequest serviceProfileSearchRequest = new ServiceProfileSearchRequest(); // ServiceProfileSearchRequest | 
@@ -435,7 +405,7 @@ public class Example {
 
 ### Authorization
 
-[BearerAuth](../README.md#BearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -464,18 +434,13 @@ Update Service Profile by UUID
 import com.equinix.openapi.fabric.ApiClient;
 import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
 import com.equinix.openapi.fabric.models.*;
 import com.equinix.openapi.fabric.v4.api.ServiceProfilesApi;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+    defaultClient.setBasePath("https://api.equinix.com");
 
     ServiceProfilesApi apiInstance = new ServiceProfilesApi(defaultClient);
     UUID serviceProfileId = UUID.randomUUID(); // UUID | Service Profile UUID
@@ -509,7 +474,7 @@ public class Example {
 
 ### Authorization
 
-[BearerAuth](../README.md#BearerAuth)
+No authorization required
 
 ### HTTP request headers
 

@@ -17,7 +17,6 @@ Port signature Type
 
 | Name | Value |
 |---- | -----|
-| ECHOSIGN | &quot;ECHOSIGN&quot; |
 | DELEGATE | &quot;DELEGATE&quot; |
 | SELF | &quot;SELF&quot; |
 | ACCOUNT_SUPPORT | &quot;ACCOUNT_SUPPORT&quot; |

@@ -14,6 +14,7 @@ Port physical connection
 |**patchPanel** | **String** | Port patch panel |  [optional] |
 |**patchPanelPortA** | **String** | Port patch panel port A |  [optional] |
 |**patchPanelPortB** | **String** | Port patch panel port B |  [optional] |
+|**ibx** | **String** | z-side/Equinix IBX |  [optional] |
 
 
 

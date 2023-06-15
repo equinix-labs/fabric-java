@@ -1,13 +1,14 @@
 
 
-# SimplifiedServiceToken
+# BulkPort
 
+Create bulk port request
 
 ## Properties
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**uuid** | **UUID** | Equinix-assigned service token identifier |  |
+|**data** | [**List&lt;Port&gt;**](Port.md) |  |  [optional] |
 
 
 
