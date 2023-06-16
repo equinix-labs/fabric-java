@@ -19,23 +19,32 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
+import java.net.URI;
 import java.util.UUID;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 
 /**
- * Model tests for SimplifiedServiceToken
+ * Model tests for LinkProtocolServiceToken
  */
-public class SimplifiedServiceTokenTest {
-    private final SimplifiedServiceToken model = new SimplifiedServiceToken();
+public class LinkProtocolServiceTokenTest {
+    private final LinkProtocolServiceToken model = new LinkProtocolServiceToken();
 
     /**
-     * Model tests for SimplifiedServiceToken
+     * Model tests for LinkProtocolServiceToken
      */
     @Test
-    public void testSimplifiedServiceToken() {
-        // TODO: test SimplifiedServiceToken
+    public void testLinkProtocolServiceToken() {
+        // TODO: test LinkProtocolServiceToken
+    }
+
+    /**
+     * Test the property 'href'
+     */
+    @Test
+    public void hrefTest() {
+        // TODO: test href
     }
 
     /**
@@ -44,6 +53,22 @@ public class SimplifiedServiceTokenTest {
     @Test
     public void uuidTest() {
         // TODO: test uuid
+    }
+
+    /**
+     * Test the property 'type'
+     */
+    @Test
+    public void typeTest() {
+        // TODO: test type
+    }
+
+    /**
+     * Test the property 'bandwidth'
+     */
+    @Test
+    public void bandwidthTest() {
+        // TODO: test bandwidth
     }
 
 }

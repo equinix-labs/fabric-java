@@ -21,7 +21,6 @@ Search prices by search criteria
 import com.equinix.openapi.fabric.ApiClient;
 import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
 import com.equinix.openapi.fabric.models.*;
 import com.equinix.openapi.fabric.v4.api.PricesApi;
 
@@ -29,10 +28,6 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
 
     PricesApi apiInstance = new PricesApi(defaultClient);
     FilterBody filterBody = new FilterBody(); // FilterBody | 
@@ -62,7 +57,7 @@ public class Example {
 
 ### Authorization
 
-[BearerAuth](../README.md#BearerAuth)
+No authorization required
 
 ### HTTP request headers
 

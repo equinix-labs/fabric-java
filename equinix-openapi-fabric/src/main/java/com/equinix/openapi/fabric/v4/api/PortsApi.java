@@ -29,6 +29,7 @@ import java.io.IOException;
 
 import com.equinix.openapi.fabric.v4.model.AllPortsResponse;
 import com.equinix.openapi.fabric.v4.model.Error;
+import com.equinix.openapi.fabric.v4.model.LinkProtocolGetResponse;
 import com.equinix.openapi.fabric.v4.model.Port;
 import java.util.UUID;
 
@@ -333,6 +334,137 @@ public class PortsApi {
 
         okhttp3.Call localVarCall = getPortsValidateBeforeCall(name, _callback);
         Type localVarReturnType = new TypeToken<AllPortsResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for getVlans
+     * @param portUuid Port UUID (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Get Vlans </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getVlansCall(UUID portUuid, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/ports/{portUuid}/linkProtocols"
+            .replace("{" + "portUuid" + "}", localVarApiClient.escapeString(portUuid.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getVlansValidateBeforeCall(UUID portUuid, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'portUuid' is set
+        if (portUuid == null) {
+            throw new ApiException("Missing the required parameter 'portUuid' when calling getVlans(Async)");
+        }
+
+        return getVlansCall(portUuid, _callback);
+
+    }
+
+    /**
+     * Get Vlans
+     * The API provides capability to retrieve Vlans for a Port.
+     * @param portUuid Port UUID (required)
+     * @return LinkProtocolGetResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Get Vlans </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+     </table>
+     */
+    public LinkProtocolGetResponse getVlans(UUID portUuid) throws ApiException {
+        ApiResponse<LinkProtocolGetResponse> localVarResp = getVlansWithHttpInfo(portUuid);
+        return localVarResp.getData();
+    }
+
+    /**
+     * Get Vlans
+     * The API provides capability to retrieve Vlans for a Port.
+     * @param portUuid Port UUID (required)
+     * @return ApiResponse&lt;LinkProtocolGetResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Get Vlans </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<LinkProtocolGetResponse> getVlansWithHttpInfo(UUID portUuid) throws ApiException {
+        okhttp3.Call localVarCall = getVlansValidateBeforeCall(portUuid, null);
+        Type localVarReturnType = new TypeToken<LinkProtocolGetResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Get Vlans (asynchronously)
+     * The API provides capability to retrieve Vlans for a Port.
+     * @param portUuid Port UUID (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Get Vlans </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getVlansAsync(UUID portUuid, final ApiCallback<LinkProtocolGetResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getVlansValidateBeforeCall(portUuid, _callback);
+        Type localVarReturnType = new TypeToken<LinkProtocolGetResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

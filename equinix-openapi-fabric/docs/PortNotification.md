@@ -18,6 +18,8 @@
 |---- | -----|
 | NOTIFICATION | &quot;NOTIFICATION&quot; |
 | TECHNICAL | &quot;TECHNICAL&quot; |
+| PEERING | &quot;PEERING&quot; |
+| ESCALATION | &quot;ESCALATION&quot; |
 
 
 

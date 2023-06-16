@@ -15,8 +15,9 @@ package com.equinix.openapi.fabric.v4.model;
 
 import com.equinix.openapi.fabric.v4.model.AccessPoint;
 import com.equinix.openapi.fabric.v4.model.ConnectionCompanyProfile;
+import com.equinix.openapi.fabric.v4.model.ConnectionInvitation;
 import com.equinix.openapi.fabric.v4.model.ConnectionSideAdditionalInfo;
-import com.equinix.openapi.fabric.v4.model.SimplifiedServiceToken;
+import com.equinix.openapi.fabric.v4.model.ServiceToken;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -65,6 +66,14 @@ public class ConnectionSideTest {
     @Test
     public void companyProfileTest() {
         // TODO: test companyProfile
+    }
+
+    /**
+     * Test the property 'invitation'
+     */
+    @Test
+    public void invitationTest() {
+        // TODO: test invitation
     }
 
     /**

@@ -27,9 +27,7 @@ Fabric Gateway Package Type
 | Name | Value |
 |---- | -----|
 | LAB | &quot;LAB&quot; |
-| BASIC | &quot;BASIC&quot; |
 | PRO | &quot;PRO&quot; |
-| PREMIUM | &quot;PREMIUM&quot; |
 
 
 

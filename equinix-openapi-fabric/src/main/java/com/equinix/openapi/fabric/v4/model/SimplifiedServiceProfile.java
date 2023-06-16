@@ -226,7 +226,7 @@ public class SimplifiedServiceProfile {
   }
 
    /**
-   * User-provided service description
+   * User-provided service description should be of maximum length 375
    * @return description
   **/
   @javax.annotation.Nullable

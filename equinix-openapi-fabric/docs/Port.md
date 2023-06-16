@@ -34,7 +34,7 @@ Port specification
 |**location** | [**SimplifiedLocation**](SimplifiedLocation.md) |  |  |
 |**device** | [**PortDevice**](PortDevice.md) |  |  [optional] |
 |**_interface** | [**PortInterface**](PortInterface.md) |  |  [optional] |
-|**tether** | [**PortTether**](PortTether.md) |  |  [optional] |
+|**tetherIbx** | **String** | z-side/Equinix ibx |  [optional] |
 |**demarcationPoint** | [**PortDemarcationPoint**](PortDemarcationPoint.md) |  |  [optional] |
 |**redundancy** | [**PortRedundancy**](PortRedundancy.md) |  |  [optional] |
 |**encapsulation** | [**PortEncapsulation**](PortEncapsulation.md) |  |  |

@@ -8,6 +8,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**accountNumber** | **Long** | Account number |  [optional] |
+|**accountReferenceId** | **String** | Account ReferenceId |  [optional] |
 |**accountName** | **String** | Account name |  [optional] |
 |**orgId** | **Long** | Customer organization identifier |  [optional] |
 |**organizationName** | **String** | Customer organization name |  [optional] |

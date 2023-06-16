@@ -426,7 +426,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **gatewayPackageCode** | [**GatewayPackageCode**](.md)| Equinix-assigned gateway package identifier | [enum: LAB, BASIC, PRO, PREMIUM] |
+| **gatewayPackageCode** | [**GatewayPackageCode**](.md)| Equinix-assigned gateway package identifier | [enum: LAB, PRO] |
 
 ### Return type
 
@@ -448,7 +448,7 @@ public class Example {
 | **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
+| **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
 
 <a name="getGatewayPackages"></a>
@@ -519,10 +519,9 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Fabric Gateway Packages |  -  |
-| **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
+| **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
 
 <a name="searchGateways"></a>

@@ -72,6 +72,14 @@ public class ServiceToken {
   @SerializedName(SERIALIZED_NAME_UUID)
   private UUID uuid;
 
+  public static final String SERIALIZED_NAME_NAME = "name";
+  @SerializedName(SERIALIZED_NAME_NAME)
+  private String name;
+
+  public static final String SERIALIZED_NAME_DESCRIPTION = "description";
+  @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  private String description;
+
   public static final String SERIALIZED_NAME_EXPIRATION_DATE_TIME = "expirationDateTime";
   @SerializedName(SERIALIZED_NAME_EXPIRATION_DATE_TIME)
   private OffsetDateTime expirationDateTime;
@@ -156,7 +164,7 @@ public class ServiceToken {
    * Equinix-assigned service token identifier
    * @return uuid
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
 
   public UUID getUuid() {
     return uuid;
@@ -165,6 +173,50 @@ public class ServiceToken {
 
   public void setUuid(UUID uuid) {
     this.uuid = uuid;
+  }
+
+
+  public ServiceToken name(String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+   /**
+   * Customer-provided service token name
+   * @return name
+  **/
+  @javax.annotation.Nullable
+
+  public String getName() {
+    return name;
+  }
+
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+
+  public ServiceToken description(String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+   /**
+   * Customer-provided service token description
+   * @return description
+  **/
+  @javax.annotation.Nullable
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 
 
@@ -387,6 +439,8 @@ public class ServiceToken {
     return Objects.equals(this.type, serviceToken.type) &&
         Objects.equals(this.href, serviceToken.href) &&
         Objects.equals(this.uuid, serviceToken.uuid) &&
+        Objects.equals(this.name, serviceToken.name) &&
+        Objects.equals(this.description, serviceToken.description) &&
         Objects.equals(this.expirationDateTime, serviceToken.expirationDateTime) &&
         Objects.equals(this.connection, serviceToken.connection) &&
         Objects.equals(this.state, serviceToken.state) &&
@@ -399,7 +453,7 @@ public class ServiceToken {
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, href, uuid, expirationDateTime, connection, state, notifications, account, changelog, project, additionalProperties);
+    return Objects.hash(type, href, uuid, name, description, expirationDateTime, connection, state, notifications, account, changelog, project, additionalProperties);
   }
 
   @Override
@@ -409,6 +463,8 @@ public class ServiceToken {
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    href: ").append(toIndentedString(href)).append("\n");
     sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    expirationDateTime: ").append(toIndentedString(expirationDateTime)).append("\n");
     sb.append("    connection: ").append(toIndentedString(connection)).append("\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
@@ -442,6 +498,8 @@ public class ServiceToken {
     openapiFields.add("type");
     openapiFields.add("href");
     openapiFields.add("uuid");
+    openapiFields.add("name");
+    openapiFields.add("description");
     openapiFields.add("expirationDateTime");
     openapiFields.add("connection");
     openapiFields.add("state");
@@ -452,6 +510,7 @@ public class ServiceToken {
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("uuid");
   }
 
  /**
@@ -466,11 +525,24 @@ public class ServiceToken {
           throw new IllegalArgumentException(String.format("The required field(s) %s in ServiceToken is not found in the empty JSON string", ServiceToken.openapiRequiredFields.toString()));
         }
       }
+
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : ServiceToken.openapiRequiredFields) {
+        if (jsonObj.get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
+        }
+      }
       if ((jsonObj.get("href") != null && !jsonObj.get("href").isJsonNull()) && !jsonObj.get("href").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `href` to be a primitive type in the JSON string but got `%s`", jsonObj.get("href").toString()));
       }
-      if ((jsonObj.get("uuid") != null && !jsonObj.get("uuid").isJsonNull()) && !jsonObj.get("uuid").isJsonPrimitive()) {
+      if (!jsonObj.get("uuid").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `uuid` to be a primitive type in the JSON string but got `%s`", jsonObj.get("uuid").toString()));
+      }
+      if ((jsonObj.get("name") != null && !jsonObj.get("name").isJsonNull()) && !jsonObj.get("name").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
+      }
+      if ((jsonObj.get("description") != null && !jsonObj.get("description").isJsonNull()) && !jsonObj.get("description").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `description` to be a primitive type in the JSON string but got `%s`", jsonObj.get("description").toString()));
       }
       // validate the optional field `connection`
       if (jsonObj.get("connection") != null && !jsonObj.get("connection").isJsonNull()) {

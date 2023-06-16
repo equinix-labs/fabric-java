@@ -85,4 +85,12 @@ public class PortTetherTest {
         // TODO: test patchPanelPortB
     }
 
+    /**
+     * Test the property 'ibx'
+     */
+    @Test
+    public void ibxTest() {
+        // TODO: test ibx
+    }
+
 }

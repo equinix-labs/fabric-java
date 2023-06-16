@@ -21,7 +21,6 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
-import java.util.UUID;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -45,36 +44,88 @@ import java.util.Set;
 import com.equinix.openapi.fabric.JSON;
 
 /**
- * SimplifiedServiceToken
+ * Connection Invitation Details
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class SimplifiedServiceToken {
-  public static final String SERIALIZED_NAME_UUID = "uuid";
-  @SerializedName(SERIALIZED_NAME_UUID)
-  private UUID uuid;
+public class ConnectionInvitation {
+  public static final String SERIALIZED_NAME_EMAIL = "email";
+  @SerializedName(SERIALIZED_NAME_EMAIL)
+  private String email;
 
-  public SimplifiedServiceToken() {
+  public static final String SERIALIZED_NAME_MESSAGE = "message";
+  @SerializedName(SERIALIZED_NAME_MESSAGE)
+  private String message;
+
+  public static final String SERIALIZED_NAME_CTR_DRAFT_ORDER_ID = "ctrDraftOrderId";
+  @SerializedName(SERIALIZED_NAME_CTR_DRAFT_ORDER_ID)
+  private String ctrDraftOrderId;
+
+  public ConnectionInvitation() {
   }
 
-  public SimplifiedServiceToken uuid(UUID uuid) {
+  public ConnectionInvitation email(String email) {
     
-    this.uuid = uuid;
+    this.email = email;
     return this;
   }
 
    /**
-   * Equinix-assigned service token identifier
-   * @return uuid
+   * invitee email
+   * @return email
   **/
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
 
-  public UUID getUuid() {
-    return uuid;
+  public String getEmail() {
+    return email;
   }
 
 
-  public void setUuid(UUID uuid) {
-    this.uuid = uuid;
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+
+  public ConnectionInvitation message(String message) {
+    
+    this.message = message;
+    return this;
+  }
+
+   /**
+   * invitation message
+   * @return message
+  **/
+  @javax.annotation.Nullable
+
+  public String getMessage() {
+    return message;
+  }
+
+
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
+
+  public ConnectionInvitation ctrDraftOrderId(String ctrDraftOrderId) {
+    
+    this.ctrDraftOrderId = ctrDraftOrderId;
+    return this;
+  }
+
+   /**
+   * draft order id for invitation
+   * @return ctrDraftOrderId
+  **/
+  @javax.annotation.Nullable
+
+  public String getCtrDraftOrderId() {
+    return ctrDraftOrderId;
+  }
+
+
+  public void setCtrDraftOrderId(String ctrDraftOrderId) {
+    this.ctrDraftOrderId = ctrDraftOrderId;
   }
 
   /**
@@ -90,9 +141,9 @@ public class SimplifiedServiceToken {
    *
    * @param key name of the property
    * @param value value of the property
-   * @return the SimplifiedServiceToken instance itself
+   * @return the ConnectionInvitation instance itself
    */
-  public SimplifiedServiceToken putAdditionalProperty(String key, Object value) {
+  public ConnectionInvitation putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
         this.additionalProperties = new HashMap<String, Object>();
     }
@@ -131,21 +182,25 @@ public class SimplifiedServiceToken {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SimplifiedServiceToken simplifiedServiceToken = (SimplifiedServiceToken) o;
-    return Objects.equals(this.uuid, simplifiedServiceToken.uuid)&&
-        Objects.equals(this.additionalProperties, simplifiedServiceToken.additionalProperties);
+    ConnectionInvitation connectionInvitation = (ConnectionInvitation) o;
+    return Objects.equals(this.email, connectionInvitation.email) &&
+        Objects.equals(this.message, connectionInvitation.message) &&
+        Objects.equals(this.ctrDraftOrderId, connectionInvitation.ctrDraftOrderId)&&
+        Objects.equals(this.additionalProperties, connectionInvitation.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(uuid, additionalProperties);
+    return Objects.hash(email, message, ctrDraftOrderId, additionalProperties);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SimplifiedServiceToken {\n");
-    sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
+    sb.append("class ConnectionInvitation {\n");
+    sb.append("    email: ").append(toIndentedString(email)).append("\n");
+    sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("    ctrDraftOrderId: ").append(toIndentedString(ctrDraftOrderId)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -169,34 +224,34 @@ public class SimplifiedServiceToken {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("uuid");
+    openapiFields.add("email");
+    openapiFields.add("message");
+    openapiFields.add("ctrDraftOrderId");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("uuid");
   }
 
  /**
   * Validates the JSON Object and throws an exception if issues found
   *
   * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to SimplifiedServiceToken
+  * @throws IOException if the JSON Object is invalid with respect to ConnectionInvitation
   */
   public static void validateJsonObject(JsonObject jsonObj) throws IOException {
       if (jsonObj == null) {
-        if (!SimplifiedServiceToken.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in SimplifiedServiceToken is not found in the empty JSON string", SimplifiedServiceToken.openapiRequiredFields.toString()));
+        if (!ConnectionInvitation.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in ConnectionInvitation is not found in the empty JSON string", ConnectionInvitation.openapiRequiredFields.toString()));
         }
       }
-
-      // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : SimplifiedServiceToken.openapiRequiredFields) {
-        if (jsonObj.get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
-        }
+      if ((jsonObj.get("email") != null && !jsonObj.get("email").isJsonNull()) && !jsonObj.get("email").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `email` to be a primitive type in the JSON string but got `%s`", jsonObj.get("email").toString()));
       }
-      if (!jsonObj.get("uuid").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `uuid` to be a primitive type in the JSON string but got `%s`", jsonObj.get("uuid").toString()));
+      if ((jsonObj.get("message") != null && !jsonObj.get("message").isJsonNull()) && !jsonObj.get("message").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `message` to be a primitive type in the JSON string but got `%s`", jsonObj.get("message").toString()));
+      }
+      if ((jsonObj.get("ctrDraftOrderId") != null && !jsonObj.get("ctrDraftOrderId").isJsonNull()) && !jsonObj.get("ctrDraftOrderId").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `ctrDraftOrderId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("ctrDraftOrderId").toString()));
       }
   }
 
@@ -204,16 +259,16 @@ public class SimplifiedServiceToken {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!SimplifiedServiceToken.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'SimplifiedServiceToken' and its subtypes
+       if (!ConnectionInvitation.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'ConnectionInvitation' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<SimplifiedServiceToken> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(SimplifiedServiceToken.class));
+       final TypeAdapter<ConnectionInvitation> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(ConnectionInvitation.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<SimplifiedServiceToken>() {
+       return (TypeAdapter<T>) new TypeAdapter<ConnectionInvitation>() {
            @Override
-           public void write(JsonWriter out, SimplifiedServiceToken value) throws IOException {
+           public void write(JsonWriter out, ConnectionInvitation value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
              // serialize additional properties
@@ -236,11 +291,11 @@ public class SimplifiedServiceToken {
            }
 
            @Override
-           public SimplifiedServiceToken read(JsonReader in) throws IOException {
+           public ConnectionInvitation read(JsonReader in) throws IOException {
              JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
              validateJsonObject(jsonObj);
              // store additional fields in the deserialized instance
-             SimplifiedServiceToken instance = thisAdapter.fromJsonTree(jsonObj);
+             ConnectionInvitation instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
                if (!openapiFields.contains(entry.getKey())) {
                  if (entry.getValue().isJsonPrimitive()) { // primitive type
@@ -267,18 +322,18 @@ public class SimplifiedServiceToken {
   }
 
  /**
-  * Create an instance of SimplifiedServiceToken given an JSON string
+  * Create an instance of ConnectionInvitation given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of SimplifiedServiceToken
-  * @throws IOException if the JSON string is invalid with respect to SimplifiedServiceToken
+  * @return An instance of ConnectionInvitation
+  * @throws IOException if the JSON string is invalid with respect to ConnectionInvitation
   */
-  public static SimplifiedServiceToken fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, SimplifiedServiceToken.class);
+  public static ConnectionInvitation fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, ConnectionInvitation.class);
   }
 
  /**
-  * Convert an instance of SimplifiedServiceToken to an JSON string
+  * Convert an instance of ConnectionInvitation to an JSON string
   *
   * @return JSON string
   */

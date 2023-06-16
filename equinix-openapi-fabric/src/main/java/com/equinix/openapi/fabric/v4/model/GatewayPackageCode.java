@@ -31,11 +31,7 @@ public enum GatewayPackageCode {
   
   LAB("LAB"),
   
-  BASIC("BASIC"),
-  
-  PRO("PRO"),
-  
-  PREMIUM("PREMIUM");
+  PRO("PRO");
 
   private String value;
 
