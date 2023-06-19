@@ -52,6 +52,10 @@ public class SimplifiedAccount {
   @SerializedName(SERIALIZED_NAME_ACCOUNT_NUMBER)
   private Long accountNumber;
 
+  public static final String SERIALIZED_NAME_ACCOUNT_REFERENCE_ID = "accountReferenceId";
+  @SerializedName(SERIALIZED_NAME_ACCOUNT_REFERENCE_ID)
+  private String accountReferenceId;
+
   public static final String SERIALIZED_NAME_ACCOUNT_NAME = "accountName";
   @SerializedName(SERIALIZED_NAME_ACCOUNT_NAME)
   private String accountName;
@@ -118,6 +122,28 @@ public class SimplifiedAccount {
 
   public void setAccountNumber(Long accountNumber) {
     this.accountNumber = accountNumber;
+  }
+
+
+  public SimplifiedAccount accountReferenceId(String accountReferenceId) {
+    
+    this.accountReferenceId = accountReferenceId;
+    return this;
+  }
+
+   /**
+   * Account ReferenceId
+   * @return accountReferenceId
+  **/
+  @javax.annotation.Nullable
+
+  public String getAccountReferenceId() {
+    return accountReferenceId;
+  }
+
+
+  public void setAccountReferenceId(String accountReferenceId) {
+    this.accountReferenceId = accountReferenceId;
   }
 
 
@@ -418,6 +444,7 @@ public class SimplifiedAccount {
     }
     SimplifiedAccount simplifiedAccount = (SimplifiedAccount) o;
     return Objects.equals(this.accountNumber, simplifiedAccount.accountNumber) &&
+        Objects.equals(this.accountReferenceId, simplifiedAccount.accountReferenceId) &&
         Objects.equals(this.accountName, simplifiedAccount.accountName) &&
         Objects.equals(this.orgId, simplifiedAccount.orgId) &&
         Objects.equals(this.organizationName, simplifiedAccount.organizationName) &&
@@ -434,7 +461,7 @@ public class SimplifiedAccount {
 
   @Override
   public int hashCode() {
-    return Objects.hash(accountNumber, accountName, orgId, organizationName, globalOrgId, globalOrganizationName, ucmId, globalCustId, resellerAccountNumber, resellerAccountName, resellerUcmId, resellerOrgId, additionalProperties);
+    return Objects.hash(accountNumber, accountReferenceId, accountName, orgId, organizationName, globalOrgId, globalOrganizationName, ucmId, globalCustId, resellerAccountNumber, resellerAccountName, resellerUcmId, resellerOrgId, additionalProperties);
   }
 
   @Override
@@ -442,6 +469,7 @@ public class SimplifiedAccount {
     StringBuilder sb = new StringBuilder();
     sb.append("class SimplifiedAccount {\n");
     sb.append("    accountNumber: ").append(toIndentedString(accountNumber)).append("\n");
+    sb.append("    accountReferenceId: ").append(toIndentedString(accountReferenceId)).append("\n");
     sb.append("    accountName: ").append(toIndentedString(accountName)).append("\n");
     sb.append("    orgId: ").append(toIndentedString(orgId)).append("\n");
     sb.append("    organizationName: ").append(toIndentedString(organizationName)).append("\n");
@@ -477,6 +505,7 @@ public class SimplifiedAccount {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("accountNumber");
+    openapiFields.add("accountReferenceId");
     openapiFields.add("accountName");
     openapiFields.add("orgId");
     openapiFields.add("organizationName");
@@ -504,6 +533,9 @@ public class SimplifiedAccount {
         if (!SimplifiedAccount.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
           throw new IllegalArgumentException(String.format("The required field(s) %s in SimplifiedAccount is not found in the empty JSON string", SimplifiedAccount.openapiRequiredFields.toString()));
         }
+      }
+      if ((jsonObj.get("accountReferenceId") != null && !jsonObj.get("accountReferenceId").isJsonNull()) && !jsonObj.get("accountReferenceId").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `accountReferenceId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("accountReferenceId").toString()));
       }
       if ((jsonObj.get("accountName") != null && !jsonObj.get("accountName").isJsonNull()) && !jsonObj.get("accountName").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `accountName` to be a primitive type in the JSON string but got `%s`", jsonObj.get("accountName").toString()));

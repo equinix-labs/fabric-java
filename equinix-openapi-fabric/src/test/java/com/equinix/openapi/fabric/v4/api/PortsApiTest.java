@@ -16,6 +16,7 @@ package com.equinix.openapi.fabric.v4.api;
 import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.v4.model.AllPortsResponse;
 import com.equinix.openapi.fabric.v4.model.Error;
+import com.equinix.openapi.fabric.v4.model.LinkProtocolGetResponse;
 import com.equinix.openapi.fabric.v4.model.Port;
 import java.util.UUID;
 import org.junit.jupiter.api.Disabled;
@@ -59,6 +60,20 @@ public class PortsApiTest {
     public void getPortsTest() throws ApiException {
         String name = null;
         AllPortsResponse response = api.getPorts(name);
+        // TODO: test validations
+    }
+
+    /**
+     * Get Vlans
+     *
+     * The API provides capability to retrieve Vlans for a Port.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getVlansTest() throws ApiException {
+        UUID portUuid = null;
+        LinkProtocolGetResponse response = api.getVlans(portUuid);
         // TODO: test validations
     }
 

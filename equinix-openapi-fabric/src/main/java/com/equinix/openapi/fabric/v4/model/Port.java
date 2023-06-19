@@ -29,7 +29,6 @@ import com.equinix.openapi.fabric.v4.model.PortOrder;
 import com.equinix.openapi.fabric.v4.model.PortRedundancy;
 import com.equinix.openapi.fabric.v4.model.PortSettings;
 import com.equinix.openapi.fabric.v4.model.PortState;
-import com.equinix.openapi.fabric.v4.model.PortTether;
 import com.equinix.openapi.fabric.v4.model.PortType;
 import com.equinix.openapi.fabric.v4.model.Project;
 import com.equinix.openapi.fabric.v4.model.SimplifiedAccount;
@@ -318,9 +317,9 @@ public class Port {
   @SerializedName(SERIALIZED_NAME_INTERFACE)
   private PortInterface _interface;
 
-  public static final String SERIALIZED_NAME_TETHER = "tether";
-  @SerializedName(SERIALIZED_NAME_TETHER)
-  private PortTether tether;
+  public static final String SERIALIZED_NAME_TETHER_IBX = "tetherIbx";
+  @SerializedName(SERIALIZED_NAME_TETHER_IBX)
+  private String tetherIbx;
 
   public static final String SERIALIZED_NAME_DEMARCATION_POINT = "demarcationPoint";
   @SerializedName(SERIALIZED_NAME_DEMARCATION_POINT)
@@ -945,25 +944,25 @@ public class Port {
   }
 
 
-  public Port tether(PortTether tether) {
+  public Port tetherIbx(String tetherIbx) {
     
-    this.tether = tether;
+    this.tetherIbx = tetherIbx;
     return this;
   }
 
    /**
-   * Get tether
-   * @return tether
+   * z-side/Equinix ibx
+   * @return tetherIbx
   **/
   @javax.annotation.Nullable
 
-  public PortTether getTether() {
-    return tether;
+  public String getTetherIbx() {
+    return tetherIbx;
   }
 
 
-  public void setTether(PortTether tether) {
-    this.tether = tether;
+  public void setTetherIbx(String tetherIbx) {
+    this.tetherIbx = tetherIbx;
   }
 
 
@@ -1321,7 +1320,7 @@ public class Port {
         Objects.equals(this.location, port.location) &&
         Objects.equals(this.device, port.device) &&
         Objects.equals(this._interface, port._interface) &&
-        Objects.equals(this.tether, port.tether) &&
+        Objects.equals(this.tetherIbx, port.tetherIbx) &&
         Objects.equals(this.demarcationPoint, port.demarcationPoint) &&
         Objects.equals(this.redundancy, port.redundancy) &&
         Objects.equals(this.encapsulation, port.encapsulation) &&
@@ -1338,7 +1337,7 @@ public class Port {
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, id, href, uuid, name, description, physicalPortsSpeed, connectionsCount, physicalPortsType, physicalPortsCount, connectivitySourceType, bmmrType, project, state, order, cvpId, operation, account, changelog, serviceType, bandwidth, availableBandwidth, usedBandwidth, location, device, _interface, tether, demarcationPoint, redundancy, encapsulation, lagEnabled, asn, settings, physicalPortQuantity, notifications, additionalInfo, physicalPorts, loas, additionalProperties);
+    return Objects.hash(type, id, href, uuid, name, description, physicalPortsSpeed, connectionsCount, physicalPortsType, physicalPortsCount, connectivitySourceType, bmmrType, project, state, order, cvpId, operation, account, changelog, serviceType, bandwidth, availableBandwidth, usedBandwidth, location, device, _interface, tetherIbx, demarcationPoint, redundancy, encapsulation, lagEnabled, asn, settings, physicalPortQuantity, notifications, additionalInfo, physicalPorts, loas, additionalProperties);
   }
 
   @Override
@@ -1371,7 +1370,7 @@ public class Port {
     sb.append("    location: ").append(toIndentedString(location)).append("\n");
     sb.append("    device: ").append(toIndentedString(device)).append("\n");
     sb.append("    _interface: ").append(toIndentedString(_interface)).append("\n");
-    sb.append("    tether: ").append(toIndentedString(tether)).append("\n");
+    sb.append("    tetherIbx: ").append(toIndentedString(tetherIbx)).append("\n");
     sb.append("    demarcationPoint: ").append(toIndentedString(demarcationPoint)).append("\n");
     sb.append("    redundancy: ").append(toIndentedString(redundancy)).append("\n");
     sb.append("    encapsulation: ").append(toIndentedString(encapsulation)).append("\n");
@@ -1432,7 +1431,7 @@ public class Port {
     openapiFields.add("location");
     openapiFields.add("device");
     openapiFields.add("interface");
-    openapiFields.add("tether");
+    openapiFields.add("tetherIbx");
     openapiFields.add("demarcationPoint");
     openapiFields.add("redundancy");
     openapiFields.add("encapsulation");
@@ -1531,9 +1530,8 @@ public class Port {
       if (jsonObj.get("interface") != null && !jsonObj.get("interface").isJsonNull()) {
         PortInterface.validateJsonObject(jsonObj.getAsJsonObject("interface"));
       }
-      // validate the optional field `tether`
-      if (jsonObj.get("tether") != null && !jsonObj.get("tether").isJsonNull()) {
-        PortTether.validateJsonObject(jsonObj.getAsJsonObject("tether"));
+      if ((jsonObj.get("tetherIbx") != null && !jsonObj.get("tetherIbx").isJsonNull()) && !jsonObj.get("tetherIbx").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `tetherIbx` to be a primitive type in the JSON string but got `%s`", jsonObj.get("tetherIbx").toString()));
       }
       // validate the optional field `demarcationPoint`
       if (jsonObj.get("demarcationPoint") != null && !jsonObj.get("demarcationPoint").isJsonNull()) {

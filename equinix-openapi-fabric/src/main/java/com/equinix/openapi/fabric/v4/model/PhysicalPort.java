@@ -23,6 +23,7 @@ import com.equinix.openapi.fabric.v4.model.PortOperation;
 import com.equinix.openapi.fabric.v4.model.PortOrder;
 import com.equinix.openapi.fabric.v4.model.PortState;
 import com.equinix.openapi.fabric.v4.model.PortTether;
+import com.equinix.openapi.fabric.v4.model.SimplifiedAccount;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -74,6 +75,10 @@ public class PhysicalPort {
   public static final String SERIALIZED_NAME_STATE = "state";
   @SerializedName(SERIALIZED_NAME_STATE)
   private PortState state;
+
+  public static final String SERIALIZED_NAME_ACCOUNT = "account";
+  @SerializedName(SERIALIZED_NAME_ACCOUNT)
+  private SimplifiedAccount account;
 
   public static final String SERIALIZED_NAME_INTERFACE_SPEED = "interfaceSpeed";
   @SerializedName(SERIALIZED_NAME_INTERFACE_SPEED)
@@ -194,6 +199,28 @@ public class PhysicalPort {
 
   public void setState(PortState state) {
     this.state = state;
+  }
+
+
+  public PhysicalPort account(SimplifiedAccount account) {
+    
+    this.account = account;
+    return this;
+  }
+
+   /**
+   * Get account
+   * @return account
+  **/
+  @javax.annotation.Nullable
+
+  public SimplifiedAccount getAccount() {
+    return account;
+  }
+
+
+  public void setAccount(SimplifiedAccount account) {
+    this.account = account;
   }
 
 
@@ -448,6 +475,7 @@ public class PhysicalPort {
         Objects.equals(this.id, physicalPort.id) &&
         Objects.equals(this.href, physicalPort.href) &&
         Objects.equals(this.state, physicalPort.state) &&
+        Objects.equals(this.account, physicalPort.account) &&
         Objects.equals(this.interfaceSpeed, physicalPort.interfaceSpeed) &&
         Objects.equals(this.interfaceType, physicalPort.interfaceType) &&
         Objects.equals(this.tether, physicalPort.tether) &&
@@ -461,7 +489,7 @@ public class PhysicalPort {
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, id, href, state, interfaceSpeed, interfaceType, tether, demarcationPoint, additionalInfo, order, operation, loas, additionalProperties);
+    return Objects.hash(type, id, href, state, account, interfaceSpeed, interfaceType, tether, demarcationPoint, additionalInfo, order, operation, loas, additionalProperties);
   }
 
   @Override
@@ -472,6 +500,7 @@ public class PhysicalPort {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    href: ").append(toIndentedString(href)).append("\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
+    sb.append("    account: ").append(toIndentedString(account)).append("\n");
     sb.append("    interfaceSpeed: ").append(toIndentedString(interfaceSpeed)).append("\n");
     sb.append("    interfaceType: ").append(toIndentedString(interfaceType)).append("\n");
     sb.append("    tether: ").append(toIndentedString(tether)).append("\n");
@@ -507,6 +536,7 @@ public class PhysicalPort {
     openapiFields.add("id");
     openapiFields.add("href");
     openapiFields.add("state");
+    openapiFields.add("account");
     openapiFields.add("interfaceSpeed");
     openapiFields.add("interfaceType");
     openapiFields.add("tether");
@@ -534,6 +564,10 @@ public class PhysicalPort {
       }
       if ((jsonObj.get("href") != null && !jsonObj.get("href").isJsonNull()) && !jsonObj.get("href").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `href` to be a primitive type in the JSON string but got `%s`", jsonObj.get("href").toString()));
+      }
+      // validate the optional field `account`
+      if (jsonObj.get("account") != null && !jsonObj.get("account").isJsonNull()) {
+        SimplifiedAccount.validateJsonObject(jsonObj.getAsJsonObject("account"));
       }
       if ((jsonObj.get("interfaceType") != null && !jsonObj.get("interfaceType").isJsonNull()) && !jsonObj.get("interfaceType").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `interfaceType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("interfaceType").toString()));

@@ -27,7 +27,6 @@ import com.equinix.openapi.fabric.v4.model.PortOrder;
 import com.equinix.openapi.fabric.v4.model.PortRedundancy;
 import com.equinix.openapi.fabric.v4.model.PortSettings;
 import com.equinix.openapi.fabric.v4.model.PortState;
-import com.equinix.openapi.fabric.v4.model.PortTether;
 import com.equinix.openapi.fabric.v4.model.PortType;
 import com.equinix.openapi.fabric.v4.model.Project;
 import com.equinix.openapi.fabric.v4.model.SimplifiedAccount;
@@ -269,11 +268,11 @@ public class PortTest {
     }
 
     /**
-     * Test the property 'tether'
+     * Test the property 'tetherIbx'
      */
     @Test
-    public void tetherTest() {
-        // TODO: test tether
+    public void tetherIbxTest() {
+        // TODO: test tetherIbx
     }
 
     /**

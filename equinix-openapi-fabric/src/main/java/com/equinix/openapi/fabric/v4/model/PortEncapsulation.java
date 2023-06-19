@@ -103,62 +103,9 @@ public class PortEncapsulation {
   @SerializedName(SERIALIZED_NAME_TYPE)
   private TypeEnum type;
 
-  /**
-   * Port encapsulation tag protocol identifier
-   */
-  @JsonAdapter(TagProtocolIdEnum.Adapter.class)
-  public enum TagProtocolIdEnum {
-    _0X8100_("'0x8100'"),
-    
-    _0X88A8_("'0x88a8'"),
-    
-    _0X9100_("'0x9100'"),
-    
-    _0X9200_("'0x9200'"),
-    
-    NONE("NONE");
-
-    private String value;
-
-    TagProtocolIdEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static TagProtocolIdEnum fromValue(String value) {
-      for (TagProtocolIdEnum b : TagProtocolIdEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-
-    public static class Adapter extends TypeAdapter<TagProtocolIdEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final TagProtocolIdEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public TagProtocolIdEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return TagProtocolIdEnum.fromValue(value);
-      }
-    }
-  }
-
   public static final String SERIALIZED_NAME_TAG_PROTOCOL_ID = "tagProtocolId";
   @SerializedName(SERIALIZED_NAME_TAG_PROTOCOL_ID)
-  private TagProtocolIdEnum tagProtocolId;
+  private String tagProtocolId;
 
   public PortEncapsulation() {
   }
@@ -185,7 +132,7 @@ public class PortEncapsulation {
   }
 
 
-  public PortEncapsulation tagProtocolId(TagProtocolIdEnum tagProtocolId) {
+  public PortEncapsulation tagProtocolId(String tagProtocolId) {
     
     this.tagProtocolId = tagProtocolId;
     return this;
@@ -197,12 +144,12 @@ public class PortEncapsulation {
   **/
   @javax.annotation.Nullable
 
-  public TagProtocolIdEnum getTagProtocolId() {
+  public String getTagProtocolId() {
     return tagProtocolId;
   }
 
 
-  public void setTagProtocolId(TagProtocolIdEnum tagProtocolId) {
+  public void setTagProtocolId(String tagProtocolId) {
     this.tagProtocolId = tagProtocolId;
   }
 

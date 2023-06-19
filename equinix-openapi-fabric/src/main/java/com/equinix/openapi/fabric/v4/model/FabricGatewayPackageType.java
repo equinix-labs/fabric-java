@@ -109,11 +109,7 @@ public class FabricGatewayPackageType {
   public enum CodeEnum {
     LAB("LAB"),
     
-    BASIC("BASIC"),
-    
-    PRO("PRO"),
-    
-    PREMIUM("PREMIUM");
+    PRO("PRO");
 
     private String value;
 

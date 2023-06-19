@@ -21,6 +21,7 @@ import com.equinix.openapi.fabric.v4.model.PortOperation;
 import com.equinix.openapi.fabric.v4.model.PortOrder;
 import com.equinix.openapi.fabric.v4.model.PortState;
 import com.equinix.openapi.fabric.v4.model.PortTether;
+import com.equinix.openapi.fabric.v4.model.SimplifiedAccount;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -78,6 +79,14 @@ public class PhysicalPortTest {
     @Test
     public void stateTest() {
         // TODO: test state
+    }
+
+    /**
+     * Test the property 'account'
+     */
+    @Test
+    public void accountTest() {
+        // TODO: test account
     }
 
     /**

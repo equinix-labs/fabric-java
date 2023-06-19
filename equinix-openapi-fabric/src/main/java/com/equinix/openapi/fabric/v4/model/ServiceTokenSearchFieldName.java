@@ -33,6 +33,8 @@ public enum ServiceTokenSearchFieldName {
   
   STATE("/state"),
   
+  NAME("/name"),
+  
   PROJECT_PROJECTID("/project/projectId");
 
   private String value;

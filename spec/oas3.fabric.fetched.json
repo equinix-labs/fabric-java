@@ -36,7 +36,7 @@
     },
     {
       "name": "Gateways",
-      "description": "Gateways <font color=\"red\"> <sup color='red'>Preview</sup></font>"
+      "description": "Gateways"
     },
     {
       "name": "Metros",
@@ -52,11 +52,11 @@
     },
     {
       "name": "Routes",
-      "description": "Routes <font color=\"red\"> <sup color='red'>Preview</sup></font>"
+      "description": "Routes"
     },
     {
       "name": "Routing Protocols",
-      "description": "Routing Protocols <font color=\"red\"> <sup color='red'>Preview</sup></font>"
+      "description": "Routing Protocols"
     },
     {
       "name": "Service Profiles",
@@ -195,6 +195,9 @@
                 },
                 "AsideServiceToken2PrivateSP-NE": {
                   "$ref": "#/components/examples/AsideServiceToken2PrivateSP-NE"
+                },
+                "AsideServiceToken2ZsideServiceToken": {
+                  "$ref": "#/components/examples/AsideServiceToken2ZsideServiceToken"
                 }
               }
             }
@@ -2060,12 +2063,6 @@
                 "BGPSoftClearInBoundIPv6": {
                   "$ref": "#/components/examples/BGPSoftClearInBoundIPv6"
                 },
-                "BGPSoftClearOutBoundIPv4": {
-                  "$ref": "#/components/examples/BGPSoftClearOutBoundIPv4"
-                },
-                "BGPSoftClearOutBoundIPv6": {
-                  "$ref": "#/components/examples/BGPSoftClearOutBoundIPv6"
-                },
                 "BGPHardResetIPv4": {
                   "$ref": "#/components/examples/BGPHardResetIPv4"
                 },
@@ -2103,12 +2100,6 @@
                   },
                   "BGPActionSoftClearInIpV6": {
                     "$ref": "#/components/examples/BGPSoftClearInBoundIPv6Response"
-                  },
-                  "BGPActionSoftClearOutIpV4": {
-                    "$ref": "#/components/examples/BGPSoftClearOutBoundIPv4Response"
-                  },
-                  "BGPActionSoftClearOutIpV6": {
-                    "$ref": "#/components/examples/BGPSoftClearOutBoundIPv6Response"
                   }
                 }
               }
@@ -3017,12 +3008,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ]
+        }
       }
     },
     "/fabric/v4/ports/{portId}/stats": {
@@ -4427,6 +4413,12 @@
                 "UpdateExpirationDate": {
                   "$ref": "#/components/examples/UpdateExpirationDate"
                 },
+                "UpdateTokenName": {
+                  "$ref": "#/components/examples/UpdateTokenName"
+                },
+                "UpdateTokenDescription": {
+                  "$ref": "#/components/examples/UpdateTokenDescription"
+                },
                 "UpdateNotificationEmail": {
                   "$ref": "#/components/examples/UpdateNotificationEmail"
                 },
@@ -5233,6 +5225,85 @@
         ]
       }
     },
+    "/fabric/v4/ports/{portUuid}/linkProtocols": {
+      "get": {
+        "tags": [
+          "Ports"
+        ],
+        "summary": "Get Vlans",
+        "description": "The API provides capability to retrieve Vlans for a Port.",
+        "operationId": "getVlans",
+        "parameters": [
+          {
+            "name": "portUuid",
+            "in": "path",
+            "description": "Port UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/PortUUID"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get Vlans",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LinkProtocolGetResponse"
+                },
+                "examples": {
+                  "LinkProtocolQ1NQResponse": {
+                    "$ref": "#/components/examples/LinkProtocolGetQinqResponseExample"
+                  },
+                  "LinkProtocolDOT1QResponse": {
+                    "$ref": "#/components/examples/LinkProtocolGetDot1qResponseExample"
+                  },
+                  "LinkProtocolVlanRangeResponse": {
+                    "$ref": "#/components/examples/LinkProtocolGetVlanRangeResponseExample"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/400_invalid_portId"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403-port-access"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
     "/fabric/v4/gateways": {
       "post": {
         "tags": [
@@ -5252,14 +5323,8 @@
                 "CreateLabPackage": {
                   "$ref": "#/components/examples/CreateLabPackage"
                 },
-                "CreateBasicPackage": {
-                  "$ref": "#/components/examples/CreateBasicPackage"
-                },
                 "CreateProPackage": {
                   "$ref": "#/components/examples/CreateProPackage"
-                },
-                "CreatePremiumPackage": {
-                  "$ref": "#/components/examples/CreatePremiumPackage"
                 }
               }
             }
@@ -6341,21 +6406,6 @@
               }
             }
           },
-          "400": {
-            "description": "Bad request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorList"
-                },
-                "examples": {
-                  "example": {
-                    "$ref": "#/components/examples/400"
-                  }
-                }
-              }
-            }
-          },
           "401": {
             "description": "Unauthorized",
             "content": {
@@ -6386,8 +6436,8 @@
               }
             }
           },
-          "404": {
-            "description": "Not Found",
+          "415": {
+            "description": "Unsupported Media Type",
             "content": {
               "application/json": {
                 "schema": {
@@ -6395,7 +6445,7 @@
                 },
                 "examples": {
                   "example": {
-                    "$ref": "#/components/examples/400"
+                    "$ref": "#/components/examples/415"
                   }
                 }
               }
@@ -6463,7 +6513,7 @@
                 },
                 "examples": {
                   "example": {
-                    "$ref": "#/components/examples/400"
+                    "$ref": "#/components/examples/400_invalid_package"
                   }
                 }
               }
@@ -6499,8 +6549,8 @@
               }
             }
           },
-          "404": {
-            "description": "Not Found",
+          "415": {
+            "description": "Unsupported Media Type",
             "content": {
               "application/json": {
                 "schema": {
@@ -6508,7 +6558,7 @@
                 },
                 "examples": {
                   "example": {
-                    "$ref": "#/components/examples/400"
+                    "$ref": "#/components/examples/415"
                   }
                 }
               }
@@ -6633,8 +6683,17 @@
                   "Aws-ValidateAuthKey": {
                     "$ref": "#/components/examples/Response-Aws"
                   },
-                  "Azure-ValidateAuthKey": {
-                    "$ref": "#/components/examples/Response-Azure"
+                  "Azure-ValidateAuthKey-no-existing-connections": {
+                    "$ref": "#/components/examples/Response-Azure-no-existing-connections"
+                  },
+                  "Azure-ValidateAuthKey-1-existing-Dot1q-connection": {
+                    "$ref": "#/components/examples/Response-Azure-1-existing-Dot1q-connection"
+                  },
+                  "Azure-ValidateAuthKey-1-existing-Qinq-connection": {
+                    "$ref": "#/components/examples/Response-Azure-1-existing-Qinq-connection"
+                  },
+                  "Azure-ValidateAuthKey-2-existing-Dot1q-connection": {
+                    "$ref": "#/components/examples/Response-Azure-2-existing-Dot1q-connections"
                   },
                   "Google-ValidateAuthKey": {
                     "$ref": "#/components/examples/Response-Google"
@@ -8138,6 +8197,7 @@
           "/isRemote",
           "/name",
           "/uuid",
+          "/type",
           "/account/orgId",
           "/aSide/accessPoint/account/accountName",
           "/aSide/accessPoint/account/accountNumber",
@@ -8579,9 +8639,8 @@
             "format": "uuid"
           },
           "description": {
-            "maxLength": 375,
             "type": "string",
-            "description": "User-provided service description",
+            "description": "User-provided service description should be of maximum length 375",
             "example": "offering connectivity to my-network"
           },
           "notifications": {
@@ -8658,13 +8717,6 @@
       "ServiceProfileAccessPointType": {
         "type": "object",
         "description": "Access Point Type",
-        "discriminator": {
-          "propertyName": "type",
-          "mapping": {
-            "COLO": "#/components/schemas/ServiceProfileAccessPointTypeCOLO",
-            "VD": "#/components/schemas/ServiceProfileAccessPointTypeVD"
-          }
-        },
         "oneOf": [
           {
             "$ref": "#/components/schemas/ServiceProfileAccessPointTypeCOLO"
@@ -9276,14 +9328,6 @@
       "JsonPatchOperation": {
         "type": "object",
         "description": "Service Profile Access Points",
-        "discriminator": {
-          "propertyName": "op",
-          "mapping": {
-            "add": "#/components/schemas/AddOperation",
-            "remove": "#/components/schemas/RemoveOperation",
-            "replace": "#/components/schemas/ReplaceOperation"
-          }
-        },
         "oneOf": [
           {
             "$ref": "#/components/schemas/AddOperation"
@@ -9373,6 +9417,9 @@
         "format": "uuid"
       },
       "ServiceToken": {
+        "required": [
+          "uuid"
+        ],
         "type": "object",
         "properties": {
           "type": {
@@ -9388,6 +9435,14 @@
             "type": "string",
             "description": "Equinix-assigned service token identifier",
             "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "description": "Customer-provided service token name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Customer-provided service token description"
           },
           "expirationDateTime": {
             "type": "string",
@@ -9503,6 +9558,7 @@
         "enum": [
           "/uuid",
           "/state",
+          "/name",
           "/project/projectId"
         ]
       },
@@ -9804,8 +9860,9 @@
           "interface": {
             "$ref": "#/components/schemas/PortInterface"
           },
-          "tether": {
-            "$ref": "#/components/schemas/PortTether"
+          "tetherIbx": {
+            "type": "string",
+            "description": "z-side/Equinix ibx"
           },
           "demarcationPoint": {
             "$ref": "#/components/schemas/PortDemarcationPoint"
@@ -9881,6 +9938,9 @@
           "state": {
             "$ref": "#/components/schemas/PortState"
           },
+          "account": {
+            "$ref": "#/components/schemas/SimplifiedAccount"
+          },
           "interfaceSpeed": {
             "minimum": 0,
             "type": "integer",
@@ -9918,6 +9978,21 @@
           }
         },
         "description": "Physical Port specification"
+      },
+      "LinkProtocolGetResponse": {
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LinkProtocolResponse"
+            }
+          }
+        },
+        "description": "List of Vlans"
       },
       "FabricGatewayPostRequest": {
         "type": "object",
@@ -10353,9 +10428,7 @@
         "description": "Gateway package code",
         "enum": [
           "LAB",
-          "BASIC",
-          "PRO",
-          "PREMIUM"
+          "PRO"
         ]
       },
       "FabricGatewayPackage": {
@@ -10964,13 +11037,16 @@
         "type": "object",
         "properties": {
           "serviceToken": {
-            "$ref": "#/components/schemas/SimplifiedServiceToken"
+            "$ref": "#/components/schemas/ServiceToken"
           },
           "accessPoint": {
             "$ref": "#/components/schemas/AccessPoint"
           },
           "companyProfile": {
             "$ref": "#/components/schemas/ConnectionCompanyProfile"
+          },
+          "invitation": {
+            "$ref": "#/components/schemas/ConnectionInvitation"
           },
           "additionalInfo": {
             "type": "array",
@@ -11120,6 +11196,10 @@
             "type": "integer",
             "description": "Account number",
             "format": "int64"
+          },
+          "accountReferenceId": {
+            "type": "string",
+            "description": "Account ReferenceId"
           },
           "accountName": {
             "type": "string",
@@ -11542,8 +11622,6 @@
           "CLEAR_BGPIPV6",
           "CLEAR_BGPIPV4_INBOUND",
           "CLEAR_BGPIPV6_INBOUND",
-          "CLEAR_BGPIPV4_OUTBOUND",
-          "CLEAR_BGPIPV6_OUTBOUND",
           "RESET_BGPIPV4",
           "RESET_BGPIPV6"
         ]
@@ -12001,36 +12079,6 @@
         },
         "description": "Port interface"
       },
-      "PortTether": {
-        "type": "object",
-        "properties": {
-          "crossConnectId": {
-            "type": "string",
-            "description": "Port cross connect identifier"
-          },
-          "cabinetNumber": {
-            "type": "string",
-            "description": "Port cabinet number"
-          },
-          "systemName": {
-            "type": "string",
-            "description": "Port system name"
-          },
-          "patchPanel": {
-            "type": "string",
-            "description": "Port patch panel"
-          },
-          "patchPanelPortA": {
-            "type": "string",
-            "description": "Port patch panel port A"
-          },
-          "patchPanelPortB": {
-            "type": "string",
-            "description": "Port patch panel port B"
-          }
-        },
-        "description": "Port physical connection"
-      },
       "PortDemarcationPoint": {
         "type": "object",
         "properties": {
@@ -12097,14 +12145,7 @@
           },
           "tagProtocolId": {
             "type": "string",
-            "description": "Port encapsulation tag protocol identifier",
-            "enum": [
-              "'0x8100'",
-              "'0x88a8'",
-              "'0x9100'",
-              "'0x9200'",
-              "NONE"
-            ]
+            "description": "Port encapsulation tag protocol identifier"
           }
         },
         "description": "Port encapsulation configuration"
@@ -12163,7 +12204,9 @@
             "description": "Notification Type",
             "enum": [
               "NOTIFICATION",
-              "TECHNICAL"
+              "TECHNICAL",
+              "PEERING",
+              "ESCALATION"
             ]
           },
           "registeredUsers": {
@@ -12219,6 +12262,104 @@
           "XF_PHYSICAL_PORT"
         ]
       },
+      "PortTether": {
+        "type": "object",
+        "properties": {
+          "crossConnectId": {
+            "type": "string",
+            "description": "Port cross connect identifier"
+          },
+          "cabinetNumber": {
+            "type": "string",
+            "description": "Port cabinet number"
+          },
+          "systemName": {
+            "type": "string",
+            "description": "Port system name"
+          },
+          "patchPanel": {
+            "type": "string",
+            "description": "Port patch panel"
+          },
+          "patchPanelPortA": {
+            "type": "string",
+            "description": "Port patch panel port A"
+          },
+          "patchPanelPortB": {
+            "type": "string",
+            "description": "Port patch panel port B"
+          },
+          "ibx": {
+            "type": "string",
+            "description": "z-side/Equinix IBX"
+          }
+        },
+        "description": "Port physical connection"
+      },
+      "LinkProtocolResponse": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "description": "Equinix-assigned network identifier",
+            "format": "uuid",
+            "example": "92dc376a-a932-43aa-a6a2-c806dedbd784"
+          },
+          "state": {
+            "$ref": "#/components/schemas/LinkProtocolState"
+          },
+          "type": {
+            "$ref": "#/components/schemas/LinkProtocolRequestType"
+          },
+          "vlanTag": {
+            "type": "integer",
+            "example": 20
+          },
+          "vlanTagMin": {
+            "type": "integer",
+            "example": 20
+          },
+          "vlanTagMax": {
+            "type": "integer",
+            "example": 200
+          },
+          "vlanSTag": {
+            "type": "integer",
+            "example": 20
+          },
+          "vlanCTag": {
+            "type": "integer",
+            "example": 20
+          },
+          "vlanCTagMin": {
+            "type": "integer",
+            "example": 20
+          },
+          "vlanCTagMax": {
+            "type": "integer",
+            "example": 200
+          },
+          "subInterface": {
+            "$ref": "#/components/schemas/SubInterface"
+          },
+          "additionalInfo": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AdditionalInfo"
+            }
+          },
+          "connection": {
+            "$ref": "#/components/schemas/LinkProtocolConnection"
+          },
+          "serviceToken": {
+            "$ref": "#/components/schemas/LinkProtocolServiceToken"
+          },
+          "changeLog": {
+            "$ref": "#/components/schemas/Changelog"
+          }
+        },
+        "description": "Link Protocol response"
+      },
       "SimplifiedLocationWithoutIBX": {
         "required": [
           "metroCode"
@@ -12269,9 +12410,7 @@
             "example": "LAB",
             "enum": [
               "LAB",
-              "BASIC",
-              "PRO",
-              "PREMIUM"
+              "PRO"
             ]
           }
         },
@@ -12432,9 +12571,7 @@
         "example": "LAB",
         "enum": [
           "LAB",
-          "BASIC",
-          "PRO",
-          "PREMIUM"
+          "PRO"
         ]
       },
       "PackageChangeLog": {
@@ -12624,19 +12761,6 @@
           "SECONDARY"
         ]
       },
-      "SimplifiedServiceToken": {
-        "required": [
-          "uuid"
-        ],
-        "type": "object",
-        "properties": {
-          "uuid": {
-            "type": "string",
-            "description": "Equinix-assigned service token identifier",
-            "format": "uuid"
-          }
-        }
-      },
       "AccessPoint": {
         "type": "object",
         "properties": {
@@ -12707,6 +12831,26 @@
           }
         },
         "description": "Connection Company Profile Details"
+      },
+      "ConnectionInvitation": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "invitee email",
+            "example": "test@equinix.com"
+          },
+          "message": {
+            "type": "string",
+            "description": "invitation message",
+            "example": "Hello, Please accept my invitation"
+          },
+          "ctrDraftOrderId": {
+            "type": "string",
+            "description": "draft order id for invitation"
+          }
+        },
+        "description": "Connection Invitation Details"
       },
       "ProviderStatus": {
         "type": "string",
@@ -12960,6 +13104,114 @@
           "PRIMARY",
           "SECONDARY"
         ]
+      },
+      "LinkProtocolState": {
+        "type": "string",
+        "description": "Network status",
+        "enum": [
+          "RESERVED",
+          "RELEASED"
+        ]
+      },
+      "LinkProtocolRequestType": {
+        "type": "string",
+        "description": "Type of Link Protocol",
+        "enum": [
+          "UNTAGGED",
+          "DOT1Q",
+          "QINQ",
+          "EVPN_VXLAN",
+          "UNTAGGEDEPL"
+        ]
+      },
+      "SubInterface": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "type of connection vlan",
+            "enum": [
+              "VNI",
+              "VXLAN",
+              "VLAN"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "name of subinterafce of a port"
+          },
+          "unit": {
+            "type": "integer",
+            "example": 200
+          }
+        },
+        "description": "Sub Interface information"
+      },
+      "AdditionalInfo": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Key"
+          },
+          "value": {
+            "type": "string",
+            "description": "Value"
+          }
+        },
+        "description": "Additional information"
+      },
+      "LinkProtocolConnection": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "description": "Connection URI",
+            "format": "uri",
+            "readOnly": true
+          },
+          "uuid": {
+            "type": "string",
+            "format": "uuid",
+            "example": "cd67f685-41b0-1b07-6de0-0320a5c00abe"
+          },
+          "type": {
+            "type": "string",
+            "example": "EVPL_VC"
+          },
+          "bandwidth": {
+            "type": "integer",
+            "format": "int64",
+            "example": 100
+          }
+        },
+        "description": "Connection details of Link Protocol"
+      },
+      "LinkProtocolServiceToken": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "description": "Service Token URI",
+            "format": "uri",
+            "readOnly": true
+          },
+          "uuid": {
+            "type": "string",
+            "format": "uuid",
+            "example": "cd67f685-41b0-1b07-6de0-0320a5c00abe"
+          },
+          "type": {
+            "type": "string",
+            "example": "TOKEN"
+          },
+          "bandwidth": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1000
+          }
+        },
+        "description": "Service Token details of Link Protocol"
       },
       "RouteTableEntryType": {
         "type": "string",
@@ -13971,6 +14223,56 @@
             "additionalInfo": [
               {
                 "property": "uuid"
+              }
+            ]
+          },
+          {
+            "errorCode": "EQ-3142221",
+            "errorMessage": "The primary and secondary token provided have different bandwidth tiers. Please use two tokens that support the same bandwidth tiers",
+            "correlationId": "test",
+            "additionalInfo": [
+              {
+                "property": "/zSide/serviceToken/uuid"
+              }
+            ]
+          },
+          {
+            "errorCode": "EQ-3142222",
+            "errorMessage": "The primary and secondary tokens have different encapsulation types (Dot1Q or QinQ). Please use two tokens that support the same encapsulation type",
+            "correlationId": "test",
+            "additionalInfo": [
+              {
+                "property": "/zSide/serviceToken/uuid"
+              }
+            ]
+          },
+          {
+            "errorCode": "EQ-3142223",
+            "errorMessage": "The primary and secondary tokens belong to different projects. Please use two tokens that belong to the same project",
+            "correlationId": "test",
+            "additionalInfo": [
+              {
+                "property": "/zSide/serviceToken/uuid"
+              }
+            ]
+          },
+          {
+            "errorCode": "EQ-3142224",
+            "errorMessage": "The primary and secondary ports have different port speeds (bandwidth). Please use two tokens that support the same port speed",
+            "correlationId": "test",
+            "additionalInfo": [
+              {
+                "property": "/zSide/serviceToken/uuid"
+              }
+            ]
+          },
+          {
+            "errorCode": "EQ-3142225",
+            "errorMessage": "The primary and secondary tokens provided are the same. Please provide a different token",
+            "correlationId": "test",
+            "additionalInfo": [
+              {
+                "property": "/zSide/serviceToken/uuid"
               }
             ]
           }
@@ -15597,6 +15899,37 @@
           ]
         }
       },
+      "AsideServiceToken2ZsideServiceToken": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "Aside to zside token connection",
+          "bandwidth": 50,
+          "redundancy": {
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "serviceToken": {
+              "uuid": "a00cef6f-8e35-4794-9ff9-665e084e4e6d"
+            }
+          },
+          "zSide": {
+            "serviceToken": {
+              "uuid": "4f9c5438-90eb-4295-b109-7754119a1e8d"
+            }
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@test.com"
+              ]
+            }
+          ],
+          "order": {
+            "purchaseOrderNumber": "po1234"
+          }
+        }
+      },
       "ConnectionExample": {
         "value": {
           "href": "https://api.equinix.com/fabric/v4/connections/3a58dd05-f46d-4b1d-a154-2e85c396ea62",
@@ -16809,6 +17142,72 @@
           ]
         }
       },
+      "Vd2ServiceToken-Redundant": {
+        "value": {
+          "data": [
+            {
+              "type": "EVPL_VC",
+              "name": "VD2ST-Conn-1",
+              "bandwidth": 100,
+              "redundancy": {
+                "priority": "PRIMARY"
+              },
+              "aSide": {
+                "accessPoint": {
+                  "type": "VD",
+                  "virtualDevice": {
+                    "type": "EDGE",
+                    "uuid": "a867f685-41b0-1b07-6de0-320a5c00abdd"
+                  }
+                }
+              },
+              "zSide": {
+                "serviceToken": {
+                  "uuid": "20d32a80-0d61-4333-bc03-707b591ae2f5"
+                }
+              },
+              "notifications": [
+                {
+                  "type": "ALL",
+                  "emails": [
+                    "test@equinix.com"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "EVPL_VC",
+              "name": "VD2ST-Conn-2",
+              "bandwidth": 100,
+              "redundancy": {
+                "priority": "SECONDARY"
+              },
+              "aSide": {
+                "accessPoint": {
+                  "type": "VD",
+                  "virtualDevice": {
+                    "type": "EDGE",
+                    "uuid": "b967f685-41b0-1b07-6de0-320a5c00abde"
+                  }
+                }
+              },
+              "zSide": {
+                "serviceToken": {
+                  "uuid": "10d32a80-0d61-4333-bc03-707b591ae2e6"
+                }
+              },
+              "notifications": [
+                {
+                  "type": "ALL",
+                  "emails": [
+                    "test@equinix.com"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
       "genericBulkCreateResponse": {
         "value": {
           "data": [
@@ -17473,6 +17872,170 @@
               "changeLog": {
                 "createdBy": "testBuyer",
                 "createdDateTime": "2020-05-21T10:30:00Z"
+              }
+            }
+          ]
+        }
+      },
+      "Vd2ServiceToken-Redundant-Response": {
+        "value": {
+          "data": [
+            {
+              "href": "https://api.equinix.com/fabric/v4/connections/ebc37e2e-c36b-4e93-86a4-fc4efce7abc8",
+              "type": "EVPL_VC",
+              "uuid": "ebc37e2e-c36b-4e93-86a4-fc4efce7abc8",
+              "name": "VD2ST-Conn-1",
+              "state": "ACTIVE",
+              "operation": {
+                "providerStatus": "NOT_AVAILABLE",
+                "equinixStatus": "PROVISIONING"
+              },
+              "bandwidth": 50,
+              "redundancy": {
+                "group": "1ba79cfc-e123-4fda-a3ff-f6b460d90299",
+                "priority": "PRIMARY"
+              },
+              "aSide": {
+                "accessPoint": {
+                  "interface": {
+                    "uuid": "17060c65-5556-417d-9919-3d9ac59c01b9",
+                    "id": 5,
+                    "type": "CLOUD"
+                  },
+                  "location": {
+                    "metroCode": "DC"
+                  },
+                  "linkProtocol": {
+                    "type": "DOT1Q",
+                    "vlanTag": 18293
+                  },
+                  "virtualDevice": {
+                    "uuid": "a867f685-41b0-1b07-6de0-320a5c00abdd",
+                    "type": "EDGE"
+                  }
+                }
+              },
+              "zSide": {
+                "serviceToken": {
+                  "href": "https://api.equinix.com/fabric/v4/serviceTokens/20d32a80-0d61-4333-bc03-707b591ae2f5",
+                  "uuid": "20d32a80-0d61-4333-bc03-707b591ae2f5"
+                },
+                "accessPoint": {
+                  "location": {
+                    "metroHref": "https://api.equinix.com/fabric/v4/metros/DC",
+                    "metroCode": "DC"
+                  },
+                  "port": {
+                    "href": "https://api.equinix.com/fabric/v4/ports/20d32a80-0d61-4333-bc03-707b591ae2f4",
+                    "type": "XF_PORT",
+                    "uuid": "20d32a80-0d61-4333-bc03-707b591ae2f4",
+                    "name": "testBuyer-DC5-L-Dot1q-STD-PRI-10G-JN-161"
+                  },
+                  "linkProtocol": {
+                    "type": "DOT1Q",
+                    "vlanTag": 992
+                  }
+                }
+              },
+              "order": {
+                "billingTier": "Up to 50 MB"
+              },
+              "notifications": [
+                {
+                  "type": "ALL",
+                  "emails": [
+                    "test@equinix.com"
+                  ]
+                }
+              ],
+              "changeLog": {
+                "createdBy": "test",
+                "createdByFullName": "test test",
+                "createdByEmail": "test@equinix.com",
+                "createdDateTime": "2023-03-01T22:57:15.874Z",
+                "updatedBy": "test",
+                "updatedByFullName": "test test",
+                "updatedByEmail": "test@equinix.com",
+                "updatedDateTime": "2023-03-01T22:57:15.874Z"
+              }
+            },
+            {
+              "href": "https://api.equinix.com/fabric/v4/connections/d27746b9-6c1e-95cb-b0ee-6c2fdb4990ba",
+              "type": "EVPL_VC",
+              "uuid": "d27746b9-6c1e-95cb-b0ee-6c2fdb4990ba",
+              "name": "VD2ST-Conn-2",
+              "state": "ACTIVE",
+              "operation": {
+                "providerStatus": "NOT_AVAILABLE",
+                "equinixStatus": "PROVISIONING"
+              },
+              "bandwidth": 50,
+              "redundancy": {
+                "group": "1ba79cfc-e123-4fda-a3ff-f6b460d90299",
+                "priority": "SECONDARY"
+              },
+              "aSide": {
+                "accessPoint": {
+                  "interface": {
+                    "uuid": "1e4cec46-ff5f-4f2a-8f3b-29225600040f",
+                    "id": 4,
+                    "type": "CLOUD"
+                  },
+                  "location": {
+                    "metroCode": "DC"
+                  },
+                  "linkProtocol": {
+                    "type": "DOT1Q",
+                    "vlanTag": 18303
+                  },
+                  "virtualDevice": {
+                    "uuid": "b967f685-41b0-1b07-6de0-320a5c00abde",
+                    "type": "EDGE"
+                  }
+                }
+              },
+              "zSide": {
+                "serviceToken": {
+                  "href": "https://api.equinix.com/fabric/v4/serviceTokens/10d32a80-0d61-4333-bc03-707b591ae2e6",
+                  "uuid": "10d32a80-0d61-4333-bc03-707b591ae2e6"
+                },
+                "accessPoint": {
+                  "location": {
+                    "metroHref": "https://api.equinix.com/fabric/v4/metros/DC",
+                    "metroCode": "DC"
+                  },
+                  "port": {
+                    "href": "https://api.equinix.com/fabric/v4/ports/d791f8cb-59c8-9c80-8ce0-306a5c00e3ae",
+                    "type": "XF_PORT",
+                    "uuid": "d791f8cb-59c8-9c80-8ce0-306a5c00e3ae",
+                    "name": "testBuyer-DC6-NL-Dot1q-STD-SEC-10G-JN-208"
+                  },
+                  "linkProtocol": {
+                    "type": "DOT1Q",
+                    "vlanTag": 993
+                  }
+                }
+              },
+              "order": {
+                "billingTier": "Up to 50 MB"
+              },
+              "notifications": [
+                {
+                  "type": "ALL",
+                  "emails": [
+                    "test@equinix.com"
+                  ]
+                }
+              ],
+              "changeLog": {
+                "createdBy": "test",
+                "createdByFullName": "test test",
+                "createdByEmail": "test@equinix.com",
+                "createdDateTime": "2023-03-01T22:57:15.918Z",
+                "updatedBy": "test",
+                "updatedByFullName": "test test",
+                "updatedByEmail": "test@equinix.com",
+                "updatedDateTime": "2023-03-01T22:57:15.918Z"
               }
             }
           ]
@@ -18693,8 +19256,8 @@
             {
               "href": "https://api.equinix.com/fabric/v4/connections/81331c52-04c0-4656-a4a7-18c52669348f/routingProtocols/3f5ed98a-8dba-4651-a317-8ad0234dd157/actions/835ed234-1dbb-5634-c320-25d0234dd117",
               "uuid": "835ed234-1dbb-5634-c320-25d0234dd117",
-              "type": "CLEAR_BGPIPV6_OUTBOUND",
-              "description": "soft clear bgp ipv6 outbound session",
+              "type": "CLEAR_BGPIPV6_INBOUND",
+              "description": "soft clear bgp ipv6 inbound session",
               "state": "SUCCEEDED",
               "changeLog": {
                 "createdBy": "testuser",
@@ -18745,16 +19308,6 @@
       "BGPSoftClearInBoundIPv6": {
         "value": {
           "type": "CLEAR_BGPIPV6_INBOUND"
-        }
-      },
-      "BGPSoftClearOutBoundIPv4": {
-        "value": {
-          "type": "CLEAR_BGPIPV4_OUTBOUND"
-        }
-      },
-      "BGPSoftClearOutBoundIPv6": {
-        "value": {
-          "type": "CLEAR_BGPIPV6_OUTBOUND"
         }
       },
       "BGPHardResetIPv4": {
@@ -18857,42 +19410,12 @@
           }
         }
       },
-      "BGPSoftClearOutBoundIPv4Response": {
-        "value": {
-          "href": "https://api.equinix.com/fabric/v4/connections/81331c52-04c0-4656-a4a7-18c52669348f/routingProtocols/3f5ed98a-8dba-4651-a317-8ad0234dd157/actions/123ed98a-92ba-9951-bb17-17d0234dd096",
-          "uuid": "123ed98a-92ba-9951-bb17-17d0234dd096",
-          "type": "CLEAR_BGPIPV4_OUTBOUND",
-          "description": "soft clear bgp ipv4 outbound session",
-          "state": "PENDING",
-          "changeLog": {
-            "createdBy": "adminuser",
-            "createdByEmail": "adminuser@equinix.com",
-            "createdByFullName": "adminuser adminuser",
-            "createdDateTime": "2020-05-21T10:30:00Z"
-          }
-        }
-      },
-      "BGPSoftClearOutBoundIPv6Response": {
-        "value": {
-          "href": "https://api.equinix.com/fabric/v4/connections/81331c52-04c0-4656-a4a7-18c52669348f/routingProtocols/3f5ed98a-8dba-4651-a317-8ad0234dd157/actions/123ed98a-92ba-9951-bb17-17d0234dd096",
-          "uuid": "123ed98a-92ba-9951-bb17-17d0234dd096",
-          "type": "CLEAR_BGPIPV6_OUTBOUND",
-          "description": "soft clear bgp ipv6 outbound session",
-          "state": "PENDING",
-          "changeLog": {
-            "createdBy": "adminuser",
-            "createdByEmail": "adminuser@equinix.com",
-            "createdByFullName": "adminuser adminuser",
-            "createdDateTime": "2020-05-21T10:30:00Z"
-          }
-        }
-      },
       "BGPActionDataResponseExample": {
         "value": {
           "href": "https://api.equinix.com/fabric/v4/connections/81331c52-04c0-4656-a4a7-18c52669348f/routingProtocols/3f5ed98a-8dba-4651-a317-8ad0234dd157/actions/4e5ed00a-3dca-5652-b319-aad0234dd934",
           "uuid": "4e5ed00a-3dca-5652-b319-aad0234dd934",
-          "type": "CLEAR_BGPIPV6_OUTBOUND",
-          "description": "soft clear bgp ipv6 outbound session",
+          "type": "CLEAR_BGPIPV6_INBOUND",
+          "description": "soft clear bgp ipv6 inbound session",
           "state": "SUCCEEDED",
           "changeLog": {
             "createdBy": "adminuser",
@@ -22567,6 +23090,8 @@
           "href": "http://api.equinix.com/fabric/v4/serviceTokens/13ab7dc7-c18e-4f73-aa35-fc3a83966e79",
           "type": "VC_TOKEN",
           "uuid": "13ab7dc7-c18e-4f73-aa35-fc3a83966e79",
+          "name": "Az_Aside_Dot1Q_Pri_SV",
+          "description": "Az_Aside_Dot1Q_Pri_SV_Description",
           "state": "INACTIVE",
           "expirationDateTime": "2021-03-18T06:43:49.980Z",
           "connection": {
@@ -22619,6 +23144,8 @@
           "href": "http://api.equinix.com/fabric/v4/serviceTokens/13ab7dc7-c18e-4f73-aa35-fc3a83966e79",
           "type": "VC_TOKEN",
           "uuid": "13ab7dc7-c18e-4f73-aa35-fc3a83966e79",
+          "name": "Az_Aside_Dot1Q_Pri_SV",
+          "description": "Az_Aside_Dot1Q_Pri_SV_Description",
           "state": "INACTIVE",
           "expiry": 0,
           "expirationDateTime": "2021-03-18T06:43:49.980Z",
@@ -22694,6 +23221,24 @@
           }
         ]
       },
+      "UpdateTokenName": {
+        "value": [
+          {
+            "op": "replace",
+            "path": "/name",
+            "value": "Az_Aside_Dot1Q_NewName"
+          }
+        ]
+      },
+      "UpdateTokenDescription": {
+        "value": [
+          {
+            "op": "replace",
+            "path": "/description",
+            "value": "Az_Aside_Dot1Q_Pri_SV_NewDescription"
+          }
+        ]
+      },
       "UpdateNotificationEmail": {
         "value": [
           {
@@ -22739,6 +23284,8 @@
               "href": "http://api.equinix.com/fabric/v4/serviceTokens/13ab7dc7-c18e-4f73-aa35-fc3a83966e79",
               "type": "VC_TOKEN",
               "uuid": "13ab7dc7-c18e-4f73-aa35-fc3a83966e79",
+              "name": "Az_Aside_Dot1Q_Pri_SV",
+              "description": "Az_Aside_Dot1Q_Pri_SV_Description",
               "state": "INACTIVE",
               "expirationDateTime": "2021-03-18T06:43:49.980Z",
               "connection": {
@@ -22800,6 +23347,8 @@
               "href": "http://api.equinix.com/fabric/v4/serviceTokens/13ab7dc7-c18e-4f73-aa35-fc3a83966e79",
               "type": "VC_TOKEN",
               "uuid": "13ab7dc7-c18e-4f73-aa35-fc3a83966e79",
+              "name": "Az_Aside_Dot1Q_Pri_SV",
+              "description": "Az_Aside_Dot1Q_Pri_SV_Description",
               "state": "INACTIVE",
               "expiry": 0,
               "expirationDateTime": "2021-03-18T06:43:49.980Z",
@@ -22856,6 +23405,8 @@
       "createServiceTokenWithQnQ": {
         "value": {
           "type": "VC_TOKEN",
+          "name": "Az_Aside_Dot1Q_Pri_SV",
+          "description": "Az_Aside_Dot1Q_Pri_SV_Description",
           "expirationDateTime": "2021-03-18T06:43:49.980Z",
           "connection": {
             "type": "EVPL_VC",
@@ -22892,6 +23443,8 @@
       "createServiceTokenWithDot1Q": {
         "value": {
           "type": "VC_TOKEN",
+          "name": "Az_Aside_Dot1Q_Pri_SV",
+          "description": "Az_Aside_Dot1Q_Pri_SV_Description",
           "expirationDateTime": "2021-03-18T06:43:49.980Z",
           "connection": {
             "type": "EVPL_VC",
@@ -22927,6 +23480,8 @@
       "createZsideServiceTokenWithQnQ": {
         "value": {
           "type": "VC_TOKEN",
+          "name": "Az_Zside_Dot1Q_Pri_SV",
+          "description": "Az_Zside_Dot1Q_Pri_SV_Description",
           "issuerSide": "Z_Side",
           "connection": {
             "type": "EVPL_VC",
@@ -22969,6 +23524,8 @@
       "createZsideServiceTokenWithQnQ-CRH": {
         "value": {
           "type": "VC_TOKEN",
+          "name": "Az_Zside_Dot1Q_Pri_SV",
+          "description": "Az_Zside_Dot1Q_Pri_SV_Description",
           "issuerSide": "Z_Side",
           "connection": {
             "type": "EVPL_VC",
@@ -23018,6 +23575,8 @@
       "createZsideServiceTokenWithDot1Q": {
         "value": {
           "type": "VC_TOKEN",
+          "name": "Az_Zside_Dot1Q_Pri_SV",
+          "description": "Az_Zside_Dot1Q_Pri_SV_Description",
           "issuerSide": "Z_Side",
           "connection": {
             "type": "EVPL_VC",
@@ -23066,6 +23625,8 @@
           "href": "http://api.equinix.com/fabric/v4/serviceTokens/13ab7dc7-c18e-4f73-aa35-fc3a83966e79",
           "type": "VC_TOKEN",
           "uuid": "13ab7dc7-c18e-4f73-aa35-fc3a83966e79",
+          "name": "Az_Aside_Dot1Q_Pri_SV",
+          "description": "Az_Aside_Dot1Q_Pri_SV_Description",
           "state": "INACTIVE",
           "expiry": 0,
           "expirationDateTime": "2021-03-18T06:43:49.980Z",
@@ -23711,6 +24272,18 @@
               "registeredUsers": [
                 "jaguarsuser-port-order"
               ]
+            },
+            {
+              "type": "PEERING",
+              "registeredUsers": [
+                "jaguarsuser-port-order"
+              ]
+            },
+            {
+              "type": "ESCALATION",
+              "registeredUsers": [
+                "jaguarsuser-port-order"
+              ]
             }
           ],
           "physicalPorts": [
@@ -23994,6 +24567,18 @@
               "registeredUsers": [
                 "jaguarsuser-port-order"
               ]
+            },
+            {
+              "type": "PEERING",
+              "registeredUsers": [
+                "jaguarsuser-port-order"
+              ]
+            },
+            {
+              "type": "ESCALATION",
+              "registeredUsers": [
+                "jaguarsuser-port-order"
+              ]
             }
           ],
           "loas": [
@@ -24145,6 +24730,18 @@
             },
             {
               "type": "NOTIFICATION",
+              "registeredUsers": [
+                "jaguarsuser-port-order"
+              ]
+            },
+            {
+              "type": "PEERING",
+              "registeredUsers": [
+                "jaguarsuser-port-order"
+              ]
+            },
+            {
+              "type": "ESCALATION",
               "registeredUsers": [
                 "jaguarsuser-port-order"
               ]
@@ -24565,6 +25162,18 @@
                   "registeredUsers": [
                     "jaguarsuser-port-order"
                   ]
+                },
+                {
+                  "type": "PEERING",
+                  "registeredUsers": [
+                    "jaguarsuser-port-order"
+                  ]
+                },
+                {
+                  "type": "ESCALATION",
+                  "registeredUsers": [
+                    "jaguarsuser-port-order"
+                  ]
                 }
               ],
               "changeLog": {
@@ -24649,22 +25258,34 @@
               "order": {
                 "href": "https://api.equinix.com/fabric/v4/orders/cd67f685-41b0-1b07-6de0-320a5c00a999",
                 "uuid": "cd67f685-41b0-1b07-6de0-320a5c00a999",
-                "orderNumber": "1-207799950758",
-                "notifications": [
-                  {
-                    "type": "TECHNICAL",
-                    "registeredUsers": [
-                      "jaguarsuser-port-order"
-                    ]
-                  },
-                  {
-                    "type": "NOTIFICATION",
-                    "registeredUsers": [
-                      "jaguarsuser-port-order"
-                    ]
-                  }
-                ]
+                "orderNumber": "1-207799950758"
               },
+              "notifications": [
+                {
+                  "type": "TECHNICAL",
+                  "registeredUsers": [
+                    "jaguarsuser-port-order"
+                  ]
+                },
+                {
+                  "type": "NOTIFICATION",
+                  "registeredUsers": [
+                    "jaguarsuser-port-order"
+                  ]
+                },
+                {
+                  "type": "PEERING",
+                  "registeredUsers": [
+                    "jaguarsuser-port-order"
+                  ]
+                },
+                {
+                  "type": "ESCALATION",
+                  "registeredUsers": [
+                    "jaguarsuser-port-order"
+                  ]
+                }
+              ],
               "changeLog": {
                 "createdBy": "testuser",
                 "createdByEmail": "testuser@equinix.com",
@@ -24702,6 +25323,9 @@
                 "patchPanelPortA": 14,
                 "patchPanelPortB": 15,
                 "connectorType": "LC"
+              },
+              "account": {
+                "accountNumber": 17829
               },
               "order": {
                 "purchaseOrder": {
@@ -24757,6 +25381,9 @@
             },
             {
               "type": "XF_PHYSICAL_PORT",
+              "account": {
+                "accountNumber": 17829
+              },
               "demarcationPoint": {
                 "ibx": "AM1",
                 "cabinetUniqueSpaceId": "AM1:02:032575:0105",
@@ -24876,6 +25503,9 @@
                     "email": "john.doe@company.com"
                   }
                 }
+              },
+              "account": {
+                "accountReferenceId": "17829Id"
               }
             },
             {
@@ -24887,6 +25517,9 @@
             },
             {
               "type": "XF_PHYSICAL_PORT",
+              "account": {
+                "accountReferenceId": "17829Id"
+              },
               "additionalInfo": [
                 {
                   "key": "internalReferenceId",
@@ -24937,6 +25570,9 @@
           "data": [
             {
               "type": "XF_PHYSICAL_PORT",
+              "account": {
+                "accountNumber": 17829
+              },
               "order": {
                 "purchaseOrder": {
                   "number": 156576,
@@ -25002,6 +25638,9 @@
             },
             {
               "type": "XF_PHYSICAL_PORT",
+              "account": {
+                "accountNumber": 17829
+              },
               "order": {
                 "purchaseOrder": {
                   "number": 156576,
@@ -25158,6 +25797,284 @@
           }
         }
       },
+      "LinkProtocolGetQinqResponseExample": {
+        "value": {
+          "pagination": {
+            "offset": 0,
+            "limit": 20,
+            "total": 5
+          },
+          "data": [
+            {
+              "type": "QINQ",
+              "uuid": "52d61263-fb0a-459d-a086-bc7fd6bd7384",
+              "state": "RESERVED",
+              "vlanSTag": 1000,
+              "vlanCTag": 500,
+              "connection": {
+                "href": "https://api.equinix.com/fabric/v4/connections/cd67f685-41b0-1b07-6de0-320a5c00abee",
+                "uuid": "cd67f685-41b0-1b07-6de0-320a5c00abee"
+              },
+              "changeLog": {
+                "createdDateTime": "2020-05-21T10:30:00Z"
+              }
+            },
+            {
+              "type": "QINQ",
+              "uuid": "8c589394-b0eb-4057-97dc-3bdb4f8ff6db",
+              "state": "RESERVED",
+              "vlanSTag": 1000,
+              "vlanCTag": 500,
+              "serviceToken": {
+                "href": "https://api.equinix.com/fabric/v4/serviceTokens/fc4fb78a-6b89-462d-a233-e75ef61a603f",
+                "uuid": "fc4fb78a-6b89-462d-a233-e75ef61a603f"
+              },
+              "changeLog": {
+                "createdDateTime": "2020-05-21T10:30:00Z"
+              }
+            },
+            {
+              "type": "QINQ",
+              "uuid": "7f1da56d-e1ff-4b25-b542-883c7004e971",
+              "state": "RESERVED",
+              "vlanSTag": 1000,
+              "vlanCTag": 500,
+              "serviceToken": {
+                "href": "https://api.equinix.com/fabric/v4/serviceTokens/90f1af0e-134b-40d6-a007-e62cd6866373",
+                "uuid": "90f1af0e-134b-40d6-a007-e62cd6866373",
+                "bandwidth": 1000
+              },
+              "changeLog": {
+                "createdDateTime": "2020-05-21T10:30:00Z"
+              }
+            },
+            {
+              "type": "QINQ",
+              "uuid": "7c968801-e03b-4530-8424-aa5ecc4339e2",
+              "state": "RESERVED",
+              "vlanSTag": 1000,
+              "vlanCTag": 500,
+              "connection": {
+                "href": "https://api.equinix.com/fabric/v4/connections/2ac4e14f-6120-4705-886e-d37f1d0c6a65",
+                "uuid": "2ac4e14f-6120-4705-886e-d37f1d0c6a65"
+              },
+              "changeLog": {
+                "createdDateTime": "2020-05-21T10:30:00Z"
+              }
+            },
+            {
+              "type": "QINQ",
+              "uuid": "db812bba-94b8-43e6-8d9c-850f04350c3d",
+              "state": "RESERVED",
+              "vlanSTag": 1001,
+              "vlanCTag": 1001,
+              "connection": {
+                "href": "https://api.equinix.com/fabric/v4/connections/3268d105-e57b-4b2b-8a0a-2e3e42312d95",
+                "uuid": "3268d105-e57b-4b2b-8a0a-2e3e42312d95"
+              },
+              "changeLog": {
+                "createdDateTime": "2020-05-21T10:30:00Z",
+                "updatedDateTime": "2020-05-21T10:30:00Z"
+              }
+            }
+          ]
+        }
+      },
+      "LinkProtocolGetDot1qResponseExample": {
+        "value": {
+          "pagination": {
+            "offset": 5,
+            "limit": 20,
+            "total": 40,
+            "next": "/fabric/v4/ports/4ff4047c-7217-4b79-9943-c2c4a2f7324d/linkProtocols?offset=25&limit=20,",
+            "previous": "/fabric/v4/ports/4ff4047c-7217-4b79-9943-c2c4a2f7324d/linkProtocols?offset=0&limit=20"
+          },
+          "data": [
+            {
+              "type": "DOT1Q",
+              "uuid": "52d61263-fb0a-459d-a086-bc7fd6bd7384",
+              "state": "RESERVED",
+              "vlanTag": 200,
+              "connection": {
+                "href": "https://api.equinix.com/fabric/v4/connections/cd67f685-41b0-1b07-6de0-320a5c00abee",
+                "uuid": "cd67f685-41b0-1b07-6de0-320a5c00abee",
+                "bandwidth": 1000
+              },
+              "changeLog": {
+                "createdDateTime": "2020-05-21T10:30:00Z"
+              }
+            },
+            {
+              "type": "DOT1Q",
+              "uuid": "8c589394-b0eb-4057-97dc-3bdb4f8ff6db",
+              "state": "RESERVED",
+              "vlanTag": 257,
+              "serviceToken": {
+                "href": "https://api.equinix.com/fabric/v4/serviceTokens/fc4fb78a-6b89-462d-a233-e75ef61a603f",
+                "uuid": "fc4fb78a-6b89-462d-a233-e75ef61a603f",
+                "bandwidth": 1000
+              },
+              "changeLog": {
+                "createdDateTime": "2020-05-21T10:30:00Z"
+              }
+            },
+            {
+              "type": "DOT1Q",
+              "uuid": "7f1da56d-e1ff-4b25-b542-883c7004e971",
+              "state": "RESERVED",
+              "vlanTag": 250,
+              "serviceToken": {
+                "href": "https://api.equinix.com/fabric/v4/serviceTokens/90f1af0e-134b-40d6-a007-e62cd6866373",
+                "uuid": "90f1af0e-134b-40d6-a007-e62cd6866373",
+                "bandwidth": 1000
+              },
+              "changeLog": {
+                "createdDateTime": "2020-05-21T10:30:00Z"
+              }
+            },
+            {
+              "type": "DOT1Q",
+              "uuid": "7c968801-e03b-4530-8424-aa5ecc4339e2",
+              "state": "RESERVED",
+              "vlanTag": 240,
+              "connection": {
+                "href": "https://api.equinix.com/fabric/v4/connections/2ac4e14f-6120-4705-886e-d37f1d0c6a65",
+                "uuid": "2ac4e14f-6120-4705-886e-d37f1d0c6a65",
+                "bandwidth": 1000
+              },
+              "changeLog": {
+                "createdDateTime": "2020-05-21T10:30:00Z"
+              }
+            },
+            {
+              "type": "DOT1Q",
+              "uuid": "db812bba-94b8-43e6-8d9c-850f04350c3d",
+              "state": "RESERVED",
+              "vlanTag": 240,
+              "connection": {
+                "href": "https://api.equinix.com/fabric/v4/connections/3268d105-e57b-4b2b-8a0a-2e3e42312d95",
+                "uuid": "3268d105-e57b-4b2b-8a0a-2e3e42312d95",
+                "bandwidth": 1000
+              },
+              "changeLog": {
+                "createdDateTime": "2020-05-21T10:30:00Z",
+                "updatedDateTime": "2020-05-21T10:30:00Z"
+              }
+            }
+          ]
+        }
+      },
+      "LinkProtocolGetVlanRangeResponseExample": {
+        "value": {
+          "pagination": {
+            "offset": 5,
+            "limit": 20,
+            "total": 40,
+            "next": "/fabric/v4/ports/4ff4047c-7217-4b79-9943-c2c4a2f7324d/linkProtocols?offset=25&limit=20,",
+            "previous": "/fabric/v4/ports/4ff4047c-7217-4b79-9943-c2c4a2f7324d/linkProtocols?offset=0&limit=20"
+          },
+          "data": [
+            {
+              "type": "DOT1Q",
+              "uuid": "52d61263-fb0a-459d-a086-bc7fd6bd7384",
+              "state": "RESERVED",
+              "vlanTagMin": 177,
+              "vlanTagMax": 179,
+              "connection": {
+                "href": "https://api.equinix.com/fabric/v4/connections/cd67f685-41b0-1b07-6de0-320a5c00abee",
+                "uuid": "cd67f685-41b0-1b07-6de0-320a5c00abee",
+                "bandwidth": 1000
+              },
+              "changeLog": {
+                "createdDateTime": "2020-05-21T10:30:00Z"
+              }
+            },
+            {
+              "type": "DOT1Q",
+              "uuid": "8c589394-b0eb-4057-97dc-3bdb4f8ff6db",
+              "state": "RESERVED",
+              "vlanTagMin": 177,
+              "vlanTagMax": 179,
+              "serviceToken": {
+                "href": "https://api.equinix.com/fabric/v4/serviceTokens/fc4fb78a-6b89-462d-a233-e75ef61a603f",
+                "uuid": "fc4fb78a-6b89-462d-a233-e75ef61a603f",
+                "bandwidth": 1000
+              },
+              "changeLog": {
+                "createdDateTime": "2020-05-21T10:30:00Z"
+              }
+            },
+            {
+              "type": "DOT1Q",
+              "uuid": "7f1da56d-e1ff-4b25-b542-883c7004e971",
+              "state": "RESERVED",
+              "vlanTagMin": 177,
+              "vlanTagMax": 179,
+              "serviceToken": {
+                "href": "https://api.equinix.com/fabric/v4/serviceTokens/90f1af0e-134b-40d6-a007-e62cd6866373",
+                "uuid": "90f1af0e-134b-40d6-a007-e62cd6866373",
+                "bandwidth": 1000
+              },
+              "changeLog": {
+                "createdDateTime": "2020-05-21T10:30:00Z"
+              }
+            },
+            {
+              "type": "DOT1Q",
+              "uuid": "7c968801-e03b-4530-8424-aa5ecc4339e2",
+              "state": "RESERVED",
+              "vlanTagMin": 177,
+              "vlanTagMax": 179,
+              "connection": {
+                "href": "https://api.equinix.com/fabric/v4/connections/2ac4e14f-6120-4705-886e-d37f1d0c6a65",
+                "uuid": "2ac4e14f-6120-4705-886e-d37f1d0c6a65",
+                "bandwidth": 1000
+              },
+              "changeLog": {
+                "createdDateTime": "2020-05-21T10:30:00Z"
+              }
+            },
+            {
+              "type": "DOT1Q",
+              "uuid": "db812bba-94b8-43e6-8d9c-850f04350c3d",
+              "state": "RESERVED",
+              "vlanTagMin": 177,
+              "vlanTagMax": 179,
+              "connection": {
+                "href": "https://api.equinix.com/fabric/v4/connections/3268d105-e57b-4b2b-8a0a-2e3e42312d95",
+                "uuid": "3268d105-e57b-4b2b-8a0a-2e3e42312d95",
+                "bandwidth": 1000
+              },
+              "changeLog": {
+                "createdDateTime": "2020-05-21T10:30:00Z",
+                "updatedDateTime": "2020-05-21T10:30:00Z"
+              }
+            }
+          ]
+        }
+      },
+      "400_invalid_portId": {
+        "value": [
+          {
+            "errorCode": "EQ-3035202",
+            "errorMessage": "Unable to fetch port details",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515",
+            "details": "The uuid requested could not be found in system. Please try again after sometime",
+            "additionalInfo": {
+              "property": "portUuid"
+            }
+          }
+        ]
+      },
+      "403-port-access": {
+        "value": [
+          {
+            "errorCode": "EQ-3035002",
+            "errorMessage": "Access Forbidden",
+            "correlationId": "UnAuthorized User- Cannot perform action"
+          }
+        ]
+      },
       "CreateLabPackage": {
         "value": {
           "type": "XF_GATEWAY",
@@ -25167,32 +26084,6 @@
           },
           "package": {
             "code": "LAB"
-          },
-          "notifications": [
-            {
-              "type": "ALL",
-              "emails": [
-                "test@test.com"
-              ]
-            }
-          ],
-          "account": {
-            "accountNumber": 272010
-          },
-          "project": {
-            "projectId": "995072000433550"
-          }
-        }
-      },
-      "CreateBasicPackage": {
-        "value": {
-          "type": "XF_GATEWAY",
-          "name": "My-Fabric-Gateway",
-          "location": {
-            "metroCode": "SV"
-          },
-          "package": {
-            "code": "BASIC"
           },
           "notifications": [
             {
@@ -25233,32 +26124,6 @@
           },
           "project": {
             "projectId": "995072000433550"
-          }
-        }
-      },
-      "CreatePremiumPackage": {
-        "value": {
-          "type": "XF_GATEWAY",
-          "name": "My-Fabric-Gateway",
-          "location": {
-            "metroCode": "DC"
-          },
-          "package": {
-            "code": "PREMIUM"
-          },
-          "notifications": [
-            {
-              "type": "ALL",
-              "emails": [
-                "test@test.com"
-              ]
-            }
-          ],
-          "account": {
-            "accountNumber": 272015
-          },
-          "project": {
-            "projectId": "995072000433551"
           }
         }
       },
@@ -25308,9 +26173,9 @@
         "value": [
           {
             "errorCode": "EQ-3040028",
-            "errorMessage": "Package not found.",
+            "errorMessage": "Package not found",
             "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515",
-            "details": "package must be of type LAB."
+            "details": "package must be of type LAB or PRO"
           }
         ]
       },
@@ -26077,7 +26942,216 @@
           ]
         }
       },
-      "Response-Azure": {
+      "Response-Azure-no-existing-connections": {
+        "value": {
+          "additionalInfo": [
+            {
+              "key": "message",
+              "value": "Authorization key provided is valid"
+            }
+          ],
+          "data": [
+            {
+              "bandwidth": 50,
+              "redundancy": {
+                "priority": "PRIMARY"
+              },
+              "zSide": {
+                "accessPoint": {
+                  "type": "COLO",
+                  "port": {
+                    "type": "XF_PORT",
+                    "name": "Port-Name-1"
+                  },
+                  "location": {
+                    "metroCode": "SV"
+                  },
+                  "peeringType": "PRIVATE",
+                  "linkProtocol": {
+                    "type": "QINQ",
+                    "vlanSTag": 1003
+                  }
+                }
+              }
+            },
+            {
+              "bandwidth": 50,
+              "redundancy": {
+                "priority": "SECONDARY"
+              },
+              "zSide": {
+                "accessPoint": {
+                  "type": "COLO",
+                  "port": {
+                    "type": "XF_PORT",
+                    "name": "Port-Name-2"
+                  },
+                  "location": {
+                    "metroCode": "SV"
+                  },
+                  "peeringType": "PRIVATE",
+                  "linkProtocol": {
+                    "type": "QINQ",
+                    "vlanSTag": 1003
+                  }
+                }
+              }
+            },
+            {
+              "bandwidth": 50,
+              "redundancy": {
+                "priority": "PRIMARY"
+              },
+              "zSide": {
+                "accessPoint": {
+                  "type": "COLO",
+                  "port": {
+                    "type": "XF_PORT",
+                    "name": "Port-Name-3"
+                  },
+                  "location": {
+                    "metroCode": "SV"
+                  },
+                  "peeringType": "MICROSOFT",
+                  "linkProtocol": {
+                    "type": "QINQ",
+                    "vlanSTag": 1003
+                  }
+                }
+              }
+            },
+            {
+              "bandwidth": 50,
+              "redundancy": {
+                "priority": "SECONDARY"
+              },
+              "zSide": {
+                "accessPoint": {
+                  "type": "COLO",
+                  "port": {
+                    "type": "XF_PORT",
+                    "name": "Port-Name-4"
+                  },
+                  "location": {
+                    "metroCode": "SV"
+                  },
+                  "peeringType": "MICROSOFT",
+                  "linkProtocol": {
+                    "type": "QINQ",
+                    "vlanSTag": 1003
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "Response-Azure-1-existing-Dot1q-connection": {
+        "value": {
+          "additionalInfo": [
+            {
+              "key": "message",
+              "value": "Authorization key provided is valid"
+            }
+          ],
+          "data": [
+            {
+              "bandwidth": 50,
+              "redundancy": {
+                "priority": "PRIMARY"
+              },
+              "aside": {
+                "accessPoint": {
+                  "type": "COLO",
+                  "linkProtocol": {
+                    "type": "DOT1Q"
+                  }
+                }
+              },
+              "zSide": {
+                "accessPoint": {
+                  "type": "COLO",
+                  "port": {
+                    "type": "XF_PORT",
+                    "name": "Port-Name-1"
+                  },
+                  "location": {
+                    "metroCode": "SV"
+                  },
+                  "peeringType": "PRIVATE",
+                  "linkProtocol": {
+                    "type": "QINQ",
+                    "vlanSTag": 1003
+                  }
+                }
+              }
+            },
+            {
+              "bandwidth": 50,
+              "redundancy": {
+                "priority": "SECONDARY"
+              },
+              "aside": {
+                "accessPoint": {
+                  "type": "COLO",
+                  "linkProtocol": {
+                    "type": "DOT1Q"
+                  }
+                }
+              },
+              "zSide": {
+                "accessPoint": {
+                  "type": "COLO",
+                  "port": {
+                    "type": "XF_PORT",
+                    "name": "Port-Name-2"
+                  },
+                  "location": {
+                    "metroCode": "SV"
+                  },
+                  "peeringType": "PRIVATE",
+                  "linkProtocol": {
+                    "type": "QINQ",
+                    "vlanSTag": 1003
+                  }
+                }
+              }
+            },
+            {
+              "bandwidth": 50,
+              "redundancy": {
+                "priority": "SECONDARY"
+              },
+              "aside": {
+                "accessPoint": {
+                  "type": "COLO",
+                  "linkProtocol": {
+                    "type": "DOT1Q"
+                  }
+                }
+              },
+              "zSide": {
+                "accessPoint": {
+                  "type": "COLO",
+                  "port": {
+                    "type": "XF_PORT",
+                    "name": "Port-Name-3"
+                  },
+                  "location": {
+                    "metroCode": "SV"
+                  },
+                  "peeringType": "MICROSOFT",
+                  "linkProtocol": {
+                    "type": "QINQ",
+                    "vlanSTag": 1003
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "Response-Azure-1-existing-Qinq-connection": {
         "value": {
           "additionalInfo": [
             {
@@ -26091,6 +27165,14 @@
               "redundancy": {
                 "priority": "PRIMARY"
               },
+              "aside": {
+                "accessPoint": {
+                  "type": "VD",
+                  "linkProtocol": {
+                    "type": "QINQ"
+                  }
+                }
+              },
               "zSide": {
                 "accessPoint": {
                   "type": "COLO",
@@ -26098,17 +27180,37 @@
                     "type": "XF_PORT",
                     "name": "Port-Name-1"
                   },
+                  "location": {
+                    "metroCode": "SV"
+                  },
                   "linkProtocol": {
                     "type": "QINQ",
                     "vlanSTag": 1003
                   }
                 }
               }
-            },
+            }
+          ]
+        }
+      },
+      "Response-Azure-2-existing-Dot1q-connections": {
+        "value": {
+          "additionalInfo": [
             {
-              "bandwidth": 500,
+              "key": "message",
+              "value": "Authorization key provided is valid"
+            }
+          ],
+          "data": [
+            {
+              "bandwidth": 50,
               "redundancy": {
                 "priority": "SECONDARY"
+              },
+              "aside": {
+                "accessPoint": {
+                  "type": "GW"
+                }
               },
               "zSide": {
                 "accessPoint": {
@@ -26117,6 +27219,38 @@
                     "type": "XF_PORT",
                     "name": "Port-Name-2"
                   },
+                  "location": {
+                    "metroCode": "SV"
+                  },
+                  "peeringType": "MICROSOFT",
+                  "linkProtocol": {
+                    "type": "QINQ",
+                    "vlanSTag": 1003
+                  }
+                }
+              }
+            },
+            {
+              "bandwidth": 50,
+              "redundancy": {
+                "priority": "SECONDARY"
+              },
+              "aside": {
+                "accessPoint": {
+                  "type": "GW"
+                }
+              },
+              "zSide": {
+                "accessPoint": {
+                  "type": "COLO",
+                  "port": {
+                    "type": "XF_PORT",
+                    "name": "Port-Name-3"
+                  },
+                  "location": {
+                    "metroCode": "SV"
+                  },
+                  "peeringType": "MICROSOFT",
                   "linkProtocol": {
                     "type": "QINQ",
                     "vlanSTag": 1003

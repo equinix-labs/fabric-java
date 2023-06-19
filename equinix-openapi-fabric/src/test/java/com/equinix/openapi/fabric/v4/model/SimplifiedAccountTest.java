@@ -46,6 +46,14 @@ public class SimplifiedAccountTest {
     }
 
     /**
+     * Test the property 'accountReferenceId'
+     */
+    @Test
+    public void accountReferenceIdTest() {
+        // TODO: test accountReferenceId
+    }
+
+    /**
      * Test the property 'accountName'
      */
     @Test

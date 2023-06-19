@@ -6,6 +6,7 @@ All URIs are relative to *https://virtserver.swaggerhub.com/equinix-api/fabric/4
 |------------- | ------------- | -------------|
 | [**getPortByUuid**](PortsApi.md#getPortByUuid) | **GET** /fabric/v4/ports/{portId} | Get Port by uuid |
 | [**getPorts**](PortsApi.md#getPorts) | **GET** /fabric/v4/ports | Get All Ports |
+| [**getVlans**](PortsApi.md#getVlans) | **GET** /fabric/v4/ports/{portUuid}/linkProtocols | Get Vlans |
 
 
 <a name="getPortByUuid"></a>
@@ -144,5 +145,74 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful operation |  -  |
+| **403** | Forbidden |  -  |
+
+<a name="getVlans"></a>
+# **getVlans**
+> LinkProtocolGetResponse getVlans(portUuid)
+
+Get Vlans
+
+The API provides capability to retrieve Vlans for a Port.
+
+### Example
+```java
+// Import classes:
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.PortsApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
+
+    PortsApi apiInstance = new PortsApi(defaultClient);
+    UUID portUuid = UUID.randomUUID(); // UUID | Port UUID
+    try {
+      LinkProtocolGetResponse result = apiInstance.getVlans(portUuid);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling PortsApi#getVlans");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **portUuid** | **UUID**| Port UUID | |
+
+### Return type
+
+[**LinkProtocolGetResponse**](LinkProtocolGetResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Get Vlans |  -  |
+| **400** | Bad request |  -  |
 | **403** | Forbidden |  -  |
 

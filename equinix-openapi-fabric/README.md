@@ -40,7 +40,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.equinix</groupId>
   <artifactId>equinix-openapi-fabric</artifactId>
-  <version>0.1.0</version>
+  <version>0.2.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -56,7 +56,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "com.equinix:equinix-openapi-fabric:0.1.0"
+     implementation "com.equinix:equinix-openapi-fabric:0.2.0"
   }
 ```
 
@@ -70,7 +70,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/equinix-openapi-fabric-0.1.0.jar`
+* `target/equinix-openapi-fabric-0.2.0.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -148,6 +148,7 @@ Class | Method | HTTP request | Description
 *NetworksApi* | [**updateNetworkByUuid**](docs/NetworksApi.md#updateNetworkByUuid) | **PATCH** /fabric/v4/networks/{networkId} | Update Network By ID
 *PortsApi* | [**getPortByUuid**](docs/PortsApi.md#getPortByUuid) | **GET** /fabric/v4/ports/{portId} | Get Port by uuid
 *PortsApi* | [**getPorts**](docs/PortsApi.md#getPorts) | **GET** /fabric/v4/ports | Get All Ports
+*PortsApi* | [**getVlans**](docs/PortsApi.md#getVlans) | **GET** /fabric/v4/ports/{portUuid}/linkProtocols | Get Vlans
 *PricesApi* | [**searchPrices**](docs/PricesApi.md#searchPrices) | **POST** /fabric/v4/prices/search | Get Prices
 *RoutesApi* | [**searchRoutes**](docs/RoutesApi.md#searchRoutes) | **POST** /fabric/v4/gateways/{gatewayId}/routes/search | Search Route Table
 *RoutingProtocolsApi* | [**createConnectionRoutingProtocol**](docs/RoutingProtocolsApi.md#createConnectionRoutingProtocol) | **POST** /fabric/v4/connections/{connectionId}/routingProtocols | Create Protocol
@@ -188,6 +189,7 @@ Class | Method | HTTP request | Description
  - [AccessPointType](docs/AccessPointType.md)
  - [Actions](docs/Actions.md)
  - [AddOperation](docs/AddOperation.md)
+ - [AdditionalInfo](docs/AdditionalInfo.md)
  - [AllPortsResponse](docs/AllPortsResponse.md)
  - [ApiConfig](docs/ApiConfig.md)
  - [ApiServices](docs/ApiServices.md)
@@ -211,6 +213,7 @@ Class | Method | HTTP request | Description
  - [ConnectionChangeOperation](docs/ConnectionChangeOperation.md)
  - [ConnectionCompanyProfile](docs/ConnectionCompanyProfile.md)
  - [ConnectionDirection](docs/ConnectionDirection.md)
+ - [ConnectionInvitation](docs/ConnectionInvitation.md)
  - [ConnectionOperation](docs/ConnectionOperation.md)
  - [ConnectionPostRequest](docs/ConnectionPostRequest.md)
  - [ConnectionPriority](docs/ConnectionPriority.md)
@@ -265,10 +268,16 @@ Class | Method | HTTP request | Description
  - [Link](docs/Link.md)
  - [LinkAggregationGroup](docs/LinkAggregationGroup.md)
  - [LinkProtocol](docs/LinkProtocol.md)
+ - [LinkProtocolConnection](docs/LinkProtocolConnection.md)
  - [LinkProtocolDot1q](docs/LinkProtocolDot1q.md)
  - [LinkProtocolEvpnVxlan](docs/LinkProtocolEvpnVxlan.md)
+ - [LinkProtocolGetResponse](docs/LinkProtocolGetResponse.md)
  - [LinkProtocolIpv4Ipv6Config](docs/LinkProtocolIpv4Ipv6Config.md)
  - [LinkProtocolQinq](docs/LinkProtocolQinq.md)
+ - [LinkProtocolRequestType](docs/LinkProtocolRequestType.md)
+ - [LinkProtocolResponse](docs/LinkProtocolResponse.md)
+ - [LinkProtocolServiceToken](docs/LinkProtocolServiceToken.md)
+ - [LinkProtocolState](docs/LinkProtocolState.md)
  - [LinkProtocolType](docs/LinkProtocolType.md)
  - [LinkProtocolUntagged](docs/LinkProtocolUntagged.md)
  - [MarketingInfo](docs/MarketingInfo.md)
@@ -420,13 +429,13 @@ Class | Method | HTTP request | Description
  - [SimplifiedNotification](docs/SimplifiedNotification.md)
  - [SimplifiedPort](docs/SimplifiedPort.md)
  - [SimplifiedServiceProfile](docs/SimplifiedServiceProfile.md)
- - [SimplifiedServiceToken](docs/SimplifiedServiceToken.md)
  - [Sort](docs/Sort.md)
  - [SortBy](docs/SortBy.md)
  - [SortCriteria](docs/SortCriteria.md)
  - [SortCriteriaResponse](docs/SortCriteriaResponse.md)
  - [SortDirection](docs/SortDirection.md)
  - [Statistics](docs/Statistics.md)
+ - [SubInterface](docs/SubInterface.md)
  - [TopUtilizedStatistics](docs/TopUtilizedStatistics.md)
  - [ValidateConnectionRequest](docs/ValidateConnectionRequest.md)
  - [ValidateConnectionRequestFilter](docs/ValidateConnectionRequestFilter.md)

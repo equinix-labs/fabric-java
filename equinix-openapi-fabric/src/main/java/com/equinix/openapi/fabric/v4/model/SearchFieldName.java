@@ -35,6 +35,8 @@ public enum SearchFieldName {
   
   _UUID("/uuid"),
   
+  _TYPE("/type"),
+  
   _ACCOUNT_ORGID("/account/orgId"),
   
   _ASIDE_ACCESSPOINT_ACCOUNT_ACCOUNTNAME("/aSide/accessPoint/account/accountName"),

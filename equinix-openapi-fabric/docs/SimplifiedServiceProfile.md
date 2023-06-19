@@ -12,7 +12,7 @@ Service Profile is a software definition for a named provider service and it's n
 |**type** | **ServiceProfileTypeEnum** |  |  [optional] |
 |**name** | **String** | Customer-assigned service profile name |  [optional] |
 |**uuid** | **UUID** | Equinix-assigned service profile identifier |  [optional] |
-|**description** | **String** | User-provided service description |  [optional] |
+|**description** | **String** | User-provided service description should be of maximum length 375 |  [optional] |
 |**notifications** | [**List&lt;SimplifiedNotification&gt;**](SimplifiedNotification.md) | Recipients of notifications on service profile change |  [optional] |
 |**tags** | **List&lt;String&gt;** |  |  [optional] |
 |**visibility** | **ServiceProfileVisibilityEnum** |  |  [optional] |

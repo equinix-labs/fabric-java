@@ -31,11 +31,7 @@ public enum Code {
   
   LAB("LAB"),
   
-  BASIC("BASIC"),
-  
-  PRO("PRO"),
-  
-  PREMIUM("PREMIUM");
+  PRO("PRO");
 
   private String value;
 

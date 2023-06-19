@@ -57,7 +57,11 @@ public class PortNotification {
   public enum TypeEnum {
     NOTIFICATION("NOTIFICATION"),
     
-    TECHNICAL("TECHNICAL");
+    TECHNICAL("TECHNICAL"),
+    
+    PEERING("PEERING"),
+    
+    ESCALATION("ESCALATION");
 
     private String value;
 

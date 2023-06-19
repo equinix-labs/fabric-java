@@ -10,7 +10,9 @@ Create Service Tokens (v4) generates Equinix Fabric service tokens. These tokens
 |------------ | ------------- | ------------- | -------------|
 |**type** | **ServiceTokenType** |  |  [optional] |
 |**href** | **URI** | An absolute URL that is the subject of the link&#39;s context. |  [optional] [readonly] |
-|**uuid** | **UUID** | Equinix-assigned service token identifier |  [optional] |
+|**uuid** | **UUID** | Equinix-assigned service token identifier |  |
+|**name** | **String** | Customer-provided service token name |  [optional] |
+|**description** | **String** | Customer-provided service token description |  [optional] |
 |**expirationDateTime** | **OffsetDateTime** | Expiration date and time of the service token. |  [optional] |
 |**connection** | [**ServiceTokenConnection**](ServiceTokenConnection.md) |  |  [optional] |
 |**state** | **ServiceTokenState** |  |  [optional] |

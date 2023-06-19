@@ -12,6 +12,7 @@ Physical Port specification
 |**id** | **Integer** | Equinix assigned response attribute for Physical Port Id |  [optional] |
 |**href** | **URI** | Equinix assigned response attribute for an absolute URL that is the subject of the link&#39;s context. |  [optional] [readonly] |
 |**state** | **PortState** |  |  [optional] |
+|**account** | [**SimplifiedAccount**](SimplifiedAccount.md) |  |  [optional] |
 |**interfaceSpeed** | **Integer** | Physical Port Speed in Mbps |  [optional] |
 |**interfaceType** | **String** | Physical Port Interface Type |  [optional] |
 |**tether** | [**PortTether**](PortTether.md) |  |  [optional] |

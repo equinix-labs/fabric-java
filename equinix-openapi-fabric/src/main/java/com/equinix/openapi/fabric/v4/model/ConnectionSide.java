@@ -17,8 +17,9 @@ import java.util.Objects;
 import java.util.Arrays;
 import com.equinix.openapi.fabric.v4.model.AccessPoint;
 import com.equinix.openapi.fabric.v4.model.ConnectionCompanyProfile;
+import com.equinix.openapi.fabric.v4.model.ConnectionInvitation;
 import com.equinix.openapi.fabric.v4.model.ConnectionSideAdditionalInfo;
-import com.equinix.openapi.fabric.v4.model.SimplifiedServiceToken;
+import com.equinix.openapi.fabric.v4.model.ServiceToken;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -56,7 +57,7 @@ import com.equinix.openapi.fabric.JSON;
 public class ConnectionSide {
   public static final String SERIALIZED_NAME_SERVICE_TOKEN = "serviceToken";
   @SerializedName(SERIALIZED_NAME_SERVICE_TOKEN)
-  private SimplifiedServiceToken serviceToken;
+  private ServiceToken serviceToken;
 
   public static final String SERIALIZED_NAME_ACCESS_POINT = "accessPoint";
   @SerializedName(SERIALIZED_NAME_ACCESS_POINT)
@@ -66,6 +67,10 @@ public class ConnectionSide {
   @SerializedName(SERIALIZED_NAME_COMPANY_PROFILE)
   private ConnectionCompanyProfile companyProfile;
 
+  public static final String SERIALIZED_NAME_INVITATION = "invitation";
+  @SerializedName(SERIALIZED_NAME_INVITATION)
+  private ConnectionInvitation invitation;
+
   public static final String SERIALIZED_NAME_ADDITIONAL_INFO = "additionalInfo";
   @SerializedName(SERIALIZED_NAME_ADDITIONAL_INFO)
   private List<ConnectionSideAdditionalInfo> additionalInfo = new ArrayList<>();
@@ -73,7 +78,7 @@ public class ConnectionSide {
   public ConnectionSide() {
   }
 
-  public ConnectionSide serviceToken(SimplifiedServiceToken serviceToken) {
+  public ConnectionSide serviceToken(ServiceToken serviceToken) {
     
     this.serviceToken = serviceToken;
     return this;
@@ -85,12 +90,12 @@ public class ConnectionSide {
   **/
   @javax.annotation.Nullable
 
-  public SimplifiedServiceToken getServiceToken() {
+  public ServiceToken getServiceToken() {
     return serviceToken;
   }
 
 
-  public void setServiceToken(SimplifiedServiceToken serviceToken) {
+  public void setServiceToken(ServiceToken serviceToken) {
     this.serviceToken = serviceToken;
   }
 
@@ -136,6 +141,28 @@ public class ConnectionSide {
 
   public void setCompanyProfile(ConnectionCompanyProfile companyProfile) {
     this.companyProfile = companyProfile;
+  }
+
+
+  public ConnectionSide invitation(ConnectionInvitation invitation) {
+    
+    this.invitation = invitation;
+    return this;
+  }
+
+   /**
+   * Get invitation
+   * @return invitation
+  **/
+  @javax.annotation.Nullable
+
+  public ConnectionInvitation getInvitation() {
+    return invitation;
+  }
+
+
+  public void setInvitation(ConnectionInvitation invitation) {
+    this.invitation = invitation;
   }
 
 
@@ -226,13 +253,14 @@ public class ConnectionSide {
     return Objects.equals(this.serviceToken, connectionSide.serviceToken) &&
         Objects.equals(this.accessPoint, connectionSide.accessPoint) &&
         Objects.equals(this.companyProfile, connectionSide.companyProfile) &&
+        Objects.equals(this.invitation, connectionSide.invitation) &&
         Objects.equals(this.additionalInfo, connectionSide.additionalInfo)&&
         Objects.equals(this.additionalProperties, connectionSide.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(serviceToken, accessPoint, companyProfile, additionalInfo, additionalProperties);
+    return Objects.hash(serviceToken, accessPoint, companyProfile, invitation, additionalInfo, additionalProperties);
   }
 
   @Override
@@ -242,6 +270,7 @@ public class ConnectionSide {
     sb.append("    serviceToken: ").append(toIndentedString(serviceToken)).append("\n");
     sb.append("    accessPoint: ").append(toIndentedString(accessPoint)).append("\n");
     sb.append("    companyProfile: ").append(toIndentedString(companyProfile)).append("\n");
+    sb.append("    invitation: ").append(toIndentedString(invitation)).append("\n");
     sb.append("    additionalInfo: ").append(toIndentedString(additionalInfo)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
@@ -269,6 +298,7 @@ public class ConnectionSide {
     openapiFields.add("serviceToken");
     openapiFields.add("accessPoint");
     openapiFields.add("companyProfile");
+    openapiFields.add("invitation");
     openapiFields.add("additionalInfo");
 
     // a set of required properties/fields (JSON key names)
@@ -289,7 +319,7 @@ public class ConnectionSide {
       }
       // validate the optional field `serviceToken`
       if (jsonObj.get("serviceToken") != null && !jsonObj.get("serviceToken").isJsonNull()) {
-        SimplifiedServiceToken.validateJsonObject(jsonObj.getAsJsonObject("serviceToken"));
+        ServiceToken.validateJsonObject(jsonObj.getAsJsonObject("serviceToken"));
       }
       // validate the optional field `accessPoint`
       if (jsonObj.get("accessPoint") != null && !jsonObj.get("accessPoint").isJsonNull()) {
@@ -298,6 +328,10 @@ public class ConnectionSide {
       // validate the optional field `companyProfile`
       if (jsonObj.get("companyProfile") != null && !jsonObj.get("companyProfile").isJsonNull()) {
         ConnectionCompanyProfile.validateJsonObject(jsonObj.getAsJsonObject("companyProfile"));
+      }
+      // validate the optional field `invitation`
+      if (jsonObj.get("invitation") != null && !jsonObj.get("invitation").isJsonNull()) {
+        ConnectionInvitation.validateJsonObject(jsonObj.getAsJsonObject("invitation"));
       }
       if (jsonObj.get("additionalInfo") != null && !jsonObj.get("additionalInfo").isJsonNull()) {
         JsonArray jsonArrayadditionalInfo = jsonObj.getAsJsonArray("additionalInfo");

@@ -11,6 +11,8 @@
 
 * `_UUID` (value: `"/uuid"`)
 
+* `_TYPE` (value: `"/type"`)
+
 * `_ACCOUNT_ORGID` (value: `"/account/orgId"`)
 
 * `_ASIDE_ACCESSPOINT_ACCOUNT_ACCOUNTNAME` (value: `"/aSide/accessPoint/account/accountName"`)
