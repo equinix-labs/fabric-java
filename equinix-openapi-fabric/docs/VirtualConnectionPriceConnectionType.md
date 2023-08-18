@@ -21,5 +21,7 @@
 
 * `EPLAN_VC` (value: `"EPLAN_VC"`)
 
+* `IPWAN_VC` (value: `"IPWAN_VC"`)
+
 
 

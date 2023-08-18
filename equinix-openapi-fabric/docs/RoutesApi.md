@@ -1,19 +1,19 @@
 # RoutesApi
 
-All URIs are relative to *https://virtserver.swaggerhub.com/equinix-api/fabric/4.6*
+All URIs are relative to *https://api.equinix.com*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**searchRoutes**](RoutesApi.md#searchRoutes) | **POST** /fabric/v4/gateways/{gatewayId}/routes/search | Search Route Table |
+| [**searchRoutes**](RoutesApi.md#searchRoutes) | **POST** /fabric/v4/routers/{routerId}/routes/search | Search Route Table |
 
 
 <a name="searchRoutes"></a>
 # **searchRoutes**
-> RouteTableEntrySearchResponse searchRoutes(gatewayId, routeTableEntrySearchRequest)
+> RouteTableEntrySearchResponse searchRoutes(routerId, routeTableEntrySearchRequest)
 
 Search Route Table
 
-The API provides capability to get list of user&#39;s Fabric Gateways route table entries using search criteria, including optional filtering, pagination and sorting
+The API provides capability to get list of user&#39;s Fabric Cloud Router route table entries using search criteria, including optional filtering, pagination and sorting
 
 ### Example
 ```java
@@ -28,17 +28,17 @@ import com.equinix.openapi.fabric.v4.api.RoutesApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
+    defaultClient.setBasePath("https://api.equinix.com");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
     BearerAuth.setBearerToken("BEARER TOKEN");
 
     RoutesApi apiInstance = new RoutesApi(defaultClient);
-    UUID gatewayId = UUID.randomUUID(); // UUID | Gateway UUID
+    UUID routerId = UUID.randomUUID(); // UUID | Router UUID
     RouteTableEntrySearchRequest routeTableEntrySearchRequest = new RouteTableEntrySearchRequest(); // RouteTableEntrySearchRequest | 
     try {
-      RouteTableEntrySearchResponse result = apiInstance.searchRoutes(gatewayId, routeTableEntrySearchRequest);
+      RouteTableEntrySearchResponse result = apiInstance.searchRoutes(routerId, routeTableEntrySearchRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling RoutesApi#searchRoutes");
@@ -55,7 +55,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **gatewayId** | **UUID**| Gateway UUID | |
+| **routerId** | **UUID**| Router UUID | |
 | **routeTableEntrySearchRequest** | [**RouteTableEntrySearchRequest**](RouteTableEntrySearchRequest.md)|  | |
 
 ### Return type

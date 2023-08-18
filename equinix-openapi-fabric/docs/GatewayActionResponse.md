@@ -2,7 +2,7 @@
 
 # GatewayActionResponse
 
-Gateway actions response object
+Cloud Router actions response object
 
 ## Properties
 

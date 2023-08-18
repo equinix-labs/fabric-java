@@ -29,6 +29,8 @@
 | NOT_BETWEEN | &quot;NOT BETWEEN&quot; |
 | LIKE | &quot;LIKE&quot; |
 | NOT_LIKE | &quot;NOT LIKE&quot; |
+| ILIKE | &quot;ILIKE&quot; |
+| NOT_ILIKE | &quot;NOT ILIKE&quot; |
 | IN | &quot;IN&quot; |
 | NOT_IN | &quot;NOT IN&quot; |
 

@@ -9,5 +9,7 @@
 
 * `EPLAN` (value: `"EPLAN"`)
 
+* `IPWAN` (value: `"IPWAN"`)
+
 
 

@@ -1,13 +1,224 @@
 # PortsApi
 
-All URIs are relative to *https://virtserver.swaggerhub.com/equinix-api/fabric/4.6*
+All URIs are relative to *https://api.equinix.com*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
+| [**addToLag**](PortsApi.md#addToLag) | **POST** /fabric/v4/ports/{portId}/physicalPorts/bulk | Add to Lag |
+| [**createBulkPort**](PortsApi.md#createBulkPort) | **POST** /fabric/v4/ports/bulk | Create Port |
+| [**createPort**](PortsApi.md#createPort) | **POST** /fabric/v4/ports | Create Port |
 | [**getPortByUuid**](PortsApi.md#getPortByUuid) | **GET** /fabric/v4/ports/{portId} | Get Port by uuid |
 | [**getPorts**](PortsApi.md#getPorts) | **GET** /fabric/v4/ports | Get All Ports |
 | [**getVlans**](PortsApi.md#getVlans) | **GET** /fabric/v4/ports/{portUuid}/linkProtocols | Get Vlans |
 
+
+<a name="addToLag"></a>
+# **addToLag**
+> AllPhysicalPortsResponse addToLag(portId, bulkPhysicalPort)
+
+Add to Lag
+
+Add Physical Ports to Virtual Port.&lt;font color&#x3D;\&quot;red\&quot;&gt; &lt;sup color&#x3D;&#39;red&#39;&gt;Preview&lt;/sup&gt;&lt;/font&gt;
+
+### Example
+```java
+// Import classes:
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.PortsApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
+
+    PortsApi apiInstance = new PortsApi(defaultClient);
+    UUID portId = UUID.randomUUID(); // UUID | Port UUID
+    BulkPhysicalPort bulkPhysicalPort = new BulkPhysicalPort(); // BulkPhysicalPort | 
+    try {
+      AllPhysicalPortsResponse result = apiInstance.addToLag(portId, bulkPhysicalPort);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling PortsApi#addToLag");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **portId** | **UUID**| Port UUID | |
+| **bulkPhysicalPort** | [**BulkPhysicalPort**](BulkPhysicalPort.md)|  | |
+
+### Return type
+
+[**AllPhysicalPortsResponse**](AllPhysicalPortsResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful operation |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal server error |  -  |
+
+<a name="createBulkPort"></a>
+# **createBulkPort**
+> AllPortsResponse createBulkPort(bulkPort)
+
+Create Port
+
+Create Port creates Equinix Fabric? Port.&lt;font color&#x3D;\&quot;red\&quot;&gt; &lt;sup color&#x3D;&#39;red&#39;&gt;Preview&lt;/sup&gt;&lt;/font&gt;
+
+### Example
+```java
+// Import classes:
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.PortsApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
+
+    PortsApi apiInstance = new PortsApi(defaultClient);
+    BulkPort bulkPort = new BulkPort(); // BulkPort | 
+    try {
+      AllPortsResponse result = apiInstance.createBulkPort(bulkPort);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling PortsApi#createBulkPort");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **bulkPort** | [**BulkPort**](BulkPort.md)|  | |
+
+### Return type
+
+[**AllPortsResponse**](AllPortsResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Successful operation for COLO Bulk Port |  -  |
+
+<a name="createPort"></a>
+# **createPort**
+> Port createPort(port)
+
+Create Port
+
+Creates Equinix Fabric? Port.
+
+### Example
+```java
+// Import classes:
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.PortsApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
+
+    PortsApi apiInstance = new PortsApi(defaultClient);
+    Port port = new Port(); // Port | 
+    try {
+      Port result = apiInstance.createPort(port);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling PortsApi#createPort");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **port** | [**Port**](Port.md)|  | |
+
+### Return type
+
+[**Port**](Port.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Successful operation for COLO Single Port Non Lag |  -  |
+| **400** | Bad request |  -  |
+| **500** | Internal Server Error |  -  |
 
 <a name="getPortByUuid"></a>
 # **getPortByUuid**
@@ -30,7 +241,7 @@ import com.equinix.openapi.fabric.v4.api.PortsApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
+    defaultClient.setBasePath("https://api.equinix.com");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -100,7 +311,7 @@ import com.equinix.openapi.fabric.v4.api.PortsApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
+    defaultClient.setBasePath("https://api.equinix.com");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
@@ -168,7 +379,7 @@ import com.equinix.openapi.fabric.v4.api.PortsApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://virtserver.swaggerhub.com/equinix-api/fabric/4.6");
+    defaultClient.setBasePath("https://api.equinix.com");
     
     // Configure HTTP bearer authorization: BearerAuth
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
