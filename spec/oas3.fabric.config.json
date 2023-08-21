@@ -1,8 +1,8 @@
 {
    "groupId": "com.equinix",
    "artifactId": "equinix-openapi-fabric",
-   "artifactVersion": "0.2.0",
-   "artifactDescription": "Equinix Fabric API Specification 4.8 generated SDK",
+   "artifactVersion": "0.3.0",
+   "artifactDescription": "Equinix Fabric API Specification 4.9 generated SDK",
    "library": "okhttp-gson",
    "invokerPackage": "com.equinix.openapi.fabric",
    "modelPackage": "com.equinix.openapi.fabric.v4.model",

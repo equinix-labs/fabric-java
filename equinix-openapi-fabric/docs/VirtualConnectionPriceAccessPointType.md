@@ -11,7 +11,7 @@
 
 * `COLO` (value: `"COLO"`)
 
-* `GW` (value: `"GW"`)
+* `CLOUD_ROUTER` (value: `"CLOUD_ROUTER"`)
 
 * `CHAINGROUP` (value: `"CHAINGROUP"`)
 

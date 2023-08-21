@@ -14,6 +14,7 @@ GET Metros retrieves all Equinix? Fabric? metros, as well as latency data for ea
 |**region** | **String** | Board geographic area in which the data center is located |  [optional] |
 |**name** | **String** | Name of the region in which the data center is located. |  [optional] |
 |**equinixAsn** | **Long** | Autonomous system number (ASN) for a specified Fabric metro. The ASN is a unique identifier that carries the network routing protocol and exchanges that data with other internal systems via border gateway protocol. |  [optional] |
+|**localVCBandwidthMax** | **Long** | This field holds Max Connection speed with in the metro |  [optional] |
 |**geoCoordinates** | [**GeoCoordinates**](GeoCoordinates.md) |  |  [optional] |
 |**connectedMetros** | [**List&lt;ConnectedMetro&gt;**](ConnectedMetro.md) |  |  [optional] |
 

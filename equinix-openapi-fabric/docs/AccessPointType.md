@@ -17,7 +17,7 @@
 
 * `SUBNET` (value: `"SUBNET"`)
 
-* `GW` (value: `"GW"`)
+* `CLOUD_ROUTER` (value: `"CLOUD_ROUTER"`)
 
 * `NETWORK` (value: `"NETWORK"`)
 

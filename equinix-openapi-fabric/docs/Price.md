@@ -19,7 +19,7 @@
 |**catgory** | **PriceCategory** |  |  [optional] |
 |**connection** | [**VirtualConnectionPrice**](VirtualConnectionPrice.md) |  |  [optional] |
 |**ipBlock** | [**IpBlockPrice**](IpBlockPrice.md) |  |  [optional] |
-|**gateway** | [**FabricGatewayPrice**](FabricGatewayPrice.md) |  |  [optional] |
+|**router** | [**FabricGatewayPrice**](FabricGatewayPrice.md) |  |  [optional] |
 |**port** | [**VirtualPortPrice**](VirtualPortPrice.md) |  |  [optional] |
 
 

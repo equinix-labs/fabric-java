@@ -9,7 +9,7 @@ Connection details of Link Protocol
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**href** | **URI** | Connection URI |  [optional] [readonly] |
-|**uuid** | **UUID** |  |  [optional] |
+|**uuid** | **String** |  |  [optional] |
 |**type** | **String** |  |  [optional] |
 |**bandwidth** | **Long** |  |  [optional] |
 

@@ -15,8 +15,19 @@ Port configuration settings
 |**layer3Enabled** | **Boolean** |  |  [optional] |
 |**productCode** | **String** |  |  [optional] |
 |**sharedPortType** | **Boolean** |  |  [optional] |
-|**sharedPortProduct** | **String** |  |  [optional] |
+|**sharedPortProduct** | [**SharedPortProductEnum**](#SharedPortProductEnum) |  |  [optional] |
 |**packageType** | [**PackageTypeEnum**](#PackageTypeEnum) | Type of Port Package |  [optional] |
+
+
+
+## Enum: SharedPortProductEnum
+
+| Name | Value |
+|---- | -----|
+| NETWORK_EDGE | &quot;NETWORK_EDGE&quot; |
+| VIRTUAL_GATEWAY | &quot;VIRTUAL_GATEWAY&quot; |
+| SMARTKEY | &quot;SMARTKEY&quot; |
+| EDGE_METAL | &quot;EDGE_METAL&quot; |
 
 
 
@@ -27,7 +38,6 @@ Port configuration settings
 | STANDARD | &quot;STANDARD&quot; |
 | UNTAGGED | &quot;UNTAGGED&quot; |
 | UNLIMITED | &quot;UNLIMITED&quot; |
-| NETWORK_EDGE | &quot;NETWORK_EDGE&quot; |
 | FREE | &quot;FREE&quot; |
 
 

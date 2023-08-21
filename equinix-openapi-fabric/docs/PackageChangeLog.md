@@ -2,7 +2,7 @@
 
 # PackageChangeLog
 
-Gateway package change log
+Cloud Router package change log
 
 ## Properties
 

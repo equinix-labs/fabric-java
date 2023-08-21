@@ -19,7 +19,7 @@
 
 * `_ASIDE_ACCESSPOINT_ACCOUNT_ACCOUNTNUMBER` (value: `"/aSide/accessPoint/account/accountNumber"`)
 
-* `_ASIDE_ACCESSPOINT_GATEWAY_UUID` (value: `"/aSide/accessPoint/gateway/uuid"`)
+* `_ASIDE_ACCESSPOINT_ROUTER_UUID` (value: `"/aSide/accessPoint/router/uuid"`)
 
 * `_ASIDE_ACCESSPOINT_LINKPROTOCOL_VLANCTAG` (value: `"/aSide/accessPoint/linkProtocol/vlanCTag"`)
 

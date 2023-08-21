@@ -2,7 +2,7 @@
 
 # FabricGatewayPackages
 
-Virtual port gateway package
+Cloud Router  package
 
 ## Properties
 
