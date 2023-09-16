@@ -29,7 +29,27 @@ OPENAPI_CODEGEN_IMAGE=openapitools/openapi-generator-cli:${OPENAPI_CODEGEN_TAG}
 DOCKER_OPENAPI=${CRI} run --rm -u ${CURRENT_UID}:${CURRENT_GID} -v $(CURDIR):/local ${OPENAPI_CODEGEN_IMAGE}
 OPENAPI_URL=https://app.swaggerhub.com/apiproxy/registry/equinix-api/fabric/4.9
 
-docker_run: clean pre-spec-patch pull docker_generate build_client
+docker_run: clean fetch pre-spec-patch pull docker_generate build_client
+
+clean:
+	rm -rf ${OPENAPI_GENERATED_CLIENT}
+	rm -rf ${OPENAPI_GIT_DIR}
+
+# Fetch any public available version of Fabric V4 API specification. Send the URL to the specification as input argument
+# Example: make fetch OPENAPI_URL=https://app.swaggerhub.com/apiproxy/registry/equinix-api/fabric/4.9
+fetch:
+	curl ${OPENAPI_URL} | jq . > ${SPEC_FETCHED_FILE}
+
+# For patches summary refer : fabric-java/patches/README.md
+pre-spec-patch:
+	# patch is idempotent, always starting with the fetched
+	# fetched file to create the patched file.
+	cp ${SPEC_FETCHED_FILE} ${SPEC_PATCHED_FILE}
+	ARGS="-o ${SPEC_PATCHED_FILE} ${SPEC_FETCHED_FILE}"; \
+	for diff in $(shell find ${SPEC_FETCHED_PATCHES} -name \*.patch | sort -n); do \
+		patch --no-backup-if-mismatch -N -t $$ARGS $$diff; \
+		ARGS=${SPEC_PATCHED_FILE}; \
+	done
 
 pull:
 	${CRI} pull ${OPENAPI_CODEGEN_IMAGE}
@@ -42,30 +62,6 @@ docker_generate:
 		-o /local/${OPENAPI_GENERATED_CLIENT} \
 		--git-repo-id ${GIT_REPO} \
 		--git-user-id ${GIT_ORG}
-
-##
-# Utility functions
-##
-
-# Fetch any public available version of Fabric V4 API specification. Send the URL to the specification as input argument
-# Example: make fetch OPENAPI_URL=https://app.swaggerhub.com/apiproxy/registry/equinix-api/fabric/4.9
-fetch:
-	curl ${OPENAPI_URL} | jq . > ${SPEC_FETCHED_FILE}
-
-clean:
-	rm -rf ${OPENAPI_GENERATED_CLIENT}
-	rm -rf ${OPENAPI_GIT_DIR}
-
-# For patches summary refer : fabric-java/patches/README.md
-pre-spec-patch:
-	# patch is idempotent, always starting with the fetched
-	# fetched file to create the patched file.
-	cp ${SPEC_FETCHED_FILE} ${SPEC_PATCHED_FILE}
-	ARGS="-o ${SPEC_PATCHED_FILE} ${SPEC_FETCHED_FILE}"; \
-	for diff in $(shell find ${SPEC_FETCHED_PATCHES} -name \*.patch | sort -n); do \
-		patch --no-backup-if-mismatch -N -t $$ARGS $$diff; \
-		ARGS=${SPEC_PATCHED_FILE}; \
-	done
 
 build_client:
 	cd ${OPENAPI_GENERATED_CLIENT}; mvn clean package
