@@ -22,7 +22,7 @@
 
 Using openapi-generator-cli v3 docker image :
 ```
-make docker_run
+make generate
 ```
 
 This will:
@@ -35,7 +35,7 @@ This will:
 
 ## Running sample:
 
-Build generated client (Will be performed by the Makefile command `make docker_run`:
+Build generated client (The Makefile command `make generate` includes these commands as well):
 ```
 cd equinix-openapi-fabric
 mvn clean package
@@ -101,5 +101,5 @@ through patches. The patching process is detailed below.
    cd ..
    ```
 3. ``patchfilename`` should be in format: ``<patch_index>-<short_patch_decription_or_identifier>.patch``
-4. Run ``make docker_run`` to reapply the changes to oas spec.
+4. Run ``make generate`` to reapply the changes to oas spec.
 5. Before pushing changes, commit ``fabric-java/spec/oas3.patched.json`` along with the patch file.

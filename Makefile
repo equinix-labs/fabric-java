@@ -1,4 +1,4 @@
-.PHONY: docker_run
+.PHONY: generate
 
 CURRENT_UID := $(shell id -u)
 CURRENT_GID := $(shell id -g)
@@ -29,7 +29,7 @@ OPENAPI_CODEGEN_IMAGE=openapitools/openapi-generator-cli:${OPENAPI_CODEGEN_TAG}
 DOCKER_OPENAPI=${CRI} run --rm -u ${CURRENT_UID}:${CURRENT_GID} -v $(CURDIR):/local ${OPENAPI_CODEGEN_IMAGE}
 OPENAPI_URL=https://app.swaggerhub.com/apiproxy/registry/equinix-api/fabric/4.9
 
-docker_run: clean fetch pre-spec-patch pull docker_generate build_client
+generate: clean fetch pre-spec-patch pull docker_generate build_client
 
 clean:
 	rm -rf ${OPENAPI_GENERATED_CLIENT}
