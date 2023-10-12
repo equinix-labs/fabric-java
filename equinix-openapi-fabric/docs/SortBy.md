@@ -41,6 +41,8 @@
 
 * `BANDWIDTH` (value: `"/bandwidth"`)
 
+* `GEOSCOPE` (value: `"/geoScope"`)
+
 * `UUID` (value: `"/uuid"`)
 
 * `CHANGELOG_CREATEDDATETIME` (value: `"/changeLog/createdDateTime"`)

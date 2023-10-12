@@ -1,7 +1,7 @@
 # equinix-openapi-fabric
 
 Equinix Fabric API v4
-- API version: 4.9
+- API version: 4.10
 
 Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br>
 
@@ -40,7 +40,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.equinix</groupId>
   <artifactId>equinix-openapi-fabric</artifactId>
-  <version>0.3.0</version>
+  <version>0.4.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -56,7 +56,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "com.equinix:equinix-openapi-fabric:0.3.0"
+     implementation "com.equinix:equinix-openapi-fabric:0.4.0"
   }
 ```
 
@@ -70,7 +70,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/equinix-openapi-fabric-0.3.0.jar`
+* `target/equinix-openapi-fabric-0.4.0.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -99,10 +99,10 @@ public class Example {
     CloudRoutersApi apiInstance = new CloudRoutersApi(defaultClient);
     CloudRouterPostRequest cloudRouterPostRequest = new CloudRouterPostRequest(); // CloudRouterPostRequest | 
     try {
-      CloudRouter result = apiInstance.createGateway(cloudRouterPostRequest);
+      CloudRouter result = apiInstance.createCloudRouter(cloudRouterPostRequest);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling CloudRoutersApi#createGateway");
+      System.err.println("Exception when calling CloudRoutersApi#createCloudRouter");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -119,15 +119,16 @@ All URIs are relative to *https://api.equinix.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*CloudRoutersApi* | [**createGateway**](docs/CloudRoutersApi.md#createGateway) | **POST** /fabric/v4/routers | Create Routers
-*CloudRoutersApi* | [**createGatewayAction**](docs/CloudRoutersApi.md#createGatewayAction) | **POST** /fabric/v4/routers/{routerId}/actions | Route table actions
-*CloudRoutersApi* | [**deleteGatewayByUuid**](docs/CloudRoutersApi.md#deleteGatewayByUuid) | **DELETE** /fabric/v4/routers/{routerId} | Delete Routers
-*CloudRoutersApi* | [**getGatewayActions**](docs/CloudRoutersApi.md#getGatewayActions) | **GET** /fabric/v4/routers/{routerId}/actions | Get actions
-*CloudRoutersApi* | [**getGatewayByUuid**](docs/CloudRoutersApi.md#getGatewayByUuid) | **GET** /fabric/v4/routers/{routerId} | Get Routers
-*CloudRoutersApi* | [**getGatewayPackageByCode**](docs/CloudRoutersApi.md#getGatewayPackageByCode) | **GET** /fabric/v4/routerPackages/{routerPackageCode} | Get Package Details
-*CloudRoutersApi* | [**getGatewayPackages**](docs/CloudRoutersApi.md#getGatewayPackages) | **GET** /fabric/v4/routerPackages | List Packages
-*CloudRoutersApi* | [**searchGateways**](docs/CloudRoutersApi.md#searchGateways) | **POST** /fabric/v4/routers/search | Search Routers
-*CloudRoutersApi* | [**updateGatewayByUuid**](docs/CloudRoutersApi.md#updateGatewayByUuid) | **PATCH** /fabric/v4/routers/{routerId} | Update Routers
+*CloudRoutersApi* | [**createCloudRouter**](docs/CloudRoutersApi.md#createCloudRouter) | **POST** /fabric/v4/routers | Create Routers
+*CloudRoutersApi* | [**createCloudRouterAction**](docs/CloudRoutersApi.md#createCloudRouterAction) | **POST** /fabric/v4/routers/{routerId}/actions | Route table actions
+*CloudRoutersApi* | [**deleteCloudRouterByUuid**](docs/CloudRoutersApi.md#deleteCloudRouterByUuid) | **DELETE** /fabric/v4/routers/{routerId} | Delete Routers
+*CloudRoutersApi* | [**getCloudRouterActions**](docs/CloudRoutersApi.md#getCloudRouterActions) | **GET** /fabric/v4/routers/{routerId}/actions | Get actions
+*CloudRoutersApi* | [**getCloudRouterByUuid**](docs/CloudRoutersApi.md#getCloudRouterByUuid) | **GET** /fabric/v4/routers/{routerId} | Get Routers
+*CloudRoutersApi* | [**getCloudRouterPackageByCode**](docs/CloudRoutersApi.md#getCloudRouterPackageByCode) | **GET** /fabric/v4/routerPackages/{routerPackageCode} | Get Package Details
+*CloudRoutersApi* | [**getCloudRouterPackages**](docs/CloudRoutersApi.md#getCloudRouterPackages) | **GET** /fabric/v4/routerPackages | List Packages
+*CloudRoutersApi* | [**searchCloudRouterRoutes**](docs/CloudRoutersApi.md#searchCloudRouterRoutes) | **POST** /fabric/v4/routers/{routerId}/routes/search | Search Route Table
+*CloudRoutersApi* | [**searchCloudRouters**](docs/CloudRoutersApi.md#searchCloudRouters) | **POST** /fabric/v4/routers/search | Search Routers
+*CloudRoutersApi* | [**updateCloudRouterByUuid**](docs/CloudRoutersApi.md#updateCloudRouterByUuid) | **PATCH** /fabric/v4/routers/{routerId} | Update Routers
 *ConnectionsApi* | [**createConnection**](docs/ConnectionsApi.md#createConnection) | **POST** /fabric/v4/connections | Create Connection
 *ConnectionsApi* | [**createConnectionAction**](docs/ConnectionsApi.md#createConnectionAction) | **POST** /fabric/v4/connections/{connectionId}/actions | Connection Actions
 *ConnectionsApi* | [**deleteConnectionByUuid**](docs/ConnectionsApi.md#deleteConnectionByUuid) | **DELETE** /fabric/v4/connections/{connectionId} | Delete by ID
@@ -152,8 +153,15 @@ Class | Method | HTTP request | Description
 *PortsApi* | [**getPortByUuid**](docs/PortsApi.md#getPortByUuid) | **GET** /fabric/v4/ports/{portId} | Get Port by uuid
 *PortsApi* | [**getPorts**](docs/PortsApi.md#getPorts) | **GET** /fabric/v4/ports | Get All Ports
 *PortsApi* | [**getVlans**](docs/PortsApi.md#getVlans) | **GET** /fabric/v4/ports/{portUuid}/linkProtocols | Get Vlans
+*PortsApi* | [**searchPorts**](docs/PortsApi.md#searchPorts) | **POST** /fabric/v4/ports/search | Search ports
+*PrecisionTimeApi* | [**createTimeServices**](docs/PrecisionTimeApi.md#createTimeServices) | **POST** /fabric/v4/timeServices | Create time service
+*PrecisionTimeApi* | [**deleteTimeServiceById**](docs/PrecisionTimeApi.md#deleteTimeServiceById) | **DELETE** /fabric/v4/timeServices/{serviceId} | Delete time service
+*PrecisionTimeApi* | [**getTimeServicesById**](docs/PrecisionTimeApi.md#getTimeServicesById) | **GET** /fabric/v4/timeServices/{serviceId} | Get time service
+*PrecisionTimeApi* | [**getTimeServicesConnectionsByServiceId**](docs/PrecisionTimeApi.md#getTimeServicesConnectionsByServiceId) | **GET** /fabric/v4/timeServices/{serviceId}/connections | Get Conn Links
+*PrecisionTimeApi* | [**getTimeServicesPackageByCode**](docs/PrecisionTimeApi.md#getTimeServicesPackageByCode) | **GET** /fabric/v4/timeServicesPackages/{packageCode} | Get package by Code
+*PrecisionTimeApi* | [**getTimeServicesPackages**](docs/PrecisionTimeApi.md#getTimeServicesPackages) | **GET** /fabric/v4/timeServicesPackages | Get Packages
+*PrecisionTimeApi* | [**updateTimeServicesById**](docs/PrecisionTimeApi.md#updateTimeServicesById) | **PATCH** /fabric/v4/timeServices/{serviceId} | Patch time service
 *PricesApi* | [**searchPrices**](docs/PricesApi.md#searchPrices) | **POST** /fabric/v4/prices/search | Get Prices
-*RoutesApi* | [**searchRoutes**](docs/RoutesApi.md#searchRoutes) | **POST** /fabric/v4/routers/{routerId}/routes/search | Search Route Table
 *RoutingProtocolsApi* | [**createConnectionRoutingProtocol**](docs/RoutingProtocolsApi.md#createConnectionRoutingProtocol) | **POST** /fabric/v4/connections/{connectionId}/routingProtocols | Create Protocol
 *RoutingProtocolsApi* | [**createConnectionRoutingProtocolsInBulk**](docs/RoutingProtocolsApi.md#createConnectionRoutingProtocolsInBulk) | **POST** /fabric/v4/connections/{connectionId}/routingProtocols/bulk | Bulk Create Protocol
 *RoutingProtocolsApi* | [**deleteConnectionRoutingProtocolByUuid**](docs/RoutingProtocolsApi.md#deleteConnectionRoutingProtocolByUuid) | **DELETE** /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId} | Delete Protocol
@@ -166,6 +174,7 @@ Class | Method | HTTP request | Description
 *RoutingProtocolsApi* | [**patchConnectionRoutingProtocolByUuid**](docs/RoutingProtocolsApi.md#patchConnectionRoutingProtocolByUuid) | **PATCH** /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId} | Patch Protocol
 *RoutingProtocolsApi* | [**postConnectionRoutingProtocolBgpActionByUuid**](docs/RoutingProtocolsApi.md#postConnectionRoutingProtocolBgpActionByUuid) | **POST** /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}/actions | Clear/Reset BGP
 *RoutingProtocolsApi* | [**replaceConnectionRoutingProtocolByUuid**](docs/RoutingProtocolsApi.md#replaceConnectionRoutingProtocolByUuid) | **PUT** /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId} | Replace Protocol
+*RoutingProtocolsApi* | [**validateRoutingProtocol**](docs/RoutingProtocolsApi.md#validateRoutingProtocol) | **POST** /fabric/v4/routers/{routerId}/validate | Validate Subnet
 *ServiceProfilesApi* | [**createServiceProfile**](docs/ServiceProfilesApi.md#createServiceProfile) | **POST** /fabric/v4/serviceProfiles | Create Profile
 *ServiceProfilesApi* | [**deleteServiceProfileByUuid**](docs/ServiceProfilesApi.md#deleteServiceProfileByUuid) | **DELETE** /fabric/v4/serviceProfiles/{serviceProfileId} | Delete Profile
 *ServiceProfilesApi* | [**getServiceProfileByUuid**](docs/ServiceProfilesApi.md#getServiceProfileByUuid) | **GET** /fabric/v4/serviceProfiles/{serviceProfileId} | Get Profile
@@ -190,9 +199,11 @@ Class | Method | HTTP request | Description
  - [AccessPoint](docs/AccessPoint.md)
  - [AccessPointSelector](docs/AccessPointSelector.md)
  - [AccessPointType](docs/AccessPointType.md)
+ - [Account](docs/Account.md)
  - [Actions](docs/Actions.md)
  - [AddOperation](docs/AddOperation.md)
  - [AdditionalInfo](docs/AdditionalInfo.md)
+ - [AdvanceConfiguration](docs/AdvanceConfiguration.md)
  - [AllPhysicalPortsResponse](docs/AllPhysicalPortsResponse.md)
  - [AllPortsResponse](docs/AllPortsResponse.md)
  - [ApiConfig](docs/ApiConfig.md)
@@ -212,6 +223,10 @@ Class | Method | HTTP request | Description
  - [Changelog](docs/Changelog.md)
  - [CloudRouter](docs/CloudRouter.md)
  - [CloudRouterAccessPointState](docs/CloudRouterAccessPointState.md)
+ - [CloudRouterActionRequest](docs/CloudRouterActionRequest.md)
+ - [CloudRouterActionResponse](docs/CloudRouterActionResponse.md)
+ - [CloudRouterActionState](docs/CloudRouterActionState.md)
+ - [CloudRouterActionType](docs/CloudRouterActionType.md)
  - [CloudRouterChange](docs/CloudRouterChange.md)
  - [CloudRouterChangeOperation](docs/CloudRouterChangeOperation.md)
  - [CloudRouterFilter](docs/CloudRouterFilter.md)
@@ -235,6 +250,7 @@ Class | Method | HTTP request | Description
  - [ConnectionCompanyProfile](docs/ConnectionCompanyProfile.md)
  - [ConnectionDirection](docs/ConnectionDirection.md)
  - [ConnectionInvitation](docs/ConnectionInvitation.md)
+ - [ConnectionLink](docs/ConnectionLink.md)
  - [ConnectionOperation](docs/ConnectionOperation.md)
  - [ConnectionPostRequest](docs/ConnectionPostRequest.md)
  - [ConnectionPriority](docs/ConnectionPriority.md)
@@ -256,19 +272,18 @@ Class | Method | HTTP request | Description
  - [EquinixStatus](docs/EquinixStatus.md)
  - [Error](docs/Error.md)
  - [Expression](docs/Expression.md)
- - [FabricGatewayCode](docs/FabricGatewayCode.md)
- - [FabricGatewayPackages](docs/FabricGatewayPackages.md)
- - [FabricGatewayPrice](docs/FabricGatewayPrice.md)
+ - [FabricCloudRouterCode](docs/FabricCloudRouterCode.md)
+ - [FabricCloudRouterPackages](docs/FabricCloudRouterPackages.md)
+ - [FabricCloudRouterPrice](docs/FabricCloudRouterPrice.md)
+ - [FabricConnectionUuid](docs/FabricConnectionUuid.md)
  - [FilterBody](docs/FilterBody.md)
- - [GatewayActionRequest](docs/GatewayActionRequest.md)
- - [GatewayActionResponse](docs/GatewayActionResponse.md)
- - [GatewayActionState](docs/GatewayActionState.md)
- - [GatewayActionType](docs/GatewayActionType.md)
  - [GeoCoordinates](docs/GeoCoordinates.md)
+ - [GeoScopeType](docs/GeoScopeType.md)
  - [GetResponse](docs/GetResponse.md)
  - [HealthResponse](docs/HealthResponse.md)
  - [IpBlockPrice](docs/IpBlockPrice.md)
  - [IpBlockType](docs/IpBlockType.md)
+ - [Ipv4](docs/Ipv4.md)
  - [JsonPatchOperation](docs/JsonPatchOperation.md)
  - [Link](docs/Link.md)
  - [LinkAggregationGroup](docs/LinkAggregationGroup.md)
@@ -286,6 +301,7 @@ Class | Method | HTTP request | Description
  - [LinkProtocolType](docs/LinkProtocolType.md)
  - [LinkProtocolUntagged](docs/LinkProtocolUntagged.md)
  - [MarketingInfo](docs/MarketingInfo.md)
+ - [Md5](docs/Md5.md)
  - [MetricInterval](docs/MetricInterval.md)
  - [Metrics](docs/Metrics.md)
  - [Metro](docs/Metro.md)
@@ -319,6 +335,7 @@ Class | Method | HTTP request | Description
  - [OpEnum](docs/OpEnum.md)
  - [Order](docs/Order.md)
  - [PackageChangeLog](docs/PackageChangeLog.md)
+ - [PackageRequest](docs/PackageRequest.md)
  - [PackageResponse](docs/PackageResponse.md)
  - [Pagination](docs/Pagination.md)
  - [PaginationRequest](docs/PaginationRequest.md)
@@ -351,6 +368,12 @@ Class | Method | HTTP request | Description
  - [PortState](docs/PortState.md)
  - [PortTether](docs/PortTether.md)
  - [PortType](docs/PortType.md)
+ - [PortV4SearchRequest](docs/PortV4SearchRequest.md)
+ - [PrecisionTimeChangeOperation](docs/PrecisionTimeChangeOperation.md)
+ - [PrecisionTimeServiceConnectionsResponse](docs/PrecisionTimeServiceConnectionsResponse.md)
+ - [PrecisionTimeServiceCreateResponse](docs/PrecisionTimeServiceCreateResponse.md)
+ - [PrecisionTimeServicePackagesResponse](docs/PrecisionTimeServicePackagesResponse.md)
+ - [PrecisionTimeServiceRequest](docs/PrecisionTimeServiceRequest.md)
  - [Presence](docs/Presence.md)
  - [Price](docs/Price.md)
  - [PriceCategory](docs/PriceCategory.md)
@@ -363,6 +386,7 @@ Class | Method | HTTP request | Description
  - [ProductType](docs/ProductType.md)
  - [Project](docs/Project.md)
  - [ProviderStatus](docs/ProviderStatus.md)
+ - [PtpAdvanceConfiguration](docs/PtpAdvanceConfiguration.md)
  - [QueryDirection](docs/QueryDirection.md)
  - [RemoveOperation](docs/RemoveOperation.md)
  - [ReplaceOperation](docs/ReplaceOperation.md)
@@ -450,8 +474,10 @@ Class | Method | HTTP request | Description
  - [SubInterface](docs/SubInterface.md)
  - [TopUtilizedStatistics](docs/TopUtilizedStatistics.md)
  - [ValidateConnectionRequest](docs/ValidateConnectionRequest.md)
- - [ValidateConnectionRequestFilter](docs/ValidateConnectionRequestFilter.md)
- - [ValidateConnectionRequestFilterAnd](docs/ValidateConnectionRequestFilterAnd.md)
+ - [ValidateSubnetRequest](docs/ValidateSubnetRequest.md)
+ - [ValidateSubnetRequestFilter](docs/ValidateSubnetRequestFilter.md)
+ - [ValidateSubnetRequestFilterAnd](docs/ValidateSubnetRequestFilterAnd.md)
+ - [ValidateSubnetResponse](docs/ValidateSubnetResponse.md)
  - [ViewPoint](docs/ViewPoint.md)
  - [VirtualConnectionBridgePackageCode](docs/VirtualConnectionBridgePackageCode.md)
  - [VirtualConnectionPrice](docs/VirtualConnectionPrice.md)
