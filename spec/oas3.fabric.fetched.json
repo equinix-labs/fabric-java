@@ -13,7 +13,7 @@
       "name": "Equinix Inc",
       "url": "https://developer.equinix.com/agreement"
     },
-    "version": "4.9"
+    "version": "4.10"
   },
   "externalDocs": {
     "description": "Find more information on Equinix Developer Portal",
@@ -48,12 +48,12 @@
       "description": "Ports"
     },
     {
-      "name": "Prices",
-      "description": "Prices"
+      "name": "Precision Time",
+      "description": "Precision Time <font color=\"red\"> <sup color='red'>Preview</sup></font>"
     },
     {
-      "name": "Routes",
-      "description": "Routes"
+      "name": "Prices",
+      "description": "Prices"
     },
     {
       "name": "Routing Protocols",
@@ -122,14 +122,17 @@
                 "Colo2Sp-Alibaba": {
                   "$ref": "#/components/examples/COLO2AlibabaSPwithDot1q"
                 },
-                "Colo2Sp-Aws": {
-                  "$ref": "#/components/examples/COLO2AWSSPwithDot1q"
+                "Colo2Sp-Aws-Primary": {
+                  "$ref": "#/components/examples/COLO2AWSSPwithDot1q-Primary"
+                },
+                "Colo2Sp-Aws-Secondary": {
+                  "$ref": "#/components/examples/COLO2AWSSPwithDot1q-Secondary"
                 },
                 "Colo2Sp-AzureDot1Q": {
-                  "$ref": "#/components/examples/COLO2AzureSPwithDot1q"
+                  "$ref": "#/components/examples/COLO2AzureSPwithDot1q-Primary"
                 },
                 "Colo2Sp-AzureQinq": {
-                  "$ref": "#/components/examples/COLO2AzureSPwithQinq"
+                  "$ref": "#/components/examples/COLO2AzureSPwithQinq-Secondary"
                 },
                 "Colo2Sp-Google": {
                   "$ref": "#/components/examples/COLO2GoogleSPwithDot1q"
@@ -152,8 +155,11 @@
                 "Colo2Network-EPLAN_VC": {
                   "$ref": "#/components/examples/COLO2NETWORKwithEPL"
                 },
-                "Vd2Sp": {
-                  "$ref": "#/components/examples/Vd2Sp"
+                "Vd2Sp-Primary": {
+                  "$ref": "#/components/examples/Vd2Sp-Primary"
+                },
+                "Vd2Sp-Secondary": {
+                  "$ref": "#/components/examples/Vd2Sp-Secondary"
                 },
                 "Vd2Colo": {
                   "$ref": "#/components/examples/Vd2Colo"
@@ -2587,8 +2593,8 @@
                 "ConnectionSearchAccountname": {
                   "$ref": "#/components/examples/ConnectionSearchAccountname"
                 },
-                "ConnectionSearchGatewayuuid": {
-                  "$ref": "#/components/examples/ConnectionSearchGatewayuuid"
+                "ConnectionSearchCloudRouteruuid": {
+                  "$ref": "#/components/examples/ConnectionSearchCloudRouteruuid"
                 },
                 "ConnectionSearchAsidevlanstagctag": {
                   "$ref": "#/components/examples/ConnectionSearchAsidevlanstagctag"
@@ -2869,7 +2875,7 @@
                   "$ref": "#/components/examples/VirtualConnectionProductEvpLanVcTypeFromColoToNetwork"
                 },
                 "cloudRouterProduct": {
-                  "$ref": "#/components/examples/FabricGatewayProduct"
+                  "$ref": "#/components/examples/FabricCloudRouterProduct"
                 },
                 "ipBlockProduct": {
                   "$ref": "#/components/examples/IpBlockProduct"
@@ -2898,7 +2904,7 @@
                     "$ref": "#/components/examples/IpBlock"
                   },
                   "cloudRouter": {
-                    "$ref": "#/components/examples/FabricGateway"
+                    "$ref": "#/components/examples/FabricCloudRouter"
                   },
                   "virtualPort": {
                     "$ref": "#/components/examples/VirtualPort"
@@ -3505,7 +3511,21 @@
         "summary": "Profile Search",
         "description": "Search service profiles by search criteria",
         "operationId": "searchServiceProfiles",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "viewPoint",
+            "in": "query",
+            "description": "flips view between buyer and seller representation",
+            "schema": {
+              "type": "string",
+              "default": "aSide",
+              "enum": [
+                "aSide",
+                "zSide"
+              ]
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -4436,6 +4456,9 @@
                 "AsideTokenWithDot1QExample": {
                   "$ref": "#/components/examples/createServiceTokenWithDot1Q"
                 },
+                "AsideTokenWithVxlanExample": {
+                  "$ref": "#/components/examples/createServiceTokenWithVxlan"
+                },
                 "ZsideTokenWithQnQExample": {
                   "$ref": "#/components/examples/createZsideServiceTokenWithQnQ"
                 },
@@ -4444,6 +4467,9 @@
                 },
                 "ZsideTokenWithDot1QExample": {
                   "$ref": "#/components/examples/createZsideServiceTokenWithDot1Q"
+                },
+                "ZsideTokenWithVxlanExample": {
+                  "$ref": "#/components/examples/createZsideServiceTokenWithVxlan"
                 }
               }
             }
@@ -5355,6 +5381,84 @@
         }
       }
     },
+    "/fabric/v4/ports/search": {
+      "post": {
+        "tags": [
+          "Ports"
+        ],
+        "summary": "Search ports",
+        "description": "The API provides capability to get list of user's virtual ports using search criteria, including optional filtering, pagination and sorting",
+        "operationId": "searchPorts",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PortV4SearchRequest"
+              },
+              "examples": {
+                "PortSearchDirection": {
+                  "$ref": "#/components/examples/PortSearchByProjectId"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllPortsResponse"
+                },
+                "examples": {
+                  "portExample": {
+                    "$ref": "#/components/examples/ports"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/400"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/fabric/v4/routers": {
       "post": {
         "tags": [
@@ -5362,7 +5466,7 @@
         ],
         "summary": "Create Routers",
         "description": "This API provides capability to create user's Cloud Routers",
-        "operationId": "createGateway",
+        "operationId": "createCloudRouter",
         "parameters": [],
         "requestBody": {
           "content": {
@@ -5483,7 +5587,7 @@
         ],
         "summary": "Get Routers",
         "description": "This API provides capability to retrieve user's Cloud Routers",
-        "operationId": "getGatewayByUuid",
+        "operationId": "getCloudRouterByUuid",
         "parameters": [
           {
             "name": "routerId",
@@ -5579,7 +5683,7 @@
         ],
         "summary": "Delete Routers",
         "description": "This API provides capability to delete user's Cloud Routers",
-        "operationId": "deleteGatewayByUuid",
+        "operationId": "deleteCloudRouterByUuid",
         "parameters": [
           {
             "name": "routerId",
@@ -5678,7 +5782,7 @@
         ],
         "summary": "Update Routers",
         "description": "This API provides capability to update user's Cloud Routers",
-        "operationId": "updateGatewayByUuid",
+        "operationId": "updateCloudRouterByUuid",
         "parameters": [
           {
             "name": "routerId",
@@ -5827,7 +5931,7 @@
         ],
         "summary": "Get actions",
         "description": "This API provides capability to fetch action status",
-        "operationId": "getGatewayActions",
+        "operationId": "getCloudRouterActions",
         "parameters": [
           {
             "name": "routerId",
@@ -5853,11 +5957,11 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GatewayActionResponse"
+                  "$ref": "#/components/schemas/CloudRouterActionResponse"
                 },
                 "examples": {
                   "routerActionExample": {
-                    "$ref": "#/components/examples/GatewayActionResponse"
+                    "$ref": "#/components/examples/CloudRouterActionResponse"
                   }
                 }
               }
@@ -5961,7 +6065,7 @@
         ],
         "summary": "Route table actions",
         "description": "This API provides capability to refresh route table and bgp session summary information",
-        "operationId": "createGatewayAction",
+        "operationId": "createCloudRouterAction",
         "parameters": [
           {
             "name": "routerId",
@@ -5977,7 +6081,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/GatewayActionRequest"
+                "$ref": "#/components/schemas/CloudRouterActionRequest"
               },
               "examples": {
                 "RouteEntriesStatusUpdate": {
@@ -5994,11 +6098,11 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GatewayActionResponse"
+                  "$ref": "#/components/schemas/CloudRouterActionResponse"
                 },
                 "examples": {
-                  "gatewayActionExample": {
-                    "$ref": "#/components/examples/GatewayActionResponse"
+                  "cloudRouterActionExample": {
+                    "$ref": "#/components/examples/CloudRouterActionResponse"
                   }
                 }
               }
@@ -6100,11 +6204,11 @@
     "/fabric/v4/routers/{routerId}/routes/search": {
       "post": {
         "tags": [
-          "Routes"
+          "Cloud Routers"
         ],
         "summary": "Search Route Table",
         "description": "The API provides capability to get list of user's Fabric Cloud Router route table entries using search criteria, including optional filtering, pagination and sorting",
-        "operationId": "searchRoutes",
+        "operationId": "searchCloudRouterRoutes",
         "parameters": [
           {
             "name": "routerId",
@@ -6247,6 +6351,80 @@
         }
       }
     },
+    "/fabric/v4/routers/{routerId}/validate": {
+      "post": {
+        "tags": [
+          "Routing Protocols"
+        ],
+        "summary": "Validate Subnet",
+        "description": "This API provides capability to validate all subnets associated with any connection in the given FCR",
+        "operationId": "validateRoutingProtocol",
+        "parameters": [
+          {
+            "name": "routerId",
+            "in": "path",
+            "description": "Cloud Router UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouterId"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidateSubnetRequest"
+              },
+              "examples": {
+                "ValidateDirectIpv4": {
+                  "$ref": "#/components/examples/Request-direct-ipv4"
+                },
+                "ValidateDirectIpv6": {
+                  "$ref": "#/components/examples/Request-direct-ipv6"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidateSubnetResponse"
+                },
+                "examples": {
+                  "ValidateSubnet": {
+                    "$ref": "#/components/examples/Response-200"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "Bad Request": {
+                    "$ref": "#/components/examples/error-400"
+                  },
+                  "Subnet Overlapping": {
+                    "$ref": "#/components/examples/error-400-overlappingSubnet"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/fabric/v4/routers/search": {
       "post": {
         "tags": [
@@ -6254,7 +6432,7 @@
         ],
         "summary": "Search Routers",
         "description": "The API provides capability to get list of user's Cloud Routers using search criteria, including optional filtering, pagination and sorting",
-        "operationId": "searchGateways",
+        "operationId": "searchCloudRouters",
         "parameters": [],
         "requestBody": {
           "content": {
@@ -6378,7 +6556,7 @@
         ],
         "summary": "List Packages",
         "description": "This API provides capability to retrieve user's Cloud Routers Packages",
-        "operationId": "getGatewayPackages",
+        "operationId": "getCloudRouterPackages",
         "parameters": [
           {
             "name": "offset",
@@ -6487,7 +6665,7 @@
         ],
         "summary": "Get Package Details",
         "description": "This API provides capability to retrieve user's Cloud Routers Package Details",
-        "operationId": "getGatewayPackageByCode",
+        "operationId": "getCloudRouterPackageByCode",
         "parameters": [
           {
             "name": "routerPackageCode",
@@ -7568,6 +7746,1086 @@
           }
         }
       }
+    },
+    "/fabric/v4/timeServices/{serviceId}": {
+      "get": {
+        "tags": [
+          "Precision Time"
+        ],
+        "summary": "Get time service",
+        "description": "The API provides capability to get prevision timing service's details",
+        "operationId": "getTimeServicesById",
+        "parameters": [
+          {
+            "name": "serviceId",
+            "in": "path",
+            "description": "Service UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ServiceId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/precisionTimeServiceCreateResponse"
+                },
+                "examples": {
+                  "NtpStandard": {
+                    "$ref": "#/components/examples/ntpStandardCreateResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "MandatoryName": {
+                    "$ref": "#/components/examples/400-Mandatory-Name"
+                  },
+                  "InvalidName": {
+                    "$ref": "#/components/examples/400-Invalid-Name"
+                  },
+                  "ValidateName": {
+                    "$ref": "#/components/examples/400-Validate-Name"
+                  },
+                  "DuplicateName": {
+                    "$ref": "#/components/examples/400-Duplicate-Name"
+                  },
+                  "MandatoryConnectionUuid": {
+                    "$ref": "#/components/examples/400-Mandatory-ConnectionUUid"
+                  },
+                  "InvalidConnectionUuidFormat": {
+                    "$ref": "#/components/examples/400-Invalid-ConnectionUuid-Format"
+                  },
+                  "InvalidConnectionStatus": {
+                    "$ref": "#/components/examples/400-Invalid-Connection-Status"
+                  },
+                  "ValidateConnectionUuid": {
+                    "$ref": "#/components/examples/400-Validate-ConnectionUuid"
+                  },
+                  "InvalidConnectionLocation": {
+                    "$ref": "#/components/examples/400-Invalid-Connection-Location"
+                  },
+                  "MandatoryPackageType": {
+                    "$ref": "#/components/examples/400-Mandatory-PackageType"
+                  },
+                  "InvalidPackageType": {
+                    "$ref": "#/components/examples/400-Invalid-PackageType"
+                  },
+                  "InvalidConnectionPackageType": {
+                    "$ref": "#/components/examples/400-Invalid-Connection-PackageType"
+                  },
+                  "MandatoryPackage": {
+                    "$ref": "#/components/examples/400-Mandatory-Package"
+                  },
+                  "InvalidPackage": {
+                    "$ref": "#/components/examples/400-Invalid-Package"
+                  },
+                  "InvalidConnectionPackage": {
+                    "$ref": "#/components/examples/400-Invalid-Connection-Package"
+                  },
+                  "MandatoryPrimaryIP": {
+                    "$ref": "#/components/examples/400-Mandatory-PrimaryIP"
+                  },
+                  "InvalidPrimaryIPFormat": {
+                    "$ref": "#/components/examples/400-Invalid-PrimaryIP-Format"
+                  },
+                  "ValidatePrimaryIP": {
+                    "$ref": "#/components/examples/400-Validate-PrimaryIP"
+                  },
+                  "MandatorySecondaryIP": {
+                    "$ref": "#/components/examples/400-Mandatory-SecondaryIP"
+                  },
+                  "InvalidSecondaryIPFormat": {
+                    "$ref": "#/components/examples/400-Invalid-SecondaryIP-Format"
+                  },
+                  "ValidateSecondaryIP": {
+                    "$ref": "#/components/examples/400-Validate-SecondaryIP"
+                  },
+                  "ValidateSameSubnet": {
+                    "$ref": "#/components/examples/400-Validate-SameSubnet"
+                  },
+                  "MandatoryNetworkMask": {
+                    "$ref": "#/components/examples/400-Mandatory-NetworkMask"
+                  },
+                  "InvalidNetworkMaskFormat": {
+                    "$ref": "#/components/examples/400-Invalid-NetworkMask-Format"
+                  },
+                  "ValidateNetworkMask": {
+                    "$ref": "#/components/examples/400-Validate-NetworkMask"
+                  },
+                  "InvalidDefaultGatewayFormat": {
+                    "$ref": "#/components/examples/400-Invalid-DefaultGateway-Format"
+                  },
+                  "ValidateDefaultGateway": {
+                    "$ref": "#/components/examples/400-Validate-DefaultGateway"
+                  },
+                  "InvalidTimeScale": {
+                    "$ref": "#/components/examples/400-Invalid-TimeScale"
+                  },
+                  "InvalidDomain": {
+                    "$ref": "#/components/examples/400-Invalid-Domain"
+                  },
+                  "InvalidPriority1": {
+                    "$ref": "#/components/examples/400-Invalid-Priority1"
+                  },
+                  "InvalidPriority2": {
+                    "$ref": "#/components/examples/400-Invalid-Priority2"
+                  },
+                  "InvalidLogAnnounceInterval": {
+                    "$ref": "#/components/examples/400-Invalid-LogAnnounceInterval"
+                  },
+                  "ValidateLogAnnounceIntervalRange": {
+                    "$ref": "#/components/examples/400-Validate-LogAnnounceInterval-Range"
+                  },
+                  "InvalidLogSyncInterval": {
+                    "$ref": "#/components/examples/400-Invalid-LogSyncInterval"
+                  },
+                  "ValidateLogSyncIntervalRange": {
+                    "$ref": "#/components/examples/400-Validate-LogSyncInterval-Range"
+                  },
+                  "InvalidLogDelayReqInterval": {
+                    "$ref": "#/components/examples/400-Invalid-LogDelayReqInterval"
+                  },
+                  "ValidateLogDelayReqIntervalRange": {
+                    "$ref": "#/components/examples/400-Validate-LogDelayReqInterval-Range"
+                  },
+                  "InvalidTransportMode": {
+                    "$ref": "#/components/examples/400-Invalid-TransportMode"
+                  },
+                  "InvalidGrantTime": {
+                    "$ref": "#/components/examples/400-Invalid-GrantTime"
+                  },
+                  "ValidateGrantTimeRange": {
+                    "$ref": "#/components/examples/400-Validate-GrantTime-Range"
+                  },
+                  "InvalidType": {
+                    "$ref": "#/components/examples/400-Invalid-Type"
+                  },
+                  "InvalidId": {
+                    "$ref": "#/components/examples/400-Invalid-Id"
+                  },
+                  "InvalidPassword": {
+                    "$ref": "#/components/examples/400-Invalid-Password"
+                  },
+                  "ValidatePassword": {
+                    "$ref": "#/components/examples/400-Validate-Password"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Precision Time"
+        ],
+        "summary": "Delete time service",
+        "description": "Delete EPT service by it's uuid",
+        "operationId": "deleteTimeServiceById",
+        "parameters": [
+          {
+            "name": "serviceId",
+            "in": "path",
+            "description": "Service UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ServiceId"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/precisionTimeServiceCreateResponse"
+                },
+                "examples": {
+                  "NtpStandard": {
+                    "$ref": "#/components/examples/ntpStandardCreateResponse"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Precision Time"
+        ],
+        "summary": "Patch time service",
+        "description": "The API provides capability to update timing service",
+        "operationId": "updateTimeServicesById",
+        "parameters": [
+          {
+            "name": "serviceId",
+            "in": "path",
+            "description": "Service UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ServiceId"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/precisionTimeChangeOperation"
+                }
+              },
+              "examples": {
+                "editName": {
+                  "$ref": "#/components/examples/edit"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/precisionTimeServiceCreateResponse"
+                },
+                "examples": {
+                  "NtpStandard": {
+                    "$ref": "#/components/examples/ntpStandardCreateResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "MandatoryName": {
+                    "$ref": "#/components/examples/400-Mandatory-Name"
+                  },
+                  "InvalidName": {
+                    "$ref": "#/components/examples/400-Invalid-Name"
+                  },
+                  "ValidateName": {
+                    "$ref": "#/components/examples/400-Validate-Name"
+                  },
+                  "DuplicateName": {
+                    "$ref": "#/components/examples/400-Duplicate-Name"
+                  },
+                  "MandatoryConnectionUuid": {
+                    "$ref": "#/components/examples/400-Mandatory-ConnectionUUid"
+                  },
+                  "InvalidConnectionUuidFormat": {
+                    "$ref": "#/components/examples/400-Invalid-ConnectionUuid-Format"
+                  },
+                  "InvalidConnectionStatus": {
+                    "$ref": "#/components/examples/400-Invalid-Connection-Status"
+                  },
+                  "ValidateConnectionUuid": {
+                    "$ref": "#/components/examples/400-Validate-ConnectionUuid"
+                  },
+                  "InvalidConnectionLocation": {
+                    "$ref": "#/components/examples/400-Invalid-Connection-Location"
+                  },
+                  "MandatoryPackageType": {
+                    "$ref": "#/components/examples/400-Mandatory-PackageType"
+                  },
+                  "InvalidPackageType": {
+                    "$ref": "#/components/examples/400-Invalid-PackageType"
+                  },
+                  "InvalidConnectionPackageType": {
+                    "$ref": "#/components/examples/400-Invalid-Connection-PackageType"
+                  },
+                  "MandatoryPackage": {
+                    "$ref": "#/components/examples/400-Mandatory-Package"
+                  },
+                  "InvalidPackage": {
+                    "$ref": "#/components/examples/400-Invalid-Package"
+                  },
+                  "InvalidConnectionPackage": {
+                    "$ref": "#/components/examples/400-Invalid-Connection-Package"
+                  },
+                  "MandatoryPrimaryIP": {
+                    "$ref": "#/components/examples/400-Mandatory-PrimaryIP"
+                  },
+                  "InvalidPrimaryIPFormat": {
+                    "$ref": "#/components/examples/400-Invalid-PrimaryIP-Format"
+                  },
+                  "ValidatePrimaryIP": {
+                    "$ref": "#/components/examples/400-Validate-PrimaryIP"
+                  },
+                  "MandatorySecondaryIP": {
+                    "$ref": "#/components/examples/400-Mandatory-SecondaryIP"
+                  },
+                  "InvalidSecondaryIPFormat": {
+                    "$ref": "#/components/examples/400-Invalid-SecondaryIP-Format"
+                  },
+                  "ValidateSecondaryIP": {
+                    "$ref": "#/components/examples/400-Validate-SecondaryIP"
+                  },
+                  "ValidateSameSubnet": {
+                    "$ref": "#/components/examples/400-Validate-SameSubnet"
+                  },
+                  "MandatoryNetworkMask": {
+                    "$ref": "#/components/examples/400-Mandatory-NetworkMask"
+                  },
+                  "InvalidNetworkMaskFormat": {
+                    "$ref": "#/components/examples/400-Invalid-NetworkMask-Format"
+                  },
+                  "ValidateNetworkMask": {
+                    "$ref": "#/components/examples/400-Validate-NetworkMask"
+                  },
+                  "InvalidDefaultGatewayFormat": {
+                    "$ref": "#/components/examples/400-Invalid-DefaultGateway-Format"
+                  },
+                  "ValidateDefaultGateway": {
+                    "$ref": "#/components/examples/400-Validate-DefaultGateway"
+                  },
+                  "InvalidTimeScale": {
+                    "$ref": "#/components/examples/400-Invalid-TimeScale"
+                  },
+                  "InvalidDomain": {
+                    "$ref": "#/components/examples/400-Invalid-Domain"
+                  },
+                  "InvalidPriority1": {
+                    "$ref": "#/components/examples/400-Invalid-Priority1"
+                  },
+                  "InvalidPriority2": {
+                    "$ref": "#/components/examples/400-Invalid-Priority2"
+                  },
+                  "InvalidLogAnnounceInterval": {
+                    "$ref": "#/components/examples/400-Invalid-LogAnnounceInterval"
+                  },
+                  "ValidateLogAnnounceIntervalRange": {
+                    "$ref": "#/components/examples/400-Validate-LogAnnounceInterval-Range"
+                  },
+                  "InvalidLogSyncInterval": {
+                    "$ref": "#/components/examples/400-Invalid-LogSyncInterval"
+                  },
+                  "ValidateLogSyncIntervalRange": {
+                    "$ref": "#/components/examples/400-Validate-LogSyncInterval-Range"
+                  },
+                  "InvalidLogDelayReqInterval": {
+                    "$ref": "#/components/examples/400-Invalid-LogDelayReqInterval"
+                  },
+                  "ValidateLogDelayReqIntervalRange": {
+                    "$ref": "#/components/examples/400-Validate-LogDelayReqInterval-Range"
+                  },
+                  "InvalidTransportMode": {
+                    "$ref": "#/components/examples/400-Invalid-TransportMode"
+                  },
+                  "InvalidGrantTime": {
+                    "$ref": "#/components/examples/400-Invalid-GrantTime"
+                  },
+                  "ValidateGrantTimeRange": {
+                    "$ref": "#/components/examples/400-Validate-GrantTime-Range"
+                  },
+                  "InvalidType": {
+                    "$ref": "#/components/examples/400-Invalid-Type"
+                  },
+                  "InvalidId": {
+                    "$ref": "#/components/examples/400-Invalid-Id"
+                  },
+                  "InvalidPassword": {
+                    "$ref": "#/components/examples/400-Invalid-Password"
+                  },
+                  "ValidatePassword": {
+                    "$ref": "#/components/examples/400-Validate-Password"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fabric/v4/timeServices": {
+      "post": {
+        "tags": [
+          "Precision Time"
+        ],
+        "summary": "Create time service",
+        "description": "The API provides capability to create timing service",
+        "operationId": "createTimeServices",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/precisionTimeServiceRequest"
+              },
+              "examples": {
+                "ntpSingleStandard": {
+                  "$ref": "#/components/examples/ntpSingleStandard"
+                },
+                "ptpSingleStandard": {
+                  "$ref": "#/components/examples/ptpSingleStandard"
+                },
+                "ptpSingleEnterpriseWithAdvanceConfiguration": {
+                  "$ref": "#/components/examples/ptpSingleEnterpriseWithAdvanceConfiguration"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/precisionTimeServiceCreateResponse"
+                },
+                "examples": {
+                  "NtpStandard": {
+                    "$ref": "#/components/examples/ntpStandardCreateResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "MandatoryName": {
+                    "$ref": "#/components/examples/400-Mandatory-Name"
+                  },
+                  "InvalidName": {
+                    "$ref": "#/components/examples/400-Invalid-Name"
+                  },
+                  "ValidateName": {
+                    "$ref": "#/components/examples/400-Validate-Name"
+                  },
+                  "DuplicateName": {
+                    "$ref": "#/components/examples/400-Duplicate-Name"
+                  },
+                  "MandatoryConnectionUuid": {
+                    "$ref": "#/components/examples/400-Mandatory-ConnectionUUid"
+                  },
+                  "InvalidConnectionUuidFormat": {
+                    "$ref": "#/components/examples/400-Invalid-ConnectionUuid-Format"
+                  },
+                  "InvalidConnectionStatus": {
+                    "$ref": "#/components/examples/400-Invalid-Connection-Status"
+                  },
+                  "ValidateConnectionUuid": {
+                    "$ref": "#/components/examples/400-Validate-ConnectionUuid"
+                  },
+                  "InvalidConnectionLocation": {
+                    "$ref": "#/components/examples/400-Invalid-Connection-Location"
+                  },
+                  "MandatoryPackageType": {
+                    "$ref": "#/components/examples/400-Mandatory-PackageType"
+                  },
+                  "InvalidPackageType": {
+                    "$ref": "#/components/examples/400-Invalid-PackageType"
+                  },
+                  "InvalidConnectionPackageType": {
+                    "$ref": "#/components/examples/400-Invalid-Connection-PackageType"
+                  },
+                  "MandatoryPackage": {
+                    "$ref": "#/components/examples/400-Mandatory-Package"
+                  },
+                  "InvalidPackage": {
+                    "$ref": "#/components/examples/400-Invalid-Package"
+                  },
+                  "InvalidConnectionPackage": {
+                    "$ref": "#/components/examples/400-Invalid-Connection-Package"
+                  },
+                  "MandatoryPrimaryIP": {
+                    "$ref": "#/components/examples/400-Mandatory-PrimaryIP"
+                  },
+                  "InvalidPrimaryIPFormat": {
+                    "$ref": "#/components/examples/400-Invalid-PrimaryIP-Format"
+                  },
+                  "ValidatePrimaryIP": {
+                    "$ref": "#/components/examples/400-Validate-PrimaryIP"
+                  },
+                  "MandatorySecondaryIP": {
+                    "$ref": "#/components/examples/400-Mandatory-SecondaryIP"
+                  },
+                  "InvalidSecondaryIPFormat": {
+                    "$ref": "#/components/examples/400-Invalid-SecondaryIP-Format"
+                  },
+                  "ValidateSecondaryIP": {
+                    "$ref": "#/components/examples/400-Validate-SecondaryIP"
+                  },
+                  "ValidateSameSubnet": {
+                    "$ref": "#/components/examples/400-Validate-SameSubnet"
+                  },
+                  "MandatoryNetworkMask": {
+                    "$ref": "#/components/examples/400-Mandatory-NetworkMask"
+                  },
+                  "InvalidNetworkMaskFormat": {
+                    "$ref": "#/components/examples/400-Invalid-NetworkMask-Format"
+                  },
+                  "ValidateNetworkMask": {
+                    "$ref": "#/components/examples/400-Validate-NetworkMask"
+                  },
+                  "InvalidDefaultGatewayFormat": {
+                    "$ref": "#/components/examples/400-Invalid-DefaultGateway-Format"
+                  },
+                  "ValidateDefaultGateway": {
+                    "$ref": "#/components/examples/400-Validate-DefaultGateway"
+                  },
+                  "InvalidTimeScale": {
+                    "$ref": "#/components/examples/400-Invalid-TimeScale"
+                  },
+                  "InvalidDomain": {
+                    "$ref": "#/components/examples/400-Invalid-Domain"
+                  },
+                  "InvalidPriority1": {
+                    "$ref": "#/components/examples/400-Invalid-Priority1"
+                  },
+                  "InvalidPriority2": {
+                    "$ref": "#/components/examples/400-Invalid-Priority2"
+                  },
+                  "InvalidLogAnnounceInterval": {
+                    "$ref": "#/components/examples/400-Invalid-LogAnnounceInterval"
+                  },
+                  "ValidateLogAnnounceIntervalRange": {
+                    "$ref": "#/components/examples/400-Validate-LogAnnounceInterval-Range"
+                  },
+                  "InvalidLogSyncInterval": {
+                    "$ref": "#/components/examples/400-Invalid-LogSyncInterval"
+                  },
+                  "ValidateLogSyncIntervalRange": {
+                    "$ref": "#/components/examples/400-Validate-LogSyncInterval-Range"
+                  },
+                  "InvalidLogDelayReqInterval": {
+                    "$ref": "#/components/examples/400-Invalid-LogDelayReqInterval"
+                  },
+                  "ValidateLogDelayReqIntervalRange": {
+                    "$ref": "#/components/examples/400-Validate-LogDelayReqInterval-Range"
+                  },
+                  "InvalidTransportMode": {
+                    "$ref": "#/components/examples/400-Invalid-TransportMode"
+                  },
+                  "InvalidGrantTime": {
+                    "$ref": "#/components/examples/400-Invalid-GrantTime"
+                  },
+                  "ValidateGrantTimeRange": {
+                    "$ref": "#/components/examples/400-Validate-GrantTime-Range"
+                  },
+                  "InvalidType": {
+                    "$ref": "#/components/examples/400-Invalid-Type"
+                  },
+                  "InvalidId": {
+                    "$ref": "#/components/examples/400-Invalid-Id"
+                  },
+                  "InvalidPassword": {
+                    "$ref": "#/components/examples/400-Invalid-Password"
+                  },
+                  "ValidatePassword": {
+                    "$ref": "#/components/examples/400-Validate-Password"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fabric/v4/timeServices/{serviceId}/connections": {
+      "get": {
+        "tags": [
+          "Precision Time"
+        ],
+        "summary": "Get Conn Links",
+        "description": "The API provides capability to get prevision timing service's details",
+        "operationId": "getTimeServicesConnectionsByServiceId",
+        "parameters": [
+          {
+            "name": "serviceId",
+            "in": "path",
+            "description": "Service UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ServiceId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return Time Service Connection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/precisionTimeServiceConnectionsResponse"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/serviceConnectionsResponse"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fabric/v4/timeServicesPackages": {
+      "get": {
+        "tags": [
+          "Precision Time"
+        ],
+        "summary": "Get Packages",
+        "description": "The API provides capability to get timing service's packages",
+        "operationId": "getTimeServicesPackages",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/precisionTimeServicePackagesResponse"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/servicePackagesResponse"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fabric/v4/timeServicesPackages/{packageCode}": {
+      "get": {
+        "tags": [
+          "Precision Time"
+        ],
+        "summary": "Get package by Code",
+        "description": "The API provides capability to get timing service's package by code",
+        "operationId": "getTimeServicesPackageByCode",
+        "parameters": [
+          {
+            "name": "packageCode",
+            "in": "path",
+            "description": "Package Code",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "NTP_STANDARD",
+                "NTP_ENTERPRISE",
+                "PTP_STANDARD",
+                "PTP_ENTERPRISE"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PackageResponse"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/servicePackageResponse"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -7597,6 +8855,9 @@
             "minimum": 0,
             "type": "integer",
             "description": "Connection bandwidth in Mbps"
+          },
+          "geoScope": {
+            "$ref": "#/components/schemas/GeoScopeType"
           },
           "redundancy": {
             "$ref": "#/components/schemas/ConnectionRedundancy"
@@ -7681,6 +8942,9 @@
             "minimum": 0,
             "type": "integer",
             "description": "Connection bandwidth in Mbps"
+          },
+          "geoScope": {
+            "$ref": "#/components/schemas/GeoScopeType"
           },
           "redundancy": {
             "$ref": "#/components/schemas/ConnectionRedundancy"
@@ -8149,6 +9413,7 @@
           "/name",
           "/uuid",
           "/type",
+          "/geoScope",
           "/account/orgId",
           "/aSide/accessPoint/account/accountName",
           "/aSide/accessPoint/account/accountNumber",
@@ -9206,7 +10471,7 @@
         "properties": {
           "property": {
             "type": "string",
-            "description": "Possible field names to use on filters:\n * `/name` - Service Profile name\n * `/uuid` - Service Profile uuid\n * `/state` - Service Profile status\n * `/metros/code` - Service Profile metro code\n * `/visibility` - Service Profile package\n * `/type` - Service Profile package\n",
+            "description": "Possible field names to use on filters:\n * `/name` - Service Profile name\n * `/uuid` - Service Profile uuid\n * `/state` - Service Profile status\n * `/metros/code` - Service Profile metro code\n * `/visibility` - Service Profile package\n * `/type` - Service Profile package\n * `/project/projectId` - Service Profile project id\n",
             "example": "/name"
           },
           "operator": {
@@ -9577,6 +10842,13 @@
             "items": {
               "$ref": "#/components/schemas/ConnectedMetro"
             }
+          },
+          "geoScopes": {
+            "type": "array",
+            "description": "List of supported geographic boundaries of a Fabric Metro.",
+            "items": {
+              "$ref": "#/components/schemas/GeoScopeType"
+            }
           }
         },
         "description": "GET Metros retrieves all Equinix? Fabric? metros, as well as latency data for each location.This performance data helps network planning engineers and administrators make strategic decisions about port locations and traffic routes."
@@ -9619,6 +10891,14 @@
           }
         },
         "description": "Arrays of objects containing latency data for the specified metros"
+      },
+      "GeoScopeType": {
+        "type": "string",
+        "description": "Geographic boundary types",
+        "enum": [
+          "CANADA",
+          "CONUS"
+        ]
       },
       "MetroErrorList": {
         "type": "array",
@@ -10009,6 +11289,24 @@
         },
         "description": "List of Vlans"
       },
+      "PortV4SearchRequest": {
+        "type": "object",
+        "properties": {
+          "filter": {
+            "$ref": "#/components/schemas/PortExpression"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/PaginationRequest"
+          },
+          "sort": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PortSortCriteria"
+            }
+          }
+        },
+        "description": "Search requests containing criteria"
+      },
       "PortExpression": {
         "type": "object",
         "properties": {
@@ -10045,7 +11343,9 @@
         "type": "string",
         "description": "Possible field names to use on filters",
         "enum": [
-          "/project/projectId"
+          "/project/projectId",
+          "/settings/productCode",
+          "/state"
         ]
       },
       "PortSortCriteria": {
@@ -10143,6 +11443,16 @@
             "type": "integer",
             "description": "Number of connections associated with this Access point"
           },
+          "distinctIpv4PrefixesCount": {
+            "minimum": 0,
+            "type": "integer",
+            "description": "Number of distinct ipv4 routes"
+          },
+          "distinctIpv6PrefixesCount": {
+            "minimum": 0,
+            "type": "integer",
+            "description": "Number of distinct ipv6 routes"
+          },
           "changeLog": {
             "$ref": "#/components/schemas/Changelog"
           },
@@ -10178,9 +11488,9 @@
         "example": "557400f8-d360-11e9-bb65-2a2ae2dbcce4"
       },
       "ActionState": {
-        "$ref": "#/components/schemas/GatewayActionState"
+        "$ref": "#/components/schemas/CloudRouterActionState"
       },
-      "GatewayActionState": {
+      "CloudRouterActionState": {
         "type": "string",
         "description": "Cloud Router action state",
         "enum": [
@@ -10189,7 +11499,7 @@
           "PENDING"
         ]
       },
-      "GatewayActionResponse": {
+      "CloudRouterActionResponse": {
         "required": [
           "changeLog",
           "state",
@@ -10199,7 +11509,7 @@
         "type": "object",
         "properties": {
           "type": {
-            "$ref": "#/components/schemas/GatewayActionType"
+            "$ref": "#/components/schemas/CloudRouterActionType"
           },
           "uuid": {
             "type": "string",
@@ -10211,7 +11521,7 @@
             "example": "description"
           },
           "state": {
-            "$ref": "#/components/schemas/GatewayActionState"
+            "$ref": "#/components/schemas/CloudRouterActionState"
           },
           "changeLog": {
             "$ref": "#/components/schemas/Changelog"
@@ -10219,17 +11529,17 @@
         },
         "description": "Cloud Router actions response object"
       },
-      "GatewayActionRequest": {
+      "CloudRouterActionRequest": {
         "required": [
           "type"
         ],
         "type": "object",
         "properties": {
           "type": {
-            "$ref": "#/components/schemas/GatewayActionType"
+            "$ref": "#/components/schemas/CloudRouterActionType"
           }
         },
-        "description": "Gateway action request"
+        "description": "Cloud Router action request"
       },
       "RouteTableEntrySearchRequest": {
         "type": "object",
@@ -10353,6 +11663,28 @@
             }
           }
         }
+      },
+      "ValidateSubnetRequest": {
+        "type": "object",
+        "properties": {
+          "filter": {
+            "$ref": "#/components/schemas/ValidateSubnetRequest_filter"
+          }
+        },
+        "description": "Validate subnet for Routing Protocol Configuration"
+      },
+      "ValidateSubnetResponse": {
+        "type": "object",
+        "properties": {
+          "additionalInfo": {
+            "type": "array",
+            "description": "Additional information",
+            "items": {
+              "$ref": "#/components/schemas/ConnectionSideAdditionalInfo"
+            }
+          }
+        },
+        "description": "ValidateResponse"
       },
       "CloudRouterSearchRequest": {
         "type": "object",
@@ -10634,7 +11966,7 @@
         "type": "object",
         "properties": {
           "filter": {
-            "$ref": "#/components/schemas/ValidateConnectionRequest_filter"
+            "$ref": "#/components/schemas/ValidateSubnetRequest_filter"
           }
         },
         "description": "Validate connection auth api key or vlan"
@@ -11019,6 +12351,206 @@
           }
         },
         "description": "Current state of latest network change"
+      },
+      "ServiceId": {
+        "type": "string",
+        "description": "Precision Time Service UUID",
+        "format": "uuid",
+        "example": "557400f8-d360-11e9-bb65-2a2ae2dbcce4"
+      },
+      "precisionTimeServiceCreateResponse": {
+        "title": "precisionTimeServiceResponse",
+        "required": [
+          "href",
+          "networkingIpv4",
+          "package",
+          "state",
+          "type",
+          "uuid"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "NTP",
+              "PTP"
+            ]
+          },
+          "href": {
+            "type": "string",
+            "format": "uri"
+          },
+          "uuid": {
+            "type": "string",
+            "description": "uuid of the ept service",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "description": "name of the ept service"
+          },
+          "description": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string",
+            "description": "indicate service state",
+            "enum": [
+              "PROVISIONED",
+              "PROVISIONING",
+              "PROVISIONING_FAILED",
+              "CONFIGURING",
+              "CANCELLED",
+              "DEPROVISIONING_FAILED",
+              "PENDING_CONFIGURATION",
+              "DEPROVISIONED",
+              "CONFIGURING_FAILED",
+              "DEPROVISIONING"
+            ]
+          },
+          "package": {
+            "$ref": "#/components/schemas/PackageResponse"
+          },
+          "connections": {
+            "maxItems": 2,
+            "minItems": 1,
+            "uniqueItems": true,
+            "type": "array",
+            "description": "fabric l2 connections used for the ept service",
+            "items": {
+              "$ref": "#/components/schemas/fabricConnectionUuid"
+            }
+          },
+          "networkingIpv4": {
+            "$ref": "#/components/schemas/ipv4"
+          },
+          "account": {
+            "$ref": "#/components/schemas/account"
+          },
+          "advanceConfiguration": {
+            "$ref": "#/components/schemas/advanceConfiguration"
+          },
+          "project": {
+            "$ref": "#/components/schemas/Project"
+          }
+        },
+        "description": "EPT service instance"
+      },
+      "precisionTimeChangeOperation": {
+        "required": [
+          "op",
+          "path",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string",
+            "description": "Handy shortcut for operation name",
+            "enum": [
+              "replace",
+              "add",
+              "remove"
+            ]
+          },
+          "path": {
+            "type": "string",
+            "description": "path inside document leading to updated parameter",
+            "enum": [
+              "/networkingIpv4",
+              "/name",
+              "/advanceConfiguration/ntp",
+              "/advanceConfiguration/ptp",
+              "/package"
+            ]
+          },
+          "value": {
+            "type": "object",
+            "description": "new value for updated parameter"
+          }
+        },
+        "description": "Fabric Precision Timing change operation data"
+      },
+      "precisionTimeServiceRequest": {
+        "title": "precisionTimeServiceRequest",
+        "required": [
+          "connections",
+          "name",
+          "networkingIpv4",
+          "package",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Indicate the entity is EPT service",
+            "enum": [
+              "NTP",
+              "PTP"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "package": {
+            "$ref": "#/components/schemas/packageRequest"
+          },
+          "connections": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/fabricConnectionUuid"
+            }
+          },
+          "networkingIpv4": {
+            "$ref": "#/components/schemas/ipv4"
+          },
+          "advanceConfiguration": {
+            "$ref": "#/components/schemas/advanceConfiguration"
+          },
+          "project": {
+            "$ref": "#/components/schemas/Project"
+          }
+        },
+        "description": "EPT service instance"
+      },
+      "precisionTimeServiceConnectionsResponse": {
+        "title": "precisionTimeServiceConnectionResponse",
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "data": {
+            "type": "array",
+            "description": "Data returned from the API call",
+            "items": {
+              "$ref": "#/components/schemas/connectionLink"
+            }
+          }
+        },
+        "description": "EPT service instance's L2 connections"
+      },
+      "precisionTimeServicePackagesResponse": {
+        "title": "precisionTimeServicePackagesResponse",
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "data": {
+            "type": "array",
+            "description": "Data returned from the API call",
+            "items": {
+              "$ref": "#/components/schemas/PackageResponse"
+            }
+          }
+        },
+        "description": "Precision Packages"
       },
       "ConnectionType": {
         "type": "string",
@@ -11813,6 +13345,7 @@
           "/zSide/accessPoint/linkProtocol/vlanSTag",
           "/zSide/accessPoint/authenticationKey",
           "/bandwidth",
+          "/geoScope",
           "/uuid",
           "/changeLog/createdDateTime",
           "/changeLog/updatedDateTime",
@@ -11887,7 +13420,7 @@
             "$ref": "#/components/schemas/IpBlockPrice"
           },
           "router": {
-            "$ref": "#/components/schemas/FabricGatewayPrice"
+            "$ref": "#/components/schemas/FabricCloudRouterPrice"
           },
           "port": {
             "$ref": "#/components/schemas/VirtualPortPrice"
@@ -12630,7 +14163,7 @@
         },
         "description": "Fabric Cloud Router change operation data"
       },
-      "GatewayActionType": {
+      "CloudRouterActionType": {
         "type": "string",
         "description": "Cloud Router action type",
         "enum": [
@@ -12880,6 +14413,143 @@
           "REQUESTED",
           "SUBMITTED_FOR_APPROVAL"
         ]
+      },
+      "fabricConnectionUuid": {
+        "title": "fabricConnectionUuid",
+        "required": [
+          "uuid"
+        ],
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "description": "uuid of the Fabric L2 connection",
+            "format": "uuid"
+          },
+          "href": {
+            "type": "string",
+            "description": "the href for the L2 connection",
+            "format": "uri"
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "description": "UUID of the Fabric Connection Instance",
+        "example": {
+          "uuid": "095be615-a8ad-4c33-8e9c-c7612fbf6c9f"
+        }
+      },
+      "ipv4": {
+        "title": "ipv4",
+        "type": "object",
+        "properties": {
+          "primary": {
+            "type": "string",
+            "format": "ipv4"
+          },
+          "secondary": {
+            "type": "string",
+            "format": "ipv4"
+          },
+          "networkMask": {
+            "type": "string",
+            "format": "ipv4"
+          },
+          "defaultGateway": {
+            "type": "string",
+            "format": "ipv4"
+          }
+        },
+        "description": "EPT service network information",
+        "example": {
+          "primary": "10.0.0.1",
+          "secondary": "10.0.0.2",
+          "networkMask": "255.255.255.240",
+          "defaultGateway": "10.0.0.3"
+        }
+      },
+      "account": {
+        "required": [
+          "accountNumber"
+        ],
+        "type": "object",
+        "properties": {
+          "accountNumber": {
+            "type": "integer"
+          },
+          "isResellerAccount": {
+            "type": "boolean"
+          },
+          "orgId": {
+            "type": "string"
+          },
+          "globalOrgId": {
+            "type": "string"
+          }
+        },
+        "description": "Account model, includes account number and flag to indicate if this account is reseller",
+        "example": {
+          "accountNumber": 123456
+        }
+      },
+      "advanceConfiguration": {
+        "type": "object",
+        "properties": {
+          "ntp": {
+            "$ref": "#/components/schemas/ntpAdvanceConfiguration"
+          },
+          "ptp": {
+            "$ref": "#/components/schemas/ptpAdvanceConfiguration"
+          }
+        },
+        "description": "Advance Configuration for NTP/PTP"
+      },
+      "packageRequest": {
+        "title": "package",
+        "required": [
+          "code"
+        ],
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "format": "uri"
+          },
+          "code": {
+            "type": "string",
+            "enum": [
+              "NTP_STANDARD",
+              "NTP_ENTERPRISE",
+              "PTP_STANDARD",
+              "PTP_ENTERPRISE"
+            ]
+          }
+        },
+        "description": "EPT Package Request",
+        "example": {
+          "code": "NTP_STANDARD"
+        }
+      },
+      "connectionLink": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://api.equinix.com/fabric/v4/timeServices/92dc376a-a932-43aa-a6a2-c806dedbd784/connections"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "EVPL_VC"
+            ]
+          },
+          "uuid": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
       },
       "ConnectionPriority": {
         "type": "string",
@@ -13136,7 +14806,7 @@
         },
         "description": "IP Block Product configuration"
       },
-      "FabricGatewayPrice": {
+      "FabricCloudRouterPrice": {
         "type": "object",
         "properties": {
           "uuid": {
@@ -13148,7 +14818,7 @@
             "$ref": "#/components/schemas/PriceLocation"
           },
           "package": {
-            "$ref": "#/components/schemas/FabricGatewayPackages"
+            "$ref": "#/components/schemas/FabricCloudRouterPackages"
           }
         },
         "description": "Cloud Router  Product configuration"
@@ -13404,6 +15074,73 @@
           "/changeLog/createdDateTime",
           "/changeLog/updatedDateTime"
         ]
+      },
+      "ntpAdvanceConfiguration": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/md5"
+        }
+      },
+      "ptpAdvanceConfiguration": {
+        "type": "object",
+        "properties": {
+          "timeScale": {
+            "type": "string",
+            "description": "Time Scale value, ARB denotes Arbitrary and PTP denotes Precision Time Protocol.",
+            "example": "ARB",
+            "enum": [
+              "ARB",
+              "PTP"
+            ]
+          },
+          "domain": {
+            "maximum": 127,
+            "minimum": 0,
+            "type": "integer",
+            "example": 0
+          },
+          "priority1": {
+            "maximum": 248,
+            "minimum": 0,
+            "type": "integer",
+            "example": 0
+          },
+          "priority2": {
+            "maximum": 248,
+            "minimum": 0,
+            "type": "integer",
+            "example": 0
+          },
+          "logAnnounceInterval": {
+            "type": "integer",
+            "description": "The mean time interval between Announce messages. A shorter interval makes ptp4l react faster to the changes in the master-slave hierarchy. The interval should be the same in the whole domain. It's specified as a power of two in seconds. The default is 1 (2 seconds).",
+            "example": 0
+          },
+          "logSyncInterval": {
+            "type": "integer",
+            "description": "The mean time interval between Sync messages. A shorter interval may improve accuracy of the local clock. It's specified as a power of two in seconds. The default is 0 (1 second).",
+            "example": 0
+          },
+          "logDelayReqInterval": {
+            "type": "integer",
+            "example": 0
+          },
+          "transportMode": {
+            "type": "string",
+            "enum": [
+              "Multicast",
+              "Unicast",
+              "Hybrid"
+            ]
+          },
+          "grantTime": {
+            "maximum": 7200,
+            "minimum": 30,
+            "type": "integer",
+            "description": "Unicast Grant Time in seconds. For Multicast and Hybrid transport modes, grant time defaults to 300 seconds. For Unicast mode, grant time can be between 30 to 7200.",
+            "example": 300
+          }
+        }
       },
       "AccessPointType": {
         "type": "string",
@@ -13749,11 +15486,11 @@
           }
         }
       },
-      "FabricGatewayPackages": {
+      "FabricCloudRouterPackages": {
         "type": "object",
         "properties": {
           "code": {
-            "$ref": "#/components/schemas/FabricGatewayCode"
+            "$ref": "#/components/schemas/FabricCloudRouterCode"
           }
         },
         "description": "Cloud Router  package"
@@ -13845,6 +15582,24 @@
         },
         "description": "List of criteria for selecting network access points with optimal efficiency, security, compatibility, and availability."
       },
+      "md5": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "ASCII",
+              "HEX"
+            ]
+          },
+          "id": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
       "LinkProtocolType": {
         "type": "string",
         "description": "Type of Link Protocol",
@@ -13875,7 +15630,7 @@
           "GLOBAL"
         ]
       },
-      "FabricGatewayCode": {
+      "FabricCloudRouterCode": {
         "type": "string",
         "description": "Cloud Router code",
         "enum": [
@@ -14083,7 +15838,7 @@
           }
         }
       },
-      "ValidateConnectionRequest_filter_and": {
+      "ValidateSubnetRequest_filter_and": {
         "properties": {
           "property": {
             "type": "string",
@@ -14102,13 +15857,13 @@
           }
         }
       },
-      "ValidateConnectionRequest_filter": {
+      "ValidateSubnetRequest_filter": {
         "type": "object",
         "properties": {
           "and": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ValidateConnectionRequest_filter_and"
+              "$ref": "#/components/schemas/ValidateSubnetRequest_filter_and"
             }
           }
         },
@@ -14466,21 +16221,21 @@
           },
           {
             "errorCode": "EQ-3142021",
-            "errorMessage": "For redundant connection, Fabric Gateway should be the same",
+            "errorMessage": "For redundant connection, Fabric Cloud Router should be the same",
             "correlationId": "test",
             "additionalInfo": [
               {
-                "property": "/aSide/accessPoint/gateway/uuid"
+                "property": "/aSide/accessPoint/router/uuid"
               }
             ]
           },
           {
             "errorCode": "EQ-3142012",
-            "errorMessage": "Fabric Gateway is not in PROVISIONED state",
+            "errorMessage": "Fabric Cloud Router is not in PROVISIONED state",
             "correlationId": "test",
             "additionalInfo": [
               {
-                "property": "/aSide/accessPoint/gateway/uuid"
+                "property": "/aSide/accessPoint/router/uuid"
               }
             ]
           },
@@ -14506,11 +16261,11 @@
           },
           {
             "errorCode": "EQ-3142013",
-            "errorMessage": "Invalid metro for gateway connection",
+            "errorMessage": "Invalid metro for Cloud Router connection",
             "correlationId": "test",
             "additionalInfo": [
               {
-                "property": "/aSide/accessPoint/gateway/uuid"
+                "property": "/aSide/accessPoint/router/uuid"
               }
             ]
           },
@@ -15052,10 +16807,10 @@
           ]
         }
       },
-      "COLO2AWSSPwithDot1q": {
+      "COLO2AWSSPwithDot1q-Primary": {
         "value": {
           "type": "EVPL_VC",
-          "name": "My-Layer2-Connection-3",
+          "name": "Primary-Aws",
           "bandwidth": 1000,
           "redundancy": {
             "priority": "PRIMARY"
@@ -15099,10 +16854,58 @@
           ]
         }
       },
-      "COLO2AzureSPwithDot1q": {
+      "COLO2AWSSPwithDot1q-Secondary": {
         "value": {
           "type": "EVPL_VC",
-          "name": "My-Layer2-Connection-3",
+          "name": "Secondary-Aws",
+          "bandwidth": 1000,
+          "redundancy": {
+            "group": "e04db764-f865-470b-8394-d2efdd651577",
+            "priority": "SECONDARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "type": "COLO",
+              "port": {
+                "uuid": "a00cef6f-8e35-4794-9ff9-665e084e4e6d"
+              },
+              "linkProtocol": {
+                "type": "DOT1Q",
+                "vlanTag": 1001
+              }
+            }
+          },
+          "order": {
+            "purchaseOrderNumber": "po1234"
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "type": "L2_PROFILE",
+                "uuid": "22d4e853-ef33-4ff0-b5b2-a2b1d5dfa50c"
+              },
+              "location": {
+                "metroCode": "DC"
+              },
+              "sellerRegion": "us-east-1",
+              "authenticationKey": "xxx-xxx-xxx"
+            }
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@test.com"
+              ]
+            }
+          ]
+        }
+      },
+      "COLO2AzureSPwithDot1q-Primary": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "Primary-Azure",
           "bandwidth": 1000,
           "redundancy": {
             "priority": "PRIMARY"
@@ -15150,13 +16953,14 @@
           ]
         }
       },
-      "COLO2AzureSPwithQinq": {
+      "COLO2AzureSPwithQinq-Secondary": {
         "value": {
           "type": "EVPL_VC",
-          "name": "My-Layer2-Connection-3",
+          "name": "Secondary-Azure",
           "bandwidth": 1000,
           "redundancy": {
-            "priority": "PRIMARY"
+            "group": "e04db764-f865-470b-8394-d2efdd651577",
+            "priority": "SECONDARY"
           },
           "aSide": {
             "accessPoint": {
@@ -15532,11 +17336,61 @@
           ]
         }
       },
-      "Vd2Sp": {
+      "Vd2Sp-Primary": {
         "value": {
           "type": "EVPL_VC",
           "bandwidth": 50,
-          "name": "vd to SP",
+          "name": "Network Device to SP",
+          "redundancy": {
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "type": "VD",
+              "virtualDevice": {
+                "type": "EDGE",
+                "uuid": "20d32a80-0d61-4333-bc03-707b591ae2f4"
+              },
+              "interface": {
+                "type": "NETWORK",
+                "id": 45645
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "type": "L2_PROFILE",
+                "uuid": "95542b34-cf1c-41aa-89f7-590946f9df53"
+              },
+              "authenticationKey": "xx-xx-xx",
+              "sellerRegion": "us-west-1"
+            }
+          },
+          "order": {
+            "purchaseOrderNumber": "1-323292"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com",
+                "test1@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Vd2Sp-Secondary": {
+        "value": {
+          "type": "EVPL_VC",
+          "bandwidth": 50,
+          "name": "Network Device to SP",
+          "redundancy": {
+            "group": "777ca05d-4ae7-4ee9-9456-3ca49500428c",
+            "priority": "SECONDARY"
+          },
           "aSide": {
             "accessPoint": {
               "type": "VD",
@@ -15756,14 +17610,13 @@
       "Vd2ServiceToken": {
         "value": {
           "type": "EVPL_VC",
-          "name": "Conn-1",
+          "name": "Primary-Token",
           "order": {
             "purchaseOrderNumber": "1-129105284100"
           },
           "bandwidth": 100,
           "redundancy": {
-            "group": "m167f685-41b0-1b07-6de0-320a5c00abeu",
-            "priority": "SECONDARY"
+            "priority": "PRIMARY"
           },
           "aSide": {
             "accessPoint": {
@@ -15839,7 +17692,7 @@
       "Fcr2Sp-Google": {
         "value": {
           "type": "IP_VC",
-          "name": "My-GW-Connection",
+          "name": "My-FCR-GCPConnection",
           "bandwidth": 1000,
           "aSide": {
             "accessPoint": {
@@ -15883,7 +17736,7 @@
       "Fcr2Sp-Azure": {
         "value": {
           "type": "IP_VC",
-          "name": "My-GW-Connection",
+          "name": "My-FCR-AzureConnection",
           "bandwidth": 1000,
           "aSide": {
             "accessPoint": {
@@ -15927,7 +17780,7 @@
       "Fcr2Sp-Generic": {
         "value": {
           "type": "IP_VC",
-          "name": "My-GW-Generic",
+          "name": "My-FCR-GenericConnection",
           "bandwidth": 1000,
           "aSide": {
             "accessPoint": {
@@ -15969,7 +17822,7 @@
       "Fcr2Sp-Generic-Redundant-Secondary": {
         "value": {
           "type": "IP_VC",
-          "name": "FG_to_RedSP_Secondary",
+          "name": "FCR_to_RedSP_Secondary",
           "bandwidth": 50,
           "redundancy": {
             "group": "a00cef6f-8e35-4794-9ff9-665e084e4e6d",
@@ -15978,7 +17831,7 @@
           "aSide": {
             "accessPoint": {
               "type": "CLOUD_ROUTER",
-              "gateway": {
+              "router": {
                 "uuid": "66a21614-1c4a-11ec-9621-0242ac130002"
               }
             }
@@ -16015,7 +17868,7 @@
       "Fcr2Sp-Generic-Redundant-Primary": {
         "value": {
           "type": "IP_VC",
-          "name": "FG_to_RedSP_Primary-Re-add",
+          "name": "FCR_to_RedSP_Primary-Re-add",
           "bandwidth": 50,
           "redundancy": {
             "group": "a00cef6f-8e35-4794-9ff9-665e084e4e6d",
@@ -16024,7 +17877,7 @@
           "aSide": {
             "accessPoint": {
               "type": "CLOUD_ROUTER",
-              "gateway": {
+              "router": {
                 "uuid": "66a21614-1c4a-11ec-9621-0242ac130002"
               }
             }
@@ -16105,7 +17958,7 @@
       "Fcr2Sp-Oracle": {
         "value": {
           "type": "IP_VC",
-          "name": "My-GW-OracleConnection",
+          "name": "My-FCR-OracleConnection",
           "bandwidth": 1000,
           "redundancy": {
             "priority": "PRIMARY"
@@ -16113,7 +17966,7 @@
           "aSide": {
             "accessPoint": {
               "type": "CLOUD_ROUTER",
-              "gateway": {
+              "router": {
                 "uuid": "66a21614-1c4a-11ec-9621-0242ac130002"
               }
             }
@@ -16229,7 +18082,7 @@
       "AsideServiceToken2PortWithDot1q": {
         "value": {
           "type": "EVPL_VC",
-          "name": "My-Layer2-Connection-3",
+          "name": "Aside-token",
           "bandwidth": 1000,
           "redundancy": {
             "priority": "PRIMARY"
@@ -16238,9 +18091,6 @@
             "serviceToken": {
               "uuid": "a00cef6f-8e35-4794-9ff9-665e084e4e6d"
             }
-          },
-          "order": {
-            "purchaseOrderNumber": "po1234"
           },
           "zSide": {
             "accessPoint": {
@@ -16257,6 +18107,9 @@
               }
             }
           },
+          "order": {
+            "purchaseOrderNumber": "po1234"
+          },
           "notifications": [
             {
               "type": "ALL",
@@ -16270,7 +18123,7 @@
       "AsideServiceToken2PortWithQinq": {
         "value": {
           "type": "EVPL_VC",
-          "name": "My-Layer2-Connection-3",
+          "name": "Aside-Token",
           "bandwidth": 1000,
           "redundancy": {
             "priority": "PRIMARY"
@@ -16279,9 +18132,6 @@
             "serviceToken": {
               "uuid": "a00cef6f-8e35-4794-9ff9-665e084e4e6d"
             }
-          },
-          "order": {
-            "purchaseOrderNumber": "po1234"
           },
           "zSide": {
             "accessPoint": {
@@ -16299,6 +18149,9 @@
               }
             }
           },
+          "order": {
+            "purchaseOrderNumber": "po1234"
+          },
           "notifications": [
             {
               "type": "ALL",
@@ -16314,6 +18167,12 @@
           "type": "EVPL_VC",
           "name": "Token2PrivateSP-NE",
           "bandwidth": 50,
+          "redundancy": {
+            "priority": "PRIMARY"
+          },
+          "order": {
+            "purchaseOrderNumber": "po1234"
+          },
           "aSide": {
             "serviceToken": {
               "uuid": "41a9e1ef-18bb-485b-a9b3-99801ac03684"
@@ -16358,6 +18217,9 @@
               "uuid": "4f9c5438-90eb-4295-b109-7754119a1e8d"
             }
           },
+          "order": {
+            "purchaseOrderNumber": "po1234"
+          },
           "notifications": [
             {
               "type": "ALL",
@@ -16365,10 +18227,7 @@
                 "test@test.com"
               ]
             }
-          ],
-          "order": {
-            "purchaseOrderNumber": "po1234"
-          }
+          ]
         }
       },
       "ConnectionExample": {
@@ -16380,7 +18239,9 @@
           "bandwidth": 1000,
           "direction": "OUTGOING",
           "isRemote": true,
+          "state": "ACTIVE",
           "redundancy": {
+            "group": "e04db764-f865-470b-8394-d2efdd651577",
             "priority": "PRIMARY"
           },
           "aSide": {
@@ -16404,6 +18265,7 @@
                 "uuid": "22d4e853-ef33-4ff0-b5b2-a2b1d5dfa50c"
               },
               "location": {
+                "metroHref": "https://api.equinix.com/fabric/v4/metros/MX",
                 "metroCode": "MX"
               }
             }
@@ -16424,6 +18286,7 @@
           "type": "EVPL_VC",
           "name": "vd to SP",
           "bandwidth": 50,
+          "state": "ACTIVE",
           "account": {
             "accountNumber": 201246,
             "orgId": 92610
@@ -16431,26 +18294,6 @@
           "redundancy": {
             "group": "ac61e576-2830-46aa-85e6-5ae7cd49610c",
             "priority": "PRIMARY"
-          },
-          "order": {
-            "purchaseOrderNumber": "1-323292",
-            "billingTier": "Up to 50 MB"
-          },
-          "notifications": [
-            {
-              "type": "ALL",
-              "emails": [
-                "test@equinix.com",
-                "test1@equinix.com"
-              ]
-            }
-          ],
-          "operation": {
-            "equinixStatus": "PENDING_APPROVAL",
-            "providerStatus": "NOT_AVAILABLE"
-          },
-          "changeLog": {
-            "createdDateTime": "2022-10-05T19:37:12.748Z"
           },
           "aSide": {
             "accessPoint": {
@@ -16481,9 +18324,30 @@
                 "type": "L2_PROFILE"
               },
               "location": {
+                "metroHref": "https://api.equinix.com/fabric/v4/metros/SV",
                 "metroCode": "SV"
               }
             }
+          },
+          "order": {
+            "purchaseOrderNumber": "1-323292",
+            "billingTier": "Up to 50 MB"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com",
+                "test1@equinix.com"
+              ]
+            }
+          ],
+          "operation": {
+            "equinixStatus": "PENDING_APPROVAL",
+            "providerStatus": "NOT_AVAILABLE"
+          },
+          "changeLog": {
+            "createdDateTime": "2022-10-05T19:37:12.748Z"
           }
         }
       },
@@ -16494,28 +18358,10 @@
           "uuid": "ebc37e2e-c36b-4e93-86a4-fc4efce7abc8",
           "name": "Test ST",
           "state": "ACTIVE",
-          "operation": {
-            "providerStatus": "AVAILABLE",
-            "equinixStatus": "PROVISIONED"
-          },
-          "notifications": [
-            {
-              "type": "ALL",
-              "emails": [
-                "test@equinix.com"
-              ]
-            }
-          ],
           "account": {
             "accountNumber": 270235,
             "orgId": 92794,
             "globalOrgId": "0016u000003JZ55AAG"
-          },
-          "changeLog": {
-            "createdBy": "test",
-            "createdDateTime": "2022-10-05T19:37:12.748Z",
-            "updatedBy": "test",
-            "updatedDateTime": "2022-10-05T19:37:12.748Z"
           },
           "bandwidth": 50,
           "redundancy": {
@@ -16583,7 +18429,25 @@
                 "vlanTag": 553
               }
             }
-          }
+          },
+          "changeLog": {
+            "createdBy": "test",
+            "createdDateTime": "2022-10-05T19:37:12.748Z",
+            "updatedBy": "test",
+            "updatedDateTime": "2022-10-05T19:37:12.748Z"
+          },
+          "operation": {
+            "providerStatus": "AVAILABLE",
+            "equinixStatus": "PROVISIONED"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com"
+              ]
+            }
+          ]
         }
       },
       "Vd2Colo-Response": {
@@ -20180,7 +22044,7 @@
           ]
         }
       },
-      "ConnectionSearchGatewayuuid": {
+      "ConnectionSearchCloudRouteruuid": {
         "value": {
           "filter": {
             "and": [
@@ -21860,7 +23724,7 @@
           }
         }
       },
-      "FabricGatewayProduct": {
+      "FabricCloudRouterProduct": {
         "value": {
           "filter": {
             "and": [
@@ -22086,7 +23950,7 @@
           ]
         }
       },
-      "FabricGateway": {
+      "FabricCloudRouter": {
         "value": {
           "pagination": {
             "offset": 0,
@@ -24031,6 +25895,43 @@
           ]
         }
       },
+      "createServiceTokenWithVxlan": {
+        "value": {
+          "type": "VC_TOKEN",
+          "name": "Az_Aside_VxLAN_Pri_SV",
+          "description": "Az_Aside_VxLAN_Pri_SV_Description",
+          "expirationDateTime": "2021-03-18T06:43:49.980Z",
+          "connection": {
+            "type": "EVPL_VC",
+            "allowRemoteConnection": true,
+            "bandwidthLimit": 50,
+            "allowCustomBandwidth": false,
+            "aSide": {
+              "accessPointSelectors": [
+                {
+                  "type": "COLO",
+                  "port": {
+                    "uuid": "b840a1db-5758-758f-97e0-328a5c00a874"
+                  },
+                  "linkProtocol": {
+                    "type": "VXLAN",
+                    "vlanTag": 510000
+                  }
+                }
+              ]
+            }
+          },
+          "notifications": [
+            {
+              "type": "NOTIFICATION",
+              "emails": [
+                "abc@company.com",
+                "provider@company.com"
+              ]
+            }
+          ]
+        }
+      },
       "createZsideServiceTokenWithQnQ": {
         "value": {
           "type": "VC_TOKEN",
@@ -24153,6 +26054,49 @@
                   "linkProtocol": {
                     "type": "DOT1Q",
                     "vlanTag": "3332"
+                  }
+                }
+              ]
+            }
+          },
+          "expirationDateTime": "2021-03-18T06:43:49.980Z",
+          "notifications": [
+            {
+              "type": "NOTIFICATION",
+              "emails": [
+                "abc@company.com"
+              ]
+            }
+          ]
+        }
+      },
+      "createZsideServiceTokenWithVxlan": {
+        "value": {
+          "type": "VC_TOKEN",
+          "name": "Az_Zside_VxLAN_Pri_SV",
+          "description": "Az_Zside_VxLAN_Pri_SV_Description",
+          "issuerSide": "Z_Side",
+          "connection": {
+            "type": "EVPL_VC",
+            "allowRemoteConnection": true,
+            "allowCustombandwidth": false,
+            "supportedBandwidths": [
+              50,
+              200,
+              500,
+              1000
+            ],
+            "zSide": {
+              "accessPointSelectors": [
+                {
+                  "type": "COLO",
+                  "hideAssetInfo": false,
+                  "port": {
+                    "uuid": "b840a1db-5413-413f-97e0-328a5c00a874"
+                  },
+                  "linkProtocol": {
+                    "type": "VXLAN",
+                    "vlanTag": "520000"
                   }
                 }
               ]
@@ -24570,9 +26514,6 @@
               },
               "changeLog": {
                 "createdDateTime": "2020-06-14T17:21:25.586Z"
-              },
-              "project": {
-                "projectId": "8f23b36f-db8f-44c8-a6e5-606e1b485931"
               }
             }
           ]
@@ -24595,9 +26536,6 @@
           "encapsulation": {
             "type": "DOT1Q",
             "tagProtocolId": 33024
-          },
-          "project": {
-            "projectId": "8f23b36f-db8f-44c8-a6e5-606e1b485931"
           },
           "account": {
             "accountNumber": "270848"
@@ -24657,9 +26595,6 @@
           "encapsulation": {
             "type": "DOT1Q",
             "tagProtocolId": 33024
-          },
-          "project": {
-            "projectId": "8f23b36f-db8f-44c8-a6e5-606e1b485931"
           },
           "account": {
             "accountNumber": "270848"
@@ -24725,9 +26660,6 @@
           "encapsulation": {
             "type": "DOT1Q",
             "tagProtocolId": 33024
-          },
-          "project": {
-            "projectId": "8f23b36f-db8f-44c8-a6e5-606e1b485931"
           },
           "account": {
             "accountNumber": "270848"
@@ -24911,9 +26843,6 @@
             "type": "DOT1Q",
             "tagProtocolId": 33024
           },
-          "project": {
-            "projectId": "8f23b36f-db8f-44c8-a6e5-606e1b485931"
-          },
           "account": {
             "accountNumber": "270848"
           },
@@ -24978,9 +26907,6 @@
           "encapsulation": {
             "type": "DOT1Q",
             "tagProtocolId": 33024
-          },
-          "project": {
-            "projectId": "8f23b36f-db8f-44c8-a6e5-606e1b485931"
           },
           "account": {
             "accountNumber": "270848"
@@ -25048,9 +26974,6 @@
           "encapsulation": {
             "type": "DOT1Q",
             "tagProtocolId": 33024
-          },
-          "project": {
-            "projectId": "8f23b36f-db8f-44c8-a6e5-606e1b485931"
           },
           "account": {
             "accountNumber": "270848"
@@ -25207,9 +27130,6 @@
             "type": "DOT1Q",
             "tagProtocolId": 33024
           },
-          "project": {
-            "projectId": "8f23b36f-db8f-44c8-a6e5-606e1b485931"
-          },
           "account": {
             "accountNumber": "270848"
           },
@@ -25277,6 +27197,7 @@
             "packageType": "STANDARD"
           },
           "project": {
+            "href": "https://api.equinix.com/resourceManager/v1/projects/567",
             "projectId": 567
           },
           "account": {
@@ -25687,9 +27608,6 @@
                 "sharedPortType": false,
                 "packageType": "STANDARD"
               },
-              "project": {
-                "projectId": "8f23b36f-db8f-44c8-a6e5-606e1b485931"
-              },
               "notifications": [
                 {
                   "type": "TECHNICAL",
@@ -25742,9 +27660,6 @@
                 "priority": "SECONDARY"
               },
               "lagEnabled": false,
-              "project": {
-                "projectId": "8f23b36f-db8f-44c8-a6e5-606e1b485931"
-              },
               "settings": {
                 "sharedPortType": false,
                 "packageType": "STANDARD"
@@ -26349,9 +28264,6 @@
           },
           "changeLog": {
             "createdDateTime": "2018-06-14T17:21:25.587Z"
-          },
-          "project": {
-            "projectId": "8f23b36f-db8f-44c8-a6e5-606e1b485931"
           }
         }
       },
@@ -26633,15 +28545,33 @@
           }
         ]
       },
-      "PortSearchProjectidOPtional-CRH": {
+      "PortSearchByProjectId": {
         "value": {
           "filter": {
-            "and": [
+            "or": [
               {
-                "property": "/project/projectId",
-                "operator": "=",
-                "values": [
-                  "30ad25e2-53dc-11ed-bdc3-0242ac120002"
+                "and": [
+                  {
+                    "operator": "=",
+                    "property": "/project/projectId",
+                    "values": [
+                      "30ad25e2-53dc-11ed-bdc3-0242ac120002"
+                    ]
+                  },
+                  {
+                    "operator": "=",
+                    "property": "/state",
+                    "values": [
+                      "ACTIVE"
+                    ]
+                  },
+                  {
+                    "operator": "=",
+                    "property": "/settings/productCode",
+                    "values": [
+                      "CX"
+                    ]
+                  }
                 ]
               }
             ]
@@ -26653,7 +28583,7 @@
           },
           "sort": [
             {
-              "property": "/changeLog/updatedDateTime",
+              "property": "/device/name",
               "direction": "DESC"
             }
           ]
@@ -26794,8 +28724,10 @@
           "account": {
             "accountNumber": 123
           },
-          "bgpIpv4RoutesCount": 0,
-          "bgpIpv6RoutesCount": 0,
+          "bgpIpv4RoutesCount": 4,
+          "bgpIpv6RoutesCount": 4,
+          "distinctIpv4PrefixesCount": 2,
+          "distinctIpv6PrefixesCount": 2,
           "connectionsCount": 0,
           "changeLog": {
             "createdBy": "abc@xyz.com",
@@ -26925,7 +28857,7 @@
           }
         ]
       },
-      "GatewayActionResponse": {
+      "CloudRouterActionResponse": {
         "value": {
           "type": "ROUTE_TABLE_ENTRY_UPDATE",
           "uuid": "37c10edc-ba2e-4240-a850-8a48f9c47d00",
@@ -27077,6 +29009,79 @@
                 "reason": "Only accept DESC and ASC for sorting direction."
               }
             ]
+          }
+        ]
+      },
+      "Request-direct-ipv4": {
+        "value": {
+          "filter": {
+            "and": [
+              {
+                "property": "/directIpv4/equinixIfaceIp",
+                "operator": "=",
+                "values": [
+                  "10.1.1.1/30"
+                ]
+              },
+              {
+                "property": "/connection/uuid",
+                "operator": "=",
+                "values": [
+                  "a96f16d3-e504-44a7-a628-4916b5750008"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "Request-direct-ipv6": {
+        "value": {
+          "filter": {
+            "and": [
+              {
+                "property": "/directIpv6/equinixIfaceIp",
+                "operator": "=",
+                "values": [
+                  "1202:ABCD::20:1::11/30"
+                ]
+              },
+              {
+                "property": "/connection/uuid",
+                "operator": "=",
+                "values": [
+                  "a96f16d3-e504-44a7-a628-4916b5750008"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "Response-200": {
+        "value": {
+          "additionalInfo": [
+            {
+              "key": "message",
+              "value": "The provided subnet is valid."
+            }
+          ]
+        }
+      },
+      "error-400": {
+        "value": [
+          {
+            "errorCode": "EQ-2041022",
+            "errorMessage": "Invalid argument value passed.",
+            "correlationId": "5f9f9ab9-a6cb-4e8a-aa34-105cd4cb6cc8"
+          }
+        ]
+      },
+      "error-400-overlappingSubnet": {
+        "value": [
+          {
+            "errorCode": "EQ-2041022",
+            "errorMessage": "The provided subnet is not valid.",
+            "details": "The provided subnet is overlapping to other connection in the same FCR.",
+            "correlationId": "5f9f9ab9-a6cb-4e8a-aa34-105cd4cb6cc8"
           }
         ]
       },
@@ -27910,19 +29915,6 @@
           ]
         }
       },
-      "error-400": {
-        "value": [
-          {
-            "errorCode": "EQ-3142308",
-            "errorMessage": "Authentication key is required",
-            "additionalInfo": [
-              {
-                "property": "/zSide/accessPoint/authenticationKey"
-              }
-            ]
-          }
-        ]
-      },
       "ConnectionEvent": {
         "value": {
           "pagination": {
@@ -28500,6 +30492,650 @@
           "status": "COMPLETED",
           "createdDateTime": "2020-05-21T10:30:00Z",
           "updatedDateTime": "2020-05-21T10:30:50Z"
+        }
+      },
+      "ntpStandardCreateResponse": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/timeServices/a8ba52de-faae-43b5-b0b1-6904d37ee011",
+          "uuid": "a8ba52de-faae-43b5-b0b1-6904d37ee011",
+          "name": "EPT-Single-Service",
+          "type": "NTP",
+          "state": "PROVISIONING",
+          "connections": [
+            {
+              "href": "https://api.equinix.com/fabric/v4/connections/a8ba52de-faae-43b5-b0b1-6904d37ee011",
+              "uuid": "06dbb0e3-e55d-4090-8aff-fc5654abaad0"
+            }
+          ],
+          "package": {
+            "href": "https://api.equinix.com/fabric/v4/timeServicesPackages/NTP_STANDARD",
+            "code": "NTP_STANDARD"
+          },
+          "networkingIpv4": {
+            "primary": "192.168.0.2",
+            "secondary": "192.168.0.3",
+            "networkMask": "255.255.255.255",
+            "defaultGateway": "192.167.0.1"
+          },
+          "account": {
+            "accountNumber": 123456
+          }
+        }
+      },
+      "400-Mandatory-Name": {
+        "value": [
+          {
+            "errorCode": "EQ-4800011",
+            "errorMessage": "Validation Error",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515",
+            "additionalInfo": [
+              {
+                "property": "/package/protocol",
+                "reason": "Mandatory field is missing"
+              }
+            ]
+          }
+        ]
+      },
+      "400-Invalid-Name": {
+        "value": [
+          {
+            "errorCode": "EQ-4800010",
+            "errorMessage": "Validation Error",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515",
+            "additionalInfo": [
+              {
+                "property": "/name",
+                "reason": "Invalid name"
+              }
+            ]
+          }
+        ]
+      },
+      "400-Validate-Name": {
+        "value": [
+          {
+            "errorCode": "EQ-4800100",
+            "errorMessage": "Validation Error",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515",
+            "additionalInfo": [
+              {
+                "property": "/name",
+                "reason": "The name length should be 3 as minimum. The name should start with characters. Valid characters for a name include letters, numbers, dashes, and underscores"
+              }
+            ]
+          }
+        ]
+      },
+      "400-Duplicate-Name": {
+        "value": [
+          {
+            "errorCode": "EQ-4800101",
+            "errorMessage": "Service name is already in use",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Mandatory-ConnectionUUid": {
+        "value": [
+          {
+            "errorCode": "EQ-4800011",
+            "errorMessage": "Mandatory field ConnectionUUid is missing",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Invalid-ConnectionUuid-Format": {
+        "value": [
+          {
+            "errorCode": "EQ-4800023",
+            "errorMessage": "Invalid connection uuid format",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Invalid-Connection-Status": {
+        "value": [
+          {
+            "errorCode": "EQ-4800102",
+            "errorMessage": "Connection should be in Pending Approval state",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Validate-ConnectionUuid": {
+        "value": [
+          {
+            "errorCode": "EQ-4800103",
+            "errorMessage": "Connection does not belong to this user",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Invalid-Connection-Location": {
+        "value": [
+          {
+            "errorCode": "EQ-4800104",
+            "errorMessage": "Connection location is not supported by EPT",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Mandatory-PackageType": {
+        "value": [
+          {
+            "errorCode": "EQ-4800011",
+            "errorMessage": "Mandatory field Package Type is missing",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Invalid-PackageType": {
+        "value": [
+          {
+            "errorCode": "EQ-4800010",
+            "errorMessage": "Invalid Package Type - Allowed types are PTP, NTP",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Invalid-Connection-PackageType": {
+        "value": [
+          {
+            "errorCode": "EQ-4800105",
+            "errorMessage": "Connection Package type is different",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Mandatory-Package": {
+        "value": [
+          {
+            "errorCode": "EQ-4800011",
+            "errorMessage": "Mandatory field Package is missing",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Invalid-Package": {
+        "value": [
+          {
+            "errorCode": "EQ-4800010",
+            "errorMessage": "Invalid Package - Allowed packages are STANDARD, ENTERPRISE",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Invalid-Connection-Package": {
+        "value": [
+          {
+            "errorCode": "EQ-4800106",
+            "errorMessage": "Connection Package is different",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Mandatory-PrimaryIP": {
+        "value": [
+          {
+            "errorCode": "EQ-4800011",
+            "errorMessage": "Mandatory field PrimaryIP is missing",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Invalid-PrimaryIP-Format": {
+        "value": [
+          {
+            "errorCode": "EQ-4800023",
+            "errorMessage": "Invalid PrimaryIP format",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Validate-PrimaryIP": {
+        "value": [
+          {
+            "errorCode": "EQ-4800107",
+            "errorMessage": "Invalid PrimaryIP - only range 10.0.0.0 to 10.255.255.255, 172.16.0.0 to 172.31.255.255, 192.168.0.0 to 192.168.255.255 is allowed",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Mandatory-SecondaryIP": {
+        "value": [
+          {
+            "errorCode": "EQ-4800011",
+            "errorMessage": "Mandatory field SecondaryIP is missing",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Invalid-SecondaryIP-Format": {
+        "value": [
+          {
+            "errorCode": "EQ-4800023",
+            "errorMessage": "Invalid SecondaryIP format",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Validate-SecondaryIP": {
+        "value": [
+          {
+            "errorCode": "EQ-4800107",
+            "errorMessage": "Invalid SecondaryIP - only range 10.0.0.0 to 10.255.255.255, 172.16.0.0 to 172.31.255.255, 192.168.0.0 to 192.168.255.255 is allowed",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Validate-SameSubnet": {
+        "value": [
+          {
+            "errorCode": "EQ-4800108",
+            "errorMessage": "Primary and Secondary IPs should be in the same subnet",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Mandatory-NetworkMask": {
+        "value": [
+          {
+            "errorCode": "EQ-4800011",
+            "errorMessage": "Mandatory field NetworkMask is missing",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Invalid-NetworkMask-Format": {
+        "value": [
+          {
+            "errorCode": "EQ-4800023",
+            "errorMessage": "Invalid NetworkMask format",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Validate-NetworkMask": {
+        "value": [
+          {
+            "errorCode": "EQ-4800109",
+            "errorMessage": "Invalid NetworkMask - Network mask should not exceed the allowed range of protocol and service tier",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Invalid-DefaultGateway-Format": {
+        "value": [
+          {
+            "errorCode": "EQ-4800023",
+            "errorMessage": "Invalid DefaultGateway",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Validate-DefaultGateway": {
+        "value": [
+          {
+            "errorCode": "EQ-4800110",
+            "errorMessage": "Invalid DefaultGateway- Default Gateway cannot be same as Primary/Secondary IP",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Invalid-TimeScale": {
+        "value": [
+          {
+            "errorCode": "EQ-4800010",
+            "errorMessage": "Invalid TimeScale - Allowed values are ARB, PTP",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Invalid-Domain": {
+        "value": [
+          {
+            "errorCode": "EQ-4800010",
+            "errorMessage": "Invalid Domain- Allowed values are from 0 to 127",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Invalid-Priority1": {
+        "value": [
+          {
+            "errorCode": "EQ-4800010",
+            "errorMessage": "Invalid Priority1 - Allowed values are 0 to 248",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Invalid-Priority2": {
+        "value": [
+          {
+            "errorCode": "EQ-4800010",
+            "errorMessage": "Invalid Priority2 - Allowed values are 0 to 248",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Invalid-LogAnnounceInterval": {
+        "value": [
+          {
+            "errorCode": "EQ-4800010",
+            "errorMessage": "Invalid LogAnnounceInterval",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Validate-LogAnnounceInterval-Range": {
+        "value": [
+          {
+            "errorCode": "EQ-4800111",
+            "errorMessage": "Invalid LogAnnounceInterval range - Allowed range is -3 to 1",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Invalid-LogSyncInterval": {
+        "value": [
+          {
+            "errorCode": "EQ-4800010",
+            "errorMessage": "Invalid LogSyncInterval",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Validate-LogSyncInterval-Range": {
+        "value": [
+          {
+            "errorCode": "EQ-4800112",
+            "errorMessage": "Invalid LogSyncInterval range - Allowed range is -5 to 1",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Invalid-LogDelayReqInterval": {
+        "value": [
+          {
+            "errorCode": "EQ-4800010",
+            "errorMessage": "Invalid logDelayReqInterval",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Validate-LogDelayReqInterval-Range": {
+        "value": [
+          {
+            "errorCode": "EQ-4800112",
+            "errorMessage": "Invalid logDelayReqInterval range - Allowed range is -5 to 1",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Invalid-TransportMode": {
+        "value": [
+          {
+            "errorCode": "EQ-4800010",
+            "errorMessage": "Invalid TransportMode - Allowed values are Multicast, Unicast, Hybrid",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Invalid-GrantTime": {
+        "value": [
+          {
+            "errorCode": "EQ-4800010",
+            "errorMessage": "Invalid GrantTime",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Validate-GrantTime-Range": {
+        "value": [
+          {
+            "errorCode": "EQ-4800113",
+            "errorMessage": "Invalid GrantTime range - Allowed range is 30 to 7200",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Invalid-Type": {
+        "value": [
+          {
+            "errorCode": "EQ-4800010",
+            "errorMessage": "Invalid Type - Allowed values are ASCII, HEX",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Invalid-Id": {
+        "value": [
+          {
+            "errorCode": "EQ-4800010",
+            "errorMessage": "Invalid Id - Only Integers are allowed",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Invalid-Password": {
+        "value": [
+          {
+            "errorCode": "EQ-4800010",
+            "errorMessage": "Invalid Password",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "400-Validate-Password": {
+        "value": [
+          {
+            "errorCode": "EQ-4800114",
+            "errorMessage": "Only HEX allowed, chars value length should between 10 - 40",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515"
+          }
+        ]
+      },
+      "edit": {
+        "value": [
+          {
+            "op": "replace",
+            "path": "/name",
+            "value": "EPT-Single-Service"
+          }
+        ]
+      },
+      "ntpSingleStandard": {
+        "value": {
+          "name": "EPT-Single-Service",
+          "type": "NTP",
+          "connections": [
+            {
+              "uuid": "06dbb0e3-e55d-4090-8aff-fc5654abaad0"
+            }
+          ],
+          "package": {
+            "code": "NTP_STANDARD"
+          },
+          "networkingIpv4": {
+            "primary": "192.168.0.2",
+            "secondary": "192.168.0.3",
+            "networkMask": "255.255.255.255",
+            "defaultGateway": "192.167.0.1"
+          }
+        }
+      },
+      "ptpSingleStandard": {
+        "value": {
+          "name": "EPT-Single-Service",
+          "type": "PTP",
+          "connections": [
+            {
+              "uuid": "06dbb0e3-e55d-4090-8aff-fc5654abaad0"
+            }
+          ],
+          "package": {
+            "code": "PTP_STANDARD"
+          },
+          "networkingIpv4": {
+            "primary": "192.168.0.2",
+            "secondary": "192.168.0.3",
+            "networkMask": "255.255.255.255",
+            "defaultGateway": "192.167.0.1"
+          }
+        }
+      },
+      "ptpSingleEnterpriseWithAdvanceConfiguration": {
+        "value": {
+          "name": "EPT-Single-Service",
+          "type": "PTP",
+          "connections": [
+            {
+              "uuid": "06dbb0e3-e55d-4090-8aff-fc5654abaad0"
+            }
+          ],
+          "package": {
+            "code": "PTP_STANDARD"
+          },
+          "networkingIpv4": {
+            "primary": "192.168.0.2",
+            "secondary": "192.168.0.3",
+            "networkMask": "255.255.255.255",
+            "defaultGateway": "192.167.0.1"
+          },
+          "advanceConfiguration": {
+            "ptp": {
+              "tailScale": true,
+              "domain": 10,
+              "priority1": 5,
+              "priority2": 7,
+              "logAnnounceInterval": 0,
+              "logSyncInterval": 0,
+              "logDelayReqInterval": 0
+            }
+          }
+        }
+      },
+      "serviceConnectionsResponse": {
+        "value": {
+          "pagination": {
+            "offset": 0,
+            "limit": 20,
+            "total": 2
+          },
+          "data": [
+            {
+              "href": "https://api.equinix.com/fabric/v4/connections/92dc376a-a932-43aa-a6a2-c806dedbd784",
+              "type": "EVPL_VC",
+              "uuid": "92dc376a-a932-43aa-a6a2-c806dedbd784"
+            },
+            {
+              "href": "https://api.equinix.com/fabric/v4/connections/42dc376a-a932-43aa-a6a2-d806dedbd783",
+              "type": "EVPL_VC",
+              "uuid": "42dc376a-a932-43aa-a6a2-d806dedbd783"
+            }
+          ]
+        }
+      },
+      "servicePackagesResponse": {
+        "value": {
+          "pagination": {
+            "offset": 0,
+            "limit": 20,
+            "total": 4
+          },
+          "data": [
+            {
+              "href": "https://api.equinix.com/fabric/v4/precisiontime/packages/NTP_STANDARD",
+              "code": "NTP_STANDARD",
+              "type": "TIME_SERVICE_PACKAGE",
+              "bandwidth": 1,
+              "bandwidthUnit": "Mbps",
+              "accuracySlaMax": 50,
+              "accuracyAvgMin": 1,
+              "accuracyAvgMax": 100,
+              "accuracyUnit": "millisecond",
+              "clientsPerSecondMax": 2000,
+              "redundancySupported": true,
+              "multiSubnetSupported": true,
+              "changeLog": {
+                "createdDateTime": "2023-05-16T07:50:49.749Z",
+                "updatedDateTime": "2023-05-17T07:50:49.749Z"
+              }
+            },
+            {
+              "href": "https://api.equinix.com/fabric/v4/precisiontime/packages/NTP_ENTERPRISE",
+              "code": "NTP_ENTERPRISE",
+              "type": "TIME_SERVICE_PACKAGE",
+              "bandwidth": 5,
+              "bandwidthUnit": "Mbps",
+              "accuracySlaMax": 50,
+              "accuracyAvgMin": 1,
+              "accuracyAvgMax": 100,
+              "accuracyUnit": "millisecond",
+              "clientsPerSecondMax": 1000,
+              "redundancySupported": true,
+              "multiSubnetSupported": true,
+              "changeLog": {
+                "createdDateTime": "2023-05-16T07:50:49.749Z",
+                "updatedDateTime": "2023-05-17T07:50:49.749Z"
+              }
+            },
+            {
+              "href": "https://api.equinix.com/fabric/v4/precisiontime/packages/PTP_STANDARD",
+              "code": "PTP_STANDARD",
+              "type": "TIME_SERVICE_PACKAGE",
+              "bandwidth": 5,
+              "bandwidthUnit": "Mbps",
+              "accuracyAvgMin": 1,
+              "accuracyAvgMax": 10,
+              "accuracyUnit": "millisecond",
+              "clientsPerSecondMax": 100,
+              "redundancySupported": true,
+              "multiSubnetSupported": true,
+              "changeLog": {
+                "createdDateTime": "2023-05-16T07:50:49.749Z",
+                "updatedDateTime": "2023-05-17T07:50:49.749Z"
+              }
+            },
+            {
+              "href": "https://api.equinix.com/fabric/v4/precisiontimePackages/PTP_ENTERPRISE",
+              "code": "PTP_ENTERPRISE",
+              "type": "TIME_SERVICE_PACKAGE",
+              "bandwidth": 10,
+              "bandwidthUnit": "Mbps",
+              "accuracyAvgMin": 1,
+              "accuracyAvgMax": 10,
+              "accuracyUnit": "millisecond",
+              "clientsPerSecondMax": 20,
+              "redundancySupported": true,
+              "multiSubnetSupported": true,
+              "changeLog": {
+                "createdDateTime": "2023-05-16T07:50:49.749Z",
+                "updatedDateTime": "2023-05-17T07:50:49.749Z"
+              }
+            }
+          ]
+        }
+      },
+      "servicePackageResponse": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/precisiontimePackages/NTP_STANDARD",
+          "code": "NTP_STANDARD",
+          "type": "TIME_SERVICE_PACKAGE",
+          "bandwidth": 10,
+          "bandwidthUnit": "Mbps",
+          "accuracySlaMax": 50,
+          "accuracyAvgMin": 1,
+          "accuracyAvgMax": 10,
+          "accuracyUnit": "millisecond",
+          "clientsPerSecondMax": 100,
+          "redundancySupported": true,
+          "multiSubnetSupported": true,
+          "changeLog": {
+            "createdDateTime": "2023-05-16T07:50:49.749Z",
+            "updatedDateTime": "2023-05-17T07:50:49.749Z"
+          }
         }
       }
     },
