@@ -382,7 +382,7 @@ public class Example {
 
 <a name="searchServiceProfiles"></a>
 # **searchServiceProfiles**
-> ServiceProfiles searchServiceProfiles(serviceProfileSearchRequest)
+> ServiceProfiles searchServiceProfiles(serviceProfileSearchRequest, viewPoint)
 
 Profile Search
 
@@ -409,8 +409,9 @@ public class Example {
 
     ServiceProfilesApi apiInstance = new ServiceProfilesApi(defaultClient);
     ServiceProfileSearchRequest serviceProfileSearchRequest = new ServiceProfileSearchRequest(); // ServiceProfileSearchRequest | 
+    String viewPoint = "aSide"; // String | flips view between buyer and seller representation
     try {
-      ServiceProfiles result = apiInstance.searchServiceProfiles(serviceProfileSearchRequest);
+      ServiceProfiles result = apiInstance.searchServiceProfiles(serviceProfileSearchRequest, viewPoint);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ServiceProfilesApi#searchServiceProfiles");
@@ -428,6 +429,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **serviceProfileSearchRequest** | [**ServiceProfileSearchRequest**](ServiceProfileSearchRequest.md)|  | |
+| **viewPoint** | **String**| flips view between buyer and seller representation | [optional] [default to aSide] [enum: aSide, zSide] |
 
 ### Return type
 

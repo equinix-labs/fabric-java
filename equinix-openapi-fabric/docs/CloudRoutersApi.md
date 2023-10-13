@@ -4,20 +4,21 @@ All URIs are relative to *https://api.equinix.com*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**createGateway**](CloudRoutersApi.md#createGateway) | **POST** /fabric/v4/routers | Create Routers |
-| [**createGatewayAction**](CloudRoutersApi.md#createGatewayAction) | **POST** /fabric/v4/routers/{routerId}/actions | Route table actions |
-| [**deleteGatewayByUuid**](CloudRoutersApi.md#deleteGatewayByUuid) | **DELETE** /fabric/v4/routers/{routerId} | Delete Routers |
-| [**getGatewayActions**](CloudRoutersApi.md#getGatewayActions) | **GET** /fabric/v4/routers/{routerId}/actions | Get actions |
-| [**getGatewayByUuid**](CloudRoutersApi.md#getGatewayByUuid) | **GET** /fabric/v4/routers/{routerId} | Get Routers |
-| [**getGatewayPackageByCode**](CloudRoutersApi.md#getGatewayPackageByCode) | **GET** /fabric/v4/routerPackages/{routerPackageCode} | Get Package Details |
-| [**getGatewayPackages**](CloudRoutersApi.md#getGatewayPackages) | **GET** /fabric/v4/routerPackages | List Packages |
-| [**searchGateways**](CloudRoutersApi.md#searchGateways) | **POST** /fabric/v4/routers/search | Search Routers |
-| [**updateGatewayByUuid**](CloudRoutersApi.md#updateGatewayByUuid) | **PATCH** /fabric/v4/routers/{routerId} | Update Routers |
+| [**createCloudRouter**](CloudRoutersApi.md#createCloudRouter) | **POST** /fabric/v4/routers | Create Routers |
+| [**createCloudRouterAction**](CloudRoutersApi.md#createCloudRouterAction) | **POST** /fabric/v4/routers/{routerId}/actions | Route table actions |
+| [**deleteCloudRouterByUuid**](CloudRoutersApi.md#deleteCloudRouterByUuid) | **DELETE** /fabric/v4/routers/{routerId} | Delete Routers |
+| [**getCloudRouterActions**](CloudRoutersApi.md#getCloudRouterActions) | **GET** /fabric/v4/routers/{routerId}/actions | Get actions |
+| [**getCloudRouterByUuid**](CloudRoutersApi.md#getCloudRouterByUuid) | **GET** /fabric/v4/routers/{routerId} | Get Routers |
+| [**getCloudRouterPackageByCode**](CloudRoutersApi.md#getCloudRouterPackageByCode) | **GET** /fabric/v4/routerPackages/{routerPackageCode} | Get Package Details |
+| [**getCloudRouterPackages**](CloudRoutersApi.md#getCloudRouterPackages) | **GET** /fabric/v4/routerPackages | List Packages |
+| [**searchCloudRouterRoutes**](CloudRoutersApi.md#searchCloudRouterRoutes) | **POST** /fabric/v4/routers/{routerId}/routes/search | Search Route Table |
+| [**searchCloudRouters**](CloudRoutersApi.md#searchCloudRouters) | **POST** /fabric/v4/routers/search | Search Routers |
+| [**updateCloudRouterByUuid**](CloudRoutersApi.md#updateCloudRouterByUuid) | **PATCH** /fabric/v4/routers/{routerId} | Update Routers |
 
 
-<a name="createGateway"></a>
-# **createGateway**
-> CloudRouter createGateway(cloudRouterPostRequest)
+<a name="createCloudRouter"></a>
+# **createCloudRouter**
+> CloudRouter createCloudRouter(cloudRouterPostRequest)
 
 Create Routers
 
@@ -45,10 +46,10 @@ public class Example {
     CloudRoutersApi apiInstance = new CloudRoutersApi(defaultClient);
     CloudRouterPostRequest cloudRouterPostRequest = new CloudRouterPostRequest(); // CloudRouterPostRequest | 
     try {
-      CloudRouter result = apiInstance.createGateway(cloudRouterPostRequest);
+      CloudRouter result = apiInstance.createCloudRouter(cloudRouterPostRequest);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling CloudRoutersApi#createGateway");
+      System.err.println("Exception when calling CloudRoutersApi#createCloudRouter");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -87,9 +88,9 @@ public class Example {
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
 
-<a name="createGatewayAction"></a>
-# **createGatewayAction**
-> GatewayActionResponse createGatewayAction(routerId, gatewayActionRequest)
+<a name="createCloudRouterAction"></a>
+# **createCloudRouterAction**
+> CloudRouterActionResponse createCloudRouterAction(routerId, cloudRouterActionRequest)
 
 Route table actions
 
@@ -116,12 +117,12 @@ public class Example {
 
     CloudRoutersApi apiInstance = new CloudRoutersApi(defaultClient);
     UUID routerId = UUID.randomUUID(); // UUID | Router UUID
-    GatewayActionRequest gatewayActionRequest = new GatewayActionRequest(); // GatewayActionRequest | 
+    CloudRouterActionRequest cloudRouterActionRequest = new CloudRouterActionRequest(); // CloudRouterActionRequest | 
     try {
-      GatewayActionResponse result = apiInstance.createGatewayAction(routerId, gatewayActionRequest);
+      CloudRouterActionResponse result = apiInstance.createCloudRouterAction(routerId, cloudRouterActionRequest);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling CloudRoutersApi#createGatewayAction");
+      System.err.println("Exception when calling CloudRoutersApi#createCloudRouterAction");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -136,11 +137,11 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **routerId** | **UUID**| Router UUID | |
-| **gatewayActionRequest** | [**GatewayActionRequest**](GatewayActionRequest.md)|  | |
+| **cloudRouterActionRequest** | [**CloudRouterActionRequest**](CloudRouterActionRequest.md)|  | |
 
 ### Return type
 
-[**GatewayActionResponse**](GatewayActionResponse.md)
+[**CloudRouterActionResponse**](CloudRouterActionResponse.md)
 
 ### Authorization
 
@@ -162,9 +163,9 @@ public class Example {
 | **415** | Internal server error |  -  |
 | **500** | Internal server error |  -  |
 
-<a name="deleteGatewayByUuid"></a>
-# **deleteGatewayByUuid**
-> deleteGatewayByUuid(routerId)
+<a name="deleteCloudRouterByUuid"></a>
+# **deleteCloudRouterByUuid**
+> deleteCloudRouterByUuid(routerId)
 
 Delete Routers
 
@@ -192,9 +193,9 @@ public class Example {
     CloudRoutersApi apiInstance = new CloudRoutersApi(defaultClient);
     UUID routerId = UUID.randomUUID(); // UUID | Cloud Router UUID
     try {
-      apiInstance.deleteGatewayByUuid(routerId);
+      apiInstance.deleteCloudRouterByUuid(routerId);
     } catch (ApiException e) {
-      System.err.println("Exception when calling CloudRoutersApi#deleteGatewayByUuid");
+      System.err.println("Exception when calling CloudRoutersApi#deleteCloudRouterByUuid");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -233,9 +234,9 @@ null (empty response body)
 | **404** | Not Found |  -  |
 | **500** | Internal server error |  -  |
 
-<a name="getGatewayActions"></a>
-# **getGatewayActions**
-> GatewayActionResponse getGatewayActions(routerId, state)
+<a name="getCloudRouterActions"></a>
+# **getCloudRouterActions**
+> CloudRouterActionResponse getCloudRouterActions(routerId, state)
 
 Get actions
 
@@ -262,12 +263,12 @@ public class Example {
 
     CloudRoutersApi apiInstance = new CloudRoutersApi(defaultClient);
     UUID routerId = UUID.randomUUID(); // UUID | Router UUID
-    GatewayActionState state = GatewayActionState.fromValue("DONE"); // GatewayActionState | Action state
+    CloudRouterActionState state = CloudRouterActionState.fromValue("DONE"); // CloudRouterActionState | Action state
     try {
-      GatewayActionResponse result = apiInstance.getGatewayActions(routerId, state);
+      CloudRouterActionResponse result = apiInstance.getCloudRouterActions(routerId, state);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling CloudRoutersApi#getGatewayActions");
+      System.err.println("Exception when calling CloudRoutersApi#getCloudRouterActions");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -282,11 +283,11 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **routerId** | **UUID**| Router UUID | |
-| **state** | [**GatewayActionState**](.md)| Action state | [optional] [enum: DONE, FAILED, PENDING] |
+| **state** | [**CloudRouterActionState**](.md)| Action state | [optional] [enum: DONE, FAILED, PENDING] |
 
 ### Return type
 
-[**GatewayActionResponse**](GatewayActionResponse.md)
+[**CloudRouterActionResponse**](CloudRouterActionResponse.md)
 
 ### Authorization
 
@@ -308,9 +309,9 @@ public class Example {
 | **415** | Internal server error |  -  |
 | **500** | Internal server error |  -  |
 
-<a name="getGatewayByUuid"></a>
-# **getGatewayByUuid**
-> CloudRouter getGatewayByUuid(routerId)
+<a name="getCloudRouterByUuid"></a>
+# **getCloudRouterByUuid**
+> CloudRouter getCloudRouterByUuid(routerId)
 
 Get Routers
 
@@ -338,10 +339,10 @@ public class Example {
     CloudRoutersApi apiInstance = new CloudRoutersApi(defaultClient);
     UUID routerId = UUID.randomUUID(); // UUID | Cloud Router UUID
     try {
-      CloudRouter result = apiInstance.getGatewayByUuid(routerId);
+      CloudRouter result = apiInstance.getCloudRouterByUuid(routerId);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling CloudRoutersApi#getGatewayByUuid");
+      System.err.println("Exception when calling CloudRoutersApi#getCloudRouterByUuid");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -379,9 +380,9 @@ public class Example {
 | **404** | Not Found |  -  |
 | **500** | Internal server error |  -  |
 
-<a name="getGatewayPackageByCode"></a>
-# **getGatewayPackageByCode**
-> CloudRouterPackage getGatewayPackageByCode(routerPackageCode)
+<a name="getCloudRouterPackageByCode"></a>
+# **getCloudRouterPackageByCode**
+> CloudRouterPackage getCloudRouterPackageByCode(routerPackageCode)
 
 Get Package Details
 
@@ -409,10 +410,10 @@ public class Example {
     CloudRoutersApi apiInstance = new CloudRoutersApi(defaultClient);
     RouterPackageCode routerPackageCode = RouterPackageCode.fromValue("LAB"); // RouterPackageCode | Equinix-assigned Cloud Router package identifier
     try {
-      CloudRouterPackage result = apiInstance.getGatewayPackageByCode(routerPackageCode);
+      CloudRouterPackage result = apiInstance.getCloudRouterPackageByCode(routerPackageCode);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling CloudRoutersApi#getGatewayPackageByCode");
+      System.err.println("Exception when calling CloudRoutersApi#getCloudRouterPackageByCode");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -451,9 +452,9 @@ public class Example {
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
 
-<a name="getGatewayPackages"></a>
-# **getGatewayPackages**
-> PackageResponse getGatewayPackages(offset, limit)
+<a name="getCloudRouterPackages"></a>
+# **getCloudRouterPackages**
+> PackageResponse getCloudRouterPackages(offset, limit)
 
 List Packages
 
@@ -482,10 +483,10 @@ public class Example {
     Integer offset = 1; // Integer | offset
     Integer limit = 10; // Integer | number of records to fetch
     try {
-      PackageResponse result = apiInstance.getGatewayPackages(offset, limit);
+      PackageResponse result = apiInstance.getCloudRouterPackages(offset, limit);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling CloudRoutersApi#getGatewayPackages");
+      System.err.println("Exception when calling CloudRoutersApi#getCloudRouterPackages");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -524,9 +525,84 @@ public class Example {
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
 
-<a name="searchGateways"></a>
-# **searchGateways**
-> SearchResponse searchGateways(cloudRouterSearchRequest)
+<a name="searchCloudRouterRoutes"></a>
+# **searchCloudRouterRoutes**
+> RouteTableEntrySearchResponse searchCloudRouterRoutes(routerId, routeTableEntrySearchRequest)
+
+Search Route Table
+
+The API provides capability to get list of user&#39;s Fabric Cloud Router route table entries using search criteria, including optional filtering, pagination and sorting
+
+### Example
+```java
+// Import classes:
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.CloudRoutersApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
+
+    CloudRoutersApi apiInstance = new CloudRoutersApi(defaultClient);
+    UUID routerId = UUID.randomUUID(); // UUID | Router UUID
+    RouteTableEntrySearchRequest routeTableEntrySearchRequest = new RouteTableEntrySearchRequest(); // RouteTableEntrySearchRequest | 
+    try {
+      RouteTableEntrySearchResponse result = apiInstance.searchCloudRouterRoutes(routerId, routeTableEntrySearchRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling CloudRoutersApi#searchCloudRouterRoutes");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **routerId** | **UUID**| Router UUID | |
+| **routeTableEntrySearchRequest** | [**RouteTableEntrySearchRequest**](RouteTableEntrySearchRequest.md)|  | |
+
+### Return type
+
+[**RouteTableEntrySearchResponse**](RouteTableEntrySearchResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful operation |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **415** | Internal server error |  -  |
+| **500** | Internal server error |  -  |
+
+<a name="searchCloudRouters"></a>
+# **searchCloudRouters**
+> SearchResponse searchCloudRouters(cloudRouterSearchRequest)
 
 Search Routers
 
@@ -554,10 +630,10 @@ public class Example {
     CloudRoutersApi apiInstance = new CloudRoutersApi(defaultClient);
     CloudRouterSearchRequest cloudRouterSearchRequest = new CloudRouterSearchRequest(); // CloudRouterSearchRequest | 
     try {
-      SearchResponse result = apiInstance.searchGateways(cloudRouterSearchRequest);
+      SearchResponse result = apiInstance.searchCloudRouters(cloudRouterSearchRequest);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling CloudRoutersApi#searchGateways");
+      System.err.println("Exception when calling CloudRoutersApi#searchCloudRouters");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -596,9 +672,9 @@ public class Example {
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
 
-<a name="updateGatewayByUuid"></a>
-# **updateGatewayByUuid**
-> CloudRouter updateGatewayByUuid(routerId, cloudRouterChangeOperation)
+<a name="updateCloudRouterByUuid"></a>
+# **updateCloudRouterByUuid**
+> CloudRouter updateCloudRouterByUuid(routerId, cloudRouterChangeOperation)
 
 Update Routers
 
@@ -627,10 +703,10 @@ public class Example {
     UUID routerId = UUID.randomUUID(); // UUID | Cloud Router UUID
     List<CloudRouterChangeOperation> cloudRouterChangeOperation = Arrays.asList(); // List<CloudRouterChangeOperation> | 
     try {
-      CloudRouter result = apiInstance.updateGatewayByUuid(routerId, cloudRouterChangeOperation);
+      CloudRouter result = apiInstance.updateCloudRouterByUuid(routerId, cloudRouterChangeOperation);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling CloudRoutersApi#updateGatewayByUuid");
+      System.err.println("Exception when calling CloudRoutersApi#updateCloudRouterByUuid");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());

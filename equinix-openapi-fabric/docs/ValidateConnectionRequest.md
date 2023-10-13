@@ -8,7 +8,7 @@ Validate connection auth api key or vlan
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**filter** | [**ValidateConnectionRequestFilter**](ValidateConnectionRequestFilter.md) |  |  [optional] |
+|**filter** | [**ValidateSubnetRequestFilter**](ValidateSubnetRequestFilter.md) |  |  [optional] |
 
 
 

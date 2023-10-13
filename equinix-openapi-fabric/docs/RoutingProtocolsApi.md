@@ -16,6 +16,7 @@ All URIs are relative to *https://api.equinix.com*
 | [**patchConnectionRoutingProtocolByUuid**](RoutingProtocolsApi.md#patchConnectionRoutingProtocolByUuid) | **PATCH** /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId} | Patch Protocol |
 | [**postConnectionRoutingProtocolBgpActionByUuid**](RoutingProtocolsApi.md#postConnectionRoutingProtocolBgpActionByUuid) | **POST** /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}/actions | Clear/Reset BGP |
 | [**replaceConnectionRoutingProtocolByUuid**](RoutingProtocolsApi.md#replaceConnectionRoutingProtocolByUuid) | **PUT** /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId} | Replace Protocol |
+| [**validateRoutingProtocol**](RoutingProtocolsApi.md#validateRoutingProtocol) | **POST** /fabric/v4/routers/{routerId}/validate | Validate Subnet |
 
 
 <a name="createConnectionRoutingProtocol"></a>
@@ -933,4 +934,74 @@ public class Example {
 | **404** | Connection ID Not Found |  -  |
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
+
+<a name="validateRoutingProtocol"></a>
+# **validateRoutingProtocol**
+> ValidateSubnetResponse validateRoutingProtocol(routerId, validateSubnetRequest)
+
+Validate Subnet
+
+This API provides capability to validate all subnets associated with any connection in the given FCR
+
+### Example
+```java
+// Import classes:
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.RoutingProtocolsApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
+
+    RoutingProtocolsApi apiInstance = new RoutingProtocolsApi(defaultClient);
+    UUID routerId = UUID.randomUUID(); // UUID | Cloud Router UUID
+    ValidateSubnetRequest validateSubnetRequest = new ValidateSubnetRequest(); // ValidateSubnetRequest | 
+    try {
+      ValidateSubnetResponse result = apiInstance.validateRoutingProtocol(routerId, validateSubnetRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling RoutingProtocolsApi#validateRoutingProtocol");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **routerId** | **UUID**| Cloud Router UUID | |
+| **validateSubnetRequest** | [**ValidateSubnetRequest**](ValidateSubnetRequest.md)|  | |
+
+### Return type
+
+[**ValidateSubnetResponse**](ValidateSubnetResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful operation |  -  |
+| **400** | Bad request |  -  |
 

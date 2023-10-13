@@ -16,7 +16,7 @@ info:
     url: https://developer.equinix.com/agreement
   termsOfService: https://www.equinix.com/about/legal/terms
   title: Equinix Fabric API v4
-  version: "4.9"
+  version: "4.10"
 externalDocs:
   description: Find more information on Equinix Developer Portal
   url: https://developer.equinix.com
@@ -34,10 +34,10 @@ tags:
   name: Metros
 - description: Ports
   name: Ports
+- description: Precision Time <font color="red"> <sup color='red'>Preview</sup></font>
+  name: Precision Time
 - description: Prices
   name: Prices
-- description: Routes
-  name: Routes
 - description: Routing Protocols
   name: Routing Protocols
 - description: Service Profiles
@@ -89,14 +89,17 @@ paths:
               Colo2Sp-Alibaba:
                 $ref: '#/components/examples/COLO2AlibabaSPwithDot1q'
                 value: null
-              Colo2Sp-Aws:
-                $ref: '#/components/examples/COLO2AWSSPwithDot1q'
+              Colo2Sp-Aws-Primary:
+                $ref: '#/components/examples/COLO2AWSSPwithDot1q-Primary'
+                value: null
+              Colo2Sp-Aws-Secondary:
+                $ref: '#/components/examples/COLO2AWSSPwithDot1q-Secondary'
                 value: null
               Colo2Sp-AzureDot1Q:
-                $ref: '#/components/examples/COLO2AzureSPwithDot1q'
+                $ref: '#/components/examples/COLO2AzureSPwithDot1q-Primary'
                 value: null
               Colo2Sp-AzureQinq:
-                $ref: '#/components/examples/COLO2AzureSPwithQinq'
+                $ref: '#/components/examples/COLO2AzureSPwithQinq-Secondary'
                 value: null
               Colo2Sp-Google:
                 $ref: '#/components/examples/COLO2GoogleSPwithDot1q'
@@ -119,8 +122,11 @@ paths:
               Colo2Network-EPLAN_VC:
                 $ref: '#/components/examples/COLO2NETWORKwithEPL'
                 value: null
-              Vd2Sp:
-                $ref: '#/components/examples/Vd2Sp'
+              Vd2Sp-Primary:
+                $ref: '#/components/examples/Vd2Sp-Primary'
+                value: null
+              Vd2Sp-Secondary:
+                $ref: '#/components/examples/Vd2Sp-Secondary'
                 value: null
               Vd2Colo:
                 $ref: '#/components/examples/Vd2Colo'
@@ -1916,8 +1922,8 @@ paths:
               ConnectionSearchAccountname:
                 $ref: '#/components/examples/ConnectionSearchAccountname'
                 value: null
-              ConnectionSearchGatewayuuid:
-                $ref: '#/components/examples/ConnectionSearchGatewayuuid'
+              ConnectionSearchCloudRouteruuid:
+                $ref: '#/components/examples/ConnectionSearchCloudRouteruuid'
                 value: null
               ConnectionSearchAsidevlanstagctag:
                 $ref: '#/components/examples/ConnectionSearchAsidevlanstagctag'
@@ -2149,7 +2155,7 @@ paths:
                 $ref: '#/components/examples/VirtualConnectionProductEvpLanVcTypeFromColoToNetwork'
                 value: null
               cloudRouterProduct:
-                $ref: '#/components/examples/FabricGatewayProduct'
+                $ref: '#/components/examples/FabricCloudRouterProduct'
                 value: null
               ipBlockProduct:
                 $ref: '#/components/examples/IpBlockProduct'
@@ -2172,7 +2178,7 @@ paths:
                   $ref: '#/components/examples/IpBlock'
                   value: null
                 cloudRouter:
-                  $ref: '#/components/examples/FabricGateway'
+                  $ref: '#/components/examples/FabricCloudRouter'
                   value: null
                 virtualPort:
                   $ref: '#/components/examples/VirtualPort'
@@ -2637,7 +2643,19 @@ paths:
     post:
       description: Search service profiles by search criteria
       operationId: searchServiceProfiles
-      parameters: []
+      parameters:
+      - description: flips view between buyer and seller representation
+        explode: true
+        in: query
+        name: viewPoint
+        required: false
+        schema:
+          default: aSide
+          enum:
+          - aSide
+          - zSide
+          type: string
+        style: form
       requestBody:
         content:
           application/json:
@@ -3312,6 +3330,9 @@ paths:
               AsideTokenWithDot1QExample:
                 $ref: '#/components/examples/createServiceTokenWithDot1Q'
                 value: null
+              AsideTokenWithVxlanExample:
+                $ref: '#/components/examples/createServiceTokenWithVxlan'
+                value: null
               ZsideTokenWithQnQExample:
                 $ref: '#/components/examples/createZsideServiceTokenWithQnQ'
                 value: null
@@ -3320,6 +3341,9 @@ paths:
                 value: null
               ZsideTokenWithDot1QExample:
                 $ref: '#/components/examples/createZsideServiceTokenWithDot1Q'
+                value: null
+              ZsideTokenWithVxlanExample:
+                $ref: '#/components/examples/createZsideServiceTokenWithVxlan'
                 value: null
             schema:
               $ref: '#/components/schemas/ServiceToken'
@@ -3984,10 +4008,64 @@ paths:
       tags:
       - Ports
       x-accepts: application/json
+  /fabric/v4/ports/search:
+    post:
+      description: "The API provides capability to get list of user's virtual ports\
+        \ using search criteria, including optional filtering, pagination and sorting"
+      operationId: searchPorts
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            examples:
+              PortSearchDirection:
+                $ref: '#/components/examples/PortSearchByProjectId'
+                value: null
+            schema:
+              $ref: '#/components/schemas/PortV4SearchRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                portExample:
+                  $ref: '#/components/examples/ports'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/AllPortsResponse'
+          description: Successful operation
+        "400":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/400'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Bad request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Not Found
+      summary: Search ports
+      tags:
+      - Ports
+      x-content-type: application/json
+      x-accepts: application/json
   /fabric/v4/routers:
     post:
       description: This API provides capability to create user's Cloud Routers
-      operationId: createGateway
+      operationId: createCloudRouter
       parameters: []
       requestBody:
         content:
@@ -4071,7 +4149,7 @@ paths:
   /fabric/v4/routers/{routerId}:
     delete:
       description: This API provides capability to delete user's Cloud Routers
-      operationId: deleteGatewayByUuid
+      operationId: deleteCloudRouterByUuid
       parameters:
       - description: Cloud Router UUID
         explode: false
@@ -4140,7 +4218,7 @@ paths:
       x-accepts: application/json
     get:
       description: This API provides capability to retrieve user's Cloud Routers
-      operationId: getGatewayByUuid
+      operationId: getCloudRouterByUuid
       parameters:
       - description: Cloud Router UUID
         explode: false
@@ -4207,7 +4285,7 @@ paths:
       x-accepts: application/json
     patch:
       description: This API provides capability to update user's Cloud Routers
-      operationId: updateGatewayByUuid
+      operationId: updateCloudRouterByUuid
       parameters:
       - description: Cloud Router UUID
         explode: false
@@ -4312,7 +4390,7 @@ paths:
   /fabric/v4/routers/{routerId}/actions:
     get:
       description: This API provides capability to fetch action status
-      operationId: getGatewayActions
+      operationId: getCloudRouterActions
       parameters:
       - description: Router UUID
         explode: false
@@ -4336,10 +4414,10 @@ paths:
             application/json:
               examples:
                 routerActionExample:
-                  $ref: '#/components/examples/GatewayActionResponse'
+                  $ref: '#/components/examples/CloudRouterActionResponse'
                   value: null
               schema:
-                $ref: '#/components/schemas/GatewayActionResponse'
+                $ref: '#/components/schemas/CloudRouterActionResponse'
           description: Successful operation
         "400":
           content:
@@ -4408,7 +4486,7 @@ paths:
     post:
       description: This API provides capability to refresh route table and bgp session
         summary information
-      operationId: createGatewayAction
+      operationId: createCloudRouterAction
       parameters:
       - description: Router UUID
         explode: false
@@ -4426,18 +4504,18 @@ paths:
                 $ref: '#/components/examples/RouteEntriesStatusUpdate'
                 value: null
             schema:
-              $ref: '#/components/schemas/GatewayActionRequest'
+              $ref: '#/components/schemas/CloudRouterActionRequest'
         required: true
       responses:
         "202":
           content:
             application/json:
               examples:
-                gatewayActionExample:
-                  $ref: '#/components/examples/GatewayActionResponse'
+                cloudRouterActionExample:
+                  $ref: '#/components/examples/CloudRouterActionResponse'
                   value: null
               schema:
-                $ref: '#/components/schemas/GatewayActionResponse'
+                $ref: '#/components/schemas/CloudRouterActionResponse'
           description: Successful operation
         "400":
           content:
@@ -4509,7 +4587,7 @@ paths:
       description: "The API provides capability to get list of user's Fabric Cloud\
         \ Router route table entries using search criteria, including optional filtering,\
         \ pagination and sorting"
-      operationId: searchRoutes
+      operationId: searchCloudRouterRoutes
       parameters:
       - description: Router UUID
         explode: false
@@ -4610,14 +4688,70 @@ paths:
           description: Internal server error
       summary: Search Route Table
       tags:
-      - Routes
+      - Cloud Routers
+      x-content-type: application/json
+      x-accepts: application/json
+  /fabric/v4/routers/{routerId}/validate:
+    post:
+      description: This API provides capability to validate all subnets associated
+        with any connection in the given FCR
+      operationId: validateRoutingProtocol
+      parameters:
+      - description: Cloud Router UUID
+        explode: false
+        in: path
+        name: routerId
+        required: true
+        schema:
+          $ref: '#/components/schemas/RouterId'
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            examples:
+              ValidateDirectIpv4:
+                $ref: '#/components/examples/Request-direct-ipv4'
+                value: null
+              ValidateDirectIpv6:
+                $ref: '#/components/examples/Request-direct-ipv6'
+                value: null
+            schema:
+              $ref: '#/components/schemas/ValidateSubnetRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                ValidateSubnet:
+                  $ref: '#/components/examples/Response-200'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ValidateSubnetResponse'
+          description: Successful operation
+        "400":
+          content:
+            application/json:
+              examples:
+                Bad Request:
+                  $ref: '#/components/examples/error-400'
+                  value: null
+                Subnet Overlapping:
+                  $ref: '#/components/examples/error-400-overlappingSubnet'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Bad request
+      summary: Validate Subnet
+      tags:
+      - Routing Protocols
       x-content-type: application/json
       x-accepts: application/json
   /fabric/v4/routers/search:
     post:
       description: "The API provides capability to get list of user's Cloud Routers\
         \ using search criteria, including optional filtering, pagination and sorting"
-      operationId: searchGateways
+      operationId: searchCloudRouters
       parameters: []
       requestBody:
         content:
@@ -4704,7 +4838,7 @@ paths:
   /fabric/v4/routerPackages:
     get:
       description: This API provides capability to retrieve user's Cloud Routers Packages
-      operationId: getGatewayPackages
+      operationId: getCloudRouterPackages
       parameters:
       - description: offset
         example: 1
@@ -4783,7 +4917,7 @@ paths:
     get:
       description: This API provides capability to retrieve user's Cloud Routers Package
         Details
-      operationId: getGatewayPackageByCode
+      operationId: getCloudRouterPackageByCode
       parameters:
       - description: Equinix-assigned Cloud Router package identifier
         explode: false
@@ -5563,6 +5697,878 @@ paths:
       tags:
       - Networks
       x-accepts: application/json
+  /fabric/v4/timeServices/{serviceId}:
+    delete:
+      description: Delete EPT service by it's uuid
+      operationId: deleteTimeServiceById
+      parameters:
+      - description: Service UUID
+        explode: false
+        in: path
+        name: serviceId
+        required: true
+        schema:
+          $ref: '#/components/schemas/ServiceId'
+        style: simple
+      responses:
+        "204":
+          content:
+            application/json:
+              examples:
+                NtpStandard:
+                  $ref: '#/components/examples/ntpStandardCreateResponse'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/precisionTimeServiceCreateResponse'
+          description: Successful operation
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
+        "415":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/415'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unsupported Media Type
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
+      summary: Delete time service
+      tags:
+      - Precision Time
+      x-accepts: application/json
+    get:
+      description: The API provides capability to get prevision timing service's details
+      operationId: getTimeServicesById
+      parameters:
+      - description: Service UUID
+        explode: false
+        in: path
+        name: serviceId
+        required: true
+        schema:
+          $ref: '#/components/schemas/ServiceId'
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                NtpStandard:
+                  $ref: '#/components/examples/ntpStandardCreateResponse'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/precisionTimeServiceCreateResponse'
+          description: Successful operation
+        "400":
+          content:
+            application/json:
+              examples:
+                MandatoryName:
+                  $ref: '#/components/examples/400-Mandatory-Name'
+                  value: null
+                InvalidName:
+                  $ref: '#/components/examples/400-Invalid-Name'
+                  value: null
+                ValidateName:
+                  $ref: '#/components/examples/400-Validate-Name'
+                  value: null
+                DuplicateName:
+                  $ref: '#/components/examples/400-Duplicate-Name'
+                  value: null
+                MandatoryConnectionUuid:
+                  $ref: '#/components/examples/400-Mandatory-ConnectionUUid'
+                  value: null
+                InvalidConnectionUuidFormat:
+                  $ref: '#/components/examples/400-Invalid-ConnectionUuid-Format'
+                  value: null
+                InvalidConnectionStatus:
+                  $ref: '#/components/examples/400-Invalid-Connection-Status'
+                  value: null
+                ValidateConnectionUuid:
+                  $ref: '#/components/examples/400-Validate-ConnectionUuid'
+                  value: null
+                InvalidConnectionLocation:
+                  $ref: '#/components/examples/400-Invalid-Connection-Location'
+                  value: null
+                MandatoryPackageType:
+                  $ref: '#/components/examples/400-Mandatory-PackageType'
+                  value: null
+                InvalidPackageType:
+                  $ref: '#/components/examples/400-Invalid-PackageType'
+                  value: null
+                InvalidConnectionPackageType:
+                  $ref: '#/components/examples/400-Invalid-Connection-PackageType'
+                  value: null
+                MandatoryPackage:
+                  $ref: '#/components/examples/400-Mandatory-Package'
+                  value: null
+                InvalidPackage:
+                  $ref: '#/components/examples/400-Invalid-Package'
+                  value: null
+                InvalidConnectionPackage:
+                  $ref: '#/components/examples/400-Invalid-Connection-Package'
+                  value: null
+                MandatoryPrimaryIP:
+                  $ref: '#/components/examples/400-Mandatory-PrimaryIP'
+                  value: null
+                InvalidPrimaryIPFormat:
+                  $ref: '#/components/examples/400-Invalid-PrimaryIP-Format'
+                  value: null
+                ValidatePrimaryIP:
+                  $ref: '#/components/examples/400-Validate-PrimaryIP'
+                  value: null
+                MandatorySecondaryIP:
+                  $ref: '#/components/examples/400-Mandatory-SecondaryIP'
+                  value: null
+                InvalidSecondaryIPFormat:
+                  $ref: '#/components/examples/400-Invalid-SecondaryIP-Format'
+                  value: null
+                ValidateSecondaryIP:
+                  $ref: '#/components/examples/400-Validate-SecondaryIP'
+                  value: null
+                ValidateSameSubnet:
+                  $ref: '#/components/examples/400-Validate-SameSubnet'
+                  value: null
+                MandatoryNetworkMask:
+                  $ref: '#/components/examples/400-Mandatory-NetworkMask'
+                  value: null
+                InvalidNetworkMaskFormat:
+                  $ref: '#/components/examples/400-Invalid-NetworkMask-Format'
+                  value: null
+                ValidateNetworkMask:
+                  $ref: '#/components/examples/400-Validate-NetworkMask'
+                  value: null
+                InvalidDefaultGatewayFormat:
+                  $ref: '#/components/examples/400-Invalid-DefaultGateway-Format'
+                  value: null
+                ValidateDefaultGateway:
+                  $ref: '#/components/examples/400-Validate-DefaultGateway'
+                  value: null
+                InvalidTimeScale:
+                  $ref: '#/components/examples/400-Invalid-TimeScale'
+                  value: null
+                InvalidDomain:
+                  $ref: '#/components/examples/400-Invalid-Domain'
+                  value: null
+                InvalidPriority1:
+                  $ref: '#/components/examples/400-Invalid-Priority1'
+                  value: null
+                InvalidPriority2:
+                  $ref: '#/components/examples/400-Invalid-Priority2'
+                  value: null
+                InvalidLogAnnounceInterval:
+                  $ref: '#/components/examples/400-Invalid-LogAnnounceInterval'
+                  value: null
+                ValidateLogAnnounceIntervalRange:
+                  $ref: '#/components/examples/400-Validate-LogAnnounceInterval-Range'
+                  value: null
+                InvalidLogSyncInterval:
+                  $ref: '#/components/examples/400-Invalid-LogSyncInterval'
+                  value: null
+                ValidateLogSyncIntervalRange:
+                  $ref: '#/components/examples/400-Validate-LogSyncInterval-Range'
+                  value: null
+                InvalidLogDelayReqInterval:
+                  $ref: '#/components/examples/400-Invalid-LogDelayReqInterval'
+                  value: null
+                ValidateLogDelayReqIntervalRange:
+                  $ref: '#/components/examples/400-Validate-LogDelayReqInterval-Range'
+                  value: null
+                InvalidTransportMode:
+                  $ref: '#/components/examples/400-Invalid-TransportMode'
+                  value: null
+                InvalidGrantTime:
+                  $ref: '#/components/examples/400-Invalid-GrantTime'
+                  value: null
+                ValidateGrantTimeRange:
+                  $ref: '#/components/examples/400-Validate-GrantTime-Range'
+                  value: null
+                InvalidType:
+                  $ref: '#/components/examples/400-Invalid-Type'
+                  value: null
+                InvalidId:
+                  $ref: '#/components/examples/400-Invalid-Id'
+                  value: null
+                InvalidPassword:
+                  $ref: '#/components/examples/400-Invalid-Password'
+                  value: null
+                ValidatePassword:
+                  $ref: '#/components/examples/400-Validate-Password'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
+        "415":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/415'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unsupported Media Type
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
+      summary: Get time service
+      tags:
+      - Precision Time
+      x-accepts: application/json
+    patch:
+      description: The API provides capability to update timing service
+      operationId: updateTimeServicesById
+      parameters:
+      - description: Service UUID
+        explode: false
+        in: path
+        name: serviceId
+        required: true
+        schema:
+          $ref: '#/components/schemas/ServiceId'
+        style: simple
+      requestBody:
+        content:
+          application/json-patch+json:
+            examples:
+              editName:
+                $ref: '#/components/examples/edit'
+                value: null
+            schema:
+              items:
+                $ref: '#/components/schemas/precisionTimeChangeOperation'
+              minItems: 1
+              type: array
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                NtpStandard:
+                  $ref: '#/components/examples/ntpStandardCreateResponse'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/precisionTimeServiceCreateResponse'
+          description: Successful operation
+        "400":
+          content:
+            application/json:
+              examples:
+                MandatoryName:
+                  $ref: '#/components/examples/400-Mandatory-Name'
+                  value: null
+                InvalidName:
+                  $ref: '#/components/examples/400-Invalid-Name'
+                  value: null
+                ValidateName:
+                  $ref: '#/components/examples/400-Validate-Name'
+                  value: null
+                DuplicateName:
+                  $ref: '#/components/examples/400-Duplicate-Name'
+                  value: null
+                MandatoryConnectionUuid:
+                  $ref: '#/components/examples/400-Mandatory-ConnectionUUid'
+                  value: null
+                InvalidConnectionUuidFormat:
+                  $ref: '#/components/examples/400-Invalid-ConnectionUuid-Format'
+                  value: null
+                InvalidConnectionStatus:
+                  $ref: '#/components/examples/400-Invalid-Connection-Status'
+                  value: null
+                ValidateConnectionUuid:
+                  $ref: '#/components/examples/400-Validate-ConnectionUuid'
+                  value: null
+                InvalidConnectionLocation:
+                  $ref: '#/components/examples/400-Invalid-Connection-Location'
+                  value: null
+                MandatoryPackageType:
+                  $ref: '#/components/examples/400-Mandatory-PackageType'
+                  value: null
+                InvalidPackageType:
+                  $ref: '#/components/examples/400-Invalid-PackageType'
+                  value: null
+                InvalidConnectionPackageType:
+                  $ref: '#/components/examples/400-Invalid-Connection-PackageType'
+                  value: null
+                MandatoryPackage:
+                  $ref: '#/components/examples/400-Mandatory-Package'
+                  value: null
+                InvalidPackage:
+                  $ref: '#/components/examples/400-Invalid-Package'
+                  value: null
+                InvalidConnectionPackage:
+                  $ref: '#/components/examples/400-Invalid-Connection-Package'
+                  value: null
+                MandatoryPrimaryIP:
+                  $ref: '#/components/examples/400-Mandatory-PrimaryIP'
+                  value: null
+                InvalidPrimaryIPFormat:
+                  $ref: '#/components/examples/400-Invalid-PrimaryIP-Format'
+                  value: null
+                ValidatePrimaryIP:
+                  $ref: '#/components/examples/400-Validate-PrimaryIP'
+                  value: null
+                MandatorySecondaryIP:
+                  $ref: '#/components/examples/400-Mandatory-SecondaryIP'
+                  value: null
+                InvalidSecondaryIPFormat:
+                  $ref: '#/components/examples/400-Invalid-SecondaryIP-Format'
+                  value: null
+                ValidateSecondaryIP:
+                  $ref: '#/components/examples/400-Validate-SecondaryIP'
+                  value: null
+                ValidateSameSubnet:
+                  $ref: '#/components/examples/400-Validate-SameSubnet'
+                  value: null
+                MandatoryNetworkMask:
+                  $ref: '#/components/examples/400-Mandatory-NetworkMask'
+                  value: null
+                InvalidNetworkMaskFormat:
+                  $ref: '#/components/examples/400-Invalid-NetworkMask-Format'
+                  value: null
+                ValidateNetworkMask:
+                  $ref: '#/components/examples/400-Validate-NetworkMask'
+                  value: null
+                InvalidDefaultGatewayFormat:
+                  $ref: '#/components/examples/400-Invalid-DefaultGateway-Format'
+                  value: null
+                ValidateDefaultGateway:
+                  $ref: '#/components/examples/400-Validate-DefaultGateway'
+                  value: null
+                InvalidTimeScale:
+                  $ref: '#/components/examples/400-Invalid-TimeScale'
+                  value: null
+                InvalidDomain:
+                  $ref: '#/components/examples/400-Invalid-Domain'
+                  value: null
+                InvalidPriority1:
+                  $ref: '#/components/examples/400-Invalid-Priority1'
+                  value: null
+                InvalidPriority2:
+                  $ref: '#/components/examples/400-Invalid-Priority2'
+                  value: null
+                InvalidLogAnnounceInterval:
+                  $ref: '#/components/examples/400-Invalid-LogAnnounceInterval'
+                  value: null
+                ValidateLogAnnounceIntervalRange:
+                  $ref: '#/components/examples/400-Validate-LogAnnounceInterval-Range'
+                  value: null
+                InvalidLogSyncInterval:
+                  $ref: '#/components/examples/400-Invalid-LogSyncInterval'
+                  value: null
+                ValidateLogSyncIntervalRange:
+                  $ref: '#/components/examples/400-Validate-LogSyncInterval-Range'
+                  value: null
+                InvalidLogDelayReqInterval:
+                  $ref: '#/components/examples/400-Invalid-LogDelayReqInterval'
+                  value: null
+                ValidateLogDelayReqIntervalRange:
+                  $ref: '#/components/examples/400-Validate-LogDelayReqInterval-Range'
+                  value: null
+                InvalidTransportMode:
+                  $ref: '#/components/examples/400-Invalid-TransportMode'
+                  value: null
+                InvalidGrantTime:
+                  $ref: '#/components/examples/400-Invalid-GrantTime'
+                  value: null
+                ValidateGrantTimeRange:
+                  $ref: '#/components/examples/400-Validate-GrantTime-Range'
+                  value: null
+                InvalidType:
+                  $ref: '#/components/examples/400-Invalid-Type'
+                  value: null
+                InvalidId:
+                  $ref: '#/components/examples/400-Invalid-Id'
+                  value: null
+                InvalidPassword:
+                  $ref: '#/components/examples/400-Invalid-Password'
+                  value: null
+                ValidatePassword:
+                  $ref: '#/components/examples/400-Validate-Password'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
+        "415":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/415'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unsupported Media Type
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
+      summary: Patch time service
+      tags:
+      - Precision Time
+      x-content-type: application/json-patch+json
+      x-accepts: application/json
+  /fabric/v4/timeServices:
+    post:
+      description: The API provides capability to create timing service
+      operationId: createTimeServices
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            examples:
+              ntpSingleStandard:
+                $ref: '#/components/examples/ntpSingleStandard'
+                value: null
+              ptpSingleStandard:
+                $ref: '#/components/examples/ptpSingleStandard'
+                value: null
+              ptpSingleEnterpriseWithAdvanceConfiguration:
+                $ref: '#/components/examples/ptpSingleEnterpriseWithAdvanceConfiguration'
+                value: null
+            schema:
+              $ref: '#/components/schemas/precisionTimeServiceRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                NtpStandard:
+                  $ref: '#/components/examples/ntpStandardCreateResponse'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/precisionTimeServiceCreateResponse'
+          description: Successful operation
+        "400":
+          content:
+            application/json:
+              examples:
+                MandatoryName:
+                  $ref: '#/components/examples/400-Mandatory-Name'
+                  value: null
+                InvalidName:
+                  $ref: '#/components/examples/400-Invalid-Name'
+                  value: null
+                ValidateName:
+                  $ref: '#/components/examples/400-Validate-Name'
+                  value: null
+                DuplicateName:
+                  $ref: '#/components/examples/400-Duplicate-Name'
+                  value: null
+                MandatoryConnectionUuid:
+                  $ref: '#/components/examples/400-Mandatory-ConnectionUUid'
+                  value: null
+                InvalidConnectionUuidFormat:
+                  $ref: '#/components/examples/400-Invalid-ConnectionUuid-Format'
+                  value: null
+                InvalidConnectionStatus:
+                  $ref: '#/components/examples/400-Invalid-Connection-Status'
+                  value: null
+                ValidateConnectionUuid:
+                  $ref: '#/components/examples/400-Validate-ConnectionUuid'
+                  value: null
+                InvalidConnectionLocation:
+                  $ref: '#/components/examples/400-Invalid-Connection-Location'
+                  value: null
+                MandatoryPackageType:
+                  $ref: '#/components/examples/400-Mandatory-PackageType'
+                  value: null
+                InvalidPackageType:
+                  $ref: '#/components/examples/400-Invalid-PackageType'
+                  value: null
+                InvalidConnectionPackageType:
+                  $ref: '#/components/examples/400-Invalid-Connection-PackageType'
+                  value: null
+                MandatoryPackage:
+                  $ref: '#/components/examples/400-Mandatory-Package'
+                  value: null
+                InvalidPackage:
+                  $ref: '#/components/examples/400-Invalid-Package'
+                  value: null
+                InvalidConnectionPackage:
+                  $ref: '#/components/examples/400-Invalid-Connection-Package'
+                  value: null
+                MandatoryPrimaryIP:
+                  $ref: '#/components/examples/400-Mandatory-PrimaryIP'
+                  value: null
+                InvalidPrimaryIPFormat:
+                  $ref: '#/components/examples/400-Invalid-PrimaryIP-Format'
+                  value: null
+                ValidatePrimaryIP:
+                  $ref: '#/components/examples/400-Validate-PrimaryIP'
+                  value: null
+                MandatorySecondaryIP:
+                  $ref: '#/components/examples/400-Mandatory-SecondaryIP'
+                  value: null
+                InvalidSecondaryIPFormat:
+                  $ref: '#/components/examples/400-Invalid-SecondaryIP-Format'
+                  value: null
+                ValidateSecondaryIP:
+                  $ref: '#/components/examples/400-Validate-SecondaryIP'
+                  value: null
+                ValidateSameSubnet:
+                  $ref: '#/components/examples/400-Validate-SameSubnet'
+                  value: null
+                MandatoryNetworkMask:
+                  $ref: '#/components/examples/400-Mandatory-NetworkMask'
+                  value: null
+                InvalidNetworkMaskFormat:
+                  $ref: '#/components/examples/400-Invalid-NetworkMask-Format'
+                  value: null
+                ValidateNetworkMask:
+                  $ref: '#/components/examples/400-Validate-NetworkMask'
+                  value: null
+                InvalidDefaultGatewayFormat:
+                  $ref: '#/components/examples/400-Invalid-DefaultGateway-Format'
+                  value: null
+                ValidateDefaultGateway:
+                  $ref: '#/components/examples/400-Validate-DefaultGateway'
+                  value: null
+                InvalidTimeScale:
+                  $ref: '#/components/examples/400-Invalid-TimeScale'
+                  value: null
+                InvalidDomain:
+                  $ref: '#/components/examples/400-Invalid-Domain'
+                  value: null
+                InvalidPriority1:
+                  $ref: '#/components/examples/400-Invalid-Priority1'
+                  value: null
+                InvalidPriority2:
+                  $ref: '#/components/examples/400-Invalid-Priority2'
+                  value: null
+                InvalidLogAnnounceInterval:
+                  $ref: '#/components/examples/400-Invalid-LogAnnounceInterval'
+                  value: null
+                ValidateLogAnnounceIntervalRange:
+                  $ref: '#/components/examples/400-Validate-LogAnnounceInterval-Range'
+                  value: null
+                InvalidLogSyncInterval:
+                  $ref: '#/components/examples/400-Invalid-LogSyncInterval'
+                  value: null
+                ValidateLogSyncIntervalRange:
+                  $ref: '#/components/examples/400-Validate-LogSyncInterval-Range'
+                  value: null
+                InvalidLogDelayReqInterval:
+                  $ref: '#/components/examples/400-Invalid-LogDelayReqInterval'
+                  value: null
+                ValidateLogDelayReqIntervalRange:
+                  $ref: '#/components/examples/400-Validate-LogDelayReqInterval-Range'
+                  value: null
+                InvalidTransportMode:
+                  $ref: '#/components/examples/400-Invalid-TransportMode'
+                  value: null
+                InvalidGrantTime:
+                  $ref: '#/components/examples/400-Invalid-GrantTime'
+                  value: null
+                ValidateGrantTimeRange:
+                  $ref: '#/components/examples/400-Validate-GrantTime-Range'
+                  value: null
+                InvalidType:
+                  $ref: '#/components/examples/400-Invalid-Type'
+                  value: null
+                InvalidId:
+                  $ref: '#/components/examples/400-Invalid-Id'
+                  value: null
+                InvalidPassword:
+                  $ref: '#/components/examples/400-Invalid-Password'
+                  value: null
+                ValidatePassword:
+                  $ref: '#/components/examples/400-Validate-Password'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
+        "415":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/415'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unsupported Media Type
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
+      summary: Create time service
+      tags:
+      - Precision Time
+      x-content-type: application/json
+      x-accepts: application/json
+  /fabric/v4/timeServices/{serviceId}/connections:
+    get:
+      description: The API provides capability to get prevision timing service's details
+      operationId: getTimeServicesConnectionsByServiceId
+      parameters:
+      - description: Service UUID
+        explode: false
+        in: path
+        name: serviceId
+        required: true
+        schema:
+          $ref: '#/components/schemas/ServiceId'
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/serviceConnectionsResponse'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/precisionTimeServiceConnectionsResponse'
+          description: Return Time Service Connection
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
+        "415":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/415'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unsupported Media Type
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
+      summary: Get Conn Links
+      tags:
+      - Precision Time
+      x-accepts: application/json
+  /fabric/v4/timeServicesPackages:
+    get:
+      description: The API provides capability to get timing service's packages
+      operationId: getTimeServicesPackages
+      parameters: []
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/servicePackagesResponse'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/precisionTimeServicePackagesResponse'
+          description: Successful operation
+        "415":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/415'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unsupported Media Type
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
+      summary: Get Packages
+      tags:
+      - Precision Time
+      x-accepts: application/json
+  /fabric/v4/timeServicesPackages/{packageCode}:
+    get:
+      description: The API provides capability to get timing service's package by
+        code
+      operationId: getTimeServicesPackageByCode
+      parameters:
+      - description: Package Code
+        explode: false
+        in: path
+        name: packageCode
+        required: true
+        schema:
+          enum:
+          - NTP_STANDARD
+          - NTP_ENTERPRISE
+          - PTP_STANDARD
+          - PTP_ENTERPRISE
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/servicePackageResponse'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/PackageResponse'
+          description: Successful operation
+        "415":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/415'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unsupported Media Type
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
+      summary: Get package by Code
+      tags:
+      - Precision Time
+      x-accepts: application/json
 components:
   examples:
     "400":
@@ -5668,15 +6674,16 @@ components:
         additionalInfo:
         - property: /zSide/accessPoint/profile/uuid
       - errorCode: EQ-3142021
-        errorMessage: "For redundant connection, Fabric Gateway should be the same"
+        errorMessage: "For redundant connection, Fabric Cloud Router should be the\
+          \ same"
         correlationId: test
         additionalInfo:
-        - property: /aSide/accessPoint/gateway/uuid
+        - property: /aSide/accessPoint/router/uuid
       - errorCode: EQ-3142012
-        errorMessage: Fabric Gateway is not in PROVISIONED state
+        errorMessage: Fabric Cloud Router is not in PROVISIONED state
         correlationId: test
         additionalInfo:
-        - property: /aSide/accessPoint/gateway/uuid
+        - property: /aSide/accessPoint/router/uuid
       - errorCode: EQ-3142301
         errorMessage: Given profile does not exist
         correlationId: test
@@ -5688,10 +6695,10 @@ components:
         additionalInfo:
         - property: /zSide/accessPoint/location/metroCode
       - errorCode: EQ-3142013
-        errorMessage: Invalid metro for gateway connection
+        errorMessage: Invalid metro for Cloud Router connection
         correlationId: test
         additionalInfo:
-        - property: /aSide/accessPoint/gateway/uuid
+        - property: /aSide/accessPoint/router/uuid
       - errorCode: EQ-3142304
         errorMessage: Private connections are not allowed on public profiles
         correlationId: test
@@ -6029,10 +7036,10 @@ components:
         - type: ALL
           emails:
           - test@test.com
-    COLO2AWSSPwithDot1q:
+    COLO2AWSSPwithDot1q-Primary:
       value:
         type: EVPL_VC
-        name: My-Layer2-Connection-3
+        name: Primary-Aws
         bandwidth: 1000
         redundancy:
           priority: PRIMARY
@@ -6060,10 +7067,42 @@ components:
         - type: ALL
           emails:
           - test@test.com
-    COLO2AzureSPwithDot1q:
+    COLO2AWSSPwithDot1q-Secondary:
       value:
         type: EVPL_VC
-        name: My-Layer2-Connection-3
+        name: Secondary-Aws
+        bandwidth: 1000
+        redundancy:
+          group: e04db764-f865-470b-8394-d2efdd651577
+          priority: SECONDARY
+        aSide:
+          accessPoint:
+            type: COLO
+            port:
+              uuid: a00cef6f-8e35-4794-9ff9-665e084e4e6d
+            linkProtocol:
+              type: DOT1Q
+              vlanTag: 1001
+        order:
+          purchaseOrderNumber: po1234
+        zSide:
+          accessPoint:
+            type: SP
+            profile:
+              type: L2_PROFILE
+              uuid: 22d4e853-ef33-4ff0-b5b2-a2b1d5dfa50c
+            location:
+              metroCode: DC
+            sellerRegion: us-east-1
+            authenticationKey: xxx-xxx-xxx
+        notifications:
+        - type: ALL
+          emails:
+          - test@test.com
+    COLO2AzureSPwithDot1q-Primary:
+      value:
+        type: EVPL_VC
+        name: Primary-Azure
         bandwidth: 1000
         redundancy:
           priority: PRIMARY
@@ -6094,13 +7133,14 @@ components:
         - type: ALL
           emails:
           - test@test.com
-    COLO2AzureSPwithQinq:
+    COLO2AzureSPwithQinq-Secondary:
       value:
         type: EVPL_VC
-        name: My-Layer2-Connection-3
+        name: Secondary-Azure
         bandwidth: 1000
         redundancy:
-          priority: PRIMARY
+          group: e04db764-f865-470b-8394-d2efdd651577
+          priority: SECONDARY
         aSide:
           accessPoint:
             type: COLO
@@ -6339,11 +7379,45 @@ components:
           emails:
           - test@equinix.com
           - test1@equinix.com
-    Vd2Sp:
+    Vd2Sp-Primary:
       value:
         type: EVPL_VC
         bandwidth: 50
-        name: vd to SP
+        name: Network Device to SP
+        redundancy:
+          priority: PRIMARY
+        aSide:
+          accessPoint:
+            type: VD
+            virtualDevice:
+              type: EDGE
+              uuid: 20d32a80-0d61-4333-bc03-707b591ae2f4
+            interface:
+              type: NETWORK
+              id: 45645
+        zSide:
+          accessPoint:
+            type: SP
+            profile:
+              type: L2_PROFILE
+              uuid: 95542b34-cf1c-41aa-89f7-590946f9df53
+            authenticationKey: xx-xx-xx
+            sellerRegion: us-west-1
+        order:
+          purchaseOrderNumber: 1-323292
+        notifications:
+        - type: ALL
+          emails:
+          - test@equinix.com
+          - test1@equinix.com
+    Vd2Sp-Secondary:
+      value:
+        type: EVPL_VC
+        bandwidth: 50
+        name: Network Device to SP
+        redundancy:
+          group: 777ca05d-4ae7-4ee9-9456-3ca49500428c
+          priority: SECONDARY
         aSide:
           accessPoint:
             type: VD
@@ -6489,13 +7563,12 @@ components:
     Vd2ServiceToken:
       value:
         type: EVPL_VC
-        name: Conn-1
+        name: Primary-Token
         order:
           purchaseOrderNumber: 1-129105284100
         bandwidth: 100
         redundancy:
-          group: m167f685-41b0-1b07-6de0-320a5c00abeu
-          priority: SECONDARY
+          priority: PRIMARY
         aSide:
           accessPoint:
             type: VD
@@ -6543,7 +7616,7 @@ components:
     Fcr2Sp-Google:
       value:
         type: IP_VC
-        name: My-GW-Connection
+        name: My-FCR-GCPConnection
         bandwidth: 1000
         aSide:
           accessPoint:
@@ -6572,7 +7645,7 @@ components:
     Fcr2Sp-Azure:
       value:
         type: IP_VC
-        name: My-GW-Connection
+        name: My-FCR-AzureConnection
         bandwidth: 1000
         aSide:
           accessPoint:
@@ -6601,7 +7674,7 @@ components:
     Fcr2Sp-Generic:
       value:
         type: IP_VC
-        name: My-GW-Generic
+        name: My-FCR-GenericConnection
         bandwidth: 1000
         aSide:
           accessPoint:
@@ -6628,7 +7701,7 @@ components:
     Fcr2Sp-Generic-Redundant-Secondary:
       value:
         type: IP_VC
-        name: FG_to_RedSP_Secondary
+        name: FCR_to_RedSP_Secondary
         bandwidth: 50
         redundancy:
           group: a00cef6f-8e35-4794-9ff9-665e084e4e6d
@@ -6636,7 +7709,7 @@ components:
         aSide:
           accessPoint:
             type: CLOUD_ROUTER
-            gateway:
+            router:
               uuid: 66a21614-1c4a-11ec-9621-0242ac130002
         zSide:
           accessPoint:
@@ -6658,7 +7731,7 @@ components:
     Fcr2Sp-Generic-Redundant-Primary:
       value:
         type: IP_VC
-        name: FG_to_RedSP_Primary-Re-add
+        name: FCR_to_RedSP_Primary-Re-add
         bandwidth: 50
         redundancy:
           group: a00cef6f-8e35-4794-9ff9-665e084e4e6d
@@ -6666,7 +7739,7 @@ components:
         aSide:
           accessPoint:
             type: CLOUD_ROUTER
-            gateway:
+            router:
               uuid: 66a21614-1c4a-11ec-9621-0242ac130002
         zSide:
           accessPoint:
@@ -6717,14 +7790,14 @@ components:
     Fcr2Sp-Oracle:
       value:
         type: IP_VC
-        name: My-GW-OracleConnection
+        name: My-FCR-OracleConnection
         bandwidth: 1000
         redundancy:
           priority: PRIMARY
         aSide:
           accessPoint:
             type: CLOUD_ROUTER
-            gateway:
+            router:
               uuid: 66a21614-1c4a-11ec-9621-0242ac130002
         zSide:
           accessPoint:
@@ -6797,15 +7870,13 @@ components:
     AsideServiceToken2PortWithDot1q:
       value:
         type: EVPL_VC
-        name: My-Layer2-Connection-3
+        name: Aside-token
         bandwidth: 1000
         redundancy:
           priority: PRIMARY
         aSide:
           serviceToken:
             uuid: a00cef6f-8e35-4794-9ff9-665e084e4e6d
-        order:
-          purchaseOrderNumber: po1234
         zSide:
           accessPoint:
             type: COLO
@@ -6816,6 +7887,8 @@ components:
             linkProtocol:
               type: DOT1Q
               vlanTag: 1001
+        order:
+          purchaseOrderNumber: po1234
         notifications:
         - type: ALL
           emails:
@@ -6823,15 +7896,13 @@ components:
     AsideServiceToken2PortWithQinq:
       value:
         type: EVPL_VC
-        name: My-Layer2-Connection-3
+        name: Aside-Token
         bandwidth: 1000
         redundancy:
           priority: PRIMARY
         aSide:
           serviceToken:
             uuid: a00cef6f-8e35-4794-9ff9-665e084e4e6d
-        order:
-          purchaseOrderNumber: po1234
         zSide:
           accessPoint:
             type: COLO
@@ -6843,6 +7914,8 @@ components:
               type: QINQ
               vlanSTag: 1001
               vlanCTag: 1001
+        order:
+          purchaseOrderNumber: po1234
         notifications:
         - type: ALL
           emails:
@@ -6852,6 +7925,10 @@ components:
         type: EVPL_VC
         name: Token2PrivateSP-NE
         bandwidth: 50
+        redundancy:
+          priority: PRIMARY
+        order:
+          purchaseOrderNumber: po1234
         aSide:
           serviceToken:
             uuid: 41a9e1ef-18bb-485b-a9b3-99801ac03684
@@ -6879,12 +7956,12 @@ components:
         zSide:
           serviceToken:
             uuid: 4f9c5438-90eb-4295-b109-7754119a1e8d
+        order:
+          purchaseOrderNumber: po1234
         notifications:
         - type: ALL
           emails:
           - test@test.com
-        order:
-          purchaseOrderNumber: po1234
     ConnectionExample:
       value:
         href: https://api.equinix.com/fabric/v4/connections/3a58dd05-f46d-4b1d-a154-2e85c396ea62
@@ -6894,7 +7971,9 @@ components:
         bandwidth: 1000
         direction: OUTGOING
         isRemote: true
+        state: ACTIVE
         redundancy:
+          group: e04db764-f865-470b-8394-d2efdd651577
           priority: PRIMARY
         aSide:
           accessPoint:
@@ -6912,6 +7991,7 @@ components:
               href: https://api.equinix.com/fabric/v4/serviceProfiles/22d4e853-ef33-4ff0-b5b2-a2b1d5dfa50c
               uuid: 22d4e853-ef33-4ff0-b5b2-a2b1d5dfa50c
             location:
+              metroHref: https://api.equinix.com/fabric/v4/metros/MX
               metroCode: MX
         operation:
           providerStatus: AVAILABLE
@@ -6925,25 +8005,13 @@ components:
         type: EVPL_VC
         name: vd to SP
         bandwidth: 50
+        state: ACTIVE
         account:
           accountNumber: 201246
           orgId: 92610
         redundancy:
           group: ac61e576-2830-46aa-85e6-5ae7cd49610c
           priority: PRIMARY
-        order:
-          purchaseOrderNumber: 1-323292
-          billingTier: Up to 50 MB
-        notifications:
-        - type: ALL
-          emails:
-          - test@equinix.com
-          - test1@equinix.com
-        operation:
-          equinixStatus: PENDING_APPROVAL
-          providerStatus: NOT_AVAILABLE
-        changeLog:
-          createdDateTime: 2022-10-05T19:37:12.748Z
         aSide:
           accessPoint:
             virtualDevice:
@@ -6966,7 +8034,21 @@ components:
               uuid: 95542b34-cf1c-41aa-89f7-590946f9df53
               type: L2_PROFILE
             location:
+              metroHref: https://api.equinix.com/fabric/v4/metros/SV
               metroCode: SV
+        order:
+          purchaseOrderNumber: 1-323292
+          billingTier: Up to 50 MB
+        notifications:
+        - type: ALL
+          emails:
+          - test@equinix.com
+          - test1@equinix.com
+        operation:
+          equinixStatus: PENDING_APPROVAL
+          providerStatus: NOT_AVAILABLE
+        changeLog:
+          createdDateTime: 2022-10-05T19:37:12.748Z
     Vd2ServiceToken_Response:
       value:
         href: http://api.corp.equinix.com/fabric/v4/connections/ebc37e2e-c36b-4e93-86a4-fc4efce7abc8
@@ -6974,22 +8056,10 @@ components:
         uuid: ebc37e2e-c36b-4e93-86a4-fc4efce7abc8
         name: Test ST
         state: ACTIVE
-        operation:
-          providerStatus: AVAILABLE
-          equinixStatus: PROVISIONED
-        notifications:
-        - type: ALL
-          emails:
-          - test@equinix.com
         account:
           accountNumber: 270235
           orgId: 92794
           globalOrgId: 0016u000003JZ55AAG
-        changeLog:
-          createdBy: test
-          createdDateTime: 2022-10-05T19:37:12.748Z
-          updatedBy: test
-          updatedDateTime: 2022-10-05T19:37:12.748Z
         bandwidth: 50
         redundancy:
           group: b64dad2a-2763-4084-bc50-b36ef4f67137
@@ -7041,6 +8111,18 @@ components:
             linkProtocol:
               type: DOT1Q
               vlanTag: 553
+        changeLog:
+          createdBy: test
+          createdDateTime: 2022-10-05T19:37:12.748Z
+          updatedBy: test
+          updatedDateTime: 2022-10-05T19:37:12.748Z
+        operation:
+          providerStatus: AVAILABLE
+          equinixStatus: PROVISIONED
+        notifications:
+        - type: ALL
+          emails:
+          - test@equinix.com
     Vd2Colo-Response:
       value:
         href: https://api.equinix.com/fabric/v4/connections/f37e40c5-2802-4df7-9732-839a8a5868ce
@@ -9528,7 +10610,7 @@ components:
         sort:
         - property: /changeLog/updatedDateTime
           direction: DESC
-    ConnectionSearchGatewayuuid:
+    ConnectionSearchCloudRouteruuid:
       value:
         filter:
           and:
@@ -10482,7 +11564,7 @@ components:
             operator: IN
             values:
             - "10"
-    FabricGatewayProduct:
+    FabricCloudRouterProduct:
       value:
         filter:
           and:
@@ -10617,7 +11699,7 @@ components:
             prefixLength: 29
             location:
               metroCode: CH
-    FabricGateway:
+    FabricCloudRouter:
       value:
         pagination:
           offset: 0
@@ -11929,6 +13011,30 @@ components:
           emails:
           - abc@company.com
           - provider@company.com
+    createServiceTokenWithVxlan:
+      value:
+        type: VC_TOKEN
+        name: Az_Aside_VxLAN_Pri_SV
+        description: Az_Aside_VxLAN_Pri_SV_Description
+        expirationDateTime: 2021-03-18T06:43:49.980Z
+        connection:
+          type: EVPL_VC
+          allowRemoteConnection: true
+          bandwidthLimit: 50
+          allowCustomBandwidth: false
+          aSide:
+            accessPointSelectors:
+            - type: COLO
+              port:
+                uuid: b840a1db-5758-758f-97e0-328a5c00a874
+              linkProtocol:
+                type: VXLAN
+                vlanTag: 510000
+        notifications:
+        - type: NOTIFICATION
+          emails:
+          - abc@company.com
+          - provider@company.com
     createZsideServiceTokenWithQnQ:
       value:
         type: VC_TOKEN
@@ -12018,6 +13124,35 @@ components:
               linkProtocol:
                 type: DOT1Q
                 vlanTag: "3332"
+        expirationDateTime: 2021-03-18T06:43:49.980Z
+        notifications:
+        - type: NOTIFICATION
+          emails:
+          - abc@company.com
+    createZsideServiceTokenWithVxlan:
+      value:
+        type: VC_TOKEN
+        name: Az_Zside_VxLAN_Pri_SV
+        description: Az_Zside_VxLAN_Pri_SV_Description
+        issuerSide: Z_Side
+        connection:
+          type: EVPL_VC
+          allowRemoteConnection: true
+          allowCustombandwidth: false
+          supportedBandwidths:
+          - 50
+          - 200
+          - 500
+          - 1000
+          zSide:
+            accessPointSelectors:
+            - type: COLO
+              hideAssetInfo: false
+              port:
+                uuid: b840a1db-5413-413f-97e0-328a5c00a874
+              linkProtocol:
+                type: VXLAN
+                vlanTag: "520000"
         expirationDateTime: 2021-03-18T06:43:49.980Z
         notifications:
         - type: NOTIFICATION
@@ -12298,8 +13433,6 @@ components:
             organizationName: Cust_Org_100179
           changeLog:
             createdDateTime: 2020-06-14T17:21:25.586Z
-          project:
-            projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
     COLOSinglePortNonLag:
       value:
         type: XF_PORT
@@ -12315,8 +13448,6 @@ components:
         encapsulation:
           type: DOT1Q
           tagProtocolId: 33024
-        project:
-          projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
         account:
           accountNumber: "270848"
         notifications:
@@ -12358,8 +13489,6 @@ components:
         encapsulation:
           type: DOT1Q
           tagProtocolId: 33024
-        project:
-          projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
         account:
           accountNumber: "270848"
         notifications:
@@ -12404,8 +13533,6 @@ components:
         encapsulation:
           type: DOT1Q
           tagProtocolId: 33024
-        project:
-          projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
         account:
           accountNumber: "270848"
         notifications:
@@ -12526,8 +13653,6 @@ components:
         encapsulation:
           type: DOT1Q
           tagProtocolId: 33024
-        project:
-          projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
         account:
           accountNumber: "270848"
         notifications:
@@ -12571,8 +13696,6 @@ components:
         encapsulation:
           type: DOT1Q
           tagProtocolId: 33024
-        project:
-          projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
         account:
           accountNumber: "270848"
         notifications:
@@ -12616,8 +13739,6 @@ components:
         encapsulation:
           type: DOT1Q
           tagProtocolId: 33024
-        project:
-          projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
         account:
           accountNumber: "270848"
         order:
@@ -12717,8 +13838,6 @@ components:
         encapsulation:
           type: DOT1Q
           tagProtocolId: 33024
-        project:
-          projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
         account:
           accountNumber: "270848"
         notifications:
@@ -12766,6 +13885,7 @@ components:
           sharedPortType: "false,"
           packageType: STANDARD
         project:
+          href: https://api.equinix.com/resourceManager/v1/projects/567
           projectId: 567
         account:
           accountNumber: 1000
@@ -13024,8 +14144,6 @@ components:
           settings:
             sharedPortType: false
             packageType: STANDARD
-          project:
-            projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
           notifications:
           - type: TECHNICAL
             registeredUsers:
@@ -13059,8 +14177,6 @@ components:
             group: a6f77b33-96c6-4eeb-8d79-76374d950603
             priority: SECONDARY
           lagEnabled: false
-          project:
-            projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
           settings:
             sharedPortType: false
             packageType: STANDARD
@@ -13421,8 +14537,6 @@ components:
           organizationName: Cust_Org_100179
         changeLog:
           createdDateTime: 2018-06-14T17:21:25.587Z
-        project:
-          projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
     LinkProtocolGetQinqResponseExample:
       value:
         pagination:
@@ -13621,20 +14735,29 @@ components:
       - errorCode: EQ-3035002
         errorMessage: Access Forbidden
         correlationId: UnAuthorized User- Cannot perform action
-    PortSearchProjectidOPtional-CRH:
+    PortSearchByProjectId:
       value:
         filter:
-          and:
-          - property: /project/projectId
-            operator: =
-            values:
-            - 30ad25e2-53dc-11ed-bdc3-0242ac120002
+          or:
+          - and:
+            - operator: =
+              property: /project/projectId
+              values:
+              - 30ad25e2-53dc-11ed-bdc3-0242ac120002
+            - operator: =
+              property: /state
+              values:
+              - ACTIVE
+            - operator: =
+              property: /settings/productCode
+              values:
+              - CX
         pagination:
           limit: 25
           offset: 0
           total: 0
         sort:
-        - property: /changeLog/updatedDateTime
+        - property: /device/name
           direction: DESC
     CreateLabPackage:
       value:
@@ -13726,8 +14849,10 @@ components:
           - abc@abc.com
         account:
           accountNumber: 123
-        bgpIpv4RoutesCount: 0
-        bgpIpv6RoutesCount: 0
+        bgpIpv4RoutesCount: 4
+        bgpIpv6RoutesCount: 4
+        distinctIpv4PrefixesCount: 2
+        distinctIpv6PrefixesCount: 2
         connectionsCount: 0
         changeLog:
           createdBy: abc@xyz.com
@@ -13818,7 +14943,7 @@ components:
         correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
         details: "Only replace name, replace package and replace notifications operations\
           \ are supported."
-    GatewayActionResponse:
+    CloudRouterActionResponse:
       value:
         type: ROUTE_TABLE_ENTRY_UPDATE
         uuid: 37c10edc-ba2e-4240-a850-8a48f9c47d00
@@ -13904,6 +15029,47 @@ components:
         correlationId: cebc3d33-9037-4a2b-a7af-0ad65602cdec
         additionalInfo:
         - reason: Only accept DESC and ASC for sorting direction.
+    Request-direct-ipv4:
+      value:
+        filter:
+          and:
+          - property: /directIpv4/equinixIfaceIp
+            operator: =
+            values:
+            - 10.1.1.1/30
+          - property: /connection/uuid
+            operator: =
+            values:
+            - a96f16d3-e504-44a7-a628-4916b5750008
+    Request-direct-ipv6:
+      value:
+        filter:
+          and:
+          - property: /directIpv6/equinixIfaceIp
+            operator: =
+            values:
+            - 1202:ABCD::20:1::11/30
+          - property: /connection/uuid
+            operator: =
+            values:
+            - a96f16d3-e504-44a7-a628-4916b5750008
+    Response-200:
+      value:
+        additionalInfo:
+        - key: message
+          value: The provided subnet is valid.
+    error-400:
+      value:
+      - errorCode: EQ-2041022
+        errorMessage: Invalid argument value passed.
+        correlationId: 5f9f9ab9-a6cb-4e8a-aa34-105cd4cb6cc8
+    error-400-overlappingSubnet:
+      value:
+      - errorCode: EQ-2041022
+        errorMessage: The provided subnet is not valid.
+        details: The provided subnet is overlapping to other connection in the same
+          FCR.
+        correlationId: 5f9f9ab9-a6cb-4e8a-aa34-105cd4cb6cc8
     SearchFilterByNameAndMetroName:
       value:
         filter:
@@ -14403,12 +15569,6 @@ components:
         additionalInfo:
         - key: message
           value: vlanTag(s) provided is available
-    error-400:
-      value:
-      - errorCode: EQ-3142308
-        errorMessage: Authentication key is required
-        additionalInfo:
-        - property: /zSide/accessPoint/authenticationKey
     ConnectionEvent:
       value:
         pagination:
@@ -14824,6 +15984,410 @@ components:
         status: COMPLETED
         createdDateTime: 2020-05-21T10:30:00Z
         updatedDateTime: 2020-05-21T10:30:50Z
+    ntpStandardCreateResponse:
+      value:
+        href: https://api.equinix.com/fabric/v4/timeServices/a8ba52de-faae-43b5-b0b1-6904d37ee011
+        uuid: a8ba52de-faae-43b5-b0b1-6904d37ee011
+        name: EPT-Single-Service
+        type: NTP
+        state: PROVISIONING
+        connections:
+        - href: https://api.equinix.com/fabric/v4/connections/a8ba52de-faae-43b5-b0b1-6904d37ee011
+          uuid: 06dbb0e3-e55d-4090-8aff-fc5654abaad0
+        package:
+          href: https://api.equinix.com/fabric/v4/timeServicesPackages/NTP_STANDARD
+          code: NTP_STANDARD
+        networkingIpv4:
+          primary: 192.168.0.2
+          secondary: 192.168.0.3
+          networkMask: 255.255.255.255
+          defaultGateway: 192.167.0.1
+        account:
+          accountNumber: 123456
+    "400-Mandatory-Name":
+      value:
+      - errorCode: EQ-4800011
+        errorMessage: Validation Error
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+        additionalInfo:
+        - property: /package/protocol
+          reason: Mandatory field is missing
+    "400-Invalid-Name":
+      value:
+      - errorCode: EQ-4800010
+        errorMessage: Validation Error
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+        additionalInfo:
+        - property: /name
+          reason: Invalid name
+    "400-Validate-Name":
+      value:
+      - errorCode: EQ-4800100
+        errorMessage: Validation Error
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+        additionalInfo:
+        - property: /name
+          reason: "The name length should be 3 as minimum. The name should start with\
+            \ characters. Valid characters for a name include letters, numbers, dashes,\
+            \ and underscores"
+    "400-Duplicate-Name":
+      value:
+      - errorCode: EQ-4800101
+        errorMessage: Service name is already in use
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Mandatory-ConnectionUUid":
+      value:
+      - errorCode: EQ-4800011
+        errorMessage: Mandatory field ConnectionUUid is missing
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Invalid-ConnectionUuid-Format":
+      value:
+      - errorCode: EQ-4800023
+        errorMessage: Invalid connection uuid format
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Invalid-Connection-Status":
+      value:
+      - errorCode: EQ-4800102
+        errorMessage: Connection should be in Pending Approval state
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Validate-ConnectionUuid":
+      value:
+      - errorCode: EQ-4800103
+        errorMessage: Connection does not belong to this user
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Invalid-Connection-Location":
+      value:
+      - errorCode: EQ-4800104
+        errorMessage: Connection location is not supported by EPT
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Mandatory-PackageType":
+      value:
+      - errorCode: EQ-4800011
+        errorMessage: Mandatory field Package Type is missing
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Invalid-PackageType":
+      value:
+      - errorCode: EQ-4800010
+        errorMessage: "Invalid Package Type - Allowed types are PTP, NTP"
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Invalid-Connection-PackageType":
+      value:
+      - errorCode: EQ-4800105
+        errorMessage: Connection Package type is different
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Mandatory-Package":
+      value:
+      - errorCode: EQ-4800011
+        errorMessage: Mandatory field Package is missing
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Invalid-Package":
+      value:
+      - errorCode: EQ-4800010
+        errorMessage: "Invalid Package - Allowed packages are STANDARD, ENTERPRISE"
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Invalid-Connection-Package":
+      value:
+      - errorCode: EQ-4800106
+        errorMessage: Connection Package is different
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Mandatory-PrimaryIP":
+      value:
+      - errorCode: EQ-4800011
+        errorMessage: Mandatory field PrimaryIP is missing
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Invalid-PrimaryIP-Format":
+      value:
+      - errorCode: EQ-4800023
+        errorMessage: Invalid PrimaryIP format
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Validate-PrimaryIP":
+      value:
+      - errorCode: EQ-4800107
+        errorMessage: "Invalid PrimaryIP - only range 10.0.0.0 to 10.255.255.255,\
+          \ 172.16.0.0 to 172.31.255.255, 192.168.0.0 to 192.168.255.255 is allowed"
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Mandatory-SecondaryIP":
+      value:
+      - errorCode: EQ-4800011
+        errorMessage: Mandatory field SecondaryIP is missing
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Invalid-SecondaryIP-Format":
+      value:
+      - errorCode: EQ-4800023
+        errorMessage: Invalid SecondaryIP format
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Validate-SecondaryIP":
+      value:
+      - errorCode: EQ-4800107
+        errorMessage: "Invalid SecondaryIP - only range 10.0.0.0 to 10.255.255.255,\
+          \ 172.16.0.0 to 172.31.255.255, 192.168.0.0 to 192.168.255.255 is allowed"
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Validate-SameSubnet":
+      value:
+      - errorCode: EQ-4800108
+        errorMessage: Primary and Secondary IPs should be in the same subnet
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Mandatory-NetworkMask":
+      value:
+      - errorCode: EQ-4800011
+        errorMessage: Mandatory field NetworkMask is missing
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Invalid-NetworkMask-Format":
+      value:
+      - errorCode: EQ-4800023
+        errorMessage: Invalid NetworkMask format
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Validate-NetworkMask":
+      value:
+      - errorCode: EQ-4800109
+        errorMessage: Invalid NetworkMask - Network mask should not exceed the allowed
+          range of protocol and service tier
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Invalid-DefaultGateway-Format":
+      value:
+      - errorCode: EQ-4800023
+        errorMessage: Invalid DefaultGateway
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Validate-DefaultGateway":
+      value:
+      - errorCode: EQ-4800110
+        errorMessage: Invalid DefaultGateway- Default Gateway cannot be same as Primary/Secondary
+          IP
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Invalid-TimeScale":
+      value:
+      - errorCode: EQ-4800010
+        errorMessage: "Invalid TimeScale - Allowed values are ARB, PTP"
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Invalid-Domain":
+      value:
+      - errorCode: EQ-4800010
+        errorMessage: Invalid Domain- Allowed values are from 0 to 127
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Invalid-Priority1":
+      value:
+      - errorCode: EQ-4800010
+        errorMessage: Invalid Priority1 - Allowed values are 0 to 248
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Invalid-Priority2":
+      value:
+      - errorCode: EQ-4800010
+        errorMessage: Invalid Priority2 - Allowed values are 0 to 248
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Invalid-LogAnnounceInterval":
+      value:
+      - errorCode: EQ-4800010
+        errorMessage: Invalid LogAnnounceInterval
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Validate-LogAnnounceInterval-Range":
+      value:
+      - errorCode: EQ-4800111
+        errorMessage: Invalid LogAnnounceInterval range - Allowed range is -3 to 1
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Invalid-LogSyncInterval":
+      value:
+      - errorCode: EQ-4800010
+        errorMessage: Invalid LogSyncInterval
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Validate-LogSyncInterval-Range":
+      value:
+      - errorCode: EQ-4800112
+        errorMessage: Invalid LogSyncInterval range - Allowed range is -5 to 1
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Invalid-LogDelayReqInterval":
+      value:
+      - errorCode: EQ-4800010
+        errorMessage: Invalid logDelayReqInterval
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Validate-LogDelayReqInterval-Range":
+      value:
+      - errorCode: EQ-4800112
+        errorMessage: Invalid logDelayReqInterval range - Allowed range is -5 to 1
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Invalid-TransportMode":
+      value:
+      - errorCode: EQ-4800010
+        errorMessage: "Invalid TransportMode - Allowed values are Multicast, Unicast,\
+          \ Hybrid"
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Invalid-GrantTime":
+      value:
+      - errorCode: EQ-4800010
+        errorMessage: Invalid GrantTime
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Validate-GrantTime-Range":
+      value:
+      - errorCode: EQ-4800113
+        errorMessage: Invalid GrantTime range - Allowed range is 30 to 7200
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Invalid-Type":
+      value:
+      - errorCode: EQ-4800010
+        errorMessage: "Invalid Type - Allowed values are ASCII, HEX"
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Invalid-Id":
+      value:
+      - errorCode: EQ-4800010
+        errorMessage: Invalid Id - Only Integers are allowed
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Invalid-Password":
+      value:
+      - errorCode: EQ-4800010
+        errorMessage: Invalid Password
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    "400-Validate-Password":
+      value:
+      - errorCode: EQ-4800114
+        errorMessage: "Only HEX allowed, chars value length should between 10 - 40"
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    edit:
+      value:
+      - op: replace
+        path: /name
+        value: EPT-Single-Service
+    ntpSingleStandard:
+      value:
+        name: EPT-Single-Service
+        type: NTP
+        connections:
+        - uuid: 06dbb0e3-e55d-4090-8aff-fc5654abaad0
+        package:
+          code: NTP_STANDARD
+        networkingIpv4:
+          primary: 192.168.0.2
+          secondary: 192.168.0.3
+          networkMask: 255.255.255.255
+          defaultGateway: 192.167.0.1
+    ptpSingleStandard:
+      value:
+        name: EPT-Single-Service
+        type: PTP
+        connections:
+        - uuid: 06dbb0e3-e55d-4090-8aff-fc5654abaad0
+        package:
+          code: PTP_STANDARD
+        networkingIpv4:
+          primary: 192.168.0.2
+          secondary: 192.168.0.3
+          networkMask: 255.255.255.255
+          defaultGateway: 192.167.0.1
+    ptpSingleEnterpriseWithAdvanceConfiguration:
+      value:
+        name: EPT-Single-Service
+        type: PTP
+        connections:
+        - uuid: 06dbb0e3-e55d-4090-8aff-fc5654abaad0
+        package:
+          code: PTP_STANDARD
+        networkingIpv4:
+          primary: 192.168.0.2
+          secondary: 192.168.0.3
+          networkMask: 255.255.255.255
+          defaultGateway: 192.167.0.1
+        advanceConfiguration:
+          ptp:
+            tailScale: true
+            domain: 10
+            priority1: 5
+            priority2: 7
+            logAnnounceInterval: 0
+            logSyncInterval: 0
+            logDelayReqInterval: 0
+    serviceConnectionsResponse:
+      value:
+        pagination:
+          offset: 0
+          limit: 20
+          total: 2
+        data:
+        - href: https://api.equinix.com/fabric/v4/connections/92dc376a-a932-43aa-a6a2-c806dedbd784
+          type: EVPL_VC
+          uuid: 92dc376a-a932-43aa-a6a2-c806dedbd784
+        - href: https://api.equinix.com/fabric/v4/connections/42dc376a-a932-43aa-a6a2-d806dedbd783
+          type: EVPL_VC
+          uuid: 42dc376a-a932-43aa-a6a2-d806dedbd783
+    servicePackagesResponse:
+      value:
+        pagination:
+          offset: 0
+          limit: 20
+          total: 4
+        data:
+        - href: https://api.equinix.com/fabric/v4/precisiontime/packages/NTP_STANDARD
+          code: NTP_STANDARD
+          type: TIME_SERVICE_PACKAGE
+          bandwidth: 1
+          bandwidthUnit: Mbps
+          accuracySlaMax: 50
+          accuracyAvgMin: 1
+          accuracyAvgMax: 100
+          accuracyUnit: millisecond
+          clientsPerSecondMax: 2000
+          redundancySupported: true
+          multiSubnetSupported: true
+          changeLog:
+            createdDateTime: 2023-05-16T07:50:49.749Z
+            updatedDateTime: 2023-05-17T07:50:49.749Z
+        - href: https://api.equinix.com/fabric/v4/precisiontime/packages/NTP_ENTERPRISE
+          code: NTP_ENTERPRISE
+          type: TIME_SERVICE_PACKAGE
+          bandwidth: 5
+          bandwidthUnit: Mbps
+          accuracySlaMax: 50
+          accuracyAvgMin: 1
+          accuracyAvgMax: 100
+          accuracyUnit: millisecond
+          clientsPerSecondMax: 1000
+          redundancySupported: true
+          multiSubnetSupported: true
+          changeLog:
+            createdDateTime: 2023-05-16T07:50:49.749Z
+            updatedDateTime: 2023-05-17T07:50:49.749Z
+        - href: https://api.equinix.com/fabric/v4/precisiontime/packages/PTP_STANDARD
+          code: PTP_STANDARD
+          type: TIME_SERVICE_PACKAGE
+          bandwidth: 5
+          bandwidthUnit: Mbps
+          accuracyAvgMin: 1
+          accuracyAvgMax: 10
+          accuracyUnit: millisecond
+          clientsPerSecondMax: 100
+          redundancySupported: true
+          multiSubnetSupported: true
+          changeLog:
+            createdDateTime: 2023-05-16T07:50:49.749Z
+            updatedDateTime: 2023-05-17T07:50:49.749Z
+        - href: https://api.equinix.com/fabric/v4/precisiontimePackages/PTP_ENTERPRISE
+          code: PTP_ENTERPRISE
+          type: TIME_SERVICE_PACKAGE
+          bandwidth: 10
+          bandwidthUnit: Mbps
+          accuracyAvgMin: 1
+          accuracyAvgMax: 10
+          accuracyUnit: millisecond
+          clientsPerSecondMax: 20
+          redundancySupported: true
+          multiSubnetSupported: true
+          changeLog:
+            createdDateTime: 2023-05-16T07:50:49.749Z
+            updatedDateTime: 2023-05-17T07:50:49.749Z
+    servicePackageResponse:
+      value:
+        href: https://api.equinix.com/fabric/v4/precisiontimePackages/NTP_STANDARD
+        code: NTP_STANDARD
+        type: TIME_SERVICE_PACKAGE
+        bandwidth: 10
+        bandwidthUnit: Mbps
+        accuracySlaMax: 50
+        accuracyAvgMin: 1
+        accuracyAvgMax: 10
+        accuracyUnit: millisecond
+        clientsPerSecondMax: 100
+        redundancySupported: true
+        multiSubnetSupported: true
+        changeLog:
+          createdDateTime: 2023-05-16T07:50:49.749Z
+          updatedDateTime: 2023-05-17T07:50:49.749Z
   headers:
     ETag:
       description: response header - identifier for a specific version of a resource.
@@ -15090,7 +16654,7 @@ components:
             type: null
             interface:
               href: https://openapi-generator.tech
-              id: 8
+              id: 6
               type: CLOUD
               uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
             network:
@@ -15152,6 +16716,7 @@ components:
             router:
               bgpIpv4RoutesCount: 0
               equinixAsn: 30000
+              distinctIpv4PrefixesCount: 0
               change:
                 data:
                   op: replace
@@ -15164,6 +16729,7 @@ components:
                 status: COMPLETED
                 updatedDateTime: 2020-11-06T07:00:00Z
               name: test-fg-1
+              distinctIpv6PrefixesCount: 0
               changeLog:
                 createdByEmail: john.smith@example.com
                 deletedByFullName: John Smith
@@ -15432,10 +16998,10 @@ components:
               orgId: 6
             peeringType: null
             linkProtocol:
-              vlanTag: 4078
-              vlanCTag: 2735
+              vlanTag: 2735
+              vlanCTag: 3690
               type: null
-              vlanSTag: 3834
+              vlanSTag: 3585
             sellerRegion: sellerRegion
         name: name
         additionalInfo:
@@ -15445,6 +17011,7 @@ components:
           key: key
         project:
           projectId: 44f4c4f8-2f39-494e-838c-d8e640591be5
+        geoScope: null
         redundancy:
           priority: null
           group: group
@@ -15725,7 +17292,7 @@ components:
             type: null
             interface:
               href: https://openapi-generator.tech
-              id: 8
+              id: 6
               type: CLOUD
               uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
             network:
@@ -15787,6 +17354,7 @@ components:
             router:
               bgpIpv4RoutesCount: 0
               equinixAsn: 30000
+              distinctIpv4PrefixesCount: 0
               change:
                 data:
                   op: replace
@@ -15799,6 +17367,7 @@ components:
                 status: COMPLETED
                 updatedDateTime: 2020-11-06T07:00:00Z
               name: test-fg-1
+              distinctIpv6PrefixesCount: 0
               changeLog:
                 createdByEmail: john.smith@example.com
                 deletedByFullName: John Smith
@@ -16067,10 +17636,10 @@ components:
               orgId: 6
             peeringType: null
             linkProtocol:
-              vlanTag: 4078
-              vlanCTag: 2735
+              vlanTag: 2735
+              vlanCTag: 3690
               type: null
-              vlanSTag: 3834
+              vlanSTag: 3585
             sellerRegion: sellerRegion
       properties:
         type:
@@ -16091,6 +17660,8 @@ components:
           maximum: 50000
           minimum: 0
           type: integer
+        geoScope:
+          $ref: '#/components/schemas/GeoScopeType'
         redundancy:
           $ref: '#/components/schemas/ConnectionRedundancy'
         aSide:
@@ -16363,7 +17934,7 @@ components:
             type: null
             interface:
               href: https://openapi-generator.tech
-              id: 8
+              id: 6
               type: CLOUD
               uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
             network:
@@ -16425,6 +17996,7 @@ components:
             router:
               bgpIpv4RoutesCount: 0
               equinixAsn: 30000
+              distinctIpv4PrefixesCount: 0
               change:
                 data:
                   op: replace
@@ -16437,6 +18009,7 @@ components:
                 status: COMPLETED
                 updatedDateTime: 2020-11-06T07:00:00Z
               name: test-fg-1
+              distinctIpv6PrefixesCount: 0
               changeLog:
                 createdByEmail: john.smith@example.com
                 deletedByFullName: John Smith
@@ -16705,10 +18278,10 @@ components:
               orgId: 6
             peeringType: null
             linkProtocol:
-              vlanTag: 4078
-              vlanCTag: 2735
+              vlanTag: 2735
+              vlanCTag: 3690
               type: null
-              vlanSTag: 3834
+              vlanSTag: 3585
             sellerRegion: sellerRegion
         change:
           data:
@@ -16994,7 +18567,7 @@ components:
             type: null
             interface:
               href: https://openapi-generator.tech
-              id: 8
+              id: 6
               type: CLOUD
               uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
             network:
@@ -17056,6 +18629,7 @@ components:
             router:
               bgpIpv4RoutesCount: 0
               equinixAsn: 30000
+              distinctIpv4PrefixesCount: 0
               change:
                 data:
                   op: replace
@@ -17068,6 +18642,7 @@ components:
                 status: COMPLETED
                 updatedDateTime: 2020-11-06T07:00:00Z
               name: test-fg-1
+              distinctIpv6PrefixesCount: 0
               changeLog:
                 createdByEmail: john.smith@example.com
                 deletedByFullName: John Smith
@@ -17336,10 +18911,10 @@ components:
               orgId: 6
             peeringType: null
             linkProtocol:
-              vlanTag: 4078
-              vlanCTag: 2735
+              vlanTag: 2735
+              vlanCTag: 3690
               type: null
-              vlanSTag: 3834
+              vlanSTag: 3585
             sellerRegion: sellerRegion
         name: name
         additionalInfo:
@@ -17349,6 +18924,7 @@ components:
           key: key
         href: https://openapi-generator.tech
         state: null
+        geoScope: null
         redundancy:
           priority: null
           group: group
@@ -17454,6 +19030,8 @@ components:
           maximum: 10000
           minimum: 0
           type: integer
+        geoScope:
+          $ref: '#/components/schemas/GeoScopeType'
         redundancy:
           $ref: '#/components/schemas/ConnectionRedundancy'
         isRemote:
@@ -17762,7 +19340,7 @@ components:
               type: null
               interface:
                 href: https://openapi-generator.tech
-                id: 8
+                id: 6
                 type: CLOUD
                 uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               network:
@@ -17824,6 +19402,7 @@ components:
               router:
                 bgpIpv4RoutesCount: 0
                 equinixAsn: 30000
+                distinctIpv4PrefixesCount: 0
                 change:
                   data:
                     op: replace
@@ -17836,6 +19415,7 @@ components:
                   status: COMPLETED
                   updatedDateTime: 2020-11-06T07:00:00Z
                 name: test-fg-1
+                distinctIpv6PrefixesCount: 0
                 changeLog:
                   createdByEmail: john.smith@example.com
                   deletedByFullName: John Smith
@@ -18104,10 +19684,10 @@ components:
                 orgId: 6
               peeringType: null
               linkProtocol:
-                vlanTag: 4078
-                vlanCTag: 2735
+                vlanTag: 2735
+                vlanCTag: 3690
                 type: null
-                vlanSTag: 3834
+                vlanSTag: 3585
               sellerRegion: sellerRegion
         description: description
         type: null
@@ -18380,7 +19960,7 @@ components:
               type: null
               interface:
                 href: https://openapi-generator.tech
-                id: 8
+                id: 6
                 type: CLOUD
                 uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               network:
@@ -18442,6 +20022,7 @@ components:
               router:
                 bgpIpv4RoutesCount: 0
                 equinixAsn: 30000
+                distinctIpv4PrefixesCount: 0
                 change:
                   data:
                     op: replace
@@ -18454,6 +20035,7 @@ components:
                   status: COMPLETED
                   updatedDateTime: 2020-11-06T07:00:00Z
                 name: test-fg-1
+                distinctIpv6PrefixesCount: 0
                 changeLog:
                   createdByEmail: john.smith@example.com
                   deletedByFullName: John Smith
@@ -18722,10 +20304,10 @@ components:
                 orgId: 6
               peeringType: null
               linkProtocol:
-                vlanTag: 4078
-                vlanCTag: 2735
+                vlanTag: 2735
+                vlanCTag: 3690
                 type: null
-                vlanSTag: 3834
+                vlanSTag: 3585
               sellerRegion: sellerRegion
         description: description
         changeLog:
@@ -19176,6 +20758,7 @@ components:
       - /name
       - /uuid
       - /type
+      - /geoScope
       - /account/orgId
       - /aSide/accessPoint/account/accountName
       - /aSide/accessPoint/account/accountNumber
@@ -19493,7 +21076,7 @@ components:
               type: null
               interface:
                 href: https://openapi-generator.tech
-                id: 8
+                id: 6
                 type: CLOUD
                 uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               network:
@@ -19555,6 +21138,7 @@ components:
               router:
                 bgpIpv4RoutesCount: 0
                 equinixAsn: 30000
+                distinctIpv4PrefixesCount: 0
                 change:
                   data:
                     op: replace
@@ -19567,6 +21151,7 @@ components:
                   status: COMPLETED
                   updatedDateTime: 2020-11-06T07:00:00Z
                 name: test-fg-1
+                distinctIpv6PrefixesCount: 0
                 changeLog:
                   createdByEmail: john.smith@example.com
                   deletedByFullName: John Smith
@@ -19835,10 +21420,10 @@ components:
                 orgId: 6
               peeringType: null
               linkProtocol:
-                vlanTag: 4078
-                vlanCTag: 2735
+                vlanTag: 2735
+                vlanCTag: 3690
                 type: null
-                vlanSTag: 3834
+                vlanSTag: 3585
               sellerRegion: sellerRegion
           change:
             data:
@@ -20124,7 +21709,7 @@ components:
               type: null
               interface:
                 href: https://openapi-generator.tech
-                id: 8
+                id: 6
                 type: CLOUD
                 uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               network:
@@ -20186,6 +21771,7 @@ components:
               router:
                 bgpIpv4RoutesCount: 0
                 equinixAsn: 30000
+                distinctIpv4PrefixesCount: 0
                 change:
                   data:
                     op: replace
@@ -20198,6 +21784,7 @@ components:
                   status: COMPLETED
                   updatedDateTime: 2020-11-06T07:00:00Z
                 name: test-fg-1
+                distinctIpv6PrefixesCount: 0
                 changeLog:
                   createdByEmail: john.smith@example.com
                   deletedByFullName: John Smith
@@ -20466,10 +22053,10 @@ components:
                 orgId: 6
               peeringType: null
               linkProtocol:
-                vlanTag: 4078
-                vlanCTag: 2735
+                vlanTag: 2735
+                vlanCTag: 3690
                 type: null
-                vlanSTag: 3834
+                vlanSTag: 3585
               sellerRegion: sellerRegion
           name: name
           additionalInfo:
@@ -20479,6 +22066,7 @@ components:
             key: key
           href: https://openapi-generator.tech
           state: null
+          geoScope: null
           redundancy:
             priority: null
             group: group
@@ -20799,7 +22387,7 @@ components:
               type: null
               interface:
                 href: https://openapi-generator.tech
-                id: 8
+                id: 6
                 type: CLOUD
                 uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               network:
@@ -20861,6 +22449,7 @@ components:
               router:
                 bgpIpv4RoutesCount: 0
                 equinixAsn: 30000
+                distinctIpv4PrefixesCount: 0
                 change:
                   data:
                     op: replace
@@ -20873,6 +22462,7 @@ components:
                   status: COMPLETED
                   updatedDateTime: 2020-11-06T07:00:00Z
                 name: test-fg-1
+                distinctIpv6PrefixesCount: 0
                 changeLog:
                   createdByEmail: john.smith@example.com
                   deletedByFullName: John Smith
@@ -21141,10 +22731,10 @@ components:
                 orgId: 6
               peeringType: null
               linkProtocol:
-                vlanTag: 4078
-                vlanCTag: 2735
+                vlanTag: 2735
+                vlanCTag: 3690
                 type: null
-                vlanSTag: 3834
+                vlanSTag: 3585
               sellerRegion: sellerRegion
           change:
             data:
@@ -21430,7 +23020,7 @@ components:
               type: null
               interface:
                 href: https://openapi-generator.tech
-                id: 8
+                id: 6
                 type: CLOUD
                 uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               network:
@@ -21492,6 +23082,7 @@ components:
               router:
                 bgpIpv4RoutesCount: 0
                 equinixAsn: 30000
+                distinctIpv4PrefixesCount: 0
                 change:
                   data:
                     op: replace
@@ -21504,6 +23095,7 @@ components:
                   status: COMPLETED
                   updatedDateTime: 2020-11-06T07:00:00Z
                 name: test-fg-1
+                distinctIpv6PrefixesCount: 0
                 changeLog:
                   createdByEmail: john.smith@example.com
                   deletedByFullName: John Smith
@@ -21772,10 +23364,10 @@ components:
                 orgId: 6
               peeringType: null
               linkProtocol:
-                vlanTag: 4078
-                vlanCTag: 2735
+                vlanTag: 2735
+                vlanCTag: 3690
                 type: null
-                vlanSTag: 3834
+                vlanSTag: 3585
               sellerRegion: sellerRegion
           name: name
           additionalInfo:
@@ -21785,6 +23377,7 @@ components:
             key: key
           href: https://openapi-generator.tech
           state: null
+          geoScope: null
           redundancy:
             priority: null
             group: group
@@ -23161,6 +24754,7 @@ components:
              * `/metros/code` - Service Profile metro code
              * `/visibility` - Service Profile package
              * `/type` - Service Profile package
+             * `/project/projectId` - Service Profile project id
           example: /name
           type: string
         operator:
@@ -23731,6 +25325,9 @@ components:
             longitude: 5.962133916683182
           type: type
           region: region
+          geoScopes:
+          - null
+          - null
           localVCBandwidthMax: 6
         - code: code
           equinixAsn: 0
@@ -23750,6 +25347,9 @@ components:
             longitude: 5.962133916683182
           type: type
           region: region
+          geoScopes:
+          - null
+          - null
           localVCBandwidthMax: 6
       properties:
         pagination:
@@ -23784,6 +25384,9 @@ components:
           longitude: 5.962133916683182
         type: type
         region: region
+        geoScopes:
+        - null
+        - null
         localVCBandwidthMax: 6
       properties:
         href:
@@ -23818,6 +25421,11 @@ components:
         connectedMetros:
           items:
             $ref: '#/components/schemas/ConnectedMetro'
+          type: array
+        geoScopes:
+          description: List of supported geographic boundaries of a Fabric Metro.
+          items:
+            $ref: '#/components/schemas/GeoScopeType'
           type: array
       type: object
     GeoCoordinates:
@@ -23859,6 +25467,12 @@ components:
           format: int64
           type: integer
       type: object
+    GeoScopeType:
+      description: Geographic boundary types
+      enum:
+      - CANADA
+      - CONUS
+      type: string
     MetroErrorList:
       items:
         $ref: '#/components/schemas/MetroError'
@@ -25995,7 +27609,52 @@ components:
             $ref: '#/components/schemas/LinkProtocolResponse'
           type: array
       type: object
+    PortV4SearchRequest:
+      description: Search requests containing criteria
+      example:
+        filter:
+          or:
+          - null
+          - null
+          and:
+          - null
+          - null
+          values:
+          - values
+          - values
+          property: null
+          operator: =
+        pagination:
+          offset: 0
+          limit: 1
+        sort:
+        - property: null
+          direction: null
+        - property: null
+          direction: null
+      properties:
+        filter:
+          $ref: '#/components/schemas/PortExpression'
+        pagination:
+          $ref: '#/components/schemas/PaginationRequest'
+        sort:
+          items:
+            $ref: '#/components/schemas/PortSortCriteria'
+          type: array
+      type: object
     PortExpression:
+      example:
+        or:
+        - null
+        - null
+        and:
+        - null
+        - null
+        values:
+        - values
+        - values
+        property: null
+        operator: =
       properties:
         and:
           items:
@@ -26024,8 +27683,13 @@ components:
       description: Possible field names to use on filters
       enum:
       - /project/projectId
+      - /settings/productCode
+      - /state
       type: string
     PortSortCriteria:
+      example:
+        property: null
+        direction: null
       properties:
         direction:
           $ref: '#/components/schemas/PortSortDirection'
@@ -26115,6 +27779,7 @@ components:
       example:
         bgpIpv4RoutesCount: 0
         equinixAsn: 30000
+        distinctIpv4PrefixesCount: 0
         change:
           data:
             op: replace
@@ -26127,6 +27792,7 @@ components:
           status: COMPLETED
           updatedDateTime: 2020-11-06T07:00:00Z
         name: test-fg-1
+        distinctIpv6PrefixesCount: 0
         changeLog:
           createdByEmail: john.smith@example.com
           deletedByFullName: John Smith
@@ -26181,6 +27847,14 @@ components:
           description: Number of connections associated with this Access point
           minimum: 0
           type: integer
+        distinctIpv4PrefixesCount:
+          description: Number of distinct ipv4 routes
+          minimum: 0
+          type: integer
+        distinctIpv6PrefixesCount:
+          description: Number of distinct ipv6 routes
+          minimum: 0
+          type: integer
         changeLog:
           $ref: '#/components/schemas/Changelog'
         change:
@@ -26203,15 +27877,15 @@ components:
       format: uuid
       type: string
     ActionState:
-      $ref: '#/components/schemas/GatewayActionState'
-    GatewayActionState:
+      $ref: '#/components/schemas/CloudRouterActionState'
+    CloudRouterActionState:
       description: Cloud Router action state
       enum:
       - DONE
       - FAILED
       - PENDING
       type: string
-    GatewayActionResponse:
+    CloudRouterActionResponse:
       description: Cloud Router actions response object
       example:
         description: description
@@ -26233,7 +27907,7 @@ components:
         uuid: 557400f8-d360-11e9-bb65-2a2ae2dbcce4
       properties:
         type:
-          $ref: '#/components/schemas/GatewayActionType'
+          $ref: '#/components/schemas/CloudRouterActionType'
         uuid:
           example: 557400f8-d360-11e9-bb65-2a2ae2dbcce4
           format: uuid
@@ -26242,7 +27916,7 @@ components:
           example: description
           type: string
         state:
-          $ref: '#/components/schemas/GatewayActionState'
+          $ref: '#/components/schemas/CloudRouterActionState'
         changeLog:
           $ref: '#/components/schemas/Changelog'
       required:
@@ -26251,13 +27925,13 @@ components:
       - type
       - uuid
       type: object
-    GatewayActionRequest:
-      description: Gateway action request
+    CloudRouterActionRequest:
+      description: Cloud Router action request
       example:
         type: null
       properties:
         type:
-          $ref: '#/components/schemas/GatewayActionType'
+          $ref: '#/components/schemas/CloudRouterActionType'
       required:
       - type
       type: object
@@ -26450,6 +28124,40 @@ components:
             $ref: '#/components/schemas/RouteTableEntry'
           type: array
       type: object
+    ValidateSubnetRequest:
+      description: Validate subnet for Routing Protocol Configuration
+      example:
+        filter:
+          and:
+          - values:
+            - values
+            - values
+            property: property
+            operator: operator
+          - values:
+            - values
+            - values
+            property: property
+            operator: operator
+      properties:
+        filter:
+          $ref: '#/components/schemas/ValidateSubnetRequest_filter'
+      type: object
+    ValidateSubnetResponse:
+      description: ValidateResponse
+      example:
+        additionalInfo:
+        - value: value
+          key: key
+        - value: value
+          key: key
+      properties:
+        additionalInfo:
+          description: Additional information
+          items:
+            $ref: '#/components/schemas/ConnectionSideAdditionalInfo'
+          type: array
+      type: object
     CloudRouterSearchRequest:
       description: Search requests containing criteria
       example:
@@ -26583,6 +28291,7 @@ components:
         data:
         - bgpIpv4RoutesCount: 0
           equinixAsn: 30000
+          distinctIpv4PrefixesCount: 0
           change:
             data:
               op: replace
@@ -26595,6 +28304,7 @@ components:
             status: COMPLETED
             updatedDateTime: 2020-11-06T07:00:00Z
           name: test-fg-1
+          distinctIpv6PrefixesCount: 0
           changeLog:
             createdByEmail: john.smith@example.com
             deletedByFullName: John Smith
@@ -26615,6 +28325,7 @@ components:
           connectionsCount: 0
         - bgpIpv4RoutesCount: 0
           equinixAsn: 30000
+          distinctIpv4PrefixesCount: 0
           change:
             data:
               op: replace
@@ -26627,6 +28338,7 @@ components:
             status: COMPLETED
             updatedDateTime: 2020-11-06T07:00:00Z
           name: test-fg-1
+          distinctIpv6PrefixesCount: 0
           changeLog:
             createdByEmail: john.smith@example.com
             deletedByFullName: John Smith
@@ -26862,7 +28574,7 @@ components:
             operator: operator
       properties:
         filter:
-          $ref: '#/components/schemas/ValidateConnectionRequest_filter'
+          $ref: '#/components/schemas/ValidateSubnetRequest_filter'
       type: object
     ConnectionResponse:
       description: ValidateResponse
@@ -27123,7 +28835,7 @@ components:
               type: null
               interface:
                 href: https://openapi-generator.tech
-                id: 8
+                id: 6
                 type: CLOUD
                 uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               network:
@@ -27185,6 +28897,7 @@ components:
               router:
                 bgpIpv4RoutesCount: 0
                 equinixAsn: 30000
+                distinctIpv4PrefixesCount: 0
                 change:
                   data:
                     op: replace
@@ -27197,6 +28910,7 @@ components:
                   status: COMPLETED
                   updatedDateTime: 2020-11-06T07:00:00Z
                 name: test-fg-1
+                distinctIpv6PrefixesCount: 0
                 changeLog:
                   createdByEmail: john.smith@example.com
                   deletedByFullName: John Smith
@@ -27465,10 +29179,10 @@ components:
                 orgId: 6
               peeringType: null
               linkProtocol:
-                vlanTag: 4078
-                vlanCTag: 2735
+                vlanTag: 2735
+                vlanCTag: 3690
                 type: null
-                vlanSTag: 3834
+                vlanSTag: 3585
               sellerRegion: sellerRegion
           change:
             data:
@@ -27754,7 +29468,7 @@ components:
               type: null
               interface:
                 href: https://openapi-generator.tech
-                id: 8
+                id: 6
                 type: CLOUD
                 uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               network:
@@ -27816,6 +29530,7 @@ components:
               router:
                 bgpIpv4RoutesCount: 0
                 equinixAsn: 30000
+                distinctIpv4PrefixesCount: 0
                 change:
                   data:
                     op: replace
@@ -27828,6 +29543,7 @@ components:
                   status: COMPLETED
                   updatedDateTime: 2020-11-06T07:00:00Z
                 name: test-fg-1
+                distinctIpv6PrefixesCount: 0
                 changeLog:
                   createdByEmail: john.smith@example.com
                   deletedByFullName: John Smith
@@ -28096,10 +29812,10 @@ components:
                 orgId: 6
               peeringType: null
               linkProtocol:
-                vlanTag: 4078
-                vlanCTag: 2735
+                vlanTag: 2735
+                vlanCTag: 3690
                 type: null
-                vlanSTag: 3834
+                vlanSTag: 3585
               sellerRegion: sellerRegion
           name: name
           additionalInfo:
@@ -28109,6 +29825,7 @@ components:
             key: key
           href: https://openapi-generator.tech
           state: null
+          geoScope: null
           redundancy:
             priority: null
             group: group
@@ -28429,7 +30146,7 @@ components:
               type: null
               interface:
                 href: https://openapi-generator.tech
-                id: 8
+                id: 6
                 type: CLOUD
                 uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               network:
@@ -28491,6 +30208,7 @@ components:
               router:
                 bgpIpv4RoutesCount: 0
                 equinixAsn: 30000
+                distinctIpv4PrefixesCount: 0
                 change:
                   data:
                     op: replace
@@ -28503,6 +30221,7 @@ components:
                   status: COMPLETED
                   updatedDateTime: 2020-11-06T07:00:00Z
                 name: test-fg-1
+                distinctIpv6PrefixesCount: 0
                 changeLog:
                   createdByEmail: john.smith@example.com
                   deletedByFullName: John Smith
@@ -28771,10 +30490,10 @@ components:
                 orgId: 6
               peeringType: null
               linkProtocol:
-                vlanTag: 4078
-                vlanCTag: 2735
+                vlanTag: 2735
+                vlanCTag: 3690
                 type: null
-                vlanSTag: 3834
+                vlanSTag: 3585
               sellerRegion: sellerRegion
           change:
             data:
@@ -29060,7 +30779,7 @@ components:
               type: null
               interface:
                 href: https://openapi-generator.tech
-                id: 8
+                id: 6
                 type: CLOUD
                 uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               network:
@@ -29122,6 +30841,7 @@ components:
               router:
                 bgpIpv4RoutesCount: 0
                 equinixAsn: 30000
+                distinctIpv4PrefixesCount: 0
                 change:
                   data:
                     op: replace
@@ -29134,6 +30854,7 @@ components:
                   status: COMPLETED
                   updatedDateTime: 2020-11-06T07:00:00Z
                 name: test-fg-1
+                distinctIpv6PrefixesCount: 0
                 changeLog:
                   createdByEmail: john.smith@example.com
                   deletedByFullName: John Smith
@@ -29402,10 +31123,10 @@ components:
                 orgId: 6
               peeringType: null
               linkProtocol:
-                vlanTag: 4078
-                vlanCTag: 2735
+                vlanTag: 2735
+                vlanCTag: 3690
                 type: null
-                vlanSTag: 3834
+                vlanSTag: 3585
               sellerRegion: sellerRegion
           name: name
           additionalInfo:
@@ -29415,6 +31136,7 @@ components:
             key: key
           href: https://openapi-generator.tech
           state: null
+          geoScope: null
           redundancy:
             priority: null
             group: group
@@ -30028,7 +31750,7 @@ components:
               type: null
               interface:
                 href: https://openapi-generator.tech
-                id: 8
+                id: 6
                 type: CLOUD
                 uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               network:
@@ -30090,6 +31812,7 @@ components:
               router:
                 bgpIpv4RoutesCount: 0
                 equinixAsn: 30000
+                distinctIpv4PrefixesCount: 0
                 change:
                   data:
                     op: replace
@@ -30102,6 +31825,7 @@ components:
                   status: COMPLETED
                   updatedDateTime: 2020-11-06T07:00:00Z
                 name: test-fg-1
+                distinctIpv6PrefixesCount: 0
                 changeLog:
                   createdByEmail: john.smith@example.com
                   deletedByFullName: John Smith
@@ -30370,10 +32094,10 @@ components:
                 orgId: 6
               peeringType: null
               linkProtocol:
-                vlanTag: 4078
-                vlanCTag: 2735
+                vlanTag: 2735
+                vlanCTag: 3690
                 type: null
-                vlanSTag: 3834
+                vlanSTag: 3585
               sellerRegion: sellerRegion
           change:
             data:
@@ -30659,7 +32383,7 @@ components:
               type: null
               interface:
                 href: https://openapi-generator.tech
-                id: 8
+                id: 6
                 type: CLOUD
                 uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               network:
@@ -30721,6 +32445,7 @@ components:
               router:
                 bgpIpv4RoutesCount: 0
                 equinixAsn: 30000
+                distinctIpv4PrefixesCount: 0
                 change:
                   data:
                     op: replace
@@ -30733,6 +32458,7 @@ components:
                   status: COMPLETED
                   updatedDateTime: 2020-11-06T07:00:00Z
                 name: test-fg-1
+                distinctIpv6PrefixesCount: 0
                 changeLog:
                   createdByEmail: john.smith@example.com
                   deletedByFullName: John Smith
@@ -31001,10 +32727,10 @@ components:
                 orgId: 6
               peeringType: null
               linkProtocol:
-                vlanTag: 4078
-                vlanCTag: 2735
+                vlanTag: 2735
+                vlanCTag: 3690
                 type: null
-                vlanSTag: 3834
+                vlanSTag: 3585
               sellerRegion: sellerRegion
           name: name
           additionalInfo:
@@ -31014,6 +32740,7 @@ components:
             key: key
           href: https://openapi-generator.tech
           state: null
+          geoScope: null
           redundancy:
             priority: null
             group: group
@@ -31334,7 +33061,7 @@ components:
               type: null
               interface:
                 href: https://openapi-generator.tech
-                id: 8
+                id: 6
                 type: CLOUD
                 uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               network:
@@ -31396,6 +33123,7 @@ components:
               router:
                 bgpIpv4RoutesCount: 0
                 equinixAsn: 30000
+                distinctIpv4PrefixesCount: 0
                 change:
                   data:
                     op: replace
@@ -31408,6 +33136,7 @@ components:
                   status: COMPLETED
                   updatedDateTime: 2020-11-06T07:00:00Z
                 name: test-fg-1
+                distinctIpv6PrefixesCount: 0
                 changeLog:
                   createdByEmail: john.smith@example.com
                   deletedByFullName: John Smith
@@ -31676,10 +33405,10 @@ components:
                 orgId: 6
               peeringType: null
               linkProtocol:
-                vlanTag: 4078
-                vlanCTag: 2735
+                vlanTag: 2735
+                vlanCTag: 3690
                 type: null
-                vlanSTag: 3834
+                vlanSTag: 3585
               sellerRegion: sellerRegion
           change:
             data:
@@ -31965,7 +33694,7 @@ components:
               type: null
               interface:
                 href: https://openapi-generator.tech
-                id: 8
+                id: 6
                 type: CLOUD
                 uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               network:
@@ -32027,6 +33756,7 @@ components:
               router:
                 bgpIpv4RoutesCount: 0
                 equinixAsn: 30000
+                distinctIpv4PrefixesCount: 0
                 change:
                   data:
                     op: replace
@@ -32039,6 +33769,7 @@ components:
                   status: COMPLETED
                   updatedDateTime: 2020-11-06T07:00:00Z
                 name: test-fg-1
+                distinctIpv6PrefixesCount: 0
                 changeLog:
                   createdByEmail: john.smith@example.com
                   deletedByFullName: John Smith
@@ -32307,10 +34038,10 @@ components:
                 orgId: 6
               peeringType: null
               linkProtocol:
-                vlanTag: 4078
-                vlanCTag: 2735
+                vlanTag: 2735
+                vlanCTag: 3690
                 type: null
-                vlanSTag: 3834
+                vlanSTag: 3585
               sellerRegion: sellerRegion
           name: name
           additionalInfo:
@@ -32320,6 +34051,7 @@ components:
             key: key
           href: https://openapi-generator.tech
           state: null
+          geoScope: null
           redundancy:
             priority: null
             group: group
@@ -32488,6 +34220,351 @@ components:
           items:
             $ref: '#/components/schemas/NetworkChangeOperation'
           type: array
+      type: object
+    ServiceId:
+      description: Precision Time Service UUID
+      example: 557400f8-d360-11e9-bb65-2a2ae2dbcce4
+      format: uuid
+      type: string
+    precisionTimeServiceCreateResponse:
+      description: EPT service instance
+      example:
+        advanceConfiguration:
+          ntp:
+          - password: password
+            id: id
+            type: ASCII
+          - password: password
+            id: id
+            type: ASCII
+          ptp:
+            timeScale: ARB
+            grantTime: 300
+            logDelayReqInterval: 0
+            domain: 0
+            logSyncInterval: 0
+            priority2: 0
+            transportMode: Multicast
+            priority1: 0
+            logAnnounceInterval: 0
+        package:
+          pagination:
+            next: next
+            total: 0
+            offset: 0
+            previous: previous
+            limit: 0
+          data:
+          - staticIPv6RoutesMax: 0
+            naclRulesMax: 5
+            code: LAB
+            natType: STATIC_NAT
+            description: description
+            crCountMax: 3
+            changeLog:
+              createdDateTime: 2020-11-06T07:00:00Z
+              updatedDateTime: 2020-11-06T07:00:00Z
+            type: ROUTER_PACKAGE
+            totalIPv4RoutesMax: 50
+            haSupported: true
+            staticIPv4RoutesMax: 3
+            vcBandwidthMax: 50
+            naclsMax: 2
+            totalIPv6RoutesMax: 50
+            href: https://api.equinix.com/fabric/v4/routerPackages/LAB
+            vcCountMax: 10
+            routeFilterSupported: true
+          - staticIPv6RoutesMax: 0
+            naclRulesMax: 5
+            code: LAB
+            natType: STATIC_NAT
+            description: description
+            crCountMax: 3
+            changeLog:
+              createdDateTime: 2020-11-06T07:00:00Z
+              updatedDateTime: 2020-11-06T07:00:00Z
+            type: ROUTER_PACKAGE
+            totalIPv4RoutesMax: 50
+            haSupported: true
+            staticIPv4RoutesMax: 3
+            vcBandwidthMax: 50
+            naclsMax: 2
+            totalIPv6RoutesMax: 50
+            href: https://api.equinix.com/fabric/v4/routerPackages/LAB
+            vcCountMax: 10
+            routeFilterSupported: true
+        networkingIpv4:
+          primary: 10.0.0.1
+          secondary: 10.0.0.2
+          networkMask: 255.255.255.240
+          defaultGateway: 10.0.0.3
+        name: name
+        description: description
+        project:
+          projectId: 44f4c4f8-2f39-494e-838c-d8e640591be5
+        href: https://openapi-generator.tech
+        state: PROVISIONED
+        type: NTP
+        uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        connections:
+        - uuid: 095be615-a8ad-4c33-8e9c-c7612fbf6c9f
+        - uuid: 095be615-a8ad-4c33-8e9c-c7612fbf6c9f
+        account:
+          accountNumber: 123456
+      properties:
+        type:
+          enum:
+          - NTP
+          - PTP
+          type: string
+        href:
+          format: uri
+          type: string
+        uuid:
+          description: uuid of the ept service
+          format: uuid
+          type: string
+        name:
+          description: name of the ept service
+          type: string
+        description:
+          type: string
+        state:
+          description: indicate service state
+          enum:
+          - PROVISIONED
+          - PROVISIONING
+          - PROVISIONING_FAILED
+          - CONFIGURING
+          - CANCELLED
+          - DEPROVISIONING_FAILED
+          - PENDING_CONFIGURATION
+          - DEPROVISIONED
+          - CONFIGURING_FAILED
+          - DEPROVISIONING
+          type: string
+        package:
+          $ref: '#/components/schemas/PackageResponse'
+        connections:
+          description: fabric l2 connections used for the ept service
+          items:
+            $ref: '#/components/schemas/fabricConnectionUuid'
+          maxItems: 2
+          minItems: 1
+          type: array
+          uniqueItems: true
+        networkingIpv4:
+          $ref: '#/components/schemas/ipv4'
+        account:
+          $ref: '#/components/schemas/account'
+        advanceConfiguration:
+          $ref: '#/components/schemas/advanceConfiguration'
+        project:
+          $ref: '#/components/schemas/Project'
+      required:
+      - href
+      - networkingIpv4
+      - package
+      - state
+      - type
+      - uuid
+      title: precisionTimeServiceResponse
+      type: object
+    precisionTimeChangeOperation:
+      description: Fabric Precision Timing change operation data
+      properties:
+        op:
+          description: Handy shortcut for operation name
+          enum:
+          - replace
+          - add
+          - remove
+          type: string
+        path:
+          description: path inside document leading to updated parameter
+          enum:
+          - /networkingIpv4
+          - /name
+          - /advanceConfiguration/ntp
+          - /advanceConfiguration/ptp
+          - /package
+          type: string
+        value:
+          description: new value for updated parameter
+          type: object
+      required:
+      - op
+      - path
+      - value
+      type: object
+    precisionTimeServiceRequest:
+      description: EPT service instance
+      properties:
+        type:
+          description: Indicate the entity is EPT service
+          enum:
+          - NTP
+          - PTP
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        package:
+          $ref: '#/components/schemas/packageRequest'
+        connections:
+          items:
+            $ref: '#/components/schemas/fabricConnectionUuid'
+          type: array
+        networkingIpv4:
+          $ref: '#/components/schemas/ipv4'
+        advanceConfiguration:
+          $ref: '#/components/schemas/advanceConfiguration'
+        project:
+          $ref: '#/components/schemas/Project'
+      required:
+      - connections
+      - name
+      - networkingIpv4
+      - package
+      - type
+      title: precisionTimeServiceRequest
+      type: object
+    precisionTimeServiceConnectionsResponse:
+      description: EPT service instance's L2 connections
+      example:
+        pagination:
+          next: next
+          total: 0
+          offset: 0
+          previous: previous
+          limit: 0
+        data:
+        - href: https://api.equinix.com/fabric/v4/timeServices/92dc376a-a932-43aa-a6a2-c806dedbd784/connections
+          type: EVPL_VC
+          uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        - href: https://api.equinix.com/fabric/v4/timeServices/92dc376a-a932-43aa-a6a2-c806dedbd784/connections
+          type: EVPL_VC
+          uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        data:
+          description: Data returned from the API call
+          items:
+            $ref: '#/components/schemas/connectionLink'
+          type: array
+      title: precisionTimeServiceConnectionResponse
+      type: object
+    precisionTimeServicePackagesResponse:
+      description: Precision Packages
+      example:
+        pagination:
+          next: next
+          total: 0
+          offset: 0
+          previous: previous
+          limit: 0
+        data:
+        - pagination:
+            next: next
+            total: 0
+            offset: 0
+            previous: previous
+            limit: 0
+          data:
+          - staticIPv6RoutesMax: 0
+            naclRulesMax: 5
+            code: LAB
+            natType: STATIC_NAT
+            description: description
+            crCountMax: 3
+            changeLog:
+              createdDateTime: 2020-11-06T07:00:00Z
+              updatedDateTime: 2020-11-06T07:00:00Z
+            type: ROUTER_PACKAGE
+            totalIPv4RoutesMax: 50
+            haSupported: true
+            staticIPv4RoutesMax: 3
+            vcBandwidthMax: 50
+            naclsMax: 2
+            totalIPv6RoutesMax: 50
+            href: https://api.equinix.com/fabric/v4/routerPackages/LAB
+            vcCountMax: 10
+            routeFilterSupported: true
+          - staticIPv6RoutesMax: 0
+            naclRulesMax: 5
+            code: LAB
+            natType: STATIC_NAT
+            description: description
+            crCountMax: 3
+            changeLog:
+              createdDateTime: 2020-11-06T07:00:00Z
+              updatedDateTime: 2020-11-06T07:00:00Z
+            type: ROUTER_PACKAGE
+            totalIPv4RoutesMax: 50
+            haSupported: true
+            staticIPv4RoutesMax: 3
+            vcBandwidthMax: 50
+            naclsMax: 2
+            totalIPv6RoutesMax: 50
+            href: https://api.equinix.com/fabric/v4/routerPackages/LAB
+            vcCountMax: 10
+            routeFilterSupported: true
+        - pagination:
+            next: next
+            total: 0
+            offset: 0
+            previous: previous
+            limit: 0
+          data:
+          - staticIPv6RoutesMax: 0
+            naclRulesMax: 5
+            code: LAB
+            natType: STATIC_NAT
+            description: description
+            crCountMax: 3
+            changeLog:
+              createdDateTime: 2020-11-06T07:00:00Z
+              updatedDateTime: 2020-11-06T07:00:00Z
+            type: ROUTER_PACKAGE
+            totalIPv4RoutesMax: 50
+            haSupported: true
+            staticIPv4RoutesMax: 3
+            vcBandwidthMax: 50
+            naclsMax: 2
+            totalIPv6RoutesMax: 50
+            href: https://api.equinix.com/fabric/v4/routerPackages/LAB
+            vcCountMax: 10
+            routeFilterSupported: true
+          - staticIPv6RoutesMax: 0
+            naclRulesMax: 5
+            code: LAB
+            natType: STATIC_NAT
+            description: description
+            crCountMax: 3
+            changeLog:
+              createdDateTime: 2020-11-06T07:00:00Z
+              updatedDateTime: 2020-11-06T07:00:00Z
+            type: ROUTER_PACKAGE
+            totalIPv4RoutesMax: 50
+            haSupported: true
+            staticIPv4RoutesMax: 3
+            vcBandwidthMax: 50
+            naclsMax: 2
+            totalIPv6RoutesMax: 50
+            href: https://api.equinix.com/fabric/v4/routerPackages/LAB
+            vcCountMax: 10
+            routeFilterSupported: true
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        data:
+          description: Data returned from the API call
+          items:
+            $ref: '#/components/schemas/PackageResponse'
+          type: array
+      title: precisionTimeServicePackagesResponse
       type: object
     ConnectionType:
       description: Connection type
@@ -32830,7 +34907,7 @@ components:
           type: null
           interface:
             href: https://openapi-generator.tech
-            id: 8
+            id: 6
             type: CLOUD
             uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           network:
@@ -32892,6 +34969,7 @@ components:
           router:
             bgpIpv4RoutesCount: 0
             equinixAsn: 30000
+            distinctIpv4PrefixesCount: 0
             change:
               data:
                 op: replace
@@ -32904,6 +34982,7 @@ components:
               status: COMPLETED
               updatedDateTime: 2020-11-06T07:00:00Z
             name: test-fg-1
+            distinctIpv6PrefixesCount: 0
             changeLog:
               createdByEmail: john.smith@example.com
               deletedByFullName: John Smith
@@ -33172,10 +35251,10 @@ components:
             orgId: 6
           peeringType: null
           linkProtocol:
-            vlanTag: 4078
-            vlanCTag: 2735
+            vlanTag: 2735
+            vlanCTag: 3690
             type: null
-            vlanSTag: 3834
+            vlanSTag: 3585
           sellerRegion: sellerRegion
       properties:
         serviceToken:
@@ -33787,7 +35866,7 @@ components:
             type: null
             interface:
               href: https://openapi-generator.tech
-              id: 8
+              id: 6
               type: CLOUD
               uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
             network:
@@ -33849,6 +35928,7 @@ components:
             router:
               bgpIpv4RoutesCount: 0
               equinixAsn: 30000
+              distinctIpv4PrefixesCount: 0
               change:
                 data:
                   op: replace
@@ -33861,6 +35941,7 @@ components:
                 status: COMPLETED
                 updatedDateTime: 2020-11-06T07:00:00Z
               name: test-fg-1
+              distinctIpv6PrefixesCount: 0
               changeLog:
                 createdByEmail: john.smith@example.com
                 deletedByFullName: John Smith
@@ -34129,10 +36210,10 @@ components:
               orgId: 6
             peeringType: null
             linkProtocol:
-              vlanTag: 4078
-              vlanCTag: 2735
+              vlanTag: 2735
+              vlanCTag: 3690
               type: null
-              vlanSTag: 3834
+              vlanSTag: 3585
             sellerRegion: sellerRegion
       properties:
         zSide:
@@ -34405,6 +36486,7 @@ components:
       - /zSide/accessPoint/linkProtocol/vlanSTag
       - /zSide/accessPoint/authenticationKey
       - /bandwidth
+      - /geoScope
       - /uuid
       - /changeLog/createdDateTime
       - /changeLog/updatedDateTime
@@ -34544,7 +36626,7 @@ components:
         ipBlock:
           $ref: '#/components/schemas/IpBlockPrice'
         router:
-          $ref: '#/components/schemas/FabricGatewayPrice'
+          $ref: '#/components/schemas/FabricCloudRouterPrice'
         port:
           $ref: '#/components/schemas/VirtualPortPrice'
       type: object
@@ -35289,7 +37371,7 @@ components:
       - path
       - value
       type: object
-    GatewayActionType:
+    CloudRouterActionType:
       description: Cloud Router action type
       enum:
       - BGP_SESSION_STATUS_UPDATE
@@ -35530,6 +37612,129 @@ components:
       - REQUESTED
       - SUBMITTED_FOR_APPROVAL
       type: string
+    fabricConnectionUuid:
+      description: UUID of the Fabric Connection Instance
+      example:
+        uuid: 095be615-a8ad-4c33-8e9c-c7612fbf6c9f
+      properties:
+        uuid:
+          description: uuid of the Fabric L2 connection
+          format: uuid
+          type: string
+        href:
+          description: the href for the L2 connection
+          format: uri
+          type: string
+        type:
+          type: string
+      required:
+      - uuid
+      title: fabricConnectionUuid
+      type: object
+    ipv4:
+      description: EPT service network information
+      example:
+        primary: 10.0.0.1
+        secondary: 10.0.0.2
+        networkMask: 255.255.255.240
+        defaultGateway: 10.0.0.3
+      properties:
+        primary:
+          format: ipv4
+          type: string
+        secondary:
+          format: ipv4
+          type: string
+        networkMask:
+          format: ipv4
+          type: string
+        defaultGateway:
+          format: ipv4
+          type: string
+      title: ipv4
+      type: object
+    account:
+      description: "Account model, includes account number and flag to indicate if\
+        \ this account is reseller"
+      example:
+        accountNumber: 123456
+      properties:
+        accountNumber:
+          type: integer
+        isResellerAccount:
+          type: boolean
+        orgId:
+          type: string
+        globalOrgId:
+          type: string
+      required:
+      - accountNumber
+      type: object
+    advanceConfiguration:
+      description: Advance Configuration for NTP/PTP
+      example:
+        ntp:
+        - password: password
+          id: id
+          type: ASCII
+        - password: password
+          id: id
+          type: ASCII
+        ptp:
+          timeScale: ARB
+          grantTime: 300
+          logDelayReqInterval: 0
+          domain: 0
+          logSyncInterval: 0
+          priority2: 0
+          transportMode: Multicast
+          priority1: 0
+          logAnnounceInterval: 0
+      properties:
+        ntp:
+          items:
+            $ref: '#/components/schemas/md5'
+          type: array
+        ptp:
+          $ref: '#/components/schemas/ptpAdvanceConfiguration'
+      type: object
+    packageRequest:
+      description: EPT Package Request
+      example:
+        code: NTP_STANDARD
+      properties:
+        href:
+          format: uri
+          type: string
+        code:
+          enum:
+          - NTP_STANDARD
+          - NTP_ENTERPRISE
+          - PTP_STANDARD
+          - PTP_ENTERPRISE
+          type: string
+      required:
+      - code
+      title: package
+      type: object
+    connectionLink:
+      example:
+        href: https://api.equinix.com/fabric/v4/timeServices/92dc376a-a932-43aa-a6a2-c806dedbd784/connections
+        type: EVPL_VC
+        uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        href:
+          example: https://api.equinix.com/fabric/v4/timeServices/92dc376a-a932-43aa-a6a2-c806dedbd784/connections
+          format: uri
+          type: string
+        type:
+          enum:
+          - EVPL_VC
+          type: string
+        uuid:
+          format: uuid
+          type: string
+      type: object
     ConnectionPriority:
       description: Connection priority in redundancy group
       enum:
@@ -35688,7 +37893,7 @@ components:
         type: null
         interface:
           href: https://openapi-generator.tech
-          id: 8
+          id: 6
           type: CLOUD
           uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         network:
@@ -35750,6 +37955,7 @@ components:
         router:
           bgpIpv4RoutesCount: 0
           equinixAsn: 30000
+          distinctIpv4PrefixesCount: 0
           change:
             data:
               op: replace
@@ -35762,6 +37968,7 @@ components:
             status: COMPLETED
             updatedDateTime: 2020-11-06T07:00:00Z
           name: test-fg-1
+          distinctIpv6PrefixesCount: 0
           changeLog:
             createdByEmail: john.smith@example.com
             deletedByFullName: John Smith
@@ -36030,10 +38237,10 @@ components:
           orgId: 6
         peeringType: null
         linkProtocol:
-          vlanTag: 4078
-          vlanCTag: 2735
+          vlanTag: 2735
+          vlanCTag: 3690
           type: null
-          vlanSTag: 3834
+          vlanSTag: 3585
         sellerRegion: sellerRegion
       properties:
         type:
@@ -36268,7 +38475,7 @@ components:
         location:
           $ref: '#/components/schemas/PriceLocation'
       type: object
-    FabricGatewayPrice:
+    FabricCloudRouterPrice:
       description: Cloud Router  Product configuration
       example:
         package:
@@ -36284,7 +38491,7 @@ components:
         location:
           $ref: '#/components/schemas/PriceLocation'
         package:
-          $ref: '#/components/schemas/FabricGatewayPackages'
+          $ref: '#/components/schemas/FabricCloudRouterPackages'
       type: object
     VirtualPortPrice:
       description: Preferences and settings for a virtual port connected to an internet
@@ -36531,6 +38738,76 @@ components:
       - /changeLog/createdDateTime
       - /changeLog/updatedDateTime
       type: string
+    ntpAdvanceConfiguration:
+      items:
+        $ref: '#/components/schemas/md5'
+      type: array
+    ptpAdvanceConfiguration:
+      example:
+        timeScale: ARB
+        grantTime: 300
+        logDelayReqInterval: 0
+        domain: 0
+        logSyncInterval: 0
+        priority2: 0
+        transportMode: Multicast
+        priority1: 0
+        logAnnounceInterval: 0
+      properties:
+        timeScale:
+          description: "Time Scale value, ARB denotes Arbitrary and PTP denotes Precision\
+            \ Time Protocol."
+          enum:
+          - ARB
+          - PTP
+          example: ARB
+          type: string
+        domain:
+          example: 0
+          maximum: 127
+          minimum: 0
+          type: integer
+        priority1:
+          example: 0
+          maximum: 248
+          minimum: 0
+          type: integer
+        priority2:
+          example: 0
+          maximum: 248
+          minimum: 0
+          type: integer
+        logAnnounceInterval:
+          description: The mean time interval between Announce messages. A shorter
+            interval makes ptp4l react faster to the changes in the master-slave hierarchy.
+            The interval should be the same in the whole domain. It's specified as
+            a power of two in seconds. The default is 1 (2 seconds).
+          example: 0
+          type: integer
+        logSyncInterval:
+          description: The mean time interval between Sync messages. A shorter interval
+            may improve accuracy of the local clock. It's specified as a power of
+            two in seconds. The default is 0 (1 second).
+          example: 0
+          type: integer
+        logDelayReqInterval:
+          example: 0
+          type: integer
+        transportMode:
+          enum:
+          - Multicast
+          - Unicast
+          - Hybrid
+          type: string
+        grantTime:
+          description: "Unicast Grant Time in seconds. For Multicast and Hybrid transport\
+            \ modes, grant time defaults to 300 seconds. For Unicast mode, grant time\
+            \ can be between 30 to 7200."
+          example: 300
+          maximum: 7200
+          minimum: 30
+          type: integer
+      type: object
     AccessPointType:
       description: Access point type
       enum:
@@ -36872,10 +39149,10 @@ components:
     SimplifiedLinkProtocol:
       description: Connection link protocol Configuration
       example:
-        vlanTag: 4078
-        vlanCTag: 2735
+        vlanTag: 2735
+        vlanCTag: 3690
         type: null
-        vlanSTag: 3834
+        vlanSTag: 3585
       properties:
         type:
           $ref: '#/components/schemas/LinkProtocolType'
@@ -36940,7 +39217,7 @@ components:
       description: Virtual Device Interface Information
       example:
         href: https://openapi-generator.tech
-        id: 8
+        id: 6
         type: CLOUD
         uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
       properties:
@@ -37129,13 +39406,13 @@ components:
         metroCode:
           type: string
       type: object
-    FabricGatewayPackages:
+    FabricCloudRouterPackages:
       description: Cloud Router  package
       example:
         code: null
       properties:
         code:
-          $ref: '#/components/schemas/FabricGatewayCode'
+          $ref: '#/components/schemas/FabricCloudRouterCode'
       type: object
     VirtualPortType:
       description: Port type.
@@ -37226,6 +39503,22 @@ components:
         linkProtocol:
           $ref: '#/components/schemas/LinkProtocol'
       type: object
+    md5:
+      example:
+        password: password
+        id: id
+        type: ASCII
+      properties:
+        type:
+          enum:
+          - ASCII
+          - HEX
+          type: string
+        id:
+          type: string
+        password:
+          type: string
+      type: object
     LinkProtocolType:
       description: Type of Link Protocol
       enum:
@@ -37250,7 +39543,7 @@ components:
       - REGIONAL
       - GLOBAL
       type: string
-    FabricGatewayCode:
+    FabricCloudRouterCode:
       description: Cloud Router code
       enum:
       - LAB
@@ -37407,7 +39700,7 @@ components:
         reason:
           type: string
       type: object
-    ValidateConnectionRequest_filter_and:
+    ValidateSubnetRequest_filter_and:
       example:
         values:
         - values
@@ -37426,7 +39719,7 @@ components:
           items:
             type: string
           type: array
-    ValidateConnectionRequest_filter:
+    ValidateSubnetRequest_filter:
       description: Filters
       example:
         and:
@@ -37443,7 +39736,7 @@ components:
       properties:
         and:
           items:
-            $ref: '#/components/schemas/ValidateConnectionRequest_filter_and'
+            $ref: '#/components/schemas/ValidateSubnetRequest_filter_and'
           type: array
       type: object
     PortOrder_purchaseOrder:

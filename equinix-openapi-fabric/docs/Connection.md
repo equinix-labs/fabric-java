@@ -21,6 +21,7 @@ Connection specification
 |**account** | [**SimplifiedAccount**](SimplifiedAccount.md) |  |  [optional] |
 |**changeLog** | [**Changelog**](Changelog.md) |  |  [optional] |
 |**bandwidth** | **Integer** | Connection bandwidth in Mbps |  |
+|**geoScope** | **GeoScopeType** |  |  [optional] |
 |**redundancy** | [**ConnectionRedundancy**](ConnectionRedundancy.md) |  |  [optional] |
 |**isRemote** | **Boolean** | Connection property derived from access point locations |  [optional] |
 |**direction** | **ConnectionDirection** |  |  [optional] |

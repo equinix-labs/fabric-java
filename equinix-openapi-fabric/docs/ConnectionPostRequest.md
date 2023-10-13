@@ -13,6 +13,7 @@ Create connection post request
 |**order** | [**Order**](Order.md) |  |  [optional] |
 |**notifications** | [**List&lt;SimplifiedNotification&gt;**](SimplifiedNotification.md) | Preferences for notifications on connection configuration or status changes |  [optional] |
 |**bandwidth** | **Integer** | Connection bandwidth in Mbps |  [optional] |
+|**geoScope** | **GeoScopeType** |  |  [optional] |
 |**redundancy** | [**ConnectionRedundancy**](ConnectionRedundancy.md) |  |  [optional] |
 |**aSide** | [**ConnectionSide**](ConnectionSide.md) |  |  [optional] |
 |**zSide** | [**ConnectionSide**](ConnectionSide.md) |  |  [optional] |

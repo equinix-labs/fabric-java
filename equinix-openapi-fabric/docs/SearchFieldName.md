@@ -13,6 +13,8 @@
 
 * `_TYPE` (value: `"/type"`)
 
+* `_GEOSCOPE` (value: `"/geoScope"`)
+
 * `_ACCOUNT_ORGID` (value: `"/account/orgId"`)
 
 * `_ASIDE_ACCESSPOINT_ACCOUNT_ACCOUNTNAME` (value: `"/aSide/accessPoint/account/accountName"`)
