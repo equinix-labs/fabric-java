@@ -106,7 +106,7 @@ public class PrecisionTimeChangeOperation {
    */
   @JsonAdapter(PathEnum.Adapter.class)
   public enum PathEnum {
-    NETWORKINGIPV4("/networkingIpv4"),
+    IPV4("/ipv4"),
     
     NAME("/name"),
     

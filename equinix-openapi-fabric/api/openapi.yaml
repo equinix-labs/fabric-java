@@ -5761,12 +5761,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Internal server error
-      summary: Delete time service
+      summary: Delete Time Service
       tags:
       - Precision Time
       x-accepts: application/json
     get:
-      description: The API provides capability to get prevision timing service's details
+      description: The API provides capability to get precision timing service's details
       operationId: getTimeServicesById
       parameters:
       - description: Service UUID
@@ -5967,7 +5967,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Internal server error
-      summary: Get time service
+      summary: Get Time Service
       tags:
       - Precision Time
       x-accepts: application/json
@@ -6186,7 +6186,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Internal server error
-      summary: Patch time service
+      summary: Patch Time Service
       tags:
       - Precision Time
       x-content-type: application/json-patch+json
@@ -6213,7 +6213,7 @@ paths:
               $ref: '#/components/schemas/precisionTimeServiceRequest'
         required: true
       responses:
-        "200":
+        "202":
           content:
             application/json:
               examples:
@@ -6402,7 +6402,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Internal server error
-      summary: Create time service
+      summary: Create Time Service
       tags:
       - Precision Time
       x-content-type: application/json
@@ -6471,11 +6471,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Internal server error
-      summary: Get Conn Links
+      summary: Get all Connections
       tags:
       - Precision Time
       x-accepts: application/json
-  /fabric/v4/timeServicesPackages:
+  /fabric/v4/timeServicePackages:
     get:
       description: The API provides capability to get timing service's packages
       operationId: getTimeServicesPackages
@@ -6515,7 +6515,7 @@ paths:
       tags:
       - Precision Time
       x-accepts: application/json
-  /fabric/v4/timeServicesPackages/{packageCode}:
+  /fabric/v4/timeServicePackages/{packageCode}:
     get:
       description: The API provides capability to get timing service's package by
         code
@@ -6565,7 +6565,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Internal server error
-      summary: Get package by Code
+      summary: Get Package by Code
       tags:
       - Precision Time
       x-accepts: application/json
@@ -15995,9 +15995,9 @@ components:
         - href: https://api.equinix.com/fabric/v4/connections/a8ba52de-faae-43b5-b0b1-6904d37ee011
           uuid: 06dbb0e3-e55d-4090-8aff-fc5654abaad0
         package:
-          href: https://api.equinix.com/fabric/v4/timeServicesPackages/NTP_STANDARD
+          href: https://api.equinix.com/fabric/v4/timeServicePackages/NTP_STANDARD
           code: NTP_STANDARD
-        networkingIpv4:
+        ipv4:
           primary: 192.168.0.2
           secondary: 192.168.0.3
           networkMask: 255.255.255.255
@@ -16253,7 +16253,7 @@ components:
         - uuid: 06dbb0e3-e55d-4090-8aff-fc5654abaad0
         package:
           code: NTP_STANDARD
-        networkingIpv4:
+        ipv4:
           primary: 192.168.0.2
           secondary: 192.168.0.3
           networkMask: 255.255.255.255
@@ -16266,7 +16266,7 @@ components:
         - uuid: 06dbb0e3-e55d-4090-8aff-fc5654abaad0
         package:
           code: PTP_STANDARD
-        networkingIpv4:
+        ipv4:
           primary: 192.168.0.2
           secondary: 192.168.0.3
           networkMask: 255.255.255.255
@@ -16279,7 +16279,7 @@ components:
         - uuid: 06dbb0e3-e55d-4090-8aff-fc5654abaad0
         package:
           code: PTP_STANDARD
-        networkingIpv4:
+        ipv4:
           primary: 192.168.0.2
           secondary: 192.168.0.3
           networkMask: 255.255.255.255
@@ -16313,44 +16313,30 @@ components:
           limit: 20
           total: 4
         data:
-        - href: https://api.equinix.com/fabric/v4/precisiontime/packages/NTP_STANDARD
+        - href: https://api.equinix.com/fabric/v4/timeServicePackages/NTP_STANDARD
           code: NTP_STANDARD
           type: TIME_SERVICE_PACKAGE
           bandwidth: 1
-          bandwidthUnit: Mbps
-          accuracySlaMax: 50
-          accuracyAvgMin: 1
-          accuracyAvgMax: 100
-          accuracyUnit: millisecond
           clientsPerSecondMax: 2000
           redundancySupported: true
           multiSubnetSupported: true
           changeLog:
             createdDateTime: 2023-05-16T07:50:49.749Z
             updatedDateTime: 2023-05-17T07:50:49.749Z
-        - href: https://api.equinix.com/fabric/v4/precisiontime/packages/NTP_ENTERPRISE
+        - href: https://api.equinix.com/fabric/v4/timeServicePackages/NTP_ENTERPRISE
           code: NTP_ENTERPRISE
           type: TIME_SERVICE_PACKAGE
           bandwidth: 5
-          bandwidthUnit: Mbps
-          accuracySlaMax: 50
-          accuracyAvgMin: 1
-          accuracyAvgMax: 100
-          accuracyUnit: millisecond
           clientsPerSecondMax: 1000
           redundancySupported: true
           multiSubnetSupported: true
           changeLog:
             createdDateTime: 2023-05-16T07:50:49.749Z
             updatedDateTime: 2023-05-17T07:50:49.749Z
-        - href: https://api.equinix.com/fabric/v4/precisiontime/packages/PTP_STANDARD
+        - href: https://api.equinix.com/fabric/v4/timeServicePackages/PTP_STANDARD
           code: PTP_STANDARD
           type: TIME_SERVICE_PACKAGE
           bandwidth: 5
-          bandwidthUnit: Mbps
-          accuracyAvgMin: 1
-          accuracyAvgMax: 10
-          accuracyUnit: millisecond
           clientsPerSecondMax: 100
           redundancySupported: true
           multiSubnetSupported: true
@@ -16361,10 +16347,6 @@ components:
           code: PTP_ENTERPRISE
           type: TIME_SERVICE_PACKAGE
           bandwidth: 10
-          bandwidthUnit: Mbps
-          accuracyAvgMin: 1
-          accuracyAvgMax: 10
-          accuracyUnit: millisecond
           clientsPerSecondMax: 20
           redundancySupported: true
           multiSubnetSupported: true
@@ -16377,11 +16359,6 @@ components:
         code: NTP_STANDARD
         type: TIME_SERVICE_PACKAGE
         bandwidth: 10
-        bandwidthUnit: Mbps
-        accuracySlaMax: 50
-        accuracyAvgMin: 1
-        accuracyAvgMax: 10
-        accuracyUnit: millisecond
         clientsPerSecondMax: 100
         redundancySupported: true
         multiSubnetSupported: true
@@ -34293,7 +34270,7 @@ components:
             href: https://api.equinix.com/fabric/v4/routerPackages/LAB
             vcCountMax: 10
             routeFilterSupported: true
-        networkingIpv4:
+        ipv4:
           primary: 10.0.0.1
           secondary: 10.0.0.2
           networkMask: 255.255.255.240
@@ -34353,7 +34330,7 @@ components:
           minItems: 1
           type: array
           uniqueItems: true
-        networkingIpv4:
+        ipv4:
           $ref: '#/components/schemas/ipv4'
         account:
           $ref: '#/components/schemas/account'
@@ -34363,7 +34340,7 @@ components:
           $ref: '#/components/schemas/Project'
       required:
       - href
-      - networkingIpv4
+      - ipv4
       - package
       - state
       - type
@@ -34383,7 +34360,7 @@ components:
         path:
           description: path inside document leading to updated parameter
           enum:
-          - /networkingIpv4
+          - /ipv4
           - /name
           - /advanceConfiguration/ntp
           - /advanceConfiguration/ptp
@@ -34416,7 +34393,7 @@ components:
           items:
             $ref: '#/components/schemas/fabricConnectionUuid'
           type: array
-        networkingIpv4:
+        ipv4:
           $ref: '#/components/schemas/ipv4'
         advanceConfiguration:
           $ref: '#/components/schemas/advanceConfiguration'
@@ -34424,8 +34401,8 @@ components:
           $ref: '#/components/schemas/Project'
       required:
       - connections
+      - ipv4
       - name
-      - networkingIpv4
       - package
       - type
       title: precisionTimeServiceRequest

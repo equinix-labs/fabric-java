@@ -154,13 +154,13 @@ Class | Method | HTTP request | Description
 *PortsApi* | [**getPorts**](docs/PortsApi.md#getPorts) | **GET** /fabric/v4/ports | Get All Ports
 *PortsApi* | [**getVlans**](docs/PortsApi.md#getVlans) | **GET** /fabric/v4/ports/{portUuid}/linkProtocols | Get Vlans
 *PortsApi* | [**searchPorts**](docs/PortsApi.md#searchPorts) | **POST** /fabric/v4/ports/search | Search ports
-*PrecisionTimeApi* | [**createTimeServices**](docs/PrecisionTimeApi.md#createTimeServices) | **POST** /fabric/v4/timeServices | Create time service
-*PrecisionTimeApi* | [**deleteTimeServiceById**](docs/PrecisionTimeApi.md#deleteTimeServiceById) | **DELETE** /fabric/v4/timeServices/{serviceId} | Delete time service
-*PrecisionTimeApi* | [**getTimeServicesById**](docs/PrecisionTimeApi.md#getTimeServicesById) | **GET** /fabric/v4/timeServices/{serviceId} | Get time service
-*PrecisionTimeApi* | [**getTimeServicesConnectionsByServiceId**](docs/PrecisionTimeApi.md#getTimeServicesConnectionsByServiceId) | **GET** /fabric/v4/timeServices/{serviceId}/connections | Get Conn Links
-*PrecisionTimeApi* | [**getTimeServicesPackageByCode**](docs/PrecisionTimeApi.md#getTimeServicesPackageByCode) | **GET** /fabric/v4/timeServicesPackages/{packageCode} | Get package by Code
-*PrecisionTimeApi* | [**getTimeServicesPackages**](docs/PrecisionTimeApi.md#getTimeServicesPackages) | **GET** /fabric/v4/timeServicesPackages | Get Packages
-*PrecisionTimeApi* | [**updateTimeServicesById**](docs/PrecisionTimeApi.md#updateTimeServicesById) | **PATCH** /fabric/v4/timeServices/{serviceId} | Patch time service
+*PrecisionTimeApi* | [**createTimeServices**](docs/PrecisionTimeApi.md#createTimeServices) | **POST** /fabric/v4/timeServices | Create Time Service
+*PrecisionTimeApi* | [**deleteTimeServiceById**](docs/PrecisionTimeApi.md#deleteTimeServiceById) | **DELETE** /fabric/v4/timeServices/{serviceId} | Delete Time Service
+*PrecisionTimeApi* | [**getTimeServicesById**](docs/PrecisionTimeApi.md#getTimeServicesById) | **GET** /fabric/v4/timeServices/{serviceId} | Get Time Service
+*PrecisionTimeApi* | [**getTimeServicesConnectionsByServiceId**](docs/PrecisionTimeApi.md#getTimeServicesConnectionsByServiceId) | **GET** /fabric/v4/timeServices/{serviceId}/connections | Get all Connections
+*PrecisionTimeApi* | [**getTimeServicesPackageByCode**](docs/PrecisionTimeApi.md#getTimeServicesPackageByCode) | **GET** /fabric/v4/timeServicePackages/{packageCode} | Get Package by Code
+*PrecisionTimeApi* | [**getTimeServicesPackages**](docs/PrecisionTimeApi.md#getTimeServicesPackages) | **GET** /fabric/v4/timeServicePackages | Get Packages
+*PrecisionTimeApi* | [**updateTimeServicesById**](docs/PrecisionTimeApi.md#updateTimeServicesById) | **PATCH** /fabric/v4/timeServices/{serviceId} | Patch Time Service
 *PricesApi* | [**searchPrices**](docs/PricesApi.md#searchPrices) | **POST** /fabric/v4/prices/search | Get Prices
 *RoutingProtocolsApi* | [**createConnectionRoutingProtocol**](docs/RoutingProtocolsApi.md#createConnectionRoutingProtocol) | **POST** /fabric/v4/connections/{connectionId}/routingProtocols | Create Protocol
 *RoutingProtocolsApi* | [**createConnectionRoutingProtocolsInBulk**](docs/RoutingProtocolsApi.md#createConnectionRoutingProtocolsInBulk) | **POST** /fabric/v4/connections/{connectionId}/routingProtocols/bulk | Bulk Create Protocol

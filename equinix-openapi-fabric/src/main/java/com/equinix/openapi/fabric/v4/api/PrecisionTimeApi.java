@@ -89,7 +89,7 @@ public class PrecisionTimeApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -154,7 +154,7 @@ public class PrecisionTimeApi {
     }
 
     /**
-     * Create time service
+     * Create Time Service
      * The API provides capability to create timing service
      * @param precisionTimeServiceRequest  (required)
      * @return PrecisionTimeServiceCreateResponse
@@ -162,7 +162,7 @@ public class PrecisionTimeApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -176,7 +176,7 @@ public class PrecisionTimeApi {
     }
 
     /**
-     * Create time service
+     * Create Time Service
      * The API provides capability to create timing service
      * @param precisionTimeServiceRequest  (required)
      * @return ApiResponse&lt;PrecisionTimeServiceCreateResponse&gt;
@@ -184,7 +184,7 @@ public class PrecisionTimeApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -199,7 +199,7 @@ public class PrecisionTimeApi {
     }
 
     /**
-     * Create time service (asynchronously)
+     * Create Time Service (asynchronously)
      * The API provides capability to create timing service
      * @param precisionTimeServiceRequest  (required)
      * @param _callback The callback to be executed when the API call finishes
@@ -208,7 +208,7 @@ public class PrecisionTimeApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -296,7 +296,7 @@ public class PrecisionTimeApi {
     }
 
     /**
-     * Delete time service
+     * Delete Time Service
      * Delete EPT service by it&#39;s uuid
      * @param serviceId Service UUID (required)
      * @return PrecisionTimeServiceCreateResponse
@@ -317,7 +317,7 @@ public class PrecisionTimeApi {
     }
 
     /**
-     * Delete time service
+     * Delete Time Service
      * Delete EPT service by it&#39;s uuid
      * @param serviceId Service UUID (required)
      * @return ApiResponse&lt;PrecisionTimeServiceCreateResponse&gt;
@@ -339,7 +339,7 @@ public class PrecisionTimeApi {
     }
 
     /**
-     * Delete time service (asynchronously)
+     * Delete Time Service (asynchronously)
      * Delete EPT service by it&#39;s uuid
      * @param serviceId Service UUID (required)
      * @param _callback The callback to be executed when the API call finishes
@@ -436,8 +436,8 @@ public class PrecisionTimeApi {
     }
 
     /**
-     * Get time service
-     * The API provides capability to get prevision timing service&#39;s details
+     * Get Time Service
+     * The API provides capability to get precision timing service&#39;s details
      * @param serviceId Service UUID (required)
      * @return PrecisionTimeServiceCreateResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -458,8 +458,8 @@ public class PrecisionTimeApi {
     }
 
     /**
-     * Get time service
-     * The API provides capability to get prevision timing service&#39;s details
+     * Get Time Service
+     * The API provides capability to get precision timing service&#39;s details
      * @param serviceId Service UUID (required)
      * @return ApiResponse&lt;PrecisionTimeServiceCreateResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -481,8 +481,8 @@ public class PrecisionTimeApi {
     }
 
     /**
-     * Get time service (asynchronously)
-     * The API provides capability to get prevision timing service&#39;s details
+     * Get Time Service (asynchronously)
+     * The API provides capability to get precision timing service&#39;s details
      * @param serviceId Service UUID (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
@@ -578,7 +578,7 @@ public class PrecisionTimeApi {
     }
 
     /**
-     * Get Conn Links
+     * Get all Connections
      * The API provides capability to get prevision timing service&#39;s details
      * @param serviceId Service UUID (required)
      * @return PrecisionTimeServiceConnectionsResponse
@@ -599,7 +599,7 @@ public class PrecisionTimeApi {
     }
 
     /**
-     * Get Conn Links
+     * Get all Connections
      * The API provides capability to get prevision timing service&#39;s details
      * @param serviceId Service UUID (required)
      * @return ApiResponse&lt;PrecisionTimeServiceConnectionsResponse&gt;
@@ -621,7 +621,7 @@ public class PrecisionTimeApi {
     }
 
     /**
-     * Get Conn Links (asynchronously)
+     * Get all Connections (asynchronously)
      * The API provides capability to get prevision timing service&#39;s details
      * @param serviceId Service UUID (required)
      * @param _callback The callback to be executed when the API call finishes
@@ -675,7 +675,7 @@ public class PrecisionTimeApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/fabric/v4/timeServicesPackages/{packageCode}"
+        String localVarPath = "/fabric/v4/timeServicePackages/{packageCode}"
             .replace("{" + "packageCode" + "}", localVarApiClient.escapeString(packageCode.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -715,7 +715,7 @@ public class PrecisionTimeApi {
     }
 
     /**
-     * Get package by Code
+     * Get Package by Code
      * The API provides capability to get timing service&#39;s package by code
      * @param packageCode Package Code (required)
      * @return PackageResponse
@@ -734,7 +734,7 @@ public class PrecisionTimeApi {
     }
 
     /**
-     * Get package by Code
+     * Get Package by Code
      * The API provides capability to get timing service&#39;s package by code
      * @param packageCode Package Code (required)
      * @return ApiResponse&lt;PackageResponse&gt;
@@ -754,7 +754,7 @@ public class PrecisionTimeApi {
     }
 
     /**
-     * Get package by Code (asynchronously)
+     * Get Package by Code (asynchronously)
      * The API provides capability to get timing service&#39;s package by code
      * @param packageCode Package Code (required)
      * @param _callback The callback to be executed when the API call finishes
@@ -805,7 +805,7 @@ public class PrecisionTimeApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/fabric/v4/timeServicesPackages";
+        String localVarPath = "/fabric/v4/timeServicePackages";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -977,7 +977,7 @@ public class PrecisionTimeApi {
     }
 
     /**
-     * Patch time service
+     * Patch Time Service
      * The API provides capability to update timing service
      * @param serviceId Service UUID (required)
      * @param precisionTimeChangeOperation  (required)
@@ -1000,7 +1000,7 @@ public class PrecisionTimeApi {
     }
 
     /**
-     * Patch time service
+     * Patch Time Service
      * The API provides capability to update timing service
      * @param serviceId Service UUID (required)
      * @param precisionTimeChangeOperation  (required)
@@ -1024,7 +1024,7 @@ public class PrecisionTimeApi {
     }
 
     /**
-     * Patch time service (asynchronously)
+     * Patch Time Service (asynchronously)
      * The API provides capability to update timing service
      * @param serviceId Service UUID (required)
      * @param precisionTimeChangeOperation  (required)
