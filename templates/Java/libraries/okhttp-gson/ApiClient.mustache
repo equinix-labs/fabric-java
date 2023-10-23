@@ -246,8 +246,9 @@ public class ApiClient {
 
     private void initHttpClient(List<Interceptor> interceptors) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.connectTimeout(60, TimeUnit.SECONDS);
-        builder.readTimeout(60, TimeUnit.SECONDS);
+        builder.readTimeout(0, TimeUnit.SECONDS);
+        builder.writeTimeout(0, TimeUnit.SECONDS);
+        builder.callTimeout(60, TimeUnit.SECONDS);
         builder.addNetworkInterceptor(getProgressInterceptor());
         for (Interceptor interceptor: interceptors) {
             builder.addInterceptor(interceptor);
