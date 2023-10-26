@@ -28,7 +28,7 @@ Fabric Precision Timing change operation data
 
 | Name | Value |
 |---- | -----|
-| NETWORKINGIPV4 | &quot;/networkingIpv4&quot; |
+| IPV4 | &quot;/ipv4&quot; |
 | NAME | &quot;/name&quot; |
 | ADVANCECONFIGURATION_NTP | &quot;/advanceConfiguration/ntp&quot; |
 | ADVANCECONFIGURATION_PTP | &quot;/advanceConfiguration/ptp&quot; |

@@ -57,6 +57,7 @@ pull:
 docker_generate:
 	${DOCKER_OPENAPI} generate \
 		-i /local/${SPEC_PATCHED_FILE} \
+		-t /local/templates/Java \
 		-g java \
 		-c /local/${OPENAPI_CONFIG} \
 		-o /local/${OPENAPI_GENERATED_CLIENT} \

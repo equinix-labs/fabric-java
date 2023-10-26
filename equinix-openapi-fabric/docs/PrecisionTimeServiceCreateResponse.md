@@ -16,7 +16,7 @@ EPT service instance
 |**state** | [**StateEnum**](#StateEnum) | indicate service state |  |
 |**_package** | [**PackageResponse**](PackageResponse.md) |  |  |
 |**connections** | [**Set&lt;FabricConnectionUuid&gt;**](FabricConnectionUuid.md) | fabric l2 connections used for the ept service |  [optional] |
-|**networkingIpv4** | [**Ipv4**](Ipv4.md) |  |  |
+|**ipv4** | [**Ipv4**](Ipv4.md) |  |  |
 |**account** | [**Account**](Account.md) |  |  [optional] |
 |**advanceConfiguration** | [**AdvanceConfiguration**](AdvanceConfiguration.md) |  |  [optional] |
 |**project** | [**Project**](Project.md) |  |  [optional] |

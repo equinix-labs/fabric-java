@@ -13,7 +13,7 @@ EPT service instance
 |**description** | **String** |  |  [optional] |
 |**_package** | [**PackageRequest**](PackageRequest.md) |  |  |
 |**connections** | [**List&lt;FabricConnectionUuid&gt;**](FabricConnectionUuid.md) |  |  |
-|**networkingIpv4** | [**Ipv4**](Ipv4.md) |  |  |
+|**ipv4** | [**Ipv4**](Ipv4.md) |  |  |
 |**advanceConfiguration** | [**AdvanceConfiguration**](AdvanceConfiguration.md) |  |  [optional] |
 |**project** | [**Project**](Project.md) |  |  [optional] |
 

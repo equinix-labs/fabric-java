@@ -85,11 +85,11 @@ public class PrecisionTimeServiceRequestTest {
     }
 
     /**
-     * Test the property 'networkingIpv4'
+     * Test the property 'ipv4'
      */
     @Test
-    public void networkingIpv4Test() {
-        // TODO: test networkingIpv4
+    public void ipv4Test() {
+        // TODO: test ipv4
     }
 
     /**

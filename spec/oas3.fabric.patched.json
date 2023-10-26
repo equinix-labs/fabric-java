@@ -7752,8 +7752,8 @@
         "tags": [
           "Precision Time"
         ],
-        "summary": "Get time service",
-        "description": "The API provides capability to get prevision timing service's details",
+        "summary": "Get Time Service",
+        "description": "The API provides capability to get precision timing service's details",
         "operationId": "getTimeServicesById",
         "parameters": [
           {
@@ -7992,7 +7992,7 @@
         "tags": [
           "Precision Time"
         ],
-        "summary": "Delete time service",
+        "summary": "Delete Time Service",
         "description": "Delete EPT service by it's uuid",
         "operationId": "deleteTimeServiceById",
         "parameters": [
@@ -8088,7 +8088,7 @@
         "tags": [
           "Precision Time"
         ],
-        "summary": "Patch time service",
+        "summary": "Patch Time Service",
         "description": "The API provides capability to update timing service",
         "operationId": "updateTimeServicesById",
         "parameters": [
@@ -8349,7 +8349,7 @@
         "tags": [
           "Precision Time"
         ],
-        "summary": "Create time service",
+        "summary": "Create Time Service",
         "description": "The API provides capability to create timing service",
         "operationId": "createTimeServices",
         "parameters": [],
@@ -8375,7 +8375,7 @@
           "required": true
         },
         "responses": {
-          "200": {
+          "202": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -8602,7 +8602,7 @@
         "tags": [
           "Precision Time"
         ],
-        "summary": "Get Conn Links",
+        "summary": "Get all Connections",
         "description": "The API provides capability to get prevision timing service's details",
         "operationId": "getTimeServicesConnectionsByServiceId",
         "parameters": [
@@ -8695,7 +8695,7 @@
         }
       }
     },
-    "/fabric/v4/timeServicesPackages": {
+    "/fabric/v4/timeServicePackages": {
       "get": {
         "tags": [
           "Precision Time"
@@ -8753,12 +8753,12 @@
         }
       }
     },
-    "/fabric/v4/timeServicesPackages/{packageCode}": {
+    "/fabric/v4/timeServicePackages/{packageCode}": {
       "get": {
         "tags": [
           "Precision Time"
         ],
-        "summary": "Get package by Code",
+        "summary": "Get Package by Code",
         "description": "The API provides capability to get timing service's package by code",
         "operationId": "getTimeServicesPackageByCode",
         "parameters": [
@@ -12362,7 +12362,7 @@
         "title": "precisionTimeServiceResponse",
         "required": [
           "href",
-          "networkingIpv4",
+          "ipv4",
           "package",
           "state",
           "type",
@@ -12422,7 +12422,7 @@
               "$ref": "#/components/schemas/fabricConnectionUuid"
             }
           },
-          "networkingIpv4": {
+          "ipv4": {
             "$ref": "#/components/schemas/ipv4"
           },
           "account": {
@@ -12458,7 +12458,7 @@
             "type": "string",
             "description": "path inside document leading to updated parameter",
             "enum": [
-              "/networkingIpv4",
+              "/ipv4",
               "/name",
               "/advanceConfiguration/ntp",
               "/advanceConfiguration/ptp",
@@ -12477,7 +12477,7 @@
         "required": [
           "connections",
           "name",
-          "networkingIpv4",
+          "ipv4",
           "package",
           "type"
         ],
@@ -12506,7 +12506,7 @@
               "$ref": "#/components/schemas/fabricConnectionUuid"
             }
           },
-          "networkingIpv4": {
+          "ipv4": {
             "$ref": "#/components/schemas/ipv4"
           },
           "advanceConfiguration": {
@@ -30508,10 +30508,10 @@
             }
           ],
           "package": {
-            "href": "https://api.equinix.com/fabric/v4/timeServicesPackages/NTP_STANDARD",
+            "href": "https://api.equinix.com/fabric/v4/timeServicePackages/NTP_STANDARD",
             "code": "NTP_STANDARD"
           },
-          "networkingIpv4": {
+          "ipv4": {
             "primary": "192.168.0.2",
             "secondary": "192.168.0.3",
             "networkMask": "255.255.255.255",
@@ -30957,7 +30957,7 @@
           "package": {
             "code": "NTP_STANDARD"
           },
-          "networkingIpv4": {
+          "ipv4": {
             "primary": "192.168.0.2",
             "secondary": "192.168.0.3",
             "networkMask": "255.255.255.255",
@@ -30977,7 +30977,7 @@
           "package": {
             "code": "PTP_STANDARD"
           },
-          "networkingIpv4": {
+          "ipv4": {
             "primary": "192.168.0.2",
             "secondary": "192.168.0.3",
             "networkMask": "255.255.255.255",
@@ -30997,7 +30997,7 @@
           "package": {
             "code": "PTP_STANDARD"
           },
-          "networkingIpv4": {
+          "ipv4": {
             "primary": "192.168.0.2",
             "secondary": "192.168.0.3",
             "networkMask": "255.255.255.255",
@@ -31046,15 +31046,10 @@
           },
           "data": [
             {
-              "href": "https://api.equinix.com/fabric/v4/precisiontime/packages/NTP_STANDARD",
+              "href": "https://api.equinix.com/fabric/v4/timeServicePackages/NTP_STANDARD",
               "code": "NTP_STANDARD",
               "type": "TIME_SERVICE_PACKAGE",
               "bandwidth": 1,
-              "bandwidthUnit": "Mbps",
-              "accuracySlaMax": 50,
-              "accuracyAvgMin": 1,
-              "accuracyAvgMax": 100,
-              "accuracyUnit": "millisecond",
               "clientsPerSecondMax": 2000,
               "redundancySupported": true,
               "multiSubnetSupported": true,
@@ -31064,15 +31059,10 @@
               }
             },
             {
-              "href": "https://api.equinix.com/fabric/v4/precisiontime/packages/NTP_ENTERPRISE",
+              "href": "https://api.equinix.com/fabric/v4/timeServicePackages/NTP_ENTERPRISE",
               "code": "NTP_ENTERPRISE",
               "type": "TIME_SERVICE_PACKAGE",
               "bandwidth": 5,
-              "bandwidthUnit": "Mbps",
-              "accuracySlaMax": 50,
-              "accuracyAvgMin": 1,
-              "accuracyAvgMax": 100,
-              "accuracyUnit": "millisecond",
               "clientsPerSecondMax": 1000,
               "redundancySupported": true,
               "multiSubnetSupported": true,
@@ -31082,14 +31072,10 @@
               }
             },
             {
-              "href": "https://api.equinix.com/fabric/v4/precisiontime/packages/PTP_STANDARD",
+              "href": "https://api.equinix.com/fabric/v4/timeServicePackages/PTP_STANDARD",
               "code": "PTP_STANDARD",
               "type": "TIME_SERVICE_PACKAGE",
               "bandwidth": 5,
-              "bandwidthUnit": "Mbps",
-              "accuracyAvgMin": 1,
-              "accuracyAvgMax": 10,
-              "accuracyUnit": "millisecond",
               "clientsPerSecondMax": 100,
               "redundancySupported": true,
               "multiSubnetSupported": true,
@@ -31103,10 +31089,6 @@
               "code": "PTP_ENTERPRISE",
               "type": "TIME_SERVICE_PACKAGE",
               "bandwidth": 10,
-              "bandwidthUnit": "Mbps",
-              "accuracyAvgMin": 1,
-              "accuracyAvgMax": 10,
-              "accuracyUnit": "millisecond",
               "clientsPerSecondMax": 20,
               "redundancySupported": true,
               "multiSubnetSupported": true,
@@ -31124,11 +31106,6 @@
           "code": "NTP_STANDARD",
           "type": "TIME_SERVICE_PACKAGE",
           "bandwidth": 10,
-          "bandwidthUnit": "Mbps",
-          "accuracySlaMax": 50,
-          "accuracyAvgMin": 1,
-          "accuracyAvgMax": 10,
-          "accuracyUnit": "millisecond",
           "clientsPerSecondMax": 100,
           "redundancySupported": true,
           "multiSubnetSupported": true,

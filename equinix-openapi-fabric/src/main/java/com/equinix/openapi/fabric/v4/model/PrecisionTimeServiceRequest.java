@@ -122,9 +122,9 @@ public class PrecisionTimeServiceRequest {
   @SerializedName(SERIALIZED_NAME_CONNECTIONS)
   private List<FabricConnectionUuid> connections = new ArrayList<>();
 
-  public static final String SERIALIZED_NAME_NETWORKING_IPV4 = "networkingIpv4";
-  @SerializedName(SERIALIZED_NAME_NETWORKING_IPV4)
-  private Ipv4 networkingIpv4;
+  public static final String SERIALIZED_NAME_IPV4 = "ipv4";
+  @SerializedName(SERIALIZED_NAME_IPV4)
+  private Ipv4 ipv4;
 
   public static final String SERIALIZED_NAME_ADVANCE_CONFIGURATION = "advanceConfiguration";
   @SerializedName(SERIALIZED_NAME_ADVANCE_CONFIGURATION)
@@ -252,25 +252,25 @@ public class PrecisionTimeServiceRequest {
   }
 
 
-  public PrecisionTimeServiceRequest networkingIpv4(Ipv4 networkingIpv4) {
+  public PrecisionTimeServiceRequest ipv4(Ipv4 ipv4) {
     
-    this.networkingIpv4 = networkingIpv4;
+    this.ipv4 = ipv4;
     return this;
   }
 
    /**
-   * Get networkingIpv4
-   * @return networkingIpv4
+   * Get ipv4
+   * @return ipv4
   **/
   @javax.annotation.Nonnull
 
-  public Ipv4 getNetworkingIpv4() {
-    return networkingIpv4;
+  public Ipv4 getIpv4() {
+    return ipv4;
   }
 
 
-  public void setNetworkingIpv4(Ipv4 networkingIpv4) {
-    this.networkingIpv4 = networkingIpv4;
+  public void setIpv4(Ipv4 ipv4) {
+    this.ipv4 = ipv4;
   }
 
 
@@ -377,7 +377,7 @@ public class PrecisionTimeServiceRequest {
         Objects.equals(this.description, precisionTimeServiceRequest.description) &&
         Objects.equals(this._package, precisionTimeServiceRequest._package) &&
         Objects.equals(this.connections, precisionTimeServiceRequest.connections) &&
-        Objects.equals(this.networkingIpv4, precisionTimeServiceRequest.networkingIpv4) &&
+        Objects.equals(this.ipv4, precisionTimeServiceRequest.ipv4) &&
         Objects.equals(this.advanceConfiguration, precisionTimeServiceRequest.advanceConfiguration) &&
         Objects.equals(this.project, precisionTimeServiceRequest.project)&&
         Objects.equals(this.additionalProperties, precisionTimeServiceRequest.additionalProperties);
@@ -385,7 +385,7 @@ public class PrecisionTimeServiceRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, name, description, _package, connections, networkingIpv4, advanceConfiguration, project, additionalProperties);
+    return Objects.hash(type, name, description, _package, connections, ipv4, advanceConfiguration, project, additionalProperties);
   }
 
   @Override
@@ -397,7 +397,7 @@ public class PrecisionTimeServiceRequest {
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    _package: ").append(toIndentedString(_package)).append("\n");
     sb.append("    connections: ").append(toIndentedString(connections)).append("\n");
-    sb.append("    networkingIpv4: ").append(toIndentedString(networkingIpv4)).append("\n");
+    sb.append("    ipv4: ").append(toIndentedString(ipv4)).append("\n");
     sb.append("    advanceConfiguration: ").append(toIndentedString(advanceConfiguration)).append("\n");
     sb.append("    project: ").append(toIndentedString(project)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
@@ -428,7 +428,7 @@ public class PrecisionTimeServiceRequest {
     openapiFields.add("description");
     openapiFields.add("package");
     openapiFields.add("connections");
-    openapiFields.add("networkingIpv4");
+    openapiFields.add("ipv4");
     openapiFields.add("advanceConfiguration");
     openapiFields.add("project");
 
@@ -438,7 +438,7 @@ public class PrecisionTimeServiceRequest {
     openapiRequiredFields.add("name");
     openapiRequiredFields.add("package");
     openapiRequiredFields.add("connections");
-    openapiRequiredFields.add("networkingIpv4");
+    openapiRequiredFields.add("ipv4");
   }
 
  /**
@@ -481,8 +481,8 @@ public class PrecisionTimeServiceRequest {
       for (int i = 0; i < jsonArrayconnections.size(); i++) {
         FabricConnectionUuid.validateJsonObject(jsonArrayconnections.get(i).getAsJsonObject());
       };
-      // validate the required field `networkingIpv4`
-      Ipv4.validateJsonObject(jsonObj.getAsJsonObject("networkingIpv4"));
+      // validate the required field `ipv4`
+      Ipv4.validateJsonObject(jsonObj.getAsJsonObject("ipv4"));
       // validate the optional field `advanceConfiguration`
       if (jsonObj.get("advanceConfiguration") != null && !jsonObj.get("advanceConfiguration").isJsonNull()) {
         AdvanceConfiguration.validateJsonObject(jsonObj.getAsJsonObject("advanceConfiguration"));

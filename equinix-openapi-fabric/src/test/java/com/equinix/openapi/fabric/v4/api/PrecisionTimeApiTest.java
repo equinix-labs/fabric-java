@@ -39,7 +39,7 @@ public class PrecisionTimeApiTest {
     private final PrecisionTimeApi api = new PrecisionTimeApi();
 
     /**
-     * Create time service
+     * Create Time Service
      *
      * The API provides capability to create timing service
      *
@@ -53,7 +53,7 @@ public class PrecisionTimeApiTest {
     }
 
     /**
-     * Delete time service
+     * Delete Time Service
      *
      * Delete EPT service by it&#39;s uuid
      *
@@ -67,9 +67,9 @@ public class PrecisionTimeApiTest {
     }
 
     /**
-     * Get time service
+     * Get Time Service
      *
-     * The API provides capability to get prevision timing service&#39;s details
+     * The API provides capability to get precision timing service&#39;s details
      *
      * @throws ApiException if the Api call fails
      */
@@ -81,7 +81,7 @@ public class PrecisionTimeApiTest {
     }
 
     /**
-     * Get Conn Links
+     * Get all Connections
      *
      * The API provides capability to get prevision timing service&#39;s details
      *
@@ -95,7 +95,7 @@ public class PrecisionTimeApiTest {
     }
 
     /**
-     * Get package by Code
+     * Get Package by Code
      *
      * The API provides capability to get timing service&#39;s package by code
      *
@@ -122,7 +122,7 @@ public class PrecisionTimeApiTest {
     }
 
     /**
-     * Patch time service
+     * Patch Time Service
      *
      * The API provides capability to update timing service
      *
