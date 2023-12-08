@@ -13,7 +13,7 @@
       "name": "Equinix Inc",
       "url": "https://developer.equinix.com/agreement"
     },
-    "version": "4.10"
+    "version": "4.11"
   },
   "externalDocs": {
     "description": "Find more information on Equinix Developer Portal",
@@ -125,9 +125,6 @@
                 "Colo2Sp-Aws-Primary": {
                   "$ref": "#/components/examples/COLO2AWSSPwithDot1q-Primary"
                 },
-                "Colo2Sp-Aws-Secondary": {
-                  "$ref": "#/components/examples/COLO2AWSSPwithDot1q-Secondary"
-                },
                 "Colo2Sp-AzureDot1Q": {
                   "$ref": "#/components/examples/COLO2AzureSPwithDot1q-Primary"
                 },
@@ -220,6 +217,9 @@
                 },
                 "AsideServiceToken2ZsideServiceToken": {
                   "$ref": "#/components/examples/AsideServiceToken2ZsideServiceToken"
+                },
+                "Metal2Sp-Aws": {
+                  "$ref": "#/components/examples/Metal2Sp-Aws"
                 }
               }
             }
@@ -267,6 +267,9 @@
                   },
                   "ServiceToken2PortResponseQinQ": {
                     "$ref": "#/components/examples/AsideServiceToken2PortResponseWithQinq"
+                  },
+                  "Metal2Sp-Aws": {
+                    "$ref": "#/components/examples/Metal2Sp-Aws-Response"
                   }
                 }
               }
@@ -4135,6 +4138,124 @@
         }
       }
     },
+    "/fabric/v4/serviceProfiles/{serviceProfileId}/metros": {
+      "get": {
+        "tags": [
+          "Service Profiles"
+        ],
+        "summary": "Get Profile Metros",
+        "description": "Get service profile metros by UUID.",
+        "operationId": "getServiceProfileMetrosByUuid",
+        "parameters": [
+          {
+            "name": "serviceProfileId",
+            "in": "path",
+            "description": "Service Profile UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ServiceProfileId"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "offset",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "example": 1
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "number of records to fetch",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "example": 10
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceMetros"
+                },
+                "examples": {
+                  "ServiceProfileMetros": {
+                    "$ref": "#/components/examples/ServiceProfilesResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/sp-400"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/sp-401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/sp-403-read"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/sp-500"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/fabric/v4/serviceTokens/{serviceTokenId}": {
       "get": {
         "tags": [
@@ -5459,6 +5580,2769 @@
         }
       }
     },
+    "/fabric/v4/connections/{connectionId}/routeFilters": {
+      "get": {
+        "tags": [
+          "Route Filters"
+        ],
+        "summary": "Get All RouteFilters",
+        "description": "This API provides capability to view all Route Filters attached to a Connection",
+        "operationId": "getConnectionRouteFilters",
+        "parameters": [
+          {
+            "name": "connectionId",
+            "in": "path",
+            "description": "Connection Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ConnectionId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAllConnectionRouteFiltersResponse"
+                },
+                "examples": {
+                  "connectionRouteFiltersResponse": {
+                    "$ref": "#/components/examples/ConnectionRouteFiltersGetAll"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/400_route_filters"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Route Filter ID Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/404_invalid_id"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500_internal_error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fabric/v4/connections/{connectionId}/routeFilters/{routeFilterId}": {
+      "get": {
+        "tags": [
+          "Route Filters"
+        ],
+        "summary": "Get Route Filter",
+        "description": "This API provides capability to view a specific Route Filter attached to a Connection",
+        "operationId": "getConnectionRouteFilterByUuid",
+        "parameters": [
+          {
+            "name": "routeFilterId",
+            "in": "path",
+            "description": "Route Filters Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouteFilterId"
+            }
+          },
+          {
+            "name": "connectionId",
+            "in": "path",
+            "description": "Connection Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ConnectionId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConnectionRouteFilterData"
+                },
+                "examples": {
+                  "connectionRouteFilterAttachResponse": {
+                    "$ref": "#/components/examples/AttachConnectionRouteFiltersResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/400_route_filters"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Route Filter ID Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/404_invalid_id"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500_internal_error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Route Filters"
+        ],
+        "summary": "Attach Route Filter",
+        "description": "This API provides capability to attach a Route Filter to a Connection",
+        "operationId": "attachConnectionRouteFilter",
+        "parameters": [
+          {
+            "name": "routeFilterId",
+            "in": "path",
+            "description": "Route Filters Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouteFilterId"
+            }
+          },
+          {
+            "name": "connectionId",
+            "in": "path",
+            "description": "Connection Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ConnectionId"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConnectionRouteFiltersBase"
+              },
+              "examples": {
+                "ConnectionRouteFilterAttachInboundExample": {
+                  "$ref": "#/components/examples/AttachConnectionRouteFilterInbound"
+                },
+                "ConnectionRouteFilterAttachOutboundExample": {
+                  "$ref": "#/components/examples/AttachConnectionRouteFilterOutbound"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConnectionRouteFilterData"
+                },
+                "examples": {
+                  "connectionRouteFilterAttachResponse": {
+                    "$ref": "#/components/examples/AttachConnectionRouteFiltersResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "InvalidDirection": {
+                    "$ref": "#/components/examples/400_invalid_direction"
+                  },
+                  "TransientState": {
+                    "$ref": "#/components/examples/400_transient_state"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Route Filter ID Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/404_invalid_id"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500_internal_error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Route Filters"
+        ],
+        "summary": "Detach Route Filter",
+        "description": "This API provides capability to detach a Route Filter from a Connection",
+        "operationId": "detachConnectionRouteFilter",
+        "parameters": [
+          {
+            "name": "routeFilterId",
+            "in": "path",
+            "description": "Route Filters Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouteFilterId"
+            }
+          },
+          {
+            "name": "connectionId",
+            "in": "path",
+            "description": "Connection Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ConnectionId"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConnectionRouteFilterData"
+                },
+                "examples": {
+                  "connectionRouteFilterDetachInboundResponse": {
+                    "$ref": "#/components/examples/DetachConnectionRouteFilterInboundResponse"
+                  },
+                  "connectionRouteFilterDetachOutboundResponse": {
+                    "$ref": "#/components/examples/DetachConnectionRouteFilterOutboundResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/400_transient_state"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Route Filter ID Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/404_invalid_id"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500_internal_error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fabric/v4/routeFilters": {
+      "post": {
+        "tags": [
+          "Route Filters"
+        ],
+        "summary": "Create Route Filters",
+        "description": "This API provides capability to create a Route Filter",
+        "operationId": "createRouteFilter",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RouteFiltersBase"
+              },
+              "examples": {
+                "RouteFilterBgpIpv4Prefix": {
+                  "$ref": "#/components/examples/RouteFilterCreateBgpIpv4Prefix"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RouteFiltersData"
+                },
+                "examples": {
+                  "getSpecificRouteFilterResponse": {
+                    "$ref": "#/components/examples/RouteFilterCreateBgpIpv4PrefixResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/400_route_filters"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Route Filter ID Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/404_invalid_id"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500_internal_error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fabric/v4/routeFilters/{routeFilterId}": {
+      "get": {
+        "tags": [
+          "Route Filters"
+        ],
+        "summary": "Get Filter By UUID",
+        "description": "This API provides capability to view a Route Filter by UUID",
+        "operationId": "getRouteFilterByUuid",
+        "parameters": [
+          {
+            "name": "routeFilterId",
+            "in": "path",
+            "description": "Route Filters Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouteFilterId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RouteFiltersData"
+                },
+                "examples": {
+                  "getSpecificRouteFilterResponse": {
+                    "$ref": "#/components/examples/RouteFilterCreateBgpIpv4PrefixResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/400_route_filters"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Route Filter ID Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/404_invalid_id"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500_internal_error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Route Filters"
+        ],
+        "summary": "Replace Route Filter",
+        "description": "This API provides capability to replace a Route Filter completely",
+        "operationId": "replaceRouteFilterByUuid",
+        "parameters": [
+          {
+            "name": "routeFilterId",
+            "in": "path",
+            "description": "Route Filters Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouteFilterId"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RouteFiltersBase"
+              },
+              "examples": {
+                "RouteFilterIpv4ReplaceExample": {
+                  "$ref": "#/components/examples/UpdateRouteFilterIPv4"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RouteFiltersData"
+                },
+                "examples": {
+                  "routeFilterIpv4ReplaceResponse": {
+                    "$ref": "#/components/examples/RouteFilterIpv4ReplaceResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/400_route_filters"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Route Filter ID Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/404_invalid_id"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500_internal_error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Route Filters"
+        ],
+        "summary": "Delete Route Filter",
+        "description": "This API provides capability to delete a Route Filter",
+        "operationId": "deleteRouteFilterByUuid",
+        "parameters": [
+          {
+            "name": "routeFilterId",
+            "in": "path",
+            "description": "Route Filters Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouteFilterId"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RouteFiltersData"
+                },
+                "examples": {
+                  "routeFilterDeleteBgpIpv4PrefixResponse": {
+                    "$ref": "#/components/examples/RouteFilterDeleteBgpIpv4PrefixResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/400_attached_connection"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Route Filter ID Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/404_invalid_id"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500_internal_error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Route Filters"
+        ],
+        "summary": "Patch Route Filter",
+        "description": "This API provides capability to partially update a Route Filter",
+        "operationId": "patchRouteFilterByUuid",
+        "parameters": [
+          {
+            "name": "routeFilterId",
+            "in": "path",
+            "description": "Route Filters Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouteFilterId"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RouteFiltersPatchRequest"
+              },
+              "examples": {
+                "RouteFilterNamePatchExample": {
+                  "$ref": "#/components/examples/PatchRouteFilterName"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RouteFiltersData"
+                },
+                "examples": {
+                  "RouteFilterNamePatchResponse": {
+                    "$ref": "#/components/examples/RouteFilterNamePatchResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/400_invalid_operation"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Route Filter ID Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/404_invalid_id"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500_internal_error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fabric/v4/routeFilters/{routeFilterId}/changes": {
+      "get": {
+        "tags": [
+          "Route Filters"
+        ],
+        "summary": "Get All Changes",
+        "description": "This API provides capability to retrieve all of a Route Filter's Changes",
+        "operationId": "getRouteFilterChanges",
+        "parameters": [
+          {
+            "name": "routeFilterId",
+            "in": "path",
+            "description": "Route Filters Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouteFilterId"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "offset",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "example": 1
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "number of records to fetch",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "example": 10
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Fabric Route Filter Change object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RouteFilterChangeDataResponse"
+                },
+                "examples": {
+                  "RouteFilterChangesResponse": {
+                    "$ref": "#/components/examples/RouteFilterGetAllChangesResponseExample"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/400_Invalid_id"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Route Filter ID Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/404_invalid_id"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500_internal_error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fabric/v4/routeFilters/{routeFilterId}/changes/{changeId}": {
+      "get": {
+        "tags": [
+          "Route Filters"
+        ],
+        "summary": "Get Change By ID",
+        "description": "This API provides capability to retrieve a specific Route Filter's Changes",
+        "operationId": "getRouteFilterChangeByUuid",
+        "parameters": [
+          {
+            "name": "routeFilterId",
+            "in": "path",
+            "description": "Route Filters Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouteFilterId"
+            }
+          },
+          {
+            "name": "changeId",
+            "in": "path",
+            "description": "Routing Protocol Change UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ChangeId_1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Fabric Route Filter Change object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RouteFilterChangeData"
+                },
+                "examples": {
+                  "RouteFilterChangeResponse": {
+                    "$ref": "#/components/examples/RouteFilterGetChangeResponseExample"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/400_Invalid_id"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Route Filter ID Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/404_invalid_id"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500_internal_error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fabric/v4/routeFilters/{routeFilterId}/connections": {
+      "get": {
+        "tags": [
+          "Route Filters"
+        ],
+        "summary": "Get Connections",
+        "description": "This API provides capability to view all Connections using the Route Filter",
+        "operationId": "getRouteFilterConnections",
+        "parameters": [
+          {
+            "name": "routeFilterId",
+            "in": "path",
+            "description": "Route Filters Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouteFilterId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetRouteFilterGetConnectionsResponse"
+                },
+                "examples": {
+                  "routeFilterGetConnectionsResponse": {
+                    "$ref": "#/components/examples/RouteFilterGetConnectionsResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/400_route_filters"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Route Filter ID Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/404_invalid_id"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500_internal_error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fabric/v4/routeFilters/{routeFilterId}/routeFilterRules": {
+      "get": {
+        "tags": [
+          "Route Filter Rules"
+        ],
+        "summary": "GetRFRules",
+        "description": "This API provides capability to get all Route Filters Rules for Fabric",
+        "operationId": "getRouteFilterRules",
+        "parameters": [
+          {
+            "name": "routeFilterId",
+            "in": "path",
+            "description": "Route Filters Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouteFilterId"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "offset",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "example": 1
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "number of records to fetch",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "example": 10
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetRouteFilterRulesResponse"
+                },
+                "examples": {
+                  "getAllRouteFilters": {
+                    "$ref": "#/components/examples/RouteFilterRulesGetAll"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Route Filter Rule ID Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500_internal_error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Route Filter Rules"
+        ],
+        "summary": "Create RFRule",
+        "description": "This API provides capability to create a Route Filter Rule",
+        "operationId": "createRouteFilterRule",
+        "parameters": [
+          {
+            "name": "routeFilterId",
+            "in": "path",
+            "description": "Route Filters Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouteFilterId"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RouteFilterRulesBase"
+              },
+              "examples": {
+                "RouteFilterRuleBgpIpv4Prefix": {
+                  "$ref": "#/components/examples/RouteFilterRuleCreateBgpIpv4Prefix"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RouteFilterRulesData"
+                },
+                "examples": {
+                  "getSpecificRouteFilterRuleResponse": {
+                    "$ref": "#/components/examples/RouteFilterRuleCreateBgpIpv4PrefixResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/400_route_filters"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Route Filter Rule ID Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500_internal_error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId}": {
+      "get": {
+        "tags": [
+          "Route Filter Rules"
+        ],
+        "summary": "GetRFRule By UUID",
+        "description": "This API provides capability to view a Route Filter Rule by UUID",
+        "operationId": "getRouteFilterRuleByUuid",
+        "parameters": [
+          {
+            "name": "routeFilterId",
+            "in": "path",
+            "description": "Route Filters Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouteFilterId"
+            }
+          },
+          {
+            "name": "routeFilterRuleId",
+            "in": "path",
+            "description": "Route  Filter  Rules Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouteFilterRuleId"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RouteFilterRulesData"
+                },
+                "examples": {
+                  "getSpecificRouteFilterRuleResponse": {
+                    "$ref": "#/components/examples/RouteFilterRuleCreateBgpIpv4PrefixResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/400_route_filters"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Route Filter ID Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/404_invalid_id"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500_internal_error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Route Filter Rules"
+        ],
+        "summary": "ReplaceRFRule",
+        "description": "This API provides capability to replace a Route Filter Rule completely",
+        "operationId": "replaceRouteFilterRuleByUuid",
+        "parameters": [
+          {
+            "name": "routeFilterId",
+            "in": "path",
+            "description": "Route Filters Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouteFilterId"
+            }
+          },
+          {
+            "name": "routeFilterRuleId",
+            "in": "path",
+            "description": "Route  Filter  Rules Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouteFilterRuleId"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RouteFilterRulesBase"
+              },
+              "examples": {
+                "RouteFilterIpv4ReplaceExample": {
+                  "$ref": "#/components/examples/UpdateRouteFilterRuleIPv4"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RouteFilterRulesData"
+                },
+                "examples": {
+                  "routeFilterRuleIpv4ReplaceResponse": {
+                    "$ref": "#/components/examples/RouteFilterRuleIpv4ReplaceResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/400_route_filters"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Route Filter ID Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/404_invalid_id"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500_internal_error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Route Filter Rules"
+        ],
+        "summary": "DeleteRFRule",
+        "description": "This API provides capability to delete a Route Filter Rule",
+        "operationId": "deleteRouteFilterRuleByUuid",
+        "parameters": [
+          {
+            "name": "routeFilterId",
+            "in": "path",
+            "description": "Route Filters Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouteFilterId"
+            }
+          },
+          {
+            "name": "routeFilterRuleId",
+            "in": "path",
+            "description": "Route  Filter  Rules Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouteFilterRuleId"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RouteFilterRulesData"
+                },
+                "examples": {
+                  "routeFilterDeleteBgpIpv4PrefixResponse": {
+                    "$ref": "#/components/examples/RouteFilterRuleDeleteBgpIpv4PrefixResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/400_transient_filter"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Route Filter ID Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/404_invalid_id"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500_internal_error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Route Filter Rules"
+        ],
+        "summary": "PatchRFilterRule",
+        "description": "This API provides capability to partially update a Route Filter Rule",
+        "operationId": "patchRouteFilterRuleByUuid",
+        "parameters": [
+          {
+            "name": "routeFilterId",
+            "in": "path",
+            "description": "Route Filters Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouteFilterId"
+            }
+          },
+          {
+            "name": "routeFilterRuleId",
+            "in": "path",
+            "description": "Route  Filter  Rules Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouteFilterRuleId"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RouteFilterRulesPatchRequest"
+              },
+              "examples": {
+                "RouteFilterRuleNamePatchExample": {
+                  "$ref": "#/components/examples/PatchRouteFilterRulePrefixMatch"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RouteFiltersData"
+                },
+                "examples": {
+                  "RouteFilterNamePatchResponse": {
+                    "$ref": "#/components/examples/RouteFilterNamePatchResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/400_invalid_operation"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Route Filter ID Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/404_invalid_id"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500_internal_error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId}/changes": {
+      "get": {
+        "tags": [
+          "Route Filter Rules"
+        ],
+        "summary": "Get All Changes",
+        "description": "This API provides capability to retrieve all of a Route Filter Rule's Changes",
+        "operationId": "getRouteFilterRuleChanges",
+        "parameters": [
+          {
+            "name": "routeFilterId",
+            "in": "path",
+            "description": "Route Filters Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouteFilterId"
+            }
+          },
+          {
+            "name": "routeFilterRuleId",
+            "in": "path",
+            "description": "Route  Filter  Rules Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouteFilterRuleId"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "offset",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "example": 1
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "number of records to fetch",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "example": 10
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Fabric Route Filter Rule Change object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RouteFilterRulesChangeDataResponse"
+                },
+                "examples": {
+                  "RouteFilterRuleChangesResponse": {
+                    "$ref": "#/components/examples/RouteFilterRulesGetAllChangesResponseExample"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/400_Invalid_id"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Route Filter ID Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/404_invalid_id"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500_internal_error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId}/changes/{changeId}": {
+      "get": {
+        "tags": [
+          "Route Filter Rules"
+        ],
+        "summary": "Get Change By ID",
+        "description": "This API provides capability to retrieve a specific Route Filter Rule's Changes",
+        "operationId": "getRouteFilterRuleChangeByUuid",
+        "parameters": [
+          {
+            "name": "routeFilterId",
+            "in": "path",
+            "description": "Route Filters Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouteFilterId"
+            }
+          },
+          {
+            "name": "routeFilterRuleId",
+            "in": "path",
+            "description": "Route  Filter  Rules Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouteFilterRuleId"
+            }
+          },
+          {
+            "name": "changeId",
+            "in": "path",
+            "description": "Route Filter Rule Change UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ChangeId_2"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Fabric Route Filter Change object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RouteFilterRulesChangeData"
+                },
+                "examples": {
+                  "RouteFilterChangeResponse": {
+                    "$ref": "#/components/examples/RouteFilterRuleGetChangeResponseExample"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/400_Invalid_id"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Route Filter ID Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/404_invalid_id"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500_internal_error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/bulk": {
+      "post": {
+        "tags": [
+          "Route Filter Rules"
+        ],
+        "summary": "Bulk RFRules",
+        "description": "This API provides capability to create bulk route filter rules",
+        "operationId": "createRouteFilterRulesInBulk",
+        "parameters": [
+          {
+            "name": "routeFilterId",
+            "in": "path",
+            "description": "Route Filters Id",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouteFilterId"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RouteFilterRulesPostRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetRouteFilterRulesResponse"
+                },
+                "examples": {
+                  "getAllRouteFilters": {
+                    "$ref": "#/components/examples/RouteFilterRulesGetAll"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/fabric/v4/routers": {
       "post": {
         "tags": [
@@ -5479,7 +8363,7 @@
                   "$ref": "#/components/examples/CreateLabPackage"
                 },
                 "CreateProPackage": {
-                  "$ref": "#/components/examples/CreateProPackage"
+                  "$ref": "#/components/examples/CreateStandardPackage"
                 }
               }
             }
@@ -6374,7 +9258,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ValidateSubnetRequest"
+                "$ref": "#/components/schemas/ValidateRequest"
               },
               "examples": {
                 "ValidateDirectIpv4": {
@@ -6807,7 +9691,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ValidateConnectionRequest"
+                "$ref": "#/components/schemas/ValidateRequest"
               },
               "examples": {
                 "Alibaba-ValidateAuthKey": {
@@ -7664,7 +10548,7 @@
             "description": "Network Change UUID",
             "required": true,
             "schema": {
-              "$ref": "#/components/schemas/ChangeId_1"
+              "$ref": "#/components/schemas/ChangeId_3"
             }
           }
         ],
@@ -7752,8 +10636,8 @@
         "tags": [
           "Precision Time"
         ],
-        "summary": "Get Time Service",
-        "description": "The API provides capability to get precision timing service's details",
+        "summary": "Get time service",
+        "description": "The API provides capability to get prevision timing service's details",
         "operationId": "getTimeServicesById",
         "parameters": [
           {
@@ -7992,7 +10876,7 @@
         "tags": [
           "Precision Time"
         ],
-        "summary": "Delete Time Service",
+        "summary": "Delete time service",
         "description": "Delete EPT service by it's uuid",
         "operationId": "deleteTimeServiceById",
         "parameters": [
@@ -8088,7 +10972,7 @@
         "tags": [
           "Precision Time"
         ],
-        "summary": "Patch Time Service",
+        "summary": "Patch time service",
         "description": "The API provides capability to update timing service",
         "operationId": "updateTimeServicesById",
         "parameters": [
@@ -8349,7 +11233,7 @@
         "tags": [
           "Precision Time"
         ],
-        "summary": "Create Time Service",
+        "summary": "Create time service",
         "description": "The API provides capability to create timing service",
         "operationId": "createTimeServices",
         "parameters": [],
@@ -8375,7 +11259,7 @@
           "required": true
         },
         "responses": {
-          "202": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -8602,7 +11486,7 @@
         "tags": [
           "Precision Time"
         ],
-        "summary": "Get all Connections",
+        "summary": "Get Conn Links",
         "description": "The API provides capability to get prevision timing service's details",
         "operationId": "getTimeServicesConnectionsByServiceId",
         "parameters": [
@@ -8695,7 +11579,7 @@
         }
       }
     },
-    "/fabric/v4/timeServicePackages": {
+    "/fabric/v4/timeServicesPackages": {
       "get": {
         "tags": [
           "Precision Time"
@@ -8753,12 +11637,12 @@
         }
       }
     },
-    "/fabric/v4/timeServicePackages/{packageCode}": {
+    "/fabric/v4/timeServicesPackages/{packageCode}": {
       "get": {
         "tags": [
           "Precision Time"
         ],
-        "summary": "Get Package by Code",
+        "summary": "Get package by Code",
         "description": "The API provides capability to get timing service's package by code",
         "operationId": "getTimeServicesPackageByCode",
         "parameters": [
@@ -10376,6 +13260,10 @@
             "type": "string",
             "description": "metro name"
           },
+          "vcBandwidthMax": {
+            "type": "integer",
+            "description": "max VC speed supported in Mbps"
+          },
           "ibxs": {
             "type": "array",
             "items": {
@@ -10626,6 +13514,21 @@
           }
         },
         "description": "Replace attribute value or sub-resource in the existing model"
+      },
+      "ServiceMetros": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceMetro"
+            }
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          }
+        },
+        "description": "Service Profile Metros"
       },
       "ServiceTokenUUID": {
         "type": "string",
@@ -11359,6 +14262,460 @@
           }
         }
       },
+      "GetAllConnectionRouteFiltersResponse": {
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "data": {
+            "type": "array",
+            "description": "List of Route Filters attached to a Connection",
+            "items": {
+              "$ref": "#/components/schemas/ConnectionRouteFilterData"
+            }
+          }
+        }
+      },
+      "RouteFilterId": {
+        "type": "string",
+        "description": "Route Filters UUID",
+        "example": "695a8471-6595-4ac6-a2f4-b3d96ed3a59d"
+      },
+      "ConnectionRouteFilterData": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "description": "Route Filter URI",
+            "format": "uri",
+            "example": "https://api.equinix.com/fabric/v4/connections/81331c52-04c0-4656-a4a7-18c52669348f/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d"
+          },
+          "type": {
+            "type": "string",
+            "description": "Route Filter type",
+            "enum": [
+              "BGP_IPv4_PREFIX_FILTER",
+              "BGP_IPv6_PREFIX_FILTER"
+            ]
+          },
+          "uuid": {
+            "type": "string",
+            "description": "Route Filter identifier",
+            "format": "uuid",
+            "example": "695a8471-6595-4ac6-a2f4-b3d96ed3a59d"
+          },
+          "attachmentStatus": {
+            "type": "string",
+            "enum": [
+              "ATTACHING",
+              "ATTACHED",
+              "DETACHED",
+              "DETACHING",
+              "FAILED"
+            ]
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "INBOUND",
+              "OUTBOUND"
+            ]
+          }
+        }
+      },
+      "ConnectionRouteFiltersBase": {
+        "type": "object",
+        "properties": {
+          "direction": {
+            "type": "string",
+            "description": "Route Filter direction to attach to a connection",
+            "enum": [
+              "INBOUND",
+              "OUTBOUND"
+            ]
+          }
+        }
+      },
+      "RouteFiltersBase": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Route Filter type",
+            "enum": [
+              "BGP_IPv4_PREFIX_FILTER",
+              "BGP_IPv6_PREFIX_FILTER"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "example": "My-direct-route-1"
+          },
+          "description": {
+            "type": "string",
+            "description": "Customer-provided connection description"
+          },
+          "project": {
+            "$ref": "#/components/schemas/Project"
+          },
+          "notifications": {
+            "type": "array",
+            "description": "Preferences for notifications on route filter configuration or status changes",
+            "items": {
+              "$ref": "#/components/schemas/SimplifiedNotification"
+            }
+          }
+        }
+      },
+      "RouteFiltersData": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "description": "Route Filter URI",
+            "format": "uri",
+            "example": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d"
+          },
+          "type": {
+            "type": "string",
+            "description": "Route Filter type",
+            "enum": [
+              "BGP_IPv4_PREFIX_FILTER",
+              "BGP_IPv6_PREFIX_FILTER"
+            ]
+          },
+          "uuid": {
+            "type": "string",
+            "description": "Route Filter identifier",
+            "format": "uuid",
+            "example": "695a8471-6595-4ac6-a2f4-b3d96ed3a59d"
+          },
+          "name": {
+            "type": "string",
+            "example": "My-direct-route-1"
+          },
+          "description": {
+            "type": "string",
+            "description": "Customer-provided connection description"
+          },
+          "state": {
+            "$ref": "#/components/schemas/RouteFilterState"
+          },
+          "change": {
+            "$ref": "#/components/schemas/RouteFiltersChange"
+          },
+          "notMatchedRuleAction": {
+            "type": "string",
+            "enum": [
+              "ALLOW",
+              "DENY"
+            ]
+          },
+          "connectionsCount": {
+            "type": "integer",
+            "example": 0
+          },
+          "project": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Project"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "description": "Project URI",
+                    "format": "uri",
+                    "example": "https://api.equinix.com/resourceManager/v1/projects/567"
+                  }
+                }
+              }
+            ]
+          },
+          "notifications": {
+            "type": "array",
+            "description": "Preferences for notifications on route filter configuration or status changes",
+            "items": {
+              "$ref": "#/components/schemas/SimplifiedNotification"
+            }
+          },
+          "changelog": {
+            "$ref": "#/components/schemas/Changelog"
+          }
+        }
+      },
+      "RouteFiltersPatchRequest": {
+        "minItems": 1,
+        "type": "array",
+        "description": "Patch Route Filters request",
+        "items": {
+          "$ref": "#/components/schemas/ConnectionChangeOperation"
+        }
+      },
+      "RouteFilterChangeDataResponse": {
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RouteFilterChangeData"
+            }
+          }
+        },
+        "description": "List of Route Filter changes"
+      },
+      "ChangeId_1": {
+        "type": "string",
+        "description": "Route Filters Change UUID",
+        "format": "uuid",
+        "example": "6d500177-9404-41f2-99e8-2bf1a84d8db5"
+      },
+      "RouteFilterChangeData": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Current outcome of the change flow",
+            "enum": [
+              "COMPLETED",
+              "FAILED",
+              "REQUESTED"
+            ]
+          },
+          "createdBy": {
+            "type": "string",
+            "description": "Created by User Key"
+          },
+          "createdDateTime": {
+            "type": "string",
+            "description": "Set when change flow starts",
+            "format": "date-time"
+          },
+          "updatedBy": {
+            "type": "string",
+            "description": "Updated by User Key"
+          },
+          "updatedDateTime": {
+            "type": "string",
+            "description": "Set when change object is updated",
+            "format": "date-time"
+          },
+          "information": {
+            "type": "string",
+            "description": "Additional information"
+          },
+          "data": {
+            "$ref": "#/components/schemas/RouteFiltersChangeOperation"
+          }
+        },
+        "description": "Current state of latest Route Filter change",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RouteFiltersChange"
+          }
+        ]
+      },
+      "GetRouteFilterGetConnectionsResponse": {
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "data": {
+            "type": "array",
+            "description": "List of Connections using a Route Filter",
+            "items": {
+              "$ref": "#/components/schemas/RouteFilterConnectionsData"
+            }
+          }
+        }
+      },
+      "GetRouteFilterRulesResponse": {
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "data": {
+            "type": "array",
+            "description": "List of Route Filter Rules",
+            "items": {
+              "$ref": "#/components/schemas/RouteFilterRulesData"
+            }
+          }
+        }
+      },
+      "RouteFilterRulesBase": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Private-subnet-filter"
+          },
+          "description": {
+            "type": "string",
+            "description": "Customer-provided Route Filter Rule description"
+          },
+          "prefix": {
+            "type": "string",
+            "example": "192.168.0.0/24"
+          },
+          "prefixMatch": {
+            "type": "string",
+            "example": "orlonger",
+            "default": "orlonger"
+          }
+        }
+      },
+      "RouteFilterRulesData": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "description": "Route Filter Rules URI",
+            "format": "uri",
+            "example": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/65b025ef-022b-4180-85cf-82cfc1ab655b"
+          },
+          "type": {
+            "type": "string",
+            "description": "Route Filter type",
+            "enum": [
+              "BGP_IPv4_PREFIX_FILTER_RULE",
+              "BGP_IPv6_PREFIX_FILTER_RULE"
+            ]
+          },
+          "uuid": {
+            "type": "string",
+            "description": "Route Filter Rule identifier",
+            "format": "uuid",
+            "example": "65b025ef-022b-4180-85cf-82cfc1ab655b"
+          },
+          "name": {
+            "type": "string",
+            "example": "Private-subnet-filter-2"
+          },
+          "description": {
+            "type": "string",
+            "description": "Customer-provided Route Filter Rule description"
+          },
+          "prefixMatch": {
+            "type": "string",
+            "description": "prefix matching operator",
+            "example": "exact",
+            "default": "orlonger"
+          },
+          "change": {
+            "$ref": "#/components/schemas/RouteFilterRulesChange"
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "PERMIT",
+              "DENY"
+            ]
+          },
+          "prefix": {
+            "type": "string",
+            "example": "192.168.0.0/24"
+          },
+          "changelog": {
+            "$ref": "#/components/schemas/Changelog"
+          }
+        }
+      },
+      "RouteFilterRuleId": {
+        "type": "string",
+        "description": "Route Filter Rule UUID",
+        "example": "65b025ef-022b-4180-85cf-82cfc1ab655b"
+      },
+      "RouteFilterRulesPatchRequest": {
+        "minItems": 1,
+        "type": "array",
+        "description": "Patch Route Filters Rule request",
+        "items": {
+          "$ref": "#/components/schemas/RouteFilterChangePrefixMatch"
+        }
+      },
+      "RouteFilterRulesChangeDataResponse": {
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RouteFilterRulesChangeData"
+            }
+          }
+        },
+        "description": "List of Route Filter Rule changes"
+      },
+      "ChangeId_2": {
+        "type": "string",
+        "description": "Route Filter Rule Change UUID",
+        "format": "uuid",
+        "example": "6d500177-9404-41f2-99e8-2bf1a84d8db5"
+      },
+      "RouteFilterRulesChangeData": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Current outcome of the change flow",
+            "enum": [
+              "COMPLETED",
+              "FAILED",
+              "REQUESTED"
+            ]
+          },
+          "createdBy": {
+            "type": "string",
+            "description": "Created by User Key"
+          },
+          "createdDateTime": {
+            "type": "string",
+            "description": "Set when change flow starts",
+            "format": "date-time"
+          },
+          "updatedBy": {
+            "type": "string",
+            "description": "Updated by User Key"
+          },
+          "updatedDateTime": {
+            "type": "string",
+            "description": "Set when change object is updated",
+            "format": "date-time"
+          },
+          "data": {
+            "$ref": "#/components/schemas/RouteFilterRulesChangeOperation"
+          }
+        },
+        "description": "Current state of latest Route Filter Rules change",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RouteFilterRulesChange"
+          }
+        ]
+      },
+      "RouteFilterRulesPostRequest": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "description": "Route Filter Rule configuration",
+            "items": {
+              "$ref": "#/components/schemas/RouteFilterRulesBase"
+            }
+          }
+        },
+        "description": "Create Route Filter Rule POST request"
+      },
       "CloudRouterPostRequest": {
         "type": "object",
         "properties": {
@@ -11664,14 +15021,14 @@
           }
         }
       },
-      "ValidateSubnetRequest": {
+      "ValidateRequest": {
         "type": "object",
         "properties": {
           "filter": {
-            "$ref": "#/components/schemas/ValidateSubnetRequest_filter"
+            "$ref": "#/components/schemas/ValidateRequest_filter"
           }
         },
-        "description": "Validate subnet for Routing Protocol Configuration"
+        "description": "Validate connection auth api key or vlan"
       },
       "ValidateSubnetResponse": {
         "type": "object",
@@ -11832,7 +15189,7 @@
         "enum": [
           "LAB",
           "BASIC",
-          "PRO",
+          "STANDARD",
           "PREMIUM"
         ]
       },
@@ -11961,15 +15318,6 @@
           }
         },
         "description": "GET Services Health"
-      },
-      "ValidateConnectionRequest": {
-        "type": "object",
-        "properties": {
-          "filter": {
-            "$ref": "#/components/schemas/ValidateSubnetRequest_filter"
-          }
-        },
-        "description": "Validate connection auth api key or vlan"
       },
       "ConnectionResponse": {
         "type": "object",
@@ -12303,7 +15651,7 @@
         },
         "description": "List of network changes"
       },
-      "ChangeId_1": {
+      "ChangeId_3": {
         "type": "string",
         "description": "Network Change UUID",
         "format": "uuid",
@@ -12362,7 +15710,7 @@
         "title": "precisionTimeServiceResponse",
         "required": [
           "href",
-          "ipv4",
+          "networkingIpv4",
           "package",
           "state",
           "type",
@@ -12422,7 +15770,7 @@
               "$ref": "#/components/schemas/fabricConnectionUuid"
             }
           },
-          "ipv4": {
+          "networkingIpv4": {
             "$ref": "#/components/schemas/ipv4"
           },
           "account": {
@@ -12458,7 +15806,7 @@
             "type": "string",
             "description": "path inside document leading to updated parameter",
             "enum": [
-              "/ipv4",
+              "/networkingIpv4",
               "/name",
               "/advanceConfiguration/ntp",
               "/advanceConfiguration/ptp",
@@ -12477,7 +15825,7 @@
         "required": [
           "connections",
           "name",
-          "ipv4",
+          "networkingIpv4",
           "package",
           "type"
         ],
@@ -12506,7 +15854,7 @@
               "$ref": "#/components/schemas/fabricConnectionUuid"
             }
           },
-          "ipv4": {
+          "networkingIpv4": {
             "$ref": "#/components/schemas/ipv4"
           },
           "advanceConfiguration": {
@@ -14014,6 +17362,203 @@
           "/device/name"
         ]
       },
+      "RouteFilterState": {
+        "type": "string",
+        "description": "Route Filter status",
+        "enum": [
+          "PROVISIONING",
+          "REPROVISIONING",
+          "DEPROVISIONING",
+          "PROVISIONED",
+          "DEPROVISIONED",
+          "NOT_PROVISIONED",
+          "NOT_DEPROVISIONED"
+        ]
+      },
+      "RouteFiltersChange": {
+        "required": [
+          "type",
+          "uuid"
+        ],
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "description": "Uniquely identifies a change"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of change",
+            "enum": [
+              "BGP_IPv4_PREFIX_FILTER_UPDATE",
+              "BGP_IPv4_PREFIX_FILTER_CREATION",
+              "BGP_IPv4_PREFIX_FILTER_DELETION",
+              "BGP_IPv6_PREFIX_FILTER_UPDATE",
+              "BGP_IPv6_PREFIX_FILTER_CREATION",
+              "BGP_IPv6_PREFIX_FILTER_DELETION"
+            ]
+          },
+          "href": {
+            "type": "string",
+            "description": "Route Filter Change URI",
+            "format": "uri"
+          }
+        },
+        "description": "Current state of latest Route Filter change"
+      },
+      "RouteFiltersChangeOperation": {
+        "required": [
+          "op",
+          "path",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string",
+            "description": "Handy shortcut for operation name",
+            "enum": [
+              "add",
+              "replace",
+              "remove"
+            ]
+          },
+          "path": {
+            "type": "string",
+            "description": "path inside document leading to updated parameter",
+            "example": "/"
+          },
+          "value": {
+            "$ref": "#/components/schemas/RouteFiltersBase"
+          }
+        },
+        "description": "Route Filter change operation data"
+      },
+      "RouteFilterConnectionsData": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "description": "Connection URI",
+            "format": "uri",
+            "example": "https://api.equinix.com/fabric/v4/connections/81331c52-04c0-4656-a4a7-18c52669348f"
+          },
+          "type": {
+            "$ref": "#/components/schemas/ConnectionType"
+          },
+          "uuid": {
+            "type": "string",
+            "description": "Route Filter identifier",
+            "format": "uuid",
+            "example": "695a8471-6595-4ac6-a2f4-b3d96ed3a59d"
+          },
+          "name": {
+            "type": "string",
+            "example": "connection-1"
+          }
+        }
+      },
+      "RouteFilterRulesChange": {
+        "required": [
+          "type",
+          "uuid"
+        ],
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "description": "Uniquely identifies a change"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of change",
+            "enum": [
+              "BGP_IPv4_PREFIX_FILTER_RULE_UPDATE",
+              "BGP_IPv4_PREFIX_FILTER_RULE_CREATION",
+              "BGP_IPv4_PREFIX_FILTER_RULE_DELETION",
+              "BGP_IPv6_PREFIX_FILTER_RULE_UPDATE",
+              "BGP_IPv6_PREFIX_FILTER_RULE_CREATION",
+              "BGP_IPv6_PREFIX_FILTER_RULE_DELETION"
+            ]
+          },
+          "href": {
+            "type": "string",
+            "description": "Route Filter Change URI",
+            "format": "uri"
+          }
+        },
+        "description": "Current state of latest Route Filter Rule change"
+      },
+      "RouteFilterChangePrefixMatch": {
+        "required": [
+          "op",
+          "path",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string",
+            "description": "Handy shortcut for operation name",
+            "example": "replace"
+          },
+          "path": {
+            "type": "string",
+            "description": "path to change",
+            "example": "/prefixMatch"
+          },
+          "value": {
+            "type": "object",
+            "description": "new value for updated parameter"
+          }
+        },
+        "description": "Route Filter Rule change operation data"
+      },
+      "RouteFilterRulesChangeOperation": {
+        "required": [
+          "action",
+          "name",
+          "prefix",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "name of  route filter rule",
+            "example": "Private-subnet-filter"
+          },
+          "description": {
+            "type": "string",
+            "description": "cust provided description"
+          },
+          "type": {
+            "type": "string",
+            "description": "type of filter rule",
+            "enum": [
+              "BGP_IPv4_PREFIX_FILTER_RULE_UPDATE",
+              "BGP_IPv4_PREFIX_FILTER_RULE_CREATION",
+              "BGP_IPv4_PREFIX_FILTER_RULE_DELETION",
+              "BGP_IPv6_PREFIX_FILTER_RULE_UPDATE",
+              "BGP_IPv6_PREFIX_FILTER_RULE_CREATION",
+              "BGP_IPv6_PREFIX_FILTER_RULE_DELETION"
+            ]
+          },
+          "prefix": {
+            "type": "string",
+            "description": "given prefix (does not change)"
+          },
+          "action": {
+            "type": "string",
+            "description": "change to be made",
+            "enum": [
+              "PERMIT",
+              "DENY"
+            ]
+          }
+        },
+        "description": "Route Filter change operation data"
+      },
       "SimplifiedLocationWithoutIBX": {
         "required": [
           "metroCode"
@@ -14065,7 +17610,7 @@
             "enum": [
               "LAB",
               "BASIC",
-              "PRO",
+              "STANDARD",
               "PREMIUM"
             ]
           }
@@ -14230,7 +17775,7 @@
         "enum": [
           "LAB",
           "BASIC",
-          "PRO",
+          "STANDARD",
           "PREMIUM"
         ]
       },
@@ -14606,6 +18151,9 @@
           "providerConnectionId": {
             "type": "string",
             "description": "Provider assigned Connection Id"
+          },
+          "virtualNetwork": {
+            "$ref": "#/components/schemas/VirtualNetwork"
           }
         },
         "description": "Access point object"
@@ -15153,7 +18701,8 @@
           "COLO",
           "SUBNET",
           "CLOUD_ROUTER",
-          "NETWORK"
+          "NETWORK",
+          "METAL_NETWORK"
         ]
       },
       "SimplifiedPort": {
@@ -15346,13 +18895,13 @@
         "properties": {
           "href": {
             "type": "string",
-            "description": "Virtual Interface URI",
+            "description": "Interface URI",
             "format": "uri",
             "readOnly": true
           },
           "uuid": {
             "type": "string",
-            "description": "Equinix-assigned Virtual Device Interface identifier",
+            "description": "Equinix-assigned Interface identifier",
             "format": "uuid"
           },
           "id": {
@@ -15361,14 +18910,18 @@
           },
           "type": {
             "type": "string",
-            "description": "Virtual Device Interface type",
+            "description": "Interface type",
             "enum": [
               "CLOUD",
               "NETWORK"
             ]
+          },
+          "projectId": {
+            "type": "string",
+            "description": "Interface Project ID"
           }
         },
-        "description": "Virtual Device Interface Information"
+        "description": "Interface Information"
       },
       "SimplifiedNetwork": {
         "required": [
@@ -15438,6 +18991,23 @@
           "PUBLIC",
           "MANUAL"
         ]
+      },
+      "VirtualNetwork": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "description": "The Canonical URL at which the resource resides.",
+            "format": "uri",
+            "readOnly": true
+          },
+          "uuid": {
+            "type": "string",
+            "description": "Equinix-assigned Virtual Network identifier",
+            "format": "uuid"
+          }
+        },
+        "description": "Virtual Network Information"
       },
       "VirtualConnectionPriceConnectionType": {
         "type": "string",
@@ -15607,7 +19177,8 @@
           "UNTAGGED",
           "DOT1Q",
           "QINQ",
-          "EVPN_VXLAN"
+          "EVPN_VXLAN",
+          "VXLAN"
         ]
       },
       "VirtualConnectionPriceAccessPointType": {
@@ -15636,7 +19207,7 @@
         "enum": [
           "LAB",
           "BASIC",
-          "PRO",
+          "STANDARD",
           "PREMIUM"
         ]
       },
@@ -15682,6 +19253,7 @@
             "UNTAGGED": "#/components/schemas/LinkProtocolUntagged",
             "DOT1Q": "#/components/schemas/LinkProtocolDot1q",
             "QINQ": "#/components/schemas/LinkProtocolQinq",
+            "VXLAN": "#/components/schemas/LinkProtocolVxlan",
             "EVPN_VXLAN": "#/components/schemas/LinkProtocolEvpnVxlan"
           }
         },
@@ -15694,6 +19266,9 @@
           },
           {
             "$ref": "#/components/schemas/LinkProtocolQinq"
+          },
+          {
+            "$ref": "#/components/schemas/LinkProtocolVxlan"
           },
           {
             "$ref": "#/components/schemas/LinkProtocolEvpnVxlan"
@@ -15786,6 +19361,24 @@
         },
         "description": "Connection link protocol configuration - QINQ"
       },
+      "LinkProtocolVxlan": {
+        "required": [
+          "vni"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/LinkProtocolType"
+          },
+          "vni": {
+            "maximum": 16777215,
+            "minimum": 4097,
+            "type": "integer",
+            "description": "Virtual Network Identifier"
+          }
+        },
+        "description": "Connection link protocol configuration - VXLAN"
+      },
       "LinkProtocolEvpnVxlan": {
         "required": [
           "type5vni",
@@ -15838,7 +19431,7 @@
           }
         }
       },
-      "ValidateSubnetRequest_filter_and": {
+      "ValidateRequest_filter_and": {
         "properties": {
           "property": {
             "type": "string",
@@ -15857,13 +19450,13 @@
           }
         }
       },
-      "ValidateSubnetRequest_filter": {
+      "ValidateRequest_filter": {
         "type": "object",
         "properties": {
           "and": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ValidateSubnetRequest_filter_and"
+              "$ref": "#/components/schemas/ValidateRequest_filter_and"
             }
           }
         },
@@ -16814,54 +20407,6 @@
           "bandwidth": 1000,
           "redundancy": {
             "priority": "PRIMARY"
-          },
-          "aSide": {
-            "accessPoint": {
-              "type": "COLO",
-              "port": {
-                "uuid": "a00cef6f-8e35-4794-9ff9-665e084e4e6d"
-              },
-              "linkProtocol": {
-                "type": "DOT1Q",
-                "vlanTag": 1001
-              }
-            }
-          },
-          "order": {
-            "purchaseOrderNumber": "po1234"
-          },
-          "zSide": {
-            "accessPoint": {
-              "type": "SP",
-              "profile": {
-                "type": "L2_PROFILE",
-                "uuid": "22d4e853-ef33-4ff0-b5b2-a2b1d5dfa50c"
-              },
-              "location": {
-                "metroCode": "DC"
-              },
-              "sellerRegion": "us-east-1",
-              "authenticationKey": "xxx-xxx-xxx"
-            }
-          },
-          "notifications": [
-            {
-              "type": "ALL",
-              "emails": [
-                "test@test.com"
-              ]
-            }
-          ]
-        }
-      },
-      "COLO2AWSSPwithDot1q-Secondary": {
-        "value": {
-          "type": "EVPL_VC",
-          "name": "Secondary-Aws",
-          "bandwidth": 1000,
-          "redundancy": {
-            "group": "e04db764-f865-470b-8394-d2efdd651577",
-            "priority": "SECONDARY"
           },
           "aSide": {
             "accessPoint": {
@@ -18230,6 +21775,41 @@
           ]
         }
       },
+      "Metal2Sp-Aws": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "My-Metal-sp-connection",
+          "bandwidth": 1000,
+          "aSide": {
+            "accessPoint": {
+              "type": "METAL_NETWORK",
+              "virtualNetwork": {
+                "uuid": "a867f685-41b0-1b07-6de0-320a5c00abd"
+              },
+              "interface": {
+                "projectId": "497f6eca-6276-4993-bfeb-53cbbbba6f08"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "type": "L2_PROFILE",
+                "uuid": "9127bb72-5f4f-4517-be74-3af7ce612687"
+              },
+              "authenticationKey": "xxxxxxxxx",
+              "sellerRegion": "us-west-1"
+            }
+          },
+          "order": {
+            "purchaseOrderNumber": "1-129105284100"
+          },
+          "project": {
+            "projectId": 567
+          }
+        }
+      },
       "ConnectionExample": {
         "value": {
           "href": "https://api.equinix.com/fabric/v4/connections/3a58dd05-f46d-4b1d-a154-2e85c396ea62",
@@ -19021,6 +22601,66 @@
           "order": {
             "purchaseOrderNumber": "1122334",
             "billingTier": "Up to 50 MB"
+          }
+        }
+      },
+      "Metal2Sp-Aws-Response": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/connections/f37e40c5-2802-4df7-9732-839a8a5868ce",
+          "type": "EVPL_VC",
+          "uuid": "f37e40c5-2802-4df7-9732-839a8a5868ce",
+          "name": "My-Metal-sp-connection",
+          "bandwidth": 1000,
+          "aSide": {
+            "accessPoint": {
+              "type": "METAL_NETWORK",
+              "virtualNetwork": {
+                "href": "https://api.equinix.com/metal/v1/virtual-networks/a867f685-41b0-1b07-6de0-320a5c00abd",
+                "uuid": "a867f685-41b0-1b07-6de0-320a5c00abd"
+              },
+              "interface": {
+                "projectId": "497f6eca-6276-4993-bfeb-53cbbbba6f08"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "type": "L2_PROFILE",
+                "uuid": "9127bb72-5f4f-4517-be74-3af7ce612687"
+              },
+              "authenticationKey": "xxxxxxxxx",
+              "sellerRegion": "us-west-1"
+            }
+          },
+          "order": {
+            "purchaseOrderNumber": "1-129105284100"
+          },
+          "project": {
+            "projectId": 567
+          },
+          "operation": {
+            "equinixStatus": "PROVISIONING",
+            "providerStatus": "NOT_AVAILABLE"
+          },
+          "account": {
+            "href": "https://api.equinix.com/accountService/v1/accounts/123213",
+            "accountNumber": 123213,
+            "notifications": [
+              {
+                "type": "ALL",
+                "emails": [
+                  "test@equinix.com"
+                ]
+              }
+            ]
+          },
+          "changeLog": {
+            "createdBy": "testuser",
+            "createdByEmail": "testuser@equinix.com",
+            "createdByFullName": "testuser testuser",
+            "createdDateTime": "2020-05-21T10:30:00Z"
           }
         }
       },
@@ -23748,7 +27388,7 @@
                 "values": [
                   "LAB",
                   "BASIC",
-                  "PRO",
+                  "STANDARD",
                   "PREMIUM"
                 ]
               }
@@ -28589,6 +32229,763 @@
           ]
         }
       },
+      "ConnectionRouteFiltersGetAll": {
+        "value": {
+          "pagination": {
+            "offset": 0,
+            "limit": 20,
+            "total": 4,
+            "next": null,
+            "previous": null
+          },
+          "data": [
+            {
+              "href": "https://api.equinix.com/fabric/v4/connections/81331c52-04c0-4656-a4a7-18c52669348f/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d",
+              "type": "BGP_IPv4_PREFIX_FILTER",
+              "uuid": "695a8471-6595-4ac6-a2f4-b3d96ed3a59d",
+              "attachmentStatus": "DETACHING",
+              "direction": "INBOUND"
+            },
+            {
+              "href": "https://api.equinix.com/fabric/v4/connections/81331c52-04c0-4656-a4a7-18c52669348f/routeFilters/52f7791a-fe90-49bc-8807-18b3d6eda566",
+              "type": "BGP_IPv6_PREFIX_FILTER",
+              "uuid": "52f7791a-fe90-49bc-8807-18b3d6eda566",
+              "attachmentStatus": "ATTACHED",
+              "direction": "INBOUND"
+            },
+            {
+              "href": "https://api.equinix.com/fabric/v4/connections/81331c52-04c0-4656-a4a7-18c52669348f/routeFilters/8b67bf1c-7afa-4a9e-98c3-d5ab17da6652",
+              "type": "BGP_IPv4_PREFIX_FILTER",
+              "uuid": "8b67bf1c-7afa-4a9e-98c3-d5ab17da6652",
+              "attachmentStatus": "ATTACHED",
+              "direction": "OUTBOUND"
+            },
+            {
+              "href": "https://api.equinix.com/fabric/v4/connections/81331c52-04c0-4656-a4a7-18c52669348f/routeFilters/65d74639-8f48-4e10-9684-45d364645e97",
+              "type": "BGP_IPv6_PREFIX_FILTER",
+              "uuid": "65d74639-8f48-4e10-9684-45d364645e97",
+              "attachmentStatus": "ATTACHED",
+              "direction": "OUTBOUND"
+            }
+          ]
+        }
+      },
+      "400_route_filters": {
+        "value": [
+          {
+            "errorCode": "EQ-3044001",
+            "errorMessage": "Invalid input",
+            "correlationId": "20d32a80-0d61-4333-bc03-707b591ae2f5",
+            "additionalInfo": [
+              {
+                "property": "type"
+              }
+            ]
+          },
+          {
+            "errorCode": "EQ-3044001",
+            "errorMessage": "Invalid input",
+            "correlationId": "20d32a80-0d61-4333-bc03-707b591ae2f5",
+            "additionalInfo": [
+              {
+                "property": "name"
+              }
+            ]
+          },
+          {
+            "errorCode": "EQ-3044002",
+            "errorMessage": "Connection already deleted",
+            "correlationId": "cebc3d33-9037-4a2b-a7af-0ad65602cdec",
+            "additionalInfo": [
+              {
+                "property": "connectionId"
+              }
+            ]
+          },
+          {
+            "errorCode": "EQ-3044003",
+            "errorMessage": "Route Filter is in transient state",
+            "correlationId": "20d32a80-0d61-4333-bc03-707b591ae2f5",
+            "additionalInfo": [
+              {
+                "property": "routeFilterId"
+              }
+            ]
+          },
+          {
+            "errorCode": "EQ-3044003",
+            "errorMessage": "Connection is in transient state",
+            "correlationId": "20d32a80-0d61-4333-bc03-707b591ae2f5",
+            "additionalInfo": [
+              {
+                "property": "connectionId"
+              }
+            ]
+          }
+        ]
+      },
+      "AttachConnectionRouteFiltersResponse": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/connections/81331c52-04c0-4656-a4a7-18c52669348f/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d",
+          "type": "BGP_IPv4_PREFIX_FILTER",
+          "uuid": "695a8471-6595-4ac6-a2f4-b3d96ed3a59d",
+          "attachmentStatus": "ATTACHING",
+          "direction": "INBOUND"
+        }
+      },
+      "AttachConnectionRouteFilterInbound": {
+        "value": {
+          "direction": "INBOUND"
+        }
+      },
+      "AttachConnectionRouteFilterOutbound": {
+        "value": {
+          "direction": "OUTBOUND"
+        }
+      },
+      "400_invalid_direction": {
+        "value": [
+          {
+            "errorCode": "EQ-3044001",
+            "errorMessage": "Invalid input",
+            "correlationId": "20d32a80-0d61-4333-bc03-707b591ae2f5",
+            "additionalInfo": [
+              {
+                "property": "direction"
+              }
+            ]
+          }
+        ]
+      },
+      "400_transient_state": {
+        "value": [
+          {
+            "errorCode": "EQ-3044008",
+            "errorMessage": "Cannot attach or detach Route Filter with Connection in transient state",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515",
+            "details": "Cannot attach or detach Route Filter with Connection in transient state"
+          }
+        ]
+      },
+      "DetachConnectionRouteFilterInboundResponse": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/connections/81331c52-04c0-4656-a4a7-18c52669348f/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d",
+          "type": "BGP_IPv4_PREFIX_FILTER",
+          "uuid": "695a8471-6595-4ac6-a2f4-b3d96ed3a59d",
+          "attachmentStatus": "DETACHING",
+          "direction": "INBOUND"
+        }
+      },
+      "DetachConnectionRouteFilterOutboundResponse": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/connections/81331c52-04c0-4656-a4a7-18c52669348f/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d",
+          "type": "BGP_IPv4_PREFIX_FILTER",
+          "uuid": "695a8471-6595-4ac6-a2f4-b3d96ed3a59d",
+          "attachmentStatus": "DETACHING",
+          "direction": "OUTBOUND"
+        }
+      },
+      "RouteFilterCreateBgpIpv4Prefix": {
+        "value": {
+          "type": "BGP_IPv4_PREFIX_FILTER",
+          "name": "My-route-filter-v4",
+          "description": "Test filter",
+          "project": {
+            "projectId": 567
+          },
+          "notifications": {
+            "type": "ALL",
+            "emails": [
+              "test@equinix.com"
+            ]
+          }
+        }
+      },
+      "RouteFilterCreateBgpIpv4PrefixResponse": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d",
+          "type": "BGP_IPv4_PREFIX_FILTER",
+          "uuid": "695a8471-6595-4ac6-a2f4-b3d96ed3a59d",
+          "name": "My-prefix-filter-v4",
+          "description": "Test filter",
+          "state": "PROVISIONING",
+          "change": {
+            "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/changes/04af0d37-9160-43d8-97ef-9da9786996a3",
+            "type": "BGP_IPv4_PREFIX_FILTER_CREATION",
+            "uuid": "04af0d37-9160-43d8-97ef-9da9786996a3"
+          },
+          "notMatchedRuleAction": "DENY",
+          "connectionsCount": 0,
+          "project": {
+            "href": "https://api.equinix.com/resourceManager/v1/projects/567",
+            "projectId": 567
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "testuser",
+            "createdByEmail": "testuser@equinix.com",
+            "createdByFullName": "testuser testuser",
+            "createdDateTime": "2020-05-21T10:30:00Z"
+          }
+        }
+      },
+      "UpdateRouteFilterIPv4": {
+        "value": {
+          "type": "BGP_IPv4_PREFIX_FILTER",
+          "name": "My-route-filter-v4-update",
+          "description": "Test filter update",
+          "project": {
+            "projectId": 789
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
+      "RouteFilterIpv4ReplaceResponse": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d",
+          "type": "BGP_IPv4_PREFIX_FILTER",
+          "uuid": "695a8471-6595-4ac6-a2f4-b3d96ed3a59d",
+          "name": "My-prefix-filter-v4-update",
+          "description": "Test filter update",
+          "state": "REPROVISIONING",
+          "change": {
+            "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/changes/04af0d37-9160-43d8-97ef-9da9786996a3",
+            "type": "BGP_IPv4_PREFIX_FILTER_UPDATE",
+            "uuid": "04af0d37-9160-43d8-97ef-9da9786996a3"
+          },
+          "notMatchedRuleAction": "DENY",
+          "connectionsCount": 0,
+          "project": {
+            "href": "https://api.equinix.com/resourceManager/v1/projects/567",
+            "projectId": 789
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "testuser",
+            "createdByEmail": "testuser@equinix.com",
+            "createdByFullName": "testuser testuser",
+            "createdDateTime": "2020-05-21T10:30:00Z"
+          }
+        }
+      },
+      "RouteFilterDeleteBgpIpv4PrefixResponse": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d",
+          "type": "BGP_IPv4_PREFIX_FILTER",
+          "uuid": "695a8471-6595-4ac6-a2f4-b3d96ed3a59d",
+          "name": "My-prefix-filter-v4",
+          "description": "Test filter",
+          "state": "DEPROVISIONING",
+          "change": {
+            "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/changes/c2ec84c5-6de6-4f5c-b506-3ce218630c31",
+            "type": "BGP_IPv4_PREFIX_FILTER_DELETION",
+            "uuid": "c2ec84c5-6de6-4f5c-b506-3ce218630c31"
+          },
+          "notMatchedRuleAction": "DENY",
+          "connectionsCount": 0,
+          "project": {
+            "href": "https://api.equinix.com/resourceManager/v1/projects/567",
+            "projectId": 567
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "testuser",
+            "createdByEmail": "testuser@equinix.com",
+            "createdByFullName": "testuser testuser",
+            "createdDateTime": "2020-05-21T10:30:00Z",
+            "updatedBy": "testuser1",
+            "updatedByEmail": "testuser@equinix.com",
+            "updatedByFullName": "testuser testuser",
+            "updatedDateTime": "2020-05-21T10:30:00Z",
+            "deletedBy": "testuser1",
+            "deletedByEmail": "testuser@equinix.com",
+            "deletedByFullName": "testuser testuser",
+            "deletedDateTime": "2020-05-21T10:30:00Z"
+          }
+        }
+      },
+      "400_attached_connection": {
+        "value": [
+          {
+            "errorCode": "EQ-3044007",
+            "errorMessage": "Cannot delete Route Filter still attached to a Connection",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515",
+            "details": "Cannot delete Route Filter still attached to a Connection"
+          }
+        ]
+      },
+      "PatchRouteFilterName": {
+        "value": [
+          {
+            "op": "replace",
+            "path": "/name",
+            "value": "My-route-filter-v4-updated"
+          }
+        ]
+      },
+      "RouteFilterNamePatchResponse": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d",
+          "type": "BGP_IPv4_PREFIX_FILTER",
+          "uuid": "695a8471-6595-4ac6-a2f4-b3d96ed3a59d",
+          "name": "My-prefix-filter-v4-updated",
+          "description": "Test filter",
+          "state": "REPROVISIONING",
+          "change": {
+            "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/changes/04af0d37-9160-43d8-97ef-9da9786996a3",
+            "type": "BGP_IPv4_PREFIX_FILTER_UPDATE",
+            "uuid": "04af0d37-9160-43d8-97ef-9da9786996a3"
+          },
+          "notMatchedRuleAction": "DENY",
+          "connectionsCount": 1,
+          "project": {
+            "href": "https://api.equinix.com/resourceManager/v1/projects/567",
+            "projectId": 567
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "testuser",
+            "createdByEmail": "testuser@equinix.com",
+            "createdByFullName": "testuser testuser",
+            "createdDateTime": "2020-05-21T10:30:00Z"
+          }
+        }
+      },
+      "400_invalid_operation": {
+        "value": [
+          {
+            "errorCode": "EQ-3044011",
+            "errorMessage": "Invalid Argument passed",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515",
+            "details": "Only replace name operation is supported."
+          }
+        ]
+      },
+      "RouteFilterGetAllChangesResponseExample": {
+        "value": {
+          "pagination": {
+            "offset": 0,
+            "limit": 20,
+            "total": 4,
+            "next": null,
+            "previous": null
+          },
+          "data": [
+            {
+              "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/changes/04af0d37-9160-43d8-97ef-9da9786996a3",
+              "type": "BGP_IPv4_PREFIX_FILTER_CREATION",
+              "uuid": "04af0d37-9160-43d8-97ef-9da9786996a3",
+              "status": "COMPLETED",
+              "createdBy": "testuser",
+              "createdByEmail": "testuser@equinix.com",
+              "createdByFullName": "testuser testuser",
+              "createdDateTime": "2020-05-21T10:30:00Z",
+              "updatedBy": "_system",
+              "updatedByEmail": null,
+              "updatedByFullName": null,
+              "updatedDateTime": "2020-05-21T10:30:00Z",
+              "data": {
+                "type": "BGP_IPv4_PREFIX_FILTER",
+                "name": "My-route-filter-v4",
+                "description": "Test filter",
+                "project": {
+                  "projectId": 567
+                },
+                "notifications": [
+                  {
+                    "type": "ALL",
+                    "emails": [
+                      "test@equinix.com"
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/changes/04af0d37-9160-43d8-97ef-9da9786996a3",
+              "type": "BGP_IPv4_PREFIX_FILTER_UPDATE",
+              "uuid": "04af0d37-9160-43d8-97ef-9da9786996a3",
+              "status": "COMPLETED",
+              "createdBy": "testuser",
+              "createdByEmail": "testuser@equinix.com",
+              "createdByFullName": "testuser testuser",
+              "createdDateTime": "2020-05-21T10:30:00Z",
+              "updatedBy": "_system",
+              "updatedByEmail": null,
+              "updatedByFullName": null,
+              "updatedDateTime": "2020-05-21T10:30:00Z",
+              "data": [
+                {
+                  "op": "replace",
+                  "path": "/name",
+                  "value": "My-route-filter-v4-updated",
+                  "previousValue": "My-route-filter-v4"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "RouteFilterGetChangeResponseExample": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/changes/04af0d37-9160-43d8-97ef-9da9786996a3",
+          "type": "BGP_IPv4_PREFIX_FILTER_CREATION",
+          "uuid": "04af0d37-9160-43d8-97ef-9da9786996a3",
+          "status": "COMPLETED",
+          "createdBy": "testuser",
+          "createdByEmail": "testuser@equinix.com",
+          "createdByFullName": "testuser testuser",
+          "createdDateTime": "2020-05-21T10:30:00Z",
+          "updatedBy": "_system",
+          "updatedByEmail": null,
+          "updatedByFullName": null,
+          "updatedDateTime": "2020-05-21T10:30:00Z",
+          "data": {
+            "type": "BGP_IPv4_PREFIX_FILTER",
+            "name": "My-route-filter-v4",
+            "description": "Test filter",
+            "project": {
+              "projectId": 567
+            },
+            "notifications": [
+              {
+                "type": "ALL",
+                "emails": [
+                  "test@equinix.com"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "RouteFilterGetConnectionsResponse": {
+        "value": {
+          "pagination": {
+            "offset": 0,
+            "limit": 20,
+            "total": 1,
+            "next": null,
+            "previous": null
+          },
+          "data": {
+            "href": "https://api.equinix.com/fabric/v4/connections/81331c52-04c0-4656-a4a7-18c52669348f",
+            "type": "IP_VC",
+            "name": "test-connection",
+            "uuid": "05de355a-6c9d-4636-8d7d-7b7595821c15"
+          }
+        }
+      },
+      "RouteFilterRulesGetAll": {
+        "value": {
+          "pagination": {
+            "offset": 0,
+            "limit": 20,
+            "total": 2,
+            "next": null,
+            "previous": null
+          },
+          "data": [
+            {
+              "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/65b025ef-022b-4180-85cf-82cfc1ab655b",
+              "type": "BGP_IPv4_PREFIX_FILTER_RULE",
+              "uuid": "65b025ef-022b-4180-85cf-82cfc1ab655b",
+              "name": "Private-subnet-filter-2",
+              "description": "Test rule",
+              "prefixMatch": "exact",
+              "action": "PERMIT",
+              "prefix": "192.168.10.0/24",
+              "change": {
+                "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/9890d520-1579-4489-8003-154b34b8f403/changes/9397f111-19aa-489c-b3c7-349c86818f2d",
+                "type": "IPv4_BGP_PREFIX_FILTER_RULE_CREATION",
+                "uuid": "9397f111-19aa-489c-b3c7-349c86818f2d"
+              },
+              "changeLog": {
+                "createdBy": "testuser",
+                "createdByEmail": "testuser@equinix.com",
+                "createdByFullName": "testuser testuser",
+                "createdDateTime": "2020-05-21T10:30:00Z"
+              }
+            },
+            {
+              "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/ea48337b-fe04-4164-a3f0-48d81abf575b",
+              "type": "BGP_IPv4_PREFIX_FILTER_RULE",
+              "uuid": "ea48337b-fe04-4164-a3f0-48d81abf575b",
+              "name": "Private-subnet-filter-2",
+              "description": "Test rule",
+              "prefixMatch": "orlonger",
+              "action": "PERMIT",
+              "prefix": "192.168.20.0/24",
+              "change": {
+                "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/9890d520-1579-4489-8003-154b34b8f403/changes/9397f111-19aa-489c-b3c7-349c86818f2d",
+                "type": "IPv4_BGP_PREFIX_FILTER_RULE_CREATION",
+                "uuid": "9397f111-19aa-489c-b3c7-349c86818f2d"
+              },
+              "changeLog": {
+                "createdBy": "testuser",
+                "createdByEmail": "testuser@equinix.com",
+                "createdByFullName": "testuser testuser",
+                "createdDateTime": "2020-05-21T10:30:00Z"
+              }
+            }
+          ]
+        }
+      },
+      "RouteFilterRuleCreateBgpIpv4Prefix": {
+        "value": {
+          "name": "Private-subnet-filter",
+          "description": "Test rule",
+          "prefix": "192.168.0.0/24",
+          "prefixMatch": "exact"
+        }
+      },
+      "RouteFilterRuleCreateBgpIpv4PrefixResponse": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/9890d520-1579-4489-8003-154b34b8f403",
+          "type": "BGP_IPv4_PREFIX_FILTER_RULE",
+          "uuid": "9890d520-1579-4489-8003-154b34b8f403",
+          "name": "Private-subnet-filter",
+          "description": "Test rule",
+          "change": {
+            "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/9890d520-1579-4489-8003-154b34b8f403/changes/ff9653dc-88c5-47b5-b552-8a08d2f73f7e",
+            "type": "BGP_IPv4_PREFIX_FILTER_RULE_CREATION",
+            "uuid": "ff9653dc-88c5-47b5-b552-8a08d2f73f7e"
+          },
+          "action": "PERMIT",
+          "prefix": "192.168.0.0/24",
+          "prefixMatch": "exact",
+          "changeLog": {
+            "createdBy": "testuser",
+            "createdByEmail": "testuser@equinix.com",
+            "createdByFullName": "testuser testuser",
+            "createdDateTime": "2020-05-21T10:30:00Z"
+          }
+        }
+      },
+      "UpdateRouteFilterRuleIPv4": {
+        "value": {
+          "type": "BGP_IPv4_PREFIX_FILTER_RULE",
+          "name": "Private-subnet-filter",
+          "description": "Test rule",
+          "prefix": "192.168.0.0/25",
+          "prefixMach": "exact",
+          "action": "PERMIT"
+        }
+      },
+      "RouteFilterRuleIpv4ReplaceResponse": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/9890d520-1579-4489-8003-154b34b8f403",
+          "type": "BGP_IPv4_PREFIX_FILTER_RULE",
+          "uuid": "9890d520-1579-4489-8003-154b34b8f403",
+          "name": "Private-subnet-filter",
+          "description": "Test rule",
+          "prefixMach": "exact",
+          "action": "PERMIT",
+          "change": {
+            "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/9890d520-1579-4489-8003-154b34b8f403/changes/a25ca469-721a-4614-89a9-cdef287aa628",
+            "type": "BGP_IPv4_PREFIX_FILTER_RULE_UPDATE",
+            "uuid": "a25ca469-721a-4614-89a9-cdef287aa628"
+          },
+          "prefix": "192.168.0.0/24",
+          "changeLog": {
+            "createdBy": "testuser",
+            "createdByEmail": "testuser@equinix.com",
+            "createdByFullName": "testuser testuser",
+            "createdDateTime": "2020-05-21T10:30:00Z",
+            "updatedBy": "testuser1",
+            "updatedByEmail": "testuser@equinix.com",
+            "updatedByFullName": "testuser testuser",
+            "updatedDateTime": "2020-05-21T10:30:00Z"
+          }
+        }
+      },
+      "RouteFilterRuleDeleteBgpIpv4PrefixResponse": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/9890d520-1579-4489-8003-154b34b8f403",
+          "type": "BGP_IPv4_PREFIX_FILTER_RULE",
+          "uuid": "9890d520-1579-4489-8003-154b34b8f403",
+          "name": "Private-subnet-filter",
+          "description": "Test rule",
+          "change": {
+            "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/9890d520-1579-4489-8003-154b34b8f403/changes/e8528788-14d3-4a7b-a740-99b702067485",
+            "type": "BGP_IPv4_PREFIX_FILTER_RULE_DELETION",
+            "uuid": "e8528788-14d3-4a7b-a740-99b702067485"
+          },
+          "action": "PERMIT",
+          "prefix": "192.168.0.0/24",
+          "prefixMach": "exact",
+          "changeLog": {
+            "createdBy": "testuser",
+            "createdByEmail": "testuser@equinix.com",
+            "createdByFullName": "testuser testuser",
+            "createdDateTime": "2020-05-21T10:30:00Z",
+            "updatedBy": "testuser1",
+            "updatedByEmail": "testuser@equinix.com",
+            "updatedByFullName": "testuser testuser",
+            "updatedDateTime": "2020-05-21T10:30:00Z",
+            "deletedBy": "testuser1",
+            "deletedByEmail": "testuser@equinix.com",
+            "deletedByFullName": "testuser testuser",
+            "deletedDateTime": "2020-05-21T10:30:00Z"
+          }
+        }
+      },
+      "400_transient_filter": {
+        "value": [
+          {
+            "errorCode": "EQ-3044015",
+            "errorMessage": "Cannot delete Route Filter Rule, Route Filter transient state",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515",
+            "details": "Cannot delete Route Filter Rule, Route filter is in transient state"
+          }
+        ]
+      },
+      "PatchRouteFilterRulePrefixMatch": {
+        "value": [
+          {
+            "op": "replace",
+            "path": "/prefixMatch",
+            "value": "orlonger"
+          }
+        ]
+      },
+      "RouteFilterRulesGetAllChangesResponseExample": {
+        "value": {
+          "pagination": {
+            "offset": 0,
+            "limit": 20,
+            "total": 3,
+            "next": null,
+            "previous": null
+          },
+          "data": [
+            {
+              "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/9890d520-1579-4489-8003-154b34b8f403/changes/ff9653dc-88c5-47b5-b552-8a08d2f73f7e",
+              "type": "BGP_IPv4_PREFIX_FILTER_RULE_CREATION",
+              "uuid": "ff9653dc-88c5-47b5-b552-8a08d2f73f7e",
+              "status": "COMPLETED",
+              "createdBy": "testuser",
+              "createdByEmail": "testuser@equinix.com",
+              "createdByFullName": "testuser testuser",
+              "createdDateTime": "2020-05-21T10:30:00Z",
+              "updatedBy": "_system",
+              "updatedByEmail": null,
+              "updatedByFullName": null,
+              "updatedDateTime": "2020-05-21T10:30:00Z",
+              "data": {
+                "type": "BGP_IPv4_PREFIX_FILTER_RULE",
+                "name": "Private-subnet-filter",
+                "description": "Test rule",
+                "prefix": "192.168.0.0/25",
+                "prefixMach": "exact",
+                "action": "PERMIT"
+              }
+            },
+            {
+              "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/9890d520-1579-4489-8003-154b34b8f403/changes/a40085a4-f0cc-416c-af01-286f7f7ec736",
+              "type": "BGP_IPv4_PREFIX_FILTER_RULE_UPDATE",
+              "uuid": "a40085a4-f0cc-416c-af01-286f7f7ec736",
+              "status": "COMPLETED",
+              "createdBy": "testuser",
+              "createdByEmail": "testuser@equinix.com",
+              "createdByFullName": "testuser testuser",
+              "createdDateTime": "2020-05-21T10:30:00Z",
+              "updatedBy": "_system",
+              "updatedByEmail": null,
+              "updatedByFullName": null,
+              "updatedDateTime": "2020-05-21T10:30:00Z",
+              "data": [
+                {
+                  "op": "replace",
+                  "path": "/prefixMatch",
+                  "value": "orlonger",
+                  "previousValue": "exact"
+                }
+              ]
+            },
+            {
+              "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/9890d520-1579-4489-8003-154b34b8f403/changes/a25ca469-721a-4614-89a9-cdef287aa628",
+              "type": "BGP_IPv4_PREFIX_FILTER_RULE_UPDATE",
+              "uuid": "a25ca469-721a-4614-89a9-cdef287aa628",
+              "status": "COMPLETED",
+              "createdBy": "testuser",
+              "createdByEmail": "testuser@equinix.com",
+              "createdByFullName": "testuser testuser",
+              "createdDateTime": "2020-05-21T10:30:00Z",
+              "updatedBy": "_system",
+              "updatedByEmail": null,
+              "updatedByFullName": null,
+              "updatedDateTime": "2020-05-21T10:30:00Z",
+              "data": [
+                {
+                  "op": "replace",
+                  "path": "/prefixMatch",
+                  "value": "exact",
+                  "previousValue": "orlonger"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "RouteFilterRuleGetChangeResponseExample": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/9890d520-1579-4489-8003-154b34b8f403/changes/ff9653dc-88c5-47b5-b552-8a08d2f73f7e",
+          "type": "BGP_IPv4_PREFIX_FILTER_RULE_CREATION",
+          "uuid": "ff9653dc-88c5-47b5-b552-8a08d2f73f7e",
+          "status": "COMPLETED",
+          "createdBy": "testuser",
+          "createdByEmail": "testuser@equinix.com",
+          "createdByFullName": "testuser testuser",
+          "createdDateTime": "2020-05-21T10:30:00Z",
+          "updatedBy": "_system",
+          "updatedByEmail": null,
+          "updatedByFullName": null,
+          "updatedDateTime": "2020-05-21T10:30:00Z",
+          "data": {
+            "type": "BGP_IPv4_PREFIX_FILTER_RULE",
+            "name": "Private-subnet-filter",
+            "description": "Test rule",
+            "prefix": "192.168.0.0/25",
+            "prefixMach": "exact",
+            "action": "PERMIT"
+          }
+        }
+      },
       "CreateLabPackage": {
         "value": {
           "type": "XF_ROUTER",
@@ -28615,7 +33012,7 @@
           }
         }
       },
-      "CreateProPackage": {
+      "CreateStandardPackage": {
         "value": {
           "type": "XF_ROUTER",
           "name": "My-Cloud-Router",
@@ -28623,7 +33020,7 @@
             "metroCode": "SV"
           },
           "package": {
-            "code": "PRO"
+            "code": "STANDARD"
           },
           "notifications": [
             {
@@ -28653,7 +33050,7 @@
           },
           "equinixAsn": 30000,
           "package": {
-            "code": "PRO"
+            "code": "STANDARD"
           },
           "order": {
             "purchaseOrderNumber": "1-129105284100"
@@ -28705,7 +33102,7 @@
           },
           "equinixAsn": 30000,
           "package": {
-            "code": "PRO"
+            "code": "STANDARD"
           },
           "order": {
             "purchaseOrderNumber": "1-129105284100"
@@ -28802,7 +33199,7 @@
           },
           "equinixAsn": 30000,
           "package": {
-            "code": "PRO"
+            "code": "STANDARD"
           },
           "order": {
             "purchaseOrderNumber": "1-129105284100"
@@ -28846,16 +33243,6 @@
             "deletedDateTime": "2021-09-24T06:59:46Z"
           }
         }
-      },
-      "400_invalid_operation": {
-        "value": [
-          {
-            "errorCode": "EQ-3040054",
-            "errorMessage": "Invalid Argument passed",
-            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515",
-            "details": "Only replace name, replace package and replace notifications operations are supported."
-          }
-        ]
       },
       "CloudRouterActionResponse": {
         "value": {
@@ -29080,7 +33467,7 @@
           {
             "errorCode": "EQ-2041022",
             "errorMessage": "The provided subnet is not valid.",
-            "details": "The provided subnet is overlapping to other connection in the same FCR.",
+            "details": "The provided subnet is overlapping with other connections in the same Fabric Cloud Router.",
             "correlationId": "5f9f9ab9-a6cb-4e8a-aa34-105cd4cb6cc8"
           }
         ]
@@ -29145,7 +33532,7 @@
               },
               "equinixAsn": 30000,
               "package": {
-                "code": "PRO"
+                "code": "STANDARD"
               },
               "order": {
                 "purchaseOrderNumber": "1-129105284100"
@@ -29190,7 +33577,7 @@
           "pagination": {
             "offset": 0,
             "limit": 20,
-            "total": 1
+            "total": 2
           },
           "data": [
             {
@@ -29213,6 +33600,28 @@
               "changeLog": {
                 "createdDateTime": "2022-02-10T00:14:47Z",
                 "updatedDateTime": "2022-02-10T00:14:47Z"
+              }
+            },
+            {
+              "href": "https://api.equinix.com/fabric/v4/routerPackages/STANDARD",
+              "type": "ROUTER_PACKAGE",
+              "code": "STANDARD",
+              "description": "string",
+              "totalIPv4RoutesMax": 1000,
+              "totalIPv6RoutesMax": 100,
+              "staticIPv4RoutesMax": 150,
+              "staticIPv6RoutesMax": 150,
+              "naclsMax": 60,
+              "naclRulesMax": 1000,
+              "haSupported": true,
+              "routeFilterSupported": true,
+              "natType": "STATIC_NAT",
+              "vcCountMax": 10,
+              "crCountMax": 3,
+              "vcBandwidthMax": 10000,
+              "changeLog": {
+                "createdDateTime": "2023-02-10T00:14:47Z",
+                "updatedDateTime": "2023-02-10T00:14:47Z"
               }
             }
           ]
@@ -30508,10 +34917,10 @@
             }
           ],
           "package": {
-            "href": "https://api.equinix.com/fabric/v4/timeServicePackages/NTP_STANDARD",
+            "href": "https://api.equinix.com/fabric/v4/timeServicesPackages/NTP_STANDARD",
             "code": "NTP_STANDARD"
           },
-          "ipv4": {
+          "networkingIpv4": {
             "primary": "192.168.0.2",
             "secondary": "192.168.0.3",
             "networkMask": "255.255.255.255",
@@ -30957,7 +35366,7 @@
           "package": {
             "code": "NTP_STANDARD"
           },
-          "ipv4": {
+          "networkingIpv4": {
             "primary": "192.168.0.2",
             "secondary": "192.168.0.3",
             "networkMask": "255.255.255.255",
@@ -30977,7 +35386,7 @@
           "package": {
             "code": "PTP_STANDARD"
           },
-          "ipv4": {
+          "networkingIpv4": {
             "primary": "192.168.0.2",
             "secondary": "192.168.0.3",
             "networkMask": "255.255.255.255",
@@ -30997,7 +35406,7 @@
           "package": {
             "code": "PTP_STANDARD"
           },
-          "ipv4": {
+          "networkingIpv4": {
             "primary": "192.168.0.2",
             "secondary": "192.168.0.3",
             "networkMask": "255.255.255.255",
@@ -31046,10 +35455,15 @@
           },
           "data": [
             {
-              "href": "https://api.equinix.com/fabric/v4/timeServicePackages/NTP_STANDARD",
+              "href": "https://api.equinix.com/fabric/v4/precisiontime/packages/NTP_STANDARD",
               "code": "NTP_STANDARD",
               "type": "TIME_SERVICE_PACKAGE",
               "bandwidth": 1,
+              "bandwidthUnit": "Mbps",
+              "accuracySlaMax": 50,
+              "accuracyAvgMin": 1,
+              "accuracyAvgMax": 100,
+              "accuracyUnit": "millisecond",
               "clientsPerSecondMax": 2000,
               "redundancySupported": true,
               "multiSubnetSupported": true,
@@ -31059,10 +35473,15 @@
               }
             },
             {
-              "href": "https://api.equinix.com/fabric/v4/timeServicePackages/NTP_ENTERPRISE",
+              "href": "https://api.equinix.com/fabric/v4/precisiontime/packages/NTP_ENTERPRISE",
               "code": "NTP_ENTERPRISE",
               "type": "TIME_SERVICE_PACKAGE",
               "bandwidth": 5,
+              "bandwidthUnit": "Mbps",
+              "accuracySlaMax": 50,
+              "accuracyAvgMin": 1,
+              "accuracyAvgMax": 100,
+              "accuracyUnit": "millisecond",
               "clientsPerSecondMax": 1000,
               "redundancySupported": true,
               "multiSubnetSupported": true,
@@ -31072,10 +35491,14 @@
               }
             },
             {
-              "href": "https://api.equinix.com/fabric/v4/timeServicePackages/PTP_STANDARD",
+              "href": "https://api.equinix.com/fabric/v4/precisiontime/packages/PTP_STANDARD",
               "code": "PTP_STANDARD",
               "type": "TIME_SERVICE_PACKAGE",
               "bandwidth": 5,
+              "bandwidthUnit": "Mbps",
+              "accuracyAvgMin": 1,
+              "accuracyAvgMax": 10,
+              "accuracyUnit": "millisecond",
               "clientsPerSecondMax": 100,
               "redundancySupported": true,
               "multiSubnetSupported": true,
@@ -31089,6 +35512,10 @@
               "code": "PTP_ENTERPRISE",
               "type": "TIME_SERVICE_PACKAGE",
               "bandwidth": 10,
+              "bandwidthUnit": "Mbps",
+              "accuracyAvgMin": 1,
+              "accuracyAvgMax": 10,
+              "accuracyUnit": "millisecond",
               "clientsPerSecondMax": 20,
               "redundancySupported": true,
               "multiSubnetSupported": true,
@@ -31106,6 +35533,11 @@
           "code": "NTP_STANDARD",
           "type": "TIME_SERVICE_PACKAGE",
           "bandwidth": 10,
+          "bandwidthUnit": "Mbps",
+          "accuracySlaMax": 50,
+          "accuracyAvgMin": 1,
+          "accuracyAvgMax": 10,
+          "accuracyUnit": "millisecond",
           "clientsPerSecondMax": 100,
           "redundancySupported": true,
           "multiSubnetSupported": true,
