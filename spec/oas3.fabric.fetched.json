@@ -10636,8 +10636,8 @@
         "tags": [
           "Precision Time"
         ],
-        "summary": "Get time service",
-        "description": "The API provides capability to get prevision timing service's details",
+        "summary": "Get Time Service",
+        "description": "The API provides capability to get precision timing service's details",
         "operationId": "getTimeServicesById",
         "parameters": [
           {
@@ -10651,7 +10651,7 @@
           }
         ],
         "responses": {
-          "200": {
+          "202": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -10891,7 +10891,7 @@
           }
         ],
         "responses": {
-          "204": {
+          "202": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -10990,6 +10990,7 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
+                "maxItems": 1,
                 "minItems": 1,
                 "type": "array",
                 "items": {
@@ -11006,7 +11007,7 @@
           "required": true
         },
         "responses": {
-          "200": {
+          "202": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -11233,7 +11234,7 @@
         "tags": [
           "Precision Time"
         ],
-        "summary": "Create time service",
+        "summary": "Create Time Service",
         "description": "The API provides capability to create timing service",
         "operationId": "createTimeServices",
         "parameters": [],
@@ -11259,7 +11260,7 @@
           "required": true
         },
         "responses": {
-          "200": {
+          "202": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -11443,236 +11444,6 @@
                 "examples": {
                   "example": {
                     "$ref": "#/components/examples/403"
-                  }
-                }
-              }
-            }
-          },
-          "415": {
-            "description": "Unsupported Media Type",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorList"
-                },
-                "examples": {
-                  "example": {
-                    "$ref": "#/components/examples/415"
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorList"
-                },
-                "examples": {
-                  "example": {
-                    "$ref": "#/components/examples/500"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/fabric/v4/timeServices/{serviceId}/connections": {
-      "get": {
-        "tags": [
-          "Precision Time"
-        ],
-        "summary": "Get Conn Links",
-        "description": "The API provides capability to get prevision timing service's details",
-        "operationId": "getTimeServicesConnectionsByServiceId",
-        "parameters": [
-          {
-            "name": "serviceId",
-            "in": "path",
-            "description": "Service UUID",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/ServiceId"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Return Time Service Connection",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/precisionTimeServiceConnectionsResponse"
-                },
-                "examples": {
-                  "example": {
-                    "$ref": "#/components/examples/serviceConnectionsResponse"
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorList"
-                },
-                "examples": {
-                  "example": {
-                    "$ref": "#/components/examples/401"
-                  }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorList"
-                },
-                "examples": {
-                  "example": {
-                    "$ref": "#/components/examples/403"
-                  }
-                }
-              }
-            }
-          },
-          "415": {
-            "description": "Unsupported Media Type",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorList"
-                },
-                "examples": {
-                  "example": {
-                    "$ref": "#/components/examples/415"
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorList"
-                },
-                "examples": {
-                  "example": {
-                    "$ref": "#/components/examples/500"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/fabric/v4/timeServicesPackages": {
-      "get": {
-        "tags": [
-          "Precision Time"
-        ],
-        "summary": "Get Packages",
-        "description": "The API provides capability to get timing service's packages",
-        "operationId": "getTimeServicesPackages",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/precisionTimeServicePackagesResponse"
-                },
-                "examples": {
-                  "example": {
-                    "$ref": "#/components/examples/servicePackagesResponse"
-                  }
-                }
-              }
-            }
-          },
-          "415": {
-            "description": "Unsupported Media Type",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorList"
-                },
-                "examples": {
-                  "example": {
-                    "$ref": "#/components/examples/415"
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorList"
-                },
-                "examples": {
-                  "example": {
-                    "$ref": "#/components/examples/500"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/fabric/v4/timeServicesPackages/{packageCode}": {
-      "get": {
-        "tags": [
-          "Precision Time"
-        ],
-        "summary": "Get package by Code",
-        "description": "The API provides capability to get timing service's package by code",
-        "operationId": "getTimeServicesPackageByCode",
-        "parameters": [
-          {
-            "name": "packageCode",
-            "in": "path",
-            "description": "Package Code",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "enum": [
-                "NTP_STANDARD",
-                "NTP_ENTERPRISE",
-                "PTP_STANDARD",
-                "PTP_ENTERPRISE"
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PackageResponse"
-                },
-                "examples": {
-                  "example": {
-                    "$ref": "#/components/examples/servicePackageResponse"
                   }
                 }
               }
@@ -15710,7 +15481,7 @@
         "title": "precisionTimeServiceResponse",
         "required": [
           "href",
-          "networkingIpv4",
+          "ipv4",
           "package",
           "state",
           "type",
@@ -15770,7 +15541,7 @@
               "$ref": "#/components/schemas/fabricConnectionUuid"
             }
           },
-          "networkingIpv4": {
+          "ipv4": {
             "$ref": "#/components/schemas/ipv4"
           },
           "account": {
@@ -15806,7 +15577,7 @@
             "type": "string",
             "description": "path inside document leading to updated parameter",
             "enum": [
-              "/networkingIpv4",
+              "/ipv4",
               "/name",
               "/advanceConfiguration/ntp",
               "/advanceConfiguration/ptp",
@@ -15824,8 +15595,8 @@
         "title": "precisionTimeServiceRequest",
         "required": [
           "connections",
+          "ipv4",
           "name",
-          "networkingIpv4",
           "package",
           "type"
         ],
@@ -15854,7 +15625,7 @@
               "$ref": "#/components/schemas/fabricConnectionUuid"
             }
           },
-          "networkingIpv4": {
+          "ipv4": {
             "$ref": "#/components/schemas/ipv4"
           },
           "advanceConfiguration": {
@@ -15865,40 +15636,6 @@
           }
         },
         "description": "EPT service instance"
-      },
-      "precisionTimeServiceConnectionsResponse": {
-        "title": "precisionTimeServiceConnectionResponse",
-        "type": "object",
-        "properties": {
-          "pagination": {
-            "$ref": "#/components/schemas/Pagination"
-          },
-          "data": {
-            "type": "array",
-            "description": "Data returned from the API call",
-            "items": {
-              "$ref": "#/components/schemas/connectionLink"
-            }
-          }
-        },
-        "description": "EPT service instance's L2 connections"
-      },
-      "precisionTimeServicePackagesResponse": {
-        "title": "precisionTimeServicePackagesResponse",
-        "type": "object",
-        "properties": {
-          "pagination": {
-            "$ref": "#/components/schemas/Pagination"
-          },
-          "data": {
-            "type": "array",
-            "description": "Data returned from the API call",
-            "items": {
-              "$ref": "#/components/schemas/PackageResponse"
-            }
-          }
-        },
-        "description": "Precision Packages"
       },
       "ConnectionType": {
         "type": "string",
@@ -18074,26 +17811,6 @@
         "description": "EPT Package Request",
         "example": {
           "code": "NTP_STANDARD"
-        }
-      },
-      "connectionLink": {
-        "type": "object",
-        "properties": {
-          "href": {
-            "type": "string",
-            "format": "uri",
-            "example": "https://api.equinix.com/fabric/v4/timeServices/92dc376a-a932-43aa-a6a2-c806dedbd784/connections"
-          },
-          "type": {
-            "type": "string",
-            "enum": [
-              "EVPL_VC"
-            ]
-          },
-          "uuid": {
-            "type": "string",
-            "format": "uuid"
-          }
         }
       },
       "ConnectionPriority": {
@@ -34913,14 +34630,15 @@
           "connections": [
             {
               "href": "https://api.equinix.com/fabric/v4/connections/a8ba52de-faae-43b5-b0b1-6904d37ee011",
+              "type": "EVPL_VC",
               "uuid": "06dbb0e3-e55d-4090-8aff-fc5654abaad0"
             }
           ],
           "package": {
-            "href": "https://api.equinix.com/fabric/v4/timeServicesPackages/NTP_STANDARD",
+            "href": "https://api.equinix.com/fabric/v4/timeServicePackages/NTP_STANDARD",
             "code": "NTP_STANDARD"
           },
-          "networkingIpv4": {
+          "ipv4": {
             "primary": "192.168.0.2",
             "secondary": "192.168.0.3",
             "networkMask": "255.255.255.255",
@@ -35366,7 +35084,7 @@
           "package": {
             "code": "NTP_STANDARD"
           },
-          "networkingIpv4": {
+          "ipv4": {
             "primary": "192.168.0.2",
             "secondary": "192.168.0.3",
             "networkMask": "255.255.255.255",
@@ -35386,7 +35104,7 @@
           "package": {
             "code": "PTP_STANDARD"
           },
-          "networkingIpv4": {
+          "ipv4": {
             "primary": "192.168.0.2",
             "secondary": "192.168.0.3",
             "networkMask": "255.255.255.255",
@@ -35406,7 +35124,7 @@
           "package": {
             "code": "PTP_STANDARD"
           },
-          "networkingIpv4": {
+          "ipv4": {
             "primary": "192.168.0.2",
             "secondary": "192.168.0.3",
             "networkMask": "255.255.255.255",
@@ -35455,16 +35173,15 @@
           },
           "data": [
             {
-              "href": "https://api.equinix.com/fabric/v4/precisiontime/packages/NTP_STANDARD",
+              "href": "https://api.equinix.com/fabric/v4/timeServicePackages/NTP_STANDARD",
               "code": "NTP_STANDARD",
               "type": "TIME_SERVICE_PACKAGE",
               "bandwidth": 1,
-              "bandwidthUnit": "Mbps",
-              "accuracySlaMax": 50,
+              "clientsPerSecondMax": 2000,
+              "accuracyUnit": "microseconds",
+              "accuracySla": -1,
               "accuracyAvgMin": 1,
               "accuracyAvgMax": 100,
-              "accuracyUnit": "millisecond",
-              "clientsPerSecondMax": 2000,
               "redundancySupported": true,
               "multiSubnetSupported": true,
               "changeLog": {
@@ -35473,16 +35190,15 @@
               }
             },
             {
-              "href": "https://api.equinix.com/fabric/v4/precisiontime/packages/NTP_ENTERPRISE",
+              "href": "https://api.equinix.com/fabric/v4/timeServicePackages/NTP_ENTERPRISE",
               "code": "NTP_ENTERPRISE",
               "type": "TIME_SERVICE_PACKAGE",
               "bandwidth": 5,
-              "bandwidthUnit": "Mbps",
-              "accuracySlaMax": 50,
+              "clientsPerSecondMax": 1000,
+              "accuracyUnit": "microseconds",
+              "accuracySla": -1,
               "accuracyAvgMin": 1,
               "accuracyAvgMax": 100,
-              "accuracyUnit": "millisecond",
-              "clientsPerSecondMax": 1000,
               "redundancySupported": true,
               "multiSubnetSupported": true,
               "changeLog": {
@@ -35491,15 +35207,15 @@
               }
             },
             {
-              "href": "https://api.equinix.com/fabric/v4/precisiontime/packages/PTP_STANDARD",
+              "href": "https://api.equinix.com/fabric/v4/timeServicePackages/PTP_STANDARD",
               "code": "PTP_STANDARD",
               "type": "TIME_SERVICE_PACKAGE",
               "bandwidth": 5,
-              "bandwidthUnit": "Mbps",
+              "clientsPerSecondMax": 100,
+              "accuracyUnit": "microseconds",
+              "accuracySla": 50,
               "accuracyAvgMin": 1,
               "accuracyAvgMax": 10,
-              "accuracyUnit": "millisecond",
-              "clientsPerSecondMax": 100,
               "redundancySupported": true,
               "multiSubnetSupported": true,
               "changeLog": {
@@ -35508,15 +35224,15 @@
               }
             },
             {
-              "href": "https://api.equinix.com/fabric/v4/precisiontimePackages/PTP_ENTERPRISE",
+              "href": "https://api.equinix.com/fabric/v4/timeServicePackages/PTP_ENTERPRISE",
               "code": "PTP_ENTERPRISE",
               "type": "TIME_SERVICE_PACKAGE",
               "bandwidth": 10,
-              "bandwidthUnit": "Mbps",
+              "clientsPerSecondMax": 20,
+              "accuracyUnit": "microseconds",
+              "accuracySla": 50,
               "accuracyAvgMin": 1,
               "accuracyAvgMax": 10,
-              "accuracyUnit": "millisecond",
-              "clientsPerSecondMax": 20,
               "redundancySupported": true,
               "multiSubnetSupported": true,
               "changeLog": {
@@ -35529,16 +35245,15 @@
       },
       "servicePackageResponse": {
         "value": {
-          "href": "https://api.equinix.com/fabric/v4/precisiontimePackages/NTP_STANDARD",
+          "href": "https://api.equinix.com/fabric/v4/timeServicePackages/NTP_STANDARD",
           "code": "NTP_STANDARD",
           "type": "TIME_SERVICE_PACKAGE",
           "bandwidth": 10,
-          "bandwidthUnit": "Mbps",
-          "accuracySlaMax": 50,
+          "clientsPerSecondMax": 100,
+          "accuracyUnit": "microseconds",
+          "accuracySla": 50,
           "accuracyAvgMin": 1,
           "accuracyAvgMax": 10,
-          "accuracyUnit": "millisecond",
-          "clientsPerSecondMax": 100,
           "redundancySupported": true,
           "multiSubnetSupported": true,
           "changeLog": {
