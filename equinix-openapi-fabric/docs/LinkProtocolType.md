@@ -13,5 +13,7 @@
 
 * `EVPN_VXLAN` (value: `"EVPN_VXLAN"`)
 
+* `VXLAN` (value: `"VXLAN"`)
+
 
 

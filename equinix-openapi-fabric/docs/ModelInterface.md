@@ -2,16 +2,17 @@
 
 # ModelInterface
 
-Virtual Device Interface Information
+Interface Information
 
 ## Properties
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**href** | **URI** | Virtual Interface URI |  [optional] [readonly] |
-|**uuid** | **UUID** | Equinix-assigned Virtual Device Interface identifier |  [optional] |
+|**href** | **URI** | Interface URI |  [optional] [readonly] |
+|**uuid** | **UUID** | Equinix-assigned Interface identifier |  [optional] |
 |**id** | **Integer** | Interface id |  [optional] |
-|**type** | [**TypeEnum**](#TypeEnum) | Virtual Device Interface type |  [optional] |
+|**type** | [**TypeEnum**](#TypeEnum) | Interface type |  [optional] |
+|**projectId** | **String** | Interface Project ID |  [optional] |
 
 
 

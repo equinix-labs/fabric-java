@@ -32,7 +32,7 @@ public enum FabricCloudRouterCode {
   
   BASIC("BASIC"),
   
-  PRO("PRO"),
+  STANDARD("STANDARD"),
   
   PREMIUM("PREMIUM");
 

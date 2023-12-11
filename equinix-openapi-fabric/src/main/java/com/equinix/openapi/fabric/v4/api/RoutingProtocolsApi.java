@@ -38,7 +38,7 @@ import com.equinix.openapi.fabric.v4.model.RoutingProtocolChangeData;
 import com.equinix.openapi.fabric.v4.model.RoutingProtocolChangeDataResponse;
 import com.equinix.openapi.fabric.v4.model.RoutingProtocolData;
 import java.util.UUID;
-import com.equinix.openapi.fabric.v4.model.ValidateSubnetRequest;
+import com.equinix.openapi.fabric.v4.model.ValidateRequest;
 import com.equinix.openapi.fabric.v4.model.ValidateSubnetResponse;
 
 import java.lang.reflect.Type;
@@ -2044,7 +2044,7 @@ public class RoutingProtocolsApi {
     /**
      * Build call for validateRoutingProtocol
      * @param routerId Cloud Router UUID (required)
-     * @param validateSubnetRequest  (required)
+     * @param validateRequest  (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -2055,7 +2055,7 @@ public class RoutingProtocolsApi {
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call validateRoutingProtocolCall(UUID routerId, ValidateSubnetRequest validateSubnetRequest, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call validateRoutingProtocolCall(UUID routerId, ValidateRequest validateRequest, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -2069,7 +2069,7 @@ public class RoutingProtocolsApi {
             basePath = null;
         }
 
-        Object localVarPostBody = validateSubnetRequest;
+        Object localVarPostBody = validateRequest;
 
         // create path and map variables
         String localVarPath = "/fabric/v4/routers/{routerId}/validate"
@@ -2102,18 +2102,18 @@ public class RoutingProtocolsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call validateRoutingProtocolValidateBeforeCall(UUID routerId, ValidateSubnetRequest validateSubnetRequest, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call validateRoutingProtocolValidateBeforeCall(UUID routerId, ValidateRequest validateRequest, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'routerId' is set
         if (routerId == null) {
             throw new ApiException("Missing the required parameter 'routerId' when calling validateRoutingProtocol(Async)");
         }
 
-        // verify the required parameter 'validateSubnetRequest' is set
-        if (validateSubnetRequest == null) {
-            throw new ApiException("Missing the required parameter 'validateSubnetRequest' when calling validateRoutingProtocol(Async)");
+        // verify the required parameter 'validateRequest' is set
+        if (validateRequest == null) {
+            throw new ApiException("Missing the required parameter 'validateRequest' when calling validateRoutingProtocol(Async)");
         }
 
-        return validateRoutingProtocolCall(routerId, validateSubnetRequest, _callback);
+        return validateRoutingProtocolCall(routerId, validateRequest, _callback);
 
     }
 
@@ -2121,7 +2121,7 @@ public class RoutingProtocolsApi {
      * Validate Subnet
      * This API provides capability to validate all subnets associated with any connection in the given FCR
      * @param routerId Cloud Router UUID (required)
-     * @param validateSubnetRequest  (required)
+     * @param validateRequest  (required)
      * @return ValidateSubnetResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -2131,8 +2131,8 @@ public class RoutingProtocolsApi {
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
      */
-    public ValidateSubnetResponse validateRoutingProtocol(UUID routerId, ValidateSubnetRequest validateSubnetRequest) throws ApiException {
-        ApiResponse<ValidateSubnetResponse> localVarResp = validateRoutingProtocolWithHttpInfo(routerId, validateSubnetRequest);
+    public ValidateSubnetResponse validateRoutingProtocol(UUID routerId, ValidateRequest validateRequest) throws ApiException {
+        ApiResponse<ValidateSubnetResponse> localVarResp = validateRoutingProtocolWithHttpInfo(routerId, validateRequest);
         return localVarResp.getData();
     }
 
@@ -2140,7 +2140,7 @@ public class RoutingProtocolsApi {
      * Validate Subnet
      * This API provides capability to validate all subnets associated with any connection in the given FCR
      * @param routerId Cloud Router UUID (required)
-     * @param validateSubnetRequest  (required)
+     * @param validateRequest  (required)
      * @return ApiResponse&lt;ValidateSubnetResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -2150,8 +2150,8 @@ public class RoutingProtocolsApi {
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<ValidateSubnetResponse> validateRoutingProtocolWithHttpInfo(UUID routerId, ValidateSubnetRequest validateSubnetRequest) throws ApiException {
-        okhttp3.Call localVarCall = validateRoutingProtocolValidateBeforeCall(routerId, validateSubnetRequest, null);
+    public ApiResponse<ValidateSubnetResponse> validateRoutingProtocolWithHttpInfo(UUID routerId, ValidateRequest validateRequest) throws ApiException {
+        okhttp3.Call localVarCall = validateRoutingProtocolValidateBeforeCall(routerId, validateRequest, null);
         Type localVarReturnType = new TypeToken<ValidateSubnetResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -2160,7 +2160,7 @@ public class RoutingProtocolsApi {
      * Validate Subnet (asynchronously)
      * This API provides capability to validate all subnets associated with any connection in the given FCR
      * @param routerId Cloud Router UUID (required)
-     * @param validateSubnetRequest  (required)
+     * @param validateRequest  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -2171,9 +2171,9 @@ public class RoutingProtocolsApi {
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call validateRoutingProtocolAsync(UUID routerId, ValidateSubnetRequest validateSubnetRequest, final ApiCallback<ValidateSubnetResponse> _callback) throws ApiException {
+    public okhttp3.Call validateRoutingProtocolAsync(UUID routerId, ValidateRequest validateRequest, final ApiCallback<ValidateSubnetResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = validateRoutingProtocolValidateBeforeCall(routerId, validateSubnetRequest, _callback);
+        okhttp3.Call localVarCall = validateRoutingProtocolValidateBeforeCall(routerId, validateRequest, _callback);
         Type localVarReturnType = new TypeToken<ValidateSubnetResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;

@@ -446,7 +446,7 @@ public class Example {
 
 <a name="validateConnections"></a>
 # **validateConnections**
-> ConnectionResponse validateConnections(validateConnectionRequest)
+> ConnectionResponse validateConnections(validateRequest)
 
 Validate Connection
 
@@ -472,9 +472,9 @@ public class Example {
     BearerAuth.setBearerToken("BEARER TOKEN");
 
     ConnectionsApi apiInstance = new ConnectionsApi(defaultClient);
-    ValidateConnectionRequest validateConnectionRequest = new ValidateConnectionRequest(); // ValidateConnectionRequest | 
+    ValidateRequest validateRequest = new ValidateRequest(); // ValidateRequest | 
     try {
-      ConnectionResponse result = apiInstance.validateConnections(validateConnectionRequest);
+      ConnectionResponse result = apiInstance.validateConnections(validateRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ConnectionsApi#validateConnections");
@@ -491,7 +491,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **validateConnectionRequest** | [**ValidateConnectionRequest**](ValidateConnectionRequest.md)|  | |
+| **validateRequest** | [**ValidateRequest**](ValidateRequest.md)|  | |
 
 ### Return type
 

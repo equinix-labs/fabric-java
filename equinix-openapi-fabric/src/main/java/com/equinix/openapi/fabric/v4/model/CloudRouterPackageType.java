@@ -110,7 +110,7 @@ public class CloudRouterPackageType {
     
     BASIC("BASIC"),
     
-    PRO("PRO"),
+    STANDARD("STANDARD"),
     
     PREMIUM("PREMIUM");
 

@@ -20,6 +20,7 @@ import com.equinix.openapi.fabric.v4.model.LinkProtocolIpv4Ipv6Config;
 import com.equinix.openapi.fabric.v4.model.LinkProtocolQinq;
 import com.equinix.openapi.fabric.v4.model.LinkProtocolType;
 import com.equinix.openapi.fabric.v4.model.LinkProtocolUntagged;
+import com.equinix.openapi.fabric.v4.model.LinkProtocolVxlan;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -76,6 +77,7 @@ public class LinkProtocol extends AbstractOpenApiSchema {
             final TypeAdapter<LinkProtocolEvpnVxlan> adapterLinkProtocolEvpnVxlan = gson.getDelegateAdapter(this, TypeToken.get(LinkProtocolEvpnVxlan.class));
             final TypeAdapter<LinkProtocolQinq> adapterLinkProtocolQinq = gson.getDelegateAdapter(this, TypeToken.get(LinkProtocolQinq.class));
             final TypeAdapter<LinkProtocolUntagged> adapterLinkProtocolUntagged = gson.getDelegateAdapter(this, TypeToken.get(LinkProtocolUntagged.class));
+            final TypeAdapter<LinkProtocolVxlan> adapterLinkProtocolVxlan = gson.getDelegateAdapter(this, TypeToken.get(LinkProtocolVxlan.class));
 
             return (TypeAdapter<T>) new TypeAdapter<LinkProtocol>() {
                 @Override
@@ -113,7 +115,14 @@ public class LinkProtocol extends AbstractOpenApiSchema {
                         return;
                     }
 
-                    throw new IOException("Failed to serialize as the type doesn't match oneOf schemas: LinkProtocolDot1q, LinkProtocolEvpnVxlan, LinkProtocolQinq, LinkProtocolUntagged");
+                    // check if the actual instance is of the type `LinkProtocolVxlan`
+                    if (value.getActualInstance() instanceof LinkProtocolVxlan) {
+                        JsonObject obj = adapterLinkProtocolVxlan.toJsonTree((LinkProtocolVxlan)value.getActualInstance()).getAsJsonObject();
+                        elementAdapter.write(out, obj);
+                        return;
+                    }
+
+                    throw new IOException("Failed to serialize as the type doesn't match oneOf schemas: LinkProtocolDot1q, LinkProtocolEvpnVxlan, LinkProtocolQinq, LinkProtocolUntagged, LinkProtocolVxlan");
                 }
 
                 @Override
@@ -177,6 +186,19 @@ public class LinkProtocol extends AbstractOpenApiSchema {
                         log.log(Level.FINER, "Input data does not match schema 'LinkProtocolUntagged'", e);
                     }
 
+                    // deserialize LinkProtocolVxlan
+                    try {
+                        // validate the JSON object to see if any exception is thrown
+                        LinkProtocolVxlan.validateJsonObject(jsonObject);
+                        actualAdapter = adapterLinkProtocolVxlan;
+                        match++;
+                        log.log(Level.FINER, "Input data matches schema 'LinkProtocolVxlan'");
+                    } catch (Exception e) {
+                        // deserialization failed, continue
+                        errorMessages.add(String.format("Deserialization for LinkProtocolVxlan failed with `%s`.", e.getMessage()));
+                        log.log(Level.FINER, "Input data does not match schema 'LinkProtocolVxlan'", e);
+                    }
+
                     if (match == 1) {
                         LinkProtocol ret = new LinkProtocol();
                         ret.setActualInstance(actualAdapter.fromJsonTree(jsonObject));
@@ -216,6 +238,11 @@ public class LinkProtocol extends AbstractOpenApiSchema {
         setActualInstance(o);
     }
 
+    public LinkProtocol(LinkProtocolVxlan o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
+    }
+
     static {
         schemas.put("LinkProtocolDot1q", new GenericType<LinkProtocolDot1q>() {
         });
@@ -224,6 +251,8 @@ public class LinkProtocol extends AbstractOpenApiSchema {
         schemas.put("LinkProtocolQinq", new GenericType<LinkProtocolQinq>() {
         });
         schemas.put("LinkProtocolUntagged", new GenericType<LinkProtocolUntagged>() {
+        });
+        schemas.put("LinkProtocolVxlan", new GenericType<LinkProtocolVxlan>() {
         });
     }
 
@@ -235,7 +264,7 @@ public class LinkProtocol extends AbstractOpenApiSchema {
     /**
      * Set the instance that matches the oneOf child schema, check
      * the instance parameter is valid against the oneOf child schemas:
-     * LinkProtocolDot1q, LinkProtocolEvpnVxlan, LinkProtocolQinq, LinkProtocolUntagged
+     * LinkProtocolDot1q, LinkProtocolEvpnVxlan, LinkProtocolQinq, LinkProtocolUntagged, LinkProtocolVxlan
      *
      * It could be an instance of the 'oneOf' schemas.
      * The oneOf child schemas may themselves be a composed schema (allOf, anyOf, oneOf).
@@ -262,14 +291,19 @@ public class LinkProtocol extends AbstractOpenApiSchema {
             return;
         }
 
-        throw new RuntimeException("Invalid instance type. Must be LinkProtocolDot1q, LinkProtocolEvpnVxlan, LinkProtocolQinq, LinkProtocolUntagged");
+        if (instance instanceof LinkProtocolVxlan) {
+            super.setActualInstance(instance);
+            return;
+        }
+
+        throw new RuntimeException("Invalid instance type. Must be LinkProtocolDot1q, LinkProtocolEvpnVxlan, LinkProtocolQinq, LinkProtocolUntagged, LinkProtocolVxlan");
     }
 
     /**
      * Get the actual instance, which can be the following:
-     * LinkProtocolDot1q, LinkProtocolEvpnVxlan, LinkProtocolQinq, LinkProtocolUntagged
+     * LinkProtocolDot1q, LinkProtocolEvpnVxlan, LinkProtocolQinq, LinkProtocolUntagged, LinkProtocolVxlan
      *
-     * @return The actual instance (LinkProtocolDot1q, LinkProtocolEvpnVxlan, LinkProtocolQinq, LinkProtocolUntagged)
+     * @return The actual instance (LinkProtocolDot1q, LinkProtocolEvpnVxlan, LinkProtocolQinq, LinkProtocolUntagged, LinkProtocolVxlan)
      */
     @Override
     public Object getActualInstance() {
@@ -320,6 +354,17 @@ public class LinkProtocol extends AbstractOpenApiSchema {
         return (LinkProtocolUntagged)super.getActualInstance();
     }
 
+    /**
+     * Get the actual instance of `LinkProtocolVxlan`. If the actual instance is not `LinkProtocolVxlan`,
+     * the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `LinkProtocolVxlan`
+     * @throws ClassCastException if the instance is not `LinkProtocolVxlan`
+     */
+    public LinkProtocolVxlan getLinkProtocolVxlan() throws ClassCastException {
+        return (LinkProtocolVxlan)super.getActualInstance();
+    }
+
 
  /**
   * Validates the JSON Object and throws an exception if issues found
@@ -363,8 +408,16 @@ public class LinkProtocol extends AbstractOpenApiSchema {
       errorMessages.add(String.format("Deserialization for LinkProtocolUntagged failed with `%s`.", e.getMessage()));
       // continue to the next one
     }
+    // validate the json string with LinkProtocolVxlan
+    try {
+      LinkProtocolVxlan.validateJsonObject(jsonObj);
+      validCount++;
+    } catch (Exception e) {
+      errorMessages.add(String.format("Deserialization for LinkProtocolVxlan failed with `%s`.", e.getMessage()));
+      // continue to the next one
+    }
     if (validCount != 1) {
-      throw new IOException(String.format("The JSON string is invalid for LinkProtocol with oneOf schemas: LinkProtocolDot1q, LinkProtocolEvpnVxlan, LinkProtocolQinq, LinkProtocolUntagged. %d class(es) match the result, expected 1. Detailed failure message for oneOf schemas: %s. JSON: %s", validCount, errorMessages, jsonObj.toString()));
+      throw new IOException(String.format("The JSON string is invalid for LinkProtocol with oneOf schemas: LinkProtocolDot1q, LinkProtocolEvpnVxlan, LinkProtocolQinq, LinkProtocolUntagged, LinkProtocolVxlan. %d class(es) match the result, expected 1. Detailed failure message for oneOf schemas: %s. JSON: %s", validCount, errorMessages, jsonObj.toString()));
     }
   }
 

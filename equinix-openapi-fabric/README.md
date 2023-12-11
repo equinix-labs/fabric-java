@@ -1,7 +1,7 @@
 # equinix-openapi-fabric
 
 Equinix Fabric API v4
-- API version: 4.10
+- API version: 4.11
 
 Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br>
 
@@ -40,7 +40,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.equinix</groupId>
   <artifactId>equinix-openapi-fabric</artifactId>
-  <version>0.4.0</version>
+  <version>0.5.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -56,7 +56,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "com.equinix:equinix-openapi-fabric:0.4.0"
+     implementation "com.equinix:equinix-openapi-fabric:0.5.0"
   }
 ```
 
@@ -70,7 +70,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/equinix-openapi-fabric-0.4.0.jar`
+* `target/equinix-openapi-fabric-0.5.0.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -155,13 +155,31 @@ Class | Method | HTTP request | Description
 *PortsApi* | [**getVlans**](docs/PortsApi.md#getVlans) | **GET** /fabric/v4/ports/{portUuid}/linkProtocols | Get Vlans
 *PortsApi* | [**searchPorts**](docs/PortsApi.md#searchPorts) | **POST** /fabric/v4/ports/search | Search ports
 *PrecisionTimeApi* | [**createTimeServices**](docs/PrecisionTimeApi.md#createTimeServices) | **POST** /fabric/v4/timeServices | Create Time Service
-*PrecisionTimeApi* | [**deleteTimeServiceById**](docs/PrecisionTimeApi.md#deleteTimeServiceById) | **DELETE** /fabric/v4/timeServices/{serviceId} | Delete Time Service
+*PrecisionTimeApi* | [**deleteTimeServiceById**](docs/PrecisionTimeApi.md#deleteTimeServiceById) | **DELETE** /fabric/v4/timeServices/{serviceId} | Delete time service
 *PrecisionTimeApi* | [**getTimeServicesById**](docs/PrecisionTimeApi.md#getTimeServicesById) | **GET** /fabric/v4/timeServices/{serviceId} | Get Time Service
-*PrecisionTimeApi* | [**getTimeServicesConnectionsByServiceId**](docs/PrecisionTimeApi.md#getTimeServicesConnectionsByServiceId) | **GET** /fabric/v4/timeServices/{serviceId}/connections | Get all Connections
-*PrecisionTimeApi* | [**getTimeServicesPackageByCode**](docs/PrecisionTimeApi.md#getTimeServicesPackageByCode) | **GET** /fabric/v4/timeServicePackages/{packageCode} | Get Package by Code
-*PrecisionTimeApi* | [**getTimeServicesPackages**](docs/PrecisionTimeApi.md#getTimeServicesPackages) | **GET** /fabric/v4/timeServicePackages | Get Packages
-*PrecisionTimeApi* | [**updateTimeServicesById**](docs/PrecisionTimeApi.md#updateTimeServicesById) | **PATCH** /fabric/v4/timeServices/{serviceId} | Patch Time Service
+*PrecisionTimeApi* | [**updateTimeServicesById**](docs/PrecisionTimeApi.md#updateTimeServicesById) | **PATCH** /fabric/v4/timeServices/{serviceId} | Patch time service
 *PricesApi* | [**searchPrices**](docs/PricesApi.md#searchPrices) | **POST** /fabric/v4/prices/search | Get Prices
+*RouteFilterRulesApi* | [**createRouteFilterRule**](docs/RouteFilterRulesApi.md#createRouteFilterRule) | **POST** /fabric/v4/routeFilters/{routeFilterId}/routeFilterRules | Create RFRule
+*RouteFilterRulesApi* | [**createRouteFilterRulesInBulk**](docs/RouteFilterRulesApi.md#createRouteFilterRulesInBulk) | **POST** /fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/bulk | Bulk RFRules
+*RouteFilterRulesApi* | [**deleteRouteFilterRuleByUuid**](docs/RouteFilterRulesApi.md#deleteRouteFilterRuleByUuid) | **DELETE** /fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId} | DeleteRFRule
+*RouteFilterRulesApi* | [**getRouteFilterRuleByUuid**](docs/RouteFilterRulesApi.md#getRouteFilterRuleByUuid) | **GET** /fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId} | GetRFRule By UUID
+*RouteFilterRulesApi* | [**getRouteFilterRuleChangeByUuid**](docs/RouteFilterRulesApi.md#getRouteFilterRuleChangeByUuid) | **GET** /fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId}/changes/{changeId} | Get Change By ID
+*RouteFilterRulesApi* | [**getRouteFilterRuleChanges**](docs/RouteFilterRulesApi.md#getRouteFilterRuleChanges) | **GET** /fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId}/changes | Get All Changes
+*RouteFilterRulesApi* | [**getRouteFilterRules**](docs/RouteFilterRulesApi.md#getRouteFilterRules) | **GET** /fabric/v4/routeFilters/{routeFilterId}/routeFilterRules | GetRFRules
+*RouteFilterRulesApi* | [**patchRouteFilterRuleByUuid**](docs/RouteFilterRulesApi.md#patchRouteFilterRuleByUuid) | **PATCH** /fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId} | PatchRFilterRule
+*RouteFilterRulesApi* | [**replaceRouteFilterRuleByUuid**](docs/RouteFilterRulesApi.md#replaceRouteFilterRuleByUuid) | **PUT** /fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId} | ReplaceRFRule
+*RouteFiltersApi* | [**attachConnectionRouteFilter**](docs/RouteFiltersApi.md#attachConnectionRouteFilter) | **PUT** /fabric/v4/connections/{connectionId}/routeFilters/{routeFilterId} | Attach Route Filter
+*RouteFiltersApi* | [**createRouteFilter**](docs/RouteFiltersApi.md#createRouteFilter) | **POST** /fabric/v4/routeFilters | Create Route Filters
+*RouteFiltersApi* | [**deleteRouteFilterByUuid**](docs/RouteFiltersApi.md#deleteRouteFilterByUuid) | **DELETE** /fabric/v4/routeFilters/{routeFilterId} | Delete Route Filter
+*RouteFiltersApi* | [**detachConnectionRouteFilter**](docs/RouteFiltersApi.md#detachConnectionRouteFilter) | **DELETE** /fabric/v4/connections/{connectionId}/routeFilters/{routeFilterId} | Detach Route Filter
+*RouteFiltersApi* | [**getConnectionRouteFilterByUuid**](docs/RouteFiltersApi.md#getConnectionRouteFilterByUuid) | **GET** /fabric/v4/connections/{connectionId}/routeFilters/{routeFilterId} | Get Route Filter
+*RouteFiltersApi* | [**getConnectionRouteFilters**](docs/RouteFiltersApi.md#getConnectionRouteFilters) | **GET** /fabric/v4/connections/{connectionId}/routeFilters | Get All RouteFilters
+*RouteFiltersApi* | [**getRouteFilterByUuid**](docs/RouteFiltersApi.md#getRouteFilterByUuid) | **GET** /fabric/v4/routeFilters/{routeFilterId} | Get Filter By UUID
+*RouteFiltersApi* | [**getRouteFilterChangeByUuid**](docs/RouteFiltersApi.md#getRouteFilterChangeByUuid) | **GET** /fabric/v4/routeFilters/{routeFilterId}/changes/{changeId} | Get Change By ID
+*RouteFiltersApi* | [**getRouteFilterChanges**](docs/RouteFiltersApi.md#getRouteFilterChanges) | **GET** /fabric/v4/routeFilters/{routeFilterId}/changes | Get All Changes
+*RouteFiltersApi* | [**getRouteFilterConnections**](docs/RouteFiltersApi.md#getRouteFilterConnections) | **GET** /fabric/v4/routeFilters/{routeFilterId}/connections | Get Connections
+*RouteFiltersApi* | [**patchRouteFilterByUuid**](docs/RouteFiltersApi.md#patchRouteFilterByUuid) | **PATCH** /fabric/v4/routeFilters/{routeFilterId} | Patch Route Filter
+*RouteFiltersApi* | [**replaceRouteFilterByUuid**](docs/RouteFiltersApi.md#replaceRouteFilterByUuid) | **PUT** /fabric/v4/routeFilters/{routeFilterId} | Replace Route Filter
 *RoutingProtocolsApi* | [**createConnectionRoutingProtocol**](docs/RoutingProtocolsApi.md#createConnectionRoutingProtocol) | **POST** /fabric/v4/connections/{connectionId}/routingProtocols | Create Protocol
 *RoutingProtocolsApi* | [**createConnectionRoutingProtocolsInBulk**](docs/RoutingProtocolsApi.md#createConnectionRoutingProtocolsInBulk) | **POST** /fabric/v4/connections/{connectionId}/routingProtocols/bulk | Bulk Create Protocol
 *RoutingProtocolsApi* | [**deleteConnectionRoutingProtocolByUuid**](docs/RoutingProtocolsApi.md#deleteConnectionRoutingProtocolByUuid) | **DELETE** /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId} | Delete Protocol
@@ -178,6 +196,7 @@ Class | Method | HTTP request | Description
 *ServiceProfilesApi* | [**createServiceProfile**](docs/ServiceProfilesApi.md#createServiceProfile) | **POST** /fabric/v4/serviceProfiles | Create Profile
 *ServiceProfilesApi* | [**deleteServiceProfileByUuid**](docs/ServiceProfilesApi.md#deleteServiceProfileByUuid) | **DELETE** /fabric/v4/serviceProfiles/{serviceProfileId} | Delete Profile
 *ServiceProfilesApi* | [**getServiceProfileByUuid**](docs/ServiceProfilesApi.md#getServiceProfileByUuid) | **GET** /fabric/v4/serviceProfiles/{serviceProfileId} | Get Profile
+*ServiceProfilesApi* | [**getServiceProfileMetrosByUuid**](docs/ServiceProfilesApi.md#getServiceProfileMetrosByUuid) | **GET** /fabric/v4/serviceProfiles/{serviceProfileId}/metros | Get Profile Metros
 *ServiceProfilesApi* | [**getServiceProfiles**](docs/ServiceProfilesApi.md#getServiceProfiles) | **GET** /fabric/v4/serviceProfiles | Get all Profiles
 *ServiceProfilesApi* | [**putServiceProfileByUuid**](docs/ServiceProfilesApi.md#putServiceProfileByUuid) | **PUT** /fabric/v4/serviceProfiles/{serviceProfileId} | Replace Profile
 *ServiceProfilesApi* | [**searchServiceProfiles**](docs/ServiceProfilesApi.md#searchServiceProfiles) | **POST** /fabric/v4/serviceProfiles/search | Profile Search
@@ -250,12 +269,13 @@ Class | Method | HTTP request | Description
  - [ConnectionCompanyProfile](docs/ConnectionCompanyProfile.md)
  - [ConnectionDirection](docs/ConnectionDirection.md)
  - [ConnectionInvitation](docs/ConnectionInvitation.md)
- - [ConnectionLink](docs/ConnectionLink.md)
  - [ConnectionOperation](docs/ConnectionOperation.md)
  - [ConnectionPostRequest](docs/ConnectionPostRequest.md)
  - [ConnectionPriority](docs/ConnectionPriority.md)
  - [ConnectionRedundancy](docs/ConnectionRedundancy.md)
  - [ConnectionResponse](docs/ConnectionResponse.md)
+ - [ConnectionRouteFilterData](docs/ConnectionRouteFilterData.md)
+ - [ConnectionRouteFiltersBase](docs/ConnectionRouteFiltersBase.md)
  - [ConnectionRoutingProtocolPostRequest](docs/ConnectionRoutingProtocolPostRequest.md)
  - [ConnectionSearchResponse](docs/ConnectionSearchResponse.md)
  - [ConnectionSide](docs/ConnectionSide.md)
@@ -279,7 +299,10 @@ Class | Method | HTTP request | Description
  - [FilterBody](docs/FilterBody.md)
  - [GeoCoordinates](docs/GeoCoordinates.md)
  - [GeoScopeType](docs/GeoScopeType.md)
+ - [GetAllConnectionRouteFiltersResponse](docs/GetAllConnectionRouteFiltersResponse.md)
  - [GetResponse](docs/GetResponse.md)
+ - [GetRouteFilterGetConnectionsResponse](docs/GetRouteFilterGetConnectionsResponse.md)
+ - [GetRouteFilterRulesResponse](docs/GetRouteFilterRulesResponse.md)
  - [HealthResponse](docs/HealthResponse.md)
  - [IpBlockPrice](docs/IpBlockPrice.md)
  - [IpBlockType](docs/IpBlockType.md)
@@ -300,6 +323,7 @@ Class | Method | HTTP request | Description
  - [LinkProtocolState](docs/LinkProtocolState.md)
  - [LinkProtocolType](docs/LinkProtocolType.md)
  - [LinkProtocolUntagged](docs/LinkProtocolUntagged.md)
+ - [LinkProtocolVxlan](docs/LinkProtocolVxlan.md)
  - [MarketingInfo](docs/MarketingInfo.md)
  - [Md5](docs/Md5.md)
  - [MetricInterval](docs/MetricInterval.md)
@@ -370,9 +394,7 @@ Class | Method | HTTP request | Description
  - [PortType](docs/PortType.md)
  - [PortV4SearchRequest](docs/PortV4SearchRequest.md)
  - [PrecisionTimeChangeOperation](docs/PrecisionTimeChangeOperation.md)
- - [PrecisionTimeServiceConnectionsResponse](docs/PrecisionTimeServiceConnectionsResponse.md)
  - [PrecisionTimeServiceCreateResponse](docs/PrecisionTimeServiceCreateResponse.md)
- - [PrecisionTimeServicePackagesResponse](docs/PrecisionTimeServicePackagesResponse.md)
  - [PrecisionTimeServiceRequest](docs/PrecisionTimeServiceRequest.md)
  - [Presence](docs/Presence.md)
  - [Price](docs/Price.md)
@@ -390,6 +412,24 @@ Class | Method | HTTP request | Description
  - [QueryDirection](docs/QueryDirection.md)
  - [RemoveOperation](docs/RemoveOperation.md)
  - [ReplaceOperation](docs/ReplaceOperation.md)
+ - [RouteFilterChangeData](docs/RouteFilterChangeData.md)
+ - [RouteFilterChangeDataResponse](docs/RouteFilterChangeDataResponse.md)
+ - [RouteFilterChangePrefixMatch](docs/RouteFilterChangePrefixMatch.md)
+ - [RouteFilterConnectionsData](docs/RouteFilterConnectionsData.md)
+ - [RouteFilterRulesBase](docs/RouteFilterRulesBase.md)
+ - [RouteFilterRulesChange](docs/RouteFilterRulesChange.md)
+ - [RouteFilterRulesChangeData](docs/RouteFilterRulesChangeData.md)
+ - [RouteFilterRulesChangeDataResponse](docs/RouteFilterRulesChangeDataResponse.md)
+ - [RouteFilterRulesChangeOperation](docs/RouteFilterRulesChangeOperation.md)
+ - [RouteFilterRulesData](docs/RouteFilterRulesData.md)
+ - [RouteFilterRulesPostRequest](docs/RouteFilterRulesPostRequest.md)
+ - [RouteFilterState](docs/RouteFilterState.md)
+ - [RouteFiltersBase](docs/RouteFiltersBase.md)
+ - [RouteFiltersChange](docs/RouteFiltersChange.md)
+ - [RouteFiltersChangeOperation](docs/RouteFiltersChangeOperation.md)
+ - [RouteFiltersData](docs/RouteFiltersData.md)
+ - [RouteFiltersDataProject](docs/RouteFiltersDataProject.md)
+ - [RouteFiltersDataProjectAllOf](docs/RouteFiltersDataProjectAllOf.md)
  - [RouteTableEntry](docs/RouteTableEntry.md)
  - [RouteTableEntryConnection](docs/RouteTableEntryConnection.md)
  - [RouteTableEntryFilter](docs/RouteTableEntryFilter.md)
@@ -422,6 +462,7 @@ Class | Method | HTTP request | Description
  - [SearchRequest](docs/SearchRequest.md)
  - [SearchResponse](docs/SearchResponse.md)
  - [ServiceMetro](docs/ServiceMetro.md)
+ - [ServiceMetros](docs/ServiceMetros.md)
  - [ServiceProfile](docs/ServiceProfile.md)
  - [ServiceProfileAccessPointCOLO](docs/ServiceProfileAccessPointCOLO.md)
  - [ServiceProfileAccessPointType](docs/ServiceProfileAccessPointType.md)
@@ -473,10 +514,9 @@ Class | Method | HTTP request | Description
  - [Statistics](docs/Statistics.md)
  - [SubInterface](docs/SubInterface.md)
  - [TopUtilizedStatistics](docs/TopUtilizedStatistics.md)
- - [ValidateConnectionRequest](docs/ValidateConnectionRequest.md)
- - [ValidateSubnetRequest](docs/ValidateSubnetRequest.md)
- - [ValidateSubnetRequestFilter](docs/ValidateSubnetRequestFilter.md)
- - [ValidateSubnetRequestFilterAnd](docs/ValidateSubnetRequestFilterAnd.md)
+ - [ValidateRequest](docs/ValidateRequest.md)
+ - [ValidateRequestFilter](docs/ValidateRequestFilter.md)
+ - [ValidateRequestFilterAnd](docs/ValidateRequestFilterAnd.md)
  - [ValidateSubnetResponse](docs/ValidateSubnetResponse.md)
  - [ViewPoint](docs/ViewPoint.md)
  - [VirtualConnectionBridgePackageCode](docs/VirtualConnectionBridgePackageCode.md)
@@ -493,6 +533,7 @@ Class | Method | HTTP request | Description
  - [VirtualConnectionPriceZSideAccessPointBridgePackage](docs/VirtualConnectionPriceZSideAccessPointBridgePackage.md)
  - [VirtualConnectionPriceZSideAccessPointProfile](docs/VirtualConnectionPriceZSideAccessPointProfile.md)
  - [VirtualDevice](docs/VirtualDevice.md)
+ - [VirtualNetwork](docs/VirtualNetwork.md)
  - [VirtualPortConfiguration](docs/VirtualPortConfiguration.md)
  - [VirtualPortLocation](docs/VirtualPortLocation.md)
  - [VirtualPortPrice](docs/VirtualPortPrice.md)

@@ -22,6 +22,7 @@ Access point object
 |**peeringType** | **PeeringType** |  |  [optional] |
 |**authenticationKey** | **String** | Access point authentication key |  [optional] |
 |**providerConnectionId** | **String** | Provider assigned Connection Id |  [optional] |
+|**virtualNetwork** | [**VirtualNetwork**](VirtualNetwork.md) |  |  [optional] |
 
 
 

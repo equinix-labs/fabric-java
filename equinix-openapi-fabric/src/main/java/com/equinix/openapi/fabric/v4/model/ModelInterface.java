@@ -45,7 +45,7 @@ import java.util.Set;
 import com.equinix.openapi.fabric.JSON;
 
 /**
- * Virtual Device Interface Information
+ * Interface Information
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ModelInterface {
@@ -62,7 +62,7 @@ public class ModelInterface {
   private Integer id;
 
   /**
-   * Virtual Device Interface type
+   * Interface type
    */
   @JsonAdapter(TypeEnum.Adapter.class)
   public enum TypeEnum {
@@ -112,6 +112,10 @@ public class ModelInterface {
   @SerializedName(SERIALIZED_NAME_TYPE)
   private TypeEnum type;
 
+  public static final String SERIALIZED_NAME_PROJECT_ID = "projectId";
+  @SerializedName(SERIALIZED_NAME_PROJECT_ID)
+  private String projectId;
+
   public ModelInterface() {
   }
 
@@ -124,7 +128,7 @@ public class ModelInterface {
   }
 
    /**
-   * Virtual Interface URI
+   * Interface URI
    * @return href
   **/
   @javax.annotation.Nullable
@@ -143,7 +147,7 @@ public class ModelInterface {
   }
 
    /**
-   * Equinix-assigned Virtual Device Interface identifier
+   * Equinix-assigned Interface identifier
    * @return uuid
   **/
   @javax.annotation.Nullable
@@ -187,7 +191,7 @@ public class ModelInterface {
   }
 
    /**
-   * Virtual Device Interface type
+   * Interface type
    * @return type
   **/
   @javax.annotation.Nullable
@@ -199,6 +203,28 @@ public class ModelInterface {
 
   public void setType(TypeEnum type) {
     this.type = type;
+  }
+
+
+  public ModelInterface projectId(String projectId) {
+    
+    this.projectId = projectId;
+    return this;
+  }
+
+   /**
+   * Interface Project ID
+   * @return projectId
+  **/
+  @javax.annotation.Nullable
+
+  public String getProjectId() {
+    return projectId;
+  }
+
+
+  public void setProjectId(String projectId) {
+    this.projectId = projectId;
   }
 
   /**
@@ -259,13 +285,14 @@ public class ModelInterface {
     return Objects.equals(this.href, _interface.href) &&
         Objects.equals(this.uuid, _interface.uuid) &&
         Objects.equals(this.id, _interface.id) &&
-        Objects.equals(this.type, _interface.type)&&
+        Objects.equals(this.type, _interface.type) &&
+        Objects.equals(this.projectId, _interface.projectId)&&
         Objects.equals(this.additionalProperties, _interface.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(href, uuid, id, type, additionalProperties);
+    return Objects.hash(href, uuid, id, type, projectId, additionalProperties);
   }
 
   @Override
@@ -276,6 +303,7 @@ public class ModelInterface {
     sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    projectId: ").append(toIndentedString(projectId)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -303,6 +331,7 @@ public class ModelInterface {
     openapiFields.add("uuid");
     openapiFields.add("id");
     openapiFields.add("type");
+    openapiFields.add("projectId");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -328,6 +357,9 @@ public class ModelInterface {
       }
       if ((jsonObj.get("type") != null && !jsonObj.get("type").isJsonNull()) && !jsonObj.get("type").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("type").toString()));
+      }
+      if ((jsonObj.get("projectId") != null && !jsonObj.get("projectId").isJsonNull()) && !jsonObj.get("projectId").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `projectId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("projectId").toString()));
       }
   }
 

@@ -22,6 +22,7 @@ Connection link protocol Configuration
 |**vlanCTagMin** | **Integer** | Outer tag Min value specified for QINQ connections |  [optional] |
 |**vlanCTagMax** | **Integer** | Outer tag Max value specified for QINQ connections |  [optional] |
 |**subInterface** | **Integer** | Subinterface identifier |  [optional] |
+|**vni** | **Integer** | Virtual Network Identifier |  |
 |**vnid** | **Integer** | Virtual Network Identifier |  |
 |**type5vni** | **Integer** | Type 5 VNI identifier |  |
 

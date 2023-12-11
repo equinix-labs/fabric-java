@@ -32,7 +32,7 @@ public enum Code {
   
   BASIC("BASIC"),
   
-  PRO("PRO"),
+  STANDARD("STANDARD"),
   
   PREMIUM("PREMIUM");
 

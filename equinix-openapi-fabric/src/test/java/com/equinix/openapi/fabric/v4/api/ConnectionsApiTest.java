@@ -23,7 +23,7 @@ import com.equinix.openapi.fabric.v4.model.ConnectionResponse;
 import com.equinix.openapi.fabric.v4.model.ConnectionSearchResponse;
 import com.equinix.openapi.fabric.v4.model.Error;
 import com.equinix.openapi.fabric.v4.model.SearchRequest;
-import com.equinix.openapi.fabric.v4.model.ValidateConnectionRequest;
+import com.equinix.openapi.fabric.v4.model.ValidateRequest;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -136,8 +136,8 @@ public class ConnectionsApiTest {
      */
     @Test
     public void validateConnectionsTest() throws ApiException {
-        ValidateConnectionRequest validateConnectionRequest = null;
-        ConnectionResponse response = api.validateConnections(validateConnectionRequest);
+        ValidateRequest validateRequest = null;
+        ConnectionResponse response = api.validateConnections(validateRequest);
         // TODO: test validations
     }
 

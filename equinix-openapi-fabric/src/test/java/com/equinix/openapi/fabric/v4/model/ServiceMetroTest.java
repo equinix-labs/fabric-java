@@ -57,6 +57,14 @@ public class ServiceMetroTest {
     }
 
     /**
+     * Test the property 'vcBandwidthMax'
+     */
+    @Test
+    public void vcBandwidthMaxTest() {
+        // TODO: test vcBandwidthMax
+    }
+
+    /**
      * Test the property 'ibxs'
      */
     @Test

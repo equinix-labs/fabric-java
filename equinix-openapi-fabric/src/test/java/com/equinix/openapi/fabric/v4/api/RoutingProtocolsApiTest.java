@@ -25,7 +25,7 @@ import com.equinix.openapi.fabric.v4.model.RoutingProtocolChangeData;
 import com.equinix.openapi.fabric.v4.model.RoutingProtocolChangeDataResponse;
 import com.equinix.openapi.fabric.v4.model.RoutingProtocolData;
 import java.util.UUID;
-import com.equinix.openapi.fabric.v4.model.ValidateSubnetRequest;
+import com.equinix.openapi.fabric.v4.model.ValidateRequest;
 import com.equinix.openapi.fabric.v4.model.ValidateSubnetResponse;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -243,8 +243,8 @@ public class RoutingProtocolsApiTest {
     @Test
     public void validateRoutingProtocolTest() throws ApiException {
         UUID routerId = null;
-        ValidateSubnetRequest validateSubnetRequest = null;
-        ValidateSubnetResponse response = api.validateRoutingProtocol(routerId, validateSubnetRequest);
+        ValidateRequest validateRequest = null;
+        ValidateSubnetResponse response = api.validateRoutingProtocol(routerId, validateRequest);
         // TODO: test validations
     }
 

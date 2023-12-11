@@ -15,6 +15,7 @@ package com.equinix.openapi.fabric.v4.api;
 import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.v4.model.Error;
 import com.equinix.openapi.fabric.v4.model.JsonPatchOperation;
+import com.equinix.openapi.fabric.v4.model.ServiceMetros;
 import com.equinix.openapi.fabric.v4.model.ServiceProfile;
 import com.equinix.openapi.fabric.v4.model.ServiceProfileRequest;
 import com.equinix.openapi.fabric.v4.model.ServiceProfileSearchRequest;
@@ -76,6 +77,22 @@ public class ServiceProfilesApiTest {
         UUID serviceProfileId = null;
         String viewPoint = null;
         ServiceProfile response = api.getServiceProfileByUuid(serviceProfileId, viewPoint);
+        // TODO: test validations
+    }
+
+    /**
+     * Get Profile Metros
+     *
+     * Get service profile metros by UUID.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getServiceProfileMetrosByUuidTest() throws ApiException {
+        UUID serviceProfileId = null;
+        Integer offset = null;
+        Integer limit = null;
+        ServiceMetros response = api.getServiceProfileMetrosByUuid(serviceProfileId, offset, limit);
         // TODO: test validations
     }
 
