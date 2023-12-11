@@ -59,6 +59,10 @@ public class ServiceMetro {
   @SerializedName(SERIALIZED_NAME_NAME)
   private String name;
 
+  public static final String SERIALIZED_NAME_VC_BANDWIDTH_MAX = "vcBandwidthMax";
+  @SerializedName(SERIALIZED_NAME_VC_BANDWIDTH_MAX)
+  private Integer vcBandwidthMax;
+
   public static final String SERIALIZED_NAME_IBXS = "ibxs";
   @SerializedName(SERIALIZED_NAME_IBXS)
   private List<String> ibxs = new ArrayList<>();
@@ -119,6 +123,28 @@ public class ServiceMetro {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+
+  public ServiceMetro vcBandwidthMax(Integer vcBandwidthMax) {
+    
+    this.vcBandwidthMax = vcBandwidthMax;
+    return this;
+  }
+
+   /**
+   * max VC speed supported in Mbps
+   * @return vcBandwidthMax
+  **/
+  @javax.annotation.Nullable
+
+  public Integer getVcBandwidthMax() {
+    return vcBandwidthMax;
+  }
+
+
+  public void setVcBandwidthMax(Integer vcBandwidthMax) {
+    this.vcBandwidthMax = vcBandwidthMax;
   }
 
 
@@ -282,6 +308,7 @@ public class ServiceMetro {
     ServiceMetro serviceMetro = (ServiceMetro) o;
     return Objects.equals(this.code, serviceMetro.code) &&
         Objects.equals(this.name, serviceMetro.name) &&
+        Objects.equals(this.vcBandwidthMax, serviceMetro.vcBandwidthMax) &&
         Objects.equals(this.ibxs, serviceMetro.ibxs) &&
         Objects.equals(this.inTrail, serviceMetro.inTrail) &&
         Objects.equals(this.displayName, serviceMetro.displayName) &&
@@ -291,7 +318,7 @@ public class ServiceMetro {
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, name, ibxs, inTrail, displayName, sellerRegions, additionalProperties);
+    return Objects.hash(code, name, vcBandwidthMax, ibxs, inTrail, displayName, sellerRegions, additionalProperties);
   }
 
   @Override
@@ -300,6 +327,7 @@ public class ServiceMetro {
     sb.append("class ServiceMetro {\n");
     sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    vcBandwidthMax: ").append(toIndentedString(vcBandwidthMax)).append("\n");
     sb.append("    ibxs: ").append(toIndentedString(ibxs)).append("\n");
     sb.append("    inTrail: ").append(toIndentedString(inTrail)).append("\n");
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
@@ -329,6 +357,7 @@ public class ServiceMetro {
     openapiFields = new HashSet<String>();
     openapiFields.add("code");
     openapiFields.add("name");
+    openapiFields.add("vcBandwidthMax");
     openapiFields.add("ibxs");
     openapiFields.add("inTrail");
     openapiFields.add("displayName");

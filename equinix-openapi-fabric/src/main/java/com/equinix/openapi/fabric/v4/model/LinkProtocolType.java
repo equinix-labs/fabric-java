@@ -34,7 +34,9 @@ public enum LinkProtocolType {
   
   QINQ("QINQ"),
   
-  EVPN_VXLAN("EVPN_VXLAN");
+  EVPN_VXLAN("EVPN_VXLAN"),
+  
+  VXLAN("VXLAN");
 
   private String value;
 

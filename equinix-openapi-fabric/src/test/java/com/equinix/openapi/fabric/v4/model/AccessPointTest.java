@@ -23,6 +23,7 @@ import com.equinix.openapi.fabric.v4.model.SimplifiedNetwork;
 import com.equinix.openapi.fabric.v4.model.SimplifiedPort;
 import com.equinix.openapi.fabric.v4.model.SimplifiedServiceProfile;
 import com.equinix.openapi.fabric.v4.model.VirtualDevice;
+import com.equinix.openapi.fabric.v4.model.VirtualNetwork;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -157,6 +158,14 @@ public class AccessPointTest {
     @Test
     public void providerConnectionIdTest() {
         // TODO: test providerConnectionId
+    }
+
+    /**
+     * Test the property 'virtualNetwork'
+     */
+    @Test
+    public void virtualNetworkTest() {
+        // TODO: test virtualNetwork
     }
 
 }

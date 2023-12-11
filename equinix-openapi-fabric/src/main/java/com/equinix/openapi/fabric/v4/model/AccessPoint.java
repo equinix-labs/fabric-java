@@ -25,6 +25,7 @@ import com.equinix.openapi.fabric.v4.model.SimplifiedNetwork;
 import com.equinix.openapi.fabric.v4.model.SimplifiedPort;
 import com.equinix.openapi.fabric.v4.model.SimplifiedServiceProfile;
 import com.equinix.openapi.fabric.v4.model.VirtualDevice;
+import com.equinix.openapi.fabric.v4.model.VirtualNetwork;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -113,6 +114,10 @@ public class AccessPoint {
   public static final String SERIALIZED_NAME_PROVIDER_CONNECTION_ID = "providerConnectionId";
   @SerializedName(SERIALIZED_NAME_PROVIDER_CONNECTION_ID)
   private String providerConnectionId;
+
+  public static final String SERIALIZED_NAME_VIRTUAL_NETWORK = "virtualNetwork";
+  @SerializedName(SERIALIZED_NAME_VIRTUAL_NETWORK)
+  private VirtualNetwork virtualNetwork;
 
   public AccessPoint() {
   }
@@ -424,6 +429,28 @@ public class AccessPoint {
     this.providerConnectionId = providerConnectionId;
   }
 
+
+  public AccessPoint virtualNetwork(VirtualNetwork virtualNetwork) {
+    
+    this.virtualNetwork = virtualNetwork;
+    return this;
+  }
+
+   /**
+   * Get virtualNetwork
+   * @return virtualNetwork
+  **/
+  @javax.annotation.Nullable
+
+  public VirtualNetwork getVirtualNetwork() {
+    return virtualNetwork;
+  }
+
+
+  public void setVirtualNetwork(VirtualNetwork virtualNetwork) {
+    this.virtualNetwork = virtualNetwork;
+  }
+
   /**
    * A container for additional, undeclared properties.
    * This is a holder for any undeclared properties as specified with
@@ -492,13 +519,14 @@ public class AccessPoint {
         Objects.equals(this.sellerRegion, accessPoint.sellerRegion) &&
         Objects.equals(this.peeringType, accessPoint.peeringType) &&
         Objects.equals(this.authenticationKey, accessPoint.authenticationKey) &&
-        Objects.equals(this.providerConnectionId, accessPoint.providerConnectionId)&&
+        Objects.equals(this.providerConnectionId, accessPoint.providerConnectionId) &&
+        Objects.equals(this.virtualNetwork, accessPoint.virtualNetwork)&&
         Objects.equals(this.additionalProperties, accessPoint.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, account, location, port, profile, router, linkProtocol, virtualDevice, _interface, network, sellerRegion, peeringType, authenticationKey, providerConnectionId, additionalProperties);
+    return Objects.hash(type, account, location, port, profile, router, linkProtocol, virtualDevice, _interface, network, sellerRegion, peeringType, authenticationKey, providerConnectionId, virtualNetwork, additionalProperties);
   }
 
   @Override
@@ -519,6 +547,7 @@ public class AccessPoint {
     sb.append("    peeringType: ").append(toIndentedString(peeringType)).append("\n");
     sb.append("    authenticationKey: ").append(toIndentedString(authenticationKey)).append("\n");
     sb.append("    providerConnectionId: ").append(toIndentedString(providerConnectionId)).append("\n");
+    sb.append("    virtualNetwork: ").append(toIndentedString(virtualNetwork)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -556,6 +585,7 @@ public class AccessPoint {
     openapiFields.add("peeringType");
     openapiFields.add("authenticationKey");
     openapiFields.add("providerConnectionId");
+    openapiFields.add("virtualNetwork");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -617,6 +647,10 @@ public class AccessPoint {
       }
       if ((jsonObj.get("providerConnectionId") != null && !jsonObj.get("providerConnectionId").isJsonNull()) && !jsonObj.get("providerConnectionId").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `providerConnectionId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("providerConnectionId").toString()));
+      }
+      // validate the optional field `virtualNetwork`
+      if (jsonObj.get("virtualNetwork") != null && !jsonObj.get("virtualNetwork").isJsonNull()) {
+        VirtualNetwork.validateJsonObject(jsonObj.getAsJsonObject("virtualNetwork"));
       }
   }
 

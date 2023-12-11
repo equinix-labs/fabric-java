@@ -70,4 +70,12 @@ public class ModelInterfaceTest {
         // TODO: test type
     }
 
+    /**
+     * Test the property 'projectId'
+     */
+    @Test
+    public void projectIdTest() {
+        // TODO: test projectId
+    }
+
 }

@@ -9,7 +9,7 @@
 
 * `BASIC` (value: `"BASIC"`)
 
-* `PRO` (value: `"PRO"`)
+* `STANDARD` (value: `"STANDARD"`)
 
 * `PREMIUM` (value: `"PREMIUM"`)
 

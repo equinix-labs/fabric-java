@@ -36,7 +36,7 @@ import com.equinix.openapi.fabric.v4.model.ConnectionResponse;
 import com.equinix.openapi.fabric.v4.model.ConnectionSearchResponse;
 import com.equinix.openapi.fabric.v4.model.Error;
 import com.equinix.openapi.fabric.v4.model.SearchRequest;
-import com.equinix.openapi.fabric.v4.model.ValidateConnectionRequest;
+import com.equinix.openapi.fabric.v4.model.ValidateRequest;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -942,7 +942,7 @@ public class ConnectionsApi {
     }
     /**
      * Build call for validateConnections
-     * @param validateConnectionRequest  (required)
+     * @param validateRequest  (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -953,7 +953,7 @@ public class ConnectionsApi {
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call validateConnectionsCall(ValidateConnectionRequest validateConnectionRequest, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call validateConnectionsCall(ValidateRequest validateRequest, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -967,7 +967,7 @@ public class ConnectionsApi {
             basePath = null;
         }
 
-        Object localVarPostBody = validateConnectionRequest;
+        Object localVarPostBody = validateRequest;
 
         // create path and map variables
         String localVarPath = "/fabric/v4/connections/validate";
@@ -999,20 +999,20 @@ public class ConnectionsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call validateConnectionsValidateBeforeCall(ValidateConnectionRequest validateConnectionRequest, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'validateConnectionRequest' is set
-        if (validateConnectionRequest == null) {
-            throw new ApiException("Missing the required parameter 'validateConnectionRequest' when calling validateConnections(Async)");
+    private okhttp3.Call validateConnectionsValidateBeforeCall(ValidateRequest validateRequest, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'validateRequest' is set
+        if (validateRequest == null) {
+            throw new ApiException("Missing the required parameter 'validateRequest' when calling validateConnections(Async)");
         }
 
-        return validateConnectionsCall(validateConnectionRequest, _callback);
+        return validateConnectionsCall(validateRequest, _callback);
 
     }
 
     /**
      * Validate Connection
      * This API provides capability to validate by auth key
-     * @param validateConnectionRequest  (required)
+     * @param validateRequest  (required)
      * @return ConnectionResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -1022,15 +1022,15 @@ public class ConnectionsApi {
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
      */
-    public ConnectionResponse validateConnections(ValidateConnectionRequest validateConnectionRequest) throws ApiException {
-        ApiResponse<ConnectionResponse> localVarResp = validateConnectionsWithHttpInfo(validateConnectionRequest);
+    public ConnectionResponse validateConnections(ValidateRequest validateRequest) throws ApiException {
+        ApiResponse<ConnectionResponse> localVarResp = validateConnectionsWithHttpInfo(validateRequest);
         return localVarResp.getData();
     }
 
     /**
      * Validate Connection
      * This API provides capability to validate by auth key
-     * @param validateConnectionRequest  (required)
+     * @param validateRequest  (required)
      * @return ApiResponse&lt;ConnectionResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -1040,8 +1040,8 @@ public class ConnectionsApi {
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<ConnectionResponse> validateConnectionsWithHttpInfo(ValidateConnectionRequest validateConnectionRequest) throws ApiException {
-        okhttp3.Call localVarCall = validateConnectionsValidateBeforeCall(validateConnectionRequest, null);
+    public ApiResponse<ConnectionResponse> validateConnectionsWithHttpInfo(ValidateRequest validateRequest) throws ApiException {
+        okhttp3.Call localVarCall = validateConnectionsValidateBeforeCall(validateRequest, null);
         Type localVarReturnType = new TypeToken<ConnectionResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -1049,7 +1049,7 @@ public class ConnectionsApi {
     /**
      * Validate Connection (asynchronously)
      * This API provides capability to validate by auth key
-     * @param validateConnectionRequest  (required)
+     * @param validateRequest  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -1060,9 +1060,9 @@ public class ConnectionsApi {
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call validateConnectionsAsync(ValidateConnectionRequest validateConnectionRequest, final ApiCallback<ConnectionResponse> _callback) throws ApiException {
+    public okhttp3.Call validateConnectionsAsync(ValidateRequest validateRequest, final ApiCallback<ConnectionResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = validateConnectionsValidateBeforeCall(validateConnectionRequest, _callback);
+        okhttp3.Call localVarCall = validateConnectionsValidateBeforeCall(validateRequest, _callback);
         Type localVarReturnType = new TypeToken<ConnectionResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;

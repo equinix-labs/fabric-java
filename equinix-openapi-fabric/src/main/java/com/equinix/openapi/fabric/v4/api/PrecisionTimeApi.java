@@ -27,11 +27,8 @@ import java.io.IOException;
 
 
 import com.equinix.openapi.fabric.v4.model.Error;
-import com.equinix.openapi.fabric.v4.model.PackageResponse;
 import com.equinix.openapi.fabric.v4.model.PrecisionTimeChangeOperation;
-import com.equinix.openapi.fabric.v4.model.PrecisionTimeServiceConnectionsResponse;
 import com.equinix.openapi.fabric.v4.model.PrecisionTimeServiceCreateResponse;
-import com.equinix.openapi.fabric.v4.model.PrecisionTimeServicePackagesResponse;
 import com.equinix.openapi.fabric.v4.model.PrecisionTimeServiceRequest;
 import java.util.UUID;
 
@@ -231,7 +228,7 @@ public class PrecisionTimeApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 204 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
@@ -295,7 +292,7 @@ public class PrecisionTimeApi {
     }
 
     /**
-     * Delete Time Service
+     * Delete time service
      * Delete EPT service by it&#39;s uuid
      * @param serviceId Service UUID (required)
      * @return PrecisionTimeServiceCreateResponse
@@ -303,7 +300,7 @@ public class PrecisionTimeApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 204 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
@@ -316,7 +313,7 @@ public class PrecisionTimeApi {
     }
 
     /**
-     * Delete Time Service
+     * Delete time service
      * Delete EPT service by it&#39;s uuid
      * @param serviceId Service UUID (required)
      * @return ApiResponse&lt;PrecisionTimeServiceCreateResponse&gt;
@@ -324,7 +321,7 @@ public class PrecisionTimeApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 204 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
@@ -338,7 +335,7 @@ public class PrecisionTimeApi {
     }
 
     /**
-     * Delete Time Service (asynchronously)
+     * Delete time service (asynchronously)
      * Delete EPT service by it&#39;s uuid
      * @param serviceId Service UUID (required)
      * @param _callback The callback to be executed when the API call finishes
@@ -347,7 +344,7 @@ public class PrecisionTimeApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 204 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
@@ -370,7 +367,7 @@ public class PrecisionTimeApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -443,7 +440,7 @@ public class PrecisionTimeApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -465,7 +462,7 @@ public class PrecisionTimeApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -489,7 +486,7 @@ public class PrecisionTimeApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -505,397 +502,6 @@ public class PrecisionTimeApi {
         return localVarCall;
     }
     /**
-     * Build call for getTimeServicesConnectionsByServiceId
-     * @param serviceId Service UUID (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Return Time Service Connection </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getTimeServicesConnectionsByServiceIdCall(UUID serviceId, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
-        }
-
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/timeServices/{serviceId}/connections"
-            .replace("{" + "serviceId" + "}", localVarApiClient.escapeString(serviceId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
-        }
-
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getTimeServicesConnectionsByServiceIdValidateBeforeCall(UUID serviceId, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'serviceId' is set
-        if (serviceId == null) {
-            throw new ApiException("Missing the required parameter 'serviceId' when calling getTimeServicesConnectionsByServiceId(Async)");
-        }
-
-        return getTimeServicesConnectionsByServiceIdCall(serviceId, _callback);
-
-    }
-
-    /**
-     * Get all Connections
-     * The API provides capability to get prevision timing service&#39;s details
-     * @param serviceId Service UUID (required)
-     * @return PrecisionTimeServiceConnectionsResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Return Time Service Connection </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public PrecisionTimeServiceConnectionsResponse getTimeServicesConnectionsByServiceId(UUID serviceId) throws ApiException {
-        ApiResponse<PrecisionTimeServiceConnectionsResponse> localVarResp = getTimeServicesConnectionsByServiceIdWithHttpInfo(serviceId);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Get all Connections
-     * The API provides capability to get prevision timing service&#39;s details
-     * @param serviceId Service UUID (required)
-     * @return ApiResponse&lt;PrecisionTimeServiceConnectionsResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Return Time Service Connection </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<PrecisionTimeServiceConnectionsResponse> getTimeServicesConnectionsByServiceIdWithHttpInfo(UUID serviceId) throws ApiException {
-        okhttp3.Call localVarCall = getTimeServicesConnectionsByServiceIdValidateBeforeCall(serviceId, null);
-        Type localVarReturnType = new TypeToken<PrecisionTimeServiceConnectionsResponse>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Get all Connections (asynchronously)
-     * The API provides capability to get prevision timing service&#39;s details
-     * @param serviceId Service UUID (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Return Time Service Connection </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getTimeServicesConnectionsByServiceIdAsync(UUID serviceId, final ApiCallback<PrecisionTimeServiceConnectionsResponse> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getTimeServicesConnectionsByServiceIdValidateBeforeCall(serviceId, _callback);
-        Type localVarReturnType = new TypeToken<PrecisionTimeServiceConnectionsResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getTimeServicesPackageByCode
-     * @param packageCode Package Code (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getTimeServicesPackageByCodeCall(String packageCode, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
-        }
-
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/timeServicePackages/{packageCode}"
-            .replace("{" + "packageCode" + "}", localVarApiClient.escapeString(packageCode.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
-        }
-
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getTimeServicesPackageByCodeValidateBeforeCall(String packageCode, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'packageCode' is set
-        if (packageCode == null) {
-            throw new ApiException("Missing the required parameter 'packageCode' when calling getTimeServicesPackageByCode(Async)");
-        }
-
-        return getTimeServicesPackageByCodeCall(packageCode, _callback);
-
-    }
-
-    /**
-     * Get Package by Code
-     * The API provides capability to get timing service&#39;s package by code
-     * @param packageCode Package Code (required)
-     * @return PackageResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public PackageResponse getTimeServicesPackageByCode(String packageCode) throws ApiException {
-        ApiResponse<PackageResponse> localVarResp = getTimeServicesPackageByCodeWithHttpInfo(packageCode);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Get Package by Code
-     * The API provides capability to get timing service&#39;s package by code
-     * @param packageCode Package Code (required)
-     * @return ApiResponse&lt;PackageResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<PackageResponse> getTimeServicesPackageByCodeWithHttpInfo(String packageCode) throws ApiException {
-        okhttp3.Call localVarCall = getTimeServicesPackageByCodeValidateBeforeCall(packageCode, null);
-        Type localVarReturnType = new TypeToken<PackageResponse>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Get Package by Code (asynchronously)
-     * The API provides capability to get timing service&#39;s package by code
-     * @param packageCode Package Code (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getTimeServicesPackageByCodeAsync(String packageCode, final ApiCallback<PackageResponse> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getTimeServicesPackageByCodeValidateBeforeCall(packageCode, _callback);
-        Type localVarReturnType = new TypeToken<PackageResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getTimeServicesPackages
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getTimeServicesPackagesCall(final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
-        }
-
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/timeServicePackages";
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
-        }
-
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getTimeServicesPackagesValidateBeforeCall(final ApiCallback _callback) throws ApiException {
-        return getTimeServicesPackagesCall(_callback);
-
-    }
-
-    /**
-     * Get Packages
-     * The API provides capability to get timing service&#39;s packages
-     * @return PrecisionTimeServicePackagesResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public PrecisionTimeServicePackagesResponse getTimeServicesPackages() throws ApiException {
-        ApiResponse<PrecisionTimeServicePackagesResponse> localVarResp = getTimeServicesPackagesWithHttpInfo();
-        return localVarResp.getData();
-    }
-
-    /**
-     * Get Packages
-     * The API provides capability to get timing service&#39;s packages
-     * @return ApiResponse&lt;PrecisionTimeServicePackagesResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<PrecisionTimeServicePackagesResponse> getTimeServicesPackagesWithHttpInfo() throws ApiException {
-        okhttp3.Call localVarCall = getTimeServicesPackagesValidateBeforeCall(null);
-        Type localVarReturnType = new TypeToken<PrecisionTimeServicePackagesResponse>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Get Packages (asynchronously)
-     * The API provides capability to get timing service&#39;s packages
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getTimeServicesPackagesAsync(final ApiCallback<PrecisionTimeServicePackagesResponse> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getTimeServicesPackagesValidateBeforeCall(_callback);
-        Type localVarReturnType = new TypeToken<PrecisionTimeServicePackagesResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
      * Build call for updateTimeServicesById
      * @param serviceId Service UUID (required)
      * @param precisionTimeChangeOperation  (required)
@@ -905,7 +511,7 @@ public class PrecisionTimeApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -976,7 +582,7 @@ public class PrecisionTimeApi {
     }
 
     /**
-     * Patch Time Service
+     * Patch time service
      * The API provides capability to update timing service
      * @param serviceId Service UUID (required)
      * @param precisionTimeChangeOperation  (required)
@@ -985,7 +591,7 @@ public class PrecisionTimeApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -999,7 +605,7 @@ public class PrecisionTimeApi {
     }
 
     /**
-     * Patch Time Service
+     * Patch time service
      * The API provides capability to update timing service
      * @param serviceId Service UUID (required)
      * @param precisionTimeChangeOperation  (required)
@@ -1008,7 +614,7 @@ public class PrecisionTimeApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -1023,7 +629,7 @@ public class PrecisionTimeApi {
     }
 
     /**
-     * Patch Time Service (asynchronously)
+     * Patch time service (asynchronously)
      * The API provides capability to update timing service
      * @param serviceId Service UUID (required)
      * @param precisionTimeChangeOperation  (required)
@@ -1033,7 +639,7 @@ public class PrecisionTimeApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>

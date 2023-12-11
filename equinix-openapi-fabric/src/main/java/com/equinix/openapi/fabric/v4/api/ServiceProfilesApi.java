@@ -28,6 +28,7 @@ import java.io.IOException;
 
 import com.equinix.openapi.fabric.v4.model.Error;
 import com.equinix.openapi.fabric.v4.model.JsonPatchOperation;
+import com.equinix.openapi.fabric.v4.model.ServiceMetros;
 import com.equinix.openapi.fabric.v4.model.ServiceProfile;
 import com.equinix.openapi.fabric.v4.model.ServiceProfileRequest;
 import com.equinix.openapi.fabric.v4.model.ServiceProfileSearchRequest;
@@ -507,6 +508,162 @@ public class ServiceProfilesApi {
 
         okhttp3.Call localVarCall = getServiceProfileByUuidValidateBeforeCall(serviceProfileId, viewPoint, _callback);
         Type localVarReturnType = new TypeToken<ServiceProfile>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for getServiceProfileMetrosByUuid
+     * @param serviceProfileId Service Profile UUID (required)
+     * @param offset offset (optional)
+     * @param limit number of records to fetch (optional)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getServiceProfileMetrosByUuidCall(UUID serviceProfileId, Integer offset, Integer limit, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/serviceProfiles/{serviceProfileId}/metros"
+            .replace("{" + "serviceProfileId" + "}", localVarApiClient.escapeString(serviceProfileId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        if (offset != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("offset", offset));
+        }
+
+        if (limit != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
+        }
+
+        final String[] localVarAccepts = {
+            "application/json; charset=UTF-8",
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getServiceProfileMetrosByUuidValidateBeforeCall(UUID serviceProfileId, Integer offset, Integer limit, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'serviceProfileId' is set
+        if (serviceProfileId == null) {
+            throw new ApiException("Missing the required parameter 'serviceProfileId' when calling getServiceProfileMetrosByUuid(Async)");
+        }
+
+        return getServiceProfileMetrosByUuidCall(serviceProfileId, offset, limit, _callback);
+
+    }
+
+    /**
+     * Get Profile Metros
+     * Get service profile metros by UUID.
+     * @param serviceProfileId Service Profile UUID (required)
+     * @param offset offset (optional)
+     * @param limit number of records to fetch (optional)
+     * @return ServiceMetros
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ServiceMetros getServiceProfileMetrosByUuid(UUID serviceProfileId, Integer offset, Integer limit) throws ApiException {
+        ApiResponse<ServiceMetros> localVarResp = getServiceProfileMetrosByUuidWithHttpInfo(serviceProfileId, offset, limit);
+        return localVarResp.getData();
+    }
+
+    /**
+     * Get Profile Metros
+     * Get service profile metros by UUID.
+     * @param serviceProfileId Service Profile UUID (required)
+     * @param offset offset (optional)
+     * @param limit number of records to fetch (optional)
+     * @return ApiResponse&lt;ServiceMetros&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<ServiceMetros> getServiceProfileMetrosByUuidWithHttpInfo(UUID serviceProfileId, Integer offset, Integer limit) throws ApiException {
+        okhttp3.Call localVarCall = getServiceProfileMetrosByUuidValidateBeforeCall(serviceProfileId, offset, limit, null);
+        Type localVarReturnType = new TypeToken<ServiceMetros>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Get Profile Metros (asynchronously)
+     * Get service profile metros by UUID.
+     * @param serviceProfileId Service Profile UUID (required)
+     * @param offset offset (optional)
+     * @param limit number of records to fetch (optional)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getServiceProfileMetrosByUuidAsync(UUID serviceProfileId, Integer offset, Integer limit, final ApiCallback<ServiceMetros> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getServiceProfileMetrosByUuidValidateBeforeCall(serviceProfileId, offset, limit, _callback);
+        Type localVarReturnType = new TypeToken<ServiceMetros>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

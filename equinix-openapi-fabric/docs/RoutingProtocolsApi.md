@@ -937,7 +937,7 @@ public class Example {
 
 <a name="validateRoutingProtocol"></a>
 # **validateRoutingProtocol**
-> ValidateSubnetResponse validateRoutingProtocol(routerId, validateSubnetRequest)
+> ValidateSubnetResponse validateRoutingProtocol(routerId, validateRequest)
 
 Validate Subnet
 
@@ -964,9 +964,9 @@ public class Example {
 
     RoutingProtocolsApi apiInstance = new RoutingProtocolsApi(defaultClient);
     UUID routerId = UUID.randomUUID(); // UUID | Cloud Router UUID
-    ValidateSubnetRequest validateSubnetRequest = new ValidateSubnetRequest(); // ValidateSubnetRequest | 
+    ValidateRequest validateRequest = new ValidateRequest(); // ValidateRequest | 
     try {
-      ValidateSubnetResponse result = apiInstance.validateRoutingProtocol(routerId, validateSubnetRequest);
+      ValidateSubnetResponse result = apiInstance.validateRoutingProtocol(routerId, validateRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling RoutingProtocolsApi#validateRoutingProtocol");
@@ -984,7 +984,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **routerId** | **UUID**| Cloud Router UUID | |
-| **validateSubnetRequest** | [**ValidateSubnetRequest**](ValidateSubnetRequest.md)|  | |
+| **validateRequest** | [**ValidateRequest**](ValidateRequest.md)|  | |
 
 ### Return type
 

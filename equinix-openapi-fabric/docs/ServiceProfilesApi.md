@@ -7,6 +7,7 @@ All URIs are relative to *https://api.equinix.com*
 | [**createServiceProfile**](ServiceProfilesApi.md#createServiceProfile) | **POST** /fabric/v4/serviceProfiles | Create Profile |
 | [**deleteServiceProfileByUuid**](ServiceProfilesApi.md#deleteServiceProfileByUuid) | **DELETE** /fabric/v4/serviceProfiles/{serviceProfileId} | Delete Profile |
 | [**getServiceProfileByUuid**](ServiceProfilesApi.md#getServiceProfileByUuid) | **GET** /fabric/v4/serviceProfiles/{serviceProfileId} | Get Profile |
+| [**getServiceProfileMetrosByUuid**](ServiceProfilesApi.md#getServiceProfileMetrosByUuid) | **GET** /fabric/v4/serviceProfiles/{serviceProfileId}/metros | Get Profile Metros |
 | [**getServiceProfiles**](ServiceProfilesApi.md#getServiceProfiles) | **GET** /fabric/v4/serviceProfiles | Get all Profiles |
 | [**putServiceProfileByUuid**](ServiceProfilesApi.md#putServiceProfileByUuid) | **PUT** /fabric/v4/serviceProfiles/{serviceProfileId} | Replace Profile |
 | [**searchServiceProfiles**](ServiceProfilesApi.md#searchServiceProfiles) | **POST** /fabric/v4/serviceProfiles/search | Profile Search |
@@ -224,6 +225,81 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful operation |  * ETag -  <br>  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **500** | Internal Server Error |  -  |
+
+<a name="getServiceProfileMetrosByUuid"></a>
+# **getServiceProfileMetrosByUuid**
+> ServiceMetros getServiceProfileMetrosByUuid(serviceProfileId, offset, limit)
+
+Get Profile Metros
+
+Get service profile metros by UUID.
+
+### Example
+```java
+// Import classes:
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.ServiceProfilesApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
+
+    ServiceProfilesApi apiInstance = new ServiceProfilesApi(defaultClient);
+    UUID serviceProfileId = UUID.randomUUID(); // UUID | Service Profile UUID
+    Integer offset = 1; // Integer | offset
+    Integer limit = 10; // Integer | number of records to fetch
+    try {
+      ServiceMetros result = apiInstance.getServiceProfileMetrosByUuid(serviceProfileId, offset, limit);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling ServiceProfilesApi#getServiceProfileMetrosByUuid");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **serviceProfileId** | **UUID**| Service Profile UUID | |
+| **offset** | **Integer**| offset | [optional] |
+| **limit** | **Integer**| number of records to fetch | [optional] |
+
+### Return type
+
+[**ServiceMetros**](ServiceMetros.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json; charset=UTF-8, application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful operation |  -  |
 | **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |

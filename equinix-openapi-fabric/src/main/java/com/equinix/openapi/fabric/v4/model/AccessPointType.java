@@ -42,7 +42,9 @@ public enum AccessPointType {
   
   CLOUD_ROUTER("CLOUD_ROUTER"),
   
-  NETWORK("NETWORK");
+  NETWORK("NETWORK"),
+  
+  METAL_NETWORK("METAL_NETWORK");
 
   private String value;
 

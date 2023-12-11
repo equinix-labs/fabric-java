@@ -18,6 +18,7 @@ import com.equinix.openapi.fabric.v4.model.LinkProtocolIpv4Ipv6Config;
 import com.equinix.openapi.fabric.v4.model.LinkProtocolQinq;
 import com.equinix.openapi.fabric.v4.model.LinkProtocolType;
 import com.equinix.openapi.fabric.v4.model.LinkProtocolUntagged;
+import com.equinix.openapi.fabric.v4.model.LinkProtocolVxlan;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -152,6 +153,14 @@ public class LinkProtocolTest {
     @Test
     public void subInterfaceTest() {
         // TODO: test subInterface
+    }
+
+    /**
+     * Test the property 'vni'
+     */
+    @Test
+    public void vniTest() {
+        // TODO: test vni
     }
 
     /**

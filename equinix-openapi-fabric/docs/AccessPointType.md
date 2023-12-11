@@ -21,5 +21,7 @@
 
 * `NETWORK` (value: `"NETWORK"`)
 
+* `METAL_NETWORK` (value: `"METAL_NETWORK"`)
+
 
 
