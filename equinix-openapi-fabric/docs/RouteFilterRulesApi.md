@@ -158,6 +158,12 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Successful operation |  -  |
+| **400** | Resource not found |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **415** | Unsupported Media Type |  -  |
+| **500** | Internal server error |  -  |
 
 <a name="deleteRouteFilterRuleByUuid"></a>
 # **deleteRouteFilterRuleByUuid**
@@ -533,7 +539,7 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful operation |  -  |
-| **400** | Bad request |  -  |
+| **400** | Resource not found |  -  |
 | **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
 | **404** | Route Filter Rule ID Not Found |  -  |
@@ -541,7 +547,7 @@ public class Example {
 
 <a name="patchRouteFilterRuleByUuid"></a>
 # **patchRouteFilterRuleByUuid**
-> RouteFiltersData patchRouteFilterRuleByUuid(routeFilterId, routeFilterRuleId, routeFilterChangePrefixMatch)
+> RouteFilterRulesData patchRouteFilterRuleByUuid(routeFilterId, routeFilterRuleId, routeFilterRulesPatchRequestItem)
 
 PatchRFilterRule
 
@@ -569,9 +575,9 @@ public class Example {
     RouteFilterRulesApi apiInstance = new RouteFilterRulesApi(defaultClient);
     String routeFilterId = "routeFilterId_example"; // String | Route Filters Id
     String routeFilterRuleId = "routeFilterRuleId_example"; // String | Route  Filter  Rules Id
-    List<RouteFilterChangePrefixMatch> routeFilterChangePrefixMatch = Arrays.asList(); // List<RouteFilterChangePrefixMatch> | 
+    List<RouteFilterRulesPatchRequestItem> routeFilterRulesPatchRequestItem = Arrays.asList(); // List<RouteFilterRulesPatchRequestItem> | 
     try {
-      RouteFiltersData result = apiInstance.patchRouteFilterRuleByUuid(routeFilterId, routeFilterRuleId, routeFilterChangePrefixMatch);
+      RouteFilterRulesData result = apiInstance.patchRouteFilterRuleByUuid(routeFilterId, routeFilterRuleId, routeFilterRulesPatchRequestItem);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling RouteFilterRulesApi#patchRouteFilterRuleByUuid");
@@ -590,11 +596,11 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **routeFilterId** | **String**| Route Filters Id | |
 | **routeFilterRuleId** | **String**| Route  Filter  Rules Id | |
-| **routeFilterChangePrefixMatch** | [**List&lt;RouteFilterChangePrefixMatch&gt;**](RouteFilterChangePrefixMatch.md)|  | |
+| **routeFilterRulesPatchRequestItem** | [**List&lt;RouteFilterRulesPatchRequestItem&gt;**](RouteFilterRulesPatchRequestItem.md)|  | |
 
 ### Return type
 
-[**RouteFiltersData**](RouteFiltersData.md)
+[**RouteFilterRulesData**](RouteFilterRulesData.md)
 
 ### Authorization
 

@@ -20,6 +20,8 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -43,88 +45,149 @@ import java.util.Set;
 import com.equinix.openapi.fabric.JSON;
 
 /**
- * Route Filter Rule change operation data
+ * RouteFiltersSearchFilterItem
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class RouteFilterChangePrefixMatch {
-  public static final String SERIALIZED_NAME_OP = "op";
-  @SerializedName(SERIALIZED_NAME_OP)
-  private String op;
+public class RouteFiltersSearchFilterItem {
+  /**
+   * Gets or Sets property
+   */
+  @JsonAdapter(PropertyEnum.Adapter.class)
+  public enum PropertyEnum {
+    TYPE("/type"),
+    
+    NAME("/name"),
+    
+    PROJECT_PROJECTID("/project/projectId"),
+    
+    UUID("/uuid"),
+    
+    STATE("/state");
 
-  public static final String SERIALIZED_NAME_PATH = "path";
-  @SerializedName(SERIALIZED_NAME_PATH)
-  private String path;
+    private String value;
 
-  public static final String SERIALIZED_NAME_VALUE = "value";
-  @SerializedName(SERIALIZED_NAME_VALUE)
-  private Object value;
+    PropertyEnum(String value) {
+      this.value = value;
+    }
 
-  public RouteFilterChangePrefixMatch() {
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static PropertyEnum fromValue(String value) {
+      for (PropertyEnum b : PropertyEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+
+    public static class Adapter extends TypeAdapter<PropertyEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final PropertyEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public PropertyEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return PropertyEnum.fromValue(value);
+      }
+    }
   }
 
-  public RouteFilterChangePrefixMatch op(String op) {
+  public static final String SERIALIZED_NAME_PROPERTY = "property";
+  @SerializedName(SERIALIZED_NAME_PROPERTY)
+  private PropertyEnum property;
+
+  public static final String SERIALIZED_NAME_OPERATOR = "operator";
+  @SerializedName(SERIALIZED_NAME_OPERATOR)
+  private String operator;
+
+  public static final String SERIALIZED_NAME_VALUES = "values";
+  @SerializedName(SERIALIZED_NAME_VALUES)
+  private List<String> values = new ArrayList<>();
+
+  public RouteFiltersSearchFilterItem() {
+  }
+
+  public RouteFiltersSearchFilterItem property(PropertyEnum property) {
     
-    this.op = op;
+    this.property = property;
     return this;
   }
 
    /**
-   * Handy shortcut for operation name
-   * @return op
+   * Get property
+   * @return property
   **/
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
 
-  public String getOp() {
-    return op;
+  public PropertyEnum getProperty() {
+    return property;
   }
 
 
-  public void setOp(String op) {
-    this.op = op;
+  public void setProperty(PropertyEnum property) {
+    this.property = property;
   }
 
 
-  public RouteFilterChangePrefixMatch path(String path) {
+  public RouteFiltersSearchFilterItem operator(String operator) {
     
-    this.path = path;
+    this.operator = operator;
     return this;
   }
 
    /**
-   * path to change
-   * @return path
+   * Get operator
+   * @return operator
   **/
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
 
-  public String getPath() {
-    return path;
+  public String getOperator() {
+    return operator;
   }
 
 
-  public void setPath(String path) {
-    this.path = path;
+  public void setOperator(String operator) {
+    this.operator = operator;
   }
 
 
-  public RouteFilterChangePrefixMatch value(Object value) {
+  public RouteFiltersSearchFilterItem values(List<String> values) {
     
-    this.value = value;
+    this.values = values;
+    return this;
+  }
+
+  public RouteFiltersSearchFilterItem addValuesItem(String valuesItem) {
+    if (this.values == null) {
+      this.values = new ArrayList<>();
+    }
+    this.values.add(valuesItem);
     return this;
   }
 
    /**
-   * new value for updated parameter
-   * @return value
+   * Get values
+   * @return values
   **/
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
 
-  public Object getValue() {
-    return value;
+  public List<String> getValues() {
+    return values;
   }
 
 
-  public void setValue(Object value) {
-    this.value = value;
+  public void setValues(List<String> values) {
+    this.values = values;
   }
 
   /**
@@ -140,9 +203,9 @@ public class RouteFilterChangePrefixMatch {
    *
    * @param key name of the property
    * @param value value of the property
-   * @return the RouteFilterChangePrefixMatch instance itself
+   * @return the RouteFiltersSearchFilterItem instance itself
    */
-  public RouteFilterChangePrefixMatch putAdditionalProperty(String key, Object value) {
+  public RouteFiltersSearchFilterItem putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
         this.additionalProperties = new HashMap<String, Object>();
     }
@@ -181,25 +244,25 @@ public class RouteFilterChangePrefixMatch {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    RouteFilterChangePrefixMatch routeFilterChangePrefixMatch = (RouteFilterChangePrefixMatch) o;
-    return Objects.equals(this.op, routeFilterChangePrefixMatch.op) &&
-        Objects.equals(this.path, routeFilterChangePrefixMatch.path) &&
-        Objects.equals(this.value, routeFilterChangePrefixMatch.value)&&
-        Objects.equals(this.additionalProperties, routeFilterChangePrefixMatch.additionalProperties);
+    RouteFiltersSearchFilterItem routeFiltersSearchFilterItem = (RouteFiltersSearchFilterItem) o;
+    return Objects.equals(this.property, routeFiltersSearchFilterItem.property) &&
+        Objects.equals(this.operator, routeFiltersSearchFilterItem.operator) &&
+        Objects.equals(this.values, routeFiltersSearchFilterItem.values)&&
+        Objects.equals(this.additionalProperties, routeFiltersSearchFilterItem.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(op, path, value, additionalProperties);
+    return Objects.hash(property, operator, values, additionalProperties);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class RouteFilterChangePrefixMatch {\n");
-    sb.append("    op: ").append(toIndentedString(op)).append("\n");
-    sb.append("    path: ").append(toIndentedString(path)).append("\n");
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("class RouteFiltersSearchFilterItem {\n");
+    sb.append("    property: ").append(toIndentedString(property)).append("\n");
+    sb.append("    operator: ").append(toIndentedString(operator)).append("\n");
+    sb.append("    values: ").append(toIndentedString(values)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -223,41 +286,35 @@ public class RouteFilterChangePrefixMatch {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("op");
-    openapiFields.add("path");
-    openapiFields.add("value");
+    openapiFields.add("property");
+    openapiFields.add("operator");
+    openapiFields.add("values");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("op");
-    openapiRequiredFields.add("path");
-    openapiRequiredFields.add("value");
   }
 
  /**
   * Validates the JSON Object and throws an exception if issues found
   *
   * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to RouteFilterChangePrefixMatch
+  * @throws IOException if the JSON Object is invalid with respect to RouteFiltersSearchFilterItem
   */
   public static void validateJsonObject(JsonObject jsonObj) throws IOException {
       if (jsonObj == null) {
-        if (!RouteFilterChangePrefixMatch.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in RouteFilterChangePrefixMatch is not found in the empty JSON string", RouteFilterChangePrefixMatch.openapiRequiredFields.toString()));
+        if (!RouteFiltersSearchFilterItem.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in RouteFiltersSearchFilterItem is not found in the empty JSON string", RouteFiltersSearchFilterItem.openapiRequiredFields.toString()));
         }
       }
-
-      // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : RouteFilterChangePrefixMatch.openapiRequiredFields) {
-        if (jsonObj.get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
-        }
+      if ((jsonObj.get("property") != null && !jsonObj.get("property").isJsonNull()) && !jsonObj.get("property").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `property` to be a primitive type in the JSON string but got `%s`", jsonObj.get("property").toString()));
       }
-      if (!jsonObj.get("op").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `op` to be a primitive type in the JSON string but got `%s`", jsonObj.get("op").toString()));
+      if ((jsonObj.get("operator") != null && !jsonObj.get("operator").isJsonNull()) && !jsonObj.get("operator").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `operator` to be a primitive type in the JSON string but got `%s`", jsonObj.get("operator").toString()));
       }
-      if (!jsonObj.get("path").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `path` to be a primitive type in the JSON string but got `%s`", jsonObj.get("path").toString()));
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("values") != null && !jsonObj.get("values").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `values` to be an array in the JSON string but got `%s`", jsonObj.get("values").toString()));
       }
   }
 
@@ -265,16 +322,16 @@ public class RouteFilterChangePrefixMatch {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!RouteFilterChangePrefixMatch.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'RouteFilterChangePrefixMatch' and its subtypes
+       if (!RouteFiltersSearchFilterItem.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'RouteFiltersSearchFilterItem' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<RouteFilterChangePrefixMatch> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(RouteFilterChangePrefixMatch.class));
+       final TypeAdapter<RouteFiltersSearchFilterItem> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(RouteFiltersSearchFilterItem.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<RouteFilterChangePrefixMatch>() {
+       return (TypeAdapter<T>) new TypeAdapter<RouteFiltersSearchFilterItem>() {
            @Override
-           public void write(JsonWriter out, RouteFilterChangePrefixMatch value) throws IOException {
+           public void write(JsonWriter out, RouteFiltersSearchFilterItem value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
              // serialize additional properties
@@ -297,11 +354,11 @@ public class RouteFilterChangePrefixMatch {
            }
 
            @Override
-           public RouteFilterChangePrefixMatch read(JsonReader in) throws IOException {
+           public RouteFiltersSearchFilterItem read(JsonReader in) throws IOException {
              JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
              validateJsonObject(jsonObj);
              // store additional fields in the deserialized instance
-             RouteFilterChangePrefixMatch instance = thisAdapter.fromJsonTree(jsonObj);
+             RouteFiltersSearchFilterItem instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
                if (!openapiFields.contains(entry.getKey())) {
                  if (entry.getValue().isJsonPrimitive()) { // primitive type
@@ -328,18 +385,18 @@ public class RouteFilterChangePrefixMatch {
   }
 
  /**
-  * Create an instance of RouteFilterChangePrefixMatch given an JSON string
+  * Create an instance of RouteFiltersSearchFilterItem given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of RouteFilterChangePrefixMatch
-  * @throws IOException if the JSON string is invalid with respect to RouteFilterChangePrefixMatch
+  * @return An instance of RouteFiltersSearchFilterItem
+  * @throws IOException if the JSON string is invalid with respect to RouteFiltersSearchFilterItem
   */
-  public static RouteFilterChangePrefixMatch fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, RouteFilterChangePrefixMatch.class);
+  public static RouteFiltersSearchFilterItem fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, RouteFiltersSearchFilterItem.class);
   }
 
  /**
-  * Convert an instance of RouteFilterChangePrefixMatch to an JSON string
+  * Convert an instance of RouteFiltersSearchFilterItem to an JSON string
   *
   * @return JSON string
   */

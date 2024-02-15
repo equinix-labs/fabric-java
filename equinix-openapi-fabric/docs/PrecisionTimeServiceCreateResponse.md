@@ -14,7 +14,7 @@ EPT service instance
 |**name** | **String** | name of the ept service |  [optional] |
 |**description** | **String** |  |  [optional] |
 |**state** | [**StateEnum**](#StateEnum) | indicate service state |  |
-|**_package** | [**PackageResponse**](PackageResponse.md) |  |  |
+|**_package** | [**PrecisionTimePackageResponse**](PrecisionTimePackageResponse.md) |  |  |
 |**connections** | [**Set&lt;FabricConnectionUuid&gt;**](FabricConnectionUuid.md) | fabric l2 connections used for the ept service |  [optional] |
 |**ipv4** | [**Ipv4**](Ipv4.md) |  |  |
 |**account** | [**Account**](Account.md) |  |  [optional] |

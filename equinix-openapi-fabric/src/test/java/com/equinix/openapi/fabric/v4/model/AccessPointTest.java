@@ -14,6 +14,7 @@ package com.equinix.openapi.fabric.v4.model;
 
 import com.equinix.openapi.fabric.v4.model.AccessPointType;
 import com.equinix.openapi.fabric.v4.model.CloudRouter;
+import com.equinix.openapi.fabric.v4.model.MetalInterconnection;
 import com.equinix.openapi.fabric.v4.model.ModelInterface;
 import com.equinix.openapi.fabric.v4.model.PeeringType;
 import com.equinix.openapi.fabric.v4.model.SimplifiedAccount;
@@ -166,6 +167,14 @@ public class AccessPointTest {
     @Test
     public void virtualNetworkTest() {
         // TODO: test virtualNetwork
+    }
+
+    /**
+     * Test the property 'interconnection'
+     */
+    @Test
+    public void interconnectionTest() {
+        // TODO: test interconnection
     }
 
 }

@@ -23,41 +23,33 @@ import org.junit.jupiter.api.Test;
 
 
 /**
- * Model tests for RouteFilterChangePrefixMatch
+ * Model tests for SortItem
  */
-public class RouteFilterChangePrefixMatchTest {
-    private final RouteFilterChangePrefixMatch model = new RouteFilterChangePrefixMatch();
+public class SortItemTest {
+    private final SortItem model = new SortItem();
 
     /**
-     * Model tests for RouteFilterChangePrefixMatch
+     * Model tests for SortItem
      */
     @Test
-    public void testRouteFilterChangePrefixMatch() {
-        // TODO: test RouteFilterChangePrefixMatch
+    public void testSortItem() {
+        // TODO: test SortItem
     }
 
     /**
-     * Test the property 'op'
+     * Test the property 'property'
      */
     @Test
-    public void opTest() {
-        // TODO: test op
+    public void propertyTest() {
+        // TODO: test property
     }
 
     /**
-     * Test the property 'path'
+     * Test the property 'direction'
      */
     @Test
-    public void pathTest() {
-        // TODO: test path
-    }
-
-    /**
-     * Test the property 'value'
-     */
-    @Test
-    public void valueTest() {
-        // TODO: test value
+    public void directionTest() {
+        // TODO: test direction
     }
 
 }

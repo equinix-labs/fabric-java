@@ -16,6 +16,7 @@ import java.util.Objects;
 import java.util.Arrays;
 import com.equinix.openapi.fabric.v4.model.AccessPointType;
 import com.equinix.openapi.fabric.v4.model.CloudRouter;
+import com.equinix.openapi.fabric.v4.model.MetalInterconnection;
 import com.equinix.openapi.fabric.v4.model.ModelInterface;
 import com.equinix.openapi.fabric.v4.model.PeeringType;
 import com.equinix.openapi.fabric.v4.model.SimplifiedAccount;
@@ -118,6 +119,10 @@ public class AccessPoint {
   public static final String SERIALIZED_NAME_VIRTUAL_NETWORK = "virtualNetwork";
   @SerializedName(SERIALIZED_NAME_VIRTUAL_NETWORK)
   private VirtualNetwork virtualNetwork;
+
+  public static final String SERIALIZED_NAME_INTERCONNECTION = "interconnection";
+  @SerializedName(SERIALIZED_NAME_INTERCONNECTION)
+  private MetalInterconnection interconnection;
 
   public AccessPoint() {
   }
@@ -451,6 +456,28 @@ public class AccessPoint {
     this.virtualNetwork = virtualNetwork;
   }
 
+
+  public AccessPoint interconnection(MetalInterconnection interconnection) {
+    
+    this.interconnection = interconnection;
+    return this;
+  }
+
+   /**
+   * Get interconnection
+   * @return interconnection
+  **/
+  @javax.annotation.Nullable
+
+  public MetalInterconnection getInterconnection() {
+    return interconnection;
+  }
+
+
+  public void setInterconnection(MetalInterconnection interconnection) {
+    this.interconnection = interconnection;
+  }
+
   /**
    * A container for additional, undeclared properties.
    * This is a holder for any undeclared properties as specified with
@@ -520,13 +547,14 @@ public class AccessPoint {
         Objects.equals(this.peeringType, accessPoint.peeringType) &&
         Objects.equals(this.authenticationKey, accessPoint.authenticationKey) &&
         Objects.equals(this.providerConnectionId, accessPoint.providerConnectionId) &&
-        Objects.equals(this.virtualNetwork, accessPoint.virtualNetwork)&&
+        Objects.equals(this.virtualNetwork, accessPoint.virtualNetwork) &&
+        Objects.equals(this.interconnection, accessPoint.interconnection)&&
         Objects.equals(this.additionalProperties, accessPoint.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, account, location, port, profile, router, linkProtocol, virtualDevice, _interface, network, sellerRegion, peeringType, authenticationKey, providerConnectionId, virtualNetwork, additionalProperties);
+    return Objects.hash(type, account, location, port, profile, router, linkProtocol, virtualDevice, _interface, network, sellerRegion, peeringType, authenticationKey, providerConnectionId, virtualNetwork, interconnection, additionalProperties);
   }
 
   @Override
@@ -548,6 +576,7 @@ public class AccessPoint {
     sb.append("    authenticationKey: ").append(toIndentedString(authenticationKey)).append("\n");
     sb.append("    providerConnectionId: ").append(toIndentedString(providerConnectionId)).append("\n");
     sb.append("    virtualNetwork: ").append(toIndentedString(virtualNetwork)).append("\n");
+    sb.append("    interconnection: ").append(toIndentedString(interconnection)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -586,6 +615,7 @@ public class AccessPoint {
     openapiFields.add("authenticationKey");
     openapiFields.add("providerConnectionId");
     openapiFields.add("virtualNetwork");
+    openapiFields.add("interconnection");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -651,6 +681,10 @@ public class AccessPoint {
       // validate the optional field `virtualNetwork`
       if (jsonObj.get("virtualNetwork") != null && !jsonObj.get("virtualNetwork").isJsonNull()) {
         VirtualNetwork.validateJsonObject(jsonObj.getAsJsonObject("virtualNetwork"));
+      }
+      // validate the optional field `interconnection`
+      if (jsonObj.get("interconnection") != null && !jsonObj.get("interconnection").isJsonNull()) {
+        MetalInterconnection.validateJsonObject(jsonObj.getAsJsonObject("interconnection"));
       }
   }
 

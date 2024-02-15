@@ -1,6 +1,6 @@
 
 
-# PackageRequest
+# PrecisionTimePackageRequest
 
 EPT Package Request
 

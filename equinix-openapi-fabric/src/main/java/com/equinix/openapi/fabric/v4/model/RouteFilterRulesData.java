@@ -15,6 +15,7 @@ package com.equinix.openapi.fabric.v4.model;
 import java.util.Objects;
 import java.util.Arrays;
 import com.equinix.openapi.fabric.v4.model.Changelog;
+import com.equinix.openapi.fabric.v4.model.RouteFilterRuleState;
 import com.equinix.openapi.fabric.v4.model.RouteFilterRulesChange;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
@@ -117,6 +118,10 @@ public class RouteFilterRulesData {
   public static final String SERIALIZED_NAME_DESCRIPTION = "description";
   @SerializedName(SERIALIZED_NAME_DESCRIPTION)
   private String description;
+
+  public static final String SERIALIZED_NAME_STATE = "state";
+  @SerializedName(SERIALIZED_NAME_STATE)
+  private RouteFilterRuleState state;
 
   public static final String SERIALIZED_NAME_PREFIX_MATCH = "prefixMatch";
   @SerializedName(SERIALIZED_NAME_PREFIX_MATCH)
@@ -298,6 +303,28 @@ public class RouteFilterRulesData {
   }
 
 
+  public RouteFilterRulesData state(RouteFilterRuleState state) {
+    
+    this.state = state;
+    return this;
+  }
+
+   /**
+   * Get state
+   * @return state
+  **/
+  @javax.annotation.Nullable
+
+  public RouteFilterRuleState getState() {
+    return state;
+  }
+
+
+  public void setState(RouteFilterRuleState state) {
+    this.state = state;
+  }
+
+
   public RouteFilterRulesData prefixMatch(String prefixMatch) {
     
     this.prefixMatch = prefixMatch;
@@ -467,6 +494,7 @@ public class RouteFilterRulesData {
         Objects.equals(this.uuid, routeFilterRulesData.uuid) &&
         Objects.equals(this.name, routeFilterRulesData.name) &&
         Objects.equals(this.description, routeFilterRulesData.description) &&
+        Objects.equals(this.state, routeFilterRulesData.state) &&
         Objects.equals(this.prefixMatch, routeFilterRulesData.prefixMatch) &&
         Objects.equals(this.change, routeFilterRulesData.change) &&
         Objects.equals(this.action, routeFilterRulesData.action) &&
@@ -477,7 +505,7 @@ public class RouteFilterRulesData {
 
   @Override
   public int hashCode() {
-    return Objects.hash(href, type, uuid, name, description, prefixMatch, change, action, prefix, changelog, additionalProperties);
+    return Objects.hash(href, type, uuid, name, description, state, prefixMatch, change, action, prefix, changelog, additionalProperties);
   }
 
   @Override
@@ -489,6 +517,7 @@ public class RouteFilterRulesData {
     sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    prefixMatch: ").append(toIndentedString(prefixMatch)).append("\n");
     sb.append("    change: ").append(toIndentedString(change)).append("\n");
     sb.append("    action: ").append(toIndentedString(action)).append("\n");
@@ -522,6 +551,7 @@ public class RouteFilterRulesData {
     openapiFields.add("uuid");
     openapiFields.add("name");
     openapiFields.add("description");
+    openapiFields.add("state");
     openapiFields.add("prefixMatch");
     openapiFields.add("change");
     openapiFields.add("action");

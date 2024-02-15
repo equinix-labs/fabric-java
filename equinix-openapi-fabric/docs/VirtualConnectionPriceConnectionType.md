@@ -23,5 +23,7 @@
 
 * `IPWAN_VC` (value: `"IPWAN_VC"`)
 
+* `IA_VC` (value: `"IA_VC"`)
+
 
 

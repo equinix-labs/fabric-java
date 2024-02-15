@@ -18,39 +18,46 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
-import java.net.URI;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 
 /**
- * Model tests for PackageRequest
+ * Model tests for RouteFilterRulesPatchRequestItem
  */
-public class PackageRequestTest {
-    private final PackageRequest model = new PackageRequest();
+public class RouteFilterRulesPatchRequestItemTest {
+    private final RouteFilterRulesPatchRequestItem model = new RouteFilterRulesPatchRequestItem();
 
     /**
-     * Model tests for PackageRequest
+     * Model tests for RouteFilterRulesPatchRequestItem
      */
     @Test
-    public void testPackageRequest() {
-        // TODO: test PackageRequest
+    public void testRouteFilterRulesPatchRequestItem() {
+        // TODO: test RouteFilterRulesPatchRequestItem
     }
 
     /**
-     * Test the property 'href'
+     * Test the property 'op'
      */
     @Test
-    public void hrefTest() {
-        // TODO: test href
+    public void opTest() {
+        // TODO: test op
     }
 
     /**
-     * Test the property 'code'
+     * Test the property 'path'
      */
     @Test
-    public void codeTest() {
-        // TODO: test code
+    public void pathTest() {
+        // TODO: test path
+    }
+
+    /**
+     * Test the property 'value'
+     */
+    @Test
+    public void valueTest() {
+        // TODO: test value
     }
 
 }

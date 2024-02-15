@@ -12,7 +12,6 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import com.equinix.openapi.fabric.v4.model.AdditionalInfo;
 import com.equinix.openapi.fabric.v4.model.Changelog;
 import com.equinix.openapi.fabric.v4.model.LinkProtocolConnection;
 import com.equinix.openapi.fabric.v4.model.LinkProtocolRequestType;
@@ -25,8 +24,7 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.net.URI;
 import java.util.UUID;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -44,6 +42,14 @@ public class LinkProtocolResponseTest {
     @Test
     public void testLinkProtocolResponse() {
         // TODO: test LinkProtocolResponse
+    }
+
+    /**
+     * Test the property 'href'
+     */
+    @Test
+    public void hrefTest() {
+        // TODO: test href
     }
 
     /**
@@ -76,6 +82,14 @@ public class LinkProtocolResponseTest {
     @Test
     public void vlanTagTest() {
         // TODO: test vlanTag
+    }
+
+    /**
+     * Test the property 'vni'
+     */
+    @Test
+    public void vniTest() {
+        // TODO: test vni
     }
 
     /**
@@ -135,19 +149,11 @@ public class LinkProtocolResponseTest {
     }
 
     /**
-     * Test the property 'additionalInfo'
+     * Test the property 'asset'
      */
     @Test
-    public void additionalInfoTest() {
-        // TODO: test additionalInfo
-    }
-
-    /**
-     * Test the property 'connection'
-     */
-    @Test
-    public void connectionTest() {
-        // TODO: test connection
+    public void assetTest() {
+        // TODO: test asset
     }
 
     /**

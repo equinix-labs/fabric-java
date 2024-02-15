@@ -108,7 +108,7 @@ public class CloudRouterPackageType {
   public enum CodeEnum {
     LAB("LAB"),
     
-    BASIC("BASIC"),
+    ADVANCED("ADVANCED"),
     
     STANDARD("STANDARD"),
     

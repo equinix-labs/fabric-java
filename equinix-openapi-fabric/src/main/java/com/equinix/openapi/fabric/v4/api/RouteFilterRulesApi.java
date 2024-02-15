@@ -28,13 +28,12 @@ import java.io.IOException;
 
 import com.equinix.openapi.fabric.v4.model.Error;
 import com.equinix.openapi.fabric.v4.model.GetRouteFilterRulesResponse;
-import com.equinix.openapi.fabric.v4.model.RouteFilterChangePrefixMatch;
 import com.equinix.openapi.fabric.v4.model.RouteFilterRulesBase;
 import com.equinix.openapi.fabric.v4.model.RouteFilterRulesChangeData;
 import com.equinix.openapi.fabric.v4.model.RouteFilterRulesChangeDataResponse;
 import com.equinix.openapi.fabric.v4.model.RouteFilterRulesData;
+import com.equinix.openapi.fabric.v4.model.RouteFilterRulesPatchRequestItem;
 import com.equinix.openapi.fabric.v4.model.RouteFilterRulesPostRequest;
-import com.equinix.openapi.fabric.v4.model.RouteFiltersData;
 import java.util.UUID;
 
 import java.lang.reflect.Type;
@@ -249,6 +248,12 @@ public class RouteFilterRulesApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Resource not found </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
     public okhttp3.Call createRouteFilterRulesInBulkCall(String routeFilterId, RouteFilterRulesPostRequest routeFilterRulesPostRequest, final ApiCallback _callback) throws ApiException {
@@ -324,6 +329,12 @@ public class RouteFilterRulesApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Resource not found </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
     public GetRouteFilterRulesResponse createRouteFilterRulesInBulk(String routeFilterId, RouteFilterRulesPostRequest routeFilterRulesPostRequest) throws ApiException {
@@ -342,6 +353,12 @@ public class RouteFilterRulesApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Resource not found </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
     public ApiResponse<GetRouteFilterRulesResponse> createRouteFilterRulesInBulkWithHttpInfo(String routeFilterId, RouteFilterRulesPostRequest routeFilterRulesPostRequest) throws ApiException {
@@ -362,6 +379,12 @@ public class RouteFilterRulesApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Resource not found </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
     public okhttp3.Call createRouteFilterRulesInBulkAsync(String routeFilterId, RouteFilterRulesPostRequest routeFilterRulesPostRequest, final ApiCallback<GetRouteFilterRulesResponse> _callback) throws ApiException {
@@ -1029,7 +1052,7 @@ public class RouteFilterRulesApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Resource not found </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Route Filter Rule ID Not Found </td><td>  -  </td></tr>
@@ -1112,7 +1135,7 @@ public class RouteFilterRulesApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Resource not found </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Route Filter Rule ID Not Found </td><td>  -  </td></tr>
@@ -1136,7 +1159,7 @@ public class RouteFilterRulesApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Resource not found </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Route Filter Rule ID Not Found </td><td>  -  </td></tr>
@@ -1162,7 +1185,7 @@ public class RouteFilterRulesApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Resource not found </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Route Filter Rule ID Not Found </td><td>  -  </td></tr>
@@ -1180,7 +1203,7 @@ public class RouteFilterRulesApi {
      * Build call for patchRouteFilterRuleByUuid
      * @param routeFilterId Route Filters Id (required)
      * @param routeFilterRuleId Route  Filter  Rules Id (required)
-     * @param routeFilterChangePrefixMatch  (required)
+     * @param routeFilterRulesPatchRequestItem  (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -1196,7 +1219,7 @@ public class RouteFilterRulesApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call patchRouteFilterRuleByUuidCall(String routeFilterId, String routeFilterRuleId, List<RouteFilterChangePrefixMatch> routeFilterChangePrefixMatch, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call patchRouteFilterRuleByUuidCall(String routeFilterId, String routeFilterRuleId, List<RouteFilterRulesPatchRequestItem> routeFilterRulesPatchRequestItem, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1210,7 +1233,7 @@ public class RouteFilterRulesApi {
             basePath = null;
         }
 
-        Object localVarPostBody = routeFilterChangePrefixMatch;
+        Object localVarPostBody = routeFilterRulesPatchRequestItem;
 
         // create path and map variables
         String localVarPath = "/fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId}"
@@ -1244,7 +1267,7 @@ public class RouteFilterRulesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call patchRouteFilterRuleByUuidValidateBeforeCall(String routeFilterId, String routeFilterRuleId, List<RouteFilterChangePrefixMatch> routeFilterChangePrefixMatch, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call patchRouteFilterRuleByUuidValidateBeforeCall(String routeFilterId, String routeFilterRuleId, List<RouteFilterRulesPatchRequestItem> routeFilterRulesPatchRequestItem, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'routeFilterId' is set
         if (routeFilterId == null) {
             throw new ApiException("Missing the required parameter 'routeFilterId' when calling patchRouteFilterRuleByUuid(Async)");
@@ -1255,12 +1278,12 @@ public class RouteFilterRulesApi {
             throw new ApiException("Missing the required parameter 'routeFilterRuleId' when calling patchRouteFilterRuleByUuid(Async)");
         }
 
-        // verify the required parameter 'routeFilterChangePrefixMatch' is set
-        if (routeFilterChangePrefixMatch == null) {
-            throw new ApiException("Missing the required parameter 'routeFilterChangePrefixMatch' when calling patchRouteFilterRuleByUuid(Async)");
+        // verify the required parameter 'routeFilterRulesPatchRequestItem' is set
+        if (routeFilterRulesPatchRequestItem == null) {
+            throw new ApiException("Missing the required parameter 'routeFilterRulesPatchRequestItem' when calling patchRouteFilterRuleByUuid(Async)");
         }
 
-        return patchRouteFilterRuleByUuidCall(routeFilterId, routeFilterRuleId, routeFilterChangePrefixMatch, _callback);
+        return patchRouteFilterRuleByUuidCall(routeFilterId, routeFilterRuleId, routeFilterRulesPatchRequestItem, _callback);
 
     }
 
@@ -1269,8 +1292,8 @@ public class RouteFilterRulesApi {
      * This API provides capability to partially update a Route Filter Rule
      * @param routeFilterId Route Filters Id (required)
      * @param routeFilterRuleId Route  Filter  Rules Id (required)
-     * @param routeFilterChangePrefixMatch  (required)
-     * @return RouteFiltersData
+     * @param routeFilterRulesPatchRequestItem  (required)
+     * @return RouteFilterRulesData
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -1284,8 +1307,8 @@ public class RouteFilterRulesApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public RouteFiltersData patchRouteFilterRuleByUuid(String routeFilterId, String routeFilterRuleId, List<RouteFilterChangePrefixMatch> routeFilterChangePrefixMatch) throws ApiException {
-        ApiResponse<RouteFiltersData> localVarResp = patchRouteFilterRuleByUuidWithHttpInfo(routeFilterId, routeFilterRuleId, routeFilterChangePrefixMatch);
+    public RouteFilterRulesData patchRouteFilterRuleByUuid(String routeFilterId, String routeFilterRuleId, List<RouteFilterRulesPatchRequestItem> routeFilterRulesPatchRequestItem) throws ApiException {
+        ApiResponse<RouteFilterRulesData> localVarResp = patchRouteFilterRuleByUuidWithHttpInfo(routeFilterId, routeFilterRuleId, routeFilterRulesPatchRequestItem);
         return localVarResp.getData();
     }
 
@@ -1294,8 +1317,8 @@ public class RouteFilterRulesApi {
      * This API provides capability to partially update a Route Filter Rule
      * @param routeFilterId Route Filters Id (required)
      * @param routeFilterRuleId Route  Filter  Rules Id (required)
-     * @param routeFilterChangePrefixMatch  (required)
-     * @return ApiResponse&lt;RouteFiltersData&gt;
+     * @param routeFilterRulesPatchRequestItem  (required)
+     * @return ApiResponse&lt;RouteFilterRulesData&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -1309,9 +1332,9 @@ public class RouteFilterRulesApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<RouteFiltersData> patchRouteFilterRuleByUuidWithHttpInfo(String routeFilterId, String routeFilterRuleId, List<RouteFilterChangePrefixMatch> routeFilterChangePrefixMatch) throws ApiException {
-        okhttp3.Call localVarCall = patchRouteFilterRuleByUuidValidateBeforeCall(routeFilterId, routeFilterRuleId, routeFilterChangePrefixMatch, null);
-        Type localVarReturnType = new TypeToken<RouteFiltersData>(){}.getType();
+    public ApiResponse<RouteFilterRulesData> patchRouteFilterRuleByUuidWithHttpInfo(String routeFilterId, String routeFilterRuleId, List<RouteFilterRulesPatchRequestItem> routeFilterRulesPatchRequestItem) throws ApiException {
+        okhttp3.Call localVarCall = patchRouteFilterRuleByUuidValidateBeforeCall(routeFilterId, routeFilterRuleId, routeFilterRulesPatchRequestItem, null);
+        Type localVarReturnType = new TypeToken<RouteFilterRulesData>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -1320,7 +1343,7 @@ public class RouteFilterRulesApi {
      * This API provides capability to partially update a Route Filter Rule
      * @param routeFilterId Route Filters Id (required)
      * @param routeFilterRuleId Route  Filter  Rules Id (required)
-     * @param routeFilterChangePrefixMatch  (required)
+     * @param routeFilterRulesPatchRequestItem  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -1336,10 +1359,10 @@ public class RouteFilterRulesApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call patchRouteFilterRuleByUuidAsync(String routeFilterId, String routeFilterRuleId, List<RouteFilterChangePrefixMatch> routeFilterChangePrefixMatch, final ApiCallback<RouteFiltersData> _callback) throws ApiException {
+    public okhttp3.Call patchRouteFilterRuleByUuidAsync(String routeFilterId, String routeFilterRuleId, List<RouteFilterRulesPatchRequestItem> routeFilterRulesPatchRequestItem, final ApiCallback<RouteFilterRulesData> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = patchRouteFilterRuleByUuidValidateBeforeCall(routeFilterId, routeFilterRuleId, routeFilterChangePrefixMatch, _callback);
-        Type localVarReturnType = new TypeToken<RouteFiltersData>(){}.getType();
+        okhttp3.Call localVarCall = patchRouteFilterRuleByUuidValidateBeforeCall(routeFilterId, routeFilterRuleId, routeFilterRulesPatchRequestItem, _callback);
+        Type localVarReturnType = new TypeToken<RouteFilterRulesData>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

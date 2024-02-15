@@ -12,6 +12,7 @@
 |**uuid** | **UUID** | Route Filter Rule identifier |  [optional] |
 |**name** | **String** |  |  [optional] |
 |**description** | **String** | Customer-provided Route Filter Rule description |  [optional] |
+|**state** | **RouteFilterRuleState** |  |  [optional] |
 |**prefixMatch** | **String** | prefix matching operator |  [optional] |
 |**change** | [**RouteFilterRulesChange**](RouteFilterRulesChange.md) |  |  [optional] |
 |**action** | [**ActionEnum**](#ActionEnum) |  |  [optional] |
