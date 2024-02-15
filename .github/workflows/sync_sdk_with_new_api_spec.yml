@@ -21,7 +21,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: ${{ matrix.java-version }}
-          distribution: ${{ matrix.java-distribution
+          distribution: ${{ matrix.java-distribution }}
           cache: maven
       - name: Checkout Go Code
         uses: actions/checkout@v2
