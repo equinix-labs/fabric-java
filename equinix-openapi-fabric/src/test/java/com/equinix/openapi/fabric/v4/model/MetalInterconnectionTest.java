@@ -18,38 +18,31 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
+import java.util.UUID;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 
 /**
- * Model tests for AdditionalInfo
+ * Model tests for MetalInterconnection
  */
-public class AdditionalInfoTest {
-    private final AdditionalInfo model = new AdditionalInfo();
+public class MetalInterconnectionTest {
+    private final MetalInterconnection model = new MetalInterconnection();
 
     /**
-     * Model tests for AdditionalInfo
+     * Model tests for MetalInterconnection
      */
     @Test
-    public void testAdditionalInfo() {
-        // TODO: test AdditionalInfo
+    public void testMetalInterconnection() {
+        // TODO: test MetalInterconnection
     }
 
     /**
-     * Test the property 'key'
+     * Test the property 'uuid'
      */
     @Test
-    public void keyTest() {
-        // TODO: test key
-    }
-
-    /**
-     * Test the property 'value'
-     */
-    @Test
-    public void valueTest() {
-        // TODO: test value
+    public void uuidTest() {
+        // TODO: test uuid
     }
 
 }

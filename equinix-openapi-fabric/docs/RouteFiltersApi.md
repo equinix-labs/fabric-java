@@ -15,7 +15,7 @@ All URIs are relative to *https://api.equinix.com*
 | [**getRouteFilterChanges**](RouteFiltersApi.md#getRouteFilterChanges) | **GET** /fabric/v4/routeFilters/{routeFilterId}/changes | Get All Changes |
 | [**getRouteFilterConnections**](RouteFiltersApi.md#getRouteFilterConnections) | **GET** /fabric/v4/routeFilters/{routeFilterId}/connections | Get Connections |
 | [**patchRouteFilterByUuid**](RouteFiltersApi.md#patchRouteFilterByUuid) | **PATCH** /fabric/v4/routeFilters/{routeFilterId} | Patch Route Filter |
-| [**replaceRouteFilterByUuid**](RouteFiltersApi.md#replaceRouteFilterByUuid) | **PUT** /fabric/v4/routeFilters/{routeFilterId} | Replace Route Filter |
+| [**searchRouteFilters**](RouteFiltersApi.md#searchRouteFilters) | **POST** /fabric/v4/routeFilters/search | Search Route Filters |
 
 
 <a name="attachConnectionRouteFilter"></a>
@@ -762,7 +762,7 @@ public class Example {
 
 <a name="patchRouteFilterByUuid"></a>
 # **patchRouteFilterByUuid**
-> RouteFiltersData patchRouteFilterByUuid(routeFilterId, connectionChangeOperation)
+> RouteFiltersData patchRouteFilterByUuid(routeFilterId, routeFiltersPatchRequestItem)
 
 Patch Route Filter
 
@@ -789,9 +789,9 @@ public class Example {
 
     RouteFiltersApi apiInstance = new RouteFiltersApi(defaultClient);
     String routeFilterId = "routeFilterId_example"; // String | Route Filters Id
-    List<ConnectionChangeOperation> connectionChangeOperation = Arrays.asList(); // List<ConnectionChangeOperation> | 
+    List<RouteFiltersPatchRequestItem> routeFiltersPatchRequestItem = Arrays.asList(); // List<RouteFiltersPatchRequestItem> | 
     try {
-      RouteFiltersData result = apiInstance.patchRouteFilterByUuid(routeFilterId, connectionChangeOperation);
+      RouteFiltersData result = apiInstance.patchRouteFilterByUuid(routeFilterId, routeFiltersPatchRequestItem);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling RouteFiltersApi#patchRouteFilterByUuid");
@@ -809,7 +809,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **routeFilterId** | **String**| Route Filters Id | |
-| **connectionChangeOperation** | [**List&lt;ConnectionChangeOperation&gt;**](ConnectionChangeOperation.md)|  | |
+| **routeFiltersPatchRequestItem** | [**List&lt;RouteFiltersPatchRequestItem&gt;**](RouteFiltersPatchRequestItem.md)|  | |
 
 ### Return type
 
@@ -835,13 +835,13 @@ public class Example {
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
 
-<a name="replaceRouteFilterByUuid"></a>
-# **replaceRouteFilterByUuid**
-> RouteFiltersData replaceRouteFilterByUuid(routeFilterId, routeFiltersBase)
+<a name="searchRouteFilters"></a>
+# **searchRouteFilters**
+> RouteFiltersSearchResponse searchRouteFilters(routeFiltersSearchBase)
 
-Replace Route Filter
+Search Route Filters
 
-This API provides capability to replace a Route Filter completely
+This API provides capability to search Route Filters
 
 ### Example
 ```java
@@ -863,13 +863,12 @@ public class Example {
     BearerAuth.setBearerToken("BEARER TOKEN");
 
     RouteFiltersApi apiInstance = new RouteFiltersApi(defaultClient);
-    String routeFilterId = "routeFilterId_example"; // String | Route Filters Id
-    RouteFiltersBase routeFiltersBase = new RouteFiltersBase(); // RouteFiltersBase | 
+    RouteFiltersSearchBase routeFiltersSearchBase = new RouteFiltersSearchBase(); // RouteFiltersSearchBase | 
     try {
-      RouteFiltersData result = apiInstance.replaceRouteFilterByUuid(routeFilterId, routeFiltersBase);
+      RouteFiltersSearchResponse result = apiInstance.searchRouteFilters(routeFiltersSearchBase);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling RouteFiltersApi#replaceRouteFilterByUuid");
+      System.err.println("Exception when calling RouteFiltersApi#searchRouteFilters");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -883,12 +882,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **routeFilterId** | **String**| Route Filters Id | |
-| **routeFiltersBase** | [**RouteFiltersBase**](RouteFiltersBase.md)|  | |
+| **routeFiltersSearchBase** | [**RouteFiltersSearchBase**](RouteFiltersSearchBase.md)|  | |
 
 ### Return type
 
-[**RouteFiltersData**](RouteFiltersData.md)
+[**RouteFiltersSearchResponse**](RouteFiltersSearchResponse.md)
 
 ### Authorization
 
@@ -902,7 +900,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **202** | Successful operation |  -  |
+| **200** | Successful operation |  -  |
 | **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |

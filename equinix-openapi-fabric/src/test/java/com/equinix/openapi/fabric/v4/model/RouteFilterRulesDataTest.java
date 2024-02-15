@@ -13,6 +13,7 @@
 package com.equinix.openapi.fabric.v4.model;
 
 import com.equinix.openapi.fabric.v4.model.Changelog;
+import com.equinix.openapi.fabric.v4.model.RouteFilterRuleState;
 import com.equinix.openapi.fabric.v4.model.RouteFilterRulesChange;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
@@ -78,6 +79,14 @@ public class RouteFilterRulesDataTest {
     @Test
     public void descriptionTest() {
         // TODO: test description
+    }
+
+    /**
+     * Test the property 'state'
+     */
+    @Test
+    public void stateTest() {
+        // TODO: test state
     }
 
     /**

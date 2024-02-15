@@ -11,9 +11,7 @@
 
 * `QINQ` (value: `"QINQ"`)
 
-* `EVPN_VXLAN` (value: `"EVPN_VXLAN"`)
-
-* `UNTAGGEDEPL` (value: `"UNTAGGEDEPL"`)
+* `VXLAN` (value: `"VXLAN"`)
 
 
 

@@ -14,12 +14,17 @@ package com.equinix.openapi.fabric.v4.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import com.equinix.openapi.fabric.v4.model.Pagination;
+import com.equinix.openapi.fabric.v4.model.RouteFiltersSearchBaseFilter;
+import com.equinix.openapi.fabric.v4.model.SortItem;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -43,62 +48,96 @@ import java.util.Set;
 import com.equinix.openapi.fabric.JSON;
 
 /**
- * Additional information
+ * RouteFiltersSearchBase
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class AdditionalInfo {
-  public static final String SERIALIZED_NAME_KEY = "key";
-  @SerializedName(SERIALIZED_NAME_KEY)
-  private String key;
+public class RouteFiltersSearchBase {
+  public static final String SERIALIZED_NAME_FILTER = "filter";
+  @SerializedName(SERIALIZED_NAME_FILTER)
+  private RouteFiltersSearchBaseFilter filter;
 
-  public static final String SERIALIZED_NAME_VALUE = "value";
-  @SerializedName(SERIALIZED_NAME_VALUE)
-  private String value;
+  public static final String SERIALIZED_NAME_PAGINATION = "pagination";
+  @SerializedName(SERIALIZED_NAME_PAGINATION)
+  private Pagination pagination;
 
-  public AdditionalInfo() {
+  public static final String SERIALIZED_NAME_SORT = "sort";
+  @SerializedName(SERIALIZED_NAME_SORT)
+  private List<SortItem> sort = new ArrayList<>();
+
+  public RouteFiltersSearchBase() {
   }
 
-  public AdditionalInfo key(String key) {
+  public RouteFiltersSearchBase filter(RouteFiltersSearchBaseFilter filter) {
     
-    this.key = key;
+    this.filter = filter;
     return this;
   }
 
    /**
-   * Key
-   * @return key
+   * Get filter
+   * @return filter
   **/
   @javax.annotation.Nullable
 
-  public String getKey() {
-    return key;
+  public RouteFiltersSearchBaseFilter getFilter() {
+    return filter;
   }
 
 
-  public void setKey(String key) {
-    this.key = key;
+  public void setFilter(RouteFiltersSearchBaseFilter filter) {
+    this.filter = filter;
   }
 
 
-  public AdditionalInfo value(String value) {
+  public RouteFiltersSearchBase pagination(Pagination pagination) {
     
-    this.value = value;
+    this.pagination = pagination;
     return this;
   }
 
    /**
-   * Value
-   * @return value
+   * Get pagination
+   * @return pagination
   **/
   @javax.annotation.Nullable
 
-  public String getValue() {
-    return value;
+  public Pagination getPagination() {
+    return pagination;
   }
 
 
-  public void setValue(String value) {
-    this.value = value;
+  public void setPagination(Pagination pagination) {
+    this.pagination = pagination;
+  }
+
+
+  public RouteFiltersSearchBase sort(List<SortItem> sort) {
+    
+    this.sort = sort;
+    return this;
+  }
+
+  public RouteFiltersSearchBase addSortItem(SortItem sortItem) {
+    if (this.sort == null) {
+      this.sort = new ArrayList<>();
+    }
+    this.sort.add(sortItem);
+    return this;
+  }
+
+   /**
+   * Get sort
+   * @return sort
+  **/
+  @javax.annotation.Nullable
+
+  public List<SortItem> getSort() {
+    return sort;
+  }
+
+
+  public void setSort(List<SortItem> sort) {
+    this.sort = sort;
   }
 
   /**
@@ -114,9 +153,9 @@ public class AdditionalInfo {
    *
    * @param key name of the property
    * @param value value of the property
-   * @return the AdditionalInfo instance itself
+   * @return the RouteFiltersSearchBase instance itself
    */
-  public AdditionalInfo putAdditionalProperty(String key, Object value) {
+  public RouteFiltersSearchBase putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
         this.additionalProperties = new HashMap<String, Object>();
     }
@@ -155,23 +194,25 @@ public class AdditionalInfo {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AdditionalInfo additionalInfo = (AdditionalInfo) o;
-    return Objects.equals(this.key, additionalInfo.key) &&
-        Objects.equals(this.value, additionalInfo.value)&&
-        Objects.equals(this.additionalProperties, additionalInfo.additionalProperties);
+    RouteFiltersSearchBase routeFiltersSearchBase = (RouteFiltersSearchBase) o;
+    return Objects.equals(this.filter, routeFiltersSearchBase.filter) &&
+        Objects.equals(this.pagination, routeFiltersSearchBase.pagination) &&
+        Objects.equals(this.sort, routeFiltersSearchBase.sort)&&
+        Objects.equals(this.additionalProperties, routeFiltersSearchBase.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(key, value, additionalProperties);
+    return Objects.hash(filter, pagination, sort, additionalProperties);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class AdditionalInfo {\n");
-    sb.append("    key: ").append(toIndentedString(key)).append("\n");
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("class RouteFiltersSearchBase {\n");
+    sb.append("    filter: ").append(toIndentedString(filter)).append("\n");
+    sb.append("    pagination: ").append(toIndentedString(pagination)).append("\n");
+    sb.append("    sort: ").append(toIndentedString(sort)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -195,8 +236,9 @@ public class AdditionalInfo {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("key");
-    openapiFields.add("value");
+    openapiFields.add("filter");
+    openapiFields.add("pagination");
+    openapiFields.add("sort");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -206,19 +248,35 @@ public class AdditionalInfo {
   * Validates the JSON Object and throws an exception if issues found
   *
   * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to AdditionalInfo
+  * @throws IOException if the JSON Object is invalid with respect to RouteFiltersSearchBase
   */
   public static void validateJsonObject(JsonObject jsonObj) throws IOException {
       if (jsonObj == null) {
-        if (!AdditionalInfo.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in AdditionalInfo is not found in the empty JSON string", AdditionalInfo.openapiRequiredFields.toString()));
+        if (!RouteFiltersSearchBase.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in RouteFiltersSearchBase is not found in the empty JSON string", RouteFiltersSearchBase.openapiRequiredFields.toString()));
         }
       }
-      if ((jsonObj.get("key") != null && !jsonObj.get("key").isJsonNull()) && !jsonObj.get("key").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `key` to be a primitive type in the JSON string but got `%s`", jsonObj.get("key").toString()));
+      // validate the optional field `filter`
+      if (jsonObj.get("filter") != null && !jsonObj.get("filter").isJsonNull()) {
+        RouteFiltersSearchBaseFilter.validateJsonObject(jsonObj.getAsJsonObject("filter"));
       }
-      if ((jsonObj.get("value") != null && !jsonObj.get("value").isJsonNull()) && !jsonObj.get("value").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `value` to be a primitive type in the JSON string but got `%s`", jsonObj.get("value").toString()));
+      // validate the optional field `pagination`
+      if (jsonObj.get("pagination") != null && !jsonObj.get("pagination").isJsonNull()) {
+        Pagination.validateJsonObject(jsonObj.getAsJsonObject("pagination"));
+      }
+      if (jsonObj.get("sort") != null && !jsonObj.get("sort").isJsonNull()) {
+        JsonArray jsonArraysort = jsonObj.getAsJsonArray("sort");
+        if (jsonArraysort != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("sort").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `sort` to be an array in the JSON string but got `%s`", jsonObj.get("sort").toString()));
+          }
+
+          // validate the optional field `sort` (array)
+          for (int i = 0; i < jsonArraysort.size(); i++) {
+            SortItem.validateJsonObject(jsonArraysort.get(i).getAsJsonObject());
+          };
+        }
       }
   }
 
@@ -226,16 +284,16 @@ public class AdditionalInfo {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!AdditionalInfo.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'AdditionalInfo' and its subtypes
+       if (!RouteFiltersSearchBase.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'RouteFiltersSearchBase' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<AdditionalInfo> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(AdditionalInfo.class));
+       final TypeAdapter<RouteFiltersSearchBase> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(RouteFiltersSearchBase.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<AdditionalInfo>() {
+       return (TypeAdapter<T>) new TypeAdapter<RouteFiltersSearchBase>() {
            @Override
-           public void write(JsonWriter out, AdditionalInfo value) throws IOException {
+           public void write(JsonWriter out, RouteFiltersSearchBase value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
              // serialize additional properties
@@ -258,11 +316,11 @@ public class AdditionalInfo {
            }
 
            @Override
-           public AdditionalInfo read(JsonReader in) throws IOException {
+           public RouteFiltersSearchBase read(JsonReader in) throws IOException {
              JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
              validateJsonObject(jsonObj);
              // store additional fields in the deserialized instance
-             AdditionalInfo instance = thisAdapter.fromJsonTree(jsonObj);
+             RouteFiltersSearchBase instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
                if (!openapiFields.contains(entry.getKey())) {
                  if (entry.getValue().isJsonPrimitive()) { // primitive type
@@ -289,18 +347,18 @@ public class AdditionalInfo {
   }
 
  /**
-  * Create an instance of AdditionalInfo given an JSON string
+  * Create an instance of RouteFiltersSearchBase given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of AdditionalInfo
-  * @throws IOException if the JSON string is invalid with respect to AdditionalInfo
+  * @return An instance of RouteFiltersSearchBase
+  * @throws IOException if the JSON string is invalid with respect to RouteFiltersSearchBase
   */
-  public static AdditionalInfo fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, AdditionalInfo.class);
+  public static RouteFiltersSearchBase fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, RouteFiltersSearchBase.class);
   }
 
  /**
-  * Convert an instance of AdditionalInfo to an JSON string
+  * Convert an instance of RouteFiltersSearchBase to an JSON string
   *
   * @return JSON string
   */

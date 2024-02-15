@@ -30,7 +30,7 @@ public enum RouterPackageCode {
   
   LAB("LAB"),
   
-  BASIC("BASIC"),
+  ADVANCED("ADVANCED"),
   
   STANDARD("STANDARD"),
   

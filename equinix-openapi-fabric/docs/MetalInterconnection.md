@@ -1,13 +1,14 @@
 
 
-# RouteFiltersDataProjectAllOf
+# MetalInterconnection
 
+Metal Interconnection
 
 ## Properties
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**href** | **URI** | Project URI |  [optional] |
+|**uuid** | **UUID** | Equinix Metal Interconnection |  [optional] |
 
 
 

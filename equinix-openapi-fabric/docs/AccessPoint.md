@@ -23,6 +23,7 @@ Access point object
 |**authenticationKey** | **String** | Access point authentication key |  [optional] |
 |**providerConnectionId** | **String** | Provider assigned Connection Id |  [optional] |
 |**virtualNetwork** | [**VirtualNetwork**](VirtualNetwork.md) |  |  [optional] |
+|**interconnection** | [**MetalInterconnection**](MetalInterconnection.md) |  |  [optional] |
 
 
 

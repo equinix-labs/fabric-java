@@ -26,7 +26,6 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import com.equinix.openapi.fabric.v4.model.ConnectionChangeOperation;
 import com.equinix.openapi.fabric.v4.model.ConnectionRouteFilterData;
 import com.equinix.openapi.fabric.v4.model.ConnectionRouteFiltersBase;
 import com.equinix.openapi.fabric.v4.model.Error;
@@ -36,6 +35,9 @@ import com.equinix.openapi.fabric.v4.model.RouteFilterChangeData;
 import com.equinix.openapi.fabric.v4.model.RouteFilterChangeDataResponse;
 import com.equinix.openapi.fabric.v4.model.RouteFiltersBase;
 import com.equinix.openapi.fabric.v4.model.RouteFiltersData;
+import com.equinix.openapi.fabric.v4.model.RouteFiltersPatchRequestItem;
+import com.equinix.openapi.fabric.v4.model.RouteFiltersSearchBase;
+import com.equinix.openapi.fabric.v4.model.RouteFiltersSearchResponse;
 import java.util.UUID;
 
 import java.lang.reflect.Type;
@@ -1613,7 +1615,7 @@ public class RouteFiltersApi {
     /**
      * Build call for patchRouteFilterByUuid
      * @param routeFilterId Route Filters Id (required)
-     * @param connectionChangeOperation  (required)
+     * @param routeFiltersPatchRequestItem  (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -1629,7 +1631,7 @@ public class RouteFiltersApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call patchRouteFilterByUuidCall(String routeFilterId, List<ConnectionChangeOperation> connectionChangeOperation, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call patchRouteFilterByUuidCall(String routeFilterId, List<RouteFiltersPatchRequestItem> routeFiltersPatchRequestItem, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1643,7 +1645,7 @@ public class RouteFiltersApi {
             basePath = null;
         }
 
-        Object localVarPostBody = connectionChangeOperation;
+        Object localVarPostBody = routeFiltersPatchRequestItem;
 
         // create path and map variables
         String localVarPath = "/fabric/v4/routeFilters/{routeFilterId}"
@@ -1676,18 +1678,18 @@ public class RouteFiltersApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call patchRouteFilterByUuidValidateBeforeCall(String routeFilterId, List<ConnectionChangeOperation> connectionChangeOperation, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call patchRouteFilterByUuidValidateBeforeCall(String routeFilterId, List<RouteFiltersPatchRequestItem> routeFiltersPatchRequestItem, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'routeFilterId' is set
         if (routeFilterId == null) {
             throw new ApiException("Missing the required parameter 'routeFilterId' when calling patchRouteFilterByUuid(Async)");
         }
 
-        // verify the required parameter 'connectionChangeOperation' is set
-        if (connectionChangeOperation == null) {
-            throw new ApiException("Missing the required parameter 'connectionChangeOperation' when calling patchRouteFilterByUuid(Async)");
+        // verify the required parameter 'routeFiltersPatchRequestItem' is set
+        if (routeFiltersPatchRequestItem == null) {
+            throw new ApiException("Missing the required parameter 'routeFiltersPatchRequestItem' when calling patchRouteFilterByUuid(Async)");
         }
 
-        return patchRouteFilterByUuidCall(routeFilterId, connectionChangeOperation, _callback);
+        return patchRouteFilterByUuidCall(routeFilterId, routeFiltersPatchRequestItem, _callback);
 
     }
 
@@ -1695,7 +1697,7 @@ public class RouteFiltersApi {
      * Patch Route Filter
      * This API provides capability to partially update a Route Filter
      * @param routeFilterId Route Filters Id (required)
-     * @param connectionChangeOperation  (required)
+     * @param routeFiltersPatchRequestItem  (required)
      * @return RouteFiltersData
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -1710,8 +1712,8 @@ public class RouteFiltersApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public RouteFiltersData patchRouteFilterByUuid(String routeFilterId, List<ConnectionChangeOperation> connectionChangeOperation) throws ApiException {
-        ApiResponse<RouteFiltersData> localVarResp = patchRouteFilterByUuidWithHttpInfo(routeFilterId, connectionChangeOperation);
+    public RouteFiltersData patchRouteFilterByUuid(String routeFilterId, List<RouteFiltersPatchRequestItem> routeFiltersPatchRequestItem) throws ApiException {
+        ApiResponse<RouteFiltersData> localVarResp = patchRouteFilterByUuidWithHttpInfo(routeFilterId, routeFiltersPatchRequestItem);
         return localVarResp.getData();
     }
 
@@ -1719,7 +1721,7 @@ public class RouteFiltersApi {
      * Patch Route Filter
      * This API provides capability to partially update a Route Filter
      * @param routeFilterId Route Filters Id (required)
-     * @param connectionChangeOperation  (required)
+     * @param routeFiltersPatchRequestItem  (required)
      * @return ApiResponse&lt;RouteFiltersData&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -1734,8 +1736,8 @@ public class RouteFiltersApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<RouteFiltersData> patchRouteFilterByUuidWithHttpInfo(String routeFilterId, List<ConnectionChangeOperation> connectionChangeOperation) throws ApiException {
-        okhttp3.Call localVarCall = patchRouteFilterByUuidValidateBeforeCall(routeFilterId, connectionChangeOperation, null);
+    public ApiResponse<RouteFiltersData> patchRouteFilterByUuidWithHttpInfo(String routeFilterId, List<RouteFiltersPatchRequestItem> routeFiltersPatchRequestItem) throws ApiException {
+        okhttp3.Call localVarCall = patchRouteFilterByUuidValidateBeforeCall(routeFilterId, routeFiltersPatchRequestItem, null);
         Type localVarReturnType = new TypeToken<RouteFiltersData>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -1744,7 +1746,7 @@ public class RouteFiltersApi {
      * Patch Route Filter (asynchronously)
      * This API provides capability to partially update a Route Filter
      * @param routeFilterId Route Filters Id (required)
-     * @param connectionChangeOperation  (required)
+     * @param routeFiltersPatchRequestItem  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -1760,24 +1762,23 @@ public class RouteFiltersApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call patchRouteFilterByUuidAsync(String routeFilterId, List<ConnectionChangeOperation> connectionChangeOperation, final ApiCallback<RouteFiltersData> _callback) throws ApiException {
+    public okhttp3.Call patchRouteFilterByUuidAsync(String routeFilterId, List<RouteFiltersPatchRequestItem> routeFiltersPatchRequestItem, final ApiCallback<RouteFiltersData> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = patchRouteFilterByUuidValidateBeforeCall(routeFilterId, connectionChangeOperation, _callback);
+        okhttp3.Call localVarCall = patchRouteFilterByUuidValidateBeforeCall(routeFilterId, routeFiltersPatchRequestItem, _callback);
         Type localVarReturnType = new TypeToken<RouteFiltersData>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
-     * Build call for replaceRouteFilterByUuid
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFiltersBase  (required)
+     * Build call for searchRouteFilters
+     * @param routeFiltersSearchBase  (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -1786,7 +1787,7 @@ public class RouteFiltersApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call replaceRouteFilterByUuidCall(String routeFilterId, RouteFiltersBase routeFiltersBase, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call searchRouteFiltersCall(RouteFiltersSearchBase routeFiltersSearchBase, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1800,11 +1801,10 @@ public class RouteFiltersApi {
             basePath = null;
         }
 
-        Object localVarPostBody = routeFiltersBase;
+        Object localVarPostBody = routeFiltersSearchBase;
 
         // create path and map variables
-        String localVarPath = "/fabric/v4/routeFilters/{routeFilterId}"
-            .replace("{" + "routeFilterId" + "}", localVarApiClient.escapeString(routeFilterId.toString()));
+        String localVarPath = "/fabric/v4/routeFilters/search";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -1829,36 +1829,30 @@ public class RouteFiltersApi {
         }
 
         String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call replaceRouteFilterByUuidValidateBeforeCall(String routeFilterId, RouteFiltersBase routeFiltersBase, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'routeFilterId' is set
-        if (routeFilterId == null) {
-            throw new ApiException("Missing the required parameter 'routeFilterId' when calling replaceRouteFilterByUuid(Async)");
+    private okhttp3.Call searchRouteFiltersValidateBeforeCall(RouteFiltersSearchBase routeFiltersSearchBase, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'routeFiltersSearchBase' is set
+        if (routeFiltersSearchBase == null) {
+            throw new ApiException("Missing the required parameter 'routeFiltersSearchBase' when calling searchRouteFilters(Async)");
         }
 
-        // verify the required parameter 'routeFiltersBase' is set
-        if (routeFiltersBase == null) {
-            throw new ApiException("Missing the required parameter 'routeFiltersBase' when calling replaceRouteFilterByUuid(Async)");
-        }
-
-        return replaceRouteFilterByUuidCall(routeFilterId, routeFiltersBase, _callback);
+        return searchRouteFiltersCall(routeFiltersSearchBase, _callback);
 
     }
 
     /**
-     * Replace Route Filter
-     * This API provides capability to replace a Route Filter completely
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFiltersBase  (required)
-     * @return RouteFiltersData
+     * Search Route Filters
+     * This API provides capability to search Route Filters
+     * @param routeFiltersSearchBase  (required)
+     * @return RouteFiltersSearchResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -1867,22 +1861,21 @@ public class RouteFiltersApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public RouteFiltersData replaceRouteFilterByUuid(String routeFilterId, RouteFiltersBase routeFiltersBase) throws ApiException {
-        ApiResponse<RouteFiltersData> localVarResp = replaceRouteFilterByUuidWithHttpInfo(routeFilterId, routeFiltersBase);
+    public RouteFiltersSearchResponse searchRouteFilters(RouteFiltersSearchBase routeFiltersSearchBase) throws ApiException {
+        ApiResponse<RouteFiltersSearchResponse> localVarResp = searchRouteFiltersWithHttpInfo(routeFiltersSearchBase);
         return localVarResp.getData();
     }
 
     /**
-     * Replace Route Filter
-     * This API provides capability to replace a Route Filter completely
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFiltersBase  (required)
-     * @return ApiResponse&lt;RouteFiltersData&gt;
+     * Search Route Filters
+     * This API provides capability to search Route Filters
+     * @param routeFiltersSearchBase  (required)
+     * @return ApiResponse&lt;RouteFiltersSearchResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -1891,24 +1884,23 @@ public class RouteFiltersApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<RouteFiltersData> replaceRouteFilterByUuidWithHttpInfo(String routeFilterId, RouteFiltersBase routeFiltersBase) throws ApiException {
-        okhttp3.Call localVarCall = replaceRouteFilterByUuidValidateBeforeCall(routeFilterId, routeFiltersBase, null);
-        Type localVarReturnType = new TypeToken<RouteFiltersData>(){}.getType();
+    public ApiResponse<RouteFiltersSearchResponse> searchRouteFiltersWithHttpInfo(RouteFiltersSearchBase routeFiltersSearchBase) throws ApiException {
+        okhttp3.Call localVarCall = searchRouteFiltersValidateBeforeCall(routeFiltersSearchBase, null);
+        Type localVarReturnType = new TypeToken<RouteFiltersSearchResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
-     * Replace Route Filter (asynchronously)
-     * This API provides capability to replace a Route Filter completely
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFiltersBase  (required)
+     * Search Route Filters (asynchronously)
+     * This API provides capability to search Route Filters
+     * @param routeFiltersSearchBase  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -1917,10 +1909,10 @@ public class RouteFiltersApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call replaceRouteFilterByUuidAsync(String routeFilterId, RouteFiltersBase routeFiltersBase, final ApiCallback<RouteFiltersData> _callback) throws ApiException {
+    public okhttp3.Call searchRouteFiltersAsync(RouteFiltersSearchBase routeFiltersSearchBase, final ApiCallback<RouteFiltersSearchResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = replaceRouteFilterByUuidValidateBeforeCall(routeFilterId, routeFiltersBase, _callback);
-        Type localVarReturnType = new TypeToken<RouteFiltersData>(){}.getType();
+        okhttp3.Call localVarCall = searchRouteFiltersValidateBeforeCall(routeFiltersSearchBase, _callback);
+        Type localVarReturnType = new TypeToken<RouteFiltersSearchResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

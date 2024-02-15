@@ -44,7 +44,9 @@ public enum VirtualConnectionPriceConnectionType {
   
   EPLAN_VC("EPLAN_VC"),
   
-  IPWAN_VC("IPWAN_VC");
+  IPWAN_VC("IPWAN_VC"),
+  
+  IA_VC("IA_VC");
 
   private String value;
 

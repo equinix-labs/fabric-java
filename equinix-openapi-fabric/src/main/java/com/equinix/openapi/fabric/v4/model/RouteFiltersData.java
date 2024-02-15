@@ -186,6 +186,10 @@ public class RouteFiltersData {
   @SerializedName(SERIALIZED_NAME_CONNECTIONS_COUNT)
   private Integer connectionsCount;
 
+  public static final String SERIALIZED_NAME_RULES_COUNT = "rulesCount";
+  @SerializedName(SERIALIZED_NAME_RULES_COUNT)
+  private Integer rulesCount;
+
   public static final String SERIALIZED_NAME_PROJECT = "project";
   @SerializedName(SERIALIZED_NAME_PROJECT)
   private RouteFiltersDataProject project;
@@ -399,6 +403,28 @@ public class RouteFiltersData {
   }
 
 
+  public RouteFiltersData rulesCount(Integer rulesCount) {
+    
+    this.rulesCount = rulesCount;
+    return this;
+  }
+
+   /**
+   * Get rulesCount
+   * @return rulesCount
+  **/
+  @javax.annotation.Nullable
+
+  public Integer getRulesCount() {
+    return rulesCount;
+  }
+
+
+  public void setRulesCount(Integer rulesCount) {
+    this.rulesCount = rulesCount;
+  }
+
+
   public RouteFiltersData project(RouteFiltersDataProject project) {
     
     this.project = project;
@@ -536,6 +562,7 @@ public class RouteFiltersData {
         Objects.equals(this.change, routeFiltersData.change) &&
         Objects.equals(this.notMatchedRuleAction, routeFiltersData.notMatchedRuleAction) &&
         Objects.equals(this.connectionsCount, routeFiltersData.connectionsCount) &&
+        Objects.equals(this.rulesCount, routeFiltersData.rulesCount) &&
         Objects.equals(this.project, routeFiltersData.project) &&
         Objects.equals(this.notifications, routeFiltersData.notifications) &&
         Objects.equals(this.changelog, routeFiltersData.changelog)&&
@@ -544,7 +571,7 @@ public class RouteFiltersData {
 
   @Override
   public int hashCode() {
-    return Objects.hash(href, type, uuid, name, description, state, change, notMatchedRuleAction, connectionsCount, project, notifications, changelog, additionalProperties);
+    return Objects.hash(href, type, uuid, name, description, state, change, notMatchedRuleAction, connectionsCount, rulesCount, project, notifications, changelog, additionalProperties);
   }
 
   @Override
@@ -560,6 +587,7 @@ public class RouteFiltersData {
     sb.append("    change: ").append(toIndentedString(change)).append("\n");
     sb.append("    notMatchedRuleAction: ").append(toIndentedString(notMatchedRuleAction)).append("\n");
     sb.append("    connectionsCount: ").append(toIndentedString(connectionsCount)).append("\n");
+    sb.append("    rulesCount: ").append(toIndentedString(rulesCount)).append("\n");
     sb.append("    project: ").append(toIndentedString(project)).append("\n");
     sb.append("    notifications: ").append(toIndentedString(notifications)).append("\n");
     sb.append("    changelog: ").append(toIndentedString(changelog)).append("\n");
@@ -595,6 +623,7 @@ public class RouteFiltersData {
     openapiFields.add("change");
     openapiFields.add("notMatchedRuleAction");
     openapiFields.add("connectionsCount");
+    openapiFields.add("rulesCount");
     openapiFields.add("project");
     openapiFields.add("notifications");
     openapiFields.add("changelog");
