@@ -46,7 +46,7 @@ jobs:
           sed -i 's,${{ steps.spec_versions.outputs.api_spec_line }},'"$VERSION_UPDATE"',' Makefile
           make generate 
           git commit -m 'sync: fetch ${{ steps.date.outputs.date }} spec and apply patches' *.json
-          git commit -m 'sync: generate client with ${{ steps.date.outputs.date }} spec' equinix-openapi-fabric README.md
+          git commit -m 'sync: generate client with ${{ steps.date.outputs.date }} equinix-openapi-fabric apply
 
       - name: Create Pull Request
         id: cpr
