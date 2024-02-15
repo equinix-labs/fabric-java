@@ -46,8 +46,9 @@ jobs:
           VERSION_UPDATE="OPENAPI_URL=\"https://app.swaggerhub.com/apiproxy/registry/equinix-api/fabric/${{ github.event.inputs.new_api_spec_version_number }}\""
           sed -i 's,${{ steps.spec_versions.outputs.api_spec_line }},'"$VERSION_UPDATE"',' Makefile
           make generate 
-          git commit -m 'sync: fetch ${{ steps.date.outputs.date }} spec and apply patches' *.json
-          git commit -m 'sync: generate client with ${{ steps.date.outputs.date }} spec' equinix-openapi-fabric
+          git commit -m 'sync: fetch ${{ steps.date.outputs.date }} spec and apply patches' spec/*.json
+          git add equinix-openapi-fabric
+          git commit -m 'sync: generate client with ${{ steps.date.outputs.date }} spec'
 
       - name: Create Pull Request
         id: cpr
