@@ -9,6 +9,7 @@ jobs:
     strategy:
       matrix:
         java-version: [11.0.21]
+        java-distribution: [temurin]
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
@@ -23,7 +24,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: ${{ matrix.java-version }}
-          distribution: temurin
+          distribution: ${{ matrix.java-distribution }}
           cache: maven
 
       - name: Get next API Spec Version
