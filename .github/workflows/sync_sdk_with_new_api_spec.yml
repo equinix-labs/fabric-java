@@ -9,7 +9,6 @@ jobs:
     strategy:
       matrix:
         java-version: [11.0.21]
-        java-distribution: temurin
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
@@ -17,26 +16,30 @@ jobs:
         id: date
         run: echo "date=$(date +'%Y-%m-%d')" >> "$GITHUB_OUTPUT"
 
+      - name: Checkout Java Code
+        uses: actions/checkout@v2
+
       - name: Install Java
         uses: actions/setup-java@v2
         with:
           java-version: ${{ matrix.java-version }}
-          distribution: ${{ matrix.java-distribution }}
+          distribution: temurin
           cache: maven
-      - name: Checkout Go Code
-        uses: actions/checkout@v2
+
       - name: Get next API Spec Version
         id: spec_versions
         run: |
-          API_SPEC_LINE=$(grep -i api.swaggerhub.com Makefile)
+          API_SPEC_LINE=$(grep -i app.swaggerhub.com Makefile)
           CURRENT_VERSION_NUM=$(echo $API_SPEC_LINE | cut -d / -f7)
           echo "api_spec_line=$API_SPEC_LINE" >> "$GITHUB_OUTPUT"
           echo "cur_version=$CURRENT_VERSION_NUM" >> "$GITHUB_OUTPUT"
+
       - name: GitHub user
         run: |
           # https://api.github.com/users/github-actions[bot]
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
       - name: Sync
         run: |
           VERSION_UPDATE="OPENAPI_URL=\"https://app.swaggerhub.com/apiproxy/registry/equinix-api/fabric/${{ github.event.inputs.new_api_spec_version_number }}\""
@@ -44,6 +47,7 @@ jobs:
           make generate 
           git commit -m 'sync: fetch ${{ steps.date.outputs.date }} spec and apply patches' *.json
           git commit -m 'sync: generate client with ${{ steps.date.outputs.date }} spec' equinix-openapi-fabric
+
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v3
@@ -72,6 +76,7 @@ jobs:
             
             -Add breaking changes here-
           delete-branch: true
+
       - name: Check outputs
         run: |
           echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
