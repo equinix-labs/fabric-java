@@ -47,7 +47,7 @@ import com.equinix.openapi.fabric.JSON;
  * EPT Package Request
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class PackageRequest {
+public class PrecisionTimePackageRequest {
   public static final String SERIALIZED_NAME_HREF = "href";
   @SerializedName(SERIALIZED_NAME_HREF)
   private URI href;
@@ -107,10 +107,10 @@ public class PackageRequest {
   @SerializedName(SERIALIZED_NAME_CODE)
   private CodeEnum code;
 
-  public PackageRequest() {
+  public PrecisionTimePackageRequest() {
   }
 
-  public PackageRequest href(URI href) {
+  public PrecisionTimePackageRequest href(URI href) {
     
     this.href = href;
     return this;
@@ -132,7 +132,7 @@ public class PackageRequest {
   }
 
 
-  public PackageRequest code(CodeEnum code) {
+  public PrecisionTimePackageRequest code(CodeEnum code) {
     
     this.code = code;
     return this;
@@ -166,9 +166,9 @@ public class PackageRequest {
    *
    * @param key name of the property
    * @param value value of the property
-   * @return the PackageRequest instance itself
+   * @return the PrecisionTimePackageRequest instance itself
    */
-  public PackageRequest putAdditionalProperty(String key, Object value) {
+  public PrecisionTimePackageRequest putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
         this.additionalProperties = new HashMap<String, Object>();
     }
@@ -207,10 +207,10 @@ public class PackageRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PackageRequest packageRequest = (PackageRequest) o;
-    return Objects.equals(this.href, packageRequest.href) &&
-        Objects.equals(this.code, packageRequest.code)&&
-        Objects.equals(this.additionalProperties, packageRequest.additionalProperties);
+    PrecisionTimePackageRequest precisionTimePackageRequest = (PrecisionTimePackageRequest) o;
+    return Objects.equals(this.href, precisionTimePackageRequest.href) &&
+        Objects.equals(this.code, precisionTimePackageRequest.code)&&
+        Objects.equals(this.additionalProperties, precisionTimePackageRequest.additionalProperties);
   }
 
   @Override
@@ -221,7 +221,7 @@ public class PackageRequest {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PackageRequest {\n");
+    sb.append("class PrecisionTimePackageRequest {\n");
     sb.append("    href: ").append(toIndentedString(href)).append("\n");
     sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
@@ -259,17 +259,17 @@ public class PackageRequest {
   * Validates the JSON Object and throws an exception if issues found
   *
   * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to PackageRequest
+  * @throws IOException if the JSON Object is invalid with respect to PrecisionTimePackageRequest
   */
   public static void validateJsonObject(JsonObject jsonObj) throws IOException {
       if (jsonObj == null) {
-        if (!PackageRequest.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in PackageRequest is not found in the empty JSON string", PackageRequest.openapiRequiredFields.toString()));
+        if (!PrecisionTimePackageRequest.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in PrecisionTimePackageRequest is not found in the empty JSON string", PrecisionTimePackageRequest.openapiRequiredFields.toString()));
         }
       }
 
       // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : PackageRequest.openapiRequiredFields) {
+      for (String requiredField : PrecisionTimePackageRequest.openapiRequiredFields) {
         if (jsonObj.get(requiredField) == null) {
           throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
         }
@@ -286,16 +286,16 @@ public class PackageRequest {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!PackageRequest.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'PackageRequest' and its subtypes
+       if (!PrecisionTimePackageRequest.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'PrecisionTimePackageRequest' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<PackageRequest> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(PackageRequest.class));
+       final TypeAdapter<PrecisionTimePackageRequest> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(PrecisionTimePackageRequest.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<PackageRequest>() {
+       return (TypeAdapter<T>) new TypeAdapter<PrecisionTimePackageRequest>() {
            @Override
-           public void write(JsonWriter out, PackageRequest value) throws IOException {
+           public void write(JsonWriter out, PrecisionTimePackageRequest value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
              // serialize additional properties
@@ -318,11 +318,11 @@ public class PackageRequest {
            }
 
            @Override
-           public PackageRequest read(JsonReader in) throws IOException {
+           public PrecisionTimePackageRequest read(JsonReader in) throws IOException {
              JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
              validateJsonObject(jsonObj);
              // store additional fields in the deserialized instance
-             PackageRequest instance = thisAdapter.fromJsonTree(jsonObj);
+             PrecisionTimePackageRequest instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
                if (!openapiFields.contains(entry.getKey())) {
                  if (entry.getValue().isJsonPrimitive()) { // primitive type
@@ -349,18 +349,18 @@ public class PackageRequest {
   }
 
  /**
-  * Create an instance of PackageRequest given an JSON string
+  * Create an instance of PrecisionTimePackageRequest given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of PackageRequest
-  * @throws IOException if the JSON string is invalid with respect to PackageRequest
+  * @return An instance of PrecisionTimePackageRequest
+  * @throws IOException if the JSON string is invalid with respect to PrecisionTimePackageRequest
   */
-  public static PackageRequest fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, PackageRequest.class);
+  public static PrecisionTimePackageRequest fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, PrecisionTimePackageRequest.class);
   }
 
  /**
-  * Convert an instance of PackageRequest to an JSON string
+  * Convert an instance of PrecisionTimePackageRequest to an JSON string
   *
   * @return JSON string
   */

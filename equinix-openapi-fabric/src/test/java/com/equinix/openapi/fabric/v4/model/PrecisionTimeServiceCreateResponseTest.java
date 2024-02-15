@@ -16,7 +16,7 @@ import com.equinix.openapi.fabric.v4.model.Account;
 import com.equinix.openapi.fabric.v4.model.AdvanceConfiguration;
 import com.equinix.openapi.fabric.v4.model.FabricConnectionUuid;
 import com.equinix.openapi.fabric.v4.model.Ipv4;
-import com.equinix.openapi.fabric.v4.model.PackageResponse;
+import com.equinix.openapi.fabric.v4.model.PrecisionTimePackageResponse;
 import com.equinix.openapi.fabric.v4.model.Project;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;

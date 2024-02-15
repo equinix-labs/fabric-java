@@ -24,17 +24,17 @@ import org.junit.jupiter.api.Test;
 
 
 /**
- * Model tests for RouteFiltersDataProjectAllOf
+ * Model tests for PrecisionTimePackageRequest
  */
-public class RouteFiltersDataProjectAllOfTest {
-    private final RouteFiltersDataProjectAllOf model = new RouteFiltersDataProjectAllOf();
+public class PrecisionTimePackageRequestTest {
+    private final PrecisionTimePackageRequest model = new PrecisionTimePackageRequest();
 
     /**
-     * Model tests for RouteFiltersDataProjectAllOf
+     * Model tests for PrecisionTimePackageRequest
      */
     @Test
-    public void testRouteFiltersDataProjectAllOf() {
-        // TODO: test RouteFiltersDataProjectAllOf
+    public void testPrecisionTimePackageRequest() {
+        // TODO: test PrecisionTimePackageRequest
     }
 
     /**
@@ -43,6 +43,14 @@ public class RouteFiltersDataProjectAllOfTest {
     @Test
     public void hrefTest() {
         // TODO: test href
+    }
+
+    /**
+     * Test the property 'code'
+     */
+    @Test
+    public void codeTest() {
+        // TODO: test code
     }
 
 }

@@ -30,7 +30,7 @@ public enum FabricCloudRouterCode {
   
   LAB("LAB"),
   
-  BASIC("BASIC"),
+  ADVANCED("ADVANCED"),
   
   STANDARD("STANDARD"),
   

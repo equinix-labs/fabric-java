@@ -16,6 +16,7 @@
 |**change** | [**RouteFiltersChange**](RouteFiltersChange.md) |  |  [optional] |
 |**notMatchedRuleAction** | [**NotMatchedRuleActionEnum**](#NotMatchedRuleActionEnum) |  |  [optional] |
 |**connectionsCount** | **Integer** |  |  [optional] |
+|**rulesCount** | **Integer** |  |  [optional] |
 |**project** | [**RouteFiltersDataProject**](RouteFiltersDataProject.md) |  |  [optional] |
 |**notifications** | [**List&lt;SimplifiedNotification&gt;**](SimplifiedNotification.md) | Preferences for notifications on route filter configuration or status changes |  [optional] |
 |**changelog** | [**Changelog**](Changelog.md) |  |  [optional] |

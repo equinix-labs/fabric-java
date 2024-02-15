@@ -12,7 +12,6 @@ docs/AccessPointType.md
 docs/Account.md
 docs/Actions.md
 docs/AddOperation.md
-docs/AdditionalInfo.md
 docs/AdvanceConfiguration.md
 docs/AllPhysicalPortsResponse.md
 docs/AllPortsResponse.md
@@ -120,6 +119,7 @@ docs/LinkProtocolUntagged.md
 docs/LinkProtocolVxlan.md
 docs/MarketingInfo.md
 docs/Md5.md
+docs/MetalInterconnection.md
 docs/MetricInterval.md
 docs/Metrics.md
 docs/Metro.md
@@ -155,7 +155,6 @@ docs/NetworksApi.md
 docs/OpEnum.md
 docs/Order.md
 docs/PackageChangeLog.md
-docs/PackageRequest.md
 docs/PackageResponse.md
 docs/Pagination.md
 docs/PaginationRequest.md
@@ -192,6 +191,8 @@ docs/PortV4SearchRequest.md
 docs/PortsApi.md
 docs/PrecisionTimeApi.md
 docs/PrecisionTimeChangeOperation.md
+docs/PrecisionTimePackageRequest.md
+docs/PrecisionTimePackageResponse.md
 docs/PrecisionTimeServiceCreateResponse.md
 docs/PrecisionTimeServiceRequest.md
 docs/Presence.md
@@ -213,8 +214,8 @@ docs/RemoveOperation.md
 docs/ReplaceOperation.md
 docs/RouteFilterChangeData.md
 docs/RouteFilterChangeDataResponse.md
-docs/RouteFilterChangePrefixMatch.md
 docs/RouteFilterConnectionsData.md
+docs/RouteFilterRuleState.md
 docs/RouteFilterRulesApi.md
 docs/RouteFilterRulesBase.md
 docs/RouteFilterRulesChange.md
@@ -222,6 +223,7 @@ docs/RouteFilterRulesChangeData.md
 docs/RouteFilterRulesChangeDataResponse.md
 docs/RouteFilterRulesChangeOperation.md
 docs/RouteFilterRulesData.md
+docs/RouteFilterRulesPatchRequestItem.md
 docs/RouteFilterRulesPostRequest.md
 docs/RouteFilterState.md
 docs/RouteFiltersApi.md
@@ -230,7 +232,11 @@ docs/RouteFiltersChange.md
 docs/RouteFiltersChangeOperation.md
 docs/RouteFiltersData.md
 docs/RouteFiltersDataProject.md
-docs/RouteFiltersDataProjectAllOf.md
+docs/RouteFiltersPatchRequestItem.md
+docs/RouteFiltersSearchBase.md
+docs/RouteFiltersSearchBaseFilter.md
+docs/RouteFiltersSearchFilterItem.md
+docs/RouteFiltersSearchResponse.md
 docs/RouteTableEntry.md
 docs/RouteTableEntryConnection.md
 docs/RouteTableEntryFilter.md
@@ -315,6 +321,7 @@ docs/SortBy.md
 docs/SortCriteria.md
 docs/SortCriteriaResponse.md
 docs/SortDirection.md
+docs/SortItem.md
 docs/Statistics.md
 docs/StatisticsApi.md
 docs/SubInterface.md
@@ -392,7 +399,6 @@ src/main/java/com/equinix/openapi/fabric/v4/model/AccessPointType.java
 src/main/java/com/equinix/openapi/fabric/v4/model/Account.java
 src/main/java/com/equinix/openapi/fabric/v4/model/Actions.java
 src/main/java/com/equinix/openapi/fabric/v4/model/AddOperation.java
-src/main/java/com/equinix/openapi/fabric/v4/model/AdditionalInfo.java
 src/main/java/com/equinix/openapi/fabric/v4/model/AdvanceConfiguration.java
 src/main/java/com/equinix/openapi/fabric/v4/model/AllPhysicalPortsResponse.java
 src/main/java/com/equinix/openapi/fabric/v4/model/AllPortsResponse.java
@@ -497,6 +503,7 @@ src/main/java/com/equinix/openapi/fabric/v4/model/LinkProtocolUntagged.java
 src/main/java/com/equinix/openapi/fabric/v4/model/LinkProtocolVxlan.java
 src/main/java/com/equinix/openapi/fabric/v4/model/MarketingInfo.java
 src/main/java/com/equinix/openapi/fabric/v4/model/Md5.java
+src/main/java/com/equinix/openapi/fabric/v4/model/MetalInterconnection.java
 src/main/java/com/equinix/openapi/fabric/v4/model/MetricInterval.java
 src/main/java/com/equinix/openapi/fabric/v4/model/Metrics.java
 src/main/java/com/equinix/openapi/fabric/v4/model/Metro.java
@@ -530,7 +537,6 @@ src/main/java/com/equinix/openapi/fabric/v4/model/NetworkType.java
 src/main/java/com/equinix/openapi/fabric/v4/model/OpEnum.java
 src/main/java/com/equinix/openapi/fabric/v4/model/Order.java
 src/main/java/com/equinix/openapi/fabric/v4/model/PackageChangeLog.java
-src/main/java/com/equinix/openapi/fabric/v4/model/PackageRequest.java
 src/main/java/com/equinix/openapi/fabric/v4/model/PackageResponse.java
 src/main/java/com/equinix/openapi/fabric/v4/model/Pagination.java
 src/main/java/com/equinix/openapi/fabric/v4/model/PaginationRequest.java
@@ -565,6 +571,8 @@ src/main/java/com/equinix/openapi/fabric/v4/model/PortTether.java
 src/main/java/com/equinix/openapi/fabric/v4/model/PortType.java
 src/main/java/com/equinix/openapi/fabric/v4/model/PortV4SearchRequest.java
 src/main/java/com/equinix/openapi/fabric/v4/model/PrecisionTimeChangeOperation.java
+src/main/java/com/equinix/openapi/fabric/v4/model/PrecisionTimePackageRequest.java
+src/main/java/com/equinix/openapi/fabric/v4/model/PrecisionTimePackageResponse.java
 src/main/java/com/equinix/openapi/fabric/v4/model/PrecisionTimeServiceCreateResponse.java
 src/main/java/com/equinix/openapi/fabric/v4/model/PrecisionTimeServiceRequest.java
 src/main/java/com/equinix/openapi/fabric/v4/model/Presence.java
@@ -585,14 +593,15 @@ src/main/java/com/equinix/openapi/fabric/v4/model/RemoveOperation.java
 src/main/java/com/equinix/openapi/fabric/v4/model/ReplaceOperation.java
 src/main/java/com/equinix/openapi/fabric/v4/model/RouteFilterChangeData.java
 src/main/java/com/equinix/openapi/fabric/v4/model/RouteFilterChangeDataResponse.java
-src/main/java/com/equinix/openapi/fabric/v4/model/RouteFilterChangePrefixMatch.java
 src/main/java/com/equinix/openapi/fabric/v4/model/RouteFilterConnectionsData.java
+src/main/java/com/equinix/openapi/fabric/v4/model/RouteFilterRuleState.java
 src/main/java/com/equinix/openapi/fabric/v4/model/RouteFilterRulesBase.java
 src/main/java/com/equinix/openapi/fabric/v4/model/RouteFilterRulesChange.java
 src/main/java/com/equinix/openapi/fabric/v4/model/RouteFilterRulesChangeData.java
 src/main/java/com/equinix/openapi/fabric/v4/model/RouteFilterRulesChangeDataResponse.java
 src/main/java/com/equinix/openapi/fabric/v4/model/RouteFilterRulesChangeOperation.java
 src/main/java/com/equinix/openapi/fabric/v4/model/RouteFilterRulesData.java
+src/main/java/com/equinix/openapi/fabric/v4/model/RouteFilterRulesPatchRequestItem.java
 src/main/java/com/equinix/openapi/fabric/v4/model/RouteFilterRulesPostRequest.java
 src/main/java/com/equinix/openapi/fabric/v4/model/RouteFilterState.java
 src/main/java/com/equinix/openapi/fabric/v4/model/RouteFiltersBase.java
@@ -600,7 +609,11 @@ src/main/java/com/equinix/openapi/fabric/v4/model/RouteFiltersChange.java
 src/main/java/com/equinix/openapi/fabric/v4/model/RouteFiltersChangeOperation.java
 src/main/java/com/equinix/openapi/fabric/v4/model/RouteFiltersData.java
 src/main/java/com/equinix/openapi/fabric/v4/model/RouteFiltersDataProject.java
-src/main/java/com/equinix/openapi/fabric/v4/model/RouteFiltersDataProjectAllOf.java
+src/main/java/com/equinix/openapi/fabric/v4/model/RouteFiltersPatchRequestItem.java
+src/main/java/com/equinix/openapi/fabric/v4/model/RouteFiltersSearchBase.java
+src/main/java/com/equinix/openapi/fabric/v4/model/RouteFiltersSearchBaseFilter.java
+src/main/java/com/equinix/openapi/fabric/v4/model/RouteFiltersSearchFilterItem.java
+src/main/java/com/equinix/openapi/fabric/v4/model/RouteFiltersSearchResponse.java
 src/main/java/com/equinix/openapi/fabric/v4/model/RouteTableEntry.java
 src/main/java/com/equinix/openapi/fabric/v4/model/RouteTableEntryConnection.java
 src/main/java/com/equinix/openapi/fabric/v4/model/RouteTableEntryFilter.java
@@ -682,6 +695,7 @@ src/main/java/com/equinix/openapi/fabric/v4/model/SortBy.java
 src/main/java/com/equinix/openapi/fabric/v4/model/SortCriteria.java
 src/main/java/com/equinix/openapi/fabric/v4/model/SortCriteriaResponse.java
 src/main/java/com/equinix/openapi/fabric/v4/model/SortDirection.java
+src/main/java/com/equinix/openapi/fabric/v4/model/SortItem.java
 src/main/java/com/equinix/openapi/fabric/v4/model/Statistics.java
 src/main/java/com/equinix/openapi/fabric/v4/model/SubInterface.java
 src/main/java/com/equinix/openapi/fabric/v4/model/TopUtilizedStatistics.java
@@ -731,7 +745,6 @@ src/test/java/com/equinix/openapi/fabric/v4/model/AccessPointTypeTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/AccountTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/ActionsTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/AddOperationTest.java
-src/test/java/com/equinix/openapi/fabric/v4/model/AdditionalInfoTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/AdvanceConfigurationTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/AllPhysicalPortsResponseTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/AllPortsResponseTest.java
@@ -836,6 +849,7 @@ src/test/java/com/equinix/openapi/fabric/v4/model/LinkProtocolVxlanTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/LinkTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/MarketingInfoTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/Md5Test.java
+src/test/java/com/equinix/openapi/fabric/v4/model/MetalInterconnectionTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/MetricIntervalTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/MetricsTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/MetroErrorTest.java
@@ -869,7 +883,6 @@ src/test/java/com/equinix/openapi/fabric/v4/model/NetworkTypeTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/OpEnumTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/OrderTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/PackageChangeLogTest.java
-src/test/java/com/equinix/openapi/fabric/v4/model/PackageRequestTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/PackageResponseTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/PaginationRequestTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/PaginationTest.java
@@ -904,6 +917,8 @@ src/test/java/com/equinix/openapi/fabric/v4/model/PortTetherTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/PortTypeTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/PortV4SearchRequestTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/PrecisionTimeChangeOperationTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/PrecisionTimePackageRequestTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/PrecisionTimePackageResponseTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/PrecisionTimeServiceCreateResponseTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/PrecisionTimeServiceRequestTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/PresenceTest.java
@@ -924,22 +939,27 @@ src/test/java/com/equinix/openapi/fabric/v4/model/RemoveOperationTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/ReplaceOperationTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/RouteFilterChangeDataResponseTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/RouteFilterChangeDataTest.java
-src/test/java/com/equinix/openapi/fabric/v4/model/RouteFilterChangePrefixMatchTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/RouteFilterConnectionsDataTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/RouteFilterRuleStateTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/RouteFilterRulesBaseTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/RouteFilterRulesChangeDataResponseTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/RouteFilterRulesChangeDataTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/RouteFilterRulesChangeOperationTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/RouteFilterRulesChangeTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/RouteFilterRulesDataTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/RouteFilterRulesPatchRequestItemTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/RouteFilterRulesPostRequestTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/RouteFilterStateTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/RouteFiltersBaseTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/RouteFiltersChangeOperationTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/RouteFiltersChangeTest.java
-src/test/java/com/equinix/openapi/fabric/v4/model/RouteFiltersDataProjectAllOfTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/RouteFiltersDataProjectTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/RouteFiltersDataTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/RouteFiltersPatchRequestItemTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/RouteFiltersSearchBaseFilterTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/RouteFiltersSearchBaseTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/RouteFiltersSearchFilterItemTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/RouteFiltersSearchResponseTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/RouteTableEntryConnectionTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/RouteTableEntryFilterTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/RouteTableEntryFiltersTest.java
@@ -1020,6 +1040,7 @@ src/test/java/com/equinix/openapi/fabric/v4/model/SortByTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/SortCriteriaResponseTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/SortCriteriaTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/SortDirectionTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/SortItemTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/SortTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/StatisticsTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/SubInterfaceTest.java
