@@ -8,10 +8,12 @@ Link Protocol response
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
+|**href** | **URI** | LinkProtocol URI |  [optional] [readonly] |
 |**uuid** | **UUID** | Equinix-assigned network identifier |  [optional] |
 |**state** | **LinkProtocolState** |  |  [optional] |
 |**type** | **LinkProtocolRequestType** |  |  [optional] |
 |**vlanTag** | **Integer** |  |  [optional] |
+|**vni** | **Integer** |  |  [optional] |
 |**vlanTagMin** | **Integer** |  |  [optional] |
 |**vlanTagMax** | **Integer** |  |  [optional] |
 |**vlanSTag** | **Integer** |  |  [optional] |
@@ -19,8 +21,7 @@ Link Protocol response
 |**vlanCTagMin** | **Integer** |  |  [optional] |
 |**vlanCTagMax** | **Integer** |  |  [optional] |
 |**subInterface** | [**SubInterface**](SubInterface.md) |  |  [optional] |
-|**additionalInfo** | [**List&lt;AdditionalInfo&gt;**](AdditionalInfo.md) |  |  [optional] |
-|**connection** | [**LinkProtocolConnection**](LinkProtocolConnection.md) |  |  [optional] |
+|**asset** | [**LinkProtocolConnection**](LinkProtocolConnection.md) |  |  [optional] |
 |**serviceToken** | [**LinkProtocolServiceToken**](LinkProtocolServiceToken.md) |  |  [optional] |
 |**changeLog** | [**Changelog**](Changelog.md) |  |  [optional] |
 

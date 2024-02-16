@@ -15,13 +15,12 @@ package com.equinix.openapi.fabric.v4.api;
 import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.v4.model.Error;
 import com.equinix.openapi.fabric.v4.model.GetRouteFilterRulesResponse;
-import com.equinix.openapi.fabric.v4.model.RouteFilterChangePrefixMatch;
 import com.equinix.openapi.fabric.v4.model.RouteFilterRulesBase;
 import com.equinix.openapi.fabric.v4.model.RouteFilterRulesChangeData;
 import com.equinix.openapi.fabric.v4.model.RouteFilterRulesChangeDataResponse;
 import com.equinix.openapi.fabric.v4.model.RouteFilterRulesData;
+import com.equinix.openapi.fabric.v4.model.RouteFilterRulesPatchRequestItem;
 import com.equinix.openapi.fabric.v4.model.RouteFilterRulesPostRequest;
-import com.equinix.openapi.fabric.v4.model.RouteFiltersData;
 import java.util.UUID;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -159,8 +158,8 @@ public class RouteFilterRulesApiTest {
     public void patchRouteFilterRuleByUuidTest() throws ApiException {
         String routeFilterId = null;
         String routeFilterRuleId = null;
-        List<RouteFilterChangePrefixMatch> routeFilterChangePrefixMatch = null;
-        RouteFiltersData response = api.patchRouteFilterRuleByUuid(routeFilterId, routeFilterRuleId, routeFilterChangePrefixMatch);
+        List<RouteFilterRulesPatchRequestItem> routeFilterRulesPatchRequestItem = null;
+        RouteFilterRulesData response = api.patchRouteFilterRuleByUuid(routeFilterId, routeFilterRuleId, routeFilterRulesPatchRequestItem);
         // TODO: test validations
     }
 

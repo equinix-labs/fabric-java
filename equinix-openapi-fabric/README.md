@@ -1,7 +1,7 @@
 # equinix-openapi-fabric
 
 Equinix Fabric API v4
-- API version: 4.11
+- API version: 4.12
 
 Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br>
 
@@ -179,7 +179,7 @@ Class | Method | HTTP request | Description
 *RouteFiltersApi* | [**getRouteFilterChanges**](docs/RouteFiltersApi.md#getRouteFilterChanges) | **GET** /fabric/v4/routeFilters/{routeFilterId}/changes | Get All Changes
 *RouteFiltersApi* | [**getRouteFilterConnections**](docs/RouteFiltersApi.md#getRouteFilterConnections) | **GET** /fabric/v4/routeFilters/{routeFilterId}/connections | Get Connections
 *RouteFiltersApi* | [**patchRouteFilterByUuid**](docs/RouteFiltersApi.md#patchRouteFilterByUuid) | **PATCH** /fabric/v4/routeFilters/{routeFilterId} | Patch Route Filter
-*RouteFiltersApi* | [**replaceRouteFilterByUuid**](docs/RouteFiltersApi.md#replaceRouteFilterByUuid) | **PUT** /fabric/v4/routeFilters/{routeFilterId} | Replace Route Filter
+*RouteFiltersApi* | [**searchRouteFilters**](docs/RouteFiltersApi.md#searchRouteFilters) | **POST** /fabric/v4/routeFilters/search | Search Route Filters
 *RoutingProtocolsApi* | [**createConnectionRoutingProtocol**](docs/RoutingProtocolsApi.md#createConnectionRoutingProtocol) | **POST** /fabric/v4/connections/{connectionId}/routingProtocols | Create Protocol
 *RoutingProtocolsApi* | [**createConnectionRoutingProtocolsInBulk**](docs/RoutingProtocolsApi.md#createConnectionRoutingProtocolsInBulk) | **POST** /fabric/v4/connections/{connectionId}/routingProtocols/bulk | Bulk Create Protocol
 *RoutingProtocolsApi* | [**deleteConnectionRoutingProtocolByUuid**](docs/RoutingProtocolsApi.md#deleteConnectionRoutingProtocolByUuid) | **DELETE** /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId} | Delete Protocol
@@ -221,7 +221,6 @@ Class | Method | HTTP request | Description
  - [Account](docs/Account.md)
  - [Actions](docs/Actions.md)
  - [AddOperation](docs/AddOperation.md)
- - [AdditionalInfo](docs/AdditionalInfo.md)
  - [AdvanceConfiguration](docs/AdvanceConfiguration.md)
  - [AllPhysicalPortsResponse](docs/AllPhysicalPortsResponse.md)
  - [AllPortsResponse](docs/AllPortsResponse.md)
@@ -326,6 +325,7 @@ Class | Method | HTTP request | Description
  - [LinkProtocolVxlan](docs/LinkProtocolVxlan.md)
  - [MarketingInfo](docs/MarketingInfo.md)
  - [Md5](docs/Md5.md)
+ - [MetalInterconnection](docs/MetalInterconnection.md)
  - [MetricInterval](docs/MetricInterval.md)
  - [Metrics](docs/Metrics.md)
  - [Metro](docs/Metro.md)
@@ -359,7 +359,6 @@ Class | Method | HTTP request | Description
  - [OpEnum](docs/OpEnum.md)
  - [Order](docs/Order.md)
  - [PackageChangeLog](docs/PackageChangeLog.md)
- - [PackageRequest](docs/PackageRequest.md)
  - [PackageResponse](docs/PackageResponse.md)
  - [Pagination](docs/Pagination.md)
  - [PaginationRequest](docs/PaginationRequest.md)
@@ -394,6 +393,8 @@ Class | Method | HTTP request | Description
  - [PortType](docs/PortType.md)
  - [PortV4SearchRequest](docs/PortV4SearchRequest.md)
  - [PrecisionTimeChangeOperation](docs/PrecisionTimeChangeOperation.md)
+ - [PrecisionTimePackageRequest](docs/PrecisionTimePackageRequest.md)
+ - [PrecisionTimePackageResponse](docs/PrecisionTimePackageResponse.md)
  - [PrecisionTimeServiceCreateResponse](docs/PrecisionTimeServiceCreateResponse.md)
  - [PrecisionTimeServiceRequest](docs/PrecisionTimeServiceRequest.md)
  - [Presence](docs/Presence.md)
@@ -414,14 +415,15 @@ Class | Method | HTTP request | Description
  - [ReplaceOperation](docs/ReplaceOperation.md)
  - [RouteFilterChangeData](docs/RouteFilterChangeData.md)
  - [RouteFilterChangeDataResponse](docs/RouteFilterChangeDataResponse.md)
- - [RouteFilterChangePrefixMatch](docs/RouteFilterChangePrefixMatch.md)
  - [RouteFilterConnectionsData](docs/RouteFilterConnectionsData.md)
+ - [RouteFilterRuleState](docs/RouteFilterRuleState.md)
  - [RouteFilterRulesBase](docs/RouteFilterRulesBase.md)
  - [RouteFilterRulesChange](docs/RouteFilterRulesChange.md)
  - [RouteFilterRulesChangeData](docs/RouteFilterRulesChangeData.md)
  - [RouteFilterRulesChangeDataResponse](docs/RouteFilterRulesChangeDataResponse.md)
  - [RouteFilterRulesChangeOperation](docs/RouteFilterRulesChangeOperation.md)
  - [RouteFilterRulesData](docs/RouteFilterRulesData.md)
+ - [RouteFilterRulesPatchRequestItem](docs/RouteFilterRulesPatchRequestItem.md)
  - [RouteFilterRulesPostRequest](docs/RouteFilterRulesPostRequest.md)
  - [RouteFilterState](docs/RouteFilterState.md)
  - [RouteFiltersBase](docs/RouteFiltersBase.md)
@@ -429,7 +431,11 @@ Class | Method | HTTP request | Description
  - [RouteFiltersChangeOperation](docs/RouteFiltersChangeOperation.md)
  - [RouteFiltersData](docs/RouteFiltersData.md)
  - [RouteFiltersDataProject](docs/RouteFiltersDataProject.md)
- - [RouteFiltersDataProjectAllOf](docs/RouteFiltersDataProjectAllOf.md)
+ - [RouteFiltersPatchRequestItem](docs/RouteFiltersPatchRequestItem.md)
+ - [RouteFiltersSearchBase](docs/RouteFiltersSearchBase.md)
+ - [RouteFiltersSearchBaseFilter](docs/RouteFiltersSearchBaseFilter.md)
+ - [RouteFiltersSearchFilterItem](docs/RouteFiltersSearchFilterItem.md)
+ - [RouteFiltersSearchResponse](docs/RouteFiltersSearchResponse.md)
  - [RouteTableEntry](docs/RouteTableEntry.md)
  - [RouteTableEntryConnection](docs/RouteTableEntryConnection.md)
  - [RouteTableEntryFilter](docs/RouteTableEntryFilter.md)
@@ -511,6 +517,7 @@ Class | Method | HTTP request | Description
  - [SortCriteria](docs/SortCriteria.md)
  - [SortCriteriaResponse](docs/SortCriteriaResponse.md)
  - [SortDirection](docs/SortDirection.md)
+ - [SortItem](docs/SortItem.md)
  - [Statistics](docs/Statistics.md)
  - [SubInterface](docs/SubInterface.md)
  - [TopUtilizedStatistics](docs/TopUtilizedStatistics.md)

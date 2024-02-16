@@ -30,7 +30,9 @@ public enum NetworkScope {
   
   REGIONAL("REGIONAL"),
   
-  GLOBAL("GLOBAL");
+  GLOBAL("GLOBAL"),
+  
+  LOCAL("LOCAL");
 
   private String value;
 

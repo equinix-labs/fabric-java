@@ -17,7 +17,7 @@ import java.util.Arrays;
 import com.equinix.openapi.fabric.v4.model.AdvanceConfiguration;
 import com.equinix.openapi.fabric.v4.model.FabricConnectionUuid;
 import com.equinix.openapi.fabric.v4.model.Ipv4;
-import com.equinix.openapi.fabric.v4.model.PackageRequest;
+import com.equinix.openapi.fabric.v4.model.PrecisionTimePackageRequest;
 import com.equinix.openapi.fabric.v4.model.Project;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
@@ -115,7 +115,7 @@ public class PrecisionTimeServiceRequest {
 
   public static final String SERIALIZED_NAME_PACKAGE = "package";
   @SerializedName(SERIALIZED_NAME_PACKAGE)
-  private PackageRequest _package;
+  private PrecisionTimePackageRequest _package;
 
   public static final String SERIALIZED_NAME_CONNECTIONS = "connections";
   @SerializedName(SERIALIZED_NAME_CONNECTIONS)
@@ -202,7 +202,7 @@ public class PrecisionTimeServiceRequest {
   }
 
 
-  public PrecisionTimeServiceRequest _package(PackageRequest _package) {
+  public PrecisionTimeServiceRequest _package(PrecisionTimePackageRequest _package) {
     
     this._package = _package;
     return this;
@@ -214,12 +214,12 @@ public class PrecisionTimeServiceRequest {
   **/
   @javax.annotation.Nonnull
 
-  public PackageRequest getPackage() {
+  public PrecisionTimePackageRequest getPackage() {
     return _package;
   }
 
 
-  public void setPackage(PackageRequest _package) {
+  public void setPackage(PrecisionTimePackageRequest _package) {
     this._package = _package;
   }
 
@@ -469,7 +469,7 @@ public class PrecisionTimeServiceRequest {
         throw new IllegalArgumentException(String.format("Expected the field `description` to be a primitive type in the JSON string but got `%s`", jsonObj.get("description").toString()));
       }
       // validate the required field `package`
-      PackageRequest.validateJsonObject(jsonObj.getAsJsonObject("package"));
+      PrecisionTimePackageRequest.validateJsonObject(jsonObj.getAsJsonObject("package"));
       // ensure the json data is an array
       if (!jsonObj.get("connections").isJsonArray()) {
         throw new IllegalArgumentException(String.format("Expected the field `connections` to be an array in the JSON string but got `%s`", jsonObj.get("connections").toString()));

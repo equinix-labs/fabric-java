@@ -118,6 +118,14 @@ public class RouteFiltersDataTest {
     }
 
     /**
+     * Test the property 'rulesCount'
+     */
+    @Test
+    public void rulesCountTest() {
+        // TODO: test rulesCount
+    }
+
+    /**
      * Test the property 'project'
      */
     @Test

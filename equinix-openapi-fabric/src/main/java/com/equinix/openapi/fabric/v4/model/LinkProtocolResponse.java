@@ -14,7 +14,6 @@ package com.equinix.openapi.fabric.v4.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.equinix.openapi.fabric.v4.model.AdditionalInfo;
 import com.equinix.openapi.fabric.v4.model.Changelog;
 import com.equinix.openapi.fabric.v4.model.LinkProtocolConnection;
 import com.equinix.openapi.fabric.v4.model.LinkProtocolRequestType;
@@ -27,8 +26,7 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.net.URI;
 import java.util.UUID;
 
 import com.google.gson.Gson;
@@ -57,6 +55,10 @@ import com.equinix.openapi.fabric.JSON;
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class LinkProtocolResponse {
+  public static final String SERIALIZED_NAME_HREF = "href";
+  @SerializedName(SERIALIZED_NAME_HREF)
+  private URI href;
+
   public static final String SERIALIZED_NAME_UUID = "uuid";
   @SerializedName(SERIALIZED_NAME_UUID)
   private UUID uuid;
@@ -72,6 +74,10 @@ public class LinkProtocolResponse {
   public static final String SERIALIZED_NAME_VLAN_TAG = "vlanTag";
   @SerializedName(SERIALIZED_NAME_VLAN_TAG)
   private Integer vlanTag;
+
+  public static final String SERIALIZED_NAME_VNI = "vni";
+  @SerializedName(SERIALIZED_NAME_VNI)
+  private Integer vni;
 
   public static final String SERIALIZED_NAME_VLAN_TAG_MIN = "vlanTagMin";
   @SerializedName(SERIALIZED_NAME_VLAN_TAG_MIN)
@@ -101,13 +107,9 @@ public class LinkProtocolResponse {
   @SerializedName(SERIALIZED_NAME_SUB_INTERFACE)
   private SubInterface subInterface;
 
-  public static final String SERIALIZED_NAME_ADDITIONAL_INFO = "additionalInfo";
-  @SerializedName(SERIALIZED_NAME_ADDITIONAL_INFO)
-  private List<AdditionalInfo> additionalInfo = new ArrayList<>();
-
-  public static final String SERIALIZED_NAME_CONNECTION = "connection";
-  @SerializedName(SERIALIZED_NAME_CONNECTION)
-  private LinkProtocolConnection connection;
+  public static final String SERIALIZED_NAME_ASSET = "asset";
+  @SerializedName(SERIALIZED_NAME_ASSET)
+  private LinkProtocolConnection asset;
 
   public static final String SERIALIZED_NAME_SERVICE_TOKEN = "serviceToken";
   @SerializedName(SERIALIZED_NAME_SERVICE_TOKEN)
@@ -119,6 +121,27 @@ public class LinkProtocolResponse {
 
   public LinkProtocolResponse() {
   }
+
+  
+  public LinkProtocolResponse(
+     URI href
+  ) {
+    this();
+    this.href = href;
+  }
+
+   /**
+   * LinkProtocol URI
+   * @return href
+  **/
+  @javax.annotation.Nullable
+
+  public URI getHref() {
+    return href;
+  }
+
+
+
 
   public LinkProtocolResponse uuid(UUID uuid) {
     
@@ -205,6 +228,28 @@ public class LinkProtocolResponse {
 
   public void setVlanTag(Integer vlanTag) {
     this.vlanTag = vlanTag;
+  }
+
+
+  public LinkProtocolResponse vni(Integer vni) {
+    
+    this.vni = vni;
+    return this;
+  }
+
+   /**
+   * Get vni
+   * @return vni
+  **/
+  @javax.annotation.Nullable
+
+  public Integer getVni() {
+    return vni;
+  }
+
+
+  public void setVni(Integer vni) {
+    this.vni = vni;
   }
 
 
@@ -362,55 +407,25 @@ public class LinkProtocolResponse {
   }
 
 
-  public LinkProtocolResponse additionalInfo(List<AdditionalInfo> additionalInfo) {
+  public LinkProtocolResponse asset(LinkProtocolConnection asset) {
     
-    this.additionalInfo = additionalInfo;
-    return this;
-  }
-
-  public LinkProtocolResponse addAdditionalInfoItem(AdditionalInfo additionalInfoItem) {
-    if (this.additionalInfo == null) {
-      this.additionalInfo = new ArrayList<>();
-    }
-    this.additionalInfo.add(additionalInfoItem);
+    this.asset = asset;
     return this;
   }
 
    /**
-   * Get additionalInfo
-   * @return additionalInfo
+   * Get asset
+   * @return asset
   **/
   @javax.annotation.Nullable
 
-  public List<AdditionalInfo> getAdditionalInfo() {
-    return additionalInfo;
+  public LinkProtocolConnection getAsset() {
+    return asset;
   }
 
 
-  public void setAdditionalInfo(List<AdditionalInfo> additionalInfo) {
-    this.additionalInfo = additionalInfo;
-  }
-
-
-  public LinkProtocolResponse connection(LinkProtocolConnection connection) {
-    
-    this.connection = connection;
-    return this;
-  }
-
-   /**
-   * Get connection
-   * @return connection
-  **/
-  @javax.annotation.Nullable
-
-  public LinkProtocolConnection getConnection() {
-    return connection;
-  }
-
-
-  public void setConnection(LinkProtocolConnection connection) {
-    this.connection = connection;
+  public void setAsset(LinkProtocolConnection asset) {
+    this.asset = asset;
   }
 
 
@@ -512,10 +527,12 @@ public class LinkProtocolResponse {
       return false;
     }
     LinkProtocolResponse linkProtocolResponse = (LinkProtocolResponse) o;
-    return Objects.equals(this.uuid, linkProtocolResponse.uuid) &&
+    return Objects.equals(this.href, linkProtocolResponse.href) &&
+        Objects.equals(this.uuid, linkProtocolResponse.uuid) &&
         Objects.equals(this.state, linkProtocolResponse.state) &&
         Objects.equals(this.type, linkProtocolResponse.type) &&
         Objects.equals(this.vlanTag, linkProtocolResponse.vlanTag) &&
+        Objects.equals(this.vni, linkProtocolResponse.vni) &&
         Objects.equals(this.vlanTagMin, linkProtocolResponse.vlanTagMin) &&
         Objects.equals(this.vlanTagMax, linkProtocolResponse.vlanTagMax) &&
         Objects.equals(this.vlanSTag, linkProtocolResponse.vlanSTag) &&
@@ -523,8 +540,7 @@ public class LinkProtocolResponse {
         Objects.equals(this.vlanCTagMin, linkProtocolResponse.vlanCTagMin) &&
         Objects.equals(this.vlanCTagMax, linkProtocolResponse.vlanCTagMax) &&
         Objects.equals(this.subInterface, linkProtocolResponse.subInterface) &&
-        Objects.equals(this.additionalInfo, linkProtocolResponse.additionalInfo) &&
-        Objects.equals(this.connection, linkProtocolResponse.connection) &&
+        Objects.equals(this.asset, linkProtocolResponse.asset) &&
         Objects.equals(this.serviceToken, linkProtocolResponse.serviceToken) &&
         Objects.equals(this.changeLog, linkProtocolResponse.changeLog)&&
         Objects.equals(this.additionalProperties, linkProtocolResponse.additionalProperties);
@@ -532,17 +548,19 @@ public class LinkProtocolResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(uuid, state, type, vlanTag, vlanTagMin, vlanTagMax, vlanSTag, vlanCTag, vlanCTagMin, vlanCTagMax, subInterface, additionalInfo, connection, serviceToken, changeLog, additionalProperties);
+    return Objects.hash(href, uuid, state, type, vlanTag, vni, vlanTagMin, vlanTagMax, vlanSTag, vlanCTag, vlanCTagMin, vlanCTagMax, subInterface, asset, serviceToken, changeLog, additionalProperties);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class LinkProtocolResponse {\n");
+    sb.append("    href: ").append(toIndentedString(href)).append("\n");
     sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    vlanTag: ").append(toIndentedString(vlanTag)).append("\n");
+    sb.append("    vni: ").append(toIndentedString(vni)).append("\n");
     sb.append("    vlanTagMin: ").append(toIndentedString(vlanTagMin)).append("\n");
     sb.append("    vlanTagMax: ").append(toIndentedString(vlanTagMax)).append("\n");
     sb.append("    vlanSTag: ").append(toIndentedString(vlanSTag)).append("\n");
@@ -550,8 +568,7 @@ public class LinkProtocolResponse {
     sb.append("    vlanCTagMin: ").append(toIndentedString(vlanCTagMin)).append("\n");
     sb.append("    vlanCTagMax: ").append(toIndentedString(vlanCTagMax)).append("\n");
     sb.append("    subInterface: ").append(toIndentedString(subInterface)).append("\n");
-    sb.append("    additionalInfo: ").append(toIndentedString(additionalInfo)).append("\n");
-    sb.append("    connection: ").append(toIndentedString(connection)).append("\n");
+    sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
     sb.append("    serviceToken: ").append(toIndentedString(serviceToken)).append("\n");
     sb.append("    changeLog: ").append(toIndentedString(changeLog)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
@@ -577,10 +594,12 @@ public class LinkProtocolResponse {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
+    openapiFields.add("href");
     openapiFields.add("uuid");
     openapiFields.add("state");
     openapiFields.add("type");
     openapiFields.add("vlanTag");
+    openapiFields.add("vni");
     openapiFields.add("vlanTagMin");
     openapiFields.add("vlanTagMax");
     openapiFields.add("vlanSTag");
@@ -588,8 +607,7 @@ public class LinkProtocolResponse {
     openapiFields.add("vlanCTagMin");
     openapiFields.add("vlanCTagMax");
     openapiFields.add("subInterface");
-    openapiFields.add("additionalInfo");
-    openapiFields.add("connection");
+    openapiFields.add("asset");
     openapiFields.add("serviceToken");
     openapiFields.add("changeLog");
 
@@ -609,6 +627,9 @@ public class LinkProtocolResponse {
           throw new IllegalArgumentException(String.format("The required field(s) %s in LinkProtocolResponse is not found in the empty JSON string", LinkProtocolResponse.openapiRequiredFields.toString()));
         }
       }
+      if ((jsonObj.get("href") != null && !jsonObj.get("href").isJsonNull()) && !jsonObj.get("href").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `href` to be a primitive type in the JSON string but got `%s`", jsonObj.get("href").toString()));
+      }
       if ((jsonObj.get("uuid") != null && !jsonObj.get("uuid").isJsonNull()) && !jsonObj.get("uuid").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `uuid` to be a primitive type in the JSON string but got `%s`", jsonObj.get("uuid").toString()));
       }
@@ -616,23 +637,9 @@ public class LinkProtocolResponse {
       if (jsonObj.get("subInterface") != null && !jsonObj.get("subInterface").isJsonNull()) {
         SubInterface.validateJsonObject(jsonObj.getAsJsonObject("subInterface"));
       }
-      if (jsonObj.get("additionalInfo") != null && !jsonObj.get("additionalInfo").isJsonNull()) {
-        JsonArray jsonArrayadditionalInfo = jsonObj.getAsJsonArray("additionalInfo");
-        if (jsonArrayadditionalInfo != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("additionalInfo").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `additionalInfo` to be an array in the JSON string but got `%s`", jsonObj.get("additionalInfo").toString()));
-          }
-
-          // validate the optional field `additionalInfo` (array)
-          for (int i = 0; i < jsonArrayadditionalInfo.size(); i++) {
-            AdditionalInfo.validateJsonObject(jsonArrayadditionalInfo.get(i).getAsJsonObject());
-          };
-        }
-      }
-      // validate the optional field `connection`
-      if (jsonObj.get("connection") != null && !jsonObj.get("connection").isJsonNull()) {
-        LinkProtocolConnection.validateJsonObject(jsonObj.getAsJsonObject("connection"));
+      // validate the optional field `asset`
+      if (jsonObj.get("asset") != null && !jsonObj.get("asset").isJsonNull()) {
+        LinkProtocolConnection.validateJsonObject(jsonObj.getAsJsonObject("asset"));
       }
       // validate the optional field `serviceToken`
       if (jsonObj.get("serviceToken") != null && !jsonObj.get("serviceToken").isJsonNull()) {

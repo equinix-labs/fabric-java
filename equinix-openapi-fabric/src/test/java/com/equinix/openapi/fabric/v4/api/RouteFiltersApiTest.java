@@ -13,7 +13,6 @@
 package com.equinix.openapi.fabric.v4.api;
 
 import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.v4.model.ConnectionChangeOperation;
 import com.equinix.openapi.fabric.v4.model.ConnectionRouteFilterData;
 import com.equinix.openapi.fabric.v4.model.ConnectionRouteFiltersBase;
 import com.equinix.openapi.fabric.v4.model.Error;
@@ -23,6 +22,9 @@ import com.equinix.openapi.fabric.v4.model.RouteFilterChangeData;
 import com.equinix.openapi.fabric.v4.model.RouteFilterChangeDataResponse;
 import com.equinix.openapi.fabric.v4.model.RouteFiltersBase;
 import com.equinix.openapi.fabric.v4.model.RouteFiltersData;
+import com.equinix.openapi.fabric.v4.model.RouteFiltersPatchRequestItem;
+import com.equinix.openapi.fabric.v4.model.RouteFiltersSearchBase;
+import com.equinix.openapi.fabric.v4.model.RouteFiltersSearchResponse;
 import java.util.UUID;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -197,23 +199,22 @@ public class RouteFiltersApiTest {
     @Test
     public void patchRouteFilterByUuidTest() throws ApiException {
         String routeFilterId = null;
-        List<ConnectionChangeOperation> connectionChangeOperation = null;
-        RouteFiltersData response = api.patchRouteFilterByUuid(routeFilterId, connectionChangeOperation);
+        List<RouteFiltersPatchRequestItem> routeFiltersPatchRequestItem = null;
+        RouteFiltersData response = api.patchRouteFilterByUuid(routeFilterId, routeFiltersPatchRequestItem);
         // TODO: test validations
     }
 
     /**
-     * Replace Route Filter
+     * Search Route Filters
      *
-     * This API provides capability to replace a Route Filter completely
+     * This API provides capability to search Route Filters
      *
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void replaceRouteFilterByUuidTest() throws ApiException {
-        String routeFilterId = null;
-        RouteFiltersBase routeFiltersBase = null;
-        RouteFiltersData response = api.replaceRouteFilterByUuid(routeFilterId, routeFiltersBase);
+    public void searchRouteFiltersTest() throws ApiException {
+        RouteFiltersSearchBase routeFiltersSearchBase = null;
+        RouteFiltersSearchResponse response = api.searchRouteFilters(routeFiltersSearchBase);
         // TODO: test validations
     }
 

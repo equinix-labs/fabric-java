@@ -30,7 +30,7 @@ public enum Code {
   
   LAB("LAB"),
   
-  BASIC("BASIC"),
+  ADVANCED("ADVANCED"),
   
   STANDARD("STANDARD"),
   

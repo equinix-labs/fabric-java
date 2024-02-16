@@ -16,7 +16,7 @@ info:
     url: https://developer.equinix.com/agreement
   termsOfService: https://www.equinix.com/about/legal/terms
   title: Equinix Fabric API v4
-  version: "4.11"
+  version: "4.12"
 externalDocs:
   description: Find more information on Equinix Developer Portal
   url: https://developer.equinix.com
@@ -169,6 +169,9 @@ paths:
                 value: null
               Fcr2Vd:
                 $ref: '#/components/examples/Fcr2Vd'
+                value: null
+              Fcr2Vd-Redundant-Secondary:
+                $ref: '#/components/examples/Fcr2Vd-Redundant-Secondary'
                 value: null
               Fcr2IpWan:
                 $ref: '#/components/examples/Fcr2IpWan'
@@ -862,7 +865,7 @@ paths:
             application/json:
               examples:
                 example:
-                  $ref: '#/components/examples/400'
+                  $ref: '#/components/examples/400_routing_protocol'
                   value: null
               schema:
                 $ref: '#/components/schemas/ErrorList'
@@ -4170,7 +4173,7 @@ paths:
           content:
             application/json:
               examples:
-                connectionRouteFiltersResponse:
+                ConnectionRouteFiltersResponse:
                   $ref: '#/components/examples/ConnectionRouteFiltersGetAll'
                   value: null
               schema:
@@ -4180,8 +4183,11 @@ paths:
           content:
             application/json:
               examples:
-                example:
-                  $ref: '#/components/examples/400_route_filters'
+                InvalidInput:
+                  $ref: '#/components/examples/400_invalid_input'
+                  value: null
+                InvalidId:
+                  $ref: '#/components/examples/400_Invalid_id'
                   value: null
               schema:
                 $ref: '#/components/schemas/ErrorList'
@@ -4266,10 +4272,10 @@ paths:
           content:
             application/json:
               examples:
-                connectionRouteFilterDetachInboundResponse:
+                ConnectionRouteFilterDetachInboundResponse:
                   $ref: '#/components/examples/DetachConnectionRouteFilterInboundResponse'
                   value: null
-                connectionRouteFilterDetachOutboundResponse:
+                ConnectionRouteFilterDetachOutboundResponse:
                   $ref: '#/components/examples/DetachConnectionRouteFilterOutboundResponse'
                   value: null
               schema:
@@ -4365,7 +4371,7 @@ paths:
           content:
             application/json:
               examples:
-                connectionRouteFilterAttachResponse:
+                ConnectionRouteFilterAttachResponse:
                   $ref: '#/components/examples/AttachConnectionRouteFiltersResponse'
                   value: null
               schema:
@@ -4375,8 +4381,11 @@ paths:
           content:
             application/json:
               examples:
-                example:
-                  $ref: '#/components/examples/400_route_filters'
+                InvalidInput:
+                  $ref: '#/components/examples/400_invalid_input'
+                  value: null
+                InvalidId:
+                  $ref: '#/components/examples/400_Invalid_id'
                   value: null
               schema:
                 $ref: '#/components/schemas/ErrorList'
@@ -4473,7 +4482,7 @@ paths:
           content:
             application/json:
               examples:
-                connectionRouteFilterAttachResponse:
+                ConnectionRouteFilterAttachResponse:
                   $ref: '#/components/examples/AttachConnectionRouteFiltersResponse'
                   value: null
               schema:
@@ -4559,6 +4568,9 @@ paths:
               RouteFilterBgpIpv4Prefix:
                 $ref: '#/components/examples/RouteFilterCreateBgpIpv4Prefix'
                 value: null
+              RouteFilterBgpIpv6Prefix:
+                $ref: '#/components/examples/RouteFilterCreateBgpIpv6Prefix'
+                value: null
             schema:
               $ref: '#/components/schemas/RouteFiltersBase'
         required: true
@@ -4567,7 +4579,7 @@ paths:
           content:
             application/json:
               examples:
-                getSpecificRouteFilterResponse:
+                GetSpecificRouteFilterResponse:
                   $ref: '#/components/examples/RouteFilterCreateBgpIpv4PrefixResponse'
                   value: null
               schema:
@@ -4577,8 +4589,8 @@ paths:
           content:
             application/json:
               examples:
-                example:
-                  $ref: '#/components/examples/400_route_filters'
+                TransientState:
+                  $ref: '#/components/examples/400_transient_state'
                   value: null
               schema:
                 $ref: '#/components/schemas/ErrorList'
@@ -4656,7 +4668,7 @@ paths:
           content:
             application/json:
               examples:
-                routeFilterDeleteBgpIpv4PrefixResponse:
+                RouteFilterDeleteBgpIpv4PrefixResponse:
                   $ref: '#/components/examples/RouteFilterDeleteBgpIpv4PrefixResponse'
                   value: null
               schema:
@@ -4743,7 +4755,7 @@ paths:
           content:
             application/json:
               examples:
-                getSpecificRouteFilterResponse:
+                GetSpecificRouteFilterResponse:
                   $ref: '#/components/examples/RouteFilterCreateBgpIpv4PrefixResponse'
                   value: null
               schema:
@@ -4753,8 +4765,11 @@ paths:
           content:
             application/json:
               examples:
-                example:
-                  $ref: '#/components/examples/400_route_filters'
+                InvalidInput:
+                  $ref: '#/components/examples/400_invalid_input'
+                  value: null
+                InvalidId:
+                  $ref: '#/components/examples/400_Invalid_id'
                   value: null
               schema:
                 $ref: '#/components/schemas/ErrorList'
@@ -4911,104 +4926,6 @@ paths:
       - Route Filters
       x-content-type: application/json
       x-accepts: application/json
-    put:
-      description: This API provides capability to replace a Route Filter completely
-      operationId: replaceRouteFilterByUuid
-      parameters:
-      - description: Route Filters Id
-        explode: false
-        in: path
-        name: routeFilterId
-        required: true
-        schema:
-          $ref: '#/components/schemas/RouteFilterId'
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            examples:
-              RouteFilterIpv4ReplaceExample:
-                $ref: '#/components/examples/UpdateRouteFilterIPv4'
-                value: null
-            schema:
-              $ref: '#/components/schemas/RouteFiltersBase'
-        required: true
-      responses:
-        "202":
-          content:
-            application/json:
-              examples:
-                routeFilterIpv4ReplaceResponse:
-                  $ref: '#/components/examples/RouteFilterIpv4ReplaceResponse'
-                  value: null
-              schema:
-                $ref: '#/components/schemas/RouteFiltersData'
-          description: Successful operation
-        "400":
-          content:
-            application/json:
-              examples:
-                example:
-                  $ref: '#/components/examples/400_route_filters'
-                  value: null
-              schema:
-                $ref: '#/components/schemas/ErrorList'
-          description: Bad request
-        "401":
-          content:
-            application/json:
-              examples:
-                example:
-                  $ref: '#/components/examples/401'
-                  value: null
-              schema:
-                $ref: '#/components/schemas/ErrorList'
-          description: Unauthorized
-        "403":
-          content:
-            application/json:
-              examples:
-                example:
-                  $ref: '#/components/examples/403'
-                  value: null
-              schema:
-                $ref: '#/components/schemas/ErrorList'
-          description: Forbidden
-        "404":
-          content:
-            application/json:
-              examples:
-                example:
-                  $ref: '#/components/examples/404_invalid_id'
-                  value: null
-              schema:
-                $ref: '#/components/schemas/ErrorList'
-          description: Route Filter ID Not Found
-        "415":
-          content:
-            application/json:
-              examples:
-                example:
-                  $ref: '#/components/examples/415'
-                  value: null
-              schema:
-                $ref: '#/components/schemas/ErrorList'
-          description: Unsupported Media Type
-        "500":
-          content:
-            application/json:
-              examples:
-                example:
-                  $ref: '#/components/examples/500_internal_error'
-                  value: null
-              schema:
-                $ref: '#/components/schemas/ErrorList'
-          description: Internal server error
-      summary: Replace Route Filter
-      tags:
-      - Route Filters
-      x-content-type: application/json
-      x-accepts: application/json
   /fabric/v4/routeFilters/{routeFilterId}/changes:
     get:
       description: This API provides capability to retrieve all of a Route Filter's
@@ -5056,7 +4973,10 @@ paths:
           content:
             application/json:
               examples:
-                example:
+                InvalidInput:
+                  $ref: '#/components/examples/400_invalid_input'
+                  value: null
+                InvalidId:
                   $ref: '#/components/examples/400_Invalid_id'
                   value: null
               schema:
@@ -5143,7 +5063,10 @@ paths:
           content:
             application/json:
               examples:
-                example:
+                InvalidInput:
+                  $ref: '#/components/examples/400_invalid_input'
+                  value: null
+                InvalidId:
                   $ref: '#/components/examples/400_Invalid_id'
                   value: null
               schema:
@@ -5212,7 +5135,7 @@ paths:
           content:
             application/json:
               examples:
-                routeFilterGetConnectionsResponse:
+                RouteFilterGetConnectionsResponse:
                   $ref: '#/components/examples/RouteFilterGetConnectionsResponse'
                   value: null
               schema:
@@ -5222,8 +5145,11 @@ paths:
           content:
             application/json:
               examples:
-                example:
-                  $ref: '#/components/examples/400_route_filters'
+                InvalidInput:
+                  $ref: '#/components/examples/400_invalid_input'
+                  value: null
+                InvalidId:
+                  $ref: '#/components/examples/400_Invalid_id'
                   value: null
               schema:
                 $ref: '#/components/schemas/ErrorList'
@@ -5282,6 +5208,100 @@ paths:
       tags:
       - Route Filters
       x-accepts: application/json
+  /fabric/v4/routeFilters/search:
+    post:
+      description: This API provides capability to search Route Filters
+      operationId: searchRouteFilters
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            examples:
+              searchRouteFiltersRequest:
+                $ref: '#/components/examples/SearchRouteFiltersRequest'
+                value: null
+            schema:
+              $ref: '#/components/schemas/RouteFiltersSearchBase'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                SearchRouteFiltersResponse:
+                  $ref: '#/components/examples/SearchRouteFiltersResponse'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/RouteFiltersSearchResponse'
+          description: Successful operation
+        "400":
+          content:
+            application/json:
+              examples:
+                InvalidInput:
+                  $ref: '#/components/examples/400_invalid_input'
+                  value: null
+                InvalidId:
+                  $ref: '#/components/examples/400_Invalid_id'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/404_invalid_id'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Route Filter ID Not Found
+        "415":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/415'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unsupported Media Type
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500_internal_error'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
+      summary: Search Route Filters
+      tags:
+      - Route Filters
+      x-content-type: application/json
+      x-accepts: application/json
   /fabric/v4/routeFilters/{routeFilterId}/routeFilterRules:
     get:
       description: This API provides capability to get all Route Filters Rules for
@@ -5328,9 +5348,13 @@ paths:
         "400":
           content:
             application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/404_invalid_id'
+                  value: null
               schema:
                 $ref: '#/components/schemas/ErrorList'
-          description: Bad request
+          description: Resource not found
         "401":
           content:
             application/json:
@@ -5390,6 +5414,9 @@ paths:
               RouteFilterRuleBgpIpv4Prefix:
                 $ref: '#/components/examples/RouteFilterRuleCreateBgpIpv4Prefix'
                 value: null
+              RouteFilterRuleBgpIpv6Prefix:
+                $ref: '#/components/examples/RouteFilterRuleCreateBgpIpv6Prefix'
+                value: null
             schema:
               $ref: '#/components/schemas/RouteFilterRulesBase'
         required: true
@@ -5398,8 +5425,11 @@ paths:
           content:
             application/json:
               examples:
-                getSpecificRouteFilterRuleResponse:
+                GetSpecificRouteFilterRuleIpv4Response:
                   $ref: '#/components/examples/RouteFilterRuleCreateBgpIpv4PrefixResponse'
+                  value: null
+                GetSpecificRouteFilterRuleIpv6Response:
+                  $ref: '#/components/examples/RouteFilterRuleCreateBgpIpv6PrefixResponse'
                   value: null
               schema:
                 $ref: '#/components/schemas/RouteFilterRulesData'
@@ -5408,8 +5438,11 @@ paths:
           content:
             application/json:
               examples:
-                example:
-                  $ref: '#/components/examples/400_route_filters'
+                InvalidType:
+                  $ref: '#/components/examples/400_bad_request'
+                  value: null
+                InvalidId:
+                  $ref: '#/components/examples/404_invalid_id'
                   value: null
               schema:
                 $ref: '#/components/schemas/ErrorList'
@@ -5491,8 +5524,11 @@ paths:
           content:
             application/json:
               examples:
-                routeFilterDeleteBgpIpv4PrefixResponse:
+                RouteFilterDeleteBgpIpv4PrefixResponse:
                   $ref: '#/components/examples/RouteFilterRuleDeleteBgpIpv4PrefixResponse'
+                  value: null
+                routeFilterDeleteBgpIpv6PrefixResponse:
+                  $ref: '#/components/examples/RouteFilterRuleDeleteBgpIpv6PrefixResponse'
                   value: null
               schema:
                 $ref: '#/components/schemas/RouteFilterRulesData'
@@ -5586,8 +5622,11 @@ paths:
           content:
             application/json:
               examples:
-                getSpecificRouteFilterRuleResponse:
+                GetSpecificRouteFilterRuleIpv4Response:
                   $ref: '#/components/examples/RouteFilterRuleCreateBgpIpv4PrefixResponse'
+                  value: null
+                GetSpecificRouteFilterRuleIpv6Response:
+                  $ref: '#/components/examples/RouteFilterRuleCreateBgpIpv6PrefixResponse'
                   value: null
               schema:
                 $ref: '#/components/schemas/RouteFilterRulesData'
@@ -5596,8 +5635,11 @@ paths:
           content:
             application/json:
               examples:
-                example:
-                  $ref: '#/components/examples/400_route_filters'
+                InvalidType:
+                  $ref: '#/components/examples/400_bad_request'
+                  value: null
+                InvalidId:
+                  $ref: '#/components/examples/404_invalid_id'
                   value: null
               schema:
                 $ref: '#/components/schemas/ErrorList'
@@ -5681,7 +5723,13 @@ paths:
         content:
           application/json:
             examples:
-              RouteFilterRuleNamePatchExample:
+              RouteFilterRuleName:
+                $ref: '#/components/examples/PatchRouteFilterRuleName'
+                value: null
+              RouteFilterRulePrefix:
+                $ref: '#/components/examples/PatchRouteFilterRulePrefix'
+                value: null
+              RouteFilterRulePrefixMatch:
                 $ref: '#/components/examples/PatchRouteFilterRulePrefixMatch'
                 value: null
             schema:
@@ -5692,18 +5740,24 @@ paths:
           content:
             application/json:
               examples:
-                RouteFilterNamePatchResponse:
-                  $ref: '#/components/examples/RouteFilterNamePatchResponse'
+                RouteFilterRuleIpv4ReplaceResponse:
+                  $ref: '#/components/examples/RouteFilterRuleReplaceIpv4Response'
+                  value: null
+                routeFilterRuleIpv6ReplaceResponse:
+                  $ref: '#/components/examples/RouteFilterRuleReplaceIpv6Response'
                   value: null
               schema:
-                $ref: '#/components/schemas/RouteFiltersData'
+                $ref: '#/components/schemas/RouteFilterRulesData'
           description: Successful operation
         "400":
           content:
             application/json:
               examples:
-                example:
-                  $ref: '#/components/examples/400_invalid_operation'
+                InvalidType:
+                  $ref: '#/components/examples/400_bad_request'
+                  value: null
+                InvalidId:
+                  $ref: '#/components/examples/404_invalid_id'
                   value: null
               schema:
                 $ref: '#/components/schemas/ErrorList'
@@ -5790,6 +5844,9 @@ paths:
               RouteFilterIpv4ReplaceExample:
                 $ref: '#/components/examples/UpdateRouteFilterRuleIPv4'
                 value: null
+              RouteFilterIpv6ReplaceExample:
+                $ref: '#/components/examples/UpdateRouteFilterRuleIPv6'
+                value: null
             schema:
               $ref: '#/components/schemas/RouteFilterRulesBase'
         required: true
@@ -5798,8 +5855,11 @@ paths:
           content:
             application/json:
               examples:
-                routeFilterRuleIpv4ReplaceResponse:
-                  $ref: '#/components/examples/RouteFilterRuleIpv4ReplaceResponse'
+                RouteFilterRuleIpv4ReplaceResponse:
+                  $ref: '#/components/examples/RouteFilterRuleReplaceIpv4Response'
+                  value: null
+                routeFilterRuleIpv6ReplaceResponse:
+                  $ref: '#/components/examples/RouteFilterRuleReplaceIpv6Response'
                   value: null
               schema:
                 $ref: '#/components/schemas/RouteFilterRulesData'
@@ -5808,8 +5868,11 @@ paths:
           content:
             application/json:
               examples:
-                example:
-                  $ref: '#/components/examples/400_route_filters'
+                InvalidType:
+                  $ref: '#/components/examples/400_bad_request'
+                  value: null
+                InvalidId:
+                  $ref: '#/components/examples/404_invalid_id'
                   value: null
               schema:
                 $ref: '#/components/schemas/ErrorList'
@@ -5924,7 +5987,10 @@ paths:
           content:
             application/json:
               examples:
-                example:
+                InvalidInput:
+                  $ref: '#/components/examples/400_invalid_input'
+                  value: null
+                InvalidId:
                   $ref: '#/components/examples/400_Invalid_id'
                   value: null
               schema:
@@ -6019,7 +6085,10 @@ paths:
           content:
             application/json:
               examples:
-                example:
+                InvalidInput:
+                  $ref: '#/components/examples/400_invalid_input'
+                  value: null
+                InvalidId:
                   $ref: '#/components/examples/400_Invalid_id'
                   value: null
               schema:
@@ -6099,6 +6168,66 @@ paths:
               schema:
                 $ref: '#/components/schemas/GetRouteFilterRulesResponse'
           description: Successful operation
+        "400":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/404_invalid_id'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Resource not found
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/400'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Not Found
+        "415":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/415'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unsupported Media Type
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500_internal_error'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
       summary: Bulk RFRules
       tags:
       - Route Filter Rules
@@ -7163,6 +7292,9 @@ paths:
                 value: null
               CreateRegionalNetwork:
                 $ref: '#/components/examples/CreateRegionalNetwork'
+                value: null
+              CreateLocalNetwork:
+                $ref: '#/components/examples/CreateLocalNetwork'
                 value: null
             schema:
               $ref: '#/components/schemas/NetworkPostRequest'
@@ -9371,9 +9503,8 @@ components:
               uuid: 20d32a80-0d61-4333-bc03-707b591ae2f4
             linkProtocol:
               type: QINQ
-              vlanSTag: 300
-              vlanCTagMin: 100
-              vlanCTagMax: 109
+              vlanCTag: 300
+              vlanSTag: 301
         order:
           purchaseOrderNumber: 1-129105284100
         notifications:
@@ -9692,6 +9823,35 @@ components:
           emails:
           - test@equinix.com
           - test1@equinix.com
+    Fcr2Vd-Redundant-Secondary:
+      value:
+        type: IP_VC
+        name: My-GW-VDConnection-Secondary
+        bandwidth: 100
+        redundancy:
+          group: a00cef6f-8e35-4794-9ff9-665e084e4e6d
+          priority: SECONDARY
+        aSide:
+          accessPoint:
+            type: CLOUD_ROUTER
+            router:
+              uuid: 66a21614-1c4a-11ec-9621-0242ac130002
+        zSide:
+          accessPoint:
+            type: VD
+            virtualDevice:
+              type: EDGE
+              uuid: 20d32a80-0d61-4333-bc03-707b591ae2f4
+            interface:
+              type: NETWORK
+              id: 45645
+        project:
+          projectId: "567"
+        notifications:
+        - type: ALL
+          emails:
+          - test@equinix.com
+          - test1@equinix.com
     Fcr2IpWan:
       value:
         type: IPWAN_VC
@@ -9819,10 +9979,7 @@ components:
         aSide:
           accessPoint:
             type: METAL_NETWORK
-            virtualNetwork:
-              uuid: a867f685-41b0-1b07-6de0-320a5c00abd
-            interface:
-              projectId: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+            authenticationKey: xxxxxxxxx
         zSide:
           accessPoint:
             type: SP
@@ -12030,6 +12187,56 @@ components:
             equinixIfaceIp: 192.168.100.1/30
           directIpv6:
             equinixIfaceIp: 2001:7a9::34f4:0:f3dd:1/126
+    "400_routing_protocol":
+      value:
+      - errorCode: EQ-3041022
+        errorMessage: Invalid argument value passed
+        correlationId: cebc3d33-9037-4a2b-a7af-0ad65602cdec
+        details: There are no available RFC3279 subnets on the same Fabric Cloud Router.
+      - errorCode: EQ-3041023
+        errorMessage: Invalid pagination parameter.
+        correlationId: test
+        additionalInfo:
+        - property: offset
+        - reason: The offset parameter must be a Nonnegative Integer.
+      - errorCode: EQ-3041012
+        errorMessage: The system is unable to process your request.
+        details: The routing protocol associated with this Connection is in the transient
+          state.
+        correlationId: test
+        additionalInfo:
+        - reason: Routing protocol creation or deletion is not allowed if the routing
+            protocol associated with connection is in the transient state.
+      - errorCode: EQ-3041016
+        errorMessage: The system is unable to process your request.
+        details: The BGP routing protocol should be deleted before deleting the DIRECT
+          routing protocol for the same Connection.
+        correlationId: test
+      - errorCode: EQ-3041001
+        errorMessage: Invalid argument passed.
+        correlationId: test
+      - errorCode: EQ-3041002
+        errorMessage: Invalid argument value passed.
+        correlationId: cebc3d33-9037-4a2b-a7af-0ad65602cdec
+        additionalInfo:
+        - property: type
+          reason: "The type must be one of the following [DIRECT, BGP]."
+      - errorCode: EQ-3041013
+        errorMessage: Required field.
+        correlationId: 20d32a80-0d61-4333-bc03-707b591ae2f5
+        additionalInfo:
+        - property: $.type
+          reason: Type is mandatory field.
+      - errorCode: EQ-3041014
+        errorMessage: Json syntax error. Please check the request body.
+        details: Json syntax error. Please check the request body.
+        correlationId: test
+      - errorCode: EQ-3041015
+        errorMessage: Invalid request.
+        details: Value must not be null.
+        correlationId: test
+        additionalInfo:
+        - property: "data[0].directIpv6.equinixIfaceIp"
     UpdateRoutingWithDirectOnly:
       value:
         type: DIRECT
@@ -13495,7 +13702,7 @@ components:
             operator: IN
             values:
             - LAB
-            - BASIC
+            - ADVANCED
             - STANDARD
             - PREMIUM
     IpBlockProduct:
@@ -13633,7 +13840,7 @@ components:
           currency: USD
           router:
             package:
-              code: BASIC
+              code: ADVANCED
             location:
               metroCode: CH
     VirtualPort:
@@ -16464,7 +16671,7 @@ components:
           state: RESERVED
           vlanSTag: 1000
           vlanCTag: 500
-          connection:
+          asset:
             href: https://api.equinix.com/fabric/v4/connections/cd67f685-41b0-1b07-6de0-320a5c00abee
             uuid: cd67f685-41b0-1b07-6de0-320a5c00abee
           changeLog:
@@ -16495,7 +16702,7 @@ components:
           state: RESERVED
           vlanSTag: 1000
           vlanCTag: 500
-          connection:
+          asset:
             href: https://api.equinix.com/fabric/v4/connections/2ac4e14f-6120-4705-886e-d37f1d0c6a65
             uuid: 2ac4e14f-6120-4705-886e-d37f1d0c6a65
           changeLog:
@@ -16505,7 +16712,7 @@ components:
           state: RESERVED
           vlanSTag: 1001
           vlanCTag: 1001
-          connection:
+          asset:
             href: https://api.equinix.com/fabric/v4/connections/3268d105-e57b-4b2b-8a0a-2e3e42312d95
             uuid: 3268d105-e57b-4b2b-8a0a-2e3e42312d95
           changeLog:
@@ -16524,7 +16731,7 @@ components:
           uuid: 52d61263-fb0a-459d-a086-bc7fd6bd7384
           state: RESERVED
           vlanTag: 200
-          connection:
+          asset:
             href: https://api.equinix.com/fabric/v4/connections/cd67f685-41b0-1b07-6de0-320a5c00abee
             uuid: cd67f685-41b0-1b07-6de0-320a5c00abee
             bandwidth: 1000
@@ -16554,7 +16761,7 @@ components:
           uuid: 7c968801-e03b-4530-8424-aa5ecc4339e2
           state: RESERVED
           vlanTag: 240
-          connection:
+          asset:
             href: https://api.equinix.com/fabric/v4/connections/2ac4e14f-6120-4705-886e-d37f1d0c6a65
             uuid: 2ac4e14f-6120-4705-886e-d37f1d0c6a65
             bandwidth: 1000
@@ -16564,7 +16771,7 @@ components:
           uuid: db812bba-94b8-43e6-8d9c-850f04350c3d
           state: RESERVED
           vlanTag: 240
-          connection:
+          asset:
             href: https://api.equinix.com/fabric/v4/connections/3268d105-e57b-4b2b-8a0a-2e3e42312d95
             uuid: 3268d105-e57b-4b2b-8a0a-2e3e42312d95
             bandwidth: 1000
@@ -16585,7 +16792,7 @@ components:
           state: RESERVED
           vlanTagMin: 177
           vlanTagMax: 179
-          connection:
+          asset:
             href: https://api.equinix.com/fabric/v4/connections/cd67f685-41b0-1b07-6de0-320a5c00abee
             uuid: cd67f685-41b0-1b07-6de0-320a5c00abee
             bandwidth: 1000
@@ -16618,7 +16825,7 @@ components:
           state: RESERVED
           vlanTagMin: 177
           vlanTagMax: 179
-          connection:
+          asset:
             href: https://api.equinix.com/fabric/v4/connections/2ac4e14f-6120-4705-886e-d37f1d0c6a65
             uuid: 2ac4e14f-6120-4705-886e-d37f1d0c6a65
             bandwidth: 1000
@@ -16629,7 +16836,7 @@ components:
           state: RESERVED
           vlanTagMin: 177
           vlanTagMax: 179
-          connection:
+          asset:
             href: https://api.equinix.com/fabric/v4/connections/3268d105-e57b-4b2b-8a0a-2e3e42312d95
             uuid: 3268d105-e57b-4b2b-8a0a-2e3e42312d95
             bandwidth: 1000
@@ -16703,33 +16910,13 @@ components:
           uuid: 65d74639-8f48-4e10-9684-45d364645e97
           attachmentStatus: ATTACHED
           direction: OUTBOUND
-    "400_route_filters":
+    "400_invalid_input":
       value:
-      - errorCode: EQ-3044001
+      - errorCode: EQ-3044101
         errorMessage: Invalid input
         correlationId: 20d32a80-0d61-4333-bc03-707b591ae2f5
         additionalInfo:
         - property: type
-      - errorCode: EQ-3044001
-        errorMessage: Invalid input
-        correlationId: 20d32a80-0d61-4333-bc03-707b591ae2f5
-        additionalInfo:
-        - property: name
-      - errorCode: EQ-3044002
-        errorMessage: Connection already deleted
-        correlationId: cebc3d33-9037-4a2b-a7af-0ad65602cdec
-        additionalInfo:
-        - property: connectionId
-      - errorCode: EQ-3044003
-        errorMessage: Route Filter is in transient state
-        correlationId: 20d32a80-0d61-4333-bc03-707b591ae2f5
-        additionalInfo:
-        - property: routeFilterId
-      - errorCode: EQ-3044003
-        errorMessage: Connection is in transient state
-        correlationId: 20d32a80-0d61-4333-bc03-707b591ae2f5
-        additionalInfo:
-        - property: connectionId
     AttachConnectionRouteFiltersResponse:
       value:
         href: https://api.equinix.com/fabric/v4/connections/81331c52-04c0-4656-a4a7-18c52669348f/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d
@@ -16778,6 +16965,17 @@ components:
         name: My-route-filter-v4
         description: Test filter
         project:
+          projectId: dadd3ab6-c0af-430c-8216-43d44f08c1c5
+        notifications:
+          type: ALL
+          emails:
+          - test@equinix.com
+    RouteFilterCreateBgpIpv6Prefix:
+      value:
+        type: BGP_IPv6_PREFIX_FILTER
+        name: My-route-filter-v6
+        description: Test filter
+        project:
           projectId: 567
         notifications:
           type: ALL
@@ -16799,44 +16997,7 @@ components:
         connectionsCount: 0
         project:
           href: https://api.equinix.com/resourceManager/v1/projects/567
-          projectId: 567
-        notifications:
-        - type: ALL
-          emails:
-          - test@equinix.com
-        changeLog:
-          createdBy: testuser
-          createdByEmail: testuser@equinix.com
-          createdByFullName: testuser testuser
-          createdDateTime: 2020-05-21T10:30:00Z
-    UpdateRouteFilterIPv4:
-      value:
-        type: BGP_IPv4_PREFIX_FILTER
-        name: My-route-filter-v4-update
-        description: Test filter update
-        project:
-          projectId: 789
-        notifications:
-        - type: ALL
-          emails:
-          - test@equinix.com
-    RouteFilterIpv4ReplaceResponse:
-      value:
-        href: https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d
-        type: BGP_IPv4_PREFIX_FILTER
-        uuid: 695a8471-6595-4ac6-a2f4-b3d96ed3a59d
-        name: My-prefix-filter-v4-update
-        description: Test filter update
-        state: REPROVISIONING
-        change:
-          href: https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/changes/04af0d37-9160-43d8-97ef-9da9786996a3
-          type: BGP_IPv4_PREFIX_FILTER_UPDATE
-          uuid: 04af0d37-9160-43d8-97ef-9da9786996a3
-        notMatchedRuleAction: DENY
-        connectionsCount: 0
-        project:
-          href: https://api.equinix.com/resourceManager/v1/projects/567
-          projectId: 789
+          projectId: dadd3ab6-c0af-430c-8216-43d44f08c1c5
         notifications:
         - type: ALL
           emails:
@@ -16862,7 +17023,7 @@ components:
         connectionsCount: 0
         project:
           href: https://api.equinix.com/resourceManager/v1/projects/567
-          projectId: 567
+          projectId: dadd3ab6-c0af-430c-8216-43d44f08c1c5
         notifications:
         - type: ALL
           emails:
@@ -16907,7 +17068,7 @@ components:
         connectionsCount: 1
         project:
           href: https://api.equinix.com/resourceManager/v1/projects/567
-          projectId: 567
+          projectId: dadd3ab6-c0af-430c-8216-43d44f08c1c5
         notifications:
         - type: ALL
           emails:
@@ -16949,7 +17110,7 @@ components:
             name: My-route-filter-v4
             description: Test filter
             project:
-              projectId: 567
+              projectId: dadd3ab6-c0af-430c-8216-43d44f08c1c5
             notifications:
             - type: ALL
               emails:
@@ -16990,7 +17151,7 @@ components:
           name: My-route-filter-v4
           description: Test filter
           project:
-            projectId: 567
+            projectId: dadd3ab6-c0af-430c-8216-43d44f08c1c5
           notifications:
           - type: ALL
             emails:
@@ -17008,11 +17169,83 @@ components:
           type: IP_VC
           name: test-connection
           uuid: 05de355a-6c9d-4636-8d7d-7b7595821c15
+    SearchRouteFiltersRequest:
+      value:
+        filter:
+          and:
+          - property: /type
+            operator: =
+            values:
+            - BGP_IPv4_PREFIX_FILTER
+          - property: /name
+            operator: like
+            values:
+            - '%Route_Filter_Demo%'
+          - property: /project/projectId
+            operator: =
+            values:
+            - dadd3ab6-c0af-430c-8216-43d44f08c1c5
+        pagination:
+          offset: 1
+          limit: 2
+          total: 10
+        sort:
+        - property: /changeLog/updatedDateTime
+          direction: DESC
+    SearchRouteFiltersResponse:
+      value:
+        pagination:
+          offset: 1
+          limit: 2
+          total: 10
+          next: /routeFilters?offset=3&limit=2
+          previous: /routeFilters?offset=0&limit=2
+        data:
+        - href: https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d
+          type: BGP_IPv4_PREFIX_FILTER
+          uuid: 695a8471-6595-4ac6-a2f4-b3d96ed3a59d
+          name: My_Route_Filter_Demo_1
+          description: Test filter
+          state: PROVISIONING
+          notMatchedRuleAction: DENY
+          connectionsCount: 1
+          project:
+            href: https://api.equinix.com/resourceManager/v1/projects/567
+            projectId: dadd3ab6-c0af-430c-8216-43d44f08c1c5
+          notifications:
+          - type: ALL
+            emails:
+            - test@equinix.com
+          changeLog:
+            createdBy: testuser
+            createdByEmail: testuser@equinix.com
+            createdByFullName: testuser testuser
+            createdDateTime: 2020-05-21T10:30:00Z
+        - href: https://api.equinix.com/fabric/v4/routeFilters/795a8471-6595-4ac6-a2f4-b3d96ed3a59d
+          type: BGP_IPv4_PREFIX_FILTER
+          uuid: 695a8471-6595-4ac6-a2f4-b3d96ed3a59d
+          name: My_Route_Filter_Demo_2
+          description: Test filter
+          state: PROVISIONING
+          notMatchedRuleAction: DENY
+          connectionsCount: 0
+          project:
+            href: https://api.equinix.com/resourceManager/v1/projects/567
+            projectId: dadd3ab6-c0af-430c-8216-43d44f08c1c5
+          notifications:
+          - type: ALL
+            emails:
+            - test@equinix.com
+          changeLog:
+            createdBy: testuser
+            createdByEmail: testuser@equinix.com
+            createdByFullName: testuser testuser
+            createdDateTime: 2020-05-21T10:30:00Z
     RouteFilterRulesGetAll:
       value:
         pagination:
           offset: 0
-          limit: 20
+          limit: 32
           total: 2
           next: null
           previous: null
@@ -17057,6 +17290,12 @@ components:
         description: Test rule
         prefix: 192.168.0.0/24
         prefixMatch: exact
+    RouteFilterRuleCreateBgpIpv6Prefix:
+      value:
+        name: Private-subnet-filter
+        description: Test rule
+        prefix: 2001:7a9::34f4:0:f3dd:1/126
+        prefixMatch: orlonger
     RouteFilterRuleCreateBgpIpv4PrefixResponse:
       value:
         href: https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/9890d520-1579-4489-8003-154b34b8f403
@@ -17076,20 +17315,61 @@ components:
           createdByEmail: testuser@equinix.com
           createdByFullName: testuser testuser
           createdDateTime: 2020-05-21T10:30:00Z
+          updatedBy: testuser
+          updatedByEmail: testuser@equinix.com
+          updatedByFullName: testuser testuser
+          updatedDateTime: 2020-05-21T10:30:00Z
+    RouteFilterRuleCreateBgpIpv6PrefixResponse:
+      value:
+        href: https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/9890d520-1579-4489-8003-154b34b8f403
+        type: BGP_IPv6_PREFIX_FILTER_RULE
+        uuid: 9890d520-1579-4489-8003-154b34b8f403
+        name: Private-subnet-filter
+        description: Test rule
+        change:
+          href: https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/9890d520-1579-4489-8003-154b34b8f403/changes/ff9653dc-88c5-47b5-b552-8a08d2f73f7e
+          type: BGP_IPv6_PREFIX_FILTER_RULE_CREATION
+          uuid: ff9653dc-88c5-47b5-b552-8a08d2f73f7e
+        action: PERMIT
+        prefix: 2001:7a9::34f4:0:f3dd:1/126
+        prefixMatch: exact
+        changeLog:
+          createdBy: testuser
+          createdByEmail: testuser@equinix.com
+          createdByFullName: testuser testuser
+          createdDateTime: 2020-05-21T10:30:00Z
+          updatedBy: testuser
+          updatedByEmail: testuser@equinix.com
+          updatedByFullName: testuser testuser
+          updatedDateTime: 2020-05-21T10:30:00Z
+    "400_bad_request":
+      value:
+      - errorCode: EQ-3044013
+        errorMessage: Invalid argument value passed
+        property: prefixMatch
+        correlationId: cebc3d33-9037-4a2b-a7af-0ad65602cdec
     UpdateRouteFilterRuleIPv4:
       value:
         type: BGP_IPv4_PREFIX_FILTER_RULE
-        name: Private-subnet-filter
+        name: Private-subnet-filter-update
         description: Test rule
-        prefix: 192.168.0.0/25
+        prefix: 192.168.0.0/24
         prefixMach: exact
         action: PERMIT
-    RouteFilterRuleIpv4ReplaceResponse:
+    UpdateRouteFilterRuleIPv6:
+      value:
+        type: BGP_IPv6_PREFIX_FILTER_RULE
+        name: Private-subnet-filter-update
+        description: Test rule
+        prefix: 2001:7a9::34f4:0:f3dd:1/126
+        prefixMach: exact
+        action: PERMIT
+    RouteFilterRuleReplaceIpv4Response:
       value:
         href: https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/9890d520-1579-4489-8003-154b34b8f403
         type: BGP_IPv4_PREFIX_FILTER_RULE
         uuid: 9890d520-1579-4489-8003-154b34b8f403
-        name: Private-subnet-filter
+        name: Private-subnet-filter-update
         description: Test rule
         prefixMach: exact
         action: PERMIT
@@ -17098,6 +17378,29 @@ components:
           type: BGP_IPv4_PREFIX_FILTER_RULE_UPDATE
           uuid: a25ca469-721a-4614-89a9-cdef287aa628
         prefix: 192.168.0.0/24
+        changeLog:
+          createdBy: testuser
+          createdByEmail: testuser@equinix.com
+          createdByFullName: testuser testuser
+          createdDateTime: 2020-05-21T10:30:00Z
+          updatedBy: testuser1
+          updatedByEmail: testuser@equinix.com
+          updatedByFullName: testuser testuser
+          updatedDateTime: 2020-05-21T10:30:00Z
+    RouteFilterRuleReplaceIpv6Response:
+      value:
+        href: https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/9890d520-1579-4489-8003-154b34b8f403
+        type: BGP_IPv6_PREFIX_FILTER_RULE
+        uuid: 9890d520-1579-4489-8003-154b34b8f403
+        name: Private-subnet-filter-update
+        description: Test rule
+        prefixMach: exact
+        action: PERMIT
+        change:
+          href: https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/9890d520-1579-4489-8003-154b34b8f403/changes/a25ca469-721a-4614-89a9-cdef287aa628
+          type: BGP_IPv6_PREFIX_FILTER_RULE_UPDATE
+          uuid: a25ca469-721a-4614-89a9-cdef287aa628
+        prefix: 2001:7a9::34f4:0:f3dd:1/128
         changeLog:
           createdBy: testuser
           createdByEmail: testuser@equinix.com
@@ -17134,12 +17437,49 @@ components:
           deletedByEmail: testuser@equinix.com
           deletedByFullName: testuser testuser
           deletedDateTime: 2020-05-21T10:30:00Z
+    RouteFilterRuleDeleteBgpIpv6PrefixResponse:
+      value:
+        href: https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/9890d520-1579-4489-8003-154b34b8f403
+        type: BGP_IPv6_PREFIX_FILTER_RULE
+        uuid: 9890d520-1579-4489-8003-154b34b8f403
+        name: Private-subnet-filter
+        description: Test rule
+        change:
+          href: https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/9890d520-1579-4489-8003-154b34b8f403/changes/e8528788-14d3-4a7b-a740-99b702067485
+          type: BGP_IPv6_PREFIX_FILTER_RULE_DELETION
+          uuid: e8528788-14d3-4a7b-a740-99b702067485
+        action: PERMIT??
+        prefix: 2001:7a9::34f4:0:f3dd:1/126
+        prefixMach: exact
+        changeLog:
+          createdBy: testuser
+          createdByEmail: testuser@equinix.com
+          createdByFullName: testuser testuser
+          createdDateTime: 2020-05-21T10:30:00Z
+          updatedBy: testuser1
+          updatedByEmail: testuser@equinix.com
+          updatedByFullName: testuser testuser
+          updatedDateTime: 2020-05-21T10:30:00Z
+          deletedBy: testuser1
+          deletedByEmail: testuser@equinix.com
+          deletedByFullName: testuser testuser
+          deletedDateTime: 2020-05-21T10:30:00Z
     "400_transient_filter":
       value:
-      - errorCode: EQ-3044015
+      - errorCode: EQ-3044215
         errorMessage: "Cannot delete Route Filter Rule, Route Filter transient state"
         correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
         details: "Cannot delete Route Filter Rule, Route filter is in transient state"
+    PatchRouteFilterRuleName:
+      value:
+      - op: replace
+        path: /name
+        value: test-route-filter-name-patch
+    PatchRouteFilterRulePrefix:
+      value:
+      - op: replace
+        path: /prefix
+        value: 192.168.0.0/30
     PatchRouteFilterRulePrefixMatch:
       value:
       - op: replace
@@ -17604,7 +17944,7 @@ components:
         pagination:
           offset: 0
           limit: 20
-          total: 2
+          total: 4
         data:
         - href: https://api.equinix.com/fabric/v4/routerPackages/LAB
           type: ROUTER_PACKAGE
@@ -17641,6 +17981,44 @@ components:
           vcCountMax: 10
           crCountMax: 3
           vcBandwidthMax: 10000
+          changeLog:
+            createdDateTime: 2023-02-10T00:14:47Z
+            updatedDateTime: 2023-02-10T00:14:47Z
+        - href: https://api.equinix.com/fabric/v4/routerPackages/ADVANCED
+          type: ROUTER_PACKAGE
+          code: ADVANCED
+          description: string
+          totalIPv4RoutesMax: 4000
+          totalIPv6RoutesMax: 250
+          staticIPv4RoutesMax: 150
+          staticIPv6RoutesMax: 150
+          naclsMax: 60
+          naclRulesMax: 1000
+          haSupported: true
+          routeFilterSupported: true
+          natType: STATIC_NAT
+          vcCountMax: 99999
+          crCountMax: 3
+          vcBandwidthMax: 50000
+          changeLog:
+            createdDateTime: 2023-02-10T00:14:47Z
+            updatedDateTime: 2023-02-10T00:14:47Z
+        - href: https://api.equinix.com/fabric/v4/routerPackages/PREMIUM
+          type: ROUTER_PACKAGE
+          code: PREMIUM
+          description: string
+          totalIPv4RoutesMax: 10000
+          totalIPv6RoutesMax: 500
+          staticIPv4RoutesMax: 150
+          staticIPv6RoutesMax: 150
+          naclsMax: 60
+          naclRulesMax: 1000
+          haSupported: true
+          routeFilterSupported: true
+          natType: STATIC_NAT
+          vcCountMax: 10
+          crCountMax: 3
+          vcBandwidthMax: 50000
           changeLog:
             createdDateTime: 2023-02-10T00:14:47Z
             updatedDateTime: 2023-02-10T00:14:47Z
@@ -18217,6 +18595,17 @@ components:
         scope: REGIONAL
         location:
           region: EMEA
+        project:
+          projectId: "1234567"
+        notifications:
+        - type: ALL
+          emails:
+          - test@equinix.com
+    CreateLocalNetwork:
+      value:
+        type: EVPLAN
+        name: My-Network-1
+        scope: LOCAL
         project:
           projectId: "1234567"
         notifications:
@@ -18985,6 +19374,8 @@ components:
               orgId: 6
           accessPoint:
             providerConnectionId: providerConnectionId
+            interconnection:
+              uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
             profile:
               visibility: null
               customFields:
@@ -19629,6 +20020,8 @@ components:
               orgId: 6
           accessPoint:
             providerConnectionId: providerConnectionId
+            interconnection:
+              uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
             profile:
               visibility: null
               customFields:
@@ -20277,6 +20670,8 @@ components:
               orgId: 6
           accessPoint:
             providerConnectionId: providerConnectionId
+            interconnection:
+              uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
             profile:
               visibility: null
               customFields:
@@ -20916,6 +21311,8 @@ components:
               orgId: 6
           accessPoint:
             providerConnectionId: providerConnectionId
+            interconnection:
+              uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
             profile:
               visibility: null
               customFields:
@@ -21695,6 +22092,8 @@ components:
                 orgId: 6
             accessPoint:
               providerConnectionId: providerConnectionId
+              interconnection:
+                uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               profile:
                 visibility: null
                 customFields:
@@ -22321,6 +22720,8 @@ components:
                 orgId: 6
             accessPoint:
               providerConnectionId: providerConnectionId
+              interconnection:
+                uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               profile:
                 visibility: null
                 customFields:
@@ -23443,6 +23844,8 @@ components:
                 orgId: 6
             accessPoint:
               providerConnectionId: providerConnectionId
+              interconnection:
+                uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               profile:
                 visibility: null
                 customFields:
@@ -24082,6 +24485,8 @@ components:
                 orgId: 6
             accessPoint:
               providerConnectionId: providerConnectionId
+              interconnection:
+                uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               profile:
                 visibility: null
                 customFields:
@@ -24766,6 +25171,8 @@ components:
                 orgId: 6
             accessPoint:
               providerConnectionId: providerConnectionId
+              interconnection:
+                uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               profile:
                 visibility: null
                 customFields:
@@ -25405,6 +25812,8 @@ components:
                 orgId: 6
             accessPoint:
               providerConnectionId: providerConnectionId
+              interconnection:
+                uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               profile:
                 visibility: null
                 customFields:
@@ -30123,19 +30532,15 @@ components:
           subInterface:
             unit: 200
             name: name
-            type: VNI
-          additionalInfo:
-          - value: value
-            key: key
-          - value: value
-            key: key
-          connection:
+          vni: 20
+          href: https://openapi-generator.tech
+          state: null
+          vlanTagMax: 200
+          asset:
             bandwidth: 100
             href: https://openapi-generator.tech
             type: EVPL_VC
             uuid: cd67f685-41b0-1b07-6de0-320a5c00abe
-          state: null
-          vlanTagMax: 200
           serviceToken:
             bandwidth: 1000
             href: https://openapi-generator.tech
@@ -30165,19 +30570,15 @@ components:
           subInterface:
             unit: 200
             name: name
-            type: VNI
-          additionalInfo:
-          - value: value
-            key: key
-          - value: value
-            key: key
-          connection:
+          vni: 20
+          href: https://openapi-generator.tech
+          state: null
+          vlanTagMax: 200
+          asset:
             bandwidth: 100
             href: https://openapi-generator.tech
             type: EVPL_VC
             uuid: cd67f685-41b0-1b07-6de0-320a5c00abe
-          state: null
-          vlanTagMax: 200
           serviceToken:
             bandwidth: 1000
             href: https://openapi-generator.tech
@@ -30412,9 +30813,11 @@ components:
           href: https://openapi-generator.tech
           type: BGP_IPv4_PREFIX_FILTER_UPDATE
           uuid: uuid
-        name: My-direct-route-1
         description: description
-        project: null
+        rulesCount: 0
+        project:
+          href: https://api.equinix.com/resourceManager/v1/projects/567
+          projectId: 44f4c4f8-2f39-494e-838c-d8e640591be5
         changelog:
           createdByEmail: john.smith@example.com
           deletedByFullName: John Smith
@@ -30428,12 +30831,13 @@ components:
           deletedBy: johnsmith
           deletedByEmail: john.smith@example.com
           updatedDateTime: 2020-11-06T07:00:00Z
-        href: https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d
-        state: null
         type: BGP_IPv4_PREFIX_FILTER
         notMatchedRuleAction: ALLOW
         uuid: 695a8471-6595-4ac6-a2f4-b3d96ed3a59d
         connectionsCount: 0
+        name: My-direct-route-1
+        href: https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d
+        state: null
         notifications:
         - emails:
           - emails
@@ -30486,6 +30890,9 @@ components:
         connectionsCount:
           example: 0
           type: integer
+        rulesCount:
+          example: 0
+          type: integer
         project:
           $ref: '#/components/schemas/RouteFiltersData_project'
         notifications:
@@ -30500,7 +30907,7 @@ components:
     RouteFiltersPatchRequest:
       description: Patch Route Filters request
       items:
-        $ref: '#/components/schemas/ConnectionChangeOperation'
+        $ref: '#/components/schemas/RouteFiltersPatchRequestItem'
       minItems: 1
       type: array
     RouteFilterChangeDataResponse:
@@ -30681,6 +31088,201 @@ components:
             $ref: '#/components/schemas/RouteFilterConnectionsData'
           type: array
       type: object
+    RouteFiltersSearchBase:
+      example:
+        filter:
+          and:
+          - values:
+            - values
+            - values
+            property: /type
+            operator: operator
+          - values:
+            - values
+            - values
+            property: /type
+            operator: operator
+        pagination:
+          next: next
+          total: 0
+          offset: 0
+          previous: previous
+          limit: 0
+        sort:
+        - property: /changeLog/updatedDateTime
+          direction: DESC
+        - property: /changeLog/updatedDateTime
+          direction: DESC
+      properties:
+        filter:
+          $ref: '#/components/schemas/RouteFiltersSearchBase_filter'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        sort:
+          items:
+            $ref: '#/components/schemas/SortItem'
+          type: array
+      type: object
+    RouteFiltersSearchFilterItem:
+      example:
+        values:
+        - values
+        - values
+        property: /type
+        operator: operator
+      properties:
+        property:
+          enum:
+          - /type
+          - /name
+          - /project/projectId
+          - /uuid
+          - /state
+          type: string
+        operator:
+          type: string
+        values:
+          items:
+            type: string
+          type: array
+      type: object
+    SortItem:
+      example:
+        property: /changeLog/updatedDateTime
+        direction: DESC
+      properties:
+        property:
+          default: /changeLog/updatedDateTime
+          description: Possible field names to use on sorting
+          enum:
+          - /type
+          - /uuid
+          - /name
+          - /project/projectId
+          - /state
+          - /notMatchedRuleAction
+          - /connectionsCount
+          - /changeLog/createdDateTime
+          - /changeLog/updatedDateTime
+          type: string
+        direction:
+          default: DESC
+          description: Sorting direction
+          enum:
+          - DESC
+          - ASC
+          type: string
+      type: object
+    RouteFiltersSearchResponse:
+      example:
+        pagination:
+          next: next
+          total: 0
+          offset: 0
+          previous: previous
+          limit: 0
+        data:
+        - change:
+            href: https://openapi-generator.tech
+            type: BGP_IPv4_PREFIX_FILTER_UPDATE
+            uuid: uuid
+          description: description
+          rulesCount: 0
+          project:
+            href: https://api.equinix.com/resourceManager/v1/projects/567
+            projectId: 44f4c4f8-2f39-494e-838c-d8e640591be5
+          changelog:
+            createdByEmail: john.smith@example.com
+            deletedByFullName: John Smith
+            updatedBy: johnsmith
+            createdBy: johnsmith
+            updatedByEmail: john.smith@example.com
+            createdByFullName: John Smith
+            createdDateTime: 2020-11-06T07:00:00Z
+            deletedDateTime: 2020-11-06T07:00:00Z
+            updatedByFullName: John Smith
+            deletedBy: johnsmith
+            deletedByEmail: john.smith@example.com
+            updatedDateTime: 2020-11-06T07:00:00Z
+          type: BGP_IPv4_PREFIX_FILTER
+          notMatchedRuleAction: ALLOW
+          uuid: 695a8471-6595-4ac6-a2f4-b3d96ed3a59d
+          connectionsCount: 0
+          name: My-direct-route-1
+          href: https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d
+          state: null
+          notifications:
+          - emails:
+            - emails
+            - emails
+            sendInterval: sendInterval
+            registeredUsers:
+            - registeredUsers
+            - registeredUsers
+            type: BANDWIDTH_ALERT
+          - emails:
+            - emails
+            - emails
+            sendInterval: sendInterval
+            registeredUsers:
+            - registeredUsers
+            - registeredUsers
+            type: BANDWIDTH_ALERT
+        - change:
+            href: https://openapi-generator.tech
+            type: BGP_IPv4_PREFIX_FILTER_UPDATE
+            uuid: uuid
+          description: description
+          rulesCount: 0
+          project:
+            href: https://api.equinix.com/resourceManager/v1/projects/567
+            projectId: 44f4c4f8-2f39-494e-838c-d8e640591be5
+          changelog:
+            createdByEmail: john.smith@example.com
+            deletedByFullName: John Smith
+            updatedBy: johnsmith
+            createdBy: johnsmith
+            updatedByEmail: john.smith@example.com
+            createdByFullName: John Smith
+            createdDateTime: 2020-11-06T07:00:00Z
+            deletedDateTime: 2020-11-06T07:00:00Z
+            updatedByFullName: John Smith
+            deletedBy: johnsmith
+            deletedByEmail: john.smith@example.com
+            updatedDateTime: 2020-11-06T07:00:00Z
+          type: BGP_IPv4_PREFIX_FILTER
+          notMatchedRuleAction: ALLOW
+          uuid: 695a8471-6595-4ac6-a2f4-b3d96ed3a59d
+          connectionsCount: 0
+          name: My-direct-route-1
+          href: https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d
+          state: null
+          notifications:
+          - emails:
+            - emails
+            - emails
+            sendInterval: sendInterval
+            registeredUsers:
+            - registeredUsers
+            - registeredUsers
+            type: BANDWIDTH_ALERT
+          - emails:
+            - emails
+            - emails
+            sendInterval: sendInterval
+            registeredUsers:
+            - registeredUsers
+            - registeredUsers
+            type: BANDWIDTH_ALERT
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        data:
+          description: List of Route Filters
+          items:
+            $ref: '#/components/schemas/RouteFiltersData'
+          type: array
+      type: object
     GetRouteFilterRulesResponse:
       example:
         pagination:
@@ -30713,6 +31315,7 @@ components:
             updatedDateTime: 2020-11-06T07:00:00Z
           prefixMatch: exact
           href: https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/65b025ef-022b-4180-85cf-82cfc1ab655b
+          state: null
           type: BGP_IPv4_PREFIX_FILTER_RULE
           uuid: 65b025ef-022b-4180-85cf-82cfc1ab655b
         - prefix: 192.168.0.0/24
@@ -30738,6 +31341,7 @@ components:
             updatedDateTime: 2020-11-06T07:00:00Z
           prefixMatch: exact
           href: https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/65b025ef-022b-4180-85cf-82cfc1ab655b
+          state: null
           type: BGP_IPv4_PREFIX_FILTER_RULE
           uuid: 65b025ef-022b-4180-85cf-82cfc1ab655b
       properties:
@@ -30795,6 +31399,7 @@ components:
           updatedDateTime: 2020-11-06T07:00:00Z
         prefixMatch: exact
         href: https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/65b025ef-022b-4180-85cf-82cfc1ab655b
+        state: null
         type: BGP_IPv4_PREFIX_FILTER_RULE
         uuid: 65b025ef-022b-4180-85cf-82cfc1ab655b
       properties:
@@ -30820,6 +31425,8 @@ components:
         description:
           description: Customer-provided Route Filter Rule description
           type: string
+        state:
+          $ref: '#/components/schemas/RouteFilterRuleState'
         prefixMatch:
           default: orlonger
           description: prefix matching operator
@@ -30845,7 +31452,7 @@ components:
     RouteFilterRulesPatchRequest:
       description: Patch Route Filters Rule request
       items:
-        $ref: '#/components/schemas/RouteFilterChangePrefixMatch'
+        $ref: '#/components/schemas/RouteFilterRulesPatchRequestItem'
       minItems: 1
       type: array
     RouteFilterRulesChangeDataResponse:
@@ -31683,7 +32290,7 @@ components:
       description: Router package code
       enum:
       - LAB
-      - BASIC
+      - ADVANCED
       - STANDARD
       - PREMIUM
       type: string
@@ -31925,6 +32532,8 @@ components:
                 orgId: 6
             accessPoint:
               providerConnectionId: providerConnectionId
+              interconnection:
+                uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               profile:
                 visibility: null
                 customFields:
@@ -32564,6 +33173,8 @@ components:
                 orgId: 6
             accessPoint:
               providerConnectionId: providerConnectionId
+              interconnection:
+                uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               profile:
                 visibility: null
                 customFields:
@@ -33248,6 +33859,8 @@ components:
                 orgId: 6
             accessPoint:
               providerConnectionId: providerConnectionId
+              interconnection:
+                uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               profile:
                 visibility: null
                 customFields:
@@ -33887,6 +34500,8 @@ components:
                 orgId: 6
             accessPoint:
               providerConnectionId: providerConnectionId
+              interconnection:
+                uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               profile:
                 visibility: null
                 customFields:
@@ -34864,6 +35479,8 @@ components:
                 orgId: 6
             accessPoint:
               providerConnectionId: providerConnectionId
+              interconnection:
+                uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               profile:
                 visibility: null
                 customFields:
@@ -35503,6 +36120,8 @@ components:
                 orgId: 6
             accessPoint:
               providerConnectionId: providerConnectionId
+              interconnection:
+                uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               profile:
                 visibility: null
                 customFields:
@@ -36187,6 +36806,8 @@ components:
                 orgId: 6
             accessPoint:
               providerConnectionId: providerConnectionId
+              interconnection:
+                uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               profile:
                 visibility: null
                 customFields:
@@ -36826,6 +37447,8 @@ components:
                 orgId: 6
             accessPoint:
               providerConnectionId: providerConnectionId
+              interconnection:
+                uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               profile:
                 visibility: null
                 customFields:
@@ -37534,51 +38157,20 @@ components:
             priority1: 0
             logAnnounceInterval: 0
         package:
-          pagination:
-            next: next
-            total: 0
-            offset: 0
-            previous: previous
-            limit: 0
-          data:
-          - staticIPv6RoutesMax: 0
-            naclRulesMax: 5
-            code: LAB
-            natType: STATIC_NAT
-            description: description
-            crCountMax: 3
-            changeLog:
-              createdDateTime: 2020-11-06T07:00:00Z
-              updatedDateTime: 2020-11-06T07:00:00Z
-            type: ROUTER_PACKAGE
-            totalIPv4RoutesMax: 50
-            haSupported: true
-            staticIPv4RoutesMax: 3
-            vcBandwidthMax: 50
-            naclsMax: 2
-            totalIPv6RoutesMax: 50
-            href: https://api.equinix.com/fabric/v4/routerPackages/LAB
-            vcCountMax: 10
-            routeFilterSupported: true
-          - staticIPv6RoutesMax: 0
-            naclRulesMax: 5
-            code: LAB
-            natType: STATIC_NAT
-            description: description
-            crCountMax: 3
-            changeLog:
-              createdDateTime: 2020-11-06T07:00:00Z
-              updatedDateTime: 2020-11-06T07:00:00Z
-            type: ROUTER_PACKAGE
-            totalIPv4RoutesMax: 50
-            haSupported: true
-            staticIPv4RoutesMax: 3
-            vcBandwidthMax: 50
-            naclsMax: 2
-            totalIPv6RoutesMax: 50
-            href: https://api.equinix.com/fabric/v4/routerPackages/LAB
-            vcCountMax: 10
-            routeFilterSupported: true
+          href: https://api.equinix.com/fabric/v4/timeServicePackage/NTP_STANDARD
+          code: NTP_STANDARD
+          type: TIME_SERVICE_PACKAGE
+          bandwidth: 10
+          accuracyUnit: microseconds
+          accuracySla: 50
+          accuracyAvgMin: 1
+          accuracyAvgMax: 10
+          clientsPerSecondMax: 100
+          redundancySupported: true
+          multiSubnetSupported: true
+          changeLog:
+            createdDateTime: 2023-05-16T07:50:49.749Z
+            updatedDateTime: 2023-05-17T07:50:49.749Z
         ipv4:
           primary: 10.0.0.1
           secondary: 10.0.0.2
@@ -37630,7 +38222,7 @@ components:
           - DEPROVISIONING
           type: string
         package:
-          $ref: '#/components/schemas/PackageResponse'
+          $ref: '#/components/schemas/precisionTimePackageResponse'
         connections:
           description: fabric l2 connections used for the ept service
           items:
@@ -37697,7 +38289,7 @@ components:
         description:
           type: string
         package:
-          $ref: '#/components/schemas/packageRequest'
+          $ref: '#/components/schemas/precisionTimePackageRequest'
         connections:
           items:
             $ref: '#/components/schemas/fabricConnectionUuid'
@@ -37716,6 +38308,68 @@ components:
       - type
       title: precisionTimeServiceRequest
       type: object
+    precisionTimePackageResponse:
+      description: EPT Service Package Information
+      example:
+        href: https://api.equinix.com/fabric/v4/timeServicePackage/NTP_STANDARD
+        code: NTP_STANDARD
+        type: TIME_SERVICE_PACKAGE
+        bandwidth: 10
+        accuracyUnit: microseconds
+        accuracySla: 50
+        accuracyAvgMin: 1
+        accuracyAvgMax: 10
+        clientsPerSecondMax: 100
+        redundancySupported: true
+        multiSubnetSupported: true
+        changeLog:
+          createdDateTime: 2023-05-16T07:50:49.749Z
+          updatedDateTime: 2023-05-17T07:50:49.749Z
+      properties:
+        href:
+          format: uri
+          type: string
+        code:
+          enum:
+          - NTP_STANDARD
+          - NTP_ENTERPRISE
+          - PTP_STANDARD
+          - PTP_ENTERPRISE
+          type: string
+        type:
+          enum:
+          - TIME_SERVICE_PACKAGE
+          type: string
+        bandwidth:
+          example: 10
+          type: integer
+        clientsPerSecondMax:
+          example: 100
+          type: integer
+        redundancySupported:
+          example: true
+          type: boolean
+        multiSubnetSupported:
+          example: true
+          type: boolean
+        accuracyUnit:
+          example: microseconds
+          type: string
+        accuracySla:
+          example: 50
+          type: integer
+        accuracyAvgMin:
+          example: 1
+          type: integer
+        accuracyAvgMax:
+          example: 10
+          type: integer
+        changelog:
+          $ref: '#/components/schemas/Changelog'
+      required:
+      - code
+      title: precisionTimePackageRespose
+      type: object
     ConnectionType:
       description: Connection type
       enum:
@@ -37728,6 +38382,7 @@ components:
       - EVPLAN_VC
       - EPLAN_VC
       - IPWAN_VC
+      - IA_VC
       type: string
     Order:
       example:
@@ -37909,6 +38564,8 @@ components:
             orgId: 6
         accessPoint:
           providerConnectionId: providerConnectionId
+          interconnection:
+            uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           profile:
             visibility: null
             customFields:
@@ -38874,6 +39531,8 @@ components:
               orgId: 6
           accessPoint:
             providerConnectionId: providerConnectionId
+            interconnection:
+              uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
             profile:
               visibility: null
               customFields:
@@ -39797,6 +40456,7 @@ components:
       enum:
       - L2_PROFILE
       - L3_PROFILE
+      - IA_PROFILE
       example: L2_PROFILE
       type: string
     ServiceProfileVisibilityEnum:
@@ -40320,19 +40980,15 @@ components:
         subInterface:
           unit: 200
           name: name
-          type: VNI
-        additionalInfo:
-        - value: value
-          key: key
-        - value: value
-          key: key
-        connection:
+        vni: 20
+        href: https://openapi-generator.tech
+        state: null
+        vlanTagMax: 200
+        asset:
           bandwidth: 100
           href: https://openapi-generator.tech
           type: EVPL_VC
           uuid: cd67f685-41b0-1b07-6de0-320a5c00abe
-        state: null
-        vlanTagMax: 200
         serviceToken:
           bandwidth: 1000
           href: https://openapi-generator.tech
@@ -40340,6 +40996,11 @@ components:
           uuid: cd67f685-41b0-1b07-6de0-0320a5c00abe
         vlanCTagMax: 200
       properties:
+        href:
+          description: LinkProtocol URI
+          format: uri
+          readOnly: true
+          type: string
         uuid:
           description: Equinix-assigned network identifier
           example: 92dc376a-a932-43aa-a6a2-c806dedbd784
@@ -40350,6 +41011,9 @@ components:
         type:
           $ref: '#/components/schemas/LinkProtocolRequestType'
         vlanTag:
+          example: 20
+          type: integer
+        vni:
           example: 20
           type: integer
         vlanTagMin:
@@ -40372,11 +41036,7 @@ components:
           type: integer
         subInterface:
           $ref: '#/components/schemas/SubInterface'
-        additionalInfo:
-          items:
-            $ref: '#/components/schemas/AdditionalInfo'
-          type: array
-        connection:
+        asset:
           $ref: '#/components/schemas/LinkProtocolConnection'
         serviceToken:
           $ref: '#/components/schemas/LinkProtocolServiceToken'
@@ -40434,6 +41094,29 @@ components:
       required:
       - type
       - uuid
+      type: object
+    RouteFiltersPatchRequestItem:
+      description: Route Filter change operation data
+      example:
+        op: replace
+        path: /name
+        value: "{}"
+      properties:
+        op:
+          description: Handy shortcut for operation name
+          example: replace
+          type: string
+        path:
+          description: path to change
+          example: /name
+          type: string
+        value:
+          description: new value for updated parameter
+          type: object
+      required:
+      - op
+      - path
+      - value
       type: object
     RouteFiltersChangeOperation:
       description: Route Filter change operation data
@@ -40505,6 +41188,17 @@ components:
           example: connection-1
           type: string
       type: object
+    RouteFilterRuleState:
+      description: Route Filter Rule status
+      enum:
+      - PROVISIONING
+      - REPROVISIONING
+      - DEPROVISIONING
+      - PROVISIONED
+      - DEPROVISIONED
+      - NOT_PROVISIONED
+      - NOT_DEPROVISIONED
+      type: string
     RouteFilterRulesChange:
       description: Current state of latest Route Filter Rule change
       example:
@@ -40533,7 +41227,7 @@ components:
       - type
       - uuid
       type: object
-    RouteFilterChangePrefixMatch:
+    RouteFilterRulesPatchRequestItem:
       description: Route Filter Rule change operation data
       example:
         op: replace
@@ -40641,7 +41335,7 @@ components:
           description: Cloud Router package code
           enum:
           - LAB
-          - BASIC
+          - ADVANCED
           - STANDARD
           - PREMIUM
           example: LAB
@@ -40809,7 +41503,7 @@ components:
       description: Cloud Router package code
       enum:
       - LAB
-      - BASIC
+      - ADVANCED
       - STANDARD
       - PREMIUM
       example: LAB
@@ -40858,6 +41552,7 @@ components:
       enum:
       - REGIONAL
       - GLOBAL
+      - LOCAL
       type: string
     NetworkState:
       description: Network status
@@ -41061,7 +41756,7 @@ components:
         ptp:
           $ref: '#/components/schemas/ptpAdvanceConfiguration'
       type: object
-    packageRequest:
+    precisionTimePackageRequest:
       description: EPT Package Request
       example:
         code: NTP_STANDARD
@@ -41078,7 +41773,7 @@ components:
           type: string
       required:
       - code
-      title: package
+      title: precisionTimePackageRequest
       type: object
     ConnectionPriority:
       description: Connection priority in redundancy group
@@ -41090,6 +41785,8 @@ components:
       description: Access point object
       example:
         providerConnectionId: providerConnectionId
+        interconnection:
+          uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         profile:
           visibility: null
           customFields:
@@ -41627,6 +42324,8 @@ components:
           type: string
         virtualNetwork:
           $ref: '#/components/schemas/VirtualNetwork'
+        interconnection:
+          $ref: '#/components/schemas/MetalInterconnection'
       type: object
     ConnectionCompanyProfile:
       description: Connection Company Profile Details
@@ -41952,42 +42651,20 @@ components:
       - UNTAGGED
       - DOT1Q
       - QINQ
-      - EVPN_VXLAN
-      - UNTAGGEDEPL
+      - VXLAN
       type: string
     SubInterface:
       description: Sub Interface information
       example:
         unit: 200
         name: name
-        type: VNI
       properties:
-        type:
-          description: type of connection vlan
-          enum:
-          - VNI
-          - VXLAN
-          - VLAN
-          type: string
         name:
           description: name of subinterafce of a port
           type: string
         unit:
           example: 200
           type: integer
-      type: object
-    AdditionalInfo:
-      description: Additional information
-      example:
-        value: value
-        key: key
-      properties:
-        key:
-          description: Key
-          type: string
-        value:
-          description: Value
-          type: string
       type: object
     LinkProtocolConnection:
       description: Connection details of Link Protocol
@@ -42721,6 +43398,16 @@ components:
           format: uuid
           type: string
       type: object
+    MetalInterconnection:
+      description: Metal Interconnection
+      example:
+        uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        uuid:
+          description: Equinix Metal Interconnection
+          format: uuid
+          type: string
+      type: object
     VirtualConnectionPriceConnectionType:
       description: Virtual Connection type
       enum:
@@ -42733,6 +43420,7 @@ components:
       - EVPLAN_VC
       - EPLAN_VC
       - IPWAN_VC
+      - IA_VC
       type: string
     VirtualConnectionPriceASide:
       example:
@@ -42922,7 +43610,7 @@ components:
       description: Cloud Router code
       enum:
       - LAB
-      - BASIC
+      - ADVANCED
       - STANDARD
       - PREMIUM
       type: string
@@ -43089,6 +43777,42 @@ components:
           type: string
         reason:
           type: string
+      type: object
+    RouteFiltersData_project:
+      example:
+        href: https://api.equinix.com/resourceManager/v1/projects/567
+        projectId: 44f4c4f8-2f39-494e-838c-d8e640591be5
+      properties:
+        projectId:
+          description: Subscriber-assigned project ID
+          example: 44f4c4f8-2f39-494e-838c-d8e640591be5
+          type: string
+        href:
+          description: Project URI
+          example: https://api.equinix.com/resourceManager/v1/projects/567
+          format: uri
+          type: string
+      required:
+      - projectId
+      type: object
+    RouteFiltersSearchBase_filter:
+      example:
+        and:
+        - values:
+          - values
+          - values
+          property: /type
+          operator: operator
+        - values:
+          - values
+          - values
+          property: /type
+          operator: operator
+      properties:
+        and:
+          items:
+            $ref: '#/components/schemas/RouteFiltersSearchFilterItem'
+          type: array
       type: object
     ValidateRequest_filter_and:
       example:
@@ -43298,18 +44022,6 @@ components:
         bridge:
           $ref: '#/components/schemas/VirtualConnectionPriceZSide_accessPoint_bridge'
       type: object
-    RouteFiltersData_project_allOf:
-      properties:
-        href:
-          description: Project URI
-          example: https://api.equinix.com/resourceManager/v1/projects/567
-          format: uri
-          type: string
-      type: object
-    RouteFiltersData_project:
-      allOf:
-      - $ref: '#/components/schemas/Project'
-      - $ref: '#/components/schemas/RouteFiltersData_project_allOf'
     Network_allOf:
       properties:
         href:

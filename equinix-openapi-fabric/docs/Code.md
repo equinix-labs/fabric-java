@@ -7,7 +7,7 @@
 
 * `LAB` (value: `"LAB"`)
 
-* `BASIC` (value: `"BASIC"`)
+* `ADVANCED` (value: `"ADVANCED"`)
 
 * `STANDARD` (value: `"STANDARD"`)
 

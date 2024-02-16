@@ -14,13 +14,16 @@ package com.equinix.openapi.fabric.v4.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import com.equinix.openapi.fabric.v4.model.Pagination;
+import com.equinix.openapi.fabric.v4.model.RouteFiltersData;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
-import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -44,36 +47,70 @@ import java.util.Set;
 import com.equinix.openapi.fabric.JSON;
 
 /**
- * RouteFiltersDataProjectAllOf
+ * RouteFiltersSearchResponse
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class RouteFiltersDataProjectAllOf {
-  public static final String SERIALIZED_NAME_HREF = "href";
-  @SerializedName(SERIALIZED_NAME_HREF)
-  private URI href;
+public class RouteFiltersSearchResponse {
+  public static final String SERIALIZED_NAME_PAGINATION = "pagination";
+  @SerializedName(SERIALIZED_NAME_PAGINATION)
+  private Pagination pagination;
 
-  public RouteFiltersDataProjectAllOf() {
+  public static final String SERIALIZED_NAME_DATA = "data";
+  @SerializedName(SERIALIZED_NAME_DATA)
+  private List<RouteFiltersData> data = new ArrayList<>();
+
+  public RouteFiltersSearchResponse() {
   }
 
-  public RouteFiltersDataProjectAllOf href(URI href) {
+  public RouteFiltersSearchResponse pagination(Pagination pagination) {
     
-    this.href = href;
+    this.pagination = pagination;
     return this;
   }
 
    /**
-   * Project URI
-   * @return href
+   * Get pagination
+   * @return pagination
   **/
   @javax.annotation.Nullable
 
-  public URI getHref() {
-    return href;
+  public Pagination getPagination() {
+    return pagination;
   }
 
 
-  public void setHref(URI href) {
-    this.href = href;
+  public void setPagination(Pagination pagination) {
+    this.pagination = pagination;
+  }
+
+
+  public RouteFiltersSearchResponse data(List<RouteFiltersData> data) {
+    
+    this.data = data;
+    return this;
+  }
+
+  public RouteFiltersSearchResponse addDataItem(RouteFiltersData dataItem) {
+    if (this.data == null) {
+      this.data = new ArrayList<>();
+    }
+    this.data.add(dataItem);
+    return this;
+  }
+
+   /**
+   * List of Route Filters
+   * @return data
+  **/
+  @javax.annotation.Nullable
+
+  public List<RouteFiltersData> getData() {
+    return data;
+  }
+
+
+  public void setData(List<RouteFiltersData> data) {
+    this.data = data;
   }
 
   /**
@@ -89,9 +126,9 @@ public class RouteFiltersDataProjectAllOf {
    *
    * @param key name of the property
    * @param value value of the property
-   * @return the RouteFiltersDataProjectAllOf instance itself
+   * @return the RouteFiltersSearchResponse instance itself
    */
-  public RouteFiltersDataProjectAllOf putAdditionalProperty(String key, Object value) {
+  public RouteFiltersSearchResponse putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
         this.additionalProperties = new HashMap<String, Object>();
     }
@@ -130,21 +167,23 @@ public class RouteFiltersDataProjectAllOf {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    RouteFiltersDataProjectAllOf routeFiltersDataProjectAllOf = (RouteFiltersDataProjectAllOf) o;
-    return Objects.equals(this.href, routeFiltersDataProjectAllOf.href)&&
-        Objects.equals(this.additionalProperties, routeFiltersDataProjectAllOf.additionalProperties);
+    RouteFiltersSearchResponse routeFiltersSearchResponse = (RouteFiltersSearchResponse) o;
+    return Objects.equals(this.pagination, routeFiltersSearchResponse.pagination) &&
+        Objects.equals(this.data, routeFiltersSearchResponse.data)&&
+        Objects.equals(this.additionalProperties, routeFiltersSearchResponse.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(href, additionalProperties);
+    return Objects.hash(pagination, data, additionalProperties);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class RouteFiltersDataProjectAllOf {\n");
-    sb.append("    href: ").append(toIndentedString(href)).append("\n");
+    sb.append("class RouteFiltersSearchResponse {\n");
+    sb.append("    pagination: ").append(toIndentedString(pagination)).append("\n");
+    sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -168,7 +207,8 @@ public class RouteFiltersDataProjectAllOf {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("href");
+    openapiFields.add("pagination");
+    openapiFields.add("data");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -178,16 +218,31 @@ public class RouteFiltersDataProjectAllOf {
   * Validates the JSON Object and throws an exception if issues found
   *
   * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to RouteFiltersDataProjectAllOf
+  * @throws IOException if the JSON Object is invalid with respect to RouteFiltersSearchResponse
   */
   public static void validateJsonObject(JsonObject jsonObj) throws IOException {
       if (jsonObj == null) {
-        if (!RouteFiltersDataProjectAllOf.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in RouteFiltersDataProjectAllOf is not found in the empty JSON string", RouteFiltersDataProjectAllOf.openapiRequiredFields.toString()));
+        if (!RouteFiltersSearchResponse.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in RouteFiltersSearchResponse is not found in the empty JSON string", RouteFiltersSearchResponse.openapiRequiredFields.toString()));
         }
       }
-      if ((jsonObj.get("href") != null && !jsonObj.get("href").isJsonNull()) && !jsonObj.get("href").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `href` to be a primitive type in the JSON string but got `%s`", jsonObj.get("href").toString()));
+      // validate the optional field `pagination`
+      if (jsonObj.get("pagination") != null && !jsonObj.get("pagination").isJsonNull()) {
+        Pagination.validateJsonObject(jsonObj.getAsJsonObject("pagination"));
+      }
+      if (jsonObj.get("data") != null && !jsonObj.get("data").isJsonNull()) {
+        JsonArray jsonArraydata = jsonObj.getAsJsonArray("data");
+        if (jsonArraydata != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("data").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `data` to be an array in the JSON string but got `%s`", jsonObj.get("data").toString()));
+          }
+
+          // validate the optional field `data` (array)
+          for (int i = 0; i < jsonArraydata.size(); i++) {
+            RouteFiltersData.validateJsonObject(jsonArraydata.get(i).getAsJsonObject());
+          };
+        }
       }
   }
 
@@ -195,16 +250,16 @@ public class RouteFiltersDataProjectAllOf {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!RouteFiltersDataProjectAllOf.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'RouteFiltersDataProjectAllOf' and its subtypes
+       if (!RouteFiltersSearchResponse.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'RouteFiltersSearchResponse' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<RouteFiltersDataProjectAllOf> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(RouteFiltersDataProjectAllOf.class));
+       final TypeAdapter<RouteFiltersSearchResponse> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(RouteFiltersSearchResponse.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<RouteFiltersDataProjectAllOf>() {
+       return (TypeAdapter<T>) new TypeAdapter<RouteFiltersSearchResponse>() {
            @Override
-           public void write(JsonWriter out, RouteFiltersDataProjectAllOf value) throws IOException {
+           public void write(JsonWriter out, RouteFiltersSearchResponse value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
              // serialize additional properties
@@ -227,11 +282,11 @@ public class RouteFiltersDataProjectAllOf {
            }
 
            @Override
-           public RouteFiltersDataProjectAllOf read(JsonReader in) throws IOException {
+           public RouteFiltersSearchResponse read(JsonReader in) throws IOException {
              JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
              validateJsonObject(jsonObj);
              // store additional fields in the deserialized instance
-             RouteFiltersDataProjectAllOf instance = thisAdapter.fromJsonTree(jsonObj);
+             RouteFiltersSearchResponse instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
                if (!openapiFields.contains(entry.getKey())) {
                  if (entry.getValue().isJsonPrimitive()) { // primitive type
@@ -258,18 +313,18 @@ public class RouteFiltersDataProjectAllOf {
   }
 
  /**
-  * Create an instance of RouteFiltersDataProjectAllOf given an JSON string
+  * Create an instance of RouteFiltersSearchResponse given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of RouteFiltersDataProjectAllOf
-  * @throws IOException if the JSON string is invalid with respect to RouteFiltersDataProjectAllOf
+  * @return An instance of RouteFiltersSearchResponse
+  * @throws IOException if the JSON string is invalid with respect to RouteFiltersSearchResponse
   */
-  public static RouteFiltersDataProjectAllOf fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, RouteFiltersDataProjectAllOf.class);
+  public static RouteFiltersSearchResponse fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, RouteFiltersSearchResponse.class);
   }
 
  /**
-  * Convert an instance of RouteFiltersDataProjectAllOf to an JSON string
+  * Convert an instance of RouteFiltersSearchResponse to an JSON string
   *
   * @return JSON string
   */
