@@ -120,7 +120,7 @@ public class RouteFilterRulesBase {
    * Get prefix
    * @return prefix
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
 
   public String getPrefix() {
     return prefix;
@@ -258,6 +258,7 @@ public class RouteFilterRulesBase {
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("prefix");
   }
 
  /**
@@ -272,13 +273,20 @@ public class RouteFilterRulesBase {
           throw new IllegalArgumentException(String.format("The required field(s) %s in RouteFilterRulesBase is not found in the empty JSON string", RouteFilterRulesBase.openapiRequiredFields.toString()));
         }
       }
+
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : RouteFilterRulesBase.openapiRequiredFields) {
+        if (jsonObj.get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
+        }
+      }
       if ((jsonObj.get("name") != null && !jsonObj.get("name").isJsonNull()) && !jsonObj.get("name").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
       }
       if ((jsonObj.get("description") != null && !jsonObj.get("description").isJsonNull()) && !jsonObj.get("description").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `description` to be a primitive type in the JSON string but got `%s`", jsonObj.get("description").toString()));
       }
-      if ((jsonObj.get("prefix") != null && !jsonObj.get("prefix").isJsonNull()) && !jsonObj.get("prefix").isJsonPrimitive()) {
+      if (!jsonObj.get("prefix").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `prefix` to be a primitive type in the JSON string but got `%s`", jsonObj.get("prefix").toString()));
       }
       if ((jsonObj.get("prefixMatch") != null && !jsonObj.get("prefixMatch").isJsonNull()) && !jsonObj.get("prefixMatch").isJsonPrimitive()) {

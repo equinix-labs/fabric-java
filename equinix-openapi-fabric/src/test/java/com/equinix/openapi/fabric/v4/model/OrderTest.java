@@ -45,6 +45,14 @@ public class OrderTest {
     }
 
     /**
+     * Test the property 'customerReferenceNumber'
+     */
+    @Test
+    public void customerReferenceNumberTest() {
+        // TODO: test customerReferenceNumber
+    }
+
+    /**
      * Test the property 'billingTier'
      */
     @Test

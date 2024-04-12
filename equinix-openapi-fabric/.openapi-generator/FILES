@@ -25,6 +25,7 @@ docs/BGPActions.md
 docs/BGPActionsBulkData.md
 docs/BGPConnectionIpv4.md
 docs/BGPConnectionIpv6.md
+docs/BGPConnectionOperation.md
 docs/BandwidthUtilization.md
 docs/BulkPhysicalPort.md
 docs/BulkPort.md
@@ -42,8 +43,8 @@ docs/CloudRouterFilter.md
 docs/CloudRouterFilters.md
 docs/CloudRouterOrFilter.md
 docs/CloudRouterPackage.md
-docs/CloudRouterPackageType.md
 docs/CloudRouterPostRequest.md
+docs/CloudRouterPostRequestPackage.md
 docs/CloudRouterSearchRequest.md
 docs/CloudRouterSimpleExpression.md
 docs/CloudRouterSortBy.md
@@ -60,6 +61,7 @@ docs/ConnectionChangeOperation.md
 docs/ConnectionCompanyProfile.md
 docs/ConnectionDirection.md
 docs/ConnectionInvitation.md
+docs/ConnectionLink.md
 docs/ConnectionOperation.md
 docs/ConnectionPostRequest.md
 docs/ConnectionPriority.md
@@ -193,7 +195,9 @@ docs/PrecisionTimeApi.md
 docs/PrecisionTimeChangeOperation.md
 docs/PrecisionTimePackageRequest.md
 docs/PrecisionTimePackageResponse.md
+docs/PrecisionTimeServiceConnectionsResponse.md
 docs/PrecisionTimeServiceCreateResponse.md
+docs/PrecisionTimeServicePackagesResponse.md
 docs/PrecisionTimeServiceRequest.md
 docs/Presence.md
 docs/Price.md
@@ -412,6 +416,7 @@ src/main/java/com/equinix/openapi/fabric/v4/model/BGPActions.java
 src/main/java/com/equinix/openapi/fabric/v4/model/BGPActionsBulkData.java
 src/main/java/com/equinix/openapi/fabric/v4/model/BGPConnectionIpv4.java
 src/main/java/com/equinix/openapi/fabric/v4/model/BGPConnectionIpv6.java
+src/main/java/com/equinix/openapi/fabric/v4/model/BGPConnectionOperation.java
 src/main/java/com/equinix/openapi/fabric/v4/model/BandwidthUtilization.java
 src/main/java/com/equinix/openapi/fabric/v4/model/BulkPhysicalPort.java
 src/main/java/com/equinix/openapi/fabric/v4/model/BulkPort.java
@@ -429,8 +434,8 @@ src/main/java/com/equinix/openapi/fabric/v4/model/CloudRouterFilter.java
 src/main/java/com/equinix/openapi/fabric/v4/model/CloudRouterFilters.java
 src/main/java/com/equinix/openapi/fabric/v4/model/CloudRouterOrFilter.java
 src/main/java/com/equinix/openapi/fabric/v4/model/CloudRouterPackage.java
-src/main/java/com/equinix/openapi/fabric/v4/model/CloudRouterPackageType.java
 src/main/java/com/equinix/openapi/fabric/v4/model/CloudRouterPostRequest.java
+src/main/java/com/equinix/openapi/fabric/v4/model/CloudRouterPostRequestPackage.java
 src/main/java/com/equinix/openapi/fabric/v4/model/CloudRouterSearchRequest.java
 src/main/java/com/equinix/openapi/fabric/v4/model/CloudRouterSimpleExpression.java
 src/main/java/com/equinix/openapi/fabric/v4/model/CloudRouterSortBy.java
@@ -446,6 +451,7 @@ src/main/java/com/equinix/openapi/fabric/v4/model/ConnectionChangeOperation.java
 src/main/java/com/equinix/openapi/fabric/v4/model/ConnectionCompanyProfile.java
 src/main/java/com/equinix/openapi/fabric/v4/model/ConnectionDirection.java
 src/main/java/com/equinix/openapi/fabric/v4/model/ConnectionInvitation.java
+src/main/java/com/equinix/openapi/fabric/v4/model/ConnectionLink.java
 src/main/java/com/equinix/openapi/fabric/v4/model/ConnectionOperation.java
 src/main/java/com/equinix/openapi/fabric/v4/model/ConnectionPostRequest.java
 src/main/java/com/equinix/openapi/fabric/v4/model/ConnectionPriority.java
@@ -573,7 +579,9 @@ src/main/java/com/equinix/openapi/fabric/v4/model/PortV4SearchRequest.java
 src/main/java/com/equinix/openapi/fabric/v4/model/PrecisionTimeChangeOperation.java
 src/main/java/com/equinix/openapi/fabric/v4/model/PrecisionTimePackageRequest.java
 src/main/java/com/equinix/openapi/fabric/v4/model/PrecisionTimePackageResponse.java
+src/main/java/com/equinix/openapi/fabric/v4/model/PrecisionTimeServiceConnectionsResponse.java
 src/main/java/com/equinix/openapi/fabric/v4/model/PrecisionTimeServiceCreateResponse.java
+src/main/java/com/equinix/openapi/fabric/v4/model/PrecisionTimeServicePackagesResponse.java
 src/main/java/com/equinix/openapi/fabric/v4/model/PrecisionTimeServiceRequest.java
 src/main/java/com/equinix/openapi/fabric/v4/model/Presence.java
 src/main/java/com/equinix/openapi/fabric/v4/model/Price.java
@@ -758,6 +766,7 @@ src/test/java/com/equinix/openapi/fabric/v4/model/BGPActionsBulkDataTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/BGPActionsTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/BGPConnectionIpv4Test.java
 src/test/java/com/equinix/openapi/fabric/v4/model/BGPConnectionIpv6Test.java
+src/test/java/com/equinix/openapi/fabric/v4/model/BGPConnectionOperationTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/BandwidthUtilizationTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/BulkPhysicalPortTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/BulkPortTest.java
@@ -774,7 +783,7 @@ src/test/java/com/equinix/openapi/fabric/v4/model/CloudRouterFilterTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/CloudRouterFiltersTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/CloudRouterOrFilterTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/CloudRouterPackageTest.java
-src/test/java/com/equinix/openapi/fabric/v4/model/CloudRouterPackageTypeTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/CloudRouterPostRequestPackageTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/CloudRouterPostRequestTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/CloudRouterSearchRequestTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/CloudRouterSimpleExpressionTest.java
@@ -791,6 +800,7 @@ src/test/java/com/equinix/openapi/fabric/v4/model/ConnectionChangeOperationTest.
 src/test/java/com/equinix/openapi/fabric/v4/model/ConnectionCompanyProfileTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/ConnectionDirectionTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/ConnectionInvitationTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/ConnectionLinkTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/ConnectionOperationTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/ConnectionPostRequestTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/ConnectionPriorityTest.java
@@ -919,7 +929,9 @@ src/test/java/com/equinix/openapi/fabric/v4/model/PortV4SearchRequestTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/PrecisionTimeChangeOperationTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/PrecisionTimePackageRequestTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/PrecisionTimePackageResponseTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/PrecisionTimeServiceConnectionsResponseTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/PrecisionTimeServiceCreateResponseTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/PrecisionTimeServicePackagesResponseTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/PrecisionTimeServiceRequestTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/PresenceTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/PriceCategoryTest.java

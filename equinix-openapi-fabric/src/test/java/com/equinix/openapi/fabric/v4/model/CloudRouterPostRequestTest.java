@@ -12,7 +12,7 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import com.equinix.openapi.fabric.v4.model.CloudRouterPackageType;
+import com.equinix.openapi.fabric.v4.model.CloudRouterPostRequestPackage;
 import com.equinix.openapi.fabric.v4.model.Order;
 import com.equinix.openapi.fabric.v4.model.Project;
 import com.equinix.openapi.fabric.v4.model.SimplifiedAccount;

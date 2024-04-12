@@ -51,6 +51,10 @@ public class Order {
   @SerializedName(SERIALIZED_NAME_PURCHASE_ORDER_NUMBER)
   private String purchaseOrderNumber;
 
+  public static final String SERIALIZED_NAME_CUSTOMER_REFERENCE_NUMBER = "customerReferenceNumber";
+  @SerializedName(SERIALIZED_NAME_CUSTOMER_REFERENCE_NUMBER)
+  private String customerReferenceNumber;
+
   public static final String SERIALIZED_NAME_BILLING_TIER = "billingTier";
   @SerializedName(SERIALIZED_NAME_BILLING_TIER)
   private String billingTier;
@@ -85,6 +89,28 @@ public class Order {
 
   public void setPurchaseOrderNumber(String purchaseOrderNumber) {
     this.purchaseOrderNumber = purchaseOrderNumber;
+  }
+
+
+  public Order customerReferenceNumber(String customerReferenceNumber) {
+    
+    this.customerReferenceNumber = customerReferenceNumber;
+    return this;
+  }
+
+   /**
+   * Customer reference number
+   * @return customerReferenceNumber
+  **/
+  @javax.annotation.Nullable
+
+  public String getCustomerReferenceNumber() {
+    return customerReferenceNumber;
+  }
+
+
+  public void setCustomerReferenceNumber(String customerReferenceNumber) {
+    this.customerReferenceNumber = customerReferenceNumber;
   }
 
 
@@ -209,6 +235,7 @@ public class Order {
     }
     Order order = (Order) o;
     return Objects.equals(this.purchaseOrderNumber, order.purchaseOrderNumber) &&
+        Objects.equals(this.customerReferenceNumber, order.customerReferenceNumber) &&
         Objects.equals(this.billingTier, order.billingTier) &&
         Objects.equals(this.orderId, order.orderId) &&
         Objects.equals(this.orderNumber, order.orderNumber)&&
@@ -217,7 +244,7 @@ public class Order {
 
   @Override
   public int hashCode() {
-    return Objects.hash(purchaseOrderNumber, billingTier, orderId, orderNumber, additionalProperties);
+    return Objects.hash(purchaseOrderNumber, customerReferenceNumber, billingTier, orderId, orderNumber, additionalProperties);
   }
 
   @Override
@@ -225,6 +252,7 @@ public class Order {
     StringBuilder sb = new StringBuilder();
     sb.append("class Order {\n");
     sb.append("    purchaseOrderNumber: ").append(toIndentedString(purchaseOrderNumber)).append("\n");
+    sb.append("    customerReferenceNumber: ").append(toIndentedString(customerReferenceNumber)).append("\n");
     sb.append("    billingTier: ").append(toIndentedString(billingTier)).append("\n");
     sb.append("    orderId: ").append(toIndentedString(orderId)).append("\n");
     sb.append("    orderNumber: ").append(toIndentedString(orderNumber)).append("\n");
@@ -252,6 +280,7 @@ public class Order {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("purchaseOrderNumber");
+    openapiFields.add("customerReferenceNumber");
     openapiFields.add("billingTier");
     openapiFields.add("orderId");
     openapiFields.add("orderNumber");
@@ -274,6 +303,9 @@ public class Order {
       }
       if ((jsonObj.get("purchaseOrderNumber") != null && !jsonObj.get("purchaseOrderNumber").isJsonNull()) && !jsonObj.get("purchaseOrderNumber").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `purchaseOrderNumber` to be a primitive type in the JSON string but got `%s`", jsonObj.get("purchaseOrderNumber").toString()));
+      }
+      if ((jsonObj.get("customerReferenceNumber") != null && !jsonObj.get("customerReferenceNumber").isJsonNull()) && !jsonObj.get("customerReferenceNumber").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `customerReferenceNumber` to be a primitive type in the JSON string but got `%s`", jsonObj.get("customerReferenceNumber").toString()));
       }
       if ((jsonObj.get("billingTier") != null && !jsonObj.get("billingTier").isJsonNull()) && !jsonObj.get("billingTier").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `billingTier` to be a primitive type in the JSON string but got `%s`", jsonObj.get("billingTier").toString()));

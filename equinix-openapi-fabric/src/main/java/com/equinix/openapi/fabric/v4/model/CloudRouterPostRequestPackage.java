@@ -14,13 +14,13 @@ package com.equinix.openapi.fabric.v4.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.equinix.openapi.fabric.v4.model.RouteFilterRulesBase;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
+import java.net.URI;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -44,24 +44,24 @@ import java.util.Set;
 import com.equinix.openapi.fabric.JSON;
 
 /**
- * Route Filter Rule change operation data
+ * Fabric Cloud Router Package Type
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class RouteFilterRulesChangeOperation {
+public class CloudRouterPostRequestPackage {
+  public static final String SERIALIZED_NAME_HREF = "href";
+  @SerializedName(SERIALIZED_NAME_HREF)
+  private URI href;
+
   /**
-   * Handy shortcut for operation name
+   * Cloud Router package type
    */
-  @JsonAdapter(OpEnum.Adapter.class)
-  public enum OpEnum {
-    ADD("add"),
-    
-    REPLACE("replace"),
-    
-    REMOVE("remove");
+  @JsonAdapter(TypeEnum.Adapter.class)
+  public enum TypeEnum {
+    ROUTER_PACKAGE("ROUTER_PACKAGE");
 
     private String value;
 
-    OpEnum(String value) {
+    TypeEnum(String value) {
       this.value = value;
     }
 
@@ -74,8 +74,8 @@ public class RouteFilterRulesChangeOperation {
       return String.valueOf(value);
     }
 
-    public static OpEnum fromValue(String value) {
-      for (OpEnum b : OpEnum.values()) {
+    public static TypeEnum fromValue(String value) {
+      for (TypeEnum b : TypeEnum.values()) {
         if (b.value.equals(value)) {
           return b;
         }
@@ -83,98 +83,145 @@ public class RouteFilterRulesChangeOperation {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
 
-    public static class Adapter extends TypeAdapter<OpEnum> {
+    public static class Adapter extends TypeAdapter<TypeEnum> {
       @Override
-      public void write(final JsonWriter jsonWriter, final OpEnum enumeration) throws IOException {
+      public void write(final JsonWriter jsonWriter, final TypeEnum enumeration) throws IOException {
         jsonWriter.value(enumeration.getValue());
       }
 
       @Override
-      public OpEnum read(final JsonReader jsonReader) throws IOException {
+      public TypeEnum read(final JsonReader jsonReader) throws IOException {
         String value =  jsonReader.nextString();
-        return OpEnum.fromValue(value);
+        return TypeEnum.fromValue(value);
       }
     }
   }
 
-  public static final String SERIALIZED_NAME_OP = "op";
-  @SerializedName(SERIALIZED_NAME_OP)
-  private OpEnum op;
+  public static final String SERIALIZED_NAME_TYPE = "type";
+  @SerializedName(SERIALIZED_NAME_TYPE)
+  private TypeEnum type;
 
-  public static final String SERIALIZED_NAME_PATH = "path";
-  @SerializedName(SERIALIZED_NAME_PATH)
-  private String path;
+  /**
+   * Cloud Router package code
+   */
+  @JsonAdapter(CodeEnum.Adapter.class)
+  public enum CodeEnum {
+    LAB("LAB"),
+    
+    ADVANCED("ADVANCED"),
+    
+    STANDARD("STANDARD"),
+    
+    PREMIUM("PREMIUM");
 
-  public static final String SERIALIZED_NAME_VALUE = "value";
-  @SerializedName(SERIALIZED_NAME_VALUE)
-  private RouteFilterRulesBase value;
+    private String value;
 
-  public RouteFilterRulesChangeOperation() {
+    CodeEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static CodeEnum fromValue(String value) {
+      for (CodeEnum b : CodeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+
+    public static class Adapter extends TypeAdapter<CodeEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final CodeEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public CodeEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return CodeEnum.fromValue(value);
+      }
+    }
   }
 
-  public RouteFilterRulesChangeOperation op(OpEnum op) {
+  public static final String SERIALIZED_NAME_CODE = "code";
+  @SerializedName(SERIALIZED_NAME_CODE)
+  private CodeEnum code;
+
+  public CloudRouterPostRequestPackage() {
+  }
+
+  public CloudRouterPostRequestPackage href(URI href) {
     
-    this.op = op;
+    this.href = href;
     return this;
   }
 
    /**
-   * Handy shortcut for operation name
-   * @return op
+   * Fabric Cloud Router URI
+   * @return href
   **/
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
 
-  public OpEnum getOp() {
-    return op;
+  public URI getHref() {
+    return href;
   }
 
 
-  public void setOp(OpEnum op) {
-    this.op = op;
+  public void setHref(URI href) {
+    this.href = href;
   }
 
 
-  public RouteFilterRulesChangeOperation path(String path) {
+  public CloudRouterPostRequestPackage type(TypeEnum type) {
     
-    this.path = path;
+    this.type = type;
     return this;
   }
 
    /**
-   * path inside document leading to updated parameter
-   * @return path
+   * Cloud Router package type
+   * @return type
   **/
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
 
-  public String getPath() {
-    return path;
+  public TypeEnum getType() {
+    return type;
   }
 
 
-  public void setPath(String path) {
-    this.path = path;
+  public void setType(TypeEnum type) {
+    this.type = type;
   }
 
 
-  public RouteFilterRulesChangeOperation value(RouteFilterRulesBase value) {
+  public CloudRouterPostRequestPackage code(CodeEnum code) {
     
-    this.value = value;
+    this.code = code;
     return this;
   }
 
    /**
-   * Get value
-   * @return value
+   * Cloud Router package code
+   * @return code
   **/
   @javax.annotation.Nonnull
 
-  public RouteFilterRulesBase getValue() {
-    return value;
+  public CodeEnum getCode() {
+    return code;
   }
 
 
-  public void setValue(RouteFilterRulesBase value) {
-    this.value = value;
+  public void setCode(CodeEnum code) {
+    this.code = code;
   }
 
   /**
@@ -190,9 +237,9 @@ public class RouteFilterRulesChangeOperation {
    *
    * @param key name of the property
    * @param value value of the property
-   * @return the RouteFilterRulesChangeOperation instance itself
+   * @return the CloudRouterPostRequestPackage instance itself
    */
-  public RouteFilterRulesChangeOperation putAdditionalProperty(String key, Object value) {
+  public CloudRouterPostRequestPackage putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
         this.additionalProperties = new HashMap<String, Object>();
     }
@@ -231,25 +278,25 @@ public class RouteFilterRulesChangeOperation {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    RouteFilterRulesChangeOperation routeFilterRulesChangeOperation = (RouteFilterRulesChangeOperation) o;
-    return Objects.equals(this.op, routeFilterRulesChangeOperation.op) &&
-        Objects.equals(this.path, routeFilterRulesChangeOperation.path) &&
-        Objects.equals(this.value, routeFilterRulesChangeOperation.value)&&
-        Objects.equals(this.additionalProperties, routeFilterRulesChangeOperation.additionalProperties);
+    CloudRouterPostRequestPackage cloudRouterPostRequestPackage = (CloudRouterPostRequestPackage) o;
+    return Objects.equals(this.href, cloudRouterPostRequestPackage.href) &&
+        Objects.equals(this.type, cloudRouterPostRequestPackage.type) &&
+        Objects.equals(this.code, cloudRouterPostRequestPackage.code)&&
+        Objects.equals(this.additionalProperties, cloudRouterPostRequestPackage.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(op, path, value, additionalProperties);
+    return Objects.hash(href, type, code, additionalProperties);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class RouteFilterRulesChangeOperation {\n");
-    sb.append("    op: ").append(toIndentedString(op)).append("\n");
-    sb.append("    path: ").append(toIndentedString(path)).append("\n");
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("class CloudRouterPostRequestPackage {\n");
+    sb.append("    href: ").append(toIndentedString(href)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -273,60 +320,59 @@ public class RouteFilterRulesChangeOperation {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("op");
-    openapiFields.add("path");
-    openapiFields.add("value");
+    openapiFields.add("href");
+    openapiFields.add("type");
+    openapiFields.add("code");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("op");
-    openapiRequiredFields.add("path");
-    openapiRequiredFields.add("value");
+    openapiRequiredFields.add("code");
   }
 
  /**
   * Validates the JSON Object and throws an exception if issues found
   *
   * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to RouteFilterRulesChangeOperation
+  * @throws IOException if the JSON Object is invalid with respect to CloudRouterPostRequestPackage
   */
   public static void validateJsonObject(JsonObject jsonObj) throws IOException {
       if (jsonObj == null) {
-        if (!RouteFilterRulesChangeOperation.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in RouteFilterRulesChangeOperation is not found in the empty JSON string", RouteFilterRulesChangeOperation.openapiRequiredFields.toString()));
+        if (!CloudRouterPostRequestPackage.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in CloudRouterPostRequestPackage is not found in the empty JSON string", CloudRouterPostRequestPackage.openapiRequiredFields.toString()));
         }
       }
 
       // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : RouteFilterRulesChangeOperation.openapiRequiredFields) {
+      for (String requiredField : CloudRouterPostRequestPackage.openapiRequiredFields) {
         if (jsonObj.get(requiredField) == null) {
           throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
         }
       }
-      if (!jsonObj.get("op").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `op` to be a primitive type in the JSON string but got `%s`", jsonObj.get("op").toString()));
+      if ((jsonObj.get("href") != null && !jsonObj.get("href").isJsonNull()) && !jsonObj.get("href").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `href` to be a primitive type in the JSON string but got `%s`", jsonObj.get("href").toString()));
       }
-      if (!jsonObj.get("path").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `path` to be a primitive type in the JSON string but got `%s`", jsonObj.get("path").toString()));
+      if ((jsonObj.get("type") != null && !jsonObj.get("type").isJsonNull()) && !jsonObj.get("type").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("type").toString()));
       }
-      // validate the required field `value`
-      RouteFilterRulesBase.validateJsonObject(jsonObj.getAsJsonObject("value"));
+      if (!jsonObj.get("code").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `code` to be a primitive type in the JSON string but got `%s`", jsonObj.get("code").toString()));
+      }
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!RouteFilterRulesChangeOperation.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'RouteFilterRulesChangeOperation' and its subtypes
+       if (!CloudRouterPostRequestPackage.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'CloudRouterPostRequestPackage' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<RouteFilterRulesChangeOperation> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(RouteFilterRulesChangeOperation.class));
+       final TypeAdapter<CloudRouterPostRequestPackage> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(CloudRouterPostRequestPackage.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<RouteFilterRulesChangeOperation>() {
+       return (TypeAdapter<T>) new TypeAdapter<CloudRouterPostRequestPackage>() {
            @Override
-           public void write(JsonWriter out, RouteFilterRulesChangeOperation value) throws IOException {
+           public void write(JsonWriter out, CloudRouterPostRequestPackage value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
              // serialize additional properties
@@ -349,11 +395,11 @@ public class RouteFilterRulesChangeOperation {
            }
 
            @Override
-           public RouteFilterRulesChangeOperation read(JsonReader in) throws IOException {
+           public CloudRouterPostRequestPackage read(JsonReader in) throws IOException {
              JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
              validateJsonObject(jsonObj);
              // store additional fields in the deserialized instance
-             RouteFilterRulesChangeOperation instance = thisAdapter.fromJsonTree(jsonObj);
+             CloudRouterPostRequestPackage instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
                if (!openapiFields.contains(entry.getKey())) {
                  if (entry.getValue().isJsonPrimitive()) { // primitive type
@@ -380,18 +426,18 @@ public class RouteFilterRulesChangeOperation {
   }
 
  /**
-  * Create an instance of RouteFilterRulesChangeOperation given an JSON string
+  * Create an instance of CloudRouterPostRequestPackage given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of RouteFilterRulesChangeOperation
-  * @throws IOException if the JSON string is invalid with respect to RouteFilterRulesChangeOperation
+  * @return An instance of CloudRouterPostRequestPackage
+  * @throws IOException if the JSON string is invalid with respect to CloudRouterPostRequestPackage
   */
-  public static RouteFilterRulesChangeOperation fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, RouteFilterRulesChangeOperation.class);
+  public static CloudRouterPostRequestPackage fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, CloudRouterPostRequestPackage.class);
   }
 
  /**
-  * Convert an instance of RouteFilterRulesChangeOperation to an JSON string
+  * Convert an instance of CloudRouterPostRequestPackage to an JSON string
   *
   * @return JSON string
   */

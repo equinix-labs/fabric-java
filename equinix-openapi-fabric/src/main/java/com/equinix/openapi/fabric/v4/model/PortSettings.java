@@ -141,7 +141,9 @@ public class PortSettings {
     
     UNLIMITED("UNLIMITED"),
     
-    FREE("FREE");
+    FREE("FREE"),
+    
+    UNLIMITED_PLUS("UNLIMITED PLUS");
 
     private String value;
 

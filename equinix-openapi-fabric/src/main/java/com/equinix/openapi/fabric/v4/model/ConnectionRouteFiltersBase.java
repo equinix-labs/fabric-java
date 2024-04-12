@@ -111,7 +111,7 @@ public class ConnectionRouteFiltersBase {
    * Route Filter direction to attach to a connection
    * @return direction
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
 
   public DirectionEnum getDirection() {
     return direction;
@@ -218,6 +218,7 @@ public class ConnectionRouteFiltersBase {
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("direction");
   }
 
  /**
@@ -232,7 +233,14 @@ public class ConnectionRouteFiltersBase {
           throw new IllegalArgumentException(String.format("The required field(s) %s in ConnectionRouteFiltersBase is not found in the empty JSON string", ConnectionRouteFiltersBase.openapiRequiredFields.toString()));
         }
       }
-      if ((jsonObj.get("direction") != null && !jsonObj.get("direction").isJsonNull()) && !jsonObj.get("direction").isJsonPrimitive()) {
+
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : ConnectionRouteFiltersBase.openapiRequiredFields) {
+        if (jsonObj.get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
+        }
+      }
+      if (!jsonObj.get("direction").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `direction` to be a primitive type in the JSON string but got `%s`", jsonObj.get("direction").toString()));
       }
   }

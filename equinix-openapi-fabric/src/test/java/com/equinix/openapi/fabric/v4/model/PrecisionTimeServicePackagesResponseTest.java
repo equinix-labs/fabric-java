@@ -12,53 +12,48 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import com.equinix.openapi.fabric.v4.model.RouteFilterRulesBase;
+import com.equinix.openapi.fabric.v4.model.Pagination;
+import com.equinix.openapi.fabric.v4.model.PrecisionTimePackageResponse;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 
 /**
- * Model tests for RouteFilterRulesChangeOperation
+ * Model tests for PrecisionTimeServicePackagesResponse
  */
-public class RouteFilterRulesChangeOperationTest {
-    private final RouteFilterRulesChangeOperation model = new RouteFilterRulesChangeOperation();
+public class PrecisionTimeServicePackagesResponseTest {
+    private final PrecisionTimeServicePackagesResponse model = new PrecisionTimeServicePackagesResponse();
 
     /**
-     * Model tests for RouteFilterRulesChangeOperation
+     * Model tests for PrecisionTimeServicePackagesResponse
      */
     @Test
-    public void testRouteFilterRulesChangeOperation() {
-        // TODO: test RouteFilterRulesChangeOperation
+    public void testPrecisionTimeServicePackagesResponse() {
+        // TODO: test PrecisionTimeServicePackagesResponse
     }
 
     /**
-     * Test the property 'op'
+     * Test the property 'pagination'
      */
     @Test
-    public void opTest() {
-        // TODO: test op
+    public void paginationTest() {
+        // TODO: test pagination
     }
 
     /**
-     * Test the property 'path'
+     * Test the property 'data'
      */
     @Test
-    public void pathTest() {
-        // TODO: test path
-    }
-
-    /**
-     * Test the property 'value'
-     */
-    @Test
-    public void valueTest() {
-        // TODO: test value
+    public void dataTest() {
+        // TODO: test data
     }
 
 }

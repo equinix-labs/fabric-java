@@ -12,53 +12,45 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import com.equinix.openapi.fabric.v4.model.RouteFilterRulesBase;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
+import java.time.OffsetDateTime;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 
 /**
- * Model tests for RouteFilterRulesChangeOperation
+ * Model tests for BGPConnectionOperation
  */
-public class RouteFilterRulesChangeOperationTest {
-    private final RouteFilterRulesChangeOperation model = new RouteFilterRulesChangeOperation();
+public class BGPConnectionOperationTest {
+    private final BGPConnectionOperation model = new BGPConnectionOperation();
 
     /**
-     * Model tests for RouteFilterRulesChangeOperation
+     * Model tests for BGPConnectionOperation
      */
     @Test
-    public void testRouteFilterRulesChangeOperation() {
-        // TODO: test RouteFilterRulesChangeOperation
+    public void testBGPConnectionOperation() {
+        // TODO: test BGPConnectionOperation
     }
 
     /**
-     * Test the property 'op'
+     * Test the property 'operationalStatus'
      */
     @Test
-    public void opTest() {
-        // TODO: test op
+    public void operationalStatusTest() {
+        // TODO: test operationalStatus
     }
 
     /**
-     * Test the property 'path'
+     * Test the property 'opStatusChangedAt'
      */
     @Test
-    public void pathTest() {
-        // TODO: test path
-    }
-
-    /**
-     * Test the property 'value'
-     */
-    @Test
-    public void valueTest() {
-        // TODO: test value
+    public void opStatusChangedAtTest() {
+        // TODO: test opStatusChangedAt
     }
 
 }

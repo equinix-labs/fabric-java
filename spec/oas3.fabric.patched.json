@@ -13,7 +13,7 @@
       "name": "Equinix Inc",
       "url": "https://developer.equinix.com/agreement"
     },
-    "version": "4.12"
+    "version": "4.13"
   },
   "externalDocs": {
     "description": "Find more information on Equinix Developer Portal",
@@ -223,6 +223,36 @@
                 },
                 "Metal2Sp-Aws": {
                   "$ref": "#/components/examples/Metal2Sp-Aws"
+                },
+                "Metal2Sp-Azure": {
+                  "$ref": "#/components/examples/Metal2Sp-Azure"
+                },
+                "Metal2Sp-GCP": {
+                  "$ref": "#/components/examples/Metal2Sp-GCP"
+                },
+                "Metal2Sp-Oracle": {
+                  "$ref": "#/components/examples/Metal2Sp-Oracle"
+                },
+                "Metal2Sp-IBM": {
+                  "$ref": "#/components/examples/Metal2Sp-IBM"
+                },
+                "Metal2Port-Dot1Q": {
+                  "$ref": "#/components/examples/Metal2Port-Dot1q"
+                },
+                "Metal2Port-QinQ": {
+                  "$ref": "#/components/examples/Metal2Port-Qinq"
+                },
+                "Metal2Port-ZsideServiceToken": {
+                  "$ref": "#/components/examples/Metal2ServiceToken"
+                },
+                "Metal2Sp-Generic": {
+                  "$ref": "#/components/examples/Metal2Sp-Generic"
+                },
+                "Vd2IASp": {
+                  "$ref": "#/components/examples/Vd2IAProfile-Request"
+                },
+                "Fcr2Metal-Network": {
+                  "$ref": "#/components/examples/Fcr2Metal-Network"
                 }
               }
             }
@@ -273,6 +303,33 @@
                   },
                   "Metal2Sp-Aws": {
                     "$ref": "#/components/examples/Metal2Sp-Aws-Response"
+                  },
+                  "Metal2Sp-Azure": {
+                    "$ref": "#/components/examples/Metal2Sp-Azure-Response"
+                  },
+                  "Metal2Sp-GCP": {
+                    "$ref": "#/components/examples/Metal2Sp-GCP-Response"
+                  },
+                  "Metal2Sp-Oracle": {
+                    "$ref": "#/components/examples/Metal2Sp-Oracle-Response"
+                  },
+                  "Metal2Sp-IBM": {
+                    "$ref": "#/components/examples/Metal2Sp-IBM-Response"
+                  },
+                  "Metal2Port-Dot1Q": {
+                    "$ref": "#/components/examples/Metal2Port-Dot1q-Response"
+                  },
+                  "Metal2Port-QinQ": {
+                    "$ref": "#/components/examples/Metal2Port-Qinq-Response"
+                  },
+                  "Metal2Port-ZsideServiceToken": {
+                    "$ref": "#/components/examples/Metal2ServiceToken-Response"
+                  },
+                  "Metal2Sp-Generic": {
+                    "$ref": "#/components/examples/Metal2Sp-Generic-Response"
+                  },
+                  "Fcr2Metal-Network": {
+                    "$ref": "#/components/examples/Fcr2Metal-Network"
                   }
                 }
               }
@@ -7258,7 +7315,7 @@
                   "$ref": "#/components/schemas/GetRouteFilterRulesResponse"
                 },
                 "examples": {
-                  "getAllRouteFilters": {
+                  "getAllRouteFilterRuless": {
                     "$ref": "#/components/examples/RouteFilterRulesGetAll"
                   }
                 }
@@ -8402,7 +8459,7 @@
                   "$ref": "#/components/schemas/GetRouteFilterRulesResponse"
                 },
                 "examples": {
-                  "getAllRouteFilters": {
+                  "getAllRouteFilterRuless": {
                     "$ref": "#/components/examples/RouteFilterRulesGetAll"
                   }
                 }
@@ -10813,7 +10870,7 @@
           }
         ],
         "responses": {
-          "202": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -11643,11 +11700,249 @@
           }
         }
       }
+    },
+    "/fabric/v4/timeServices/{serviceId}/connections": {
+      "get": {
+        "tags": [
+          "Precision Time"
+        ],
+        "summary": "Get Connection Links",
+        "description": "The API provides capability to get prevision timing service's details",
+        "operationId": "getTimeServicesConnectionsByServiceId",
+        "parameters": [
+          {
+            "name": "serviceId",
+            "in": "path",
+            "description": "Service UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ServiceId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return Time Service Connection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/precisionTimeServiceConnectionsResponse"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/serviceConnectionsResponse"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fabric/v4/timeServicePackages": {
+      "get": {
+        "tags": [
+          "Precision Time"
+        ],
+        "summary": "Get Packages",
+        "description": "The API provides capability to get timing service's packages",
+        "operationId": "getTimeServicesPackages",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/precisionTimeServicePackagesResponse"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/servicePackagesResponse"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fabric/v4/timeServicePackages/{packageCode}": {
+      "get": {
+        "tags": [
+          "Precision Time"
+        ],
+        "summary": "Get Package By Code",
+        "description": "The API provides capability to get timing service's package by code",
+        "operationId": "getTimeServicesPackageByCode",
+        "parameters": [
+          {
+            "name": "packageCode",
+            "in": "path",
+            "description": "Package Code",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "NTP_STANDARD",
+                "NTP_ENTERPRISE",
+                "PTP_STANDARD",
+                "PTP_ENTERPRISE"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/precisionTimePackageResponse"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/servicePackageResponse"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
       "ConnectionPostRequest": {
+        "required": [
+          "aSide",
+          "bandwidth",
+          "name",
+          "notifications",
+          "type",
+          "zSide"
+        ],
         "type": "object",
         "properties": {
           "type": {
@@ -13039,6 +13334,7 @@
             "example": true
           }
         },
+        "additionalProperties": false,
         "description": "VirtualDevice Access Point Type"
       },
       "CustomField": {
@@ -14245,7 +14541,8 @@
               "ATTACHED",
               "DETACHED",
               "DETACHING",
-              "FAILED"
+              "FAILED",
+              "PENDING_BGP_CONFIGURATION"
             ]
           },
           "direction": {
@@ -14258,6 +14555,9 @@
         }
       },
       "ConnectionRouteFiltersBase": {
+        "required": [
+          "direction"
+        ],
         "type": "object",
         "properties": {
           "direction": {
@@ -14271,6 +14571,11 @@
         }
       },
       "RouteFiltersBase": {
+        "required": [
+          "name",
+          "project",
+          "type"
+        ],
         "type": "object",
         "properties": {
           "type": {
@@ -14291,13 +14596,6 @@
           },
           "project": {
             "$ref": "#/components/schemas/Project"
-          },
-          "notifications": {
-            "type": "array",
-            "description": "Preferences for notifications on route filter configuration or status changes",
-            "items": {
-              "$ref": "#/components/schemas/SimplifiedNotification"
-            }
           }
         }
       },
@@ -14355,13 +14653,6 @@
           },
           "project": {
             "$ref": "#/components/schemas/RouteFiltersData_project"
-          },
-          "notifications": {
-            "type": "array",
-            "description": "Preferences for notifications on route filter configuration or status changes",
-            "items": {
-              "$ref": "#/components/schemas/SimplifiedNotification"
-            }
           },
           "changelog": {
             "$ref": "#/components/schemas/Changelog"
@@ -14559,6 +14850,9 @@
         }
       },
       "RouteFilterRulesBase": {
+        "required": [
+          "prefix"
+        ],
         "type": "object",
         "properties": {
           "name": {
@@ -14575,7 +14869,7 @@
           },
           "prefixMatch": {
             "type": "string",
-            "example": "orlonger",
+            "example": "orlonger, exact",
             "default": "orlonger"
           }
         }
@@ -14744,7 +15038,7 @@
             "$ref": "#/components/schemas/SimplifiedLocationWithoutIBX"
           },
           "package": {
-            "$ref": "#/components/schemas/CloudRouterPackageType"
+            "$ref": "#/components/schemas/CloudRouterPostRequestPackage"
           },
           "order": {
             "$ref": "#/components/schemas/Order"
@@ -15877,6 +16171,40 @@
         },
         "description": "EPT service instance"
       },
+      "precisionTimeServiceConnectionsResponse": {
+        "title": "precisionTimeServiceConnectionResponse",
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "data": {
+            "type": "array",
+            "description": "Data returned from the API call",
+            "items": {
+              "$ref": "#/components/schemas/connectionLink"
+            }
+          }
+        },
+        "description": "EPT service instance's L2 connections"
+      },
+      "precisionTimeServicePackagesResponse": {
+        "title": "precisionTimeServicePackagesResponse",
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "data": {
+            "type": "array",
+            "description": "Data returned from the API call",
+            "items": {
+              "$ref": "#/components/schemas/precisionTimePackageResponse"
+            }
+          }
+        },
+        "description": "Precision Packages"
+      },
       "precisionTimePackageResponse": {
         "title": "precisionTimePackageRespose",
         "required": [
@@ -15980,6 +16308,10 @@
           "purchaseOrderNumber": {
             "type": "string",
             "description": "Purchase order number"
+          },
+          "customerReferenceNumber": {
+            "type": "string",
+            "description": "Customer reference number"
           },
           "billingTier": {
             "type": "string",
@@ -16433,6 +16765,15 @@
           "enabled": {
             "type": "boolean",
             "description": "Admin status for the BGP session"
+          },
+          "outboundASPrependCount": {
+            "type": "integer",
+            "description": "AS path prepend count",
+            "format": "int64",
+            "example": 3
+          },
+          "operation": {
+            "$ref": "#/components/schemas/BGPConnectionOperation"
           }
         }
       },
@@ -16456,6 +16797,15 @@
           "enabled": {
             "type": "boolean",
             "description": "Admin status for the BGP session"
+          },
+          "outboundASPrependCount": {
+            "type": "integer",
+            "description": "AS path prepend count",
+            "format": "int64",
+            "example": 3
+          },
+          "operation": {
+            "$ref": "#/components/schemas/BGPConnectionOperation"
           }
         }
       },
@@ -17010,7 +17360,11 @@
           "DEPROVISIONING",
           "DEPROVISIONED",
           "INACTIVE",
-          "FAILED"
+          "FAILED",
+          "ADDED",
+          "DELETED",
+          "TO_BE_ADDED",
+          "TO_BE_DELETED"
         ]
       },
       "PortOrder": {
@@ -17231,7 +17585,8 @@
               "STANDARD",
               "UNTAGGED",
               "UNLIMITED",
-              "FREE"
+              "FREE",
+              "UNLIMITED PLUS"
             ]
           }
         },
@@ -17618,48 +17973,31 @@
       },
       "RouteFilterRulesChangeOperation": {
         "required": [
-          "action",
-          "name",
-          "prefix",
-          "type"
+          "op",
+          "path",
+          "value"
         ],
         "type": "object",
         "properties": {
-          "name": {
+          "op": {
             "type": "string",
-            "description": "name of  route filter rule",
-            "example": "Private-subnet-filter"
-          },
-          "description": {
-            "type": "string",
-            "description": "cust provided description"
-          },
-          "type": {
-            "type": "string",
-            "description": "type of filter rule",
+            "description": "Handy shortcut for operation name",
             "enum": [
-              "BGP_IPv4_PREFIX_FILTER_RULE_UPDATE",
-              "BGP_IPv4_PREFIX_FILTER_RULE_CREATION",
-              "BGP_IPv4_PREFIX_FILTER_RULE_DELETION",
-              "BGP_IPv6_PREFIX_FILTER_RULE_UPDATE",
-              "BGP_IPv6_PREFIX_FILTER_RULE_CREATION",
-              "BGP_IPv6_PREFIX_FILTER_RULE_DELETION"
+              "add",
+              "replace",
+              "remove"
             ]
           },
-          "prefix": {
+          "path": {
             "type": "string",
-            "description": "given prefix (does not change)"
+            "description": "path inside document leading to updated parameter",
+            "example": "/"
           },
-          "action": {
-            "type": "string",
-            "description": "change to be made",
-            "enum": [
-              "PERMIT",
-              "DENY"
-            ]
+          "value": {
+            "$ref": "#/components/schemas/RouteFilterRulesBase"
           }
         },
-        "description": "Route Filter change operation data"
+        "description": "Route Filter Rule change operation data"
       },
       "SimplifiedLocationWithoutIBX": {
         "required": [
@@ -17685,7 +18023,7 @@
           }
         }
       },
-      "CloudRouterPackageType": {
+      "CloudRouterPostRequestPackage": {
         "required": [
           "code"
         ],
@@ -18179,6 +18517,26 @@
           "code": "NTP_STANDARD"
         }
       },
+      "connectionLink": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://api.equinix.com/fabric/v4/timeServices/92dc376a-a932-43aa-a6a2-c806dedbd784/connections"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "EVPL_VC"
+            ]
+          },
+          "uuid": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
       "ConnectionPriority": {
         "type": "string",
         "description": "Connection priority in redundancy group",
@@ -18294,6 +18652,7 @@
           "FAILED",
           "NOT_AVAILABLE",
           "PENDING_APPROVAL",
+          "PENDING_CONFIGURATION",
           "PROVISIONED",
           "PROVISIONING",
           "REJECTED",
@@ -18346,6 +18705,27 @@
           "CANCELLED",
           "PENDING_INTERFACE_CONFIGURATION"
         ]
+      },
+      "BGPConnectionOperation": {
+        "type": "object",
+        "properties": {
+          "operationalStatus": {
+            "type": "string",
+            "description": "BGP IPv4 or IPv6 Connection State operational status",
+            "enum": [
+              "UP",
+              "DOWN",
+              "UNKNOWN"
+            ]
+          },
+          "opStatusChangedAt": {
+            "type": "string",
+            "description": "Last BGP State Update by Date and Time",
+            "format": "date-time",
+            "example": "2021-10-30T07:21:39Z"
+          }
+        },
+        "description": "BGP IPv4 or IPv6 Connection State operational data"
       },
       "RoutingProtocolOperation": {
         "type": "object",
@@ -19264,7 +19644,8 @@
           "COLO",
           "CLOUD_ROUTER",
           "CHAINGROUP",
-          "NETWORK"
+          "NETWORK",
+          "METAL_NETWORK"
         ]
       },
       "VirtualConnectionBridgePackageCode": {
@@ -21926,7 +22307,7 @@
         "value": {
           "type": "EVPL_VC",
           "name": "My-Metal-sp-connection",
-          "bandwidth": 1000,
+          "bandwidth": "1000",
           "aSide": {
             "accessPoint": {
               "type": "METAL_NETWORK",
@@ -21944,12 +22325,408 @@
               "sellerRegion": "us-west-1"
             }
           },
-          "order": {
-            "purchaseOrderNumber": "1-129105284100"
-          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com",
+                "test1@equinix.com"
+              ]
+            }
+          ],
           "project": {
             "projectId": 567
           }
+        }
+      },
+      "Metal2Sp-Azure": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "Metal2Azure Connection",
+          "bandwidth": "50",
+          "aSide": {
+            "accessPoint": {
+              "type": "METAL_NETWORK",
+              "authenticationKey": "xxxxxxxxx"
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "type": "L2_PROFILE",
+                "uuid": "a1390b22-bbe0-4e93-ad37-85beef9d254d"
+              },
+              "location": {
+                "metroCode": "SV"
+              },
+              "authenticationKey": "xxxxxxxxx",
+              "peeringType": "PRIVATE"
+            }
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "eqxfabricamcrh@gmail.com"
+              ]
+            }
+          ],
+          "project": {
+            "projectId": "16799d66-ef43-445c-ba29-d17522d8a137"
+          }
+        }
+      },
+      "Metal2Sp-GCP": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "Metal2GCP-Connection",
+          "bandwidth": "50",
+          "aSide": {
+            "accessPoint": {
+              "type": "METAL_NETWORK",
+              "authenticationKey": "xxxxxxxxx"
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "uuid": "063f4b0f-2d5b-4db7-95da-d9eddfc92602"
+              },
+              "location": {
+                "metroCode": "SV"
+              },
+              "authenticationKey": "xxxxxxxxx",
+              "sellerRegion": "us-west1"
+            }
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com"
+              ]
+            }
+          ],
+          "project": {
+            "projectId": "377533000114703"
+          }
+        }
+      },
+      "Metal2Sp-Oracle": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "Metal2Oracle-Connection",
+          "bandwidth": "50",
+          "aSide": {
+            "accessPoint": {
+              "type": "METAL_NETWORK",
+              "authenticationKey": "xxxxxxxxx"
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "uuid": "60ef0382-cdaa-44e7-bd36-b803731816b8"
+              },
+              "location": {
+                "metroCode": "SV"
+              },
+              "authenticationKey": "xxxxxxxxx",
+              "sellerRegion": "us-sanjose-1"
+            }
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@gmail.com"
+              ]
+            }
+          ],
+          "project": {
+            "projectId": "16799d66-ef43-445c-ba29-d17522d8a137"
+          }
+        }
+      },
+      "Metal2Sp-IBM": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "Metal2IBM-Connection",
+          "bandwidth": "50",
+          "aSide": {
+            "accessPoint": {
+              "type": "METAL_NETWORK",
+              "authenticationKey": "xxxxxxxxx"
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "type": "L2_PROFILE",
+                "uuid": "317dcd1c-83ba-4d7c-994a-3e7ddb875026"
+              },
+              "location": {
+                "metroCode": "SV"
+              },
+              "authenticationKey": "xxxxxxxxx",
+              "sellerRegion": "San Jose 2"
+            }
+          },
+          "additionalInfo": [
+            {
+              "key": "ASN",
+              "value": 12345
+            },
+            {
+              "key": "BGP_CER_CIDR",
+              "value": "172.16.0.17/30"
+            },
+            {
+              "key": "BGP_IBM_CIDR",
+              "value": "172.16.0.18/30"
+            },
+            {
+              "key": "Global",
+              "value": false
+            }
+          ],
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com"
+              ]
+            }
+          ],
+          "project": {
+            "projectId": "377533000114703"
+          }
+        }
+      },
+      "Metal2Port-Dot1q": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "Metal2Port-dot1q",
+          "bandwidth": "50",
+          "aSide": {
+            "accessPoint": {
+              "type": "METAL_NETWORK",
+              "authenticationKey": "xxxxxxxxx"
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "COLO",
+              "port": {
+                "uuid": "6c73d02c-87e1-4642-8e18-01eb4b87e243"
+              },
+              "linkProtocol": {
+                "type": "DOT1Q",
+                "vlanTag": 128
+              }
+            }
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com"
+              ]
+            }
+          ],
+          "project": {
+            "projectId": "377533000114703"
+          }
+        }
+      },
+      "Metal2Port-Qinq": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "Metal2Port-qinq",
+          "bandwidth": "50",
+          "aSide": {
+            "accessPoint": {
+              "type": "METAL_NETWORK",
+              "authenticationKey": "xxxxxxxxx"
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "COLO",
+              "port": {
+                "uuid": "4ff4047c-7217-4b79-9943-c2c4a2f7324d"
+              },
+              "linkProtocol": {
+                "type": "QINQ",
+                "vlanSTag": 134,
+                "vlanCTag": 439
+              }
+            }
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com"
+              ]
+            }
+          ],
+          "project": {
+            "projectId": "377533000114703"
+          }
+        }
+      },
+      "Metal2ServiceToken": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "Metal2ServiceToken",
+          "bandwidth": "50",
+          "aSide": {
+            "accessPoint": {
+              "type": "METAL_NETWORK",
+              "authenticationKey": "xxxxxxxxx"
+            }
+          },
+          "zSide": {
+            "serviceToken": {
+              "uuid": "bc1383be-579a-4d75-ae19-b0d487bbff90"
+            }
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com"
+              ]
+            }
+          ],
+          "project": {
+            "projectId": "377533000114703"
+          }
+        }
+      },
+      "Metal2Sp-Generic": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "Metal2Generic",
+          "bandwidth": 1000,
+          "redundancy": {
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "type": "METAL_NETWORK",
+              "authenticationKey": "xxxxxxxxx"
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "type": "L2_PROFILE",
+                "uuid": "22d4e853-ef33-4ff0-b5b2-a2b1d5dfa50c"
+              },
+              "location": {
+                "metroCode": "DC"
+              }
+            }
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@test.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Vd2IAProfile-Request": {
+        "value": {
+          "type": "IA_VC",
+          "bandwidth": 50,
+          "name": "Network Device to IA SP",
+          "redundancy": {
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "type": "VD",
+              "virtualDevice": {
+                "type": "EDGE",
+                "uuid": "20d32a80-0d61-4333-bc03-707b591ae2f4"
+              },
+              "interface": {
+                "type": "CLOUD",
+                "id": 4
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "type": "IA_PROFILE",
+                "uuid": "32d81829-0bf8-45d5-84e2-7289a553dbb6"
+              },
+              "location": {
+                "metroCode": "SV"
+              }
+            }
+          },
+          "order": {
+            "purchaseOrderNumber": "1-323292"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com",
+                "test1@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Fcr2Metal-Network": {
+        "value": {
+          "type": "IP_VC",
+          "name": "My-FCR-MetalNetwork-Connection",
+          "bandwidth": 50,
+          "redundancy": {
+            "group": "a00cef6f-8e35-4794-9ff9-665e084e4e6d",
+            "priority": "SECONDARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "type": "CLOUD_ROUTER",
+              "router": {
+                "uuid": "66a21614-1c4a-11ec-9621-0242ac130002"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "METAL_NETWORK",
+              "authenticationKey": "xxxxxxxxx"
+            }
+          },
+          "project": {
+            "projectId": "567"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com",
+                "test1@equinix.com"
+              ]
+            }
+          ]
         }
       },
       "ConnectionExample": {
@@ -22803,6 +23580,520 @@
             "createdByEmail": "testuser@equinix.com",
             "createdByFullName": "testuser testuser",
             "createdDateTime": "2020-05-21T10:30:00Z"
+          }
+        }
+      },
+      "Metal2Sp-Azure-Response": {
+        "value": {
+          "type": "EVPL_VC",
+          "href": "https://api.equinix.com/fabric/v4/connections/d3b69c6b-3b23-4ac0-a1bb-8db16460714d",
+          "uuid": "d3b69c6b-3b23-4ac0-a1bb-8db16460714d",
+          "name": "Metal2Azure Connection",
+          "operation": {
+            "providerStatus": "PROVISIONING",
+            "equinixStatus": "PROVISIONING"
+          },
+          "order": {
+            "billingTier": "Up to 50 MB"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "eqxfabricamcrh@gmail.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric",
+            "createdByEmail": "fabric@gmail.com",
+            "createdDateTime": "2024-03-21T20:14:04.072Z",
+            "updatedBy": "fabric",
+            "updatedByFullName": "fabric",
+            "updatedByEmail": "fabric@gmail.com",
+            "updatedDateTime": "2024-03-21T20:14:04.072Z"
+          },
+          "bandwidth": 50,
+          "redundancy": {
+            "group": "3cbd354d-d147-4552-bfd0-78c559b4cc91",
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "virtualNetwork": {
+                "uuid": "c652cef9-4e52-4165-b997-d0f52b5a18dd"
+              },
+              "interconnection": {
+                "uuid": "a00f1a2a-e50e-4019-ba86-0768dac8396c"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "location": {
+                "metroCode": "SV"
+              },
+              "profile": {
+                "href": "https://api.equinix.com/fabric/v4/serviceProfiles/a1390b22-bbe0-4e93-ad37-85beef9d254d",
+                "type": "L2_PROFILE",
+                "name": "Azure ExpressRoute",
+                "uuid": "a1390b22-bbe0-4e93-ad37-85beef9d254d"
+              },
+              "authenticationKey": "xxxxxxxxx"
+            }
+          }
+        }
+      },
+      "Metal2Sp-GCP-Response": {
+        "value": {
+          "type": "EVPL_VC",
+          "href": "https://api.equinix.com/fabric/v4/connections/d3b69c6b-3b23-4ac0-a1bb-8db16460714d",
+          "uuid": "d3b69c6b-3b23-4ac0-a1bb-8db16460714d",
+          "name": "Metal2GCP Connection",
+          "operation": {
+            "providerStatus": "PROVISIONING",
+            "equinixStatus": "PROVISIONING"
+          },
+          "order": {
+            "billingTier": "Up to 50 MB"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "eqxfabricamcrh@gmail.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric",
+            "createdByEmail": "fabric@gmail.com",
+            "createdDateTime": "2024-03-21T20:14:04.072Z",
+            "updatedBy": "fabric",
+            "updatedByFullName": "fabric",
+            "updatedByEmail": "fabric@gmail.com",
+            "updatedDateTime": "2024-03-21T20:14:04.072Z"
+          },
+          "bandwidth": 50,
+          "redundancy": {
+            "group": "3cbd354d-d147-4552-bfd0-78c559b4cc91",
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "virtualNetwork": {
+                "uuid": "c652cef9-4e52-4165-b997-d0f52b5a18dd"
+              },
+              "interconnection": {
+                "uuid": "a00f1a2a-e50e-4019-ba86-0768dac8396c"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "location": {
+                "metroCode": "SV"
+              },
+              "profile": {
+                "href": "https://api.equinix.com/fabric/v4/serviceProfiles/063f4b0f-2d5b-4db7-95da-d9eddfc92602",
+                "type": "L2_PROFILE",
+                "name": "GCP Service Profile",
+                "uuid": "063f4b0f-2d5b-4db7-95da-d9eddfc92602"
+              },
+              "authenticationKey": "xxxxxxxxx"
+            }
+          }
+        }
+      },
+      "Metal2Sp-Oracle-Response": {
+        "value": {
+          "type": "EVPL_VC",
+          "href": "https://api.equinix.com/fabric/v4/connections/7a21d5d8-f153-45f8-ad76-f92babf3f103",
+          "uuid": "7a21d5d8-f153-45f8-ad76-f92babf3f103",
+          "name": "Metal2Oracle-Connection",
+          "operation": {
+            "providerStatus": "PROVISIONING",
+            "equinixStatus": "PROVISIONING"
+          },
+          "order": {
+            "billingTier": "Up to 50Mb"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@gmail.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric",
+            "createdByEmail": "fabric@gmail.com",
+            "createdDateTime": "2024-03-19T23:09:15.547Z",
+            "updatedBy": "fabric",
+            "updatedByFullName": "fabric",
+            "updatedByEmail": "fabric@gmail.com",
+            "updatedDateTime": "2024-03-19T23:09:15.547Z"
+          },
+          "bandwidth": 50,
+          "redundancy": {
+            "group": "9674d5cf-03a4-4129-933f-60d21e0f3ddb",
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "virtualNetwork": {
+                "uuid": "d357394a-3453-415b-8bf3-4ea95b3b13fd"
+              },
+              "interconnection": {
+                "uuid": "7fcf077d-3383-4e22-9173-7b415fdfd1bd"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "location": {
+                "metroCode": "SV"
+              },
+              "profile": {
+                "href": "https://api.equinix.com/fabric/v4/serviceProfiles/60ef0382-cdaa-44e7-bd36-b803731816b8",
+                "type": "L2_PROFILE",
+                "name": "Oracle Cloud Infrastructure FastConnect",
+                "uuid": "60ef0382-cdaa-44e7-bd36-b803731816b8"
+              },
+              "sellerRegion": "us-sanjose-1",
+              "authenticationKey": "xxxxxxxxx"
+            }
+          }
+        }
+      },
+      "Metal2Sp-IBM-Response": {
+        "value": {
+          "type": "EVPL_VC",
+          "href": "http://qa3api.corp.equinix.com/fabric/v4/connections/f0e56501-d92f-4ca3-b047-f95628d4a32a",
+          "uuid": "f0e56501-d92f-4ca3-b047-f95628d4a32a",
+          "name": "Metal2IBM-Connection",
+          "operation": {
+            "providerStatus": "PROVISIONING",
+            "equinixStatus": "PROVISIONING"
+          },
+          "order": {
+            "billingTier": "Up to 50 MB"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "dragons-qa3@equinix.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric",
+            "createdByEmail": "fabric@equinix.com",
+            "createdDateTime": "2024-03-06T17:20:41.574Z",
+            "updatedBy": "fabric",
+            "updatedByFullName": "fabric",
+            "updatedByEmail": "fabric@equinix.com",
+            "updatedDateTime": "2024-03-06T17:20:41.574Z"
+          },
+          "bandwidth": 50,
+          "redundancy": {
+            "group": "edf883ed-3ea0-4adf-b58c-4ea163c612d5",
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "virtualNetwork": {
+                "uuid": "497f6eca-6276-4993-bfeb-53cbbbba6f08"
+              },
+              "interconnection": {
+                "uuid": "497f6eca-6276-4993-bfeb-53cbbbba6f08"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "location": {
+                "metroCode": "SV"
+              },
+              "profile": {
+                "href": "http://qa3api.corp.equinix.com/fabric/v4/serviceProfiles/317dcd1c-83ba-4d7c-994a-3e7ddb875026",
+                "type": "L2_PROFILE",
+                "name": "IBM Cloud Direct Link 2",
+                "uuid": "317dcd1c-83ba-4d7c-994a-3e7ddb875026"
+              },
+              "sellerRegion": "San Jose 2",
+              "authenticationKey": "xxxxxxxxx"
+            }
+          }
+        }
+      },
+      "Metal2Port-Dot1q-Response": {
+        "value": {
+          "type": "EVPL_VC",
+          "href": "http://qa3api.corp.equinix.com/fabric/v4/connections/02b7b7d4-1726-4451-9598-e28091c096cd",
+          "uuid": "02b7b7d4-1726-4451-9598-e28091c096cd",
+          "name": "Metal2Port-dot1q",
+          "operation": {
+            "providerStatus": "NOT_AVAILABLE",
+            "equinixStatus": "PROVISIONING"
+          },
+          "order": {
+            "billingTier": "Up to 50 MB"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric",
+            "createdByEmail": "fabric@equinix.com",
+            "createdDateTime": "2024-03-20T00:39:07.648Z",
+            "updatedBy": "fabric",
+            "updatedByFullName": "fabric",
+            "updatedByEmail": "fabric@equinix.com",
+            "updatedDateTime": "2024-03-20T00:39:07.648Z"
+          },
+          "bandwidth": 50,
+          "redundancy": {
+            "group": "b76b3167-ae8e-42c4-9571-b659f9779897",
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "virtualNetwork": {
+                "uuid": "497f6eca-6276-4993-bfeb-53cbbbba6f08"
+              },
+              "interconnection": {
+                "uuid": "497f6eca-6276-4993-bfeb-53cbbbba6f08"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "location": {
+                "metroCode": "SV"
+              },
+              "port": {
+                "type": "XF_PORT",
+                "href": "http://qa3api.corp.equinix.com/fabric/v4/ports/6c73d02c-87e1-4642-8e18-01eb4b87e243",
+                "uuid": "6c73d02c-87e1-4642-8e18-01eb4b87e243",
+                "name": "290061-SV1-CX-SEC-01"
+              },
+              "linkProtocol": {
+                "type": "DOT1Q",
+                "vlanTag": 1387
+              }
+            }
+          }
+        }
+      },
+      "Metal2Port-Qinq-Response": {
+        "value": {
+          "type": "EVPL_VC",
+          "href": "http://qa3api.corp.equinix.com/fabric/v4/connections/d87489aa-c32d-4756-a81a-6f557afb871d",
+          "uuid": "d87489aa-c32d-4756-a81a-6f557afb871d",
+          "name": "Metal2Port-qinq",
+          "operation": {
+            "providerStatus": "NOT_AVAILABLE",
+            "equinixStatus": "PROVISIONING"
+          },
+          "order": {
+            "billingTier": "Up to 50 MB"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric",
+            "createdByEmail": "fabric@equinix.com",
+            "createdDateTime": "2024-03-21T23:44:22.347Z",
+            "updatedBy": "fabric",
+            "updatedByFullName": "fabric",
+            "updatedByEmail": "fabric@equinix.com",
+            "updatedDateTime": "2024-03-21T23:44:22.347Z"
+          },
+          "bandwidth": 50,
+          "redundancy": {
+            "group": "d3cf59c0-33d7-4b9d-94c6-e60b27c363d3",
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "virtualNetwork": {
+                "uuid": "497f6eca-6276-4993-bfeb-53cbbbba6f08"
+              },
+              "interconnection": {
+                "uuid": "497f6eca-6276-4993-bfeb-53cbbbba6f08"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "location": {
+                "metroCode": "SV"
+              },
+              "port": {
+                "type": "XF_PORT",
+                "href": "http://qa3api.corp.equinix.com/fabric/v4/ports/4ff4047c-7217-4b79-9943-c2c4a2f7324d",
+                "uuid": "4ff4047c-7217-4b79-9943-c2c4a2f7324d",
+                "name": "290061-SV1-CX-PRI-02"
+              },
+              "linkProtocol": {
+                "type": "QINQ",
+                "vlanSTag": 134,
+                "vlanCTag": 439
+              }
+            }
+          }
+        }
+      },
+      "Metal2ServiceToken-Response": {
+        "value": {
+          "type": "EVPL_VC",
+          "href": "http://qa3api.corp.equinix.com/fabric/v4/connections/f712745e-ccf9-4a0d-9e4d-83c1bb5b9028",
+          "uuid": "f712745e-ccf9-4a0d-9e4d-83c1bb5b9028",
+          "name": "Metal2ServiceToken",
+          "operation": {
+            "providerStatus": "NOT_AVAILABLE",
+            "equinixStatus": "PROVISIONING"
+          },
+          "order": {
+            "billingTier": "Up to 50 MB"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric",
+            "createdByEmail": "fabric@equinix.com",
+            "createdDateTime": "2024-03-20T20:12:08.595Z",
+            "updatedBy": "fabric",
+            "updatedByFullName": "fabric",
+            "updatedByEmail": "fabric@equinix.com",
+            "updatedDateTime": "2024-03-20T20:12:08.595Z"
+          },
+          "bandwidth": 50,
+          "redundancy": {
+            "group": "fc504dcf-8697-4860-80cd-6a7afaa52586",
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "virtualNetwork": {
+                "uuid": "497f6eca-6276-4993-bfeb-53cbbbba6f08"
+              },
+              "interconnection": {
+                "uuid": "497f6eca-6276-4993-bfeb-53cbbbba6f08"
+              }
+            }
+          },
+          "zSide": {
+            "serviceToken": {
+              "href": "http://qa3api.corp.equinix.com/fabric/v4/serviceTokens/bc1383be-579a-4d75-ae19-b0d487bbff90",
+              "uuid": "bc1383be-579a-4d75-ae19-b0d487bbff90",
+              "project": {
+                "projectId": "377533000114703"
+              }
+            },
+            "accessPoint": {
+              "location": {
+                "metroCode": "SV"
+              },
+              "port": {
+                "type": "XF_PORT",
+                "href": "http://qa3api.corp.equinix.com/fabric/v4/ports/6c73d02c-87e1-4642-8e18-01eb4b87e243",
+                "uuid": "6c73d02c-87e1-4642-8e18-01eb4b87e243",
+                "name": "290061-SV1-CX-SEC-01"
+              },
+              "linkProtocol": {
+                "type": "DOT1Q",
+                "vlanTag": 4087
+              }
+            }
+          }
+        }
+      },
+      "Metal2Sp-Generic-Response": {
+        "value": {
+          "type": "EVPL_VC",
+          "href": "http://qa3api.corp.equinix.com/fabric/v4/connections/1a9ffa8f-d4d4-44ab-9733-362c9a36ec94",
+          "uuid": "1a9ffa8f-d4d4-44ab-9733-362c9a36ec94",
+          "name": "Metal2Generic",
+          "operation": {
+            "providerStatus": "NOT_AVAILABLE",
+            "equinixStatus": "PENDING_APPROVAL"
+          },
+          "order": {
+            "billingTier": "Up to 1G"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@test.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric",
+            "createdByEmail": "fabric@equinix.com",
+            "createdDateTime": "2024-03-22T00:42:35.386Z",
+            "updatedBy": "fabric",
+            "updatedByFullName": "fabric",
+            "updatedByEmail": "fabric@equinix.com",
+            "updatedDateTime": "2024-03-22T00:42:35.386Z"
+          },
+          "bandwidth": 1000,
+          "redundancy": {
+            "group": "dd22cd15-4d09-45b3-9523-37daf075a27d",
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "virtualNetwork": {
+                "uuid": "497f6eca-6276-4993-bfeb-53cbbbba6f08"
+              },
+              "interconnection": {
+                "uuid": "497f6eca-6276-4993-bfeb-53cbbbba6f08"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "location": {
+                "metroCode": "SV"
+              },
+              "profile": {
+                "href": "http://qa3api.corp.equinix.com/fabric/v4/serviceProfiles/f1a247aa-8f86-4a89-88c2-72497686cd0d",
+                "type": "L2_PROFILE",
+                "name": "Generic Service Profile",
+                "uuid": "f1a247aa-8f86-4a89-88c2-72497686cd0d"
+              }
+            }
           }
         }
       },
@@ -24911,7 +26202,11 @@
               "type": "BGP",
               "bgpIpv4": {
                 "customerPeerIp": "10.1.1.3",
-                "enabled": true
+                "enabled": true,
+                "outboundASPrependCount": 3,
+                "operation": {
+                  "operationalStatus": "UNKNOWN"
+                }
               },
               "customerAsn": 10000,
               "equinixAsn": 10001
@@ -24987,7 +26282,8 @@
           },
           "bgpIpv6": {
             "customerPeerIp": "2001:db8:c59b::1",
-            "equinixPeerIp": "2001:db8:c59b::1"
+            "equinixPeerIp": "2001:db8:c59b::1",
+            "outboundASPrependCount": 3
           },
           "customerAsn": 100,
           "bfd": {
@@ -25009,7 +26305,8 @@
           "type": "BGP",
           "bgpIpv4": {
             "customerPeerIp": "169.254.100.2",
-            "equinixPeerIp": "169.254.100.1"
+            "equinixPeerIp": "169.254.100.1",
+            "outboundASPrependCount": 3
           },
           "customerAsn": 100
         }
@@ -25037,7 +26334,11 @@
           "type": "BGP",
           "bgpIpv4": {
             "customerPeerIp": "10.1.1.3",
-            "enabled": true
+            "enabled": true,
+            "outboundASPrependCount": 3,
+            "operation": {
+              "operationalStatus": "UNKNOWN"
+            }
           },
           "customerAsn": 10000,
           "equinixAsn": 10001
@@ -25091,11 +26392,13 @@
               "type": "BGP",
               "bgpIpv4": {
                 "customerPeerIp": "10.1.1.2",
-                "equinixPeerIp": "192.168.100.1"
+                "equinixPeerIp": "192.168.100.1",
+                "outboundASPrependCount": 3
               },
               "bgpIpv6": {
                 "customerPeerIp": "2001:db8:c59b::1",
-                "equinixPeerIp": "2001:db8:c59b::1"
+                "equinixPeerIp": "2001:db8:c59b::1",
+                "outboundASPrependCount": 3
               },
               "customerAsn": 0,
               "equinixAsn": 0,
@@ -25115,11 +26418,13 @@
               "type": "BGP",
               "bgpIpv4": {
                 "customerPeerIp": "10.1.1.2",
-                "equinixPeerIp": "192.168.100.1"
+                "equinixPeerIp": "192.168.100.1",
+                "outboundASPrependCount": 3
               },
               "bgpIpv6": {
                 "customerPeerIp": "2001:db8:c59b::1",
-                "equinixPeerIp": "2001:db8:c59b::1"
+                "equinixPeerIp": "2001:db8:c59b::1",
+                "outboundASPrependCount": 3
               },
               "customerAsn": 0,
               "equinixAsn": 0,
@@ -25242,11 +26547,13 @@
           "type": "BGP",
           "bgpIpv4": {
             "customerPeerIp": "10.1.1.2",
-            "equinixPeerIp": "192.168.100.1"
+            "equinixPeerIp": "192.168.100.1",
+            "outboundASPrependCount": 3
           },
           "bgpIpv6": {
             "customerPeerIp": "2001:db8:c59b::1",
-            "equinixPeerIp": "2001:db8:c59b::1"
+            "equinixPeerIp": "2001:db8:c59b::1",
+            "outboundASPrependCount": 3
           },
           "customerAsn": 0,
           "equinixAsn": 0,
@@ -25280,7 +26587,11 @@
           "type": "BGP",
           "bgpIpv4": {
             "customerPeerIp": "10.1.1.3",
-            "enabled": true
+            "enabled": true,
+            "outboundASPrependCount": 3,
+            "operation": {
+              "operationalStatus": "UNKNOWN"
+            }
           },
           "customerAsn": 10000,
           "equinixAsn": 10001
@@ -25365,7 +26676,12 @@
           "type": "BGP",
           "bgpIpv4": {
             "customerPeerIp": "10.1.1.3",
-            "enabled": true
+            "enabled": true,
+            "outboundASPrependCount": 3,
+            "operation": {
+              "operationalStatus": "UP",
+              "opStatusChangedAt": "2021-10-30T07:21:39Z"
+            }
           },
           "customerAsn": 10000,
           "equinixAsn": 10001
@@ -25430,7 +26746,11 @@
           "type": "BGP",
           "bgpIpv4": {
             "enabled": true,
-            "customerPeerIp": "10.1.1.3"
+            "customerPeerIp": "10.1.1.3",
+            "outboundASPrependCount": 3,
+            "operation": {
+              "operationalStatus": "UNKNOWN"
+            }
           },
           "customerAsn": 10000,
           "equinixAsn": 10001
@@ -25459,7 +26779,11 @@
           "type": "BGP",
           "bgpIpv4": {
             "enabled": false,
-            "customerPeerIp": "10.1.1.3"
+            "customerPeerIp": "10.1.1.3",
+            "outboundASPrependCount": 3,
+            "operation": {
+              "operationalStatus": "UNKNOWN"
+            }
           },
           "customerAsn": 10000,
           "equinixAsn": 10001
@@ -25665,11 +26989,19 @@
               "name": "My-BGP-route-1",
               "bgpIpv4": {
                 "customerPeerIp": "10.1.1.2",
-                "equinixPeerIp": "10.1.1.3"
+                "equinixPeerIp": "10.1.1.3",
+                "operation": {
+                  "operationalStatus": "UP",
+                  "opStatusChangedAt": "2021-10-30T07:21:39Z"
+                }
               },
               "bgpIpv6": {
                 "customerPeerIp": "2001:db8:c59b::1",
-                "equinixPeerIp": "2001:db8:c59b::1"
+                "equinixPeerIp": "2001:db8:c59b::1",
+                "operation": {
+                  "operationalStatus": "UP",
+                  "opStatusChangedAt": "2021-10-30T07:21:39Z"
+                }
               },
               "customerAsn": 0,
               "equinixAsn": 0,
@@ -25705,11 +27037,19 @@
                   "name": "My-BGP-route-1",
                   "bgpIpv4": {
                     "customerPeerIp": "10.1.1.2",
-                    "equinixPeerIp": "10.1.1.3"
+                    "equinixPeerIp": "10.1.1.3",
+                    "operation": {
+                      "operationalStatus": "UP",
+                      "opStatusChangedAt": "2021-10-30T07:21:39Z"
+                    }
                   },
                   "bgpIpv6": {
                     "customerPeerIp": "2001:db8:c59b::1",
-                    "equinixPeerIp": "2001:db8:c59b::1"
+                    "equinixPeerIp": "2001:db8:c59b::1",
+                    "operation": {
+                      "operationalStatus": "UP",
+                      "opStatusChangedAt": "2021-10-30T07:21:39Z"
+                    }
                   },
                   "customerAsn": 0,
                   "equinixAsn": 0,
@@ -25736,11 +27076,19 @@
                   "name": "My-BGP-route-1",
                   "bgpIpv4": {
                     "customerPeerIp": "10.1.1.3",
-                    "equinixPeerIp": "10.1.1.4"
+                    "equinixPeerIp": "10.1.1.4",
+                    "operation": {
+                      "operationalStatus": "UP",
+                      "opStatusChangedAt": "2021-10-30T07:21:39Z"
+                    }
                   },
                   "bgpIpv6": {
                     "customerPeerIp": "2001:db8:c59b::1",
-                    "equinixPeerIp": "2001:db8:c59b::1"
+                    "equinixPeerIp": "2001:db8:c59b::1",
+                    "operation": {
+                      "operationalStatus": "UP",
+                      "opStatusChangedAt": "2021-10-30T07:21:39Z"
+                    }
                   },
                   "customerAsn": 0,
                   "equinixAsn": 0,
@@ -32594,12 +33942,6 @@
           "description": "Test filter",
           "project": {
             "projectId": 567
-          },
-          "notifications": {
-            "type": "ALL",
-            "emails": [
-              "test@equinix.com"
-            ]
           }
         }
       },
@@ -32622,14 +33964,6 @@
             "href": "https://api.equinix.com/resourceManager/v1/projects/567",
             "projectId": "dadd3ab6-c0af-430c-8216-43d44f08c1c5"
           },
-          "notifications": [
-            {
-              "type": "ALL",
-              "emails": [
-                "test@equinix.com"
-              ]
-            }
-          ],
           "changeLog": {
             "createdBy": "testuser",
             "createdByEmail": "testuser@equinix.com",
@@ -32657,14 +33991,6 @@
             "href": "https://api.equinix.com/resourceManager/v1/projects/567",
             "projectId": "dadd3ab6-c0af-430c-8216-43d44f08c1c5"
           },
-          "notifications": [
-            {
-              "type": "ALL",
-              "emails": [
-                "test@equinix.com"
-              ]
-            }
-          ],
           "changeLog": {
             "createdBy": "testuser",
             "createdByEmail": "testuser@equinix.com",
@@ -32719,14 +34045,6 @@
             "href": "https://api.equinix.com/resourceManager/v1/projects/567",
             "projectId": "dadd3ab6-c0af-430c-8216-43d44f08c1c5"
           },
-          "notifications": [
-            {
-              "type": "ALL",
-              "emails": [
-                "test@equinix.com"
-              ]
-            }
-          ],
           "changeLog": {
             "createdBy": "testuser",
             "createdByEmail": "testuser@equinix.com",
@@ -32774,15 +34092,7 @@
                 "description": "Test filter",
                 "project": {
                   "projectId": "dadd3ab6-c0af-430c-8216-43d44f08c1c5"
-                },
-                "notifications": [
-                  {
-                    "type": "ALL",
-                    "emails": [
-                      "test@equinix.com"
-                    ]
-                  }
-                ]
+                }
               }
             },
             {
@@ -32830,15 +34140,7 @@
             "description": "Test filter",
             "project": {
               "projectId": "dadd3ab6-c0af-430c-8216-43d44f08c1c5"
-            },
-            "notifications": [
-              {
-                "type": "ALL",
-                "emails": [
-                  "test@equinix.com"
-                ]
-              }
-            ]
+            }
           }
         }
       },
@@ -32922,14 +34224,6 @@
                 "href": "https://api.equinix.com/resourceManager/v1/projects/567",
                 "projectId": "dadd3ab6-c0af-430c-8216-43d44f08c1c5"
               },
-              "notifications": [
-                {
-                  "type": "ALL",
-                  "emails": [
-                    "test@equinix.com"
-                  ]
-                }
-              ],
               "changeLog": {
                 "createdBy": "testuser",
                 "createdByEmail": "testuser@equinix.com",
@@ -32950,14 +34244,6 @@
                 "href": "https://api.equinix.com/resourceManager/v1/projects/567",
                 "projectId": "dadd3ab6-c0af-430c-8216-43d44f08c1c5"
               },
-              "notifications": [
-                {
-                  "type": "ALL",
-                  "emails": [
-                    "test@equinix.com"
-                  ]
-                }
-              ],
               "changeLog": {
                 "createdBy": "testuser",
                 "createdByEmail": "testuser@equinix.com",
@@ -34947,6 +36233,45 @@
                 "type": "IP_VC",
                 "uuid": "ecd30480-07a1-469e-ad38-65fadf0f7221"
               },
+              "router": {
+                "href": "https://api.equinix.com/fabric/v4/routers/e2e99d48-66b8-4b80-84eb-daea190e9186",
+                "type": "XF_ROUTER",
+                "uuid": "e2e99d48-66b8-4b80-84eb-daea190e9186"
+              }
+            }
+          ]
+        }
+      },
+      "RoutesQuotaEvent": {
+        "value": {
+          "pagination": {
+            "offset": 10,
+            "limit": 10,
+            "total": 100
+          },
+          "data": [
+            {
+              "createdDateTime": "2023-04-01T10:30:00Z",
+              "href": "https://api.equinix.com/fabric/v4/events/422504a4-286d-44e7-b386-8e385d2e99e1",
+              "uuid": "422504a4-286d-44e7-b386-8e385d2e99e1",
+              "type": "RP_CONFIG_NOTIFICATION",
+              "subType": "CLOUD_ROUTER_IPV4_ROUTE_USAGE_REACHED_LIMIT",
+              "severity": 2,
+              "message": "The Fabric Cloud Router my-fcr-1, UUID :422504a4-286d-44e7-b386-8e385d2e99e1 has reached 100% of the IPv4 maximum routes quota. Avoid a network impact by upgrading the Fabric Cloud Router package.",
+              "router": {
+                "href": "https://api.equinix.com/fabric/v4/routers/e2e99d48-66b8-4b80-84eb-daea190e9186",
+                "type": "XF_ROUTER",
+                "uuid": "e2e99d48-66b8-4b80-84eb-daea190e9186"
+              }
+            },
+            {
+              "createdDateTime": "2023-04-01T10:30:00Z",
+              "href": "https://api.equinix.com/fabric/v4/events/422504a4-286d-44e7-b386-8e385d2e99e1",
+              "uuid": "422504a4-286d-44e7-b386-8e385d2e99e1",
+              "type": "RP_CONFIG_NOTIFICATION",
+              "subType": "CLOUD_ROUTER_IPV4_ROUTE_USAGE_REACHED_THRESHOLD",
+              "severity": 4,
+              "message": "The Fabric Cloud Router my-fcr-1, UUID :422504a4-286d-44e7-b386-8e385d2e99e1 has reached 90% of the IPv4 maximum routes quota. Avoid a network impact by upgrading the Fabric Cloud Router package.",
               "router": {
                 "href": "https://api.equinix.com/fabric/v4/routers/e2e99d48-66b8-4b80-84eb-daea190e9186",
                 "type": "XF_ROUTER",

@@ -121,7 +121,9 @@ public class ConnectionRouteFilterData {
     
     DETACHING("DETACHING"),
     
-    FAILED("FAILED");
+    FAILED("FAILED"),
+    
+    PENDING_BGP_CONFIGURATION("PENDING_BGP_CONFIGURATION");
 
     private String value;
 

@@ -7,11 +7,10 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**type** | [**TypeEnum**](#TypeEnum) | Route Filter type |  [optional] |
-|**name** | **String** |  |  [optional] |
+|**type** | [**TypeEnum**](#TypeEnum) | Route Filter type |  |
+|**name** | **String** |  |  |
 |**description** | **String** | Customer-provided connection description |  [optional] |
-|**project** | [**Project**](Project.md) |  |  [optional] |
-|**notifications** | [**List&lt;SimplifiedNotification&gt;**](SimplifiedNotification.md) | Preferences for notifications on route filter configuration or status changes |  [optional] |
+|**project** | [**Project**](Project.md) |  |  |
 
 
 

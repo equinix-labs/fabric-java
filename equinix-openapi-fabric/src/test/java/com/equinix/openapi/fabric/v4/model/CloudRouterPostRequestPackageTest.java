@@ -24,17 +24,17 @@ import org.junit.jupiter.api.Test;
 
 
 /**
- * Model tests for CloudRouterPackageType
+ * Model tests for CloudRouterPostRequestPackage
  */
-public class CloudRouterPackageTypeTest {
-    private final CloudRouterPackageType model = new CloudRouterPackageType();
+public class CloudRouterPostRequestPackageTest {
+    private final CloudRouterPostRequestPackage model = new CloudRouterPostRequestPackage();
 
     /**
-     * Model tests for CloudRouterPackageType
+     * Model tests for CloudRouterPostRequestPackage
      */
     @Test
-    public void testCloudRouterPackageType() {
-        // TODO: test CloudRouterPackageType
+    public void testCloudRouterPostRequestPackage() {
+        // TODO: test CloudRouterPostRequestPackage
     }
 
     /**
