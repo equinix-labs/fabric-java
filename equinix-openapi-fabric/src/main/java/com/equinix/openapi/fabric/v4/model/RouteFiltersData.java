@@ -18,7 +18,6 @@ import com.equinix.openapi.fabric.v4.model.Changelog;
 import com.equinix.openapi.fabric.v4.model.RouteFilterState;
 import com.equinix.openapi.fabric.v4.model.RouteFiltersChange;
 import com.equinix.openapi.fabric.v4.model.RouteFiltersDataProject;
-import com.equinix.openapi.fabric.v4.model.SimplifiedNotification;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -26,8 +25,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import com.google.gson.Gson;
@@ -193,10 +190,6 @@ public class RouteFiltersData {
   public static final String SERIALIZED_NAME_PROJECT = "project";
   @SerializedName(SERIALIZED_NAME_PROJECT)
   private RouteFiltersDataProject project;
-
-  public static final String SERIALIZED_NAME_NOTIFICATIONS = "notifications";
-  @SerializedName(SERIALIZED_NAME_NOTIFICATIONS)
-  private List<SimplifiedNotification> notifications = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_CHANGELOG = "changelog";
   @SerializedName(SERIALIZED_NAME_CHANGELOG)
@@ -447,36 +440,6 @@ public class RouteFiltersData {
   }
 
 
-  public RouteFiltersData notifications(List<SimplifiedNotification> notifications) {
-    
-    this.notifications = notifications;
-    return this;
-  }
-
-  public RouteFiltersData addNotificationsItem(SimplifiedNotification notificationsItem) {
-    if (this.notifications == null) {
-      this.notifications = new ArrayList<>();
-    }
-    this.notifications.add(notificationsItem);
-    return this;
-  }
-
-   /**
-   * Preferences for notifications on route filter configuration or status changes
-   * @return notifications
-  **/
-  @javax.annotation.Nullable
-
-  public List<SimplifiedNotification> getNotifications() {
-    return notifications;
-  }
-
-
-  public void setNotifications(List<SimplifiedNotification> notifications) {
-    this.notifications = notifications;
-  }
-
-
   public RouteFiltersData changelog(Changelog changelog) {
     
     this.changelog = changelog;
@@ -564,14 +527,13 @@ public class RouteFiltersData {
         Objects.equals(this.connectionsCount, routeFiltersData.connectionsCount) &&
         Objects.equals(this.rulesCount, routeFiltersData.rulesCount) &&
         Objects.equals(this.project, routeFiltersData.project) &&
-        Objects.equals(this.notifications, routeFiltersData.notifications) &&
         Objects.equals(this.changelog, routeFiltersData.changelog)&&
         Objects.equals(this.additionalProperties, routeFiltersData.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(href, type, uuid, name, description, state, change, notMatchedRuleAction, connectionsCount, rulesCount, project, notifications, changelog, additionalProperties);
+    return Objects.hash(href, type, uuid, name, description, state, change, notMatchedRuleAction, connectionsCount, rulesCount, project, changelog, additionalProperties);
   }
 
   @Override
@@ -589,7 +551,6 @@ public class RouteFiltersData {
     sb.append("    connectionsCount: ").append(toIndentedString(connectionsCount)).append("\n");
     sb.append("    rulesCount: ").append(toIndentedString(rulesCount)).append("\n");
     sb.append("    project: ").append(toIndentedString(project)).append("\n");
-    sb.append("    notifications: ").append(toIndentedString(notifications)).append("\n");
     sb.append("    changelog: ").append(toIndentedString(changelog)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
@@ -625,7 +586,6 @@ public class RouteFiltersData {
     openapiFields.add("connectionsCount");
     openapiFields.add("rulesCount");
     openapiFields.add("project");
-    openapiFields.add("notifications");
     openapiFields.add("changelog");
 
     // a set of required properties/fields (JSON key names)
@@ -669,20 +629,6 @@ public class RouteFiltersData {
       // validate the optional field `project`
       if (jsonObj.get("project") != null && !jsonObj.get("project").isJsonNull()) {
         RouteFiltersDataProject.validateJsonObject(jsonObj.getAsJsonObject("project"));
-      }
-      if (jsonObj.get("notifications") != null && !jsonObj.get("notifications").isJsonNull()) {
-        JsonArray jsonArraynotifications = jsonObj.getAsJsonArray("notifications");
-        if (jsonArraynotifications != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("notifications").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `notifications` to be an array in the JSON string but got `%s`", jsonObj.get("notifications").toString()));
-          }
-
-          // validate the optional field `notifications` (array)
-          for (int i = 0; i < jsonArraynotifications.size(); i++) {
-            SimplifiedNotification.validateJsonObject(jsonArraynotifications.get(i).getAsJsonObject());
-          };
-        }
       }
       // validate the optional field `changelog`
       if (jsonObj.get("changelog") != null && !jsonObj.get("changelog").isJsonNull()) {

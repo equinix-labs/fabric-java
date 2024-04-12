@@ -20,7 +20,7 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
-import java.net.URI;
+import java.time.OffsetDateTime;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -44,24 +44,24 @@ import java.util.Set;
 import com.equinix.openapi.fabric.JSON;
 
 /**
- * Fabric Cloud Router Package Type
+ * BGP IPv4 or IPv6 Connection State operational data
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class CloudRouterPackageType {
-  public static final String SERIALIZED_NAME_HREF = "href";
-  @SerializedName(SERIALIZED_NAME_HREF)
-  private URI href;
-
+public class BGPConnectionOperation {
   /**
-   * Cloud Router package type
+   * BGP IPv4 or IPv6 Connection State operational status
    */
-  @JsonAdapter(TypeEnum.Adapter.class)
-  public enum TypeEnum {
-    ROUTER_PACKAGE("ROUTER_PACKAGE");
+  @JsonAdapter(OperationalStatusEnum.Adapter.class)
+  public enum OperationalStatusEnum {
+    UP("UP"),
+    
+    DOWN("DOWN"),
+    
+    UNKNOWN("UNKNOWN");
 
     private String value;
 
-    TypeEnum(String value) {
+    OperationalStatusEnum(String value) {
       this.value = value;
     }
 
@@ -74,8 +74,8 @@ public class CloudRouterPackageType {
       return String.valueOf(value);
     }
 
-    public static TypeEnum fromValue(String value) {
-      for (TypeEnum b : TypeEnum.values()) {
+    public static OperationalStatusEnum fromValue(String value) {
+      for (OperationalStatusEnum b : OperationalStatusEnum.values()) {
         if (b.value.equals(value)) {
           return b;
         }
@@ -83,145 +83,72 @@ public class CloudRouterPackageType {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
 
-    public static class Adapter extends TypeAdapter<TypeEnum> {
+    public static class Adapter extends TypeAdapter<OperationalStatusEnum> {
       @Override
-      public void write(final JsonWriter jsonWriter, final TypeEnum enumeration) throws IOException {
+      public void write(final JsonWriter jsonWriter, final OperationalStatusEnum enumeration) throws IOException {
         jsonWriter.value(enumeration.getValue());
       }
 
       @Override
-      public TypeEnum read(final JsonReader jsonReader) throws IOException {
+      public OperationalStatusEnum read(final JsonReader jsonReader) throws IOException {
         String value =  jsonReader.nextString();
-        return TypeEnum.fromValue(value);
+        return OperationalStatusEnum.fromValue(value);
       }
     }
   }
 
-  public static final String SERIALIZED_NAME_TYPE = "type";
-  @SerializedName(SERIALIZED_NAME_TYPE)
-  private TypeEnum type;
+  public static final String SERIALIZED_NAME_OPERATIONAL_STATUS = "operationalStatus";
+  @SerializedName(SERIALIZED_NAME_OPERATIONAL_STATUS)
+  private OperationalStatusEnum operationalStatus;
 
-  /**
-   * Cloud Router package code
-   */
-  @JsonAdapter(CodeEnum.Adapter.class)
-  public enum CodeEnum {
-    LAB("LAB"),
-    
-    ADVANCED("ADVANCED"),
-    
-    STANDARD("STANDARD"),
-    
-    PREMIUM("PREMIUM");
+  public static final String SERIALIZED_NAME_OP_STATUS_CHANGED_AT = "opStatusChangedAt";
+  @SerializedName(SERIALIZED_NAME_OP_STATUS_CHANGED_AT)
+  private OffsetDateTime opStatusChangedAt;
 
-    private String value;
-
-    CodeEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static CodeEnum fromValue(String value) {
-      for (CodeEnum b : CodeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-
-    public static class Adapter extends TypeAdapter<CodeEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final CodeEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public CodeEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return CodeEnum.fromValue(value);
-      }
-    }
+  public BGPConnectionOperation() {
   }
 
-  public static final String SERIALIZED_NAME_CODE = "code";
-  @SerializedName(SERIALIZED_NAME_CODE)
-  private CodeEnum code;
-
-  public CloudRouterPackageType() {
-  }
-
-  public CloudRouterPackageType href(URI href) {
+  public BGPConnectionOperation operationalStatus(OperationalStatusEnum operationalStatus) {
     
-    this.href = href;
+    this.operationalStatus = operationalStatus;
     return this;
   }
 
    /**
-   * Fabric Cloud Router URI
-   * @return href
+   * BGP IPv4 or IPv6 Connection State operational status
+   * @return operationalStatus
   **/
   @javax.annotation.Nullable
 
-  public URI getHref() {
-    return href;
+  public OperationalStatusEnum getOperationalStatus() {
+    return operationalStatus;
   }
 
 
-  public void setHref(URI href) {
-    this.href = href;
+  public void setOperationalStatus(OperationalStatusEnum operationalStatus) {
+    this.operationalStatus = operationalStatus;
   }
 
 
-  public CloudRouterPackageType type(TypeEnum type) {
+  public BGPConnectionOperation opStatusChangedAt(OffsetDateTime opStatusChangedAt) {
     
-    this.type = type;
+    this.opStatusChangedAt = opStatusChangedAt;
     return this;
   }
 
    /**
-   * Cloud Router package type
-   * @return type
+   * Last BGP State Update by Date and Time
+   * @return opStatusChangedAt
   **/
   @javax.annotation.Nullable
 
-  public TypeEnum getType() {
-    return type;
+  public OffsetDateTime getOpStatusChangedAt() {
+    return opStatusChangedAt;
   }
 
 
-  public void setType(TypeEnum type) {
-    this.type = type;
-  }
-
-
-  public CloudRouterPackageType code(CodeEnum code) {
-    
-    this.code = code;
-    return this;
-  }
-
-   /**
-   * Cloud Router package code
-   * @return code
-  **/
-  @javax.annotation.Nonnull
-
-  public CodeEnum getCode() {
-    return code;
-  }
-
-
-  public void setCode(CodeEnum code) {
-    this.code = code;
+  public void setOpStatusChangedAt(OffsetDateTime opStatusChangedAt) {
+    this.opStatusChangedAt = opStatusChangedAt;
   }
 
   /**
@@ -237,9 +164,9 @@ public class CloudRouterPackageType {
    *
    * @param key name of the property
    * @param value value of the property
-   * @return the CloudRouterPackageType instance itself
+   * @return the BGPConnectionOperation instance itself
    */
-  public CloudRouterPackageType putAdditionalProperty(String key, Object value) {
+  public BGPConnectionOperation putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
         this.additionalProperties = new HashMap<String, Object>();
     }
@@ -278,25 +205,23 @@ public class CloudRouterPackageType {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CloudRouterPackageType cloudRouterPackageType = (CloudRouterPackageType) o;
-    return Objects.equals(this.href, cloudRouterPackageType.href) &&
-        Objects.equals(this.type, cloudRouterPackageType.type) &&
-        Objects.equals(this.code, cloudRouterPackageType.code)&&
-        Objects.equals(this.additionalProperties, cloudRouterPackageType.additionalProperties);
+    BGPConnectionOperation bgPConnectionOperation = (BGPConnectionOperation) o;
+    return Objects.equals(this.operationalStatus, bgPConnectionOperation.operationalStatus) &&
+        Objects.equals(this.opStatusChangedAt, bgPConnectionOperation.opStatusChangedAt)&&
+        Objects.equals(this.additionalProperties, bgPConnectionOperation.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(href, type, code, additionalProperties);
+    return Objects.hash(operationalStatus, opStatusChangedAt, additionalProperties);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class CloudRouterPackageType {\n");
-    sb.append("    href: ").append(toIndentedString(href)).append("\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    code: ").append(toIndentedString(code)).append("\n");
+    sb.append("class BGPConnectionOperation {\n");
+    sb.append("    operationalStatus: ").append(toIndentedString(operationalStatus)).append("\n");
+    sb.append("    opStatusChangedAt: ").append(toIndentedString(opStatusChangedAt)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -320,42 +245,27 @@ public class CloudRouterPackageType {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("href");
-    openapiFields.add("type");
-    openapiFields.add("code");
+    openapiFields.add("operationalStatus");
+    openapiFields.add("opStatusChangedAt");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("code");
   }
 
  /**
   * Validates the JSON Object and throws an exception if issues found
   *
   * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to CloudRouterPackageType
+  * @throws IOException if the JSON Object is invalid with respect to BGPConnectionOperation
   */
   public static void validateJsonObject(JsonObject jsonObj) throws IOException {
       if (jsonObj == null) {
-        if (!CloudRouterPackageType.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in CloudRouterPackageType is not found in the empty JSON string", CloudRouterPackageType.openapiRequiredFields.toString()));
+        if (!BGPConnectionOperation.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in BGPConnectionOperation is not found in the empty JSON string", BGPConnectionOperation.openapiRequiredFields.toString()));
         }
       }
-
-      // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : CloudRouterPackageType.openapiRequiredFields) {
-        if (jsonObj.get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
-        }
-      }
-      if ((jsonObj.get("href") != null && !jsonObj.get("href").isJsonNull()) && !jsonObj.get("href").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `href` to be a primitive type in the JSON string but got `%s`", jsonObj.get("href").toString()));
-      }
-      if ((jsonObj.get("type") != null && !jsonObj.get("type").isJsonNull()) && !jsonObj.get("type").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("type").toString()));
-      }
-      if (!jsonObj.get("code").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `code` to be a primitive type in the JSON string but got `%s`", jsonObj.get("code").toString()));
+      if ((jsonObj.get("operationalStatus") != null && !jsonObj.get("operationalStatus").isJsonNull()) && !jsonObj.get("operationalStatus").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `operationalStatus` to be a primitive type in the JSON string but got `%s`", jsonObj.get("operationalStatus").toString()));
       }
   }
 
@@ -363,16 +273,16 @@ public class CloudRouterPackageType {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!CloudRouterPackageType.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'CloudRouterPackageType' and its subtypes
+       if (!BGPConnectionOperation.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'BGPConnectionOperation' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<CloudRouterPackageType> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(CloudRouterPackageType.class));
+       final TypeAdapter<BGPConnectionOperation> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(BGPConnectionOperation.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<CloudRouterPackageType>() {
+       return (TypeAdapter<T>) new TypeAdapter<BGPConnectionOperation>() {
            @Override
-           public void write(JsonWriter out, CloudRouterPackageType value) throws IOException {
+           public void write(JsonWriter out, BGPConnectionOperation value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
              // serialize additional properties
@@ -395,11 +305,11 @@ public class CloudRouterPackageType {
            }
 
            @Override
-           public CloudRouterPackageType read(JsonReader in) throws IOException {
+           public BGPConnectionOperation read(JsonReader in) throws IOException {
              JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
              validateJsonObject(jsonObj);
              // store additional fields in the deserialized instance
-             CloudRouterPackageType instance = thisAdapter.fromJsonTree(jsonObj);
+             BGPConnectionOperation instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
                if (!openapiFields.contains(entry.getKey())) {
                  if (entry.getValue().isJsonPrimitive()) { // primitive type
@@ -426,18 +336,18 @@ public class CloudRouterPackageType {
   }
 
  /**
-  * Create an instance of CloudRouterPackageType given an JSON string
+  * Create an instance of BGPConnectionOperation given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of CloudRouterPackageType
-  * @throws IOException if the JSON string is invalid with respect to CloudRouterPackageType
+  * @return An instance of BGPConnectionOperation
+  * @throws IOException if the JSON string is invalid with respect to BGPConnectionOperation
   */
-  public static CloudRouterPackageType fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, CloudRouterPackageType.class);
+  public static BGPConnectionOperation fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, BGPConnectionOperation.class);
   }
 
  /**
-  * Convert an instance of CloudRouterPackageType to an JSON string
+  * Convert an instance of BGPConnectionOperation to an JSON string
   *
   * @return JSON string
   */

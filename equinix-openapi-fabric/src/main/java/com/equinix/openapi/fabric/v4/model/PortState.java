@@ -42,7 +42,15 @@ public enum PortState {
   
   INACTIVE("INACTIVE"),
   
-  FAILED("FAILED");
+  FAILED("FAILED"),
+  
+  ADDED("ADDED"),
+  
+  DELETED("DELETED"),
+  
+  TO_BE_ADDED("TO_BE_ADDED"),
+  
+  TO_BE_DELETED("TO_BE_DELETED");
 
   private String value;
 

@@ -16,7 +16,7 @@ info:
     url: https://developer.equinix.com/agreement
   termsOfService: https://www.equinix.com/about/legal/terms
   title: Equinix Fabric API v4
-  version: "4.12"
+  version: "4.13"
 externalDocs:
   description: Find more information on Equinix Developer Portal
   url: https://developer.equinix.com
@@ -191,6 +191,36 @@ paths:
               Metal2Sp-Aws:
                 $ref: '#/components/examples/Metal2Sp-Aws'
                 value: null
+              Metal2Sp-Azure:
+                $ref: '#/components/examples/Metal2Sp-Azure'
+                value: null
+              Metal2Sp-GCP:
+                $ref: '#/components/examples/Metal2Sp-GCP'
+                value: null
+              Metal2Sp-Oracle:
+                $ref: '#/components/examples/Metal2Sp-Oracle'
+                value: null
+              Metal2Sp-IBM:
+                $ref: '#/components/examples/Metal2Sp-IBM'
+                value: null
+              Metal2Port-Dot1Q:
+                $ref: '#/components/examples/Metal2Port-Dot1q'
+                value: null
+              Metal2Port-QinQ:
+                $ref: '#/components/examples/Metal2Port-Qinq'
+                value: null
+              Metal2Port-ZsideServiceToken:
+                $ref: '#/components/examples/Metal2ServiceToken'
+                value: null
+              Metal2Sp-Generic:
+                $ref: '#/components/examples/Metal2Sp-Generic'
+                value: null
+              Vd2IASp:
+                $ref: '#/components/examples/Vd2IAProfile-Request'
+                value: null
+              Fcr2Metal-Network:
+                $ref: '#/components/examples/Fcr2Metal-Network'
+                value: null
             schema:
               $ref: '#/components/schemas/ConnectionPostRequest'
         required: true
@@ -234,6 +264,33 @@ paths:
                   value: null
                 Metal2Sp-Aws:
                   $ref: '#/components/examples/Metal2Sp-Aws-Response'
+                  value: null
+                Metal2Sp-Azure:
+                  $ref: '#/components/examples/Metal2Sp-Azure-Response'
+                  value: null
+                Metal2Sp-GCP:
+                  $ref: '#/components/examples/Metal2Sp-GCP-Response'
+                  value: null
+                Metal2Sp-Oracle:
+                  $ref: '#/components/examples/Metal2Sp-Oracle-Response'
+                  value: null
+                Metal2Sp-IBM:
+                  $ref: '#/components/examples/Metal2Sp-IBM-Response'
+                  value: null
+                Metal2Port-Dot1Q:
+                  $ref: '#/components/examples/Metal2Port-Dot1q-Response'
+                  value: null
+                Metal2Port-QinQ:
+                  $ref: '#/components/examples/Metal2Port-Qinq-Response'
+                  value: null
+                Metal2Port-ZsideServiceToken:
+                  $ref: '#/components/examples/Metal2ServiceToken-Response'
+                  value: null
+                Metal2Sp-Generic:
+                  $ref: '#/components/examples/Metal2Sp-Generic-Response'
+                  value: null
+                Fcr2Metal-Network:
+                  $ref: '#/components/examples/Fcr2Metal-Network'
                   value: null
               schema:
                 $ref: '#/components/schemas/Connection'
@@ -5339,7 +5396,7 @@ paths:
           content:
             application/json:
               examples:
-                getAllRouteFilters:
+                getAllRouteFilterRuless:
                   $ref: '#/components/examples/RouteFilterRulesGetAll'
                   value: null
               schema:
@@ -6162,7 +6219,7 @@ paths:
           content:
             application/json:
               examples:
-                getAllRouteFilters:
+                getAllRouteFilterRuless:
                   $ref: '#/components/examples/RouteFilterRulesGetAll'
                   value: null
               schema:
@@ -7952,7 +8009,7 @@ paths:
           $ref: '#/components/schemas/ServiceId'
         style: simple
       responses:
-        "202":
+        "200":
           content:
             application/json:
               examples:
@@ -8581,6 +8638,168 @@ paths:
       tags:
       - Precision Time
       x-content-type: application/json
+      x-accepts: application/json
+  /fabric/v4/timeServices/{serviceId}/connections:
+    get:
+      description: The API provides capability to get prevision timing service's details
+      operationId: getTimeServicesConnectionsByServiceId
+      parameters:
+      - description: Service UUID
+        explode: false
+        in: path
+        name: serviceId
+        required: true
+        schema:
+          $ref: '#/components/schemas/ServiceId'
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/serviceConnectionsResponse'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/precisionTimeServiceConnectionsResponse'
+          description: Return Time Service Connection
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
+        "415":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/415'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unsupported Media Type
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
+      summary: Get Connection Links
+      tags:
+      - Precision Time
+      x-accepts: application/json
+  /fabric/v4/timeServicePackages:
+    get:
+      description: The API provides capability to get timing service's packages
+      operationId: getTimeServicesPackages
+      parameters: []
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/servicePackagesResponse'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/precisionTimeServicePackagesResponse'
+          description: Successful operation
+        "415":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/415'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unsupported Media Type
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
+      summary: Get Packages
+      tags:
+      - Precision Time
+      x-accepts: application/json
+  /fabric/v4/timeServicePackages/{packageCode}:
+    get:
+      description: The API provides capability to get timing service's package by
+        code
+      operationId: getTimeServicesPackageByCode
+      parameters:
+      - description: Package Code
+        explode: false
+        in: path
+        name: packageCode
+        required: true
+        schema:
+          enum:
+          - NTP_STANDARD
+          - NTP_ENTERPRISE
+          - PTP_STANDARD
+          - PTP_ENTERPRISE
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/servicePackageResponse'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/precisionTimePackageResponse'
+          description: Successful operation
+        "415":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/415'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unsupported Media Type
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
+      summary: Get Package By Code
+      tags:
+      - Precision Time
       x-accepts: application/json
 components:
   examples:
@@ -9975,7 +10194,7 @@ components:
       value:
         type: EVPL_VC
         name: My-Metal-sp-connection
-        bandwidth: 1000
+        bandwidth: "1000"
         aSide:
           accessPoint:
             type: METAL_NETWORK
@@ -9988,10 +10207,263 @@ components:
               uuid: 9127bb72-5f4f-4517-be74-3af7ce612687
             authenticationKey: xxxxxxxxx
             sellerRegion: us-west-1
-        order:
-          purchaseOrderNumber: 1-129105284100
+        notifications:
+        - type: ALL
+          emails:
+          - test@equinix.com
+          - test1@equinix.com
         project:
           projectId: 567
+    Metal2Sp-Azure:
+      value:
+        type: EVPL_VC
+        name: Metal2Azure Connection
+        bandwidth: "50"
+        aSide:
+          accessPoint:
+            type: METAL_NETWORK
+            authenticationKey: xxxxxxxxx
+        zSide:
+          accessPoint:
+            type: SP
+            profile:
+              type: L2_PROFILE
+              uuid: a1390b22-bbe0-4e93-ad37-85beef9d254d
+            location:
+              metroCode: SV
+            authenticationKey: xxxxxxxxx
+            peeringType: PRIVATE
+        notifications:
+        - type: ALL
+          emails:
+          - eqxfabricamcrh@gmail.com
+        project:
+          projectId: 16799d66-ef43-445c-ba29-d17522d8a137
+    Metal2Sp-GCP:
+      value:
+        type: EVPL_VC
+        name: Metal2GCP-Connection
+        bandwidth: "50"
+        aSide:
+          accessPoint:
+            type: METAL_NETWORK
+            authenticationKey: xxxxxxxxx
+        zSide:
+          accessPoint:
+            type: SP
+            profile:
+              uuid: 063f4b0f-2d5b-4db7-95da-d9eddfc92602
+            location:
+              metroCode: SV
+            authenticationKey: xxxxxxxxx
+            sellerRegion: us-west1
+        notifications:
+        - type: ALL
+          emails:
+          - test@equinix.com
+        project:
+          projectId: "377533000114703"
+    Metal2Sp-Oracle:
+      value:
+        type: EVPL_VC
+        name: Metal2Oracle-Connection
+        bandwidth: "50"
+        aSide:
+          accessPoint:
+            type: METAL_NETWORK
+            authenticationKey: xxxxxxxxx
+        zSide:
+          accessPoint:
+            type: SP
+            profile:
+              uuid: 60ef0382-cdaa-44e7-bd36-b803731816b8
+            location:
+              metroCode: SV
+            authenticationKey: xxxxxxxxx
+            sellerRegion: us-sanjose-1
+        notifications:
+        - type: ALL
+          emails:
+          - test@gmail.com
+        project:
+          projectId: 16799d66-ef43-445c-ba29-d17522d8a137
+    Metal2Sp-IBM:
+      value:
+        type: EVPL_VC
+        name: Metal2IBM-Connection
+        bandwidth: "50"
+        aSide:
+          accessPoint:
+            type: METAL_NETWORK
+            authenticationKey: xxxxxxxxx
+        zSide:
+          accessPoint:
+            type: SP
+            profile:
+              type: L2_PROFILE
+              uuid: 317dcd1c-83ba-4d7c-994a-3e7ddb875026
+            location:
+              metroCode: SV
+            authenticationKey: xxxxxxxxx
+            sellerRegion: San Jose 2
+        additionalInfo:
+        - key: ASN
+          value: 12345
+        - key: BGP_CER_CIDR
+          value: 172.16.0.17/30
+        - key: BGP_IBM_CIDR
+          value: 172.16.0.18/30
+        - key: Global
+          value: false
+        notifications:
+        - type: ALL
+          emails:
+          - test@equinix.com
+        project:
+          projectId: "377533000114703"
+    Metal2Port-Dot1q:
+      value:
+        type: EVPL_VC
+        name: Metal2Port-dot1q
+        bandwidth: "50"
+        aSide:
+          accessPoint:
+            type: METAL_NETWORK
+            authenticationKey: xxxxxxxxx
+        zSide:
+          accessPoint:
+            type: COLO
+            port:
+              uuid: 6c73d02c-87e1-4642-8e18-01eb4b87e243
+            linkProtocol:
+              type: DOT1Q
+              vlanTag: 128
+        notifications:
+        - type: ALL
+          emails:
+          - test@equinix.com
+        project:
+          projectId: "377533000114703"
+    Metal2Port-Qinq:
+      value:
+        type: EVPL_VC
+        name: Metal2Port-qinq
+        bandwidth: "50"
+        aSide:
+          accessPoint:
+            type: METAL_NETWORK
+            authenticationKey: xxxxxxxxx
+        zSide:
+          accessPoint:
+            type: COLO
+            port:
+              uuid: 4ff4047c-7217-4b79-9943-c2c4a2f7324d
+            linkProtocol:
+              type: QINQ
+              vlanSTag: 134
+              vlanCTag: 439
+        notifications:
+        - type: ALL
+          emails:
+          - test@equinix.com
+        project:
+          projectId: "377533000114703"
+    Metal2ServiceToken:
+      value:
+        type: EVPL_VC
+        name: Metal2ServiceToken
+        bandwidth: "50"
+        aSide:
+          accessPoint:
+            type: METAL_NETWORK
+            authenticationKey: xxxxxxxxx
+        zSide:
+          serviceToken:
+            uuid: bc1383be-579a-4d75-ae19-b0d487bbff90
+        notifications:
+        - type: ALL
+          emails:
+          - test@equinix.com
+        project:
+          projectId: "377533000114703"
+    Metal2Sp-Generic:
+      value:
+        type: EVPL_VC
+        name: Metal2Generic
+        bandwidth: 1000
+        redundancy:
+          priority: PRIMARY
+        aSide:
+          accessPoint:
+            type: METAL_NETWORK
+            authenticationKey: xxxxxxxxx
+        zSide:
+          accessPoint:
+            type: SP
+            profile:
+              type: L2_PROFILE
+              uuid: 22d4e853-ef33-4ff0-b5b2-a2b1d5dfa50c
+            location:
+              metroCode: DC
+        notifications:
+        - type: ALL
+          emails:
+          - test@test.com
+    Vd2IAProfile-Request:
+      value:
+        type: IA_VC
+        bandwidth: 50
+        name: Network Device to IA SP
+        redundancy:
+          priority: PRIMARY
+        aSide:
+          accessPoint:
+            type: VD
+            virtualDevice:
+              type: EDGE
+              uuid: 20d32a80-0d61-4333-bc03-707b591ae2f4
+            interface:
+              type: CLOUD
+              id: 4
+        zSide:
+          accessPoint:
+            type: SP
+            profile:
+              type: IA_PROFILE
+              uuid: 32d81829-0bf8-45d5-84e2-7289a553dbb6
+            location:
+              metroCode: SV
+        order:
+          purchaseOrderNumber: 1-323292
+        notifications:
+        - type: ALL
+          emails:
+          - test@equinix.com
+          - test1@equinix.com
+    Fcr2Metal-Network:
+      value:
+        type: IP_VC
+        name: My-FCR-MetalNetwork-Connection
+        bandwidth: 50
+        redundancy:
+          group: a00cef6f-8e35-4794-9ff9-665e084e4e6d
+          priority: SECONDARY
+        aSide:
+          accessPoint:
+            type: CLOUD_ROUTER
+            router:
+              uuid: 66a21614-1c4a-11ec-9621-0242ac130002
+        zSide:
+          accessPoint:
+            type: METAL_NETWORK
+            authenticationKey: xxxxxxxxx
+        project:
+          projectId: "567"
+        notifications:
+        - type: ALL
+          emails:
+          - test@equinix.com
+          - test1@equinix.com
     ConnectionExample:
       value:
         href: https://api.equinix.com/fabric/v4/connections/3a58dd05-f46d-4b1d-a154-2e85c396ea62
@@ -10607,6 +11079,371 @@ components:
           createdByEmail: testuser@equinix.com
           createdByFullName: testuser testuser
           createdDateTime: 2020-05-21T10:30:00Z
+    Metal2Sp-Azure-Response:
+      value:
+        type: EVPL_VC
+        href: https://api.equinix.com/fabric/v4/connections/d3b69c6b-3b23-4ac0-a1bb-8db16460714d
+        uuid: d3b69c6b-3b23-4ac0-a1bb-8db16460714d
+        name: Metal2Azure Connection
+        operation:
+          providerStatus: PROVISIONING
+          equinixStatus: PROVISIONING
+        order:
+          billingTier: Up to 50 MB
+        notifications:
+        - type: ALL
+          emails:
+          - eqxfabricamcrh@gmail.com
+        changeLog:
+          createdBy: fabric
+          createdByFullName: fabric
+          createdByEmail: fabric@gmail.com
+          createdDateTime: 2024-03-21T20:14:04.072Z
+          updatedBy: fabric
+          updatedByFullName: fabric
+          updatedByEmail: fabric@gmail.com
+          updatedDateTime: 2024-03-21T20:14:04.072Z
+        bandwidth: 50
+        redundancy:
+          group: 3cbd354d-d147-4552-bfd0-78c559b4cc91
+          priority: PRIMARY
+        aSide:
+          accessPoint:
+            virtualNetwork:
+              uuid: c652cef9-4e52-4165-b997-d0f52b5a18dd
+            interconnection:
+              uuid: a00f1a2a-e50e-4019-ba86-0768dac8396c
+        zSide:
+          accessPoint:
+            location:
+              metroCode: SV
+            profile:
+              href: https://api.equinix.com/fabric/v4/serviceProfiles/a1390b22-bbe0-4e93-ad37-85beef9d254d
+              type: L2_PROFILE
+              name: Azure ExpressRoute
+              uuid: a1390b22-bbe0-4e93-ad37-85beef9d254d
+            authenticationKey: xxxxxxxxx
+    Metal2Sp-GCP-Response:
+      value:
+        type: EVPL_VC
+        href: https://api.equinix.com/fabric/v4/connections/d3b69c6b-3b23-4ac0-a1bb-8db16460714d
+        uuid: d3b69c6b-3b23-4ac0-a1bb-8db16460714d
+        name: Metal2GCP Connection
+        operation:
+          providerStatus: PROVISIONING
+          equinixStatus: PROVISIONING
+        order:
+          billingTier: Up to 50 MB
+        notifications:
+        - type: ALL
+          emails:
+          - eqxfabricamcrh@gmail.com
+        changeLog:
+          createdBy: fabric
+          createdByFullName: fabric
+          createdByEmail: fabric@gmail.com
+          createdDateTime: 2024-03-21T20:14:04.072Z
+          updatedBy: fabric
+          updatedByFullName: fabric
+          updatedByEmail: fabric@gmail.com
+          updatedDateTime: 2024-03-21T20:14:04.072Z
+        bandwidth: 50
+        redundancy:
+          group: 3cbd354d-d147-4552-bfd0-78c559b4cc91
+          priority: PRIMARY
+        aSide:
+          accessPoint:
+            virtualNetwork:
+              uuid: c652cef9-4e52-4165-b997-d0f52b5a18dd
+            interconnection:
+              uuid: a00f1a2a-e50e-4019-ba86-0768dac8396c
+        zSide:
+          accessPoint:
+            location:
+              metroCode: SV
+            profile:
+              href: https://api.equinix.com/fabric/v4/serviceProfiles/063f4b0f-2d5b-4db7-95da-d9eddfc92602
+              type: L2_PROFILE
+              name: GCP Service Profile
+              uuid: 063f4b0f-2d5b-4db7-95da-d9eddfc92602
+            authenticationKey: xxxxxxxxx
+    Metal2Sp-Oracle-Response:
+      value:
+        type: EVPL_VC
+        href: https://api.equinix.com/fabric/v4/connections/7a21d5d8-f153-45f8-ad76-f92babf3f103
+        uuid: 7a21d5d8-f153-45f8-ad76-f92babf3f103
+        name: Metal2Oracle-Connection
+        operation:
+          providerStatus: PROVISIONING
+          equinixStatus: PROVISIONING
+        order:
+          billingTier: Up to 50Mb
+        notifications:
+        - type: ALL
+          emails:
+          - test@gmail.com
+        changeLog:
+          createdBy: fabric
+          createdByFullName: fabric
+          createdByEmail: fabric@gmail.com
+          createdDateTime: 2024-03-19T23:09:15.547Z
+          updatedBy: fabric
+          updatedByFullName: fabric
+          updatedByEmail: fabric@gmail.com
+          updatedDateTime: 2024-03-19T23:09:15.547Z
+        bandwidth: 50
+        redundancy:
+          group: 9674d5cf-03a4-4129-933f-60d21e0f3ddb
+          priority: PRIMARY
+        aSide:
+          accessPoint:
+            virtualNetwork:
+              uuid: d357394a-3453-415b-8bf3-4ea95b3b13fd
+            interconnection:
+              uuid: 7fcf077d-3383-4e22-9173-7b415fdfd1bd
+        zSide:
+          accessPoint:
+            location:
+              metroCode: SV
+            profile:
+              href: https://api.equinix.com/fabric/v4/serviceProfiles/60ef0382-cdaa-44e7-bd36-b803731816b8
+              type: L2_PROFILE
+              name: Oracle Cloud Infrastructure FastConnect
+              uuid: 60ef0382-cdaa-44e7-bd36-b803731816b8
+            sellerRegion: us-sanjose-1
+            authenticationKey: xxxxxxxxx
+    Metal2Sp-IBM-Response:
+      value:
+        type: EVPL_VC
+        href: http://qa3api.corp.equinix.com/fabric/v4/connections/f0e56501-d92f-4ca3-b047-f95628d4a32a
+        uuid: f0e56501-d92f-4ca3-b047-f95628d4a32a
+        name: Metal2IBM-Connection
+        operation:
+          providerStatus: PROVISIONING
+          equinixStatus: PROVISIONING
+        order:
+          billingTier: Up to 50 MB
+        notifications:
+        - type: ALL
+          emails:
+          - dragons-qa3@equinix.com
+        changeLog:
+          createdBy: fabric
+          createdByFullName: fabric
+          createdByEmail: fabric@equinix.com
+          createdDateTime: 2024-03-06T17:20:41.574Z
+          updatedBy: fabric
+          updatedByFullName: fabric
+          updatedByEmail: fabric@equinix.com
+          updatedDateTime: 2024-03-06T17:20:41.574Z
+        bandwidth: 50
+        redundancy:
+          group: edf883ed-3ea0-4adf-b58c-4ea163c612d5
+          priority: PRIMARY
+        aSide:
+          accessPoint:
+            virtualNetwork:
+              uuid: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+            interconnection:
+              uuid: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+        zSide:
+          accessPoint:
+            location:
+              metroCode: SV
+            profile:
+              href: http://qa3api.corp.equinix.com/fabric/v4/serviceProfiles/317dcd1c-83ba-4d7c-994a-3e7ddb875026
+              type: L2_PROFILE
+              name: IBM Cloud Direct Link 2
+              uuid: 317dcd1c-83ba-4d7c-994a-3e7ddb875026
+            sellerRegion: San Jose 2
+            authenticationKey: xxxxxxxxx
+    Metal2Port-Dot1q-Response:
+      value:
+        type: EVPL_VC
+        href: http://qa3api.corp.equinix.com/fabric/v4/connections/02b7b7d4-1726-4451-9598-e28091c096cd
+        uuid: 02b7b7d4-1726-4451-9598-e28091c096cd
+        name: Metal2Port-dot1q
+        operation:
+          providerStatus: NOT_AVAILABLE
+          equinixStatus: PROVISIONING
+        order:
+          billingTier: Up to 50 MB
+        notifications:
+        - type: ALL
+          emails:
+          - test@equinix.com
+        changeLog:
+          createdBy: fabric
+          createdByFullName: fabric
+          createdByEmail: fabric@equinix.com
+          createdDateTime: 2024-03-20T00:39:07.648Z
+          updatedBy: fabric
+          updatedByFullName: fabric
+          updatedByEmail: fabric@equinix.com
+          updatedDateTime: 2024-03-20T00:39:07.648Z
+        bandwidth: 50
+        redundancy:
+          group: b76b3167-ae8e-42c4-9571-b659f9779897
+          priority: PRIMARY
+        aSide:
+          accessPoint:
+            virtualNetwork:
+              uuid: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+            interconnection:
+              uuid: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+        zSide:
+          accessPoint:
+            location:
+              metroCode: SV
+            port:
+              type: XF_PORT
+              href: http://qa3api.corp.equinix.com/fabric/v4/ports/6c73d02c-87e1-4642-8e18-01eb4b87e243
+              uuid: 6c73d02c-87e1-4642-8e18-01eb4b87e243
+              name: 290061-SV1-CX-SEC-01
+            linkProtocol:
+              type: DOT1Q
+              vlanTag: 1387
+    Metal2Port-Qinq-Response:
+      value:
+        type: EVPL_VC
+        href: http://qa3api.corp.equinix.com/fabric/v4/connections/d87489aa-c32d-4756-a81a-6f557afb871d
+        uuid: d87489aa-c32d-4756-a81a-6f557afb871d
+        name: Metal2Port-qinq
+        operation:
+          providerStatus: NOT_AVAILABLE
+          equinixStatus: PROVISIONING
+        order:
+          billingTier: Up to 50 MB
+        notifications:
+        - type: ALL
+          emails:
+          - test@equinix.com
+        changeLog:
+          createdBy: fabric
+          createdByFullName: fabric
+          createdByEmail: fabric@equinix.com
+          createdDateTime: 2024-03-21T23:44:22.347Z
+          updatedBy: fabric
+          updatedByFullName: fabric
+          updatedByEmail: fabric@equinix.com
+          updatedDateTime: 2024-03-21T23:44:22.347Z
+        bandwidth: 50
+        redundancy:
+          group: d3cf59c0-33d7-4b9d-94c6-e60b27c363d3
+          priority: PRIMARY
+        aSide:
+          accessPoint:
+            virtualNetwork:
+              uuid: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+            interconnection:
+              uuid: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+        zSide:
+          accessPoint:
+            location:
+              metroCode: SV
+            port:
+              type: XF_PORT
+              href: http://qa3api.corp.equinix.com/fabric/v4/ports/4ff4047c-7217-4b79-9943-c2c4a2f7324d
+              uuid: 4ff4047c-7217-4b79-9943-c2c4a2f7324d
+              name: 290061-SV1-CX-PRI-02
+            linkProtocol:
+              type: QINQ
+              vlanSTag: 134
+              vlanCTag: 439
+    Metal2ServiceToken-Response:
+      value:
+        type: EVPL_VC
+        href: http://qa3api.corp.equinix.com/fabric/v4/connections/f712745e-ccf9-4a0d-9e4d-83c1bb5b9028
+        uuid: f712745e-ccf9-4a0d-9e4d-83c1bb5b9028
+        name: Metal2ServiceToken
+        operation:
+          providerStatus: NOT_AVAILABLE
+          equinixStatus: PROVISIONING
+        order:
+          billingTier: Up to 50 MB
+        notifications:
+        - type: ALL
+          emails:
+          - test@equinix.com
+        changeLog:
+          createdBy: fabric
+          createdByFullName: fabric
+          createdByEmail: fabric@equinix.com
+          createdDateTime: 2024-03-20T20:12:08.595Z
+          updatedBy: fabric
+          updatedByFullName: fabric
+          updatedByEmail: fabric@equinix.com
+          updatedDateTime: 2024-03-20T20:12:08.595Z
+        bandwidth: 50
+        redundancy:
+          group: fc504dcf-8697-4860-80cd-6a7afaa52586
+          priority: PRIMARY
+        aSide:
+          accessPoint:
+            virtualNetwork:
+              uuid: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+            interconnection:
+              uuid: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+        zSide:
+          serviceToken:
+            href: http://qa3api.corp.equinix.com/fabric/v4/serviceTokens/bc1383be-579a-4d75-ae19-b0d487bbff90
+            uuid: bc1383be-579a-4d75-ae19-b0d487bbff90
+            project:
+              projectId: "377533000114703"
+          accessPoint:
+            location:
+              metroCode: SV
+            port:
+              type: XF_PORT
+              href: http://qa3api.corp.equinix.com/fabric/v4/ports/6c73d02c-87e1-4642-8e18-01eb4b87e243
+              uuid: 6c73d02c-87e1-4642-8e18-01eb4b87e243
+              name: 290061-SV1-CX-SEC-01
+            linkProtocol:
+              type: DOT1Q
+              vlanTag: 4087
+    Metal2Sp-Generic-Response:
+      value:
+        type: EVPL_VC
+        href: http://qa3api.corp.equinix.com/fabric/v4/connections/1a9ffa8f-d4d4-44ab-9733-362c9a36ec94
+        uuid: 1a9ffa8f-d4d4-44ab-9733-362c9a36ec94
+        name: Metal2Generic
+        operation:
+          providerStatus: NOT_AVAILABLE
+          equinixStatus: PENDING_APPROVAL
+        order:
+          billingTier: Up to 1G
+        notifications:
+        - type: ALL
+          emails:
+          - test@test.com
+        changeLog:
+          createdBy: fabric
+          createdByFullName: fabric
+          createdByEmail: fabric@equinix.com
+          createdDateTime: 2024-03-22T00:42:35.386Z
+          updatedBy: fabric
+          updatedByFullName: fabric
+          updatedByEmail: fabric@equinix.com
+          updatedDateTime: 2024-03-22T00:42:35.386Z
+        bandwidth: 1000
+        redundancy:
+          group: dd22cd15-4d09-45b3-9523-37daf075a27d
+          priority: PRIMARY
+        aSide:
+          accessPoint:
+            virtualNetwork:
+              uuid: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+            interconnection:
+              uuid: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+        zSide:
+          accessPoint:
+            location:
+              metroCode: SV
+            profile:
+              href: http://qa3api.corp.equinix.com/fabric/v4/serviceProfiles/f1a247aa-8f86-4a89-88c2-72497686cd0d
+              type: L2_PROFILE
+              name: Generic Service Profile
+              uuid: f1a247aa-8f86-4a89-88c2-72497686cd0d
     createBulkGeneric:
       value:
         data:
@@ -12029,6 +12866,9 @@ components:
           bgpIpv4:
             customerPeerIp: 10.1.1.3
             enabled: true
+            outboundASPrependCount: 3
+            operation:
+              operationalStatus: UNKNOWN
           customerAsn: 10000
           equinixAsn: 10001
         - href: https://api.equinix.com/fabric/v4/connections/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170/routingProtocols/557400f8-d360-11e9-bb65-2a2ae2dbcce4
@@ -12080,6 +12920,7 @@ components:
         bgpIpv6:
           customerPeerIp: 2001:db8:c59b::1
           equinixPeerIp: 2001:db8:c59b::1
+          outboundASPrependCount: 3
         customerAsn: 100
         bfd:
           enabled: true
@@ -12095,6 +12936,7 @@ components:
         bgpIpv4:
           customerPeerIp: 169.254.100.2
           equinixPeerIp: 169.254.100.1
+          outboundASPrependCount: 3
         customerAsn: 100
     RoutingProtocolCreateBGPResponse:
       value:
@@ -12118,6 +12960,9 @@ components:
         bgpIpv4:
           customerPeerIp: 10.1.1.3
           enabled: true
+          outboundASPrependCount: 3
+          operation:
+            operationalStatus: UNKNOWN
         customerAsn: 10000
         equinixAsn: 10001
     RoutingProtocolCreateDirectResponse:
@@ -12156,9 +13001,11 @@ components:
           bgpIpv4:
             customerPeerIp: 10.1.1.2
             equinixPeerIp: 192.168.100.1
+            outboundASPrependCount: 3
           bgpIpv6:
             customerPeerIp: 2001:db8:c59b::1
             equinixPeerIp: 2001:db8:c59b::1
+            outboundASPrependCount: 3
           customerAsn: 0
           equinixAsn: 0
           bgpAuthKey: string
@@ -12172,9 +13019,11 @@ components:
           bgpIpv4:
             customerPeerIp: 10.1.1.2
             equinixPeerIp: 192.168.100.1
+            outboundASPrependCount: 3
           bgpIpv6:
             customerPeerIp: 2001:db8:c59b::1
             equinixPeerIp: 2001:db8:c59b::1
+            outboundASPrependCount: 3
           customerAsn: 0
           equinixAsn: 0
           bgpAuthKey: string
@@ -12250,9 +13099,11 @@ components:
         bgpIpv4:
           customerPeerIp: 10.1.1.2
           equinixPeerIp: 192.168.100.1
+          outboundASPrependCount: 3
         bgpIpv6:
           customerPeerIp: 2001:db8:c59b::1
           equinixPeerIp: 2001:db8:c59b::1
+          outboundASPrependCount: 3
         customerAsn: 0
         equinixAsn: 0
         bgpAuthKey: string
@@ -12281,6 +13132,9 @@ components:
         bgpIpv4:
           customerPeerIp: 10.1.1.3
           enabled: true
+          outboundASPrependCount: 3
+          operation:
+            operationalStatus: UNKNOWN
         customerAsn: 10000
         equinixAsn: 10001
     RoutingProtocolReplaceDirectResponse:
@@ -12351,6 +13205,10 @@ components:
         bgpIpv4:
           customerPeerIp: 10.1.1.3
           enabled: true
+          outboundASPrependCount: 3
+          operation:
+            operationalStatus: UP
+            opStatusChangedAt: 2021-10-30T07:21:39Z
         customerAsn: 10000
         equinixAsn: 10001
     PatchRoutingProtocolEnableIPv4:
@@ -12395,6 +13253,9 @@ components:
         bgpIpv4:
           enabled: true
           customerPeerIp: 10.1.1.3
+          outboundASPrependCount: 3
+          operation:
+            operationalStatus: UNKNOWN
         customerAsn: 10000
         equinixAsn: 10001
     RoutingProtocolDisableBGPResponse:
@@ -12419,6 +13280,9 @@ components:
         bgpIpv4:
           enabled: false
           customerPeerIp: 10.1.1.3
+          outboundASPrependCount: 3
+          operation:
+            operationalStatus: UNKNOWN
         customerAsn: 10000
         equinixAsn: 10001
     BGPActionsBulkDataResponseExample:
@@ -12579,9 +13443,15 @@ components:
             bgpIpv4:
               customerPeerIp: 10.1.1.2
               equinixPeerIp: 10.1.1.3
+              operation:
+                operationalStatus: UP
+                opStatusChangedAt: 2021-10-30T07:21:39Z
             bgpIpv6:
               customerPeerIp: 2001:db8:c59b::1
               equinixPeerIp: 2001:db8:c59b::1
+              operation:
+                operationalStatus: UP
+                opStatusChangedAt: 2021-10-30T07:21:39Z
             customerAsn: 0
             equinixAsn: 0
             bgpAuthKey: string
@@ -12610,9 +13480,15 @@ components:
               bgpIpv4:
                 customerPeerIp: 10.1.1.2
                 equinixPeerIp: 10.1.1.3
+                operation:
+                  operationalStatus: UP
+                  opStatusChangedAt: 2021-10-30T07:21:39Z
               bgpIpv6:
                 customerPeerIp: 2001:db8:c59b::1
                 equinixPeerIp: 2001:db8:c59b::1
+                operation:
+                  operationalStatus: UP
+                  opStatusChangedAt: 2021-10-30T07:21:39Z
               customerAsn: 0
               equinixAsn: 0
               bgpAuthKey: string
@@ -12634,9 +13510,15 @@ components:
               bgpIpv4:
                 customerPeerIp: 10.1.1.3
                 equinixPeerIp: 10.1.1.4
+                operation:
+                  operationalStatus: UP
+                  opStatusChangedAt: 2021-10-30T07:21:39Z
               bgpIpv6:
                 customerPeerIp: 2001:db8:c59b::1
                 equinixPeerIp: 2001:db8:c59b::1
+                operation:
+                  operationalStatus: UP
+                  opStatusChangedAt: 2021-10-30T07:21:39Z
               customerAsn: 0
               equinixAsn: 0
               bgpAuthKey: string
@@ -16977,10 +17859,6 @@ components:
         description: Test filter
         project:
           projectId: 567
-        notifications:
-          type: ALL
-          emails:
-          - test@equinix.com
     RouteFilterCreateBgpIpv4PrefixResponse:
       value:
         href: https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d
@@ -16998,10 +17876,6 @@ components:
         project:
           href: https://api.equinix.com/resourceManager/v1/projects/567
           projectId: dadd3ab6-c0af-430c-8216-43d44f08c1c5
-        notifications:
-        - type: ALL
-          emails:
-          - test@equinix.com
         changeLog:
           createdBy: testuser
           createdByEmail: testuser@equinix.com
@@ -17024,10 +17898,6 @@ components:
         project:
           href: https://api.equinix.com/resourceManager/v1/projects/567
           projectId: dadd3ab6-c0af-430c-8216-43d44f08c1c5
-        notifications:
-        - type: ALL
-          emails:
-          - test@equinix.com
         changeLog:
           createdBy: testuser
           createdByEmail: testuser@equinix.com
@@ -17069,10 +17939,6 @@ components:
         project:
           href: https://api.equinix.com/resourceManager/v1/projects/567
           projectId: dadd3ab6-c0af-430c-8216-43d44f08c1c5
-        notifications:
-        - type: ALL
-          emails:
-          - test@equinix.com
         changeLog:
           createdBy: testuser
           createdByEmail: testuser@equinix.com
@@ -17111,10 +17977,6 @@ components:
             description: Test filter
             project:
               projectId: dadd3ab6-c0af-430c-8216-43d44f08c1c5
-            notifications:
-            - type: ALL
-              emails:
-              - test@equinix.com
         - href: https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/changes/04af0d37-9160-43d8-97ef-9da9786996a3
           type: BGP_IPv4_PREFIX_FILTER_UPDATE
           uuid: 04af0d37-9160-43d8-97ef-9da9786996a3
@@ -17152,10 +18014,6 @@ components:
           description: Test filter
           project:
             projectId: dadd3ab6-c0af-430c-8216-43d44f08c1c5
-          notifications:
-          - type: ALL
-            emails:
-            - test@equinix.com
     RouteFilterGetConnectionsResponse:
       value:
         pagination:
@@ -17212,10 +18070,6 @@ components:
           project:
             href: https://api.equinix.com/resourceManager/v1/projects/567
             projectId: dadd3ab6-c0af-430c-8216-43d44f08c1c5
-          notifications:
-          - type: ALL
-            emails:
-            - test@equinix.com
           changeLog:
             createdBy: testuser
             createdByEmail: testuser@equinix.com
@@ -17232,10 +18086,6 @@ components:
           project:
             href: https://api.equinix.com/resourceManager/v1/projects/567
             projectId: dadd3ab6-c0af-430c-8216-43d44f08c1c5
-          notifications:
-          - type: ALL
-            emails:
-            - test@equinix.com
           changeLog:
             createdBy: testuser
             createdByEmail: testuser@equinix.com
@@ -18577,6 +19427,39 @@ components:
             href: https://api.equinix.com/fabric/v4/routers/e2e99d48-66b8-4b80-84eb-daea190e9186
             type: XF_ROUTER
             uuid: e2e99d48-66b8-4b80-84eb-daea190e9186
+    RoutesQuotaEvent:
+      value:
+        pagination:
+          offset: 10
+          limit: 10
+          total: 100
+        data:
+        - createdDateTime: 2023-04-01T10:30:00Z
+          href: https://api.equinix.com/fabric/v4/events/422504a4-286d-44e7-b386-8e385d2e99e1
+          uuid: 422504a4-286d-44e7-b386-8e385d2e99e1
+          type: RP_CONFIG_NOTIFICATION
+          subType: CLOUD_ROUTER_IPV4_ROUTE_USAGE_REACHED_LIMIT
+          severity: 2
+          message: "The Fabric Cloud Router my-fcr-1, UUID :422504a4-286d-44e7-b386-8e385d2e99e1\
+            \ has reached 100% of the IPv4 maximum routes quota. Avoid a network impact\
+            \ by upgrading the Fabric Cloud Router package."
+          router:
+            href: https://api.equinix.com/fabric/v4/routers/e2e99d48-66b8-4b80-84eb-daea190e9186
+            type: XF_ROUTER
+            uuid: e2e99d48-66b8-4b80-84eb-daea190e9186
+        - createdDateTime: 2023-04-01T10:30:00Z
+          href: https://api.equinix.com/fabric/v4/events/422504a4-286d-44e7-b386-8e385d2e99e1
+          uuid: 422504a4-286d-44e7-b386-8e385d2e99e1
+          type: RP_CONFIG_NOTIFICATION
+          subType: CLOUD_ROUTER_IPV4_ROUTE_USAGE_REACHED_THRESHOLD
+          severity: 4
+          message: "The Fabric Cloud Router my-fcr-1, UUID :422504a4-286d-44e7-b386-8e385d2e99e1\
+            \ has reached 90% of the IPv4 maximum routes quota. Avoid a network impact\
+            \ by upgrading the Fabric Cloud Router package."
+          router:
+            href: https://api.equinix.com/fabric/v4/routers/e2e99d48-66b8-4b80-84eb-daea190e9186
+            type: XF_ROUTER
+            uuid: e2e99d48-66b8-4b80-84eb-daea190e9186
     CreateGlobalNetwork:
       value:
         type: EVPLAN
@@ -19911,6 +20794,7 @@ components:
           type: BANDWIDTH_ALERT
         order:
           orderNumber: orderNumber
+          customerReferenceNumber: customerReferenceNumber
           orderId: orderId
           purchaseOrderNumber: purchaseOrderNumber
           billingTier: billingTier
@@ -20559,6 +21443,13 @@ components:
           items:
             $ref: '#/components/schemas/ConnectionSideAdditionalInfo'
           type: array
+      required:
+      - aSide
+      - bandwidth
+      - name
+      - notifications
+      - type
+      - zSide
       type: object
     Connection:
       description: Connection specification
@@ -21886,6 +22777,7 @@ components:
           orgId: 6
         order:
           orderNumber: orderNumber
+          customerReferenceNumber: customerReferenceNumber
           orderId: orderId
           purchaseOrderNumber: purchaseOrderNumber
           billingTier: billingTier
@@ -25060,6 +25952,7 @@ components:
             orgId: 6
           order:
             orderNumber: orderNumber
+            customerReferenceNumber: customerReferenceNumber
             orderId: orderId
             purchaseOrderNumber: purchaseOrderNumber
             billingTier: billingTier
@@ -26387,6 +27280,7 @@ components:
             orgId: 6
           order:
             orderNumber: orderNumber
+            customerReferenceNumber: customerReferenceNumber
             orderId: orderId
             purchaseOrderNumber: purchaseOrderNumber
             billingTier: billingTier
@@ -27435,6 +28329,7 @@ components:
           type: boolean
       type: object
     ServiceProfileAccessPointTypeVD:
+      additionalProperties: false
       description: VirtualDevice Access Point Type
       properties:
         uuid:
@@ -30743,6 +31638,7 @@ components:
           - DETACHED
           - DETACHING
           - FAILED
+          - PENDING_BGP_CONFIGURATION
           type: string
         direction:
           enum:
@@ -30760,6 +31656,8 @@ components:
           - INBOUND
           - OUTBOUND
           type: string
+      required:
+      - direction
       type: object
     RouteFiltersBase:
       example:
@@ -30768,23 +31666,6 @@ components:
         project:
           projectId: 44f4c4f8-2f39-494e-838c-d8e640591be5
         type: BGP_IPv4_PREFIX_FILTER
-        notifications:
-        - emails:
-          - emails
-          - emails
-          sendInterval: sendInterval
-          registeredUsers:
-          - registeredUsers
-          - registeredUsers
-          type: BANDWIDTH_ALERT
-        - emails:
-          - emails
-          - emails
-          sendInterval: sendInterval
-          registeredUsers:
-          - registeredUsers
-          - registeredUsers
-          type: BANDWIDTH_ALERT
       properties:
         type:
           description: Route Filter type
@@ -30800,12 +31681,10 @@ components:
           type: string
         project:
           $ref: '#/components/schemas/Project'
-        notifications:
-          description: Preferences for notifications on route filter configuration
-            or status changes
-          items:
-            $ref: '#/components/schemas/SimplifiedNotification'
-          type: array
+      required:
+      - name
+      - project
+      - type
       type: object
     RouteFiltersData:
       example:
@@ -30813,6 +31692,7 @@ components:
           href: https://openapi-generator.tech
           type: BGP_IPv4_PREFIX_FILTER_UPDATE
           uuid: uuid
+        name: My-direct-route-1
         description: description
         rulesCount: 0
         project:
@@ -30831,30 +31711,12 @@ components:
           deletedBy: johnsmith
           deletedByEmail: john.smith@example.com
           updatedDateTime: 2020-11-06T07:00:00Z
+        href: https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d
+        state: null
         type: BGP_IPv4_PREFIX_FILTER
         notMatchedRuleAction: ALLOW
         uuid: 695a8471-6595-4ac6-a2f4-b3d96ed3a59d
         connectionsCount: 0
-        name: My-direct-route-1
-        href: https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d
-        state: null
-        notifications:
-        - emails:
-          - emails
-          - emails
-          sendInterval: sendInterval
-          registeredUsers:
-          - registeredUsers
-          - registeredUsers
-          type: BANDWIDTH_ALERT
-        - emails:
-          - emails
-          - emails
-          sendInterval: sendInterval
-          registeredUsers:
-          - registeredUsers
-          - registeredUsers
-          type: BANDWIDTH_ALERT
       properties:
         href:
           description: Route Filter URI
@@ -30895,12 +31757,6 @@ components:
           type: integer
         project:
           $ref: '#/components/schemas/RouteFiltersData_project'
-        notifications:
-          description: Preferences for notifications on route filter configuration
-            or status changes
-          items:
-            $ref: '#/components/schemas/SimplifiedNotification'
-          type: array
         changelog:
           $ref: '#/components/schemas/Changelog'
       type: object
@@ -30930,23 +31786,6 @@ components:
               project:
                 projectId: 44f4c4f8-2f39-494e-838c-d8e640591be5
               type: BGP_IPv4_PREFIX_FILTER
-              notifications:
-              - emails:
-                - emails
-                - emails
-                sendInterval: sendInterval
-                registeredUsers:
-                - registeredUsers
-                - registeredUsers
-                type: BANDWIDTH_ALERT
-              - emails:
-                - emails
-                - emails
-                sendInterval: sendInterval
-                registeredUsers:
-                - registeredUsers
-                - registeredUsers
-                type: BANDWIDTH_ALERT
           createdBy: createdBy
           createdDateTime: 2000-01-23T04:56:07.000+00:00
           information: information
@@ -30962,23 +31801,6 @@ components:
               project:
                 projectId: 44f4c4f8-2f39-494e-838c-d8e640591be5
               type: BGP_IPv4_PREFIX_FILTER
-              notifications:
-              - emails:
-                - emails
-                - emails
-                sendInterval: sendInterval
-                registeredUsers:
-                - registeredUsers
-                - registeredUsers
-                type: BANDWIDTH_ALERT
-              - emails:
-                - emails
-                - emails
-                sendInterval: sendInterval
-                registeredUsers:
-                - registeredUsers
-                - registeredUsers
-                type: BANDWIDTH_ALERT
           createdBy: createdBy
           createdDateTime: 2000-01-23T04:56:07.000+00:00
           information: information
@@ -31012,23 +31834,6 @@ components:
             project:
               projectId: 44f4c4f8-2f39-494e-838c-d8e640591be5
             type: BGP_IPv4_PREFIX_FILTER
-            notifications:
-            - emails:
-              - emails
-              - emails
-              sendInterval: sendInterval
-              registeredUsers:
-              - registeredUsers
-              - registeredUsers
-              type: BANDWIDTH_ALERT
-            - emails:
-              - emails
-              - emails
-              sendInterval: sendInterval
-              registeredUsers:
-              - registeredUsers
-              - registeredUsers
-              type: BANDWIDTH_ALERT
         createdBy: createdBy
         createdDateTime: 2000-01-23T04:56:07.000+00:00
         information: information
@@ -31186,6 +31991,7 @@ components:
             href: https://openapi-generator.tech
             type: BGP_IPv4_PREFIX_FILTER_UPDATE
             uuid: uuid
+          name: My-direct-route-1
           description: description
           rulesCount: 0
           project:
@@ -31204,34 +32010,17 @@ components:
             deletedBy: johnsmith
             deletedByEmail: john.smith@example.com
             updatedDateTime: 2020-11-06T07:00:00Z
+          href: https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d
+          state: null
           type: BGP_IPv4_PREFIX_FILTER
           notMatchedRuleAction: ALLOW
           uuid: 695a8471-6595-4ac6-a2f4-b3d96ed3a59d
           connectionsCount: 0
-          name: My-direct-route-1
-          href: https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d
-          state: null
-          notifications:
-          - emails:
-            - emails
-            - emails
-            sendInterval: sendInterval
-            registeredUsers:
-            - registeredUsers
-            - registeredUsers
-            type: BANDWIDTH_ALERT
-          - emails:
-            - emails
-            - emails
-            sendInterval: sendInterval
-            registeredUsers:
-            - registeredUsers
-            - registeredUsers
-            type: BANDWIDTH_ALERT
         - change:
             href: https://openapi-generator.tech
             type: BGP_IPv4_PREFIX_FILTER_UPDATE
             uuid: uuid
+          name: My-direct-route-1
           description: description
           rulesCount: 0
           project:
@@ -31250,30 +32039,12 @@ components:
             deletedBy: johnsmith
             deletedByEmail: john.smith@example.com
             updatedDateTime: 2020-11-06T07:00:00Z
+          href: https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d
+          state: null
           type: BGP_IPv4_PREFIX_FILTER
           notMatchedRuleAction: ALLOW
           uuid: 695a8471-6595-4ac6-a2f4-b3d96ed3a59d
           connectionsCount: 0
-          name: My-direct-route-1
-          href: https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d
-          state: null
-          notifications:
-          - emails:
-            - emails
-            - emails
-            sendInterval: sendInterval
-            registeredUsers:
-            - registeredUsers
-            - registeredUsers
-            type: BANDWIDTH_ALERT
-          - emails:
-            - emails
-            - emails
-            sendInterval: sendInterval
-            registeredUsers:
-            - registeredUsers
-            - registeredUsers
-            type: BANDWIDTH_ALERT
       properties:
         pagination:
           $ref: '#/components/schemas/Pagination'
@@ -31358,7 +32129,7 @@ components:
         prefix: 192.168.0.0/24
         name: Private-subnet-filter
         description: description
-        prefixMatch: orlonger
+        prefixMatch: "orlonger, exact"
       properties:
         name:
           example: Private-subnet-filter
@@ -31371,8 +32142,10 @@ components:
           type: string
         prefixMatch:
           default: orlonger
-          example: orlonger
+          example: "orlonger, exact"
           type: string
+      required:
+      - prefix
       type: object
     RouteFilterRulesData:
       example:
@@ -31467,22 +32240,26 @@ components:
         data:
         - updatedBy: updatedBy
           data:
-            prefix: prefix
-            name: Private-subnet-filter
-            description: description
-            action: PERMIT
-            type: BGP_IPv4_PREFIX_FILTER_RULE_UPDATE
+            op: add
+            path: /
+            value:
+              prefix: 192.168.0.0/24
+              name: Private-subnet-filter
+              description: description
+              prefixMatch: "orlonger, exact"
           createdBy: createdBy
           createdDateTime: 2000-01-23T04:56:07.000+00:00
           status: COMPLETED
           updatedDateTime: 2000-01-23T04:56:07.000+00:00
         - updatedBy: updatedBy
           data:
-            prefix: prefix
-            name: Private-subnet-filter
-            description: description
-            action: PERMIT
-            type: BGP_IPv4_PREFIX_FILTER_RULE_UPDATE
+            op: add
+            path: /
+            value:
+              prefix: 192.168.0.0/24
+              name: Private-subnet-filter
+              description: description
+              prefixMatch: "orlonger, exact"
           createdBy: createdBy
           createdDateTime: 2000-01-23T04:56:07.000+00:00
           status: COMPLETED
@@ -31507,11 +32284,13 @@ components:
       example:
         updatedBy: updatedBy
         data:
-          prefix: prefix
-          name: Private-subnet-filter
-          description: description
-          action: PERMIT
-          type: BGP_IPv4_PREFIX_FILTER_RULE_UPDATE
+          op: add
+          path: /
+          value:
+            prefix: 192.168.0.0/24
+            name: Private-subnet-filter
+            description: description
+            prefixMatch: "orlonger, exact"
         createdBy: createdBy
         createdDateTime: 2000-01-23T04:56:07.000+00:00
         status: COMPLETED
@@ -31548,11 +32327,11 @@ components:
         - prefix: 192.168.0.0/24
           name: Private-subnet-filter
           description: description
-          prefixMatch: orlonger
+          prefixMatch: "orlonger, exact"
         - prefix: 192.168.0.0/24
           name: Private-subnet-filter
           description: description
-          prefixMatch: orlonger
+          prefixMatch: "orlonger, exact"
       properties:
         data:
           description: Route Filter Rule configuration
@@ -31608,6 +32387,7 @@ components:
           type: BANDWIDTH_ALERT
         order:
           orderNumber: orderNumber
+          customerReferenceNumber: customerReferenceNumber
           orderId: orderId
           purchaseOrderNumber: purchaseOrderNumber
           billingTier: billingTier
@@ -31622,7 +32402,7 @@ components:
         location:
           $ref: '#/components/schemas/SimplifiedLocationWithoutIBX'
         package:
-          $ref: '#/components/schemas/CloudRouterPackageType'
+          $ref: '#/components/schemas/CloudRouterPostRequestPackage'
         order:
           $ref: '#/components/schemas/Order'
         project:
@@ -33748,6 +34528,7 @@ components:
             orgId: 6
           order:
             orderNumber: orderNumber
+            customerReferenceNumber: customerReferenceNumber
             orderId: orderId
             purchaseOrderNumber: purchaseOrderNumber
             billingTier: billingTier
@@ -35075,6 +35856,7 @@ components:
             orgId: 6
           order:
             orderNumber: orderNumber
+            customerReferenceNumber: customerReferenceNumber
             orderId: orderId
             purchaseOrderNumber: purchaseOrderNumber
             billingTier: billingTier
@@ -36695,6 +37477,7 @@ components:
             orgId: 6
           order:
             orderNumber: orderNumber
+            customerReferenceNumber: customerReferenceNumber
             orderId: orderId
             purchaseOrderNumber: purchaseOrderNumber
             billingTier: billingTier
@@ -38022,6 +38805,7 @@ components:
             orgId: 6
           order:
             orderNumber: orderNumber
+            customerReferenceNumber: customerReferenceNumber
             orderId: orderId
             purchaseOrderNumber: purchaseOrderNumber
             billingTier: billingTier
@@ -38308,6 +39092,80 @@ components:
       - type
       title: precisionTimeServiceRequest
       type: object
+    precisionTimeServiceConnectionsResponse:
+      description: EPT service instance's L2 connections
+      example:
+        pagination:
+          next: next
+          total: 0
+          offset: 0
+          previous: previous
+          limit: 0
+        data:
+        - href: https://api.equinix.com/fabric/v4/timeServices/92dc376a-a932-43aa-a6a2-c806dedbd784/connections
+          type: EVPL_VC
+          uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        - href: https://api.equinix.com/fabric/v4/timeServices/92dc376a-a932-43aa-a6a2-c806dedbd784/connections
+          type: EVPL_VC
+          uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        data:
+          description: Data returned from the API call
+          items:
+            $ref: '#/components/schemas/connectionLink'
+          type: array
+      title: precisionTimeServiceConnectionResponse
+      type: object
+    precisionTimeServicePackagesResponse:
+      description: Precision Packages
+      example:
+        pagination:
+          next: next
+          total: 0
+          offset: 0
+          previous: previous
+          limit: 0
+        data:
+        - href: https://api.equinix.com/fabric/v4/timeServicePackage/NTP_STANDARD
+          code: NTP_STANDARD
+          type: TIME_SERVICE_PACKAGE
+          bandwidth: 10
+          accuracyUnit: microseconds
+          accuracySla: 50
+          accuracyAvgMin: 1
+          accuracyAvgMax: 10
+          clientsPerSecondMax: 100
+          redundancySupported: true
+          multiSubnetSupported: true
+          changeLog:
+            createdDateTime: 2023-05-16T07:50:49.749Z
+            updatedDateTime: 2023-05-17T07:50:49.749Z
+        - href: https://api.equinix.com/fabric/v4/timeServicePackage/NTP_STANDARD
+          code: NTP_STANDARD
+          type: TIME_SERVICE_PACKAGE
+          bandwidth: 10
+          accuracyUnit: microseconds
+          accuracySla: 50
+          accuracyAvgMin: 1
+          accuracyAvgMax: 10
+          clientsPerSecondMax: 100
+          redundancySupported: true
+          multiSubnetSupported: true
+          changeLog:
+            createdDateTime: 2023-05-16T07:50:49.749Z
+            updatedDateTime: 2023-05-17T07:50:49.749Z
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        data:
+          description: Data returned from the API call
+          items:
+            $ref: '#/components/schemas/precisionTimePackageResponse'
+          type: array
+      title: precisionTimeServicePackagesResponse
+      type: object
     precisionTimePackageResponse:
       description: EPT Service Package Information
       example:
@@ -38387,12 +39245,16 @@ components:
     Order:
       example:
         orderNumber: orderNumber
+        customerReferenceNumber: customerReferenceNumber
         orderId: orderId
         purchaseOrderNumber: purchaseOrderNumber
         billingTier: billingTier
       properties:
         purchaseOrderNumber:
           description: Purchase order number
+          type: string
+        customerReferenceNumber:
+          description: Customer reference number
           type: string
         billingTier:
           description: Billing tier for connection bandwidth
@@ -40053,6 +40915,13 @@ components:
         enabled:
           description: Admin status for the BGP session
           type: boolean
+        outboundASPrependCount:
+          description: AS path prepend count
+          example: 3
+          format: int64
+          type: integer
+        operation:
+          $ref: '#/components/schemas/BGPConnectionOperation'
       required:
       - customerPeerIp
       - enabled
@@ -40070,6 +40939,13 @@ components:
         enabled:
           description: Admin status for the BGP session
           type: boolean
+        outboundASPrependCount:
+          description: AS path prepend count
+          example: 3
+          format: int64
+          type: integer
+        operation:
+          $ref: '#/components/schemas/BGPConnectionOperation'
       required:
       - customerPeerIp
       - enabled
@@ -40633,6 +41509,10 @@ components:
       - DEPROVISIONED
       - INACTIVE
       - FAILED
+      - ADDED
+      - DELETED
+      - TO_BE_ADDED
+      - TO_BE_DELETED
       type: string
     PortOrder:
       example:
@@ -40856,6 +41736,7 @@ components:
           - UNTAGGED
           - UNLIMITED
           - FREE
+          - UNLIMITED PLUS
           type: string
       type: object
     PortNotification:
@@ -41129,23 +42010,6 @@ components:
           project:
             projectId: 44f4c4f8-2f39-494e-838c-d8e640591be5
           type: BGP_IPv4_PREFIX_FILTER
-          notifications:
-          - emails:
-            - emails
-            - emails
-            sendInterval: sendInterval
-            registeredUsers:
-            - registeredUsers
-            - registeredUsers
-            type: BANDWIDTH_ALERT
-          - emails:
-            - emails
-            - emails
-            sendInterval: sendInterval
-            registeredUsers:
-            - registeredUsers
-            - registeredUsers
-            type: BANDWIDTH_ALERT
       properties:
         op:
           description: Handy shortcut for operation name
@@ -41251,45 +42115,33 @@ components:
       - value
       type: object
     RouteFilterRulesChangeOperation:
-      description: Route Filter change operation data
+      description: Route Filter Rule change operation data
       example:
-        prefix: prefix
-        name: Private-subnet-filter
-        description: description
-        action: PERMIT
-        type: BGP_IPv4_PREFIX_FILTER_RULE_UPDATE
+        op: add
+        path: /
+        value:
+          prefix: 192.168.0.0/24
+          name: Private-subnet-filter
+          description: description
+          prefixMatch: "orlonger, exact"
       properties:
-        name:
-          description: name of  route filter rule
-          example: Private-subnet-filter
-          type: string
-        description:
-          description: cust provided description
-          type: string
-        type:
-          description: type of filter rule
+        op:
+          description: Handy shortcut for operation name
           enum:
-          - BGP_IPv4_PREFIX_FILTER_RULE_UPDATE
-          - BGP_IPv4_PREFIX_FILTER_RULE_CREATION
-          - BGP_IPv4_PREFIX_FILTER_RULE_DELETION
-          - BGP_IPv6_PREFIX_FILTER_RULE_UPDATE
-          - BGP_IPv6_PREFIX_FILTER_RULE_CREATION
-          - BGP_IPv6_PREFIX_FILTER_RULE_DELETION
+          - add
+          - replace
+          - remove
           type: string
-        prefix:
-          description: given prefix (does not change)
+        path:
+          description: path inside document leading to updated parameter
+          example: /
           type: string
-        action:
-          description: change to be made
-          enum:
-          - PERMIT
-          - DENY
-          type: string
+        value:
+          $ref: '#/components/schemas/RouteFilterRulesBase'
       required:
-      - action
-      - name
-      - prefix
-      - type
+      - op
+      - path
+      - value
       type: object
     SimplifiedLocationWithoutIBX:
       example:
@@ -41313,7 +42165,7 @@ components:
       required:
       - metroCode
       type: object
-    CloudRouterPackageType:
+    CloudRouterPostRequestPackage:
       description: Fabric Cloud Router Package Type
       example:
         code: LAB
@@ -41774,6 +42626,24 @@ components:
       required:
       - code
       title: precisionTimePackageRequest
+      type: object
+    connectionLink:
+      example:
+        href: https://api.equinix.com/fabric/v4/timeServices/92dc376a-a932-43aa-a6a2-c806dedbd784/connections
+        type: EVPL_VC
+        uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        href:
+          example: https://api.equinix.com/fabric/v4/timeServices/92dc376a-a932-43aa-a6a2-c806dedbd784/connections
+          format: uri
+          type: string
+        type:
+          enum:
+          - EVPL_VC
+          type: string
+        uuid:
+          format: uuid
+          type: string
       type: object
     ConnectionPriority:
       description: Connection priority in redundancy group
@@ -42374,6 +43244,7 @@ components:
       - FAILED
       - NOT_AVAILABLE
       - PENDING_APPROVAL
+      - PENDING_CONFIGURATION
       - PROVISIONED
       - PROVISIONING
       - REJECTED
@@ -42424,6 +43295,22 @@ components:
       - CANCELLED
       - PENDING_INTERFACE_CONFIGURATION
       type: string
+    BGPConnectionOperation:
+      description: BGP IPv4 or IPv6 Connection State operational data
+      properties:
+        operationalStatus:
+          description: BGP IPv4 or IPv6 Connection State operational status
+          enum:
+          - UP
+          - DOWN
+          - UNKNOWN
+          type: string
+        opStatusChangedAt:
+          description: Last BGP State Update by Date and Time
+          example: 2021-10-30T07:21:39Z
+          format: date-time
+          type: string
+      type: object
     RoutingProtocolOperation:
       properties:
         errors:
@@ -43599,6 +44486,7 @@ components:
       - CLOUD_ROUTER
       - CHAINGROUP
       - NETWORK
+      - METAL_NETWORK
       type: string
     VirtualConnectionBridgePackageCode:
       description: Virtual Connection bridge package code

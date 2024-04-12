@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**direction** | [**DirectionEnum**](#DirectionEnum) | Route Filter direction to attach to a connection |  [optional] |
+|**direction** | [**DirectionEnum**](#DirectionEnum) | Route Filter direction to attach to a connection |  |
 
 
 

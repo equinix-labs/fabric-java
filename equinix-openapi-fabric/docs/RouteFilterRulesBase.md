@@ -9,7 +9,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**name** | **String** |  |  [optional] |
 |**description** | **String** | Customer-provided Route Filter Rule description |  [optional] |
-|**prefix** | **String** |  |  [optional] |
+|**prefix** | **String** |  |  |
 |**prefixMatch** | **String** |  |  [optional] |
 
 

@@ -15,15 +15,12 @@ package com.equinix.openapi.fabric.v4.model;
 import java.util.Objects;
 import java.util.Arrays;
 import com.equinix.openapi.fabric.v4.model.Project;
-import com.equinix.openapi.fabric.v4.model.SimplifiedNotification;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -114,10 +111,6 @@ public class RouteFiltersBase {
   @SerializedName(SERIALIZED_NAME_PROJECT)
   private Project project;
 
-  public static final String SERIALIZED_NAME_NOTIFICATIONS = "notifications";
-  @SerializedName(SERIALIZED_NAME_NOTIFICATIONS)
-  private List<SimplifiedNotification> notifications = new ArrayList<>();
-
   public RouteFiltersBase() {
   }
 
@@ -131,7 +124,7 @@ public class RouteFiltersBase {
    * Route Filter type
    * @return type
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
 
   public TypeEnum getType() {
     return type;
@@ -153,7 +146,7 @@ public class RouteFiltersBase {
    * Get name
    * @return name
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
 
   public String getName() {
     return name;
@@ -197,7 +190,7 @@ public class RouteFiltersBase {
    * Get project
    * @return project
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
 
   public Project getProject() {
     return project;
@@ -206,36 +199,6 @@ public class RouteFiltersBase {
 
   public void setProject(Project project) {
     this.project = project;
-  }
-
-
-  public RouteFiltersBase notifications(List<SimplifiedNotification> notifications) {
-    
-    this.notifications = notifications;
-    return this;
-  }
-
-  public RouteFiltersBase addNotificationsItem(SimplifiedNotification notificationsItem) {
-    if (this.notifications == null) {
-      this.notifications = new ArrayList<>();
-    }
-    this.notifications.add(notificationsItem);
-    return this;
-  }
-
-   /**
-   * Preferences for notifications on route filter configuration or status changes
-   * @return notifications
-  **/
-  @javax.annotation.Nullable
-
-  public List<SimplifiedNotification> getNotifications() {
-    return notifications;
-  }
-
-
-  public void setNotifications(List<SimplifiedNotification> notifications) {
-    this.notifications = notifications;
   }
 
   /**
@@ -296,14 +259,13 @@ public class RouteFiltersBase {
     return Objects.equals(this.type, routeFiltersBase.type) &&
         Objects.equals(this.name, routeFiltersBase.name) &&
         Objects.equals(this.description, routeFiltersBase.description) &&
-        Objects.equals(this.project, routeFiltersBase.project) &&
-        Objects.equals(this.notifications, routeFiltersBase.notifications)&&
+        Objects.equals(this.project, routeFiltersBase.project)&&
         Objects.equals(this.additionalProperties, routeFiltersBase.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, name, description, project, notifications, additionalProperties);
+    return Objects.hash(type, name, description, project, additionalProperties);
   }
 
   @Override
@@ -314,7 +276,6 @@ public class RouteFiltersBase {
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    project: ").append(toIndentedString(project)).append("\n");
-    sb.append("    notifications: ").append(toIndentedString(notifications)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -342,10 +303,12 @@ public class RouteFiltersBase {
     openapiFields.add("name");
     openapiFields.add("description");
     openapiFields.add("project");
-    openapiFields.add("notifications");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("type");
+    openapiRequiredFields.add("name");
+    openapiRequiredFields.add("project");
   }
 
  /**
@@ -360,33 +323,24 @@ public class RouteFiltersBase {
           throw new IllegalArgumentException(String.format("The required field(s) %s in RouteFiltersBase is not found in the empty JSON string", RouteFiltersBase.openapiRequiredFields.toString()));
         }
       }
-      if ((jsonObj.get("type") != null && !jsonObj.get("type").isJsonNull()) && !jsonObj.get("type").isJsonPrimitive()) {
+
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : RouteFiltersBase.openapiRequiredFields) {
+        if (jsonObj.get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
+        }
+      }
+      if (!jsonObj.get("type").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("type").toString()));
       }
-      if ((jsonObj.get("name") != null && !jsonObj.get("name").isJsonNull()) && !jsonObj.get("name").isJsonPrimitive()) {
+      if (!jsonObj.get("name").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
       }
       if ((jsonObj.get("description") != null && !jsonObj.get("description").isJsonNull()) && !jsonObj.get("description").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `description` to be a primitive type in the JSON string but got `%s`", jsonObj.get("description").toString()));
       }
-      // validate the optional field `project`
-      if (jsonObj.get("project") != null && !jsonObj.get("project").isJsonNull()) {
-        Project.validateJsonObject(jsonObj.getAsJsonObject("project"));
-      }
-      if (jsonObj.get("notifications") != null && !jsonObj.get("notifications").isJsonNull()) {
-        JsonArray jsonArraynotifications = jsonObj.getAsJsonArray("notifications");
-        if (jsonArraynotifications != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("notifications").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `notifications` to be an array in the JSON string but got `%s`", jsonObj.get("notifications").toString()));
-          }
-
-          // validate the optional field `notifications` (array)
-          for (int i = 0; i < jsonArraynotifications.size(); i++) {
-            SimplifiedNotification.validateJsonObject(jsonArraynotifications.get(i).getAsJsonObject());
-          };
-        }
-      }
+      // validate the required field `project`
+      Project.validateJsonObject(jsonObj.getAsJsonObject("project"));
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {

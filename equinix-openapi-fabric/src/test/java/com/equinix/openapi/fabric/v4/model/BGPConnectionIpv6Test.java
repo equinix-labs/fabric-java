@@ -12,6 +12,7 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
+import com.equinix.openapi.fabric.v4.model.BGPConnectionOperation;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -58,6 +59,22 @@ public class BGPConnectionIpv6Test {
     @Test
     public void enabledTest() {
         // TODO: test enabled
+    }
+
+    /**
+     * Test the property 'outboundASPrependCount'
+     */
+    @Test
+    public void outboundASPrependCountTest() {
+        // TODO: test outboundASPrependCount
+    }
+
+    /**
+     * Test the property 'operation'
+     */
+    @Test
+    public void operationTest() {
+        // TODO: test operation
     }
 
 }

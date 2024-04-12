@@ -14,13 +14,16 @@ package com.equinix.openapi.fabric.v4.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.equinix.openapi.fabric.v4.model.RouteFilterRulesBase;
+import com.equinix.openapi.fabric.v4.model.Pagination;
+import com.equinix.openapi.fabric.v4.model.PrecisionTimePackageResponse;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -44,137 +47,70 @@ import java.util.Set;
 import com.equinix.openapi.fabric.JSON;
 
 /**
- * Route Filter Rule change operation data
+ * Precision Packages
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class RouteFilterRulesChangeOperation {
-  /**
-   * Handy shortcut for operation name
-   */
-  @JsonAdapter(OpEnum.Adapter.class)
-  public enum OpEnum {
-    ADD("add"),
-    
-    REPLACE("replace"),
-    
-    REMOVE("remove");
+public class PrecisionTimeServicePackagesResponse {
+  public static final String SERIALIZED_NAME_PAGINATION = "pagination";
+  @SerializedName(SERIALIZED_NAME_PAGINATION)
+  private Pagination pagination;
 
-    private String value;
+  public static final String SERIALIZED_NAME_DATA = "data";
+  @SerializedName(SERIALIZED_NAME_DATA)
+  private List<PrecisionTimePackageResponse> data = new ArrayList<>();
 
-    OpEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static OpEnum fromValue(String value) {
-      for (OpEnum b : OpEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-
-    public static class Adapter extends TypeAdapter<OpEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final OpEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public OpEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return OpEnum.fromValue(value);
-      }
-    }
+  public PrecisionTimeServicePackagesResponse() {
   }
 
-  public static final String SERIALIZED_NAME_OP = "op";
-  @SerializedName(SERIALIZED_NAME_OP)
-  private OpEnum op;
-
-  public static final String SERIALIZED_NAME_PATH = "path";
-  @SerializedName(SERIALIZED_NAME_PATH)
-  private String path;
-
-  public static final String SERIALIZED_NAME_VALUE = "value";
-  @SerializedName(SERIALIZED_NAME_VALUE)
-  private RouteFilterRulesBase value;
-
-  public RouteFilterRulesChangeOperation() {
-  }
-
-  public RouteFilterRulesChangeOperation op(OpEnum op) {
+  public PrecisionTimeServicePackagesResponse pagination(Pagination pagination) {
     
-    this.op = op;
+    this.pagination = pagination;
     return this;
   }
 
    /**
-   * Handy shortcut for operation name
-   * @return op
+   * Get pagination
+   * @return pagination
   **/
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
 
-  public OpEnum getOp() {
-    return op;
+  public Pagination getPagination() {
+    return pagination;
   }
 
 
-  public void setOp(OpEnum op) {
-    this.op = op;
+  public void setPagination(Pagination pagination) {
+    this.pagination = pagination;
   }
 
 
-  public RouteFilterRulesChangeOperation path(String path) {
+  public PrecisionTimeServicePackagesResponse data(List<PrecisionTimePackageResponse> data) {
     
-    this.path = path;
+    this.data = data;
+    return this;
+  }
+
+  public PrecisionTimeServicePackagesResponse addDataItem(PrecisionTimePackageResponse dataItem) {
+    if (this.data == null) {
+      this.data = new ArrayList<>();
+    }
+    this.data.add(dataItem);
     return this;
   }
 
    /**
-   * path inside document leading to updated parameter
-   * @return path
+   * Data returned from the API call
+   * @return data
   **/
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
 
-  public String getPath() {
-    return path;
+  public List<PrecisionTimePackageResponse> getData() {
+    return data;
   }
 
 
-  public void setPath(String path) {
-    this.path = path;
-  }
-
-
-  public RouteFilterRulesChangeOperation value(RouteFilterRulesBase value) {
-    
-    this.value = value;
-    return this;
-  }
-
-   /**
-   * Get value
-   * @return value
-  **/
-  @javax.annotation.Nonnull
-
-  public RouteFilterRulesBase getValue() {
-    return value;
-  }
-
-
-  public void setValue(RouteFilterRulesBase value) {
-    this.value = value;
+  public void setData(List<PrecisionTimePackageResponse> data) {
+    this.data = data;
   }
 
   /**
@@ -190,9 +126,9 @@ public class RouteFilterRulesChangeOperation {
    *
    * @param key name of the property
    * @param value value of the property
-   * @return the RouteFilterRulesChangeOperation instance itself
+   * @return the PrecisionTimeServicePackagesResponse instance itself
    */
-  public RouteFilterRulesChangeOperation putAdditionalProperty(String key, Object value) {
+  public PrecisionTimeServicePackagesResponse putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
         this.additionalProperties = new HashMap<String, Object>();
     }
@@ -231,25 +167,23 @@ public class RouteFilterRulesChangeOperation {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    RouteFilterRulesChangeOperation routeFilterRulesChangeOperation = (RouteFilterRulesChangeOperation) o;
-    return Objects.equals(this.op, routeFilterRulesChangeOperation.op) &&
-        Objects.equals(this.path, routeFilterRulesChangeOperation.path) &&
-        Objects.equals(this.value, routeFilterRulesChangeOperation.value)&&
-        Objects.equals(this.additionalProperties, routeFilterRulesChangeOperation.additionalProperties);
+    PrecisionTimeServicePackagesResponse precisionTimeServicePackagesResponse = (PrecisionTimeServicePackagesResponse) o;
+    return Objects.equals(this.pagination, precisionTimeServicePackagesResponse.pagination) &&
+        Objects.equals(this.data, precisionTimeServicePackagesResponse.data)&&
+        Objects.equals(this.additionalProperties, precisionTimeServicePackagesResponse.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(op, path, value, additionalProperties);
+    return Objects.hash(pagination, data, additionalProperties);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class RouteFilterRulesChangeOperation {\n");
-    sb.append("    op: ").append(toIndentedString(op)).append("\n");
-    sb.append("    path: ").append(toIndentedString(path)).append("\n");
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("class PrecisionTimeServicePackagesResponse {\n");
+    sb.append("    pagination: ").append(toIndentedString(pagination)).append("\n");
+    sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -273,60 +207,59 @@ public class RouteFilterRulesChangeOperation {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("op");
-    openapiFields.add("path");
-    openapiFields.add("value");
+    openapiFields.add("pagination");
+    openapiFields.add("data");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("op");
-    openapiRequiredFields.add("path");
-    openapiRequiredFields.add("value");
   }
 
  /**
   * Validates the JSON Object and throws an exception if issues found
   *
   * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to RouteFilterRulesChangeOperation
+  * @throws IOException if the JSON Object is invalid with respect to PrecisionTimeServicePackagesResponse
   */
   public static void validateJsonObject(JsonObject jsonObj) throws IOException {
       if (jsonObj == null) {
-        if (!RouteFilterRulesChangeOperation.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in RouteFilterRulesChangeOperation is not found in the empty JSON string", RouteFilterRulesChangeOperation.openapiRequiredFields.toString()));
+        if (!PrecisionTimeServicePackagesResponse.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in PrecisionTimeServicePackagesResponse is not found in the empty JSON string", PrecisionTimeServicePackagesResponse.openapiRequiredFields.toString()));
         }
       }
+      // validate the optional field `pagination`
+      if (jsonObj.get("pagination") != null && !jsonObj.get("pagination").isJsonNull()) {
+        Pagination.validateJsonObject(jsonObj.getAsJsonObject("pagination"));
+      }
+      if (jsonObj.get("data") != null && !jsonObj.get("data").isJsonNull()) {
+        JsonArray jsonArraydata = jsonObj.getAsJsonArray("data");
+        if (jsonArraydata != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("data").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `data` to be an array in the JSON string but got `%s`", jsonObj.get("data").toString()));
+          }
 
-      // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : RouteFilterRulesChangeOperation.openapiRequiredFields) {
-        if (jsonObj.get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
+          // validate the optional field `data` (array)
+          for (int i = 0; i < jsonArraydata.size(); i++) {
+            PrecisionTimePackageResponse.validateJsonObject(jsonArraydata.get(i).getAsJsonObject());
+          };
         }
       }
-      if (!jsonObj.get("op").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `op` to be a primitive type in the JSON string but got `%s`", jsonObj.get("op").toString()));
-      }
-      if (!jsonObj.get("path").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `path` to be a primitive type in the JSON string but got `%s`", jsonObj.get("path").toString()));
-      }
-      // validate the required field `value`
-      RouteFilterRulesBase.validateJsonObject(jsonObj.getAsJsonObject("value"));
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!RouteFilterRulesChangeOperation.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'RouteFilterRulesChangeOperation' and its subtypes
+       if (!PrecisionTimeServicePackagesResponse.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'PrecisionTimeServicePackagesResponse' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<RouteFilterRulesChangeOperation> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(RouteFilterRulesChangeOperation.class));
+       final TypeAdapter<PrecisionTimeServicePackagesResponse> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(PrecisionTimeServicePackagesResponse.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<RouteFilterRulesChangeOperation>() {
+       return (TypeAdapter<T>) new TypeAdapter<PrecisionTimeServicePackagesResponse>() {
            @Override
-           public void write(JsonWriter out, RouteFilterRulesChangeOperation value) throws IOException {
+           public void write(JsonWriter out, PrecisionTimeServicePackagesResponse value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
              // serialize additional properties
@@ -349,11 +282,11 @@ public class RouteFilterRulesChangeOperation {
            }
 
            @Override
-           public RouteFilterRulesChangeOperation read(JsonReader in) throws IOException {
+           public PrecisionTimeServicePackagesResponse read(JsonReader in) throws IOException {
              JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
              validateJsonObject(jsonObj);
              // store additional fields in the deserialized instance
-             RouteFilterRulesChangeOperation instance = thisAdapter.fromJsonTree(jsonObj);
+             PrecisionTimeServicePackagesResponse instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
                if (!openapiFields.contains(entry.getKey())) {
                  if (entry.getValue().isJsonPrimitive()) { // primitive type
@@ -380,18 +313,18 @@ public class RouteFilterRulesChangeOperation {
   }
 
  /**
-  * Create an instance of RouteFilterRulesChangeOperation given an JSON string
+  * Create an instance of PrecisionTimeServicePackagesResponse given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of RouteFilterRulesChangeOperation
-  * @throws IOException if the JSON string is invalid with respect to RouteFilterRulesChangeOperation
+  * @return An instance of PrecisionTimeServicePackagesResponse
+  * @throws IOException if the JSON string is invalid with respect to PrecisionTimeServicePackagesResponse
   */
-  public static RouteFilterRulesChangeOperation fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, RouteFilterRulesChangeOperation.class);
+  public static PrecisionTimeServicePackagesResponse fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, PrecisionTimeServicePackagesResponse.class);
   }
 
  /**
-  * Convert an instance of RouteFilterRulesChangeOperation to an JSON string
+  * Convert an instance of PrecisionTimeServicePackagesResponse to an JSON string
   *
   * @return JSON string
   */

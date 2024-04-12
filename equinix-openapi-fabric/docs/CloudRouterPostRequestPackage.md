@@ -1,6 +1,6 @@
 
 
-# CloudRouterPackageType
+# CloudRouterPostRequestPackage
 
 Fabric Cloud Router Package Type
 

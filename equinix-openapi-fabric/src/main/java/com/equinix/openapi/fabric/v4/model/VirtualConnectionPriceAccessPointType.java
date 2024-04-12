@@ -38,7 +38,9 @@ public enum VirtualConnectionPriceAccessPointType {
   
   CHAINGROUP("CHAINGROUP"),
   
-  NETWORK("NETWORK");
+  NETWORK("NETWORK"),
+  
+  METAL_NETWORK("METAL_NETWORK");
 
   private String value;
 

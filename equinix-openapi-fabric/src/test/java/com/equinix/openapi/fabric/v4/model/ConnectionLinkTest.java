@@ -12,53 +12,54 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import com.equinix.openapi.fabric.v4.model.RouteFilterRulesBase;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
+import java.net.URI;
+import java.util.UUID;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 
 /**
- * Model tests for RouteFilterRulesChangeOperation
+ * Model tests for ConnectionLink
  */
-public class RouteFilterRulesChangeOperationTest {
-    private final RouteFilterRulesChangeOperation model = new RouteFilterRulesChangeOperation();
+public class ConnectionLinkTest {
+    private final ConnectionLink model = new ConnectionLink();
 
     /**
-     * Model tests for RouteFilterRulesChangeOperation
+     * Model tests for ConnectionLink
      */
     @Test
-    public void testRouteFilterRulesChangeOperation() {
-        // TODO: test RouteFilterRulesChangeOperation
+    public void testConnectionLink() {
+        // TODO: test ConnectionLink
     }
 
     /**
-     * Test the property 'op'
+     * Test the property 'href'
      */
     @Test
-    public void opTest() {
-        // TODO: test op
+    public void hrefTest() {
+        // TODO: test href
     }
 
     /**
-     * Test the property 'path'
+     * Test the property 'type'
      */
     @Test
-    public void pathTest() {
-        // TODO: test path
+    public void typeTest() {
+        // TODO: test type
     }
 
     /**
-     * Test the property 'value'
+     * Test the property 'uuid'
      */
     @Test
-    public void valueTest() {
-        // TODO: test value
+    public void uuidTest() {
+        // TODO: test uuid
     }
 
 }

@@ -33,6 +33,7 @@
 | DETACHED | &quot;DETACHED&quot; |
 | DETACHING | &quot;DETACHING&quot; |
 | FAILED | &quot;FAILED&quot; |
+| PENDING_BGP_CONFIGURATION | &quot;PENDING_BGP_CONFIGURATION&quot; |
 
 
 

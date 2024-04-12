@@ -14,6 +14,7 @@ package com.equinix.openapi.fabric.v4.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import com.equinix.openapi.fabric.v4.model.BGPConnectionOperation;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -58,6 +59,14 @@ public class BGPConnectionIpv6 {
   public static final String SERIALIZED_NAME_ENABLED = "enabled";
   @SerializedName(SERIALIZED_NAME_ENABLED)
   private Boolean enabled;
+
+  public static final String SERIALIZED_NAME_OUTBOUND_A_S_PREPEND_COUNT = "outboundASPrependCount";
+  @SerializedName(SERIALIZED_NAME_OUTBOUND_A_S_PREPEND_COUNT)
+  private Long outboundASPrependCount;
+
+  public static final String SERIALIZED_NAME_OPERATION = "operation";
+  @SerializedName(SERIALIZED_NAME_OPERATION)
+  private BGPConnectionOperation operation;
 
   public BGPConnectionIpv6() {
   }
@@ -127,6 +136,50 @@ public class BGPConnectionIpv6 {
     this.enabled = enabled;
   }
 
+
+  public BGPConnectionIpv6 outboundASPrependCount(Long outboundASPrependCount) {
+    
+    this.outboundASPrependCount = outboundASPrependCount;
+    return this;
+  }
+
+   /**
+   * AS path prepend count
+   * @return outboundASPrependCount
+  **/
+  @javax.annotation.Nullable
+
+  public Long getOutboundASPrependCount() {
+    return outboundASPrependCount;
+  }
+
+
+  public void setOutboundASPrependCount(Long outboundASPrependCount) {
+    this.outboundASPrependCount = outboundASPrependCount;
+  }
+
+
+  public BGPConnectionIpv6 operation(BGPConnectionOperation operation) {
+    
+    this.operation = operation;
+    return this;
+  }
+
+   /**
+   * Get operation
+   * @return operation
+  **/
+  @javax.annotation.Nullable
+
+  public BGPConnectionOperation getOperation() {
+    return operation;
+  }
+
+
+  public void setOperation(BGPConnectionOperation operation) {
+    this.operation = operation;
+  }
+
   /**
    * A container for additional, undeclared properties.
    * This is a holder for any undeclared properties as specified with
@@ -184,13 +237,15 @@ public class BGPConnectionIpv6 {
     BGPConnectionIpv6 bgPConnectionIpv6 = (BGPConnectionIpv6) o;
     return Objects.equals(this.customerPeerIp, bgPConnectionIpv6.customerPeerIp) &&
         Objects.equals(this.equinixPeerIp, bgPConnectionIpv6.equinixPeerIp) &&
-        Objects.equals(this.enabled, bgPConnectionIpv6.enabled)&&
+        Objects.equals(this.enabled, bgPConnectionIpv6.enabled) &&
+        Objects.equals(this.outboundASPrependCount, bgPConnectionIpv6.outboundASPrependCount) &&
+        Objects.equals(this.operation, bgPConnectionIpv6.operation)&&
         Objects.equals(this.additionalProperties, bgPConnectionIpv6.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(customerPeerIp, equinixPeerIp, enabled, additionalProperties);
+    return Objects.hash(customerPeerIp, equinixPeerIp, enabled, outboundASPrependCount, operation, additionalProperties);
   }
 
   @Override
@@ -200,6 +255,8 @@ public class BGPConnectionIpv6 {
     sb.append("    customerPeerIp: ").append(toIndentedString(customerPeerIp)).append("\n");
     sb.append("    equinixPeerIp: ").append(toIndentedString(equinixPeerIp)).append("\n");
     sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
+    sb.append("    outboundASPrependCount: ").append(toIndentedString(outboundASPrependCount)).append("\n");
+    sb.append("    operation: ").append(toIndentedString(operation)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -226,6 +283,8 @@ public class BGPConnectionIpv6 {
     openapiFields.add("customerPeerIp");
     openapiFields.add("equinixPeerIp");
     openapiFields.add("enabled");
+    openapiFields.add("outboundASPrependCount");
+    openapiFields.add("operation");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -257,6 +316,10 @@ public class BGPConnectionIpv6 {
       }
       if ((jsonObj.get("equinixPeerIp") != null && !jsonObj.get("equinixPeerIp").isJsonNull()) && !jsonObj.get("equinixPeerIp").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `equinixPeerIp` to be a primitive type in the JSON string but got `%s`", jsonObj.get("equinixPeerIp").toString()));
+      }
+      // validate the optional field `operation`
+      if (jsonObj.get("operation") != null && !jsonObj.get("operation").isJsonNull()) {
+        BGPConnectionOperation.validateJsonObject(jsonObj.getAsJsonObject("operation"));
       }
   }
 

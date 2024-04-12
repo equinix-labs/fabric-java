@@ -114,7 +114,7 @@ public class ConnectionPostRequest {
    * Get type
    * @return type
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
 
   public ConnectionType getType() {
     return type;
@@ -136,7 +136,7 @@ public class ConnectionPostRequest {
    * Customer-provided connection name
    * @return name
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
 
   public String getName() {
     return name;
@@ -177,9 +177,6 @@ public class ConnectionPostRequest {
   }
 
   public ConnectionPostRequest addNotificationsItem(SimplifiedNotification notificationsItem) {
-    if (this.notifications == null) {
-      this.notifications = new ArrayList<>();
-    }
     this.notifications.add(notificationsItem);
     return this;
   }
@@ -188,7 +185,7 @@ public class ConnectionPostRequest {
    * Preferences for notifications on connection configuration or status changes
    * @return notifications
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
 
   public List<SimplifiedNotification> getNotifications() {
     return notifications;
@@ -212,7 +209,7 @@ public class ConnectionPostRequest {
    * maximum: 50000
    * @return bandwidth
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
 
   public Integer getBandwidth() {
     return bandwidth;
@@ -278,7 +275,7 @@ public class ConnectionPostRequest {
    * Get aSide
    * @return aSide
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
 
   public ConnectionSide getaSide() {
     return aSide;
@@ -300,7 +297,7 @@ public class ConnectionPostRequest {
    * Get zSide
    * @return zSide
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
 
   public ConnectionSide getzSide() {
     return zSide;
@@ -489,6 +486,12 @@ public class ConnectionPostRequest {
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("type");
+    openapiRequiredFields.add("name");
+    openapiRequiredFields.add("notifications");
+    openapiRequiredFields.add("bandwidth");
+    openapiRequiredFields.add("aSide");
+    openapiRequiredFields.add("zSide");
   }
 
  /**
@@ -503,39 +506,38 @@ public class ConnectionPostRequest {
           throw new IllegalArgumentException(String.format("The required field(s) %s in ConnectionPostRequest is not found in the empty JSON string", ConnectionPostRequest.openapiRequiredFields.toString()));
         }
       }
-      if ((jsonObj.get("name") != null && !jsonObj.get("name").isJsonNull()) && !jsonObj.get("name").isJsonPrimitive()) {
+
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : ConnectionPostRequest.openapiRequiredFields) {
+        if (jsonObj.get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
+        }
+      }
+      if (!jsonObj.get("name").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
       }
       // validate the optional field `order`
       if (jsonObj.get("order") != null && !jsonObj.get("order").isJsonNull()) {
         Order.validateJsonObject(jsonObj.getAsJsonObject("order"));
       }
-      if (jsonObj.get("notifications") != null && !jsonObj.get("notifications").isJsonNull()) {
-        JsonArray jsonArraynotifications = jsonObj.getAsJsonArray("notifications");
-        if (jsonArraynotifications != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("notifications").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `notifications` to be an array in the JSON string but got `%s`", jsonObj.get("notifications").toString()));
-          }
-
-          // validate the optional field `notifications` (array)
-          for (int i = 0; i < jsonArraynotifications.size(); i++) {
-            SimplifiedNotification.validateJsonObject(jsonArraynotifications.get(i).getAsJsonObject());
-          };
-        }
+      // ensure the json data is an array
+      if (!jsonObj.get("notifications").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `notifications` to be an array in the JSON string but got `%s`", jsonObj.get("notifications").toString()));
       }
+
+      JsonArray jsonArraynotifications = jsonObj.getAsJsonArray("notifications");
+      // validate the required field `notifications` (array)
+      for (int i = 0; i < jsonArraynotifications.size(); i++) {
+        SimplifiedNotification.validateJsonObject(jsonArraynotifications.get(i).getAsJsonObject());
+      };
       // validate the optional field `redundancy`
       if (jsonObj.get("redundancy") != null && !jsonObj.get("redundancy").isJsonNull()) {
         ConnectionRedundancy.validateJsonObject(jsonObj.getAsJsonObject("redundancy"));
       }
-      // validate the optional field `aSide`
-      if (jsonObj.get("aSide") != null && !jsonObj.get("aSide").isJsonNull()) {
-        ConnectionSide.validateJsonObject(jsonObj.getAsJsonObject("aSide"));
-      }
-      // validate the optional field `zSide`
-      if (jsonObj.get("zSide") != null && !jsonObj.get("zSide").isJsonNull()) {
-        ConnectionSide.validateJsonObject(jsonObj.getAsJsonObject("zSide"));
-      }
+      // validate the required field `aSide`
+      ConnectionSide.validateJsonObject(jsonObj.getAsJsonObject("aSide"));
+      // validate the required field `zSide`
+      ConnectionSide.validateJsonObject(jsonObj.getAsJsonObject("zSide"));
       // validate the optional field `project`
       if (jsonObj.get("project") != null && !jsonObj.get("project").isJsonNull()) {
         Project.validateJsonObject(jsonObj.getAsJsonObject("project"));

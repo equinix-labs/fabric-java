@@ -14,7 +14,7 @@ package com.equinix.openapi.fabric.v4.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.equinix.openapi.fabric.v4.model.CloudRouterPackageType;
+import com.equinix.openapi.fabric.v4.model.CloudRouterPostRequestPackage;
 import com.equinix.openapi.fabric.v4.model.Order;
 import com.equinix.openapi.fabric.v4.model.Project;
 import com.equinix.openapi.fabric.v4.model.SimplifiedAccount;
@@ -114,7 +114,7 @@ public class CloudRouterPostRequest {
 
   public static final String SERIALIZED_NAME_PACKAGE = "package";
   @SerializedName(SERIALIZED_NAME_PACKAGE)
-  private CloudRouterPackageType _package;
+  private CloudRouterPostRequestPackage _package;
 
   public static final String SERIALIZED_NAME_ORDER = "order";
   @SerializedName(SERIALIZED_NAME_ORDER)
@@ -201,7 +201,7 @@ public class CloudRouterPostRequest {
   }
 
 
-  public CloudRouterPostRequest _package(CloudRouterPackageType _package) {
+  public CloudRouterPostRequest _package(CloudRouterPostRequestPackage _package) {
     
     this._package = _package;
     return this;
@@ -213,12 +213,12 @@ public class CloudRouterPostRequest {
   **/
   @javax.annotation.Nullable
 
-  public CloudRouterPackageType getPackage() {
+  public CloudRouterPostRequestPackage getPackage() {
     return _package;
   }
 
 
-  public void setPackage(CloudRouterPackageType _package) {
+  public void setPackage(CloudRouterPostRequestPackage _package) {
     this._package = _package;
   }
 
@@ -461,7 +461,7 @@ public class CloudRouterPostRequest {
       }
       // validate the optional field `package`
       if (jsonObj.get("package") != null && !jsonObj.get("package").isJsonNull()) {
-        CloudRouterPackageType.validateJsonObject(jsonObj.getAsJsonObject("package"));
+        CloudRouterPostRequestPackage.validateJsonObject(jsonObj.getAsJsonObject("package"));
       }
       // validate the optional field `order`
       if (jsonObj.get("order") != null && !jsonObj.get("order").isJsonNull()) {

@@ -12,53 +12,48 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import com.equinix.openapi.fabric.v4.model.RouteFilterRulesBase;
+import com.equinix.openapi.fabric.v4.model.ConnectionLink;
+import com.equinix.openapi.fabric.v4.model.Pagination;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 
 /**
- * Model tests for RouteFilterRulesChangeOperation
+ * Model tests for PrecisionTimeServiceConnectionsResponse
  */
-public class RouteFilterRulesChangeOperationTest {
-    private final RouteFilterRulesChangeOperation model = new RouteFilterRulesChangeOperation();
+public class PrecisionTimeServiceConnectionsResponseTest {
+    private final PrecisionTimeServiceConnectionsResponse model = new PrecisionTimeServiceConnectionsResponse();
 
     /**
-     * Model tests for RouteFilterRulesChangeOperation
+     * Model tests for PrecisionTimeServiceConnectionsResponse
      */
     @Test
-    public void testRouteFilterRulesChangeOperation() {
-        // TODO: test RouteFilterRulesChangeOperation
+    public void testPrecisionTimeServiceConnectionsResponse() {
+        // TODO: test PrecisionTimeServiceConnectionsResponse
     }
 
     /**
-     * Test the property 'op'
+     * Test the property 'pagination'
      */
     @Test
-    public void opTest() {
-        // TODO: test op
+    public void paginationTest() {
+        // TODO: test pagination
     }
 
     /**
-     * Test the property 'path'
+     * Test the property 'data'
      */
     @Test
-    public void pathTest() {
-        // TODO: test path
-    }
-
-    /**
-     * Test the property 'value'
-     */
-    @Test
-    public void valueTest() {
-        // TODO: test value
+    public void dataTest() {
+        // TODO: test data
     }
 
 }

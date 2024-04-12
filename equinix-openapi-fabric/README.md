@@ -1,7 +1,7 @@
 # equinix-openapi-fabric
 
 Equinix Fabric API v4
-- API version: 4.12
+- API version: 4.13
 
 Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br>
 
@@ -157,6 +157,9 @@ Class | Method | HTTP request | Description
 *PrecisionTimeApi* | [**createTimeServices**](docs/PrecisionTimeApi.md#createTimeServices) | **POST** /fabric/v4/timeServices | Create Time Service
 *PrecisionTimeApi* | [**deleteTimeServiceById**](docs/PrecisionTimeApi.md#deleteTimeServiceById) | **DELETE** /fabric/v4/timeServices/{serviceId} | Delete time service
 *PrecisionTimeApi* | [**getTimeServicesById**](docs/PrecisionTimeApi.md#getTimeServicesById) | **GET** /fabric/v4/timeServices/{serviceId} | Get Time Service
+*PrecisionTimeApi* | [**getTimeServicesConnectionsByServiceId**](docs/PrecisionTimeApi.md#getTimeServicesConnectionsByServiceId) | **GET** /fabric/v4/timeServices/{serviceId}/connections | Get Connection Links
+*PrecisionTimeApi* | [**getTimeServicesPackageByCode**](docs/PrecisionTimeApi.md#getTimeServicesPackageByCode) | **GET** /fabric/v4/timeServicePackages/{packageCode} | Get Package By Code
+*PrecisionTimeApi* | [**getTimeServicesPackages**](docs/PrecisionTimeApi.md#getTimeServicesPackages) | **GET** /fabric/v4/timeServicePackages | Get Packages
 *PrecisionTimeApi* | [**updateTimeServicesById**](docs/PrecisionTimeApi.md#updateTimeServicesById) | **PATCH** /fabric/v4/timeServices/{serviceId} | Patch time service
 *PricesApi* | [**searchPrices**](docs/PricesApi.md#searchPrices) | **POST** /fabric/v4/prices/search | Get Prices
 *RouteFilterRulesApi* | [**createRouteFilterRule**](docs/RouteFilterRulesApi.md#createRouteFilterRule) | **POST** /fabric/v4/routeFilters/{routeFilterId}/routeFilterRules | Create RFRule
@@ -234,6 +237,7 @@ Class | Method | HTTP request | Description
  - [BGPActionsBulkData](docs/BGPActionsBulkData.md)
  - [BGPConnectionIpv4](docs/BGPConnectionIpv4.md)
  - [BGPConnectionIpv6](docs/BGPConnectionIpv6.md)
+ - [BGPConnectionOperation](docs/BGPConnectionOperation.md)
  - [BandwidthUtilization](docs/BandwidthUtilization.md)
  - [BulkPhysicalPort](docs/BulkPhysicalPort.md)
  - [BulkPort](docs/BulkPort.md)
@@ -251,8 +255,8 @@ Class | Method | HTTP request | Description
  - [CloudRouterFilters](docs/CloudRouterFilters.md)
  - [CloudRouterOrFilter](docs/CloudRouterOrFilter.md)
  - [CloudRouterPackage](docs/CloudRouterPackage.md)
- - [CloudRouterPackageType](docs/CloudRouterPackageType.md)
  - [CloudRouterPostRequest](docs/CloudRouterPostRequest.md)
+ - [CloudRouterPostRequestPackage](docs/CloudRouterPostRequestPackage.md)
  - [CloudRouterSearchRequest](docs/CloudRouterSearchRequest.md)
  - [CloudRouterSimpleExpression](docs/CloudRouterSimpleExpression.md)
  - [CloudRouterSortBy](docs/CloudRouterSortBy.md)
@@ -268,6 +272,7 @@ Class | Method | HTTP request | Description
  - [ConnectionCompanyProfile](docs/ConnectionCompanyProfile.md)
  - [ConnectionDirection](docs/ConnectionDirection.md)
  - [ConnectionInvitation](docs/ConnectionInvitation.md)
+ - [ConnectionLink](docs/ConnectionLink.md)
  - [ConnectionOperation](docs/ConnectionOperation.md)
  - [ConnectionPostRequest](docs/ConnectionPostRequest.md)
  - [ConnectionPriority](docs/ConnectionPriority.md)
@@ -395,7 +400,9 @@ Class | Method | HTTP request | Description
  - [PrecisionTimeChangeOperation](docs/PrecisionTimeChangeOperation.md)
  - [PrecisionTimePackageRequest](docs/PrecisionTimePackageRequest.md)
  - [PrecisionTimePackageResponse](docs/PrecisionTimePackageResponse.md)
+ - [PrecisionTimeServiceConnectionsResponse](docs/PrecisionTimeServiceConnectionsResponse.md)
  - [PrecisionTimeServiceCreateResponse](docs/PrecisionTimeServiceCreateResponse.md)
+ - [PrecisionTimeServicePackagesResponse](docs/PrecisionTimeServicePackagesResponse.md)
  - [PrecisionTimeServiceRequest](docs/PrecisionTimeServiceRequest.md)
  - [Presence](docs/Presence.md)
  - [Price](docs/Price.md)

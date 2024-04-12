@@ -39,6 +39,7 @@ Port configuration settings
 | UNTAGGED | &quot;UNTAGGED&quot; |
 | UNLIMITED | &quot;UNLIMITED&quot; |
 | FREE | &quot;FREE&quot; |
+| UNLIMITED_PLUS | &quot;UNLIMITED PLUS&quot; |
 
 
 

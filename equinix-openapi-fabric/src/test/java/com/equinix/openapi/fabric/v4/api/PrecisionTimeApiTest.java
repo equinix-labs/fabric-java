@@ -15,7 +15,10 @@ package com.equinix.openapi.fabric.v4.api;
 import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.v4.model.Error;
 import com.equinix.openapi.fabric.v4.model.PrecisionTimeChangeOperation;
+import com.equinix.openapi.fabric.v4.model.PrecisionTimePackageResponse;
+import com.equinix.openapi.fabric.v4.model.PrecisionTimeServiceConnectionsResponse;
 import com.equinix.openapi.fabric.v4.model.PrecisionTimeServiceCreateResponse;
+import com.equinix.openapi.fabric.v4.model.PrecisionTimeServicePackagesResponse;
 import com.equinix.openapi.fabric.v4.model.PrecisionTimeServiceRequest;
 import java.util.UUID;
 import org.junit.jupiter.api.Disabled;
@@ -73,6 +76,47 @@ public class PrecisionTimeApiTest {
     public void getTimeServicesByIdTest() throws ApiException {
         UUID serviceId = null;
         PrecisionTimeServiceCreateResponse response = api.getTimeServicesById(serviceId);
+        // TODO: test validations
+    }
+
+    /**
+     * Get Connection Links
+     *
+     * The API provides capability to get prevision timing service&#39;s details
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getTimeServicesConnectionsByServiceIdTest() throws ApiException {
+        UUID serviceId = null;
+        PrecisionTimeServiceConnectionsResponse response = api.getTimeServicesConnectionsByServiceId(serviceId);
+        // TODO: test validations
+    }
+
+    /**
+     * Get Package By Code
+     *
+     * The API provides capability to get timing service&#39;s package by code
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getTimeServicesPackageByCodeTest() throws ApiException {
+        String packageCode = null;
+        PrecisionTimePackageResponse response = api.getTimeServicesPackageByCode(packageCode);
+        // TODO: test validations
+    }
+
+    /**
+     * Get Packages
+     *
+     * The API provides capability to get timing service&#39;s packages
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getTimeServicesPackagesTest() throws ApiException {
+        PrecisionTimeServicePackagesResponse response = api.getTimeServicesPackages();
         // TODO: test validations
     }
 

@@ -17,7 +17,7 @@ import java.util.Arrays;
 import com.equinix.openapi.fabric.v4.model.Changelog;
 import com.equinix.openapi.fabric.v4.model.CloudRouterAccessPointState;
 import com.equinix.openapi.fabric.v4.model.CloudRouterChange;
-import com.equinix.openapi.fabric.v4.model.CloudRouterPackageType;
+import com.equinix.openapi.fabric.v4.model.CloudRouterPostRequestPackage;
 import com.equinix.openapi.fabric.v4.model.Order;
 import com.equinix.openapi.fabric.v4.model.Project;
 import com.equinix.openapi.fabric.v4.model.SimplifiedAccount;
@@ -163,7 +163,7 @@ public class CloudRouter {
 
   public static final String SERIALIZED_NAME_PACKAGE = "package";
   @SerializedName(SERIALIZED_NAME_PACKAGE)
-  private CloudRouterPackageType _package;
+  private CloudRouterPostRequestPackage _package;
 
   public static final String SERIALIZED_NAME_ORDER = "order";
   @SerializedName(SERIALIZED_NAME_ORDER)
@@ -496,7 +496,7 @@ public class CloudRouter {
   }
 
 
-  public CloudRouter _package(CloudRouterPackageType _package) {
+  public CloudRouter _package(CloudRouterPostRequestPackage _package) {
     
     this._package = _package;
     return this;
@@ -508,12 +508,12 @@ public class CloudRouter {
   **/
   @javax.annotation.Nullable
 
-  public CloudRouterPackageType getPackage() {
+  public CloudRouterPostRequestPackage getPackage() {
     return _package;
   }
 
 
-  public void setPackage(CloudRouterPackageType _package) {
+  public void setPackage(CloudRouterPostRequestPackage _package) {
     this._package = _package;
   }
 
@@ -792,7 +792,7 @@ public class CloudRouter {
       }
       // validate the optional field `package`
       if (jsonObj.get("package") != null && !jsonObj.get("package").isJsonNull()) {
-        CloudRouterPackageType.validateJsonObject(jsonObj.getAsJsonObject("package"));
+        CloudRouterPostRequestPackage.validateJsonObject(jsonObj.getAsJsonObject("package"));
       }
       // validate the optional field `order`
       if (jsonObj.get("order") != null && !jsonObj.get("order").isJsonNull()) {

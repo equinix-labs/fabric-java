@@ -11,7 +11,7 @@ Create Cloud Router
 |**type** | [**TypeEnum**](#TypeEnum) |  |  [optional] |
 |**name** | **String** | Customer-provided Cloud Router name |  [optional] |
 |**location** | [**SimplifiedLocationWithoutIBX**](SimplifiedLocationWithoutIBX.md) |  |  [optional] |
-|**_package** | [**CloudRouterPackageType**](CloudRouterPackageType.md) |  |  [optional] |
+|**_package** | [**CloudRouterPostRequestPackage**](CloudRouterPostRequestPackage.md) |  |  [optional] |
 |**order** | [**Order**](Order.md) |  |  [optional] |
 |**project** | [**Project**](Project.md) |  |  [optional] |
 |**account** | [**SimplifiedAccount**](SimplifiedAccount.md) |  |  [optional] |
