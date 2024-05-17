@@ -10,7 +10,7 @@ CURRENT_GID := $(shell id -g)
 # git repo : equinix fabric-java sdk
 GIT_ORG=equinix-labs
 GIT_REPO=fabric-java
-
+TEST_PATH="${OPENAPI_GENERATED_CLIENT}src/test/java/com/equinix/openapi/fabric"
 # Equinix fabric OAS 3.0.0
 SPEC_FETCHED_FILE:=spec/oas3.fabric.fetched.json
 SPEC_PATCHED_FILE:=spec/oas3.fabric.patched.json
@@ -64,5 +64,15 @@ docker_generate:
 		--git-repo-id ${GIT_REPO} \
 		--git-user-id ${GIT_ORG}
 
+
 build_client:
-	cd ${OPENAPI_GENERATED_CLIENT}; mvn clean package
+	rm -rf "${TEST_PATH}/v4"
+	cp -r "v4" ${TEST_PATH}
+	#cd ${OPENAPI_GENERATED_CLIENT} && mvn clean package \
+#		-DenvUrl=https://uatapi.equinix.com \
+#		-DuserName=panthersnfv \
+#		-DuserPassword=Welcome@1 \
+#		-DclientId=RPZtTFUFGLTMP7aOpfIcWHq8gVsAZNs2Rne3A9vlDqjVx6bw \
+#		-DclientSecret=AQoEddbrVmC8bzoF6kmwLjJ7qIlUVTvF00xKRQsJWAb6Hzu4ZARUH94XzN8bXh73
+
+

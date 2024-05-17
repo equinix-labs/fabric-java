@@ -1,0 +1,16 @@
+{
+  "aside_port_name": "ops-user100-CX-DC11-NL-Dot1q-BO-1G-SEC-JP-101",
+  "aside_vlan_tag": "1599",
+  "bandwidth": 50,
+  "connection_name": "port_2_publicSP_PFCR",
+  "connection_type": "EVPL_VC",
+  "notifications_emails": [
+    "example@equinix.com"
+  ],
+  "notifications_type": "ALL",
+  "purchase_order_number": "1-323292",
+  "zside_ap_profile_type": "L2_PROFILE",
+  "zside_ap_type": "SP",
+  "zside_location": "DC",
+  "zside_sp_name": "Terraform_Sanity_Test_Public"
+}

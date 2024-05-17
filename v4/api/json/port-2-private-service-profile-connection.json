@@ -1,0 +1,16 @@
+{
+  "aside_port_name": "ops-user100-CX-DA1-L-Dot1q-BO-10G-SEC-JP-35",
+  "aside_vlan_tag": "3452",
+  "bandwidth": 50,
+  "connection_name": "port_2_privateSP_PFCR",
+  "connection_type": "EVPL_VC",
+  "notifications_emails": [
+    "panthers.fcr@test.com"
+  ],
+  "notifications_type": "ALL",
+  "purchase_order_number": "1-323292",
+  "zside_ap_profile_type": "L2_PROFILE",
+  "zside_ap_type": "SP",
+  "zside_location": "DA",
+  "zside_sp_name": "Terraform_Sanity_Test_Private"
+}

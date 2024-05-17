@@ -23,9 +23,12 @@ import com.equinix.openapi.fabric.v4.model.Statistics;
 import com.equinix.openapi.fabric.v4.model.TopUtilizedStatistics;
 import java.util.UUID;
 import com.equinix.openapi.fabric.v4.model.ViewPoint;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.Ignore;
+import org.junit.Assert;
 
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,62 +37,81 @@ import java.util.Map;
 /**
  * API tests for StatisticsApi
  */
-@Disabled
-public class StatisticsApiTest {
+public class StatisticsApiTest extends AbstractTest {
 
-    private final StatisticsApi api = new StatisticsApi();
+    private final StatisticsApi api = new StatisticsApi(generateToken());
 
     /**
      * Get Stats by uuid
      *
      * This API provides service-level metrics so that you can view access and gather key information required to manage service subscription sizing and capacity
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getConnectionStatsByPortUuidTest() throws ApiException {
-        String connectionId = null;
-        OffsetDateTime startDateTime = null;
-        OffsetDateTime endDateTime = null;
-        ViewPoint viewPoint = null;
-        Statistics response = api.getConnectionStatsByPortUuid(connectionId, startDateTime, endDateTime, viewPoint);
+        //
+        //String connectionId = null;
+        //
+        //OffsetDateTime startDateTime = null;
+        //
+        //OffsetDateTime endDateTime = null;
+        //
+        //ViewPoint viewPoint = null;
+        //
+        //Statistics response = api.getConnectionStatsByPortUuid(connectionId, startDateTime, endDateTime, viewPoint);
+
         // TODO: test validations
     }
-
     /**
      * Top Port Statistics
      *
      * This API provides top utilized service-level traffic metrics so that you can view access and gather key information required to manage service subscription sizing and capacity.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getPortStatsTest() throws ApiException {
-        List<String> metros = null;
-        Sort sort = null;
-        Integer top = null;
-        Duration duration = null;
-        QueryDirection direction = null;
-        MetricInterval metricInterval = null;
-        String projectId = null;
-        TopUtilizedStatistics response = api.getPortStats(metros, sort, top, duration, direction, metricInterval, projectId);
+        //
+        //List<String> metros = null;
+        //
+        //Sort sort = null;
+        //
+        //Integer top = null;
+        //
+        //Duration duration = null;
+        //
+        //QueryDirection direction = null;
+        //
+        //MetricInterval metricInterval = null;
+        //
+        //String projectId = null;
+        //
+        //TopUtilizedStatistics response = api.getPortStats(metros, sort, top, duration, direction, metricInterval, projectId);
+
         // TODO: test validations
     }
-
     /**
      * Get Stats by uuid
      *
      * This API provides service-level traffic metrics so that you can view access and gather key information required to manage service subscription sizing and capacity.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getPortStatsByPortUuidTest() throws ApiException {
-        UUID portId = null;
-        OffsetDateTime startDateTime = null;
-        OffsetDateTime endDateTime = null;
-        Statistics response = api.getPortStatsByPortUuid(portId, startDateTime, endDateTime);
+        //
+        //UUID portId = null;
+        //
+        //OffsetDateTime startDateTime = null;
+        //
+        //OffsetDateTime endDateTime = null;
+        //
+        //Statistics response = api.getPortStatsByPortUuid(portId, startDateTime, endDateTime);
+
         // TODO: test validations
     }
-
 }
