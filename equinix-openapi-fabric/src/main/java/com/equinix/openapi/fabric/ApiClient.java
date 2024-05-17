@@ -58,11 +58,10 @@ import com.equinix.openapi.fabric.auth.ApiKeyAuth;
  * <p>ApiClient class.</p>
  */
 public class ApiClient {
-
-    private String basePath = "https://api.equinix.com";
+    private String basePath = System.getProperty("envUrl");
     protected List<ServerConfiguration> servers = new ArrayList<ServerConfiguration>(Arrays.asList(
     new ServerConfiguration(
-      "https://api.equinix.com",
+      basePath,
       "Equinix Inc",
       new HashMap<String, ServerVariable>()
     )
@@ -87,6 +86,7 @@ public class ApiClient {
 
     private OkHttpClient httpClient;
     private JSON json;
+    private Response response;
 
     private HttpLoggingInterceptor loggingInterceptor;
 
@@ -145,6 +145,10 @@ public class ApiClient {
         setUserAgent("OpenAPI-Generator/0.5.0/java");
 
         authentications = new HashMap<String, Authentication>();
+    }
+
+    public int getStatusCode(){
+       return response.code();
     }
 
     /**
@@ -1041,7 +1045,7 @@ public class ApiClient {
      */
     public <T> ApiResponse<T> execute(Call call, Type returnType) throws ApiException {
         try {
-            Response response = call.execute();
+            response = call.execute();
             T data = handleResponse(response, returnType);
             return new ApiResponse<T>(response.code(), response.headers().toMultimap(), data);
         } catch (IOException e) {
