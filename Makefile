@@ -65,4 +65,5 @@ docker_generate:
 		--git-user-id ${GIT_ORG}
 
 build_client:
-	cd ${OPENAPI_GENERATED_CLIENT}; mvn clean package
+	cd ${OPENAPI_GENERATED_CLIENT}; mvn clean package -DenvUrl=$TEST_HOST_URL -DuserName=$TEST_USER_NAME \
+    -DuserPassword=$TEST_USER_PASSWORD -DclientId=$CLIENT_ID -DclientSecret=$CLIENT_SECRET
