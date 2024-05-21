@@ -16,7 +16,7 @@ on:
 jobs:
   build:
 
-    runs-on: [ self-hosted , kubernetes , nonprod , onprem , ecx ]
+    runs-on: [ ubuntu-latest ]
 
     steps:
       - name: Get vault token
