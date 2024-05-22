@@ -67,6 +67,3 @@ docker_generate:
 
 build_client:
 	rm -rf ${OPENAPI_GENERATED_CLIENT}${TESTS_PATH}v4; cp -r v4 ${OPENAPI_GENERATED_CLIENT}${TESTS_PATH}
-	cd ${OPENAPI_GENERATED_CLIENT}
-	mvn clean package -DenvUrl=$TEST_HOST_URL -DuserName=$TEST_USER_NAME \
-    -DuserPassword=$TEST_USER_PASSWORD -DclientId=$CLIENT_ID -DclientSecret=$CLIENT_SECRET

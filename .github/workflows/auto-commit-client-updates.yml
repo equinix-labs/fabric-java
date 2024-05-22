@@ -31,9 +31,9 @@ jobs:
         env:
           TEST_HOST_URL: ${{ inputs.test_host_url }}
           CLIENT_ID: ${{ secrets.TEST_USER_CLIENT_ID }}
-          CLIENT_SECRET: ${{ env.TEST_USER_CLIENT_SECRET }}
-          TEST_USER_NAME: ${{ env.TEST_USER_NAME }}
-          TEST_USER_PASSWORD: ${{ env.TEST_USER_PASSWORD }}
+          CLIENT_SECRET: ${{ secrets.TEST_USER_CLIENT_SECRET }}
+          TEST_USER_NAME: ${{ secrets.TEST_USER_NAME }}
+          TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
         run: |
           git config --global user.name 'equinix-labs@auto-commit-workflow'
           git config --global user.email 'bot@equinix.noreply.github.com'
@@ -42,9 +42,14 @@ jobs:
           echo -e "\nThis is executing for branch: ${GITHUB_REF##*/}."
           git checkout ${GITHUB_REF##*/}
           make generate
-          build_client:
+          cd equinix-openapi-fabric/
+          mvn clean package -DenvUrl=${{ env.TEST_HOST_URL }} -DuserName=${{ env.TEST_USER_NAME }} \
+          -DuserPassword=${{ env.TEST_USER_PASSWORD }} -DclientId=${{ env.CLIENT_ID }} -DclientSecret=${{ env.CLIENT_SECRET }}
           echo -e "Make execution completed."
-          git add equinix-openapi-fabric/.
+
+      - name: Commit to branch.
+        run: |
+          git add .
           echo -e "\nGit status:"
           echo `git status`
           cdate=`date`
@@ -52,4 +57,4 @@ jobs:
           echo -e "\nCommit message created : $cmsg"
           echo -e "\nCommitting if there are files to update in client dir:"
           echo `git commit -m "$cmsg"`
-          echo `git push`
+          echo `git push`     
