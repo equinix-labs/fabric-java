@@ -9,51 +9,26 @@
  * Do not edit the class manually.
  */
 
-
 package com.equinix.openapi.fabric.v4.api;
 
 import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.v4.model.CloudRouter;
-import com.equinix.openapi.fabric.v4.model.CloudRouterActionRequest;
-import com.equinix.openapi.fabric.v4.model.CloudRouterActionResponse;
-import com.equinix.openapi.fabric.v4.model.CloudRouterActionState;
-import com.equinix.openapi.fabric.v4.model.CloudRouterChangeOperation;
-import com.equinix.openapi.fabric.v4.model.CloudRouterPackage;
-import com.equinix.openapi.fabric.v4.model.CloudRouterPostRequest;
-import com.equinix.openapi.fabric.v4.model.CloudRouterSearchRequest;
-import com.equinix.openapi.fabric.v4.model.Error;
-import com.equinix.openapi.fabric.v4.model.PackageResponse;
-import com.equinix.openapi.fabric.v4.model.RouteTableEntrySearchRequest;
-import com.equinix.openapi.fabric.v4.model.RouteTableEntrySearchResponse;
-import com.equinix.openapi.fabric.v4.model.RouterPackageCode;
-import com.equinix.openapi.fabric.v4.model.SearchResponse;
-import java.util.UUID;
 import org.junit.Test;
-import org.junit.Ignore;
-import org.junit.Assert;
-
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.junit.jupiter.api.Disabled;
 
 /**
  * API tests for CloudRoutersApi
  */
-@Ignore
+@Disabled
 public class CloudRoutersApiTest extends AbstractTest {
 
     private final CloudRoutersApi api = new CloudRoutersApi(generateToken());
 
     /**
      * Create Routers
-     *
+     * <p>
      * This API provides capability to create user&#39;s Cloud Routers
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void createCloudRouterTest() throws ApiException {
@@ -64,13 +39,13 @@ public class CloudRoutersApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Route table actions
-     *
+     * <p>
      * This API provides capability to refresh route table and bgp session summary information
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void createCloudRouterActionTest() throws ApiException {
@@ -83,13 +58,13 @@ public class CloudRoutersApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Delete Routers
-     *
+     * <p>
      * This API provides capability to delete user&#39;s Cloud Routers
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void deleteCloudRouterByUuidTest() throws ApiException {
@@ -100,13 +75,13 @@ public class CloudRoutersApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Get actions
-     *
+     * <p>
      * This API provides capability to fetch action status
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getCloudRouterActionsTest() throws ApiException {
@@ -119,13 +94,13 @@ public class CloudRoutersApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Get Routers
-     *
+     * <p>
      * This API provides capability to retrieve user&#39;s Cloud Routers
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getCloudRouterByUuidTest() throws ApiException {
@@ -136,13 +111,13 @@ public class CloudRoutersApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Get Package Details
-     *
+     * <p>
      * This API provides capability to retrieve user&#39;s Cloud Routers Package Details
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getCloudRouterPackageByCodeTest() throws ApiException {
@@ -153,13 +128,13 @@ public class CloudRoutersApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * List Packages
-     *
+     * <p>
      * This API provides capability to retrieve user&#39;s Cloud Routers Packages
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getCloudRouterPackagesTest() throws ApiException {
@@ -172,13 +147,13 @@ public class CloudRoutersApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Search Route Table
-     *
+     * <p>
      * The API provides capability to get list of user&#39;s Fabric Cloud Router route table entries using search criteria, including optional filtering, pagination and sorting
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void searchCloudRouterRoutesTest() throws ApiException {
@@ -191,13 +166,13 @@ public class CloudRoutersApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Search Routers
-     *
+     * <p>
      * The API provides capability to get list of user&#39;s Cloud Routers using search criteria, including optional filtering, pagination and sorting
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void searchCloudRoutersTest() throws ApiException {
@@ -208,13 +183,13 @@ public class CloudRoutersApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Update Routers
-     *
+     * <p>
      * This API provides capability to update user&#39;s Cloud Routers
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void updateCloudRouterByUuidTest() throws ApiException {

@@ -9,47 +9,26 @@
  * Do not edit the class manually.
  */
 
-
 package com.equinix.openapi.fabric.v4.api;
 
 import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.v4.model.Connection;
-import com.equinix.openapi.fabric.v4.model.ConnectionAction;
-import com.equinix.openapi.fabric.v4.model.ConnectionActionRequest;
-import com.equinix.openapi.fabric.v4.model.ConnectionChangeOperation;
-import com.equinix.openapi.fabric.v4.model.ConnectionDirection;
-import com.equinix.openapi.fabric.v4.model.ConnectionPostRequest;
-import com.equinix.openapi.fabric.v4.model.ConnectionResponse;
-import com.equinix.openapi.fabric.v4.model.ConnectionSearchResponse;
-import com.equinix.openapi.fabric.v4.model.Error;
-import com.equinix.openapi.fabric.v4.model.SearchRequest;
-import com.equinix.openapi.fabric.v4.model.ValidateRequest;
 import org.junit.Test;
-import org.junit.Ignore;
-import org.junit.Assert;
-
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.junit.jupiter.api.Disabled;
 
 /**
  * API tests for ConnectionsApi
  */
-@Ignore
+@Disabled
 public class ConnectionsApiTest extends AbstractTest {
 
     private final ConnectionsApi api = new ConnectionsApi(generateToken());
 
     /**
      * Create Connection
-     *
+     * <p>
      * This API provides capability to create user&#39;s virtual connection
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void createConnectionTest() throws ApiException {
@@ -60,13 +39,13 @@ public class ConnectionsApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Connection Actions
-     *
+     * <p>
      * This API provides capability to accept/reject user&#39;s virtual connection
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void createConnectionActionTest() throws ApiException {
@@ -79,13 +58,13 @@ public class ConnectionsApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Delete by ID
-     *
+     * <p>
      * Delete Connection by ID
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void deleteConnectionByUuidTest() throws ApiException {
@@ -96,13 +75,13 @@ public class ConnectionsApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Get Connection by ID
-     *
+     * <p>
      * The API provides capability to get user&#39;s virtual connection details (Service Tokens, Access Points, Link Protocols, etc) by it&#39;s connection ID (UUID)
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getConnectionByUuidTest() throws ApiException {
@@ -115,13 +94,13 @@ public class ConnectionsApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Search connections
-     *
+     * <p>
      * The API provides capability to get list of user&#39;s virtual connections using search criteria, including optional filtering, pagination and sorting
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void searchConnectionsTest() throws ApiException {
@@ -132,13 +111,13 @@ public class ConnectionsApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Update by ID
-     *
+     * <p>
      * Update Connection by ID
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void updateConnectionByUuidTest() throws ApiException {
@@ -151,13 +130,13 @@ public class ConnectionsApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Validate Connection
-     *
+     * <p>
      * This API provides capability to validate by auth key
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void validateConnectionsTest() throws ApiException {

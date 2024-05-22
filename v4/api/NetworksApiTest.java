@@ -9,46 +9,26 @@
  * Do not edit the class manually.
  */
 
-
 package com.equinix.openapi.fabric.v4.api;
 
 import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.v4.model.Error;
-import com.equinix.openapi.fabric.v4.model.Network;
-import com.equinix.openapi.fabric.v4.model.NetworkChange;
-import com.equinix.openapi.fabric.v4.model.NetworkChangeOperation;
-import com.equinix.openapi.fabric.v4.model.NetworkChangeResponse;
-import com.equinix.openapi.fabric.v4.model.NetworkConnections;
-import com.equinix.openapi.fabric.v4.model.NetworkPostRequest;
-import com.equinix.openapi.fabric.v4.model.NetworkSearchRequest;
-import com.equinix.openapi.fabric.v4.model.NetworkSearchResponse;
-import java.util.UUID;
-import org.junit.jupiter.api.Test;
-import org.junit.Ignore;
-import org.junit.Assert;
-
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
 
 /**
  * API tests for NetworksApi
  */
-@Ignore
+@Disabled
 public class NetworksApiTest extends AbstractTest {
 
     private final NetworksApi api = new NetworksApi(generateToken());
 
     /**
      * Create Network
-     *
+     * <p>
      * This API provides capability to create user&#39;s Fabric Network
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void createNetworkTest() throws ApiException {
@@ -59,13 +39,13 @@ public class NetworksApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Delete Network By ID
-     *
+     * <p>
      * This API provides capability to delete user&#39;s Fabric Network
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void deleteNetworkByUuidTest() throws ApiException {
@@ -76,13 +56,13 @@ public class NetworksApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Get Connections
-     *
+     * <p>
      * The API provides capability to get list of user&#39;s Fabric Network connections
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getConnectionsByNetworkUuidTest() throws ApiException {
@@ -93,13 +73,13 @@ public class NetworksApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Get Network By ID
-     *
+     * <p>
      * This API provides capability to retrieve user&#39;s Fabric Network
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getNetworkByUuidTest() throws ApiException {
@@ -110,13 +90,13 @@ public class NetworksApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Get Change By ID
-     *
+     * <p>
      * This API provides capability to retrieve user&#39;s Fabric Network Change
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getNetworkChangeByUuidTest() throws ApiException {
@@ -129,13 +109,13 @@ public class NetworksApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Get Network Changes
-     *
+     * <p>
      * The API provides capability to get list of user&#39;s Fabric Network changes
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getNetworkChangesTest() throws ApiException {
@@ -146,13 +126,13 @@ public class NetworksApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Search Network
-     *
+     * <p>
      * The API provides capability to get list of user&#39;s Fabric Network using search criteria, including optional filtering, pagination and sorting
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void searchNetworksTest() throws ApiException {
@@ -163,13 +143,13 @@ public class NetworksApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Update Network By ID
-     *
+     * <p>
      * This API provides capability to update user&#39;s Fabric Network
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void updateNetworkByUuidTest() throws ApiException {

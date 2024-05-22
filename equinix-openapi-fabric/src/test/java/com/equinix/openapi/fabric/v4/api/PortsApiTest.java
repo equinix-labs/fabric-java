@@ -14,8 +14,8 @@ package com.equinix.openapi.fabric.v4.api;
 import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.v4.api.dto.PortDto;
 import com.equinix.openapi.fabric.v4.model.*;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,7 +26,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * API tests for PortsApi
  */
-@Ignore
+@Disabled
 public class PortsApiTest extends AbstractTest {
     private final PortsApi api = new PortsApi(generateToken());
 

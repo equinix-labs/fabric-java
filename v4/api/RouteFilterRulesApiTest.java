@@ -9,45 +9,26 @@
  * Do not edit the class manually.
  */
 
-
 package com.equinix.openapi.fabric.v4.api;
 
 import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.v4.model.Error;
-import com.equinix.openapi.fabric.v4.model.GetRouteFilterRulesResponse;
-import com.equinix.openapi.fabric.v4.model.RouteFilterRulesBase;
-import com.equinix.openapi.fabric.v4.model.RouteFilterRulesChangeData;
-import com.equinix.openapi.fabric.v4.model.RouteFilterRulesChangeDataResponse;
-import com.equinix.openapi.fabric.v4.model.RouteFilterRulesData;
-import com.equinix.openapi.fabric.v4.model.RouteFilterRulesPatchRequestItem;
-import com.equinix.openapi.fabric.v4.model.RouteFilterRulesPostRequest;
-import java.util.UUID;
-import org.junit.jupiter.api.Test;
-import org.junit.Ignore;
-import org.junit.Assert;
-
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
 
 /**
  * API tests for RouteFilterRulesApi
  */
-@Ignore
-public class RouteFilterRulesApiTest extends AbstractTest{
+@Disabled
+public class RouteFilterRulesApiTest extends AbstractTest {
 
     private final RouteFilterRulesApi api = new RouteFilterRulesApi(generateToken());
 
     /**
      * Create RFRule
-     *
+     * <p>
      * This API provides capability to create a Route Filter Rule
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void createRouteFilterRuleTest() throws ApiException {
@@ -60,13 +41,13 @@ public class RouteFilterRulesApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Bulk RFRules
-     *
+     * <p>
      * This API provides capability to create bulk route filter rules
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void createRouteFilterRulesInBulkTest() throws ApiException {
@@ -79,13 +60,13 @@ public class RouteFilterRulesApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * DeleteRFRule
-     *
+     * <p>
      * This API provides capability to delete a Route Filter Rule
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void deleteRouteFilterRuleByUuidTest() throws ApiException {
@@ -98,13 +79,13 @@ public class RouteFilterRulesApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * GetRFRule By UUID
-     *
+     * <p>
      * This API provides capability to view a Route Filter Rule by UUID
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getRouteFilterRuleByUuidTest() throws ApiException {
@@ -117,13 +98,13 @@ public class RouteFilterRulesApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Get Change By ID
-     *
+     * <p>
      * This API provides capability to retrieve a specific Route Filter Rule&#39;s Changes
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getRouteFilterRuleChangeByUuidTest() throws ApiException {
@@ -138,13 +119,13 @@ public class RouteFilterRulesApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Get All Changes
-     *
+     * <p>
      * This API provides capability to retrieve all of a Route Filter Rule&#39;s Changes
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getRouteFilterRuleChangesTest() throws ApiException {
@@ -161,13 +142,13 @@ public class RouteFilterRulesApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * GetRFRules
-     *
+     * <p>
      * This API provides capability to get all Route Filters Rules for Fabric
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getRouteFilterRulesTest() throws ApiException {
@@ -182,13 +163,13 @@ public class RouteFilterRulesApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * PatchRFilterRule
-     *
+     * <p>
      * This API provides capability to partially update a Route Filter Rule
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void patchRouteFilterRuleByUuidTest() throws ApiException {
@@ -203,13 +184,13 @@ public class RouteFilterRulesApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * ReplaceRFRule
-     *
+     * <p>
      * This API provides capability to replace a Route Filter Rule completely
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void replaceRouteFilterRuleByUuidTest() throws ApiException {

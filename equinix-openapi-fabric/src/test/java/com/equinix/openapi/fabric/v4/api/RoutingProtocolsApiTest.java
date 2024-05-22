@@ -9,50 +9,26 @@
  * Do not edit the class manually.
  */
 
-
 package com.equinix.openapi.fabric.v4.api;
 
 import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.v4.model.BGPActionData;
-import com.equinix.openapi.fabric.v4.model.BGPActionRequest;
-import com.equinix.openapi.fabric.v4.model.BGPActionsBulkData;
-import com.equinix.openapi.fabric.v4.model.ConnectionChangeOperation;
-import com.equinix.openapi.fabric.v4.model.ConnectionRoutingProtocolPostRequest;
-import com.equinix.openapi.fabric.v4.model.Error;
-import com.equinix.openapi.fabric.v4.model.GetResponse;
-import com.equinix.openapi.fabric.v4.model.RoutingProtocolBase;
-import com.equinix.openapi.fabric.v4.model.RoutingProtocolChangeData;
-import com.equinix.openapi.fabric.v4.model.RoutingProtocolChangeDataResponse;
-import com.equinix.openapi.fabric.v4.model.RoutingProtocolData;
-import java.util.UUID;
-import com.equinix.openapi.fabric.v4.model.ValidateRequest;
-import com.equinix.openapi.fabric.v4.model.ValidateSubnetResponse;
 import org.junit.Test;
-import org.junit.Ignore;
-import org.junit.Assert;
-
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.junit.jupiter.api.Disabled;
 
 /**
  * API tests for RoutingProtocolsApi
  */
-@Ignore
-public class RoutingProtocolsApiTest extends AbstractTest{
+@Disabled
+public class RoutingProtocolsApiTest extends AbstractTest {
 
     private final RoutingProtocolsApi api = new RoutingProtocolsApi(generateToken());
 
     /**
      * Create Protocol
-     *
+     * <p>
      * This API provides capability to create Routing Protocol for connections
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void createConnectionRoutingProtocolTest() throws ApiException {
@@ -65,13 +41,13 @@ public class RoutingProtocolsApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Bulk Create Protocol
-     *
+     * <p>
      * This API provides capability to create Routing Protocol for connections
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void createConnectionRoutingProtocolsInBulkTest() throws ApiException {
@@ -84,13 +60,13 @@ public class RoutingProtocolsApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Delete Protocol
-     *
+     * <p>
      * This API provides capability to delete Routing Protocols on virtual connection
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void deleteConnectionRoutingProtocolByUuidTest() throws ApiException {
@@ -103,13 +79,13 @@ public class RoutingProtocolsApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Get BGP Actions
-     *
+     * <p>
      * This API provides capability to get all BGP actions status
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getConnectionRoutingProtocolAllBgpActionsTest() throws ApiException {
@@ -126,13 +102,13 @@ public class RoutingProtocolsApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Get Protocol
-     *
+     * <p>
      * This API provides capability to accept/reject user&#39;s virtual connection
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getConnectionRoutingProtocolByUuidTest() throws ApiException {
@@ -145,13 +121,13 @@ public class RoutingProtocolsApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * GetRoutingProtocols
-     *
+     * <p>
      * This API provides capability to get Routing Protocols for connections
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getConnectionRoutingProtocolsTest() throws ApiException {
@@ -166,13 +142,13 @@ public class RoutingProtocolsApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Get BGP Action
-     *
+     * <p>
      * This API provides capability to retrieve specific BGP action
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getConnectionRoutingProtocolsBgpActionByUuidTest() throws ApiException {
@@ -187,13 +163,13 @@ public class RoutingProtocolsApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Get Change By ID
-     *
+     * <p>
      * This API provides capability to retrieve specific Routing Protocol Change
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getConnectionRoutingProtocolsChangeByUuidTest() throws ApiException {
@@ -208,13 +184,13 @@ public class RoutingProtocolsApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Get Changes
-     *
+     * <p>
      * This API provides capability to retrieve user&#39;s Routing Protocol Changes
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getConnectionRoutingProtocolsChangesTest() throws ApiException {
@@ -231,13 +207,13 @@ public class RoutingProtocolsApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Patch Protocol
-     *
+     * <p>
      * This API provides capability to partially update Routing Protocols on a virtual connection
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void patchConnectionRoutingProtocolByUuidTest() throws ApiException {
@@ -252,13 +228,13 @@ public class RoutingProtocolsApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Clear/Reset BGP
-     *
+     * <p>
      * This API provides capability to clear/reset Routing Protocols BGP session
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void postConnectionRoutingProtocolBgpActionByUuidTest() throws ApiException {
@@ -273,13 +249,13 @@ public class RoutingProtocolsApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Replace Protocol
-     *
+     * <p>
      * This API provides capability to replace complete Routing Protocols on a virtual connection
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void replaceConnectionRoutingProtocolByUuidTest() throws ApiException {
@@ -294,13 +270,13 @@ public class RoutingProtocolsApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Validate Subnet
-     *
+     * <p>
      * This API provides capability to validate all subnets associated with any connection in the given FCR
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void validateRoutingProtocolTest() throws ApiException {

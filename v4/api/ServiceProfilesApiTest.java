@@ -9,44 +9,26 @@
  * Do not edit the class manually.
  */
 
-
 package com.equinix.openapi.fabric.v4.api;
 
 import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.v4.model.Error;
-import com.equinix.openapi.fabric.v4.model.JsonPatchOperation;
-import com.equinix.openapi.fabric.v4.model.ServiceMetros;
-import com.equinix.openapi.fabric.v4.model.ServiceProfile;
-import com.equinix.openapi.fabric.v4.model.ServiceProfileRequest;
-import com.equinix.openapi.fabric.v4.model.ServiceProfileSearchRequest;
-import com.equinix.openapi.fabric.v4.model.ServiceProfiles;
-import java.util.UUID;
-import org.junit.jupiter.api.Test;
-import org.junit.Ignore;
-import org.junit.Assert;
-
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
 
 /**
  * API tests for ServiceProfilesApi
  */
-@Ignore
-public class ServiceProfilesApiTest extends AbstractTest{
+@Disabled
+public class ServiceProfilesApiTest extends AbstractTest {
 
     private final ServiceProfilesApi api = new ServiceProfilesApi(generateToken());
 
     /**
      * Create Profile
-     *
+     * <p>
      * Create Service Profile creates Equinix Fabric? Service Profile.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void createServiceProfileTest() throws ApiException {
@@ -57,13 +39,13 @@ public class ServiceProfilesApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Delete Profile
-     *
+     * <p>
      * delete Service Profile by UUID
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void deleteServiceProfileByUuidTest() throws ApiException {
@@ -74,13 +56,13 @@ public class ServiceProfilesApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Get Profile
-     *
+     * <p>
      * Get service profile by UUID. View Point parameter if set to zSide will give seller&#39;s view of the profile otherwise buyer&#39;s view.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getServiceProfileByUuidTest() throws ApiException {
@@ -93,13 +75,13 @@ public class ServiceProfilesApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Get Profile Metros
-     *
+     * <p>
      * Get service profile metros by UUID.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getServiceProfileMetrosByUuidTest() throws ApiException {
@@ -114,13 +96,13 @@ public class ServiceProfilesApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Get all Profiles
-     *
+     * <p>
      * The API request returns all Equinix Fabric Service Profiles in accordance with the view point requested.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getServiceProfilesTest() throws ApiException {
@@ -135,13 +117,13 @@ public class ServiceProfilesApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Replace Profile
-     *
+     * <p>
      * This API request replaces a service profile definition
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void putServiceProfileByUuidTest() throws ApiException {
@@ -156,13 +138,13 @@ public class ServiceProfilesApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Profile Search
-     *
+     * <p>
      * Search service profiles by search criteria
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void searchServiceProfilesTest() throws ApiException {
@@ -175,13 +157,13 @@ public class ServiceProfilesApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Update Profile
-     *
+     * <p>
      * Update Service Profile by UUID
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void updateServiceProfileByUuidTest() throws ApiException {

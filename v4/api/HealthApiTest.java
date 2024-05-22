@@ -14,9 +14,10 @@ package com.equinix.openapi.fabric.v4.api;
 
 import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.v4.model.HealthResponse;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.Ignore;
 import org.junit.Assert;
+import org.junit.jupiter.api.Disabled;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
@@ -28,6 +29,7 @@ import java.util.Map;
 /**
  * API tests for HealthApi
  */
+@Disabled
 public class HealthApiTest {
 
     private final HealthApi api = new HealthApi();

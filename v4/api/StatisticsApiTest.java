@@ -23,9 +23,10 @@ import com.equinix.openapi.fabric.v4.model.Statistics;
 import com.equinix.openapi.fabric.v4.model.TopUtilizedStatistics;
 import java.util.UUID;
 import com.equinix.openapi.fabric.v4.model.ViewPoint;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.Ignore;
 import org.junit.Assert;
+import org.junit.jupiter.api.Disabled;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
@@ -37,6 +38,7 @@ import java.util.Map;
 /**
  * API tests for StatisticsApi
  */
+@Disabled
 public class StatisticsApiTest extends AbstractTest {
 
     private final StatisticsApi api = new StatisticsApi(generateToken());

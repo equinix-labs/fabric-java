@@ -9,49 +9,26 @@
  * Do not edit the class manually.
  */
 
-
 package com.equinix.openapi.fabric.v4.api;
 
 import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.v4.model.ConnectionRouteFilterData;
-import com.equinix.openapi.fabric.v4.model.ConnectionRouteFiltersBase;
-import com.equinix.openapi.fabric.v4.model.Error;
-import com.equinix.openapi.fabric.v4.model.GetAllConnectionRouteFiltersResponse;
-import com.equinix.openapi.fabric.v4.model.GetRouteFilterGetConnectionsResponse;
-import com.equinix.openapi.fabric.v4.model.RouteFilterChangeData;
-import com.equinix.openapi.fabric.v4.model.RouteFilterChangeDataResponse;
-import com.equinix.openapi.fabric.v4.model.RouteFiltersBase;
-import com.equinix.openapi.fabric.v4.model.RouteFiltersData;
-import com.equinix.openapi.fabric.v4.model.RouteFiltersPatchRequestItem;
-import com.equinix.openapi.fabric.v4.model.RouteFiltersSearchBase;
-import com.equinix.openapi.fabric.v4.model.RouteFiltersSearchResponse;
-import java.util.UUID;
-import org.junit.jupiter.api.Test;
-import org.junit.Ignore;
-import org.junit.Assert;
-
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
 
 /**
  * API tests for RouteFiltersApi
  */
-@Ignore
-public class RouteFiltersApiTest extends AbstractTest{
+@Disabled
+public class RouteFiltersApiTest extends AbstractTest {
 
     private final RouteFiltersApi api = new RouteFiltersApi(generateToken());
 
     /**
      * Attach Route Filter
-     *
+     * <p>
      * This API provides capability to attach a Route Filter to a Connection
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void attachConnectionRouteFilterTest() throws ApiException {
@@ -66,13 +43,13 @@ public class RouteFiltersApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Create Route Filters
-     *
+     * <p>
      * This API provides capability to create a Route Filter
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void createRouteFilterTest() throws ApiException {
@@ -83,13 +60,13 @@ public class RouteFiltersApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Delete Route Filter
-     *
+     * <p>
      * This API provides capability to delete a Route Filter
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void deleteRouteFilterByUuidTest() throws ApiException {
@@ -100,13 +77,13 @@ public class RouteFiltersApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Detach Route Filter
-     *
+     * <p>
      * This API provides capability to detach a Route Filter from a Connection
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void detachConnectionRouteFilterTest() throws ApiException {
@@ -119,13 +96,13 @@ public class RouteFiltersApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Get Route Filter
-     *
+     * <p>
      * This API provides capability to view a specific Route Filter attached to a Connection
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getConnectionRouteFilterByUuidTest() throws ApiException {
@@ -138,13 +115,13 @@ public class RouteFiltersApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Get All RouteFilters
-     *
+     * <p>
      * This API provides capability to view all Route Filters attached to a Connection
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getConnectionRouteFiltersTest() throws ApiException {
@@ -155,13 +132,13 @@ public class RouteFiltersApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Get Filter By UUID
-     *
+     * <p>
      * This API provides capability to view a Route Filter by UUID
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getRouteFilterByUuidTest() throws ApiException {
@@ -172,13 +149,13 @@ public class RouteFiltersApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Get Change By ID
-     *
+     * <p>
      * This API provides capability to retrieve a specific Route Filter&#39;s Changes
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getRouteFilterChangeByUuidTest() throws ApiException {
@@ -191,13 +168,13 @@ public class RouteFiltersApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Get All Changes
-     *
+     * <p>
      * This API provides capability to retrieve all of a Route Filter&#39;s Changes
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getRouteFilterChangesTest() throws ApiException {
@@ -212,13 +189,13 @@ public class RouteFiltersApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Get Connections
-     *
+     * <p>
      * This API provides capability to view all Connections using the Route Filter
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getRouteFilterConnectionsTest() throws ApiException {
@@ -229,13 +206,13 @@ public class RouteFiltersApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Patch Route Filter
-     *
+     * <p>
      * This API provides capability to partially update a Route Filter
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void patchRouteFilterByUuidTest() throws ApiException {
@@ -248,13 +225,13 @@ public class RouteFiltersApiTest extends AbstractTest{
 
         // TODO: test validations
     }
+
     /**
      * Search Route Filters
-     *
+     * <p>
      * This API provides capability to search Route Filters
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void searchRouteFiltersTest() throws ApiException {

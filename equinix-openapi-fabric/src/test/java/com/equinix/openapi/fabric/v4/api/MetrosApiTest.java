@@ -39,7 +39,6 @@ public class MetrosApiTest extends AbstractTest {
         Metro response = api.getMetroByCode(metroCode);
         assertEquals(200, api.getApiClient().getStatusCode());
         assertEquals(metroCode, response.getCode());
-        System.out.println("Tests are passed");
     }
 
     /**
@@ -58,6 +57,5 @@ public class MetrosApiTest extends AbstractTest {
                 .stream().anyMatch(metro -> metro.getCode().equals(metroCode));
 
         assertTrue(metroFound);
-        System.out.println("Tests are passed");
     }
 }
