@@ -27,12 +27,17 @@ jobs:
         server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
         settings-path: ${{ github.workspace }} # location for the settings.xml file
 
-    - name: Build with Maven
-      working-directory: ./equinix-openapi-fabric
-      run: mvn -B package --file pom.xml
-
     - name: Publish to GitHub Packages Apache Maven
       working-directory: ./equinix-openapi-fabric
-      run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/equinix-labs/fabric-java
+
+      run: |- 
+        mvn deploy -s $GITHUB_WORKSPACE/settings.xml -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/equinix-labs/fabric-java \
+        -DenvUrl=${{ env.TEST_HOST_URL }} -DuserName=${{ env.TEST_USER_NAME }} -DuserPassword=${{ env.TEST_USER_PASSWORD }} \
+        -DclientId=${{ env.CLIENT_ID }} -DclientSecret=${{ env.CLIENT_SECRET }}
       env:
         GITHUB_TOKEN: ${{ github.token }}
+        TEST_HOST_URL: https://uatapi.equinix.com
+        CLIENT_ID: ${{ secrets.TEST_USER_CLIENT_ID }}
+        CLIENT_SECRET: ${{ secrets.TEST_USER_CLIENT_SECRET }}
+        TEST_USER_NAME: ${{ secrets.TEST_USER_NAME }}
+        TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}

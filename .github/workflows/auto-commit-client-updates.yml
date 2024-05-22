@@ -25,7 +25,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
       
-      - name: Commit to branch if client is updated after executing make.
+      - name: Set git user and generate files
         run: |
           git config --global user.name 'equinix-labs@auto-commit-workflow'
           git config --global user.email 'bot@equinix.noreply.github.com'
