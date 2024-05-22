@@ -8,8 +8,6 @@ on:
     inputs:
       new_api_spec_version_number:
         required: true
-      test_host_url:
-        default: https://uatapi.equinix.com
   push:
     branches: [ "**" ]
 
@@ -37,17 +35,17 @@ jobs:
           git checkout ${GITHUB_REF##*/}
           make generate
           echo -e "Make execution completed."
+          cd equinix-openapi-fabric/
 
       - name: Tests
         env:
-          TEST_HOST_URL: ${{ inputs.test_host_url }}
+          TEST_HOST_URL: https://uatapi.equinix.com
           CLIENT_ID: ${{ secrets.TEST_USER_CLIENT_ID }}
           CLIENT_SECRET: ${{ secrets.TEST_USER_CLIENT_SECRET }}
           TEST_USER_NAME: ${{ secrets.TEST_USER_NAME }}
           TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
-        run: |
-          cd equinix-openapi-fabric/
-          mvn clean package -DenvUrl=${{ env.TEST_HOST_URL }} -DuserName=${{ env.TEST_USER_NAME }} \
+        run: >-
+          mvn clean package -DenvUrl=${{ env.TEST_HOST_URL }} -DuserName=${{ env.TEST_USER_NAME }}
           -DuserPassword=${{ env.TEST_USER_PASSWORD }} -DclientId=${{ env.CLIENT_ID }} -DclientSecret=${{ env.CLIENT_SECRET }}
 
       - name: Commit to branch.
