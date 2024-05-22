@@ -15,21 +15,11 @@ on:
 
 jobs:
   build:
-
-    runs-on: [ self-hosted , kubernetes , nonprod , onprem , ecx ]
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Get vault token
-        uses: equinix-product/vault-action@v1
-        with:
-          vault: secretsnonprod
-          namespace: ecx
-          secrets: |
-            nonprod/data/panthers/terratests-uat-sanity/PFCR equinix_client_id | CLIENT_ID;
-            nonprod/data/panthers/terratests-uat-sanity/PFCR equinix_client_secret | CLIENT_SECRET;
-            nonprod/data/panthers/terratests-uat-sanity/PFCR user_name | TEST_USER_NAME;
-            nonprod/data/panthers/terratests-uat-sanity/PFCR user_password | TEST_USER_PASSWORD;
       - uses: actions/checkout@v3
+
       - name: Set up JDK 11
         uses: actions/setup-java@v3
         with:
@@ -39,11 +29,10 @@ jobs:
       
       - name: Commit to branch if client is updated after executing make.
         env:
-          CLIENT_ID: ${{ env.CLIENT_ID }}
-          CLIENT_SECRET: ${{ env.CLIENT_SECRET }}
+          CLIENT_ID: ${{ secrets.TEST_USER_CLIENT_ID }}
+          CLIENT_SECRET: ${{ env.TEST_USER_CLIENT_SECRET }}
           TEST_USER_NAME: ${{ env.TEST_USER_NAME }}
           TEST_USER_PASSWORD: ${{ env.TEST_USER_PASSWORD }}
-        shell: bash
         run: |
           git config --global user.name 'equinix-labs@auto-commit-workflow'
           git config --global user.email 'bot@equinix.noreply.github.com'
