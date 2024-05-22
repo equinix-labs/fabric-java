@@ -21,7 +21,7 @@ import com.equinix.openapi.fabric.v4.model.ServiceTokenChangeOperation;
 import com.equinix.openapi.fabric.v4.model.ServiceTokenSearchRequest;
 import com.equinix.openapi.fabric.v4.model.ServiceTokens;
 import java.util.UUID;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.Ignore;
 import org.junit.Assert;
 

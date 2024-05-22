@@ -14,7 +14,7 @@ package com.equinix.openapi.fabric.v4.api;
 
 import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.v4.model.HealthResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.Ignore;
 import org.junit.Assert;
 

@@ -15,7 +15,7 @@ import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.v4.api.dto.PortDto;
 import com.equinix.openapi.fabric.v4.model.*;
 import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Collections;

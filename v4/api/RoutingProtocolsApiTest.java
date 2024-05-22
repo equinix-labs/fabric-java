@@ -27,7 +27,7 @@ import com.equinix.openapi.fabric.v4.model.RoutingProtocolData;
 import java.util.UUID;
 import com.equinix.openapi.fabric.v4.model.ValidateRequest;
 import com.equinix.openapi.fabric.v4.model.ValidateSubnetResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.Ignore;
 import org.junit.Assert;
 

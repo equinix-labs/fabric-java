@@ -23,7 +23,7 @@ import com.equinix.openapi.fabric.v4.model.NetworkPostRequest;
 import com.equinix.openapi.fabric.v4.model.NetworkSearchRequest;
 import com.equinix.openapi.fabric.v4.model.NetworkSearchResponse;
 import java.util.UUID;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.Ignore;
 import org.junit.Assert;
 

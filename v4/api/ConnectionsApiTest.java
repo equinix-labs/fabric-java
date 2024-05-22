@@ -24,7 +24,7 @@ import com.equinix.openapi.fabric.v4.model.ConnectionSearchResponse;
 import com.equinix.openapi.fabric.v4.model.Error;
 import com.equinix.openapi.fabric.v4.model.SearchRequest;
 import com.equinix.openapi.fabric.v4.model.ValidateRequest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.Ignore;
 import org.junit.Assert;
 

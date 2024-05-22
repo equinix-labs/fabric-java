@@ -26,7 +26,7 @@ import com.equinix.openapi.fabric.v4.model.RouteFiltersPatchRequestItem;
 import com.equinix.openapi.fabric.v4.model.RouteFiltersSearchBase;
 import com.equinix.openapi.fabric.v4.model.RouteFiltersSearchResponse;
 import java.util.UUID;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.Ignore;
 import org.junit.Assert;
 

@@ -23,7 +23,7 @@ import com.equinix.openapi.fabric.v4.model.Statistics;
 import com.equinix.openapi.fabric.v4.model.TopUtilizedStatistics;
 import java.util.UUID;
 import com.equinix.openapi.fabric.v4.model.ViewPoint;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.Ignore;
 import org.junit.Assert;
 
