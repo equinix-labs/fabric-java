@@ -43,9 +43,10 @@ jobs:
           CLIENT_SECRET: ${{ secrets.TEST_USER_CLIENT_SECRET }}
           TEST_USER_NAME: ${{ secrets.TEST_USER_NAME }}
           TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
-        run: |
+        shell: bash
+        run: |-
           cd equinix-openapi-fabric
-          mvn clean package -DenvUrl=${{ env.TEST_HOST_URL }} -DuserName=${{ env.TEST_USER_NAME }}
+          mvn clean package -DenvUrl=${{ env.TEST_HOST_URL }} -DuserName=${{ env.TEST_USER_NAME }} \
           -DuserPassword=${{ env.TEST_USER_PASSWORD }} -DclientId=${{ env.CLIENT_ID }} -DclientSecret=${{ env.CLIENT_SECRET }}
 
       - name: Commit to branch.
