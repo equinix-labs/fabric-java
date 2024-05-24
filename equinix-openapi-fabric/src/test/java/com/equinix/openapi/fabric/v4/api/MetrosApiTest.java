@@ -15,10 +15,11 @@ import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.v4.model.Metro;
 import com.equinix.openapi.fabric.v4.model.MetroResponse;
 import com.equinix.openapi.fabric.v4.model.Presence;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * API tests for MetrosApi
