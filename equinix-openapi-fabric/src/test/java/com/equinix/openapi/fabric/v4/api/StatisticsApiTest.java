@@ -9,47 +9,37 @@
  * Do not edit the class manually.
  */
 
-
 package com.equinix.openapi.fabric.v4.api;
 
 import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.v4.model.Duration;
-import com.equinix.openapi.fabric.v4.model.Error;
-import com.equinix.openapi.fabric.v4.model.MetricInterval;
-import java.time.OffsetDateTime;
-import com.equinix.openapi.fabric.v4.model.QueryDirection;
-import com.equinix.openapi.fabric.v4.model.Sort;
-import com.equinix.openapi.fabric.v4.model.Statistics;
-import com.equinix.openapi.fabric.v4.model.TopUtilizedStatistics;
-import java.util.UUID;
-import com.equinix.openapi.fabric.v4.model.ViewPoint;
-import org.junit.jupiter.api.Test;
-import org.junit.Assert;
+import com.equinix.openapi.fabric.v4.api.dto.port.PortDto;
+import com.equinix.openapi.fabric.v4.model.*;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
+import java.util.Collections;
+import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * API tests for StatisticsApi
  */
-@Disabled
 public class StatisticsApiTest extends AbstractTest {
 
     private final StatisticsApi api = new StatisticsApi(generateToken());
 
     /**
      * Get Stats by uuid
-     *
+     * <p>
      * This API provides service-level metrics so that you can view access and gather key information required to manage service subscription sizing and capacity
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
+    @Disabled
     @Test
     public void getConnectionStatsByPortUuidTest() throws ApiException {
         //
@@ -65,54 +55,43 @@ public class StatisticsApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Top Port Statistics
-     *
+     * <p>
      * This API provides top utilized service-level traffic metrics so that you can view access and gather key information required to manage service subscription sizing and capacity.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getPortStatsTest() throws ApiException {
-        //
-        //List<String> metros = null;
-        //
-        //Sort sort = null;
-        //
-        //Integer top = null;
-        //
-        //Duration duration = null;
-        //
-        //QueryDirection direction = null;
-        //
-        //MetricInterval metricInterval = null;
-        //
-        //String projectId = null;
-        //
-        //TopUtilizedStatistics response = api.getPortStats(metros, sort, top, duration, direction, metricInterval, projectId);
-
-        // TODO: test validations
+        String projectId = "291639000636552";
+        TopUtilizedStatistics response = api.getPortStats(
+                Collections.singletonList(""),
+                Sort._BANDWIDTHUTILIZATION,
+                5,
+                Duration.P7D,
+                QueryDirection.OUTBOUND,
+                MetricInterval.P7D,
+                projectId);
+        assertEquals(200, api.getApiClient().getStatusCode());
     }
+
     /**
      * Get Stats by uuid
-     *
+     * <p>
      * This API provides service-level traffic metrics so that you can view access and gather key information required to manage service subscription sizing and capacity.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getPortStatsByPortUuidTest() throws ApiException {
-        //
-        //UUID portId = null;
-        //
-        //OffsetDateTime startDateTime = null;
-        //
-        //OffsetDateTime endDateTime = null;
-        //
-        //Statistics response = api.getPortStatsByPortUuid(portId, startDateTime, endDateTime);
+        PortDto portDto = getPort(JsonFiles.PORT_2_PUBLIC_SERVICE_PROFILE_CONNECTION);
+        OffsetDateTime startDate = OffsetDateTime.now().minusMonths(3).withOffsetSameLocal(ZoneOffset.UTC).truncatedTo(ChronoUnit.SECONDS);
+        OffsetDateTime endDate = OffsetDateTime.now().withOffsetSameLocal(ZoneOffset.UTC).truncatedTo(ChronoUnit.SECONDS);
 
-        // TODO: test validations
+        Statistics response = api.getPortStatsByPortUuid(UUID.fromString(portDto.getUuid()), startDate, endDate);
+        assertEquals(200, api.getApiClient().getStatusCode());
+        assertEquals(portDto.getName(), response.getAdditionalProperties().get("name"));
     }
 }
