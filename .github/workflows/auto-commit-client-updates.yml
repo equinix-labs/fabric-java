@@ -12,6 +12,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      TEST_DATA_UAT_QINQ_PORT: ${{ secrets.TEST_DATA_UAT_QINQ_PORT }}
+
     steps:
       - uses: actions/checkout@v3
 
@@ -22,16 +25,19 @@ jobs:
           distribution: 'temurin'
           cache: maven
       
-      - name: Set git user and generate files
+      - name: Set git user
         run: |
           git config --global user.name 'equinix-labs@auto-commit-workflow'
           git config --global user.email 'bot@equinix.noreply.github.com'
           git config advice.addIgnoredFile false
           git fetch
           echo -e "\nThis is executing for branch: ${GITHUB_REF##*/}."
-          git checkout ${GITHUB_REF##*/}
+          git checkout ${GITHUB_REF##*/}          
+
+      - name: Setup variables and generate files
+        run: |
+          echo $TEST_DATA_UAT_QINQ_PORT >> "./v4/api/json/port-2-public-service-profile-connection.json"
           make generate
-          echo -e "Make execution completed."
 
       - name: Tests
         env:
