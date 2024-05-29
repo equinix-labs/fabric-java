@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Paths;
@@ -63,8 +64,7 @@ public abstract class AbstractTest {
 
     protected PortDto getPort(com.equinix.openapi.fabric.v4.api.AbstractTest.JsonFiles jsonFile) {
         ObjectMapper mapper = new ObjectMapper();
-
-        String path = System.getProperty("user.dir") + "/src/test/java/com/equinix/openapi/fabric/v4/api/json/" + jsonFile.value;
+        String path = new File(System.getProperty("user.dir")).getParent() + "/json/" + jsonFile.value;
         try {
             return mapper.readValue(Paths.get(path).toFile(), PortDto.class);
         } catch (IOException e) {
