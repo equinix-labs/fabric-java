@@ -12,10 +12,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -62,11 +60,11 @@ public abstract class AbstractTest {
         return apiClient;
     }
 
-    protected PortDto getPort(com.equinix.openapi.fabric.v4.api.AbstractTest.JsonFiles jsonFile) {
+    protected PortDto getPort(EnvVariable envVariable) {
         ObjectMapper mapper = new ObjectMapper();
-        String path = new File(System.getProperty("user.dir")).getParent() + "/json/" + jsonFile.value;
+        String json = System.getenv(envVariable.value);
         try {
-            return mapper.readValue(Paths.get(path).toFile(), PortDto.class);
+            return mapper.readValue(json, PortDto.class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -83,13 +81,12 @@ public abstract class AbstractTest {
         }
     }
 
-    public enum JsonFiles {
-        PORT_2_PRIVATE_SERVICE_PROFILE_CONNECTION("port-2-private-service-profile-connection.json"),
-        PORT_2_PUBLIC_SERVICE_PROFILE_CONNECTION("port-2-public-service-profile-connection.json");
+    public enum EnvVariable {
+        QINQ_PORT("TEST_DATA_UAT_QINQ_PORT");
 
         private String value;
 
-        JsonFiles(String value) {
+        EnvVariable(String value) {
             this.value = value;
         }
 

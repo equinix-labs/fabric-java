@@ -28,4 +28,3 @@ hs_err_pid*
 # JetBrains project directory files
 *.idea
 *.idea/
-./json/*

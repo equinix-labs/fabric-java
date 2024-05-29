@@ -45,10 +45,6 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
 
-      - name: Setup variables and generate files
-        run: |
-          echo $TEST_DATA_UAT_QINQ_PORT >> "./json/port-2-public-service-profile-connection.json"
-
       - name: Sync
         run: |
           VERSION_UPDATE="OPENAPI_URL=\"https://app.swaggerhub.com/apiproxy/registry/equinix-api/fabric/${{ github.event.inputs.new_api_spec_version_number }}\""

@@ -107,7 +107,7 @@ public class PortsApiTest extends AbstractTest {
      */
     @Test
     public void getPortsTest() throws ApiException {
-        PortDto portDto = getPort(JsonFiles.PORT_2_PUBLIC_SERVICE_PROFILE_CONNECTION);
+        PortDto portDto = getPort(EnvVariable.QINQ_PORT);
         AllPortsResponse response = api.getPorts(portDto.getName());
         assertEquals(200, api.getApiClient().getStatusCode());
         assertEquals(portDto.getName(), response.getData().get(0).getName());

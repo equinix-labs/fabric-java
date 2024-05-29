@@ -86,7 +86,7 @@ public class StatisticsApiTest extends AbstractTest {
      */
     @Test
     public void getPortStatsByPortUuidTest() throws ApiException {
-        PortDto portDto = getPort(JsonFiles.PORT_2_PUBLIC_SERVICE_PROFILE_CONNECTION);
+        PortDto portDto = getPort(EnvVariable.QINQ_PORT);
         OffsetDateTime startDate = OffsetDateTime.now().minusMonths(3).withOffsetSameLocal(ZoneOffset.UTC).truncatedTo(ChronoUnit.SECONDS);
         OffsetDateTime endDate = OffsetDateTime.now().withOffsetSameLocal(ZoneOffset.UTC).truncatedTo(ChronoUnit.SECONDS);
 
