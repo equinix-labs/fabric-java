@@ -12,6 +12,10 @@ jobs:
         java-distribution: [temurin]
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
+
+    env:
+      TEST_DATA_UAT_QINQ_PORT: ${{ secrets.TEST_DATA_UAT_QINQ_PORT }}
+
     steps:
       - name: Get current date
         id: date
@@ -40,6 +44,10 @@ jobs:
           # https://api.github.com/users/github-actions[bot]
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+      - name: Setup variables and generate files
+        run: |
+          echo $TEST_DATA_UAT_QINQ_PORT >> "./v4/api/json/port-2-public-service-profile-connection.json"
 
       - name: Sync
         run: |
