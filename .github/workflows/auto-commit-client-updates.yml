@@ -36,7 +36,7 @@ jobs:
 
       - name: Setup variables and generate files
         run: |
-          echo $TEST_DATA_UAT_QINQ_PORT >> "./v4/api/json/port-2-public-service-profile-connection.json"
+          echo $TEST_DATA_UAT_QINQ_PORT >> "./json/port-2-public-service-profile-connection.json"
           make generate
 
       - name: Tests

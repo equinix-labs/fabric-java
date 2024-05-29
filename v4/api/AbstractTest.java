@@ -64,7 +64,7 @@ public abstract class AbstractTest {
     protected PortDto getPort(com.equinix.openapi.fabric.v4.api.AbstractTest.JsonFiles jsonFile) {
         ObjectMapper mapper = new ObjectMapper();
 
-        String path = System.getProperty("user.dir") + "/src/test/java/com/equinix/openapi/fabric/v4/api/json/" + jsonFile.value;
+        String path = System.getProperty("user.dir") + "/json/" + jsonFile.value;
         try {
             return mapper.readValue(Paths.get(path).toFile(), PortDto.class);
         } catch (IOException e) {
