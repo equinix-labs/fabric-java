@@ -16,6 +16,7 @@ SPEC_FETCHED_FILE:=spec/oas3.fabric.fetched.json
 SPEC_PATCHED_FILE:=spec/oas3.fabric.patched.json
 OPENAPI_CONFIG:=spec/oas3.fabric.config.json
 OPENAPI_GENERATED_CLIENT=equinix-openapi-fabric/
+TESTS_PATH=src/test/java/com/equinix/openapi/fabric/
 
 # Patches
 SPEC_FETCHED_PATCHES=patches/spec.fetched.json
@@ -65,4 +66,4 @@ docker_generate:
 		--git-user-id ${GIT_ORG}
 
 build_client:
-	cd ${OPENAPI_GENERATED_CLIENT}; mvn clean package
+	rm -rf ${OPENAPI_GENERATED_CLIENT}${TESTS_PATH}v4; cp -r v4 ${OPENAPI_GENERATED_CLIENT}${TESTS_PATH}

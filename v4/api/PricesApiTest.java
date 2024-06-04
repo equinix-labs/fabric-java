@@ -15,13 +15,13 @@ import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.v4.model.FilterBody;
 import com.equinix.openapi.fabric.v4.model.PriceSearchResponse;
 import com.equinix.openapi.fabric.v4.model.SearchExpression;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Collections;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 /**
  * API tests for PricesApi

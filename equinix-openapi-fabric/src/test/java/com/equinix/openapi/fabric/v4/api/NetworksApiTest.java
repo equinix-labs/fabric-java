@@ -9,148 +9,157 @@
  * Do not edit the class manually.
  */
 
-
 package com.equinix.openapi.fabric.v4.api;
 
 import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.v4.model.Error;
-import com.equinix.openapi.fabric.v4.model.Network;
-import com.equinix.openapi.fabric.v4.model.NetworkChange;
-import com.equinix.openapi.fabric.v4.model.NetworkChangeOperation;
-import com.equinix.openapi.fabric.v4.model.NetworkChangeResponse;
-import com.equinix.openapi.fabric.v4.model.NetworkConnections;
-import com.equinix.openapi.fabric.v4.model.NetworkPostRequest;
-import com.equinix.openapi.fabric.v4.model.NetworkSearchRequest;
-import com.equinix.openapi.fabric.v4.model.NetworkSearchResponse;
-import java.util.UUID;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.junit.jupiter.api.Disabled;
 
 /**
  * API tests for NetworksApi
  */
 @Disabled
-public class NetworksApiTest {
+public class NetworksApiTest extends AbstractTest {
 
-    private final NetworksApi api = new NetworksApi();
+    private final NetworksApi api = new NetworksApi(generateToken());
 
     /**
      * Create Network
-     *
+     * <p>
      * This API provides capability to create user&#39;s Fabric Network
      *
      * @throws ApiException if the Api call fails
      */
     @Test
     public void createNetworkTest() throws ApiException {
-        NetworkPostRequest networkPostRequest = null;
-        Network response = api.createNetwork(networkPostRequest);
+        //
+        //NetworkPostRequest networkPostRequest = null;
+        //
+        //Network response = api.createNetwork(networkPostRequest);
+
         // TODO: test validations
     }
 
     /**
      * Delete Network By ID
-     *
+     * <p>
      * This API provides capability to delete user&#39;s Fabric Network
      *
      * @throws ApiException if the Api call fails
      */
     @Test
     public void deleteNetworkByUuidTest() throws ApiException {
-        UUID networkId = null;
-        Network response = api.deleteNetworkByUuid(networkId);
+        //
+        //UUID networkId = null;
+        //
+        //Network response = api.deleteNetworkByUuid(networkId);
+
         // TODO: test validations
     }
 
     /**
      * Get Connections
-     *
+     * <p>
      * The API provides capability to get list of user&#39;s Fabric Network connections
      *
      * @throws ApiException if the Api call fails
      */
     @Test
     public void getConnectionsByNetworkUuidTest() throws ApiException {
-        UUID networkId = null;
-        NetworkConnections response = api.getConnectionsByNetworkUuid(networkId);
+        //
+        //UUID networkId = null;
+        //
+        //NetworkConnections response = api.getConnectionsByNetworkUuid(networkId);
+
         // TODO: test validations
     }
 
     /**
      * Get Network By ID
-     *
+     * <p>
      * This API provides capability to retrieve user&#39;s Fabric Network
      *
      * @throws ApiException if the Api call fails
      */
     @Test
     public void getNetworkByUuidTest() throws ApiException {
-        UUID networkId = null;
-        Network response = api.getNetworkByUuid(networkId);
+        //
+        //UUID networkId = null;
+        //
+        //Network response = api.getNetworkByUuid(networkId);
+
         // TODO: test validations
     }
 
     /**
      * Get Change By ID
-     *
+     * <p>
      * This API provides capability to retrieve user&#39;s Fabric Network Change
      *
      * @throws ApiException if the Api call fails
      */
     @Test
     public void getNetworkChangeByUuidTest() throws ApiException {
-        UUID networkId = null;
-        UUID changeId = null;
-        NetworkChange response = api.getNetworkChangeByUuid(networkId, changeId);
+        //
+        //UUID networkId = null;
+        //
+        //UUID changeId = null;
+        //
+        //NetworkChange response = api.getNetworkChangeByUuid(networkId, changeId);
+
         // TODO: test validations
     }
 
     /**
      * Get Network Changes
-     *
+     * <p>
      * The API provides capability to get list of user&#39;s Fabric Network changes
      *
      * @throws ApiException if the Api call fails
      */
     @Test
     public void getNetworkChangesTest() throws ApiException {
-        UUID networkId = null;
-        NetworkChangeResponse response = api.getNetworkChanges(networkId);
+        //
+        //UUID networkId = null;
+        //
+        //NetworkChangeResponse response = api.getNetworkChanges(networkId);
+
         // TODO: test validations
     }
 
     /**
      * Search Network
-     *
+     * <p>
      * The API provides capability to get list of user&#39;s Fabric Network using search criteria, including optional filtering, pagination and sorting
      *
      * @throws ApiException if the Api call fails
      */
     @Test
     public void searchNetworksTest() throws ApiException {
-        NetworkSearchRequest networkSearchRequest = null;
-        NetworkSearchResponse response = api.searchNetworks(networkSearchRequest);
+        //
+        //NetworkSearchRequest networkSearchRequest = null;
+        //
+        //NetworkSearchResponse response = api.searchNetworks(networkSearchRequest);
+
         // TODO: test validations
     }
 
     /**
      * Update Network By ID
-     *
+     * <p>
      * This API provides capability to update user&#39;s Fabric Network
      *
      * @throws ApiException if the Api call fails
      */
     @Test
     public void updateNetworkByUuidTest() throws ApiException {
-        UUID networkId = null;
-        List<NetworkChangeOperation> networkChangeOperation = null;
-        Network response = api.updateNetworkByUuid(networkId, networkChangeOperation);
+        //
+        //UUID networkId = null;
+        //
+        //List<NetworkChangeOperation> networkChangeOperation = null;
+        //
+        //Network response = api.updateNetworkByUuid(networkId, networkChangeOperation);
+
         // TODO: test validations
     }
-
 }

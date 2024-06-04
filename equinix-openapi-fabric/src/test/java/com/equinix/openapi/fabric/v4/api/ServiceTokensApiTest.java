@@ -9,133 +9,142 @@
  * Do not edit the class manually.
  */
 
-
 package com.equinix.openapi.fabric.v4.api;
 
 import com.equinix.openapi.fabric.ApiException;
-import java.math.BigDecimal;
-import com.equinix.openapi.fabric.v4.model.Error;
-import com.equinix.openapi.fabric.v4.model.ServiceToken;
-import com.equinix.openapi.fabric.v4.model.ServiceTokenActionRequest;
-import com.equinix.openapi.fabric.v4.model.ServiceTokenChangeOperation;
-import com.equinix.openapi.fabric.v4.model.ServiceTokenSearchRequest;
-import com.equinix.openapi.fabric.v4.model.ServiceTokens;
-import java.util.UUID;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.junit.jupiter.api.Disabled;
 
 /**
  * API tests for ServiceTokensApi
  */
 @Disabled
-public class ServiceTokensApiTest {
+public class ServiceTokensApiTest extends AbstractTest {
 
-    private final ServiceTokensApi api = new ServiceTokensApi();
+    private final ServiceTokensApi api = new ServiceTokensApi(generateToken());
 
     /**
      * Create Service Token
-     *
+     * <p>
      * Create Service Tokens generates Equinix Fabric? service tokens. These tokens authorize users to access protected resources and services.
      *
      * @throws ApiException if the Api call fails
      */
     @Test
     public void createServiceTokenTest() throws ApiException {
-        ServiceToken serviceToken = null;
-        ServiceToken response = api.createServiceToken(serviceToken);
+        //
+        //ServiceToken serviceToken = null;
+        //
+        //ServiceToken response = api.createServiceToken(serviceToken);
+
         // TODO: test validations
     }
 
     /**
      * ServiceToken Actions
-     *
+     * <p>
      * This API provides capability to accept/reject user&#39;s servicetokens
      *
      * @throws ApiException if the Api call fails
      */
     @Test
     public void createServiceTokenActionTest() throws ApiException {
-        UUID serviceTokenId = null;
-        ServiceTokenActionRequest serviceTokenActionRequest = null;
-        ServiceToken response = api.createServiceTokenAction(serviceTokenId, serviceTokenActionRequest);
+        //
+        //UUID serviceTokenId = null;
+        //
+        //ServiceTokenActionRequest serviceTokenActionRequest = null;
+        //
+        //ServiceToken response = api.createServiceTokenAction(serviceTokenId, serviceTokenActionRequest);
+
         // TODO: test validations
     }
 
     /**
      * Delete Token by uuid
-     *
+     * <p>
      * Delete Service Tokens removes an Equinix Fabric service token corresponding to the specified uuid which are in INACTIVE state.
      *
      * @throws ApiException if the Api call fails
      */
     @Test
     public void deleteServiceTokenByUuidTest() throws ApiException {
-        UUID serviceTokenId = null;
-        api.deleteServiceTokenByUuid(serviceTokenId);
+        //
+        //UUID serviceTokenId = null;
+        //
+        //api.deleteServiceTokenByUuid(serviceTokenId);
+
         // TODO: test validations
     }
 
     /**
      * Get Token by uuid
-     *
+     * <p>
      * Get Specified Service Tokens uses the uuid of an Equinix Fabric service token to return details about the token&#39;s type, state, location, bandwidth, and other key properties.
      *
      * @throws ApiException if the Api call fails
      */
     @Test
     public void getServiceTokenByUuidTest() throws ApiException {
-        UUID serviceTokenId = null;
-        ServiceToken response = api.getServiceTokenByUuid(serviceTokenId);
+        //
+        //UUID serviceTokenId = null;
+        //
+        //ServiceToken response = api.getServiceTokenByUuid(serviceTokenId);
+
         // TODO: test validations
     }
 
     /**
      * Get All Tokens
-     *
+     * <p>
      * Get All ServiceTokens creates a list of all Equinix Fabric service tokens associated with the subscriber&#39;s account.
      *
      * @throws ApiException if the Api call fails
      */
     @Test
     public void getServiceTokensTest() throws ApiException {
-        BigDecimal offset = null;
-        BigDecimal limit = null;
-        ServiceTokens response = api.getServiceTokens(offset, limit);
+        //
+        //BigDecimal offset = null;
+        //
+        //BigDecimal limit = null;
+        //
+        //ServiceTokens response = api.getServiceTokens(offset, limit);
+
         // TODO: test validations
     }
 
     /**
      * Search servicetokens
-     *
+     * <p>
      * The API provides capability to get list of user&#39;s servicetokens using search criteria, including optional filtering, pagination and sorting
      *
      * @throws ApiException if the Api call fails
      */
     @Test
     public void searchServiceTokensTest() throws ApiException {
-        ServiceTokenSearchRequest serviceTokenSearchRequest = null;
-        ServiceTokens response = api.searchServiceTokens(serviceTokenSearchRequest);
+        //
+        //ServiceTokenSearchRequest serviceTokenSearchRequest = null;
+        //
+        //ServiceTokens response = api.searchServiceTokens(serviceTokenSearchRequest);
+
         // TODO: test validations
     }
 
     /**
      * Update Token By ID
-     *
+     * <p>
      * This API provides capability to update user&#39;s Service Token
      *
      * @throws ApiException if the Api call fails
      */
     @Test
     public void updateServiceTokenByUuidTest() throws ApiException {
-        UUID serviceTokenId = null;
-        List<ServiceTokenChangeOperation> serviceTokenChangeOperation = null;
-        ServiceToken response = api.updateServiceTokenByUuid(serviceTokenId, serviceTokenChangeOperation);
+        //
+        //UUID serviceTokenId = null;
+        //
+        //List<ServiceTokenChangeOperation> serviceTokenChangeOperation = null;
+        //
+        //ServiceToken response = api.updateServiceTokenByUuid(serviceTokenId, serviceTokenChangeOperation);
+
         // TODO: test validations
     }
-
 }

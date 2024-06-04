@@ -9,44 +9,26 @@
  * Do not edit the class manually.
  */
 
-
 package com.equinix.openapi.fabric.v4.api;
 
 import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.v4.model.Error;
-import com.equinix.openapi.fabric.v4.model.PrecisionTimeChangeOperation;
-import com.equinix.openapi.fabric.v4.model.PrecisionTimePackageResponse;
-import com.equinix.openapi.fabric.v4.model.PrecisionTimeServiceConnectionsResponse;
-import com.equinix.openapi.fabric.v4.model.PrecisionTimeServiceCreateResponse;
-import com.equinix.openapi.fabric.v4.model.PrecisionTimeServicePackagesResponse;
-import com.equinix.openapi.fabric.v4.model.PrecisionTimeServiceRequest;
-import java.util.UUID;
-import org.junit.Test;
-import org.junit.Ignore;
-import org.junit.Assert;
-
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Disabled;
 
 /**
  * API tests for PrecisionTimeApi
  */
-@Ignore
+@Disabled
 public class PrecisionTimeApiTest extends AbstractTest {
 
     private final PrecisionTimeApi api = new PrecisionTimeApi(generateToken());
 
     /**
      * Create Time Service
-     *
+     * <p>
      * The API provides capability to create timing service
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void createTimeServicesTest() throws ApiException {
@@ -57,13 +39,13 @@ public class PrecisionTimeApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Delete time service
-     *
+     * <p>
      * Delete EPT service by it&#39;s uuid
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void deleteTimeServiceByIdTest() throws ApiException {
@@ -74,13 +56,13 @@ public class PrecisionTimeApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Get Time Service
-     *
+     * <p>
      * The API provides capability to get precision timing service&#39;s details
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getTimeServicesByIdTest() throws ApiException {
@@ -91,13 +73,13 @@ public class PrecisionTimeApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Get Connection Links
-     *
+     * <p>
      * The API provides capability to get prevision timing service&#39;s details
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getTimeServicesConnectionsByServiceIdTest() throws ApiException {
@@ -108,13 +90,13 @@ public class PrecisionTimeApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Get Package By Code
-     *
+     * <p>
      * The API provides capability to get timing service&#39;s package by code
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getTimeServicesPackageByCodeTest() throws ApiException {
@@ -125,13 +107,13 @@ public class PrecisionTimeApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Get Packages
-     *
+     * <p>
      * The API provides capability to get timing service&#39;s packages
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getTimeServicesPackagesTest() throws ApiException {
@@ -140,13 +122,13 @@ public class PrecisionTimeApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Patch time service
-     *
+     * <p>
      * The API provides capability to update timing service
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void updateTimeServicesByIdTest() throws ApiException {

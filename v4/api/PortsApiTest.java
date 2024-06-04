@@ -12,10 +12,10 @@
 package com.equinix.openapi.fabric.v4.api;
 
 import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.v4.api.dto.PortDto;
+import com.equinix.openapi.fabric.v4.api.dto.port.PortDto;
 import com.equinix.openapi.fabric.v4.model.*;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Disabled;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,7 +26,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * API tests for PortsApi
  */
-@Ignore
+@Disabled
 public class PortsApiTest extends AbstractTest {
     private final PortsApi api = new PortsApi(generateToken());
 
@@ -107,10 +107,10 @@ public class PortsApiTest extends AbstractTest {
      */
     @Test
     public void getPortsTest() throws ApiException {
-        PortDto portDto = getPort(JsonFiles.PORT_2_PUBLIC_SERVICE_PROFILE_CONNECTION);
-        AllPortsResponse response = api.getPorts(portDto.getAsidePortName());
+        PortDto portDto = getPort(EnvVariable.QINQ_PORT);
+        AllPortsResponse response = api.getPorts(portDto.getName());
         assertEquals(200, api.getApiClient().getStatusCode());
-        assertEquals(portDto.getAsidePortName(), response.getData().get(0).getName());
+        assertEquals(portDto.getName(), response.getData().get(0).getName());
     }
 
     /**

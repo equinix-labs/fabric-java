@@ -9,130 +9,136 @@
  * Do not edit the class manually.
  */
 
-
 package com.equinix.openapi.fabric.v4.api;
 
 import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.v4.model.Error;
-import com.equinix.openapi.fabric.v4.model.PrecisionTimeChangeOperation;
-import com.equinix.openapi.fabric.v4.model.PrecisionTimePackageResponse;
-import com.equinix.openapi.fabric.v4.model.PrecisionTimeServiceConnectionsResponse;
-import com.equinix.openapi.fabric.v4.model.PrecisionTimeServiceCreateResponse;
-import com.equinix.openapi.fabric.v4.model.PrecisionTimeServicePackagesResponse;
-import com.equinix.openapi.fabric.v4.model.PrecisionTimeServiceRequest;
-import java.util.UUID;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.junit.jupiter.api.Disabled;
 
 /**
  * API tests for PrecisionTimeApi
  */
 @Disabled
-public class PrecisionTimeApiTest {
+public class PrecisionTimeApiTest extends AbstractTest {
 
-    private final PrecisionTimeApi api = new PrecisionTimeApi();
+    private final PrecisionTimeApi api = new PrecisionTimeApi(generateToken());
 
     /**
      * Create Time Service
-     *
+     * <p>
      * The API provides capability to create timing service
      *
      * @throws ApiException if the Api call fails
      */
     @Test
     public void createTimeServicesTest() throws ApiException {
-        PrecisionTimeServiceRequest precisionTimeServiceRequest = null;
-        PrecisionTimeServiceCreateResponse response = api.createTimeServices(precisionTimeServiceRequest);
+        //
+        //PrecisionTimeServiceRequest precisionTimeServiceRequest = null;
+        //
+        //PrecisionTimeServiceCreateResponse response = api.createTimeServices(precisionTimeServiceRequest);
+
         // TODO: test validations
     }
 
     /**
      * Delete time service
-     *
+     * <p>
      * Delete EPT service by it&#39;s uuid
      *
      * @throws ApiException if the Api call fails
      */
     @Test
     public void deleteTimeServiceByIdTest() throws ApiException {
-        UUID serviceId = null;
-        PrecisionTimeServiceCreateResponse response = api.deleteTimeServiceById(serviceId);
+        //
+        //UUID serviceId = null;
+        //
+        //PrecisionTimeServiceCreateResponse response = api.deleteTimeServiceById(serviceId);
+
         // TODO: test validations
     }
 
     /**
      * Get Time Service
-     *
+     * <p>
      * The API provides capability to get precision timing service&#39;s details
      *
      * @throws ApiException if the Api call fails
      */
     @Test
     public void getTimeServicesByIdTest() throws ApiException {
-        UUID serviceId = null;
-        PrecisionTimeServiceCreateResponse response = api.getTimeServicesById(serviceId);
+        //
+        //UUID serviceId = null;
+        //
+        //PrecisionTimeServiceCreateResponse response = api.getTimeServicesById(serviceId);
+
         // TODO: test validations
     }
 
     /**
      * Get Connection Links
-     *
+     * <p>
      * The API provides capability to get prevision timing service&#39;s details
      *
      * @throws ApiException if the Api call fails
      */
     @Test
     public void getTimeServicesConnectionsByServiceIdTest() throws ApiException {
-        UUID serviceId = null;
-        PrecisionTimeServiceConnectionsResponse response = api.getTimeServicesConnectionsByServiceId(serviceId);
+        //
+        //UUID serviceId = null;
+        //
+        //PrecisionTimeServiceConnectionsResponse response = api.getTimeServicesConnectionsByServiceId(serviceId);
+
         // TODO: test validations
     }
 
     /**
      * Get Package By Code
-     *
+     * <p>
      * The API provides capability to get timing service&#39;s package by code
      *
      * @throws ApiException if the Api call fails
      */
     @Test
     public void getTimeServicesPackageByCodeTest() throws ApiException {
-        String packageCode = null;
-        PrecisionTimePackageResponse response = api.getTimeServicesPackageByCode(packageCode);
+        //
+        //String packageCode = null;
+        //
+        //PrecisionTimePackageResponse response = api.getTimeServicesPackageByCode(packageCode);
+
         // TODO: test validations
     }
 
     /**
      * Get Packages
-     *
+     * <p>
      * The API provides capability to get timing service&#39;s packages
      *
      * @throws ApiException if the Api call fails
      */
     @Test
     public void getTimeServicesPackagesTest() throws ApiException {
-        PrecisionTimeServicePackagesResponse response = api.getTimeServicesPackages();
+        //
+        //PrecisionTimeServicePackagesResponse response = api.getTimeServicesPackages();
+
         // TODO: test validations
     }
 
     /**
      * Patch time service
-     *
+     * <p>
      * The API provides capability to update timing service
      *
      * @throws ApiException if the Api call fails
      */
     @Test
     public void updateTimeServicesByIdTest() throws ApiException {
-        UUID serviceId = null;
-        List<PrecisionTimeChangeOperation> precisionTimeChangeOperation = null;
-        PrecisionTimeServiceCreateResponse response = api.updateTimeServicesById(serviceId, precisionTimeChangeOperation);
+        //
+        //UUID serviceId = null;
+        //
+        //List<PrecisionTimeChangeOperation> precisionTimeChangeOperation = null;
+        //
+        //PrecisionTimeServiceCreateResponse response = api.updateTimeServicesById(serviceId, precisionTimeChangeOperation);
+
         // TODO: test validations
     }
-
 }

@@ -9,58 +9,54 @@
  * Do not edit the class manually.
  */
 
-
 package com.equinix.openapi.fabric.v4.api;
 
 import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.v4.model.Metro;
-import com.equinix.openapi.fabric.v4.model.MetroError;
 import com.equinix.openapi.fabric.v4.model.MetroResponse;
 import com.equinix.openapi.fabric.v4.model.Presence;
-import org.junit.jupiter.api.Disabled;
+
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * API tests for MetrosApi
  */
-@Disabled
-public class MetrosApiTest {
-
-    private final MetrosApi api = new MetrosApi();
+public class MetrosApiTest extends AbstractTest {
+    private final MetrosApi api = new MetrosApi(generateToken());
+    private final String metroCode = "DC";
 
     /**
      * Get Metro by Code
-     *
+     * <p>
      * GET Metros retrieves all Equinix Fabric metros, as well as latency data between each metro location. .
      *
      * @throws ApiException if the Api call fails
      */
     @Test
     public void getMetroByCodeTest() throws ApiException {
-        String metroCode = null;
         Metro response = api.getMetroByCode(metroCode);
-        // TODO: test validations
+        assertEquals(200, api.getApiClient().getStatusCode());
+        assertEquals(metroCode, response.getCode());
     }
 
     /**
      * Get all Metros
-     *
+     * <p>
      * GET All Subscriber Metros with an option query parameter to return all Equinix Fabric metros in which the customer has a presence, as well as latency data for each location.
      *
      * @throws ApiException if the Api call fails
      */
     @Test
     public void getMetrosTest() throws ApiException {
-        Presence presence = null;
-        Integer offset = null;
-        Integer limit = null;
-        MetroResponse response = api.getMetros(presence, offset, limit);
-        // TODO: test validations
-    }
+        MetroResponse response = api.getMetros(Presence.MY_PORTS, 1, 10);
+        assertEquals(200, api.getApiClient().getStatusCode());
 
+        boolean metroFound = response.getData()
+                .stream().anyMatch(metro -> metro.getCode().equals(metroCode));
+
+        assertTrue(metroFound);
+    }
 }

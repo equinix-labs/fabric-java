@@ -9,44 +9,26 @@
  * Do not edit the class manually.
  */
 
-
 package com.equinix.openapi.fabric.v4.api;
 
 import com.equinix.openapi.fabric.ApiException;
-import java.math.BigDecimal;
-import com.equinix.openapi.fabric.v4.model.Error;
-import com.equinix.openapi.fabric.v4.model.ServiceToken;
-import com.equinix.openapi.fabric.v4.model.ServiceTokenActionRequest;
-import com.equinix.openapi.fabric.v4.model.ServiceTokenChangeOperation;
-import com.equinix.openapi.fabric.v4.model.ServiceTokenSearchRequest;
-import com.equinix.openapi.fabric.v4.model.ServiceTokens;
-import java.util.UUID;
-import org.junit.Test;
-import org.junit.Ignore;
-import org.junit.Assert;
-
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Disabled;
 
 /**
  * API tests for ServiceTokensApi
  */
-@Ignore
+@Disabled
 public class ServiceTokensApiTest extends AbstractTest {
 
     private final ServiceTokensApi api = new ServiceTokensApi(generateToken());
 
     /**
      * Create Service Token
-     *
+     * <p>
      * Create Service Tokens generates Equinix Fabric? service tokens. These tokens authorize users to access protected resources and services.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void createServiceTokenTest() throws ApiException {
@@ -57,13 +39,13 @@ public class ServiceTokensApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * ServiceToken Actions
-     *
+     * <p>
      * This API provides capability to accept/reject user&#39;s servicetokens
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void createServiceTokenActionTest() throws ApiException {
@@ -76,13 +58,13 @@ public class ServiceTokensApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Delete Token by uuid
-     *
+     * <p>
      * Delete Service Tokens removes an Equinix Fabric service token corresponding to the specified uuid which are in INACTIVE state.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void deleteServiceTokenByUuidTest() throws ApiException {
@@ -93,13 +75,13 @@ public class ServiceTokensApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Get Token by uuid
-     *
+     * <p>
      * Get Specified Service Tokens uses the uuid of an Equinix Fabric service token to return details about the token&#39;s type, state, location, bandwidth, and other key properties.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getServiceTokenByUuidTest() throws ApiException {
@@ -110,13 +92,13 @@ public class ServiceTokensApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Get All Tokens
-     *
+     * <p>
      * Get All ServiceTokens creates a list of all Equinix Fabric service tokens associated with the subscriber&#39;s account.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getServiceTokensTest() throws ApiException {
@@ -129,13 +111,13 @@ public class ServiceTokensApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Search servicetokens
-     *
+     * <p>
      * The API provides capability to get list of user&#39;s servicetokens using search criteria, including optional filtering, pagination and sorting
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void searchServiceTokensTest() throws ApiException {
@@ -146,13 +128,13 @@ public class ServiceTokensApiTest extends AbstractTest {
 
         // TODO: test validations
     }
+
     /**
      * Update Token By ID
-     *
+     * <p>
      * This API provides capability to update user&#39;s Service Token
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void updateServiceTokenByUuidTest() throws ApiException {
