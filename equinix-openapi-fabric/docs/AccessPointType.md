@@ -23,5 +23,7 @@
 
 * `METAL_NETWORK` (value: `"METAL_NETWORK"`)
 
+* `VPIC_INTERFACE` (value: `"VPIC_INTERFACE"`)
+
 
 

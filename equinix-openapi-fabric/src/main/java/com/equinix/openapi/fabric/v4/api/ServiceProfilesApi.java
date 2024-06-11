@@ -1,6 +1,6 @@
 /*
  * Equinix Fabric API v4
- * Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br>
+ * Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br> </br> <b>Integrations (SDKs, Tools) links:</b></br> <a href=\"https://deploy.equinix.com/labs/fabric-java\\\">Fabric Java SDK</a> </br> <a href=\"https://deploy.equinix.com/labs/equinix-sdk-go\\\">Fabric Go SDK</a> </br> <a href=\"https://deploy.equinix.com/labs/terraform-provider-equinix\\\">Equinix Terraform Provider</a> </br> <a href=\"https://deploy.equinix.com/labs/terraform-equinix-fabric\\\">Fabric Terraform Modules</a> </br> <a href=\"https://deploy.equinix.com/labs/pulumi-provider-equinix/\">Equinix Pulumi Provider</a> </br>
  *
  * Contact: api-support@equinix.com
  *
@@ -154,7 +154,7 @@ public class ServiceProfilesApi {
 
     /**
      * Create Profile
-     * Create Service Profile creates Equinix Fabric? Service Profile.
+     * Create Service Profile creates Equinix Fabric™ Service Profile.
      * @param serviceProfileRequest  (required)
      * @return ServiceProfile
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -175,7 +175,7 @@ public class ServiceProfilesApi {
 
     /**
      * Create Profile
-     * Create Service Profile creates Equinix Fabric? Service Profile.
+     * Create Service Profile creates Equinix Fabric™ Service Profile.
      * @param serviceProfileRequest  (required)
      * @return ApiResponse&lt;ServiceProfile&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -197,7 +197,7 @@ public class ServiceProfilesApi {
 
     /**
      * Create Profile (asynchronously)
-     * Create Service Profile creates Equinix Fabric? Service Profile.
+     * Create Service Profile creates Equinix Fabric™ Service Profile.
      * @param serviceProfileRequest  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call

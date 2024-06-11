@@ -20,7 +20,7 @@ All URIs are relative to *https://api.equinix.com*
 
 Create Profile
 
-Create Service Profile creates Equinix Fabric? Service Profile.
+Create Service Profile creates Equinix Fabric™ Service Profile.
 
 ### Example
 ```java

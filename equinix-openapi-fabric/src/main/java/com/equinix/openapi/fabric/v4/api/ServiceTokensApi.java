@@ -1,6 +1,6 @@
 /*
  * Equinix Fabric API v4
- * Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br>
+ * Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br> </br> <b>Integrations (SDKs, Tools) links:</b></br> <a href=\"https://deploy.equinix.com/labs/fabric-java\\\">Fabric Java SDK</a> </br> <a href=\"https://deploy.equinix.com/labs/equinix-sdk-go\\\">Fabric Go SDK</a> </br> <a href=\"https://deploy.equinix.com/labs/terraform-provider-equinix\\\">Equinix Terraform Provider</a> </br> <a href=\"https://deploy.equinix.com/labs/terraform-equinix-fabric\\\">Fabric Terraform Modules</a> </br> <a href=\"https://deploy.equinix.com/labs/pulumi-provider-equinix/\">Equinix Pulumi Provider</a> </br>
  *
  * Contact: api-support@equinix.com
  *
@@ -90,8 +90,6 @@ public class ServiceTokensApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 201 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
      */
     public okhttp3.Call createServiceTokenCall(ServiceToken serviceToken, final ApiCallback _callback) throws ApiException {
@@ -152,7 +150,7 @@ public class ServiceTokensApi {
 
     /**
      * Create Service Token
-     * Create Service Tokens generates Equinix Fabric? service tokens. These tokens authorize users to access protected resources and services.
+     * Create Service Tokens generates Equinix Fabric™ service tokens. These tokens authorize users to access protected resources and services.
      * @param serviceToken  (required)
      * @return ServiceToken
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -161,8 +159,6 @@ public class ServiceTokensApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 201 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
      */
     public ServiceToken createServiceToken(ServiceToken serviceToken) throws ApiException {
@@ -172,7 +168,7 @@ public class ServiceTokensApi {
 
     /**
      * Create Service Token
-     * Create Service Tokens generates Equinix Fabric? service tokens. These tokens authorize users to access protected resources and services.
+     * Create Service Tokens generates Equinix Fabric™ service tokens. These tokens authorize users to access protected resources and services.
      * @param serviceToken  (required)
      * @return ApiResponse&lt;ServiceToken&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -181,8 +177,6 @@ public class ServiceTokensApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 201 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
      */
     public ApiResponse<ServiceToken> createServiceTokenWithHttpInfo(ServiceToken serviceToken) throws ApiException {
@@ -193,7 +187,7 @@ public class ServiceTokensApi {
 
     /**
      * Create Service Token (asynchronously)
-     * Create Service Tokens generates Equinix Fabric? service tokens. These tokens authorize users to access protected resources and services.
+     * Create Service Tokens generates Equinix Fabric™ service tokens. These tokens authorize users to access protected resources and services.
      * @param serviceToken  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
@@ -203,8 +197,6 @@ public class ServiceTokensApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 201 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
      */
     public okhttp3.Call createServiceTokenAsync(ServiceToken serviceToken, final ApiCallback<ServiceToken> _callback) throws ApiException {
@@ -374,7 +366,6 @@ public class ServiceTokensApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 204 </td><td> Deleted Service Token Successfully </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
      */
     public okhttp3.Call deleteServiceTokenByUuidCall(UUID serviceTokenId, final ApiCallback _callback) throws ApiException {
@@ -443,7 +434,6 @@ public class ServiceTokensApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 204 </td><td> Deleted Service Token Successfully </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
      */
     public void deleteServiceTokenByUuid(UUID serviceTokenId) throws ApiException {
@@ -461,7 +451,6 @@ public class ServiceTokensApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 204 </td><td> Deleted Service Token Successfully </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
      */
     public ApiResponse<Void> deleteServiceTokenByUuidWithHttpInfo(UUID serviceTokenId) throws ApiException {
@@ -481,7 +470,6 @@ public class ServiceTokensApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 204 </td><td> Deleted Service Token Successfully </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
      </table>
      */
     public okhttp3.Call deleteServiceTokenByUuidAsync(UUID serviceTokenId, final ApiCallback<Void> _callback) throws ApiException {
@@ -501,8 +489,6 @@ public class ServiceTokensApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
     public okhttp3.Call getServiceTokenByUuidCall(UUID serviceTokenId, final ApiCallback _callback) throws ApiException {
@@ -572,8 +558,6 @@ public class ServiceTokensApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
     public ServiceToken getServiceTokenByUuid(UUID serviceTokenId) throws ApiException {
@@ -592,8 +576,6 @@ public class ServiceTokensApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
     public ApiResponse<ServiceToken> getServiceTokenByUuidWithHttpInfo(UUID serviceTokenId) throws ApiException {
@@ -614,8 +596,6 @@ public class ServiceTokensApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
     public okhttp3.Call getServiceTokenByUuidAsync(UUID serviceTokenId, final ApiCallback<ServiceToken> _callback) throws ApiException {
@@ -636,7 +616,6 @@ public class ServiceTokensApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
      */
     public okhttp3.Call getServiceTokensCall(BigDecimal offset, BigDecimal limit, final ApiCallback _callback) throws ApiException {
@@ -708,7 +687,6 @@ public class ServiceTokensApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
      */
     public ServiceTokens getServiceTokens(BigDecimal offset, BigDecimal limit) throws ApiException {
@@ -727,7 +705,6 @@ public class ServiceTokensApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
      */
     public ApiResponse<ServiceTokens> getServiceTokensWithHttpInfo(BigDecimal offset, BigDecimal limit) throws ApiException {
@@ -748,7 +725,6 @@ public class ServiceTokensApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
      */
     public okhttp3.Call getServiceTokensAsync(BigDecimal offset, BigDecimal limit, final ApiCallback<ServiceTokens> _callback) throws ApiException {
@@ -909,7 +885,6 @@ public class ServiceTokensApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
      */
     public okhttp3.Call updateServiceTokenByUuidCall(UUID serviceTokenId, List<ServiceTokenChangeOperation> serviceTokenChangeOperation, final ApiCallback _callback) throws ApiException {
@@ -986,7 +961,6 @@ public class ServiceTokensApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
      */
     public ServiceToken updateServiceTokenByUuid(UUID serviceTokenId, List<ServiceTokenChangeOperation> serviceTokenChangeOperation) throws ApiException {
@@ -1006,7 +980,6 @@ public class ServiceTokensApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
      */
     public ApiResponse<ServiceToken> updateServiceTokenByUuidWithHttpInfo(UUID serviceTokenId, List<ServiceTokenChangeOperation> serviceTokenChangeOperation) throws ApiException {
@@ -1028,7 +1001,6 @@ public class ServiceTokensApi {
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
      */
     public okhttp3.Call updateServiceTokenByUuidAsync(UUID serviceTokenId, List<ServiceTokenChangeOperation> serviceTokenChangeOperation, final ApiCallback<ServiceToken> _callback) throws ApiException {

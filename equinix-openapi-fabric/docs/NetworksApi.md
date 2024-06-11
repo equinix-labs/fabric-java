@@ -81,10 +81,7 @@ public class Example {
 |-------------|-------------|------------------|
 | **202** | Fabric Network Access point object |  -  |
 | **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
 | **415** | Unsupported Media Type |  -  |
-| **500** | Internal server error |  -  |
 
 <a name="deleteNetworkByUuid"></a>
 # **deleteNetworkByUuid**
@@ -153,8 +150,6 @@ public class Example {
 |-------------|-------------|------------------|
 | **202** | Fabric Network Access point object |  -  |
 | **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
 | **404** | Not Found |  -  |
 
 <a name="getConnectionsByNetworkUuid"></a>
@@ -224,8 +219,6 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Fabric Network Access point object |  -  |
 | **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
 | **415** | Unsupported Media Type |  -  |
 
 <a name="getNetworkByUuid"></a>
@@ -294,8 +287,6 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Fabric Network Access point object |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
 | **404** | Not Found |  -  |
 
 <a name="getNetworkChangeByUuid"></a>
@@ -367,8 +358,6 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Fabric Network Access point object |  -  |
 | **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
 | **404** | Not Found |  -  |
 
 <a name="getNetworkChanges"></a>
@@ -438,8 +427,6 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Fabric Network Access point object |  -  |
 | **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
 | **415** | Unsupported Media Type |  -  |
 
 <a name="searchNetworks"></a>
@@ -509,8 +496,6 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Fabric Network Access point object |  -  |
 | **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
 | **415** | Unsupported Media Type |  -  |
 
 <a name="updateNetworkByUuid"></a>
@@ -582,8 +567,6 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Fabric Network Access point object |  -  |
 | **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
 | **404** | Not Found |  -  |
 | **415** | Unsupported Media Type |  -  |
 

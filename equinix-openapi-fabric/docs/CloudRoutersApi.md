@@ -83,7 +83,6 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Fabric Cloud Router object |  -  |
 | **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
@@ -157,7 +156,6 @@ public class Example {
 |-------------|-------------|------------------|
 | **202** | Successful operation |  -  |
 | **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
 | **404** | Not Found |  -  |
 | **415** | Internal server error |  -  |
@@ -229,7 +227,6 @@ null (empty response body)
 |-------------|-------------|------------------|
 | **204** | Deleted Cloud Router Successfully |  -  |
 | **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
 | **404** | Not Found |  -  |
 | **500** | Internal server error |  -  |
@@ -303,7 +300,6 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Successful operation |  -  |
 | **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
 | **404** | Not Found |  -  |
 | **415** | Internal server error |  -  |
@@ -375,7 +371,6 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Fabric Cloud Router object |  -  |
-| **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
 | **404** | Not Found |  -  |
 | **500** | Internal server error |  -  |
@@ -447,7 +442,6 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Fabric Cloud Router Package details |  -  |
 | **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
@@ -520,7 +514,6 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Fabric Cloud Router Packages |  -  |
-| **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
@@ -594,7 +587,6 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Successful operation |  -  |
 | **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
 | **404** | Not Found |  -  |
 | **415** | Internal server error |  -  |
@@ -667,7 +659,6 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Successful operation |  -  |
 | **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
@@ -741,7 +732,6 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Fabric Cloud Router object |  -  |
 | **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
 | **404** | Not Found |  -  |
 | **415** | Unsupported Media Type |  -  |

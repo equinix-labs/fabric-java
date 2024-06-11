@@ -81,8 +81,6 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful operation |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
 
 <a name="getPortStats"></a>
 # **getPortStats**
@@ -113,7 +111,7 @@ public class Example {
 
     StatisticsApi apiInstance = new StatisticsApi(defaultClient);
     List<String> metros = Arrays.asList(); // List<String> | Two-letter prefix indicating the metropolitan area in which a specified Equinix asset is located.
-    Sort sort = Sort.fromValue("-bandwidthUtilization"); // Sort | Key or set of keys that organizes the search payload by property (such as createdDate or metroCode) or by direction. Ascending (ASC) is the default value. The \"?\" prefix indicates descending (DESC) order.
+    Sort sort = Sort.fromValue("-bandwidthUtilization"); // Sort | Key or set of keys that organizes the search payload by property (such as createdDate or metroCode) or by direction. Ascending (ASC) is the default value. The \"‒\" prefix indicates descending (DESC) order.
     Integer top = 5; // Integer | Filter returning only the specified number of most heavily trafficked ports. The standard value is [1...10], and the default is 5.
     Duration duration = Duration.fromValue("P7D"); // Duration | duration
     QueryDirection direction = QueryDirection.fromValue("inbound"); // QueryDirection | Direction of traffic from the requester's viewpoint. The default is outbound.
@@ -138,7 +136,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **metros** | [**List&lt;String&gt;**](String.md)| Two-letter prefix indicating the metropolitan area in which a specified Equinix asset is located. | |
-| **sort** | [**Sort**](.md)| Key or set of keys that organizes the search payload by property (such as createdDate or metroCode) or by direction. Ascending (ASC) is the default value. The \&quot;?\&quot; prefix indicates descending (DESC) order. | [optional] [default to -bandwidthUtilization] [enum: -bandwidthUtilization] |
+| **sort** | [**Sort**](.md)| Key or set of keys that organizes the search payload by property (such as createdDate or metroCode) or by direction. Ascending (ASC) is the default value. The \&quot;‒\&quot; prefix indicates descending (DESC) order. | [optional] [default to -bandwidthUtilization] [enum: -bandwidthUtilization] |
 | **top** | **Integer**| Filter returning only the specified number of most heavily trafficked ports. The standard value is [1...10], and the default is 5. | [optional] [default to 5] |
 | **duration** | [**Duration**](.md)| duration | [optional] [default to P7D] [enum: P7D, P1M, P3M] |
 | **direction** | [**QueryDirection**](.md)| Direction of traffic from the requester&#39;s viewpoint. The default is outbound. | [optional] [default to outbound] [enum: inbound, outbound] |
@@ -162,8 +160,6 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful operation |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
 
 <a name="getPortStatsByPortUuid"></a>
 # **getPortStatsByPortUuid**
@@ -235,7 +231,4 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful operation |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
-| **500** | Internal server error |  -  |
 

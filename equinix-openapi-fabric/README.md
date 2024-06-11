@@ -1,9 +1,9 @@
 # equinix-openapi-fabric
 
 Equinix Fabric API v4
-- API version: 4.13
+- API version: 4.14
 
-Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br>
+Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br> </br> <b>Integrations (SDKs, Tools) links:</b></br> <a href=\"https://deploy.equinix.com/labs/fabric-java\\\">Fabric Java SDK</a> </br> <a href=\"https://deploy.equinix.com/labs/equinix-sdk-go\\\">Fabric Go SDK</a> </br> <a href=\"https://deploy.equinix.com/labs/terraform-provider-equinix\\\">Equinix Terraform Provider</a> </br> <a href=\"https://deploy.equinix.com/labs/terraform-equinix-fabric\\\">Fabric Terraform Modules</a> </br> <a href=\"https://deploy.equinix.com/labs/pulumi-provider-equinix/\">Equinix Pulumi Provider</a> </br>
 
   For more information, please visit [https://equinix.com/about/](https://equinix.com/about/)
 
@@ -150,6 +150,7 @@ Class | Method | HTTP request | Description
 *PortsApi* | [**addToLag**](docs/PortsApi.md#addToLag) | **POST** /fabric/v4/ports/{portId}/physicalPorts/bulk | Add to Lag
 *PortsApi* | [**createBulkPort**](docs/PortsApi.md#createBulkPort) | **POST** /fabric/v4/ports/bulk | Create Port
 *PortsApi* | [**createPort**](docs/PortsApi.md#createPort) | **POST** /fabric/v4/ports | Create Port
+*PortsApi* | [**deletePort**](docs/PortsApi.md#deletePort) | **DELETE** /fabric/v4/ports/{portId} | Delete a single port
 *PortsApi* | [**getPortByUuid**](docs/PortsApi.md#getPortByUuid) | **GET** /fabric/v4/ports/{portId} | Get Port by uuid
 *PortsApi* | [**getPorts**](docs/PortsApi.md#getPorts) | **GET** /fabric/v4/ports | Get All Ports
 *PortsApi* | [**getVlans**](docs/PortsApi.md#getVlans) | **GET** /fabric/v4/ports/{portUuid}/linkProtocols | Get Vlans
@@ -308,6 +309,7 @@ Class | Method | HTTP request | Description
  - [GetRouteFilterGetConnectionsResponse](docs/GetRouteFilterGetConnectionsResponse.md)
  - [GetRouteFilterRulesResponse](docs/GetRouteFilterRulesResponse.md)
  - [HealthResponse](docs/HealthResponse.md)
+ - [InternetAccess](docs/InternetAccess.md)
  - [IpBlockPrice](docs/IpBlockPrice.md)
  - [IpBlockType](docs/IpBlockType.md)
  - [Ipv4](docs/Ipv4.md)
@@ -554,6 +556,7 @@ Class | Method | HTTP request | Description
  - [VirtualPortRedundancy](docs/VirtualPortRedundancy.md)
  - [VirtualPortServiceType](docs/VirtualPortServiceType.md)
  - [VirtualPortType](docs/VirtualPortType.md)
+ - [VpicInterface](docs/VpicInterface.md)
 
 
 ## Documentation for Authorization

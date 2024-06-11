@@ -99,6 +99,7 @@ docs/GetRouteFilterGetConnectionsResponse.md
 docs/GetRouteFilterRulesResponse.md
 docs/HealthApi.md
 docs/HealthResponse.md
+docs/InternetAccess.md
 docs/IpBlockPrice.md
 docs/IpBlockType.md
 docs/Ipv4.md
@@ -356,6 +357,7 @@ docs/VirtualPortPrice.md
 docs/VirtualPortRedundancy.md
 docs/VirtualPortServiceType.md
 docs/VirtualPortType.md
+docs/VpicInterface.md
 git_push.sh
 gradle.properties
 gradle/wrapper/gradle-wrapper.jar
@@ -487,6 +489,7 @@ src/main/java/com/equinix/openapi/fabric/v4/model/GetResponse.java
 src/main/java/com/equinix/openapi/fabric/v4/model/GetRouteFilterGetConnectionsResponse.java
 src/main/java/com/equinix/openapi/fabric/v4/model/GetRouteFilterRulesResponse.java
 src/main/java/com/equinix/openapi/fabric/v4/model/HealthResponse.java
+src/main/java/com/equinix/openapi/fabric/v4/model/InternetAccess.java
 src/main/java/com/equinix/openapi/fabric/v4/model/IpBlockPrice.java
 src/main/java/com/equinix/openapi/fabric/v4/model/IpBlockType.java
 src/main/java/com/equinix/openapi/fabric/v4/model/Ipv4.java
@@ -733,6 +736,7 @@ src/main/java/com/equinix/openapi/fabric/v4/model/VirtualPortPrice.java
 src/main/java/com/equinix/openapi/fabric/v4/model/VirtualPortRedundancy.java
 src/main/java/com/equinix/openapi/fabric/v4/model/VirtualPortServiceType.java
 src/main/java/com/equinix/openapi/fabric/v4/model/VirtualPortType.java
+src/main/java/com/equinix/openapi/fabric/v4/model/VpicInterface.java
 src/test/java/com/equinix/openapi/fabric/v4/api/CloudRoutersApiTest.java
 src/test/java/com/equinix/openapi/fabric/v4/api/ConnectionsApiTest.java
 src/test/java/com/equinix/openapi/fabric/v4/api/HealthApiTest.java
@@ -837,6 +841,7 @@ src/test/java/com/equinix/openapi/fabric/v4/model/GetResponseTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/GetRouteFilterGetConnectionsResponseTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/GetRouteFilterRulesResponseTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/HealthResponseTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/InternetAccessTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/IpBlockPriceTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/IpBlockTypeTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/Ipv4Test.java
@@ -1083,3 +1088,4 @@ src/test/java/com/equinix/openapi/fabric/v4/model/VirtualPortPriceTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/VirtualPortRedundancyTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/VirtualPortServiceTypeTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/VirtualPortTypeTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/VpicInterfaceTest.java

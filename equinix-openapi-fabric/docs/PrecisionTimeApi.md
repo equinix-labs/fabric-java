@@ -80,10 +80,6 @@ public class Example {
 |-------------|-------------|------------------|
 | **202** | Successful operation |  -  |
 | **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
-| **415** | Unsupported Media Type |  -  |
-| **500** | Internal server error |  -  |
 
 <a name="deleteTimeServiceById"></a>
 # **deleteTimeServiceById**
@@ -151,10 +147,6 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Successful operation |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
-| **415** | Unsupported Media Type |  -  |
-| **500** | Internal server error |  -  |
 
 <a name="getTimeServicesById"></a>
 # **getTimeServicesById**
@@ -223,10 +215,6 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Successful operation |  -  |
 | **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
-| **415** | Unsupported Media Type |  -  |
-| **500** | Internal server error |  -  |
 
 <a name="getTimeServicesConnectionsByServiceId"></a>
 # **getTimeServicesConnectionsByServiceId**
@@ -294,10 +282,6 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Return Time Service Connection |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
-| **415** | Unsupported Media Type |  -  |
-| **500** | Internal server error |  -  |
 
 <a name="getTimeServicesPackageByCode"></a>
 # **getTimeServicesPackageByCode**
@@ -365,8 +349,6 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful operation |  -  |
-| **415** | Unsupported Media Type |  -  |
-| **500** | Internal server error |  -  |
 
 <a name="getTimeServicesPackages"></a>
 # **getTimeServicesPackages**
@@ -430,8 +412,6 @@ This endpoint does not need any parameter.
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful operation |  -  |
-| **415** | Unsupported Media Type |  -  |
-| **500** | Internal server error |  -  |
 
 <a name="updateTimeServicesById"></a>
 # **updateTimeServicesById**
@@ -502,8 +482,4 @@ public class Example {
 |-------------|-------------|------------------|
 | **202** | Successful operation |  -  |
 | **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
-| **415** | Unsupported Media Type |  -  |
-| **500** | Internal server error |  -  |
 

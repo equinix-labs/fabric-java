@@ -1,6 +1,6 @@
 /*
  * Equinix Fabric API v4
- * Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br>
+ * Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br> </br> <b>Integrations (SDKs, Tools) links:</b></br> <a href=\"https://deploy.equinix.com/labs/fabric-java\\\">Fabric Java SDK</a> </br> <a href=\"https://deploy.equinix.com/labs/equinix-sdk-go\\\">Fabric Go SDK</a> </br> <a href=\"https://deploy.equinix.com/labs/terraform-provider-equinix\\\">Equinix Terraform Provider</a> </br> <a href=\"https://deploy.equinix.com/labs/terraform-equinix-fabric\\\">Fabric Terraform Modules</a> </br> <a href=\"https://deploy.equinix.com/labs/pulumi-provider-equinix/\">Equinix Pulumi Provider</a> </br>
  *
  * Contact: api-support@equinix.com
  *
@@ -27,6 +27,7 @@ import com.equinix.openapi.fabric.v4.model.SimplifiedPort;
 import com.equinix.openapi.fabric.v4.model.SimplifiedServiceProfile;
 import com.equinix.openapi.fabric.v4.model.VirtualDevice;
 import com.equinix.openapi.fabric.v4.model.VirtualNetwork;
+import com.equinix.openapi.fabric.v4.model.VpicInterface;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -123,6 +124,10 @@ public class AccessPoint {
   public static final String SERIALIZED_NAME_INTERCONNECTION = "interconnection";
   @SerializedName(SERIALIZED_NAME_INTERCONNECTION)
   private MetalInterconnection interconnection;
+
+  public static final String SERIALIZED_NAME_VPIC_INTERFACE = "vpic_interface";
+  @SerializedName(SERIALIZED_NAME_VPIC_INTERFACE)
+  private VpicInterface vpicInterface;
 
   public AccessPoint() {
   }
@@ -478,6 +483,28 @@ public class AccessPoint {
     this.interconnection = interconnection;
   }
 
+
+  public AccessPoint vpicInterface(VpicInterface vpicInterface) {
+    
+    this.vpicInterface = vpicInterface;
+    return this;
+  }
+
+   /**
+   * Get vpicInterface
+   * @return vpicInterface
+  **/
+  @javax.annotation.Nullable
+
+  public VpicInterface getVpicInterface() {
+    return vpicInterface;
+  }
+
+
+  public void setVpicInterface(VpicInterface vpicInterface) {
+    this.vpicInterface = vpicInterface;
+  }
+
   /**
    * A container for additional, undeclared properties.
    * This is a holder for any undeclared properties as specified with
@@ -548,13 +575,14 @@ public class AccessPoint {
         Objects.equals(this.authenticationKey, accessPoint.authenticationKey) &&
         Objects.equals(this.providerConnectionId, accessPoint.providerConnectionId) &&
         Objects.equals(this.virtualNetwork, accessPoint.virtualNetwork) &&
-        Objects.equals(this.interconnection, accessPoint.interconnection)&&
+        Objects.equals(this.interconnection, accessPoint.interconnection) &&
+        Objects.equals(this.vpicInterface, accessPoint.vpicInterface)&&
         Objects.equals(this.additionalProperties, accessPoint.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, account, location, port, profile, router, linkProtocol, virtualDevice, _interface, network, sellerRegion, peeringType, authenticationKey, providerConnectionId, virtualNetwork, interconnection, additionalProperties);
+    return Objects.hash(type, account, location, port, profile, router, linkProtocol, virtualDevice, _interface, network, sellerRegion, peeringType, authenticationKey, providerConnectionId, virtualNetwork, interconnection, vpicInterface, additionalProperties);
   }
 
   @Override
@@ -577,6 +605,7 @@ public class AccessPoint {
     sb.append("    providerConnectionId: ").append(toIndentedString(providerConnectionId)).append("\n");
     sb.append("    virtualNetwork: ").append(toIndentedString(virtualNetwork)).append("\n");
     sb.append("    interconnection: ").append(toIndentedString(interconnection)).append("\n");
+    sb.append("    vpicInterface: ").append(toIndentedString(vpicInterface)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -616,6 +645,7 @@ public class AccessPoint {
     openapiFields.add("providerConnectionId");
     openapiFields.add("virtualNetwork");
     openapiFields.add("interconnection");
+    openapiFields.add("vpic_interface");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -685,6 +715,10 @@ public class AccessPoint {
       // validate the optional field `interconnection`
       if (jsonObj.get("interconnection") != null && !jsonObj.get("interconnection").isJsonNull()) {
         MetalInterconnection.validateJsonObject(jsonObj.getAsJsonObject("interconnection"));
+      }
+      // validate the optional field `vpic_interface`
+      if (jsonObj.get("vpic_interface") != null && !jsonObj.get("vpic_interface").isJsonNull()) {
+        VpicInterface.validateJsonObject(jsonObj.getAsJsonObject("vpic_interface"));
       }
   }
 
