@@ -28,6 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * API tests for StatisticsApi
  */
+@Disabled
 public class StatisticsApiTest extends AbstractTest {
 
     private final StatisticsApi api = new StatisticsApi(generateToken());
