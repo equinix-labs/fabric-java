@@ -7,6 +7,7 @@ All URIs are relative to *https://api.equinix.com*
 | [**addToLag**](PortsApi.md#addToLag) | **POST** /fabric/v4/ports/{portId}/physicalPorts/bulk | Add to Lag |
 | [**createBulkPort**](PortsApi.md#createBulkPort) | **POST** /fabric/v4/ports/bulk | Create Port |
 | [**createPort**](PortsApi.md#createPort) | **POST** /fabric/v4/ports | Create Port |
+| [**deletePort**](PortsApi.md#deletePort) | **DELETE** /fabric/v4/ports/{portId} | Delete a single port |
 | [**getPortByUuid**](PortsApi.md#getPortByUuid) | **GET** /fabric/v4/ports/{portId} | Get Port by uuid |
 | [**getPorts**](PortsApi.md#getPorts) | **GET** /fabric/v4/ports | Get All Ports |
 | [**getVlans**](PortsApi.md#getVlans) | **GET** /fabric/v4/ports/{portUuid}/linkProtocols | Get Vlans |
@@ -220,6 +221,76 @@ public class Example {
 | **201** | Successful operation for COLO Single Port Non Lag |  -  |
 | **400** | Bad request |  -  |
 | **500** | Internal Server Error |  -  |
+
+<a name="deletePort"></a>
+# **deletePort**
+> Port deletePort(portId)
+
+Delete a single port
+
+The API provides capability to delete a single port
+
+### Example
+```java
+// Import classes:
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.PortsApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
+
+    PortsApi apiInstance = new PortsApi(defaultClient);
+    UUID portId = UUID.randomUUID(); // UUID | Port UUID
+    try {
+      Port result = apiInstance.deletePort(portId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling PortsApi#deletePort");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **portId** | **UUID**| Port UUID | |
+
+### Return type
+
+[**Port**](Port.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **202** | Accepted |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
 
 <a name="getPortByUuid"></a>
 # **getPortByUuid**

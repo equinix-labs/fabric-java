@@ -1,6 +1,5 @@
 /*
  * Equinix Fabric API v4
- * Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br>
  *
  * Contact: api-support@equinix.com
  *
@@ -18,6 +17,7 @@ import com.equinix.openapi.fabric.v4.model.AccessPoint;
 import com.equinix.openapi.fabric.v4.model.ConnectionCompanyProfile;
 import com.equinix.openapi.fabric.v4.model.ConnectionInvitation;
 import com.equinix.openapi.fabric.v4.model.ConnectionSideAdditionalInfo;
+import com.equinix.openapi.fabric.v4.model.InternetAccess;
 import com.equinix.openapi.fabric.v4.model.ServiceToken;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
@@ -61,6 +61,10 @@ public class ConnectionSide {
   public static final String SERIALIZED_NAME_ACCESS_POINT = "accessPoint";
   @SerializedName(SERIALIZED_NAME_ACCESS_POINT)
   private AccessPoint accessPoint;
+
+  public static final String SERIALIZED_NAME_INTERNET_ACCESS = "internetAccess";
+  @SerializedName(SERIALIZED_NAME_INTERNET_ACCESS)
+  private InternetAccess internetAccess;
 
   public static final String SERIALIZED_NAME_COMPANY_PROFILE = "companyProfile";
   @SerializedName(SERIALIZED_NAME_COMPANY_PROFILE)
@@ -118,6 +122,28 @@ public class ConnectionSide {
 
   public void setAccessPoint(AccessPoint accessPoint) {
     this.accessPoint = accessPoint;
+  }
+
+
+  public ConnectionSide internetAccess(InternetAccess internetAccess) {
+    
+    this.internetAccess = internetAccess;
+    return this;
+  }
+
+   /**
+   * Get internetAccess
+   * @return internetAccess
+  **/
+  @javax.annotation.Nullable
+
+  public InternetAccess getInternetAccess() {
+    return internetAccess;
+  }
+
+
+  public void setInternetAccess(InternetAccess internetAccess) {
+    this.internetAccess = internetAccess;
   }
 
 
@@ -251,6 +277,7 @@ public class ConnectionSide {
     ConnectionSide connectionSide = (ConnectionSide) o;
     return Objects.equals(this.serviceToken, connectionSide.serviceToken) &&
         Objects.equals(this.accessPoint, connectionSide.accessPoint) &&
+        Objects.equals(this.internetAccess, connectionSide.internetAccess) &&
         Objects.equals(this.companyProfile, connectionSide.companyProfile) &&
         Objects.equals(this.invitation, connectionSide.invitation) &&
         Objects.equals(this.additionalInfo, connectionSide.additionalInfo)&&
@@ -259,7 +286,7 @@ public class ConnectionSide {
 
   @Override
   public int hashCode() {
-    return Objects.hash(serviceToken, accessPoint, companyProfile, invitation, additionalInfo, additionalProperties);
+    return Objects.hash(serviceToken, accessPoint, internetAccess, companyProfile, invitation, additionalInfo, additionalProperties);
   }
 
   @Override
@@ -268,6 +295,7 @@ public class ConnectionSide {
     sb.append("class ConnectionSide {\n");
     sb.append("    serviceToken: ").append(toIndentedString(serviceToken)).append("\n");
     sb.append("    accessPoint: ").append(toIndentedString(accessPoint)).append("\n");
+    sb.append("    internetAccess: ").append(toIndentedString(internetAccess)).append("\n");
     sb.append("    companyProfile: ").append(toIndentedString(companyProfile)).append("\n");
     sb.append("    invitation: ").append(toIndentedString(invitation)).append("\n");
     sb.append("    additionalInfo: ").append(toIndentedString(additionalInfo)).append("\n");
@@ -296,6 +324,7 @@ public class ConnectionSide {
     openapiFields = new HashSet<String>();
     openapiFields.add("serviceToken");
     openapiFields.add("accessPoint");
+    openapiFields.add("internetAccess");
     openapiFields.add("companyProfile");
     openapiFields.add("invitation");
     openapiFields.add("additionalInfo");
@@ -323,6 +352,10 @@ public class ConnectionSide {
       // validate the optional field `accessPoint`
       if (jsonObj.get("accessPoint") != null && !jsonObj.get("accessPoint").isJsonNull()) {
         AccessPoint.validateJsonObject(jsonObj.getAsJsonObject("accessPoint"));
+      }
+      // validate the optional field `internetAccess`
+      if (jsonObj.get("internetAccess") != null && !jsonObj.get("internetAccess").isJsonNull()) {
+        InternetAccess.validateJsonObject(jsonObj.getAsJsonObject("internetAccess"));
       }
       // validate the optional field `companyProfile`
       if (jsonObj.get("companyProfile") != null && !jsonObj.get("companyProfile").isJsonNull()) {

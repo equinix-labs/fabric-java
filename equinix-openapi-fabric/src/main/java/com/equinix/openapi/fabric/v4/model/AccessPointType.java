@@ -1,6 +1,5 @@
 /*
  * Equinix Fabric API v4
- * Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br>
  *
  * Contact: api-support@equinix.com
  *
@@ -44,7 +43,9 @@ public enum AccessPointType {
   
   NETWORK("NETWORK"),
   
-  METAL_NETWORK("METAL_NETWORK");
+  METAL_NETWORK("METAL_NETWORK"),
+  
+  VPIC_INTERFACE("VPIC_INTERFACE");
 
   private String value;
 

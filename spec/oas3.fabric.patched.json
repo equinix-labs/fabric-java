@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Equinix Fabric API v4",
-    "description": "Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br>",
+    "description": "Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br> </br> <b>Integrations (SDKs, Tools) links:</b> </br> <a href=\"https://deploy.equinix.com/labs/fabric-java\\\">Fabric Java SDK</a> </br> <a href=\"https://deploy.equinix.com/labs/equinix-sdk-go\\\">Fabric Go SDK</a> </br> <a href=\"https://deploy.equinix.com/labs/terraform-provider-equinix\\\">Equinix Terraform Provider</a> </br> <a href=\"https://deploy.equinix.com/labs/terraform-equinix-fabric\\\">Fabric Terraform Modules</a> </br> <a href=\"https://deploy.equinix.com/labs/pulumi-provider-equinix/\">Equinix Pulumi Provider</a> </br>",
     "termsOfService": "https://www.equinix.com/about/legal/terms",
     "contact": {
       "name": "Equinix API Support",
@@ -13,7 +13,7 @@
       "name": "Equinix Inc",
       "url": "https://developer.equinix.com/agreement"
     },
-    "version": "4.13"
+    "version": "4.14"
   },
   "externalDocs": {
     "description": "Find more information on Equinix Developer Portal",
@@ -152,6 +152,30 @@
                 "Colo2Network-EPLAN_VC": {
                   "$ref": "#/components/examples/COLO2NETWORKwithEPL"
                 },
+                "Vd2Network": {
+                  "$ref": "#/components/examples/Vd2NETWORK"
+                },
+                "Vd2Sp-Aws": {
+                  "$ref": "#/components/examples/Vd2AwsSP"
+                },
+                "Vd2Sp-Azure": {
+                  "$ref": "#/components/examples/Vd2AzureSP"
+                },
+                "Vd2Sp-Oracle": {
+                  "$ref": "#/components/examples/Vd2OracleSP"
+                },
+                "Vd2Sp-IBM_1.0": {
+                  "$ref": "#/components/examples/Vd2Ibm_1"
+                },
+                "Vd2Sp-IBM_2.0": {
+                  "$ref": "#/components/examples/Vd2Ibm_2"
+                },
+                "Vd2Sp-Alibaba": {
+                  "$ref": "#/components/examples/Vd2AlibabaSP"
+                },
+                "Vd2Sp-Google": {
+                  "$ref": "#/components/examples/Vd2GoogleSP"
+                },
                 "Vd2Sp-Primary": {
                   "$ref": "#/components/examples/Vd2Sp-Primary"
                 },
@@ -209,6 +233,9 @@
                 "Fcr2IpWan": {
                   "$ref": "#/components/examples/Fcr2IpWan"
                 },
+                "Fcr2MetalNetwork": {
+                  "$ref": "#/components/examples/Fcr2Metal-Network"
+                },
                 "AsideServiceToken2ColoWithDot1q": {
                   "$ref": "#/components/examples/AsideServiceToken2PortWithDot1q"
                 },
@@ -248,6 +275,9 @@
                 "Metal2Sp-Generic": {
                   "$ref": "#/components/examples/Metal2Sp-Generic"
                 },
+                "MultiCloudNetwork2Sp-Aws": {
+                  "$ref": "#/components/examples/MCNS2Sp-Aws"
+                },
                 "Vd2IASp": {
                   "$ref": "#/components/examples/Vd2IAProfile-Request"
                 },
@@ -270,6 +300,21 @@
                 "examples": {
                   "Colo2Sp": {
                     "$ref": "#/components/examples/ConnectionExample"
+                  },
+                  "Colo2Sp-Google": {
+                    "$ref": "#/components/examples/COLO2GoogleSPwithDot1q-Response"
+                  },
+                  "Colo2Sp-Alibaba": {
+                    "$ref": "#/components/examples/COLO2AlibabaSP-Response"
+                  },
+                  "Colo2Sp-IBM_1.0": {
+                    "$ref": "#/components/examples/COLO2IBM_1"
+                  },
+                  "Colo2Sp-IBM_2.0": {
+                    "$ref": "#/components/examples/COLO2IBM_2"
+                  },
+                  "Colo2Sp-Oracle": {
+                    "$ref": "#/components/examples/COLO2OracleSP-Response"
                   },
                   "Vd2Sp": {
                     "$ref": "#/components/examples/Vd2Sp-Response"
@@ -330,6 +375,39 @@
                   },
                   "Fcr2Metal-Network": {
                     "$ref": "#/components/examples/Fcr2Metal-Network"
+                  },
+                  "Colo2Network-EVPLAN_VC": {
+                    "$ref": "#/components/examples/COLO2NETWORKwithDot1q-Response"
+                  },
+                  "Colo2Network-EPLAN_VC": {
+                    "$ref": "#/components/examples/COLO2NETWORKwithEPL-Response"
+                  },
+                  "Vd2IASp": {
+                    "$ref": "#/components/examples/Vd2IAProfile-Response"
+                  },
+                  "Vd2Network": {
+                    "$ref": "#/components/examples/Vd2NETWORK-Response"
+                  },
+                  "Vd2Sp-Aws": {
+                    "$ref": "#/components/examples/Vd2AwsSP-Response"
+                  },
+                  "Vd2Sp-Azure": {
+                    "$ref": "#/components/examples/Vd2AzureSP-Response"
+                  },
+                  "Vd2Sp-Oracle": {
+                    "$ref": "#/components/examples/Vd2OracleSP-Response"
+                  },
+                  "Vd2Sp-IBM_1.0": {
+                    "$ref": "#/components/examples/Vd2Ibm_1"
+                  },
+                  "Vd2Sp-IBM_2.0": {
+                    "$ref": "#/components/examples/Vd2Ibm_2"
+                  },
+                  "Vd2Sp-Alibaba": {
+                    "$ref": "#/components/examples/Vd2AlibabaSP-Response"
+                  },
+                  "Vd2Sp-Google": {
+                    "$ref": "#/components/examples/Vd2GoogleSP-Response"
                   }
                 }
               }
@@ -3596,8 +3674,26 @@
                 "$ref": "#/components/schemas/ServiceProfileSearchRequest"
               },
               "examples": {
-                "ServiceProfileSearch": {
-                  "$ref": "#/components/examples/ServiceProfileSearchRequest"
+                "ServiceProfileSearchWithUuid": {
+                  "$ref": "#/components/examples/ServiceProfileSearchWithUuid"
+                },
+                "ServiceProfileSearchWithName": {
+                  "$ref": "#/components/examples/ServiceProfileSearchWithName"
+                },
+                "ServiceProfileSearchWithState": {
+                  "$ref": "#/components/examples/ServiceProfileSearchWithState"
+                },
+                "ServiceProfileSearchWithVisibility": {
+                  "$ref": "#/components/examples/ServiceProfileSearchWithVisibility"
+                },
+                "ServiceProfileSearchWithProject": {
+                  "$ref": "#/components/examples/ServiceProfileSearchWithProjectId"
+                },
+                "ServiceProfileSearchWithPort": {
+                  "$ref": "#/components/examples/ServiceProfileSearchWithPort"
+                },
+                "ServiceProfileSearchWithMultipleFilter": {
+                  "$ref": "#/components/examples/ServiceProfileSearchWithAnd"
                 }
               }
             }
@@ -5486,6 +5582,77 @@
             }
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "Ports"
+        ],
+        "summary": "Delete a single port",
+        "description": "The API provides capability to delete a single port",
+        "operationId": "deletePort",
+        "parameters": [
+          {
+            "name": "portId",
+            "in": "path",
+            "description": "Port UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/PortUUID"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Port"
+                },
+                "examples": {
+                  "portExample": {
+                    "$ref": "#/components/examples/portDelete"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/400"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/fabric/v4/ports/{portUuid}/linkProtocols": {
@@ -7315,7 +7482,7 @@
                   "$ref": "#/components/schemas/GetRouteFilterRulesResponse"
                 },
                 "examples": {
-                  "getAllRouteFilterRuless": {
+                  "getAllRouteFilterRules": {
                     "$ref": "#/components/examples/RouteFilterRulesGetAll"
                   }
                 }
@@ -8459,8 +8626,8 @@
                   "$ref": "#/components/schemas/GetRouteFilterRulesResponse"
                 },
                 "examples": {
-                  "getAllRouteFilterRuless": {
-                    "$ref": "#/components/examples/RouteFilterRulesGetAll"
+                  "getAllRouteFilterRules": {
+                    "$ref": "#/components/examples/RouteFilterRulesBulkResponse"
                   }
                 }
               }
@@ -12566,6 +12733,7 @@
           "/zSide/accessPoint/virtualDevice/name",
           "/zSide/accessPoint/virtualDevice/uuid",
           "/zSide/serviceToken/uuid",
+          "/zSide/internetAccess/uuid",
           "*"
         ]
       },
@@ -16389,6 +16557,9 @@
           "accessPoint": {
             "$ref": "#/components/schemas/AccessPoint"
           },
+          "internetAccess": {
+            "$ref": "#/components/schemas/InternetAccess"
+          },
           "companyProfile": {
             "$ref": "#/components/schemas/ConnectionCompanyProfile"
           },
@@ -17585,7 +17756,6 @@
               "STANDARD",
               "UNTAGGED",
               "UNLIMITED",
-              "FREE",
               "UNLIMITED PLUS"
             ]
           }
@@ -18598,9 +18768,23 @@
           },
           "interconnection": {
             "$ref": "#/components/schemas/MetalInterconnection"
+          },
+          "vpic_interface": {
+            "$ref": "#/components/schemas/VpicInterface"
           }
         },
         "description": "Access point object"
+      },
+      "InternetAccess": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "description": "Internet Access Service Identifier",
+            "format": "uuid"
+          }
+        },
+        "description": "Internet Access Details"
       },
       "ConnectionCompanyProfile": {
         "type": "object",
@@ -19144,7 +19328,8 @@
           "SUBNET",
           "CLOUD_ROUTER",
           "NETWORK",
-          "METAL_NETWORK"
+          "METAL_NETWORK",
+          "VPIC_INTERFACE"
         ]
       },
       "SimplifiedPort": {
@@ -19461,6 +19646,23 @@
           }
         },
         "description": "Metal Interconnection"
+      },
+      "VpicInterface": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "description": "The Canonical URL at which the resource resides.",
+            "format": "uri",
+            "readOnly": true
+          },
+          "uuid": {
+            "type": "string",
+            "description": "MCN assigned VPIC Interface Identifier",
+            "format": "uuid"
+          }
+        },
+        "description": "MCN VPIC Interface Information"
       },
       "VirtualConnectionPriceConnectionType": {
         "type": "string",
@@ -21035,7 +21237,7 @@
         "value": {
           "type": "EVPL_VC",
           "name": "My-Layer2-Connection-3",
-          "bandwidth": 1000,
+          "bandwidth": 50,
           "redundancy": {
             "priority": "PRIMARY"
           },
@@ -21064,14 +21266,18 @@
               "location": {
                 "metroCode": "DC"
               },
-              "authenticationKey": "xx-xxx-xx-xxxxx/xxx/x"
+              "authenticationKey": "xx-xxx-xx-xxxxx/us-west1/1",
+              "sellerRegion": "us-west1"
             }
+          },
+          "project": {
+            "projectId": "16799d66ef43"
           },
           "notifications": [
             {
               "type": "ALL",
               "emails": [
-                "test@test.com"
+                "fabric@test.com"
               ]
             }
           ]
@@ -21289,8 +21495,8 @@
       "COLO2NETWORKwithDot1q": {
         "value": {
           "type": "EVPLAN_VC",
-          "name": "MY-EVPLAN-CONNECTION-1",
-          "bandwidth": 1000,
+          "name": "colo2network-evplan-vc",
+          "bandwidth": 50,
           "aSide": {
             "accessPoint": {
               "type": "COLO",
@@ -21321,8 +21527,7 @@
             {
               "type": "ALL",
               "emails": [
-                "test@equinix.com",
-                "test1@equinix.com"
+                "fabric@equinix.com"
               ]
             }
           ]
@@ -21331,8 +21536,8 @@
       "COLO2NETWORKwithEPL": {
         "value": {
           "type": "EPLAN_VC",
-          "name": "MY-EPLAN-CONNECTION-1",
-          "bandwidth": 1000,
+          "name": "colo2network-eplan-vc",
+          "bandwidth": 50,
           "aSide": {
             "accessPoint": {
               "type": "COLO",
@@ -21359,8 +21564,391 @@
             {
               "type": "ALL",
               "emails": [
+                "fabric@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Vd2NETWORK": {
+        "value": {
+          "type": "EVPLAN_VC",
+          "name": "MY-EVPLAN-CONNECTION-1",
+          "bandwidth": 100,
+          "aSide": {
+            "accessPoint": {
+              "type": "VD",
+              "virtualDevice": {
+                "type": "EDGE",
+                "uuid": "20d32a80-0d61-4333-bc03-707b591ae2f4"
+              },
+              "interface": {
+                "type": "NETWORK",
+                "id": 45645
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "NETWORK",
+              "network": {
+                "uuid": "25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2"
+              }
+            }
+          },
+          "order": {
+            "purchaseOrderNumber": "1-129105284100"
+          },
+          "project": {
+            "projectId": "ae708bbb-d669-406a-845a-99b39ff65fd0"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
                 "test@equinix.com",
                 "test1@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Vd2AwsSP": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "vd2aws-connection-1",
+          "bandwidth": 50,
+          "redundancy": {
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "type": "VD",
+              "virtualDevice": {
+                "type": "EDGE",
+                "uuid": "e16136fd-05ef-49dd-ab98-9f8e619619e9"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "type": "L2_PROFILE",
+                "uuid": "69ee618d-be52-468d-bc99-00566f2dd2b9"
+              },
+              "location": {
+                "metroCode": "SV"
+              },
+              "sellerRegion": "us-west-1",
+              "authenticationKey": "xxxx-xxx-xxx"
+            }
+          },
+          "project": {
+            "projectId": "16799d66-ef43"
+          },
+          "order": {
+            "purchaseOrderNumber": "1-1234567890"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Vd2AzureSP": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "vd2azure-connection-1",
+          "bandwidth": 100,
+          "redundancy": {
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "type": "VD",
+              "virtualDevice": {
+                "type": "EDGE",
+                "uuid": "e16136fd-05ef-49dd-ab98-9f8e619619e9"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "type": "L2_PROFILE",
+                "uuid": "a1390b22-bbe0-4e93-ad37-85beef9d254d"
+              },
+              "location": {
+                "metroCode": "SV"
+              },
+              "authenticationKey": "xxxx-xxx-xxxx",
+              "peeringType": "MICROSOFT"
+            }
+          },
+          "project": {
+            "projectId": "16799d66-ef43"
+          },
+          "order": {
+            "purchaseOrderNumber": "1-1234567890"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Vd2OracleSP": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "vd2oracle-connection-1",
+          "bandwidth": 1000,
+          "aSide": {
+            "accessPoint": {
+              "type": "VD",
+              "virtualDevice": {
+                "type": "EDGE",
+                "uuid": "e16136fd-05ef-49dd-ab98-9f8e619619e9"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "uuid": "60ef0382-cdaa-44e7-bd36-b803731816b8"
+              },
+              "location": {
+                "metroCode": "DC"
+              },
+              "authenticationKey": "ocid1.virtualcircuit.oc1",
+              "sellerRegion": "us-ashburn-1"
+            }
+          },
+          "project": {
+            "projectId": "16799d66-ef43"
+          },
+          "order": {
+            "purchaseOrderNumber": "1-129105284100"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Vd2Ibm_1": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "vd2ibm10-connection-1",
+          "bandwidth": 50,
+          "aSide": {
+            "accessPoint": {
+              "type": "VD",
+              "virtualDevice": {
+                "type": "EDGE",
+                "uuid": "e16136fd-05ef-49dd-ab98-9f8e619619e9"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "type": "L2_PROFILE",
+                "uuid": "45b446fa-d3b6-417a-b871-a5ee0efdc459"
+              },
+              "location": {
+                "metroCode": "DC"
+              },
+              "authenticationKey": "xxxx-xxx-xxx",
+              "sellerRegion": "Washington 2"
+            }
+          },
+          "additionalInfo": [
+            {
+              "key": "ASN",
+              "value": 12345
+            },
+            {
+              "key": "Global",
+              "value": false
+            }
+          ],
+          "project": {
+            "projectId": "16799d66-ef43"
+          },
+          "order": {
+            "purchaseOrderNumber": "1-129105284100"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Vd2Ibm_2": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "vd2ibm20-connection-1",
+          "bandwidth": 50,
+          "aSide": {
+            "accessPoint": {
+              "type": "VD",
+              "virtualDevice": {
+                "type": "EDGE",
+                "uuid": "e16136fd-05ef-49dd-ab98-9f8e619619e9"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "type": "L2_PROFILE",
+                "uuid": "e092ed47-63d2-4f4a-87a0-82e3b08eefe5"
+              },
+              "location": {
+                "metroCode": "SV"
+              },
+              "authenticationKey": "xxxx-xxx-xxx",
+              "sellerRegion": "San Jose 2"
+            }
+          },
+          "additionalInfo": [
+            {
+              "key": "ASN",
+              "value": 12345
+            },
+            {
+              "key": "BGP_CER_CIDR",
+              "value": "172.16.0.17/30"
+            },
+            {
+              "key": "BGP_IBM_CIDR",
+              "value": "172.16.0.18/30"
+            },
+            {
+              "key": "Global",
+              "value": false
+            }
+          ],
+          "project": {
+            "projectId": "16799d66-ef43"
+          },
+          "order": {
+            "purchaseOrderNumber": "1-129105284100"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Vd2AlibabaSP": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "vd2alibaba-connection-1",
+          "bandwidth": 50,
+          "aSide": {
+            "accessPoint": {
+              "type": "VD",
+              "virtualDevice": {
+                "type": "EDGE",
+                "uuid": "e16136fd-05ef-49dd-ab98-9f8e619619e9"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "type": "L2_PROFILE",
+                "uuid": "4c4b8edf-873b-4c6c-805a-edb2c335bd6c"
+              },
+              "location": {
+                "metroCode": "SV"
+              },
+              "authenticationKey": "xxxx-xx-xxxx",
+              "sellerRegion": "us-west-1"
+            }
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@equinix.com"
+              ]
+            }
+          ],
+          "project": {
+            "projectId": "16799d66-ef43"
+          }
+        }
+      },
+      "Vd2GoogleSP": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "vd2googleSp-connection-1",
+          "bandwidth": 50,
+          "redundancy": {
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "type": "VD",
+              "virtualDevice": {
+                "type": "EDGE",
+                "uuid": "e99ec19c-0939-4c47-bfc1-ff94f99ccc75"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "type": "L2_PROFILE",
+                "uuid": "bd4570e2-d792-4a00-87f5-3bde040cdcd7"
+              },
+              "location": {
+                "metroCode": "SV"
+              },
+              "sellerRegion": "us-west2",
+              "authenticationKey": "xxxx-xxxx/us-west2/1"
+            }
+          },
+          "project": {
+            "projectId": "16799d66-ef43-445c-ba29-d17522d8a137"
+          },
+          "order": {
+            "purchaseOrderNumber": "1-1234567890"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@equinx.com"
               ]
             }
           ]
@@ -22152,6 +22740,43 @@
           ]
         }
       },
+      "Fcr2Metal-Network": {
+        "value": {
+          "type": "IP_VC",
+          "name": "My-FCR-MetalNetwork-Connection",
+          "bandwidth": 50,
+          "redundancy": {
+            "group": "a00cef6f-8e35-4794-9ff9-665e084e4e6d",
+            "priority": "SECONDARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "type": "CLOUD_ROUTER",
+              "router": {
+                "uuid": "66a21614-1c4a-11ec-9621-0242ac130002"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "METAL_NETWORK",
+              "authenticationKey": "xxxxxxxxx"
+            }
+          },
+          "project": {
+            "projectId": "567"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com",
+                "test1@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
       "AsideServiceToken2PortWithDot1q": {
         "value": {
           "type": "EVPL_VC",
@@ -22645,6 +23270,45 @@
           ]
         }
       },
+      "MCNS2Sp-Aws": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "My-MCNS2Aws-connection",
+          "bandwidth": 50,
+          "aSide": {
+            "accessPoint": {
+              "type": "VPIC_INTERFACE",
+              "authenticationKey": "xxxx-xxx-xxxx"
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "type": "L2_PROFILE",
+                "uuid": "9127bb72-5f4f-4517-be74-3af7ce612687"
+              },
+              "location": {
+                "metroCode": "DC"
+              },
+              "authenticationKey": "xxxx-xxx-xxxx",
+              "sellerRegion": "us-east-1"
+            }
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com",
+                "test1@equinix.com"
+              ]
+            }
+          ],
+          "project": {
+            "projectId": "b543e64d-1e13-423a-9d81-4eae7b0e1959"
+          }
+        }
+      },
       "Vd2IAProfile-Request": {
         "value": {
           "type": "IA_VC",
@@ -22680,43 +23344,6 @@
           },
           "order": {
             "purchaseOrderNumber": "1-323292"
-          },
-          "notifications": [
-            {
-              "type": "ALL",
-              "emails": [
-                "test@equinix.com",
-                "test1@equinix.com"
-              ]
-            }
-          ]
-        }
-      },
-      "Fcr2Metal-Network": {
-        "value": {
-          "type": "IP_VC",
-          "name": "My-FCR-MetalNetwork-Connection",
-          "bandwidth": 50,
-          "redundancy": {
-            "group": "a00cef6f-8e35-4794-9ff9-665e084e4e6d",
-            "priority": "SECONDARY"
-          },
-          "aSide": {
-            "accessPoint": {
-              "type": "CLOUD_ROUTER",
-              "router": {
-                "uuid": "66a21614-1c4a-11ec-9621-0242ac130002"
-              }
-            }
-          },
-          "zSide": {
-            "accessPoint": {
-              "type": "METAL_NETWORK",
-              "authenticationKey": "xxxxxxxxx"
-            }
-          },
-          "project": {
-            "projectId": "567"
           },
           "notifications": [
             {
@@ -22778,6 +23405,218 @@
           }
         }
       },
+      "COLO2GoogleSPwithDot1q-Response": {
+        "value": {
+          "type": "EVPL_VC",
+          "href": "https://api.equinix.com/fabric/v4/connections/f662d4c4-fcd8-40ba-b95b-64fc7e0a61fb",
+          "uuid": "f662d4c4-fcd8-40ba-b95b-64fc7e0a61fb",
+          "name": "My-Layer2-Connection-3",
+          "operation": {
+            "providerStatus": "PROVISIONING",
+            "equinixStatus": "PROVISIONING"
+          },
+          "order": {
+            "purchaseOrderNumber": "po1234",
+            "billingTier": "Up to 50 MB"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@equinix.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric",
+            "createdByEmail": "fabric@equinix.com",
+            "createdDateTime": "2024-04-25T14:25:30.509Z",
+            "updatedBy": "fabric",
+            "updatedByFullName": "fabric",
+            "updatedByEmail": "fabric@equinix.com",
+            "updatedDateTime": "2024-04-25T14:25:30.509Z"
+          },
+          "bandwidth": 50,
+          "redundancy": {
+            "group": "2673c07d-9bd3-43c2-9827-91e940d01a54",
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "location": {
+                "metroCode": "DA"
+              },
+              "port": {
+                "type": "XF_PORT",
+                "href": "https://api.equinix.com/fabric/v4/ports/33353aa1-18f2-4b32-94d6-59a12500f7e2",
+                "uuid": "33353aa1-18f2-4b32-94d6-59a12500f7e2",
+                "name": "1-DA1-port"
+              },
+              "linkProtocol": {
+                "type": "DOT1Q",
+                "vlanTag": 1001
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "location": {
+                "metroCode": "SV"
+              },
+              "profile": {
+                "href": "https://api.equinix.com/fabric/v4/serviceProfiles/bd4570e2-d792-4a00-87f5-3bde040cdcd7",
+                "type": "L2_PROFILE",
+                "name": "Google Cloud Partner Interconnect Zone 1",
+                "uuid": "bd4570e2-d792-4a00-87f5-3bde040cdcd7"
+              },
+              "sellerRegion": "us-west2",
+              "authenticationKey": "xx-xxx-xx-xxxxx/us-west2/1"
+            }
+          }
+        }
+      },
+      "COLO2AlibabaSP-Response": {
+        "value": {
+          "type": "EVPL_VC",
+          "href": "https://api.equinix.com/fabric/v4/connections/2c7bb68e-f560-41ac-9950-e62c87be191e",
+          "uuid": "2c7bb68e-f560-41ac-9950-e62c87be191e",
+          "name": "vd2alibaba-connection-1",
+          "operation": {
+            "providerStatus": "PROVISIONING",
+            "equinixStatus": "PROVISIONING"
+          },
+          "order": {
+            "billingTier": "Up to 50 MB"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@equinix.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric",
+            "createdByEmail": "fabric@equinix.com",
+            "createdDateTime": "2024-05-02T20:07:38.626Z",
+            "updatedBy": "fabric",
+            "updatedByFullName": "fabric",
+            "updatedByEmail": "fabric@equinix.com",
+            "updatedDateTime": "2024-05-02T20:07:38.626Z"
+          },
+          "bandwidth": 50,
+          "redundancy": {
+            "group": "6aafb605-f3e4-4380-a9c0-1eddf829bca0",
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "location": {
+                "metroCode": "SV"
+              },
+              "port": {
+                "type": "XF_PORT",
+                "href": "https://api.equinix.com/fabric/v4/ports/b54d71a6-aecb-40cc-b458-8a4103f5cdba",
+                "uuid": "b54d71a6-aecb-40cc-b458-8a4103f5cdba",
+                "name": "641728-SV5-1"
+              },
+              "linkProtocol": {
+                "type": "DOT1Q",
+                "vlanTag": 1018
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "location": {
+                "metroCode": "SV"
+              },
+              "profile": {
+                "href": "https://api.equinix.com/fabric/v4/serviceProfiles/4c4b8edf-873b-4c6c-805a-edb2c335bd6c",
+                "type": "L2_PROFILE",
+                "name": "Alibaba Cloud Express Connect",
+                "uuid": "4c4b8edf-873b-4c6c-805a-edb2c335bd6c"
+              },
+              "sellerRegion": "us-west-1",
+              "authenticationKey": "xxxx-xxx-xxxx"
+            }
+          }
+        }
+      },
+      "COLO2OracleSP-Response": {
+        "value": {
+          "type": "EVPL_VC",
+          "href": "https://api.equinix.com/fabric/v4/connections/6c157170-f84d-424a-9396-b5d6ee723296",
+          "uuid": "6c157170-f84d-424a-9396-b5d6ee723296",
+          "name": "vd2oracle-connection-1",
+          "operation": {
+            "providerStatus": "PROVISIONING",
+            "equinixStatus": "PROVISIONING"
+          },
+          "order": {
+            "purchaseOrderNumber": "1-129105284100",
+            "billingTier": "Up to 1G"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@equinix.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric",
+            "createdByEmail": "fabric@equinix.com",
+            "createdDateTime": "2024-05-02T20:25:09.841Z",
+            "updatedBy": "fabric",
+            "updatedByFullName": "fabric",
+            "updatedByEmail": "fabric@equinix.com",
+            "updatedDateTime": "2024-05-02T20:25:09.841Z"
+          },
+          "bandwidth": 1000,
+          "redundancy": {
+            "group": "e8400059-34e1-47f1-9914-cb5907ee7913",
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "location": {
+                "metroCode": "SV"
+              },
+              "port": {
+                "type": "XF_PORT",
+                "href": "https://api.equinix.com/fabric/v4/ports/b54d71a6-aecb-40cc-b458-8a4103f5cdba",
+                "uuid": "b54d71a6-aecb-40cc-b458-8a4103f5cdba",
+                "name": "641728-SV5-1"
+              },
+              "linkProtocol": {
+                "type": "DOT1Q",
+                "vlanTag": 1021
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "location": {
+                "metroCode": "DC"
+              },
+              "profile": {
+                "href": "https://api.equinix.com/fabric/v4/serviceProfiles/60ef0382-cdaa-44e7-bd36-b803731816b8",
+                "type": "L2_PROFILE",
+                "name": "Oracle Cloud Infrastructure FastConnect",
+                "uuid": "60ef0382-cdaa-44e7-bd36-b803731816b8"
+              },
+              "sellerRegion": "us-ashburn-1",
+              "authenticationKey": "ocid1.virtualcircuit.oc1.iad-xxx-xxxx"
+            }
+          }
+        }
+      },
       "Vd2Sp-Response": {
         "value": {
           "href": "https://api.equinix.com/fabric/v4/connections/f37e40c5-2802-4df7-9732-839a8a5868ce",
@@ -22803,11 +23642,7 @@
               "interface": {
                 "uuid": "a00cef6f-8e35-4794-9ff9-665e084e4e6d",
                 "type": "NETWORK",
-                "id": 45645
-              },
-              "linkProtocol": {
-                "type": "DOT1Q",
-                "vlanTag": 819
+                "id": 2
               },
               "location": {
                 "metroHref": "https://api.equinix.com/fabric/v4/metros/SG",
@@ -22886,10 +23721,6 @@
                 "region": "AMER",
                 "metroName": "Ashburn",
                 "metroCode": "DC"
-              },
-              "linkProtocol": {
-                "type": "DOT1Q",
-                "vlanTag": 1720
               },
               "virtualDevice": {
                 "href": "https://api.equinix.com/ne/v1/devices/3539f96c-7f67-4696-90f3-7b6d2fdcde5f",
@@ -22993,11 +23824,7 @@
               "interface": {
                 "uuid": "a00cef6f-8e35-4794-9ff9-665e084e4e6d",
                 "type": "NETWORK",
-                "id": 45645
-              },
-              "linkProtocol": {
-                "type": "DOT1Q",
-                "vlanTag": 819
+                "id": 4
               },
               "location": {
                 "metroHref": "https://api.equinix.com/fabric/v4/metros/SG",
@@ -23065,12 +23892,7 @@
               "interface": {
                 "uuid": "20d32a80-0d61-4333-bc03-707b591ae2f88",
                 "type": "NETWORK",
-                "id": 45645
-              },
-              "linkProtocol": {
-                "type": "DOT1Q",
-                "vlanTagMin": 300,
-                "vlanTagMax": 1099
+                "id": 2
               },
               "location": {
                 "metroHref": "https://api.equinix.com/fabric/v4/metros/SG",
@@ -23138,11 +23960,7 @@
               "interface": {
                 "uuid": "a00cef6f-8e35-4794-9ff9-665e084e4e6d",
                 "type": "NETWORK",
-                "id": 45645
-              },
-              "linkProtocol": {
-                "type": "DOT1Q",
-                "vlanTag": 819
+                "id": 4
               },
               "location": {
                 "metroHref": "https://api.equinix.com/fabric/v4/metros/SG",
@@ -23621,6 +24439,7 @@
           },
           "aSide": {
             "accessPoint": {
+              "type": "METAL_NETWORK",
               "virtualNetwork": {
                 "uuid": "c652cef9-4e52-4165-b997-d0f52b5a18dd"
               },
@@ -23683,6 +24502,7 @@
           },
           "aSide": {
             "accessPoint": {
+              "type": "METAL_NETWORK",
               "virtualNetwork": {
                 "uuid": "c652cef9-4e52-4165-b997-d0f52b5a18dd"
               },
@@ -23745,6 +24565,7 @@
           },
           "aSide": {
             "accessPoint": {
+              "type": "METAL_NETWORK",
               "virtualNetwork": {
                 "uuid": "d357394a-3453-415b-8bf3-4ea95b3b13fd"
               },
@@ -23808,6 +24629,7 @@
           },
           "aSide": {
             "accessPoint": {
+              "type": "METAL_NETWORK",
               "virtualNetwork": {
                 "uuid": "497f6eca-6276-4993-bfeb-53cbbbba6f08"
               },
@@ -23871,6 +24693,7 @@
           },
           "aSide": {
             "accessPoint": {
+              "type": "METAL_NETWORK",
               "virtualNetwork": {
                 "uuid": "497f6eca-6276-4993-bfeb-53cbbbba6f08"
               },
@@ -23936,6 +24759,7 @@
           },
           "aSide": {
             "accessPoint": {
+              "type": "METAL_NETWORK",
               "virtualNetwork": {
                 "uuid": "497f6eca-6276-4993-bfeb-53cbbbba6f08"
               },
@@ -24002,6 +24826,7 @@
           },
           "aSide": {
             "accessPoint": {
+              "type": "METAL_NETWORK",
               "virtualNetwork": {
                 "uuid": "497f6eca-6276-4993-bfeb-53cbbbba6f08"
               },
@@ -24074,6 +24899,7 @@
           },
           "aSide": {
             "accessPoint": {
+              "type": "METAL_NETWORK",
               "virtualNetwork": {
                 "uuid": "497f6eca-6276-4993-bfeb-53cbbbba6f08"
               },
@@ -24093,6 +24919,629 @@
                 "name": "Generic Service Profile",
                 "uuid": "f1a247aa-8f86-4a89-88c2-72497686cd0d"
               }
+            }
+          }
+        }
+      },
+      "COLO2NETWORKwithDot1q-Response": {
+        "value": {
+          "type": "EVPLAN_VC",
+          "href": "https://api.equinix.com/fabric/v4/connections/f3dd7395-7196-45f4-9b6f-54094aa75f53",
+          "uuid": "f3dd7395-7196-45f4-9b6f-54094aa75f53",
+          "name": "colo2network-evplan-vc",
+          "operation": {
+            "providerStatus": "NOT_AVAILABLE",
+            "equinixStatus": "PROVISIONING"
+          },
+          "order": {
+            "purchaseOrderNumber": "1-129105284100",
+            "billingTier": "Up to 50 MB"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@equinix.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric",
+            "createdByEmail": "fabric@equinix.com",
+            "createdDateTime": "2024-04-23T02:51:07.675Z",
+            "updatedBy": "fabric",
+            "updatedByFullName": "fabric",
+            "updatedByEmail": "fabric@equinix.com",
+            "updatedDateTime": "2024-04-23T02:51:07.675Z"
+          },
+          "bandwidth": 50,
+          "redundancy": {
+            "group": "ecebee55-975b-4017-857c-74617f821b87",
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "location": {
+                "metroCode": "DA"
+              },
+              "port": {
+                "type": "XF_PORT",
+                "href": "https://api.equinix.com/fabric/v4/ports/9127bb72-5f4f-4517-be74-3af7ce612687",
+                "uuid": "9127bb72-5f4f-4517-be74-3af7ce612687",
+                "name": "1-DA1-port"
+              },
+              "linkProtocol": {
+                "type": "DOT1Q",
+                "vlanTag": 307
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "network": {
+                "href": "https://api.equinix.com/fabric/v4/networks/25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2",
+                "uuid": "25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2",
+                "name": "EVPLAN-GLOBAL",
+                "platformUuid": "afe28606-8021-4161-802c-b80d4bc22f20",
+                "state": "ACTIVE",
+                "type": "EVPLAN",
+                "scope": "GLOBAL",
+                "location": null
+              }
+            }
+          }
+        }
+      },
+      "COLO2NETWORKwithEPL-Response": {
+        "value": {
+          "type": "EPLAN_VC",
+          "href": "https://api.equinix.com/fabric/v4/connections/cce170c5-a496-4928-8426-507e00818887",
+          "uuid": "cce170c5-a496-4928-8426-507e00818887",
+          "name": "colo2network-eplan-vc",
+          "operation": {
+            "providerStatus": "NOT_AVAILABLE",
+            "equinixStatus": "PROVISIONING",
+            "order": {
+              "purchaseOrderNumber": "1-129105284100",
+              "billingTier": "Up to 50 MB"
+            },
+            "notifications": [
+              {
+                "type": "ALL",
+                "emails": [
+                  "fabric@test.com"
+                ]
+              }
+            ],
+            "changeLog": {
+              "createdBy": "fabric",
+              "createdByFullName": "fabric",
+              "createdByEmail": "fabric@equinix.com",
+              "createdDateTime": "2024-04-23T03:07:17.587Z",
+              "updatedBy": "fabric",
+              "updatedByFullName": "fabric",
+              "updatedByEmail": "fabric@equinix.com",
+              "updatedDateTime": "2024-04-23T03:07:17.587Z"
+            },
+            "bandwidth": 50,
+            "redundancy": {
+              "group": "dbab0e00-db97-4abf-aebe-76c7a40a371e",
+              "priority": "PRIMARY"
+            },
+            "aSide": {
+              "accessPoint": {
+                "location": {
+                  "metroCode": "SP"
+                },
+                "port": {
+                  "type": "XF_PORT",
+                  "href": "https://api.equinix.com/fabric/v4/ports/9127bb72-5f4f-4517-be74-3af7ce612687",
+                  "uuid": "9127bb72-5f4f-4517-be74-3af7ce612687",
+                  "name": "505783-port"
+                },
+                "linkProtocol": {
+                  "type": "UNTAGGED"
+                }
+              }
+            },
+            "zSide": {
+              "accessPoint": {
+                "network": {
+                  "href": "https://api.equinix.com/fabric/v4/networks/25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2",
+                  "uuid": "25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2",
+                  "name": "EPLAN-GLOBAL",
+                  "platformUuid": "8abb8305-258b-4690-9b49-714962591add",
+                  "state": "ACTIVE",
+                  "type": "EPLAN",
+                  "scope": "GLOBAL",
+                  "location": null
+                }
+              }
+            }
+          }
+        }
+      },
+      "Vd2IAProfile-Response": {
+        "value": {
+          "type": "IA_VC",
+          "href": "https://uatapi.npclouda.equinix.com/fabric/v4/connections/ce42ca81-538d-4f38-b020-d45fb48d20c7",
+          "uuid": "ce42ca81-538d-4f38-b020-d45fb48d20c7",
+          "name": "vd2eia-connection-1",
+          "operation": {
+            "providerStatus": "NOT_AVAILABLE",
+            "equinixStatus": "PROVISIONING"
+          },
+          "order": {
+            "billingTier": "Up to 50 MB"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@equinix.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric",
+            "createdByEmail": "fabric@equinix.com",
+            "createdDateTime": "2024-04-30T20:19:44.279Z",
+            "updatedBy": "fabric",
+            "updatedByFullName": "fabric",
+            "updatedByEmail": "fabric@equinix.com",
+            "updatedDateTime": "2024-04-30T20:19:44.279Z"
+          },
+          "bandwidth": 50,
+          "redundancy": {
+            "group": "90720112-3f61-4b74-b854-b948dabd05ca",
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "interface": {
+                "uuid": "5c226d15-4815-4a85-a83a-6dea1ab220d5",
+                "id": 16,
+                "type": "CLOUD"
+              },
+              "location": {
+                "metroCode": "SY"
+              },
+              "virtualDevice": {
+                "uuid": "d127592c-9094-43c0-9367-27596a231867",
+                "type": "EDGE"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "location": {
+                "metroCode": "SY"
+              },
+              "profile": {
+                "href": "https://uatapi.npclouda.equinix.com/fabric/v4/serviceProfiles/32d81829-0bf8-45d5-84e2-7289a553dbb6",
+                "type": "IA_PROFILE",
+                "name": "Equinix Internet Access",
+                "uuid": "32d81829-0bf8-45d5-84e2-7289a553dbb6"
+              }
+            }
+          }
+        }
+      },
+      "Vd2NETWORK-Response": {
+        "value": {
+          "type": "EVPLAN_VC",
+          "href": "https://api.equinix.com/fabric/v4/connections/e1f165fd-29bb-4c15-8ec7-56242677e6fc",
+          "uuid": "e1f165fd-29bb-4c15-8ec7-56242677e6fc",
+          "name": "vd2network-connection",
+          "operation": {
+            "providerStatus": "NOT_AVAILABLE",
+            "equinixStatus": "PROVISIONING"
+          },
+          "order": {
+            "purchaseOrderNumber": "1-1234567890",
+            "billingTier": "Up to 50 MB"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@equinix.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric",
+            "createdByEmail": "fabric@equinix.com",
+            "createdDateTime": "2024-04-23T02:12:20.334Z",
+            "updatedBy": "fabric",
+            "updatedByFullName": "fabric",
+            "updatedByEmail": "fabric@equinix.com",
+            "updatedDateTime": "2024-04-23T02:12:20.334Z"
+          },
+          "bandwidth": 50,
+          "redundancy": {
+            "group": "daaaa2be-01ff-4009-9a97-da77562041db",
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "interface": {
+                "uuid": "a4c60de7-09b2-4237-b831-4849d7dd3d92",
+                "id": 5,
+                "type": "CLOUD"
+              },
+              "location": {
+                "metroCode": "DC"
+              },
+              "virtualDevice": {
+                "uuid": "e99ec19c-0939-4c47-bfc1-ff94f99ccc75",
+                "type": "EDGE"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "network": {
+                "href": "https://api.equinix.com/fabric/v4/networks/05eeb1d2-5b82-4c9b-9eb9-496085ce8bb2",
+                "uuid": "05eeb1d2-5b82-4c9b-9eb9-496085ce8bb2",
+                "name": "EVPLAN-GLOBAL-1",
+                "platformUuid": "afe28606-8021-4161-802c-b80d4bc22f20",
+                "state": "ACTIVE",
+                "type": "EVPLAN",
+                "scope": "GLOBAL",
+                "location": null
+              }
+            }
+          }
+        }
+      },
+      "Vd2AwsSP-Response": {
+        "value": {
+          "type": "EVPL_VC",
+          "href": "https://api.equinix.com/fabric/v4/connections/f0a954e7-bdc5-4727-90cc-869f990e289f",
+          "uuid": "f0a954e7-bdc5-4727-90cc-869f990e289f",
+          "name": "vd2aws-connection-1",
+          "operation": {
+            "providerStatus": "PROVISIONING",
+            "equinixStatus": "PROVISIONING"
+          },
+          "order": {
+            "purchaseOrderNumber": "1-1234567890",
+            "billingTier": "Up to 50 MB"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@equinix.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric",
+            "createdByEmail": "fabric@equinix.com",
+            "createdDateTime": "2024-04-27T00:32:21.879Z",
+            "updatedBy": "fabric",
+            "updatedByFullName": "fabric",
+            "updatedByEmail": "fabric@equinix.com",
+            "updatedDateTime": "2024-04-27T00:32:21.879Z"
+          },
+          "bandwidth": 50,
+          "redundancy": {
+            "group": "1dfd9c4b-58c6-4d96-aebf-eb32a09f031a",
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "interface": {
+                "uuid": "1b046630-8572-4975-abd0-82c31adf6ec1",
+                "id": 4,
+                "type": "CLOUD"
+              },
+              "location": {
+                "metroCode": "DC"
+              },
+              "virtualDevice": {
+                "uuid": "e16136fd-05ef-49dd-ab98-9f8e619619e9",
+                "type": "EDGE"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "location": {
+                "metroCode": "SV"
+              },
+              "profile": {
+                "href": "https://api.equinix.com/fabric/v4/serviceProfiles/69ee618d-be52-468d-bc99-00566f2dd2b9",
+                "type": "L2_PROFILE",
+                "name": "AWS Direct Connect",
+                "uuid": "69ee618d-be52-468d-bc99-00566f2dd2b9"
+              },
+              "sellerRegion": "us-west-1",
+              "authenticationKey": "xxxx-xxx-xxx"
+            }
+          }
+        }
+      },
+      "Vd2AzureSP-Response": {
+        "value": {
+          "type": "EVPL_VC",
+          "href": "https://api.equinix.com/fabric/v4/connections/3da14bba-d81c-4497-93c3-3f4a3cb0bc40",
+          "uuid": "3da14bba-d81c-4497-93c3-3f4a3cb0bc40",
+          "name": "vd2azure-connection-1",
+          "operation": {
+            "providerStatus": "PROVISIONING",
+            "equinixStatus": "PROVISIONING"
+          },
+          "order": {
+            "purchaseOrderNumber": "1-1234567890",
+            "billingTier": "Up to 200 MB"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@equinix.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric",
+            "createdByEmail": "fabric@equinix.com",
+            "createdDateTime": "2024-04-25T20:30:24.632Z",
+            "updatedBy": "fabric",
+            "updatedByFullName": "fabric",
+            "updatedByEmail": "fabric@equinix.com",
+            "updatedDateTime": "2024-04-25T20:30:24.632Z"
+          },
+          "bandwidth": 100,
+          "redundancy": {
+            "group": "6b869af5-3f89-4329-bb41-ec6f6b053cc4",
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "interface": {
+                "uuid": "237869e8-4dbd-418f-acac-59ec1ec3bc31",
+                "id": 9,
+                "type": "CLOUD"
+              },
+              "location": {
+                "metroCode": "DC"
+              },
+              "virtualDevice": {
+                "uuid": "e16136fd-05ef-49dd-ab98-9f8e619619e9",
+                "type": "EDGE"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "location": {
+                "metroCode": "SV"
+              },
+              "profile": {
+                "href": "https://api.equinix.com/fabric/v4/serviceProfiles/a1390b22-bbe0-4e93-ad37-85beef9d254d",
+                "type": "L2_PROFILE",
+                "name": "Azure ExpressRoute",
+                "uuid": "a1390b22-bbe0-4e93-ad37-85beef9d254d"
+              },
+              "authenticationKey": "xxxx-xxx-xxxx"
+            }
+          }
+        }
+      },
+      "Vd2OracleSP-Response": {
+        "value": {
+          "type": "EVPL_VC",
+          "href": "https://api.equinix.com/fabric/v4/connections/53c89f1a-0be7-44a1-9c03-28059632a72d",
+          "uuid": "53c89f1a-0be7-44a1-9c03-28059632a72d",
+          "name": "vd2oracle-connection-1",
+          "operation": {
+            "providerStatus": "PROVISIONING",
+            "equinixStatus": "PROVISIONING"
+          },
+          "order": {
+            "purchaseOrderNumber": "1-129105284100",
+            "billingTier": "Up to 1G"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@equinix.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric",
+            "createdByEmail": "fabric@equinix.com",
+            "createdDateTime": "2024-04-25T20:40:40.676Z",
+            "updatedBy": "fabric",
+            "updatedByFullName": "fabric",
+            "updatedByEmail": "fabric@equinix.com",
+            "updatedDateTime": "2024-04-25T20:40:40.677Z"
+          },
+          "bandwidth": 1000,
+          "redundancy": {
+            "group": "43009a55-87ee-4dff-8ae4-70ccb7c3d4e9",
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "interface": {
+                "uuid": "ca838fd7-74cc-4786-94f4-69405671d0e4",
+                "id": 5,
+                "type": "CLOUD"
+              },
+              "location": {
+                "metroCode": "DC"
+              },
+              "virtualDevice": {
+                "uuid": "e16136fd-05ef-49dd-ab98-9f8e619619e9",
+                "type": "EDGE"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "location": {
+                "metroCode": "DC"
+              },
+              "profile": {
+                "href": "https://api.equinix.com/fabric/v4/serviceProfiles/60ef0382-cdaa-44e7-bd36-b803731816b8",
+                "type": "L2_PROFILE",
+                "name": "Oracle Cloud Infrastructure FastConnect",
+                "uuid": "60ef0382-cdaa-44e7-bd36-b803731816b8"
+              },
+              "sellerRegion": "us-ashburn-1",
+              "authenticationKey": "ocid1.virtualcircuit.oc1"
+            }
+          }
+        }
+      },
+      "Vd2AlibabaSP-Response": {
+        "value": {
+          "type": "EVPL_VC",
+          "href": "https://api.equinix.com/fabric/v4/connections/66ed4e8a-584c-4027-9788-748fecb5ce35",
+          "uuid": "66ed4e8a-584c-4027-9788-748fecb5ce35",
+          "name": "vd2alibaba-connection-1",
+          "operation": {
+            "providerStatus": "PROVISIONING",
+            "equinixStatus": "PROVISIONING"
+          },
+          "order": {
+            "billingTier": "Up to 50 MB"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@equinix.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric",
+            "createdByEmail": "fabric@equinix.com",
+            "createdDateTime": "2024-04-25T20:43:43.199Z",
+            "updatedBy": "fabric",
+            "updatedByFullName": "fabric",
+            "updatedByEmail": "fabric@equinix.com",
+            "updatedDateTime": "2024-04-25T20:43:43.199Z"
+          },
+          "bandwidth": 50,
+          "redundancy": {
+            "group": "160e06b5-cd42-4c2c-b674-6dcda54da4d8",
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "interface": {
+                "uuid": "9a76f1c3-948a-4004-8185-d6b49969aefc",
+                "id": 6,
+                "type": "CLOUD"
+              },
+              "location": {
+                "metroCode": "DC"
+              },
+              "virtualDevice": {
+                "uuid": "e16136fd-05ef-49dd-ab98-9f8e619619e9",
+                "type": "EDGE"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "location": {
+                "metroCode": "SV"
+              },
+              "profile": {
+                "href": "https://api.equinix.com/fabric/v4/serviceProfiles/4c4b8edf-873b-4c6c-805a-edb2c335bd6c",
+                "type": "L2_PROFILE",
+                "name": "Alibaba Cloud Express Connect",
+                "uuid": "4c4b8edf-873b-4c6c-805a-edb2c335bd6c"
+              },
+              "sellerRegion": "us-west-1",
+              "authenticationKey": "xxxx-xxx-xxxx"
+            }
+          }
+        }
+      },
+      "Vd2GoogleSP-Response": {
+        "value": {
+          "type": "EVPL_VC",
+          "href": "https://api.equinix.com/fabric/v4/connections/50ae793c-b466-4d71-9724-c32b5e402bbe",
+          "uuid": "50ae793c-b466-4d71-9724-c32b5e402bbe",
+          "name": "vd2googleSp-connection-1",
+          "operation": {
+            "providerStatus": "PROVISIONING",
+            "equinixStatus": "PROVISIONING"
+          },
+          "order": {
+            "purchaseOrderNumber": "1-1234567890",
+            "billingTier": "Up to 50 MB"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@equinx.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric",
+            "createdByEmail": "fabric@equinx.com",
+            "createdDateTime": "2024-04-25T14:06:48.933Z",
+            "updatedBy": "fabric",
+            "updatedByFullName": "fabric",
+            "updatedByEmail": "fabric@equinx.com",
+            "updatedDateTime": "2024-04-25T14:06:48.933Z"
+          },
+          "bandwidth": 50,
+          "redundancy": {
+            "group": "bd03b85b-18c9-4a80-b589-727d232077d2",
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "interface": {
+                "uuid": "3520bc9a-d7e6-440b-9196-656beb54b300",
+                "id": 7,
+                "type": "CLOUD"
+              },
+              "location": {
+                "metroCode": "DC"
+              },
+              "virtualDevice": {
+                "uuid": "e99ec19c-0939-4c47-bfc1-ff94f99ccc75",
+                "type": "EDGE"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "location": {
+                "metroCode": "SV"
+              },
+              "profile": {
+                "href": "https://api.equinix.com/fabric/v4/serviceProfiles/bd4570e2-d792-4a00-87f5-3bde040cdcd7",
+                "type": "L2_PROFILE",
+                "name": "Google Cloud Partner Interconnect Zone 1",
+                "uuid": "bd4570e2-d792-4a00-87f5-3bde040cdcd7"
+              },
+              "sellerRegion": "us-west2",
+              "authenticationKey": "xxxx-xxxx/us-west2/1"
             }
           }
         }
@@ -30048,13 +31497,150 @@
           }
         ]
       },
-      "ServiceProfileSearchRequest": {
+      "ServiceProfileSearchWithUuid": {
+        "value": {
+          "filter": {
+            "property": "/uuid",
+            "operator": "=",
+            "values": [
+              "13100b2d-234f-4425-ab5c-1449d4b806be"
+            ]
+          },
+          "pagination": {
+            "offset": 0,
+            "limit": 20
+          },
+          "sort": [
+            {
+              "direction": "DESC",
+              "property": "/changeLog/updatedDateTime"
+            }
+          ]
+        }
+      },
+      "ServiceProfileSearchWithName": {
+        "value": {
+          "filter": {
+            "property": "/name",
+            "operator": "=",
+            "values": [
+              "My-Service-Profile-1"
+            ]
+          },
+          "pagination": {
+            "offset": 0,
+            "limit": 20
+          },
+          "sort": [
+            {
+              "direction": "DESC",
+              "property": "/changeLog/updatedDateTime"
+            }
+          ]
+        }
+      },
+      "ServiceProfileSearchWithState": {
+        "value": {
+          "filter": {
+            "property": "/state",
+            "operator": "=",
+            "values": [
+              "ACTIVE"
+            ]
+          },
+          "pagination": {
+            "offset": 0,
+            "limit": 20
+          },
+          "sort": [
+            {
+              "direction": "DESC",
+              "property": "/changeLog/updatedDateTime"
+            }
+          ]
+        }
+      },
+      "ServiceProfileSearchWithVisibility": {
         "value": {
           "filter": {
             "property": "/visibility",
             "operator": "=",
             "values": [
               "PUBLIC"
+            ]
+          },
+          "pagination": {
+            "offset": 0,
+            "limit": 20
+          },
+          "sort": [
+            {
+              "direction": "DESC",
+              "property": "/changeLog/updatedDateTime"
+            }
+          ]
+        }
+      },
+      "ServiceProfileSearchWithProjectId": {
+        "value": {
+          "filter": {
+            "property": "/project/projectId",
+            "operator": "=",
+            "values": [
+              "e365ab86-0103-44a6-a08b-120c4374b000"
+            ]
+          },
+          "pagination": {
+            "offset": 0,
+            "limit": 20
+          },
+          "sort": [
+            {
+              "direction": "DESC",
+              "property": "/changeLog/updatedDateTime"
+            }
+          ]
+        }
+      },
+      "ServiceProfileSearchWithPort": {
+        "value": {
+          "filter": {
+            "property": "/ports/uuid",
+            "operator": "=",
+            "values": [
+              "23100b2d-234f-4425-ab5c-1449d4b806bf"
+            ]
+          },
+          "pagination": {
+            "offset": 0,
+            "limit": 20
+          },
+          "sort": [
+            {
+              "direction": "DESC",
+              "property": "/changeLog/updatedDateTime"
+            }
+          ]
+        }
+      },
+      "ServiceProfileSearchWithAnd": {
+        "value": {
+          "filter": {
+            "and": [
+              {
+                "property": "/state",
+                "operator": "=",
+                "values": [
+                  "ACTIVE"
+                ]
+              },
+              {
+                "property": "/visibility",
+                "operator": "=",
+                "values": [
+                  "PRIVATE"
+                ]
+              }
             ]
           },
           "pagination": {
@@ -31157,10 +32743,16 @@
             "allowRemoteConnection": true,
             "allowCustombandwidth": false,
             "supportedBandwidths": [
+              10,
               50,
               200,
               500,
-              1000
+              1000,
+              2000,
+              5000,
+              10000,
+              25000,
+              50000
             ],
             "zSide": {
               "accessPointSelectors": [
@@ -31201,10 +32793,16 @@
             "allowRemoteConnection": true,
             "allowCustombandwidth": false,
             "supportedBandwidths": [
+              10,
               50,
               200,
               500,
-              1000
+              1000,
+              2000,
+              5000,
+              10000,
+              25000,
+              50000
             ],
             "zSide": {
               "accessPointSelectors": [
@@ -31252,10 +32850,16 @@
             "allowRemoteConnection": true,
             "allowCustombandwidth": false,
             "supportedBandwidths": [
+              10,
               50,
               200,
               500,
-              1000
+              1000,
+              2000,
+              5000,
+              10000,
+              25000,
+              50000
             ],
             "zSide": {
               "accessPointSelectors": [
@@ -31295,10 +32899,16 @@
             "allowRemoteConnection": true,
             "allowCustombandwidth": false,
             "supportedBandwidths": [
+              10,
               50,
               200,
               500,
-              1000
+              1000,
+              2000,
+              5000,
+              10000,
+              25000,
+              50000
             ],
             "zSide": {
               "accessPointSelectors": [
@@ -31838,12 +33448,6 @@
               }
             }
           },
-          "additionalInfo": [
-            {
-              "key": "lagType",
-              "value": "Single"
-            }
-          ],
           "physicalPorts": [
             {
               "demarcationPoint": {
@@ -31903,16 +33507,6 @@
               }
             }
           },
-          "additionalInfo": [
-            {
-              "key": "lagType",
-              "value": "New"
-            },
-            {
-              "key": "quoteReferenceId",
-              "value": "396e93c2-3b3a-4d47-a9d9-1ea68627374b"
-            }
-          ],
           "physicalPorts": [
             {
               "demarcationPoint": {
@@ -31982,20 +33576,6 @@
               }
             }
           },
-          "additionalInfo": [
-            {
-              "key": "internalReferenceId",
-              "value": 635368
-            },
-            {
-              "key": "quoteReferenceId",
-              "value": "16aabad4-1caa-4aae-be35-3ff1dc1814d4"
-            },
-            {
-              "key": "orderUuid",
-              "value": "c64de7e5-7fe7-41e6-b984-80d5aa159a0d"
-            }
-          ],
           "notifications": [
             {
               "type": "TECHNICAL",
@@ -32073,16 +33653,6 @@
               "uuid": "396e93c2-3b3a-4d47-a9d9-1ea68627374b"
             }
           ],
-          "additionalInfo": [
-            {
-              "key": "circuitId",
-              "value": "656356"
-            },
-            {
-              "key": "lagType",
-              "value": "Single"
-            }
-          ],
           "order": {
             "purchaseOrder": {
               "number": 156576,
@@ -32136,20 +33706,6 @@
           "loas": [
             {
               "uuid": "396e93c2-3b3a-4d47-a9d9-1ea68627374b"
-            }
-          ],
-          "additionalInfo": [
-            {
-              "key": "circuitId",
-              "value": "656356"
-            },
-            {
-              "key": "lagType",
-              "value": "Single"
-            },
-            {
-              "key": "quoteReferenceId",
-              "value": "396e93c2-3b3a-4d47-a9d9-1ea68627374b"
             }
           ],
           "order": {
@@ -32274,20 +33830,6 @@
               }
             }
           },
-          "additionalInfo": [
-            {
-              "key": "internalReferenceId",
-              "value": 635368
-            },
-            {
-              "key": "quoteReferenceId",
-              "value": "16aabad4-1caa-4aae-be35-3ff1dc1814d4"
-            },
-            {
-              "key": "orderUuid",
-              "value": "c64de7e5-7fe7-41e6-b984-80d5aa159a0d"
-            }
-          ],
           "notifications": [
             {
               "type": "TECHNICAL",
@@ -32353,16 +33895,6 @@
                 "jaguarsuser-port-order"
               ],
               "type": "TECHNICAL"
-            }
-          ],
-          "additionalInfo": [
-            {
-              "key": "lagType",
-              "value": "New"
-            },
-            {
-              "key": "quoteReferenceId",
-              "value": "396e93c2-3b3a-4d47-a9d9-1ea68627374b"
             }
           ],
           "order": {
@@ -32835,16 +34367,6 @@
                     "jaguarsuser-port-order"
                   ]
                 }
-              ],
-              "additionalInfo": [
-                {
-                  "key": "quoteReferenceId",
-                  "value": "dd70d3dd-29f6-4a30-8820-03dc1c80a682"
-                },
-                {
-                  "key": "InterfaceReferenceId",
-                  "value": "32729"
-                }
               ]
             },
             {
@@ -32891,16 +34413,6 @@
                     "jaguarsuser-port-order"
                   ]
                 }
-              ],
-              "additionalInfo": [
-                {
-                  "key": "quoteReferenceId",
-                  "value": "dd70d3dd-29f6-4a30-8820-03dc1c80a682"
-                },
-                {
-                  "key": "InterfaceReferenceId",
-                  "value": "32729"
-                }
               ]
             }
           ]
@@ -32939,41 +34451,7 @@
                     "email": "john.doe@company.com"
                   }
                 }
-              },
-              "additionalInfo": [
-                {
-                  "key": "internalReferenceId",
-                  "value": 635368
-                },
-                {
-                  "key": "quoteReferenceId",
-                  "value": "16aabad4-1caa-4aae-be35-3ff1dc1814d4"
-                },
-                {
-                  "key": "orderUuid",
-                  "value": "c64de7e5-7fe7-41e6-b984-80d5aa159a0d"
-                },
-                {
-                  "key": "lagType",
-                  "value": "Existing"
-                },
-                {
-                  "key": "connectivitySourceType",
-                  "value": "COLO"
-                },
-                {
-                  "key": "physicalPortsType",
-                  "value": "10GBASE_LR"
-                },
-                {
-                  "key": "packageType",
-                  "value": "STANDARD"
-                },
-                {
-                  "key": "notification",
-                  "value": "jaguarsuser-port-order"
-                }
-              ]
+              }
             },
             {
               "type": "XF_PHYSICAL_PORT",
@@ -33005,41 +34483,7 @@
                     "email": "john.doe@company.com"
                   }
                 }
-              },
-              "additionalInfo": [
-                {
-                  "key": "internalReferenceId",
-                  "value": 635368
-                },
-                {
-                  "key": "quoteReferenceId",
-                  "value": "16aabad4-1caa-4aae-be35-3ff1dc1814d4"
-                },
-                {
-                  "key": "orderUuid",
-                  "value": "c64de7e5-7fe7-41e6-b984-80d5aa159a0d"
-                },
-                {
-                  "key": "lagType",
-                  "value": "Existing"
-                },
-                {
-                  "key": "connectivitySourceType",
-                  "value": "COLO"
-                },
-                {
-                  "key": "physicalPortsType",
-                  "value": "10GBASE_LR"
-                },
-                {
-                  "key": "packageType",
-                  "value": "STANDARD"
-                },
-                {
-                  "key": "notification",
-                  "value": "jaguarsuser-port-order"
-                }
-              ]
+              }
             }
           ]
         }
@@ -33049,40 +34493,6 @@
           "data": [
             {
               "type": "XF_PHYSICAL_PORT",
-              "additionalInfo": [
-                {
-                  "key": "internalReferenceId",
-                  "value": 635368
-                },
-                {
-                  "key": "quoteReferenceId",
-                  "value": "16aabad4-1caa-4aae-be35-3ff1dc1814d4"
-                },
-                {
-                  "key": "orderUuid",
-                  "value": "c64de7e5-7fe7-41e6-b984-80d5aa159a0d"
-                },
-                {
-                  "key": "lagType",
-                  "value": "Existing"
-                },
-                {
-                  "key": "connectivitySourceType",
-                  "value": "REMOTE"
-                },
-                {
-                  "key": "physicalPortsType",
-                  "value": "10GBASE_LR"
-                },
-                {
-                  "key": "packageType",
-                  "value": "STANDARD"
-                },
-                {
-                  "key": "notification",
-                  "value": "jaguarsuser-port-order"
-                }
-              ],
               "order": {
                 "purchaseOrder": {
                   "number": 156576,
@@ -33115,41 +34525,7 @@
               "type": "XF_PHYSICAL_PORT",
               "account": {
                 "accountReferenceId": "17829Id"
-              },
-              "additionalInfo": [
-                {
-                  "key": "internalReferenceId",
-                  "value": 635368
-                },
-                {
-                  "key": "quoteReferenceId",
-                  "value": "16aabad4-1caa-4aae-be35-3ff1dc1814d4"
-                },
-                {
-                  "key": "orderUuid",
-                  "value": "c64de7e5-7fe7-41e6-b984-80d5aa159a0d"
-                },
-                {
-                  "key": "lagType",
-                  "value": "Existing"
-                },
-                {
-                  "key": "connectivitySourceType",
-                  "value": "REMOTE"
-                },
-                {
-                  "key": "physicalPortsType",
-                  "value": "10GBASE_LR"
-                },
-                {
-                  "key": "packageType",
-                  "value": "STANDARD"
-                },
-                {
-                  "key": "notification",
-                  "value": "jaguarsuser-port-order"
-                }
-              ]
+              }
             },
             {
               "loas": [
@@ -33185,45 +34561,7 @@
                     "email": "john.doe@company.com"
                   }
                 }
-              },
-              "additionalInfo": [
-                {
-                  "key": "internalReferenceId",
-                  "value": 635368
-                },
-                {
-                  "key": "quoteReferenceId",
-                  "value": "16aabad4-1caa-4aae-be35-3ff1dc1814d4"
-                },
-                {
-                  "key": "orderUuid",
-                  "value": "c64de7e5-7fe7-41e6-b984-80d5aa159a0d"
-                },
-                {
-                  "key": "lagType",
-                  "value": "Existing"
-                },
-                {
-                  "key": "connectivitySourceType",
-                  "value": "BMMR"
-                },
-                {
-                  "key": "bmmrType",
-                  "value": "SELF"
-                },
-                {
-                  "key": "physicalPortsType",
-                  "value": "10GBASE_LR"
-                },
-                {
-                  "key": "packageType",
-                  "value": "STANDARD"
-                },
-                {
-                  "key": "notification",
-                  "value": "jaguarsuser-port-order"
-                }
-              ]
+              }
             },
             {
               "loas": [
@@ -33253,45 +34591,7 @@
                     "email": "john.doe@company.com"
                   }
                 }
-              },
-              "additionalInfo": [
-                {
-                  "key": "internalReferenceId",
-                  "value": 635368
-                },
-                {
-                  "key": "quoteReferenceId",
-                  "value": "16aabad4-1caa-4aae-be35-3ff1dc1814d4"
-                },
-                {
-                  "key": "orderUuid",
-                  "value": "c64de7e5-7fe7-41e6-b984-80d5aa159a0d"
-                },
-                {
-                  "key": "lagType",
-                  "value": "Existing"
-                },
-                {
-                  "key": "connectivitySourceType",
-                  "value": "BMMR"
-                },
-                {
-                  "key": "bmmrType",
-                  "value": "SELF"
-                },
-                {
-                  "key": "physicalPortsType",
-                  "value": "10GBASE_LR"
-                },
-                {
-                  "key": "packageType",
-                  "value": "STANDARD"
-                },
-                {
-                  "key": "notification",
-                  "value": "jaguarsuser-port-order"
-                }
-              ]
+              }
             },
             {
               "loas": [
@@ -33317,28 +34617,6 @@
                 "connectorType": "SC",
                 "ibx": "GV1"
               },
-              "additionalInfo": [
-                {
-                  "key": "lagType",
-                  "value": "Existing"
-                },
-                {
-                  "key": "connectivitySourceType",
-                  "value": "COLO"
-                },
-                {
-                  "key": "physicalPortsType",
-                  "value": "10GBASE_LR"
-                },
-                {
-                  "key": "packageType",
-                  "value": "STANDARD"
-                },
-                {
-                  "key": "notification",
-                  "value": "userName"
-                }
-              ],
               "order": {
                 "orderNumber": "1-210210611904"
               }
@@ -33354,28 +34632,6 @@
                 "connectorType": "SC",
                 "ibx": "GV1"
               },
-              "additionalInfo": [
-                {
-                  "key": "lagType",
-                  "value": "Existing"
-                },
-                {
-                  "key": "connectivitySourceType",
-                  "value": "COLO"
-                },
-                {
-                  "key": "physicalPortsType",
-                  "value": "10GBASE_LR"
-                },
-                {
-                  "key": "packageType",
-                  "value": "STANDARD"
-                },
-                {
-                  "key": "notification",
-                  "value": "userName"
-                }
-              ],
               "order": {
                 "orderNumber": "1-210210611904"
               }
@@ -33474,6 +34730,79 @@
             "accountName": "L2",
             "globalCustId": "007700000090982RG8",
             "orgId": "100179",
+            "organizationName": "Cust_Org_100179"
+          },
+          "changeLog": {
+            "createdDateTime": "2018-06-14T17:21:25.587Z"
+          }
+        }
+      },
+      "portDelete": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/ports/e91484bb-4f65-4ab3-8f77-500dec2f855d",
+          "type": "XF_PORT",
+          "uuid": "e91484bb-4f65-4ab3-8f77-500dec2f855d",
+          "name": "test-AT1-Dot1q-L-Secondary-108608",
+          "state": "DEPROVISIONING",
+          "bandwidth": 10000,
+          "usedBandwidth": 0,
+          "availableBandwidth": 20000,
+          "redundancy": {
+            "group": "C91484bb-4f65-4ab3-8f77-500dec2f855C",
+            "priority": "PRIMARY"
+          },
+          "location": {
+            "metroHref": "https://api.equinix.com/fabric/v4/metros/AT",
+            "ibx": "AT1",
+            "metroCode": "AT",
+            "metroName": "Atlanta",
+            "region": "AMER"
+          },
+          "device": {
+            "name": "dev-m7a2.lab",
+            "redundancy": {
+              "group": "C91484bb-4f65-4ab3-8f77-500dec2f855C",
+              "priority": "PRIMARY"
+            }
+          },
+          "encapsulation": {
+            "type": "DOT1Q",
+            "tagProtocolId": 33024
+          },
+          "lagEnabled": true,
+          "lag": {
+            "enabled": true
+          },
+          "settings": {
+            "buyout": false,
+            "placeVcOrderPermission": true,
+            "viewPortPermission": true
+          },
+          "physicalPorts": [
+            {
+              "state": "DEPROVISIONING",
+              "type": "XF_PHYSICAL_PORT",
+              "bandwidth": 10000,
+              "tether": {
+                "crossConnectId": "100179-A",
+                "patchPanel": "PP:8118:1586",
+                "patchPanelPortA": "92",
+                "patchPanelPortB": "24"
+              },
+              "demarcationPoint": {
+                "ibx": "AT1",
+                "patchPanel": "PP:8118:1586",
+                "patchPanelName": "PP:8118:1586",
+                "patchPanelPortA": "92",
+                "patchPanelPortB": "24"
+              }
+            }
+          ],
+          "account": {
+            "accountNumber": 100179,
+            "accountName": "L2 account",
+            "globalCustId": "007700000090982RG8",
+            "orgId": 100179,
             "organizationName": "Cust_Org_100179"
           },
           "changeLog": {
@@ -34273,6 +35602,7 @@
               "prefixMatch": "exact",
               "action": "PERMIT",
               "prefix": "192.168.10.0/24",
+              "state": "PROVISIONED",
               "change": {
                 "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/9890d520-1579-4489-8003-154b34b8f403/changes/9397f111-19aa-489c-b3c7-349c86818f2d",
                 "type": "IPv4_BGP_PREFIX_FILTER_RULE_CREATION",
@@ -34294,6 +35624,7 @@
               "prefixMatch": "orlonger",
               "action": "PERMIT",
               "prefix": "192.168.20.0/24",
+              "state": "PROVISIONED",
               "change": {
                 "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/9890d520-1579-4489-8003-154b34b8f403/changes/9397f111-19aa-489c-b3c7-349c86818f2d",
                 "type": "IPv4_BGP_PREFIX_FILTER_RULE_CREATION",
@@ -34331,6 +35662,7 @@
           "type": "BGP_IPv4_PREFIX_FILTER_RULE",
           "uuid": "9890d520-1579-4489-8003-154b34b8f403",
           "name": "Private-subnet-filter",
+          "state": "PROVISIONING",
           "description": "Test rule",
           "change": {
             "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/9890d520-1579-4489-8003-154b34b8f403/changes/ff9653dc-88c5-47b5-b552-8a08d2f73f7e",
@@ -34359,6 +35691,7 @@
           "uuid": "9890d520-1579-4489-8003-154b34b8f403",
           "name": "Private-subnet-filter",
           "description": "Test rule",
+          "state": "PROVISIONING",
           "change": {
             "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/9890d520-1579-4489-8003-154b34b8f403/changes/ff9653dc-88c5-47b5-b552-8a08d2f73f7e",
             "type": "BGP_IPv6_PREFIX_FILTER_RULE_CREATION",
@@ -34391,22 +35724,18 @@
       },
       "UpdateRouteFilterRuleIPv4": {
         "value": {
-          "type": "BGP_IPv4_PREFIX_FILTER_RULE",
           "name": "Private-subnet-filter-update",
           "description": "Test rule",
           "prefix": "192.168.0.0/24",
-          "prefixMach": "exact",
-          "action": "PERMIT"
+          "prefixMatch": "exact"
         }
       },
       "UpdateRouteFilterRuleIPv6": {
         "value": {
-          "type": "BGP_IPv6_PREFIX_FILTER_RULE",
           "name": "Private-subnet-filter-update",
           "description": "Test rule",
           "prefix": "2001:7a9::34f4:0:f3dd:1/126",
-          "prefixMach": "exact",
-          "action": "PERMIT"
+          "prefixMatch": "exact"
         }
       },
       "RouteFilterRuleReplaceIpv4Response": {
@@ -34416,7 +35745,8 @@
           "uuid": "9890d520-1579-4489-8003-154b34b8f403",
           "name": "Private-subnet-filter-update",
           "description": "Test rule",
-          "prefixMach": "exact",
+          "prefixMatch": "exact",
+          "state": "REPROVISIONING",
           "action": "PERMIT",
           "change": {
             "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/9890d520-1579-4489-8003-154b34b8f403/changes/a25ca469-721a-4614-89a9-cdef287aa628",
@@ -34443,7 +35773,8 @@
           "uuid": "9890d520-1579-4489-8003-154b34b8f403",
           "name": "Private-subnet-filter-update",
           "description": "Test rule",
-          "prefixMach": "exact",
+          "prefixMatch": "exact",
+          "state": "REPROVISIONING",
           "action": "PERMIT",
           "change": {
             "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/9890d520-1579-4489-8003-154b34b8f403/changes/a25ca469-721a-4614-89a9-cdef287aa628",
@@ -34470,6 +35801,7 @@
           "uuid": "9890d520-1579-4489-8003-154b34b8f403",
           "name": "Private-subnet-filter",
           "description": "Test rule",
+          "state": "DEPROVISIONING",
           "change": {
             "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/9890d520-1579-4489-8003-154b34b8f403/changes/e8528788-14d3-4a7b-a740-99b702067485",
             "type": "BGP_IPv4_PREFIX_FILTER_RULE_DELETION",
@@ -34477,7 +35809,7 @@
           },
           "action": "PERMIT",
           "prefix": "192.168.0.0/24",
-          "prefixMach": "exact",
+          "prefixMatch": "exact",
           "changeLog": {
             "createdBy": "testuser",
             "createdByEmail": "testuser@equinix.com",
@@ -34501,14 +35833,15 @@
           "uuid": "9890d520-1579-4489-8003-154b34b8f403",
           "name": "Private-subnet-filter",
           "description": "Test rule",
+          "state": "REPROVISIONING",
           "change": {
             "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/9890d520-1579-4489-8003-154b34b8f403/changes/e8528788-14d3-4a7b-a740-99b702067485",
             "type": "BGP_IPv6_PREFIX_FILTER_RULE_DELETION",
             "uuid": "e8528788-14d3-4a7b-a740-99b702067485"
           },
-          "action": "PERMIT??",
+          "action": "PERMIT",
           "prefix": "2001:7a9::34f4:0:f3dd:1/126",
-          "prefixMach": "exact",
+          "prefixMatch": "exact",
           "changeLog": {
             "createdBy": "testuser",
             "createdByEmail": "testuser@equinix.com",
@@ -34590,7 +35923,7 @@
                 "name": "Private-subnet-filter",
                 "description": "Test rule",
                 "prefix": "192.168.0.0/25",
-                "prefixMach": "exact",
+                "prefixMatch": "exact",
                 "action": "PERMIT"
               }
             },
@@ -34660,9 +35993,66 @@
             "name": "Private-subnet-filter",
             "description": "Test rule",
             "prefix": "192.168.0.0/25",
-            "prefixMach": "exact",
+            "prefixMatch": "exact",
             "action": "PERMIT"
           }
+        }
+      },
+      "RouteFilterRulesBulkResponse": {
+        "value": {
+          "pagination": {
+            "offset": 0,
+            "limit": 32,
+            "total": 2,
+            "next": null,
+            "previous": null
+          },
+          "data": [
+            {
+              "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/65b025ef-022b-4180-85cf-82cfc1ab655b",
+              "type": "BGP_IPv4_PREFIX_FILTER_RULE",
+              "uuid": "65b025ef-022b-4180-85cf-82cfc1ab655b",
+              "name": "Private-subnet-filter-2",
+              "description": "Test rule",
+              "prefixMatch": "exact",
+              "action": "PERMIT",
+              "prefix": "192.168.10.0/24",
+              "state": "PROVISIONING",
+              "change": {
+                "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/9890d520-1579-4489-8003-154b34b8f403/changes/9397f111-19aa-489c-b3c7-349c86818f2d",
+                "type": "IPv4_BGP_PREFIX_FILTER_RULE_CREATION",
+                "uuid": "9397f111-19aa-489c-b3c7-349c86818f2d"
+              },
+              "changeLog": {
+                "createdBy": "testuser",
+                "createdByEmail": "testuser@equinix.com",
+                "createdByFullName": "testuser testuser",
+                "createdDateTime": "2020-05-21T10:30:00Z"
+              }
+            },
+            {
+              "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/ea48337b-fe04-4164-a3f0-48d81abf575b",
+              "type": "BGP_IPv4_PREFIX_FILTER_RULE",
+              "uuid": "ea48337b-fe04-4164-a3f0-48d81abf575b",
+              "name": "Private-subnet-filter-2",
+              "description": "Test rule",
+              "prefixMatch": "orlonger",
+              "action": "PERMIT",
+              "prefix": "192.168.20.0/24",
+              "state": "PROVISIONING",
+              "change": {
+                "href": "https://api.equinix.com/fabric/v4/routeFilters/695a8471-6595-4ac6-a2f4-b3d96ed3a59d/routeFilterRules/9890d520-1579-4489-8003-154b34b8f403/changes/9397f111-19aa-489c-b3c7-349c86818f2d",
+                "type": "IPv4_BGP_PREFIX_FILTER_RULE_CREATION",
+                "uuid": "9397f111-19aa-489c-b3c7-349c86818f2d"
+              },
+              "changeLog": {
+                "createdBy": "testuser",
+                "createdByEmail": "testuser@equinix.com",
+                "createdByFullName": "testuser testuser",
+                "createdDateTime": "2020-05-21T10:30:00Z"
+              }
+            }
+          ]
         }
       },
       "CreateLabPackage": {
@@ -37322,6 +38712,164 @@
           "changeLog": {
             "createdDateTime": "2023-05-16T07:50:49.749Z",
             "updatedDateTime": "2023-05-17T07:50:49.749Z"
+          }
+        }
+      },
+      "get-all-example": {
+        "value": {
+          "pagination": {
+            "offset": 0,
+            "limit": 20,
+            "total": 1
+          },
+          "data": [
+            {
+              "uuid": "d684aa26-8276-48b7-bb42-a6d9def0a418",
+              "href": "https://api.equinix.com/fabric/v4/cloudEventSubscriptions/d684aa26-8276-48b7-bb42-a6d9def0a418",
+              "type": "CLOUDEVENT_SUBSCRIPTION",
+              "name": "slack1",
+              "description": "subscription 1",
+              "enabled": true,
+              "filters": {
+                "and": [
+                  {
+                    "path": "subject",
+                    "operator": "LIKE",
+                    "values": [
+                      "%36276e58-b5a1-4864-ab5e-be10dff9eac1%"
+                    ],
+                    "or": []
+                  },
+                  {
+                    "path": "equinixproject",
+                    "operator": "IN",
+                    "values": [
+                      "197607000886247"
+                    ],
+                    "or": []
+                  }
+                ]
+              },
+              "sink": {
+                "uri": "https://xxxxxx",
+                "type": "SLACK",
+                "batch": false,
+                "maxBatchSize": 50,
+                "maxBatchWaitTime": 5
+              },
+              "changelog": {
+                "createdDateTime": "2024-05-06T16:21:18.545214Z"
+              }
+            }
+          ]
+        }
+      },
+      "CloudeventSubscriptionPostRequestExample": {
+        "value": {
+          "type": "CLOUDEVENT_SUBSCRIPTION",
+          "name": "slack1",
+          "description": "subscription 1",
+          "enabled": true,
+          "filters": {
+            "and": [
+              {
+                "path": "subject",
+                "operator": "LIKE",
+                "values": [
+                  "%36276e58-b5a1-4864-ab5e-be10dff9eac1%"
+                ],
+                "or": []
+              },
+              {
+                "path": "equinixproject",
+                "operator": "IN",
+                "values": [
+                  "197607000886247"
+                ],
+                "or": []
+              }
+            ]
+          },
+          "sink": {
+            "uri": "https://xxxxxx",
+            "type": "SLACK",
+            "batch": false,
+            "maxBatchSize": 50,
+            "maxBatchWaitTime": 5
+          }
+        }
+      },
+      "CloudeventSubscriptionResponseExample": {
+        "value": {
+          "uuid": "d684aa26-8276-48b7-bb42-a6d9def0a418",
+          "href": "https://api.equinix.com/fabric/v4/cloudEventSubscriptions/d684aa26-8276-48b7-bb42-a6d9def0a418",
+          "type": "CLOUDEVENT_SUBSCRIPTION",
+          "name": "slack1",
+          "description": "subscription 1",
+          "enabled": true,
+          "filters": {
+            "and": [
+              {
+                "path": "subject",
+                "operator": "LIKE",
+                "values": [
+                  "%36276e58-b5a1-4864-ab5e-be10dff9eac1%"
+                ],
+                "or": []
+              },
+              {
+                "path": "equinixproject",
+                "operator": "IN",
+                "values": [
+                  "197607000886247"
+                ],
+                "or": []
+              }
+            ]
+          },
+          "sink": {
+            "uri": "https://xxxxxx",
+            "type": "SLACK",
+            "batch": false,
+            "maxBatchSize": 50,
+            "maxBatchWaitTime": 5
+          },
+          "changelog": {
+            "createdDateTime": "2024-05-06T16:21:18.545214Z"
+          }
+        }
+      },
+      "CloudeventSubscriptionPutRequestExample": {
+        "value": {
+          "name": "slack1",
+          "description": "subscription 1",
+          "enabled": true,
+          "filters": {
+            "and": [
+              {
+                "path": "subject",
+                "operator": "LIKE",
+                "values": [
+                  "%36276e58-b5a1-4864-ab5e-be10dff9eac1%"
+                ],
+                "or": []
+              },
+              {
+                "path": "equinixproject",
+                "operator": "IN",
+                "values": [
+                  "197607000886247"
+                ],
+                "or": []
+              }
+            ]
+          },
+          "sink": {
+            "uri": "https://xxxxxx",
+            "type": "SLACK",
+            "batch": false,
+            "maxBatchSize": 50,
+            "maxBatchWaitTime": 5
           }
         }
       }
