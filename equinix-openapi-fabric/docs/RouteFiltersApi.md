@@ -89,6 +89,8 @@ public class Example {
 |-------------|-------------|------------------|
 | **202** | Successful operation |  -  |
 | **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
 | **404** | Route Filter ID Not Found |  -  |
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
@@ -160,6 +162,8 @@ public class Example {
 |-------------|-------------|------------------|
 | **202** | Successful operation |  -  |
 | **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
 | **404** | Route Filter ID Not Found |  -  |
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
@@ -231,6 +235,8 @@ public class Example {
 |-------------|-------------|------------------|
 | **202** | Successful operation |  -  |
 | **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
 | **404** | Route Filter ID Not Found |  -  |
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
@@ -304,6 +310,8 @@ public class Example {
 |-------------|-------------|------------------|
 | **202** | Successful operation |  -  |
 | **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
 | **404** | Route Filter ID Not Found |  -  |
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
@@ -377,6 +385,8 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Successful operation |  -  |
 | **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
 | **404** | Route Filter ID Not Found |  -  |
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
@@ -448,6 +458,8 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Successful operation |  -  |
 | **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
 | **404** | Route Filter ID Not Found |  -  |
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
@@ -519,6 +531,8 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Successful operation |  -  |
 | **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
 | **404** | Route Filter ID Not Found |  -  |
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
@@ -592,6 +606,8 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Fabric Route Filter Change object |  -  |
 | **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
 | **404** | Route Filter ID Not Found |  -  |
 | **500** | Internal server error |  -  |
 
@@ -666,6 +682,8 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Fabric Route Filter Change object |  -  |
 | **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
 | **404** | Route Filter ID Not Found |  -  |
 | **500** | Internal server error |  -  |
 
@@ -736,6 +754,8 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Successful operation |  -  |
 | **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
 | **404** | Route Filter ID Not Found |  -  |
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
@@ -809,6 +829,8 @@ public class Example {
 |-------------|-------------|------------------|
 | **202** | Successful operation |  -  |
 | **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
 | **404** | Route Filter ID Not Found |  -  |
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
@@ -880,6 +902,8 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Successful operation |  -  |
 | **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
 | **404** | Route Filter ID Not Found |  -  |
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |

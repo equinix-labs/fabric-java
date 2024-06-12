@@ -10,7 +10,7 @@ info:
     \ Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds,\
     \ network and other service providers.  </br> 2. Enterprises - Other Equinix customers,\
     \ vendors and partners.  </br> 3. Myself - Another customer instance deployed\
-    \ at Equinix. </br> </br> <b>Integrations (SDKs, Tools) links:</b></br> <a href=\"\
+    \ at Equinix. </br> </br> <b>Integrations (SDKs, Tools) links:</b> </br> <a href=\"\
     https://deploy.equinix.com/labs/fabric-java\\\">Fabric Java SDK</a> </br> <a href=\"\
     https://deploy.equinix.com/labs/equinix-sdk-go\\\">Fabric Go SDK</a> </br> <a\
     \ href=\"https://deploy.equinix.com/labs/terraform-provider-equinix\\\">Equinix\
@@ -458,6 +458,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
         "403":
           content:
             application/json:
@@ -797,6 +807,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -876,6 +906,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -961,6 +1011,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -1042,6 +1112,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -1120,6 +1210,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -1218,6 +1328,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -1311,6 +1441,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -1406,6 +1556,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -1522,6 +1692,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -1607,6 +1797,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -1682,6 +1892,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -1767,6 +1997,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -2152,6 +2402,36 @@ paths:
               schema:
                 $ref: '#/components/schemas/Statistics'
           description: Successful operation
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
       summary: Get Stats by uuid
       tags:
       - Statistics
@@ -2165,7 +2445,7 @@ paths:
       parameters:
       - description: Key or set of keys that organizes the search payload by property
           (such as createdDate or metroCode) or by direction. Ascending (ASC) is the
-          default value. The "‒" prefix indicates descending (DESC) order.
+          default value. The "?" prefix indicates descending (DESC) order.
         explode: true
         in: query
         name: sort
@@ -2235,6 +2515,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/TopUtilizedStatistics'
           description: Successful operation
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
       summary: Top Port Statistics
       tags:
       - Statistics
@@ -2292,6 +2592,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/Statistics'
           description: Successful operation
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
       summary: Get Stats by uuid
       tags:
       - Statistics
@@ -2391,7 +2711,7 @@ paths:
       - Service Profiles
       x-accepts: application/json
     post:
-      description: Create Service Profile creates Equinix Fabric™ Service Profile.
+      description: Create Service Profile creates Equinix Fabric? Service Profile.
       operationId: createServiceProfile
       parameters: []
       requestBody:
@@ -3045,6 +3365,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
       summary: Delete Token by uuid
       tags:
       - Service Tokens
@@ -3087,6 +3417,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
       summary: Get Token by uuid
       tags:
       - Service Tokens
@@ -3152,6 +3502,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
       summary: Update Token By ID
       tags:
       - Service Tokens
@@ -3193,12 +3553,22 @@ paths:
               schema:
                 $ref: '#/components/schemas/ServiceTokens'
           description: Successful operation
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
       summary: Get All Tokens
       tags:
       - Service Tokens
       x-accepts: application/json
     post:
-      description: Create Service Tokens generates Equinix Fabric™ service tokens.
+      description: Create Service Tokens generates Equinix Fabric? service tokens.
         These tokens authorize users to access protected resources and services.
       operationId: createServiceToken
       requestBody:
@@ -3253,6 +3623,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
       summary: Create Service Token
       tags:
       - Service Tokens
@@ -3568,12 +3958,22 @@ paths:
               schema:
                 $ref: '#/components/schemas/AllPortsResponse'
           description: Successful operation
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
       summary: Get All Ports
       tags:
       - Ports
       x-accepts: application/json
     post:
-      description: Creates Equinix Fabric™ Port.
+      description: Creates Equinix Fabric? Port.
       operationId: createPort
       parameters: []
       requestBody:
@@ -3648,7 +4048,7 @@ paths:
       x-accepts: application/json
   /fabric/v4/ports/bulk:
     post:
-      description: Create Port creates Equinix Fabric™ Port.<font color="red"> <sup
+      description: Create Port creates Equinix Fabric? Port.<font color="red"> <sup
         color='red'>Preview</sup></font>
       operationId: createBulkPort
       parameters: []
@@ -3830,6 +4230,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
       summary: Get Port by uuid
       tags:
       - Ports
@@ -3980,6 +4400,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -4059,6 +4499,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -4138,6 +4598,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -4229,6 +4709,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -4303,6 +4803,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -4372,6 +4892,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -4442,6 +4982,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -4519,6 +5079,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -4610,6 +5190,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -4680,6 +5280,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -4742,6 +5362,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -4815,6 +5455,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -4903,6 +5563,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Resource not found
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -4975,6 +5655,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -5051,6 +5751,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -5132,6 +5852,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -5230,6 +5970,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -5325,6 +6085,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -5424,6 +6204,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -5502,6 +6302,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -5566,6 +6386,36 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Resource not found
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/400'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Not Found
         "415":
           content:
             application/json:
@@ -5630,6 +6480,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
         "403":
           content:
             application/json:
@@ -5691,6 +6551,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
         "403":
           content:
             application/json:
@@ -5748,6 +6618,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/CloudRouter'
           description: Fabric Cloud Router object
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
         "403":
           content:
             application/json:
@@ -5831,6 +6711,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
         "403":
           content:
             application/json:
@@ -5918,6 +6808,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
         "403":
           content:
             application/json:
@@ -6006,6 +6906,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
         "403":
           content:
             application/json:
@@ -6105,6 +7015,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
         "403":
           content:
             application/json:
@@ -6249,6 +7169,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
         "403":
           content:
             application/json:
@@ -6318,6 +7248,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/PackageResponse'
           description: Fabric Cloud Router Packages
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
         "403":
           content:
             application/json:
@@ -6383,6 +7323,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
         "403":
           content:
             application/json:
@@ -6578,6 +7528,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "415":
           content:
             application/json:
@@ -6588,6 +7558,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Unsupported Media Type
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
       summary: Create Network
       tags:
       - Networks
@@ -6627,6 +7607,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -6664,6 +7664,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/Network'
           description: Fabric Network Access point object
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -6724,6 +7744,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -6789,6 +7829,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "415":
           content:
             application/json:
@@ -6839,6 +7899,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "415":
           content:
             application/json:
@@ -6888,6 +7968,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "415":
           content:
             application/json:
@@ -6945,6 +8045,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
         "404":
           content:
             application/json:
@@ -6983,6 +8103,46 @@ paths:
               schema:
                 $ref: '#/components/schemas/precisionTimeServiceCreateResponse'
           description: Successful operation
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
+        "415":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/415'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unsupported Media Type
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
       summary: Delete time service
       tags:
       - Precision Time
@@ -7149,6 +8309,46 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
+        "415":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/415'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unsupported Media Type
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
       summary: Get Time Service
       tags:
       - Precision Time
@@ -7329,6 +8529,46 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
+        "415":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/415'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unsupported Media Type
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
       summary: Patch time service
       tags:
       - Precision Time
@@ -7505,6 +8745,46 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorList'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
+        "415":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/415'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unsupported Media Type
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
       summary: Create Time Service
       tags:
       - Precision Time
@@ -7534,6 +8814,46 @@ paths:
               schema:
                 $ref: '#/components/schemas/precisionTimeServiceConnectionsResponse'
           description: Return Time Service Connection
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
+        "415":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/415'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unsupported Media Type
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
       summary: Get Connection Links
       tags:
       - Precision Time
@@ -7554,6 +8874,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/precisionTimeServicePackagesResponse'
           description: Successful operation
+        "415":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/415'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unsupported Media Type
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
       summary: Get Packages
       tags:
       - Precision Time
@@ -7588,6 +8928,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/precisionTimePackageResponse'
           description: Successful operation
+        "415":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/415'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unsupported Media Type
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
       summary: Get Package By Code
       tags:
       - Precision Time
@@ -27611,7 +28971,7 @@ components:
       default: -bandwidthUtilization
       description: Key or set of keys that organizes the search payload by property
         (such as createdDate or metroCode) or by direction. Ascending (ASC) is the
-        default value. The "‒" prefix indicates descending (DESC) order.
+        default value. The "?" prefix indicates descending (DESC) order.
       enum:
       - -bandwidthUtilization
       type: string
@@ -29045,7 +30405,7 @@ components:
       - MY_PORTS
       type: string
     MetroResponse:
-      description: "GET Metros retrieves all Equinix® Fabric™ metros, as well as latency\
+      description: "GET Metros retrieves all Equinix? Fabric? metros, as well as latency\
         \ data for each location.This performance data helps network planning engineers\
         \ and administrators make strategic decisions about port locations and traffic\
         \ routes."
@@ -29111,7 +30471,7 @@ components:
           type: array
       type: object
     Metro:
-      description: "GET Metros retrieves all Equinix® Fabric™ metros, as well as latency\
+      description: "GET Metros retrieves all Equinix? Fabric? metros, as well as latency\
         \ data for each location.This performance data helps network planning engineers\
         \ and administrators make strategic decisions about port locations and traffic\
         \ routes."

@@ -88,6 +88,8 @@ public class Example {
 |-------------|-------------|------------------|
 | **202** | Successful operation |  -  |
 | **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
 | **404** | Connection ID Not Found |  -  |
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
@@ -161,6 +163,8 @@ public class Example {
 |-------------|-------------|------------------|
 | **202** | Successful operation |  -  |
 | **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
 | **404** | Connection ID Not Found |  -  |
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
@@ -234,6 +238,8 @@ public class Example {
 |-------------|-------------|------------------|
 | **202** | Successful operation |  -  |
 | **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
 | **404** | Connection ID Not Found |  -  |
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
@@ -311,6 +317,8 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Fabric BGP Action object |  -  |
 | **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
 | **404** | Connection ID Not Found |  -  |
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
@@ -384,6 +392,8 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Successful operation |  -  |
 | **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
 | **404** | Connection ID Not Found |  -  |
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
@@ -459,6 +469,8 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Successful operation |  -  |
 | **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
 | **404** | Connection ID Not Found |  -  |
 | **500** | Internal server error |  -  |
 
@@ -533,6 +545,8 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Fabric BGP Action object |  -  |
 | **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
 | **404** | Connection ID Not Found |  -  |
 | **500** | Internal server error |  -  |
 
@@ -607,6 +621,8 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Fabric Routing Protocol Change object |  -  |
 | **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
 | **404** | Connection ID Not Found |  -  |
 | **500** | Internal server error |  -  |
 
@@ -683,6 +699,8 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Fabric Routing Protocol Change object |  -  |
 | **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
 | **404** | Connection ID Not Found |  -  |
 | **500** | Internal server error |  -  |
 
@@ -757,6 +775,8 @@ public class Example {
 |-------------|-------------|------------------|
 | **202** | Successful operation |  -  |
 | **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
 | **404** | Connection ID Not Found |  -  |
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
@@ -832,6 +852,8 @@ public class Example {
 |-------------|-------------|------------------|
 | **202** | Successful operation |  -  |
 | **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
 | **404** | Connection ID Not Found |  -  |
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
@@ -907,6 +929,8 @@ public class Example {
 |-------------|-------------|------------------|
 | **202** | Successful operation |  -  |
 | **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
 | **404** | Connection ID Not Found |  -  |
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |

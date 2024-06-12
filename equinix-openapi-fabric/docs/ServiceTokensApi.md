@@ -19,7 +19,7 @@ All URIs are relative to *https://api.equinix.com*
 
 Create Service Token
 
-Create Service Tokens generates Equinix Fabric™ service tokens. These tokens authorize users to access protected resources and services.
+Create Service Tokens generates Equinix Fabric? service tokens. These tokens authorize users to access protected resources and services.
 
 ### Example
 ```java
@@ -80,6 +80,8 @@ public class Example {
 |-------------|-------------|------------------|
 | **201** | Successful operation |  -  |
 | **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
 
 <a name="createServiceTokenAction"></a>
 # **createServiceTokenAction**
@@ -220,6 +222,7 @@ null (empty response body)
 |-------------|-------------|------------------|
 | **204** | Deleted Service Token Successfully |  -  |
 | **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
 
 <a name="getServiceTokenByUuid"></a>
 # **getServiceTokenByUuid**
@@ -288,6 +291,8 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Successful operation |  -  |
 | **400** | Bad request |  -  |
+| **403** | Forbidden |  -  |
+| **500** | Internal server error |  -  |
 
 <a name="getServiceTokens"></a>
 # **getServiceTokens**
@@ -357,6 +362,7 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful operation |  -  |
+| **403** | Forbidden |  -  |
 
 <a name="searchServiceTokens"></a>
 # **searchServiceTokens**
@@ -498,4 +504,5 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Successful operation |  -  |
 | **400** | Bad request |  -  |
+| **403** | Forbidden |  -  |
 

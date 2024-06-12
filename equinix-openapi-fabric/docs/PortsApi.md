@@ -92,7 +92,7 @@ public class Example {
 
 Create Port
 
-Create Port creates Equinix Fabric™ Port.&lt;font color&#x3D;\&quot;red\&quot;&gt; &lt;sup color&#x3D;&#39;red&#39;&gt;Preview&lt;/sup&gt;&lt;/font&gt;
+Create Port creates Equinix Fabric? Port.&lt;font color&#x3D;\&quot;red\&quot;&gt; &lt;sup color&#x3D;&#39;red&#39;&gt;Preview&lt;/sup&gt;&lt;/font&gt;
 
 ### Example
 ```java
@@ -159,7 +159,7 @@ public class Example {
 
 Create Port
 
-Creates Equinix Fabric™ Port.
+Creates Equinix Fabric? Port.
 
 ### Example
 ```java
@@ -359,6 +359,8 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Successful operation |  -  |
 | **400** | Bad request |  -  |
+| **403** | Forbidden |  -  |
+| **500** | Internal server error |  -  |
 
 <a name="getPorts"></a>
 # **getPorts**
@@ -426,6 +428,7 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful operation |  -  |
+| **403** | Forbidden |  -  |
 
 <a name="getVlans"></a>
 # **getVlans**

@@ -1,6 +1,5 @@
 /*
  * Equinix Fabric API v4
- * Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br> </br> <b>Integrations (SDKs, Tools) links:</b></br> <a href=\"https://deploy.equinix.com/labs/fabric-java\\\">Fabric Java SDK</a> </br> <a href=\"https://deploy.equinix.com/labs/equinix-sdk-go\\\">Fabric Go SDK</a> </br> <a href=\"https://deploy.equinix.com/labs/terraform-provider-equinix\\\">Equinix Terraform Provider</a> </br> <a href=\"https://deploy.equinix.com/labs/terraform-equinix-fabric\\\">Fabric Terraform Modules</a> </br> <a href=\"https://deploy.equinix.com/labs/pulumi-provider-equinix/\">Equinix Pulumi Provider</a> </br>
  *
  * Contact: api-support@equinix.com
  *
@@ -27,6 +26,7 @@ import java.io.IOException;
 
 
 import com.equinix.openapi.fabric.v4.model.Duration;
+import com.equinix.openapi.fabric.v4.model.Error;
 import com.equinix.openapi.fabric.v4.model.MetricInterval;
 import java.time.OffsetDateTime;
 import com.equinix.openapi.fabric.v4.model.QueryDirection;
@@ -93,6 +93,8 @@ public class StatisticsApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
      */
     public okhttp3.Call getConnectionStatsByPortUuidCall(String connectionId, OffsetDateTime startDateTime, OffsetDateTime endDateTime, ViewPoint viewPoint, final ApiCallback _callback) throws ApiException {
@@ -191,6 +193,8 @@ public class StatisticsApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
      */
     public Statistics getConnectionStatsByPortUuid(String connectionId, OffsetDateTime startDateTime, OffsetDateTime endDateTime, ViewPoint viewPoint) throws ApiException {
@@ -211,6 +215,8 @@ public class StatisticsApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
      */
     public ApiResponse<Statistics> getConnectionStatsByPortUuidWithHttpInfo(String connectionId, OffsetDateTime startDateTime, OffsetDateTime endDateTime, ViewPoint viewPoint) throws ApiException {
@@ -233,6 +239,8 @@ public class StatisticsApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
      */
     public okhttp3.Call getConnectionStatsByPortUuidAsync(String connectionId, OffsetDateTime startDateTime, OffsetDateTime endDateTime, ViewPoint viewPoint, final ApiCallback<Statistics> _callback) throws ApiException {
@@ -245,7 +253,7 @@ public class StatisticsApi {
     /**
      * Build call for getPortStats
      * @param metros Two-letter prefix indicating the metropolitan area in which a specified Equinix asset is located. (required)
-     * @param sort Key or set of keys that organizes the search payload by property (such as createdDate or metroCode) or by direction. Ascending (ASC) is the default value. The \&quot;‒\&quot; prefix indicates descending (DESC) order. (optional, default to -bandwidthUtilization)
+     * @param sort Key or set of keys that organizes the search payload by property (such as createdDate or metroCode) or by direction. Ascending (ASC) is the default value. The \&quot;?\&quot; prefix indicates descending (DESC) order. (optional, default to -bandwidthUtilization)
      * @param top Filter returning only the specified number of most heavily trafficked ports. The standard value is [1...10], and the default is 5. (optional, default to 5)
      * @param duration duration (optional, default to P7D)
      * @param direction Direction of traffic from the requester&#39;s viewpoint. The default is outbound. (optional, default to outbound)
@@ -258,6 +266,8 @@ public class StatisticsApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
      */
     public okhttp3.Call getPortStatsCall(List<String> metros, Sort sort, Integer top, Duration duration, QueryDirection direction, MetricInterval metricInterval, String projectId, final ApiCallback _callback) throws ApiException {
@@ -347,7 +357,7 @@ public class StatisticsApi {
      * Top Port Statistics
      * This API provides top utilized service-level traffic metrics so that you can view access and gather key information required to manage service subscription sizing and capacity.
      * @param metros Two-letter prefix indicating the metropolitan area in which a specified Equinix asset is located. (required)
-     * @param sort Key or set of keys that organizes the search payload by property (such as createdDate or metroCode) or by direction. Ascending (ASC) is the default value. The \&quot;‒\&quot; prefix indicates descending (DESC) order. (optional, default to -bandwidthUtilization)
+     * @param sort Key or set of keys that organizes the search payload by property (such as createdDate or metroCode) or by direction. Ascending (ASC) is the default value. The \&quot;?\&quot; prefix indicates descending (DESC) order. (optional, default to -bandwidthUtilization)
      * @param top Filter returning only the specified number of most heavily trafficked ports. The standard value is [1...10], and the default is 5. (optional, default to 5)
      * @param duration duration (optional, default to P7D)
      * @param direction Direction of traffic from the requester&#39;s viewpoint. The default is outbound. (optional, default to outbound)
@@ -359,6 +369,8 @@ public class StatisticsApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
      */
     public TopUtilizedStatistics getPortStats(List<String> metros, Sort sort, Integer top, Duration duration, QueryDirection direction, MetricInterval metricInterval, String projectId) throws ApiException {
@@ -370,7 +382,7 @@ public class StatisticsApi {
      * Top Port Statistics
      * This API provides top utilized service-level traffic metrics so that you can view access and gather key information required to manage service subscription sizing and capacity.
      * @param metros Two-letter prefix indicating the metropolitan area in which a specified Equinix asset is located. (required)
-     * @param sort Key or set of keys that organizes the search payload by property (such as createdDate or metroCode) or by direction. Ascending (ASC) is the default value. The \&quot;‒\&quot; prefix indicates descending (DESC) order. (optional, default to -bandwidthUtilization)
+     * @param sort Key or set of keys that organizes the search payload by property (such as createdDate or metroCode) or by direction. Ascending (ASC) is the default value. The \&quot;?\&quot; prefix indicates descending (DESC) order. (optional, default to -bandwidthUtilization)
      * @param top Filter returning only the specified number of most heavily trafficked ports. The standard value is [1...10], and the default is 5. (optional, default to 5)
      * @param duration duration (optional, default to P7D)
      * @param direction Direction of traffic from the requester&#39;s viewpoint. The default is outbound. (optional, default to outbound)
@@ -382,6 +394,8 @@ public class StatisticsApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
      */
     public ApiResponse<TopUtilizedStatistics> getPortStatsWithHttpInfo(List<String> metros, Sort sort, Integer top, Duration duration, QueryDirection direction, MetricInterval metricInterval, String projectId) throws ApiException {
@@ -394,7 +408,7 @@ public class StatisticsApi {
      * Top Port Statistics (asynchronously)
      * This API provides top utilized service-level traffic metrics so that you can view access and gather key information required to manage service subscription sizing and capacity.
      * @param metros Two-letter prefix indicating the metropolitan area in which a specified Equinix asset is located. (required)
-     * @param sort Key or set of keys that organizes the search payload by property (such as createdDate or metroCode) or by direction. Ascending (ASC) is the default value. The \&quot;‒\&quot; prefix indicates descending (DESC) order. (optional, default to -bandwidthUtilization)
+     * @param sort Key or set of keys that organizes the search payload by property (such as createdDate or metroCode) or by direction. Ascending (ASC) is the default value. The \&quot;?\&quot; prefix indicates descending (DESC) order. (optional, default to -bandwidthUtilization)
      * @param top Filter returning only the specified number of most heavily trafficked ports. The standard value is [1...10], and the default is 5. (optional, default to 5)
      * @param duration duration (optional, default to P7D)
      * @param direction Direction of traffic from the requester&#39;s viewpoint. The default is outbound. (optional, default to outbound)
@@ -407,6 +421,8 @@ public class StatisticsApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
      */
     public okhttp3.Call getPortStatsAsync(List<String> metros, Sort sort, Integer top, Duration duration, QueryDirection direction, MetricInterval metricInterval, String projectId, final ApiCallback<TopUtilizedStatistics> _callback) throws ApiException {
@@ -428,6 +444,9 @@ public class StatisticsApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
     public okhttp3.Call getPortStatsByPortUuidCall(UUID portId, OffsetDateTime startDateTime, OffsetDateTime endDateTime, final ApiCallback _callback) throws ApiException {
@@ -516,6 +535,9 @@ public class StatisticsApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
     public Statistics getPortStatsByPortUuid(UUID portId, OffsetDateTime startDateTime, OffsetDateTime endDateTime) throws ApiException {
@@ -535,6 +557,9 @@ public class StatisticsApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
     public ApiResponse<Statistics> getPortStatsByPortUuidWithHttpInfo(UUID portId, OffsetDateTime startDateTime, OffsetDateTime endDateTime) throws ApiException {
@@ -556,6 +581,9 @@ public class StatisticsApi {
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
     public okhttp3.Call getPortStatsByPortUuidAsync(UUID portId, OffsetDateTime startDateTime, OffsetDateTime endDateTime, final ApiCallback<Statistics> _callback) throws ApiException {
