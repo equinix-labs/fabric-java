@@ -11,10 +11,17 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import com.fasterxml.jackson.annotation.*;
-
-import java.time.OffsetDateTime;
 import java.util.Objects;
+import java.util.Arrays;
+import com.equinix.openapi.fabric.v4.model.ConnectionChangeOperation;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.time.OffsetDateTime;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Current state of latest connection change

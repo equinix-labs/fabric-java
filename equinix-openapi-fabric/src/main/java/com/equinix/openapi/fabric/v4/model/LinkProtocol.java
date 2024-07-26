@@ -11,9 +11,25 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import com.fasterxml.jackson.annotation.*;
-
 import java.util.Objects;
+import java.util.Arrays;
+import com.equinix.openapi.fabric.v4.model.LinkProtocolDot1q;
+import com.equinix.openapi.fabric.v4.model.LinkProtocolEvpnVxlan;
+import com.equinix.openapi.fabric.v4.model.LinkProtocolIpv4Ipv6Config;
+import com.equinix.openapi.fabric.v4.model.LinkProtocolQinq;
+import com.equinix.openapi.fabric.v4.model.LinkProtocolType;
+import com.equinix.openapi.fabric.v4.model.LinkProtocolUntagged;
+import com.equinix.openapi.fabric.v4.model.LinkProtocolVxlan;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Connection link protocol Configuration

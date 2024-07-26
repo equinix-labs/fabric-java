@@ -11,22 +11,32 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.v4.model.Error;
+import com.equinix.openapi.fabric.v4.model.GetRouteFilterRulesResponse;
 import com.equinix.openapi.fabric.v4.model.RouteFilterRulesBase;
+import com.equinix.openapi.fabric.v4.model.RouteFilterRulesChangeData;
+import com.equinix.openapi.fabric.v4.model.RouteFilterRulesChangeDataResponse;
+import com.equinix.openapi.fabric.v4.model.RouteFilterRulesData;
 import com.equinix.openapi.fabric.v4.model.RouteFilterRulesPatchRequestItem;
 import com.equinix.openapi.fabric.v4.model.RouteFilterRulesPostRequest;
+import java.util.UUID;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.v4.api.RouteFilterRulesApi;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.ErrorLoggingFilter;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.Ignore;
 
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
-
-import static com.equinix.openapi.fabric.JacksonObjectMapper.jackson;
+import java.util.Map;
 import static io.restassured.config.ObjectMapperConfig.objectMapperConfig;
 import static io.restassured.config.RestAssuredConfig.config;
+import static com.equinix.openapi.fabric.JacksonObjectMapper.jackson;
 
 /**
  * API tests for RouteFilterRulesApi

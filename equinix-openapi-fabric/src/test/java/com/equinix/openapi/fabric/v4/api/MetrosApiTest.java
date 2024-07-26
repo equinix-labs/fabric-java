@@ -16,6 +16,7 @@ import com.equinix.openapi.fabric.v4.model.Presence;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

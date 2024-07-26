@@ -11,13 +11,19 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
+import java.util.Objects;
+import java.util.Arrays;
+import com.equinix.openapi.fabric.v4.model.Pagination;
+import com.equinix.openapi.fabric.v4.model.ServiceToken;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Service tokens authorize a user to access protected resources and services available on the Equinix Fabric network. The owner of the resources can distribute service tokens to third-party users (trusted partners and vendors), allowing them to directly access and work with the resources on the network without involving the resource owners.

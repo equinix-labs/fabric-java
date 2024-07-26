@@ -11,13 +11,37 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.v4.model.*;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-
-import java.util.List;
+import com.equinix.openapi.fabric.v4.model.BGPActionData;
+import com.equinix.openapi.fabric.v4.model.BGPActionRequest;
+import com.equinix.openapi.fabric.v4.model.BGPActionsBulkData;
+import com.equinix.openapi.fabric.v4.model.ConnectionChangeOperation;
+import com.equinix.openapi.fabric.v4.model.ConnectionRoutingProtocolPostRequest;
+import com.equinix.openapi.fabric.v4.model.Error;
+import com.equinix.openapi.fabric.v4.model.GetResponse;
+import com.equinix.openapi.fabric.v4.model.RoutingProtocolBase;
+import com.equinix.openapi.fabric.v4.model.RoutingProtocolChangeData;
+import com.equinix.openapi.fabric.v4.model.RoutingProtocolChangeDataResponse;
+import com.equinix.openapi.fabric.v4.model.RoutingProtocolData;
 import java.util.UUID;
+import com.equinix.openapi.fabric.v4.model.ValidateRequest;
+import com.equinix.openapi.fabric.v4.model.ValidateSubnetResponse;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.v4.api.RoutingProtocolsApi;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.filter.log.ErrorLoggingFilter;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.Ignore;
+
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import static io.restassured.config.ObjectMapperConfig.objectMapperConfig;
+import static io.restassured.config.RestAssuredConfig.config;
+import static com.equinix.openapi.fabric.JacksonObjectMapper.jackson;
 
 /**
  * API tests for RoutingProtocolsApi

@@ -11,15 +11,27 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+import java.util.Objects;
+import java.util.Arrays;
+import com.equinix.openapi.fabric.v4.model.PhysicalPortType;
+import com.equinix.openapi.fabric.v4.model.PortAdditionalInfo;
+import com.equinix.openapi.fabric.v4.model.PortDemarcationPoint;
+import com.equinix.openapi.fabric.v4.model.PortLoa;
+import com.equinix.openapi.fabric.v4.model.PortOperation;
+import com.equinix.openapi.fabric.v4.model.PortOrder;
+import com.equinix.openapi.fabric.v4.model.PortState;
+import com.equinix.openapi.fabric.v4.model.PortTether;
+import com.equinix.openapi.fabric.v4.model.SimplifiedAccount;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Physical Port specification

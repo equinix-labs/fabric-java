@@ -11,19 +11,34 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
+import com.equinix.openapi.fabric.v4.model.Connection;
+import com.equinix.openapi.fabric.v4.model.ConnectionAction;
+import com.equinix.openapi.fabric.v4.model.ConnectionActionRequest;
+import com.equinix.openapi.fabric.v4.model.ConnectionChangeOperation;
+import com.equinix.openapi.fabric.v4.model.ConnectionDirection;
+import com.equinix.openapi.fabric.v4.model.ConnectionPostRequest;
+import com.equinix.openapi.fabric.v4.model.ConnectionResponse;
+import com.equinix.openapi.fabric.v4.model.ConnectionSearchResponse;
+import com.equinix.openapi.fabric.v4.model.Error;
+import com.equinix.openapi.fabric.v4.model.SearchRequest;
+import com.equinix.openapi.fabric.v4.model.ValidateRequest;
 import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.v4.model.*;
+import com.equinix.openapi.fabric.v4.api.ConnectionsApi;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.ErrorLoggingFilter;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.Ignore;
 
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import static com.equinix.openapi.fabric.JacksonObjectMapper.jackson;
+import java.util.Map;
 import static io.restassured.config.ObjectMapperConfig.objectMapperConfig;
 import static io.restassured.config.RestAssuredConfig.config;
+import static com.equinix.openapi.fabric.JacksonObjectMapper.jackson;
 
 /**
  * API tests for ConnectionsApi

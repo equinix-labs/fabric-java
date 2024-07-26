@@ -11,7 +11,22 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.v4.model.*;
+import com.equinix.openapi.fabric.v4.model.Error;
+import com.equinix.openapi.fabric.v4.model.Network;
+import com.equinix.openapi.fabric.v4.model.NetworkChange;
+import com.equinix.openapi.fabric.v4.model.NetworkChangeOperation;
+import com.equinix.openapi.fabric.v4.model.NetworkChangeResponse;
+import com.equinix.openapi.fabric.v4.model.NetworkConnections;
+import com.equinix.openapi.fabric.v4.model.NetworkPostRequest;
+import com.equinix.openapi.fabric.v4.model.NetworkSearchRequest;
+import com.equinix.openapi.fabric.v4.model.NetworkSearchResponse;
+import java.util.UUID;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
@@ -19,12 +34,10 @@ import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
 
-import java.util.Arrays;
-import java.util.List;
+import java.lang.reflect.Type;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
-
 import static io.restassured.http.Method.*;
 
 public class NetworksApi {

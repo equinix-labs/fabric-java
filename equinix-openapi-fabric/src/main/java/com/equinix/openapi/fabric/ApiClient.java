@@ -12,13 +12,14 @@
 package com.equinix.openapi.fabric;
 
 import com.equinix.openapi.fabric.v4.api.*;
-import io.restassured.builder.RequestSpecBuilder;
 
+import io.restassured.builder.RequestSpecBuilder;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-import static com.equinix.openapi.fabric.JacksonObjectMapper.jackson;
 import static io.restassured.config.ObjectMapperConfig.objectMapperConfig;
 import static io.restassured.config.RestAssuredConfig.config;
+import static com.equinix.openapi.fabric.JacksonObjectMapper.jackson;
 
 
 public class ApiClient {

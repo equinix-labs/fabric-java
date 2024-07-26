@@ -12,7 +12,15 @@
 package com.equinix.openapi.fabric.v4.api;
 
 import com.equinix.openapi.fabric.v4.model.Metro;
+import com.equinix.openapi.fabric.v4.model.MetroError;
 import com.equinix.openapi.fabric.v4.model.MetroResponse;
+import com.equinix.openapi.fabric.v4.model.Presence;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
@@ -20,13 +28,11 @@ import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
 
-import java.util.Arrays;
-import java.util.List;
+import java.lang.reflect.Type;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
-
-import static io.restassured.http.Method.GET;
+import static io.restassured.http.Method.*;
 
 public class MetrosApi {
 
