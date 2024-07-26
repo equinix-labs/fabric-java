@@ -11,12 +11,23 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
+import java.util.Objects;
+import java.util.Arrays;
+import com.equinix.openapi.fabric.v4.model.ConnectivitySource;
+import com.equinix.openapi.fabric.v4.model.LinkAggregationGroup;
+import com.equinix.openapi.fabric.v4.model.VirtualPortConfiguration;
+import com.equinix.openapi.fabric.v4.model.VirtualPortLocation;
+import com.equinix.openapi.fabric.v4.model.VirtualPortRedundancy;
+import com.equinix.openapi.fabric.v4.model.VirtualPortServiceType;
+import com.equinix.openapi.fabric.v4.model.VirtualPortType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.UUID;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Preferences and settings for a virtual port connected to an internet service provider (ISP) or other Equinix platform entity.

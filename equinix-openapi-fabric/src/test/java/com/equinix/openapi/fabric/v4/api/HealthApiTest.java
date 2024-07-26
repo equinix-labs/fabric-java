@@ -11,16 +11,24 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
+import com.equinix.openapi.fabric.v4.model.HealthResponse;
 import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.v4.api.HealthApi;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.ErrorLoggingFilter;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.Ignore;
 
-import static com.equinix.openapi.fabric.JacksonObjectMapper.jackson;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import static io.restassured.config.ObjectMapperConfig.objectMapperConfig;
 import static io.restassured.config.RestAssuredConfig.config;
+import static com.equinix.openapi.fabric.JacksonObjectMapper.jackson;
 
 /**
  * API tests for HealthApi

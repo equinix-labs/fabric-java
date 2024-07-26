@@ -11,13 +11,19 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
+import java.util.Objects;
+import java.util.Arrays;
+import com.equinix.openapi.fabric.v4.model.Pagination;
+import com.equinix.openapi.fabric.v4.model.RouteFilterRulesChangeData;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * List of Route Filter Rule changes

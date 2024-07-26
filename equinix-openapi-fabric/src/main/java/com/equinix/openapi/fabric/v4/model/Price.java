@@ -11,11 +11,25 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import com.fasterxml.jackson.annotation.*;
-
+import java.util.Objects;
+import java.util.Arrays;
+import com.equinix.openapi.fabric.v4.model.FabricCloudRouterPrice;
+import com.equinix.openapi.fabric.v4.model.IpBlockPrice;
+import com.equinix.openapi.fabric.v4.model.PriceCategory;
+import com.equinix.openapi.fabric.v4.model.PriceCharge;
+import com.equinix.openapi.fabric.v4.model.ProductType;
+import com.equinix.openapi.fabric.v4.model.SimplifiedAccount;
+import com.equinix.openapi.fabric.v4.model.VirtualConnectionPrice;
+import com.equinix.openapi.fabric.v4.model.VirtualPortPrice;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Price

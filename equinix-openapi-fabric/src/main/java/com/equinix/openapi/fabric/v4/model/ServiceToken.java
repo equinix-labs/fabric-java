@@ -11,17 +11,27 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+import java.util.Objects;
+import java.util.Arrays;
+import com.equinix.openapi.fabric.v4.model.Changelog;
+import com.equinix.openapi.fabric.v4.model.Project;
+import com.equinix.openapi.fabric.v4.model.ServiceTokenConnection;
+import com.equinix.openapi.fabric.v4.model.ServiceTokenState;
+import com.equinix.openapi.fabric.v4.model.ServiceTokenType;
+import com.equinix.openapi.fabric.v4.model.SimplifiedAccount;
+import com.equinix.openapi.fabric.v4.model.SimplifiedNotification;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
 import java.net.URI;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Create Service Tokens (v4) generates Equinix Fabric service tokens. These tokens authorize users to access protected resources and services. The tokens remove sensitive content from the environment, rather than just masking it, making the protected data impossible to unencrypt or decrypt. Resource owners can distribute the tokens to trusted partners and vendors, allowing selected third parties to work directly with Equinix network assets.

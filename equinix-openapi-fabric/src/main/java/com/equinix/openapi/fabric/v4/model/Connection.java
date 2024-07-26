@@ -11,15 +11,32 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+import java.util.Objects;
+import java.util.Arrays;
+import com.equinix.openapi.fabric.v4.model.Change;
+import com.equinix.openapi.fabric.v4.model.Changelog;
+import com.equinix.openapi.fabric.v4.model.ConnectionDirection;
+import com.equinix.openapi.fabric.v4.model.ConnectionOperation;
+import com.equinix.openapi.fabric.v4.model.ConnectionRedundancy;
+import com.equinix.openapi.fabric.v4.model.ConnectionSide;
+import com.equinix.openapi.fabric.v4.model.ConnectionSideAdditionalInfo;
+import com.equinix.openapi.fabric.v4.model.ConnectionState;
+import com.equinix.openapi.fabric.v4.model.ConnectionType;
+import com.equinix.openapi.fabric.v4.model.GeoScopeType;
+import com.equinix.openapi.fabric.v4.model.Order;
+import com.equinix.openapi.fabric.v4.model.Project;
+import com.equinix.openapi.fabric.v4.model.SimplifiedAccount;
+import com.equinix.openapi.fabric.v4.model.SimplifiedNotification;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Connection specification

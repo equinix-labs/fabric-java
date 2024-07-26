@@ -11,16 +11,29 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+import java.util.Objects;
+import java.util.Arrays;
+import com.equinix.openapi.fabric.v4.model.CustomField;
+import com.equinix.openapi.fabric.v4.model.MarketingInfo;
+import com.equinix.openapi.fabric.v4.model.Project;
+import com.equinix.openapi.fabric.v4.model.ServiceMetro;
+import com.equinix.openapi.fabric.v4.model.ServiceProfileAccessPointCOLO;
+import com.equinix.openapi.fabric.v4.model.ServiceProfileAccessPointType;
+import com.equinix.openapi.fabric.v4.model.ServiceProfileAccessPointVD;
+import com.equinix.openapi.fabric.v4.model.ServiceProfileTypeEnum;
+import com.equinix.openapi.fabric.v4.model.ServiceProfileVisibilityEnum;
+import com.equinix.openapi.fabric.v4.model.SimplifiedNotification;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Service Profile is a software definition for a named provider service and it&#39;s network connectivity requirements. This includes the basic marketing information and one or more sets of access points (a set per each access point type) fulfilling the provider service. 

@@ -11,7 +11,21 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.v4.model.*;
+import com.equinix.openapi.fabric.v4.model.AllPhysicalPortsResponse;
+import com.equinix.openapi.fabric.v4.model.AllPortsResponse;
+import com.equinix.openapi.fabric.v4.model.BulkPhysicalPort;
+import com.equinix.openapi.fabric.v4.model.BulkPort;
+import com.equinix.openapi.fabric.v4.model.Error;
+import com.equinix.openapi.fabric.v4.model.LinkProtocolGetResponse;
+import com.equinix.openapi.fabric.v4.model.Port;
+import com.equinix.openapi.fabric.v4.model.PortV4SearchRequest;
+import java.util.UUID;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
@@ -19,12 +33,10 @@ import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
 
-import java.util.Arrays;
-import java.util.List;
+import java.lang.reflect.Type;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
-
 import static io.restassured.http.Method.*;
 
 public class PortsApi {

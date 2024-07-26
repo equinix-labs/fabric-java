@@ -11,22 +11,32 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.v4.model.AllPhysicalPortsResponse;
+import com.equinix.openapi.fabric.v4.model.AllPortsResponse;
 import com.equinix.openapi.fabric.v4.model.BulkPhysicalPort;
 import com.equinix.openapi.fabric.v4.model.BulkPort;
+import com.equinix.openapi.fabric.v4.model.Error;
+import com.equinix.openapi.fabric.v4.model.LinkProtocolGetResponse;
 import com.equinix.openapi.fabric.v4.model.Port;
 import com.equinix.openapi.fabric.v4.model.PortV4SearchRequest;
+import java.util.UUID;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.v4.api.PortsApi;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.ErrorLoggingFilter;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.Ignore;
 
-import java.util.UUID;
-
-import static com.equinix.openapi.fabric.JacksonObjectMapper.jackson;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import static io.restassured.config.ObjectMapperConfig.objectMapperConfig;
 import static io.restassured.config.RestAssuredConfig.config;
+import static com.equinix.openapi.fabric.JacksonObjectMapper.jackson;
 
 /**
  * API tests for PortsApi

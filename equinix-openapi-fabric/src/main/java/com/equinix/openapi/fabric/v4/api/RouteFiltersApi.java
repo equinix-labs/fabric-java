@@ -11,7 +11,25 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.v4.model.*;
+import com.equinix.openapi.fabric.v4.model.ConnectionRouteFilterData;
+import com.equinix.openapi.fabric.v4.model.ConnectionRouteFiltersBase;
+import com.equinix.openapi.fabric.v4.model.Error;
+import com.equinix.openapi.fabric.v4.model.GetAllConnectionRouteFiltersResponse;
+import com.equinix.openapi.fabric.v4.model.GetRouteFilterGetConnectionsResponse;
+import com.equinix.openapi.fabric.v4.model.RouteFilterChangeData;
+import com.equinix.openapi.fabric.v4.model.RouteFilterChangeDataResponse;
+import com.equinix.openapi.fabric.v4.model.RouteFiltersBase;
+import com.equinix.openapi.fabric.v4.model.RouteFiltersData;
+import com.equinix.openapi.fabric.v4.model.RouteFiltersPatchRequestItem;
+import com.equinix.openapi.fabric.v4.model.RouteFiltersSearchBase;
+import com.equinix.openapi.fabric.v4.model.RouteFiltersSearchResponse;
+import java.util.UUID;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
@@ -19,12 +37,10 @@ import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
 
-import java.util.Arrays;
-import java.util.List;
+import java.lang.reflect.Type;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
-
 import static io.restassured.http.Method.*;
 
 public class RouteFiltersApi {

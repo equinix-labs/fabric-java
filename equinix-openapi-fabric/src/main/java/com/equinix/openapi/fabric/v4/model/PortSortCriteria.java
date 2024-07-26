@@ -11,11 +11,17 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
+import java.util.Objects;
+import java.util.Arrays;
+import com.equinix.openapi.fabric.v4.model.PortSortBy;
+import com.equinix.openapi.fabric.v4.model.PortSortDirection;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * PortSortCriteria

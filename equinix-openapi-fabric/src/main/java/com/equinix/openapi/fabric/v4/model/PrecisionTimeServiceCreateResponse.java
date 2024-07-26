@@ -11,14 +11,26 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import com.fasterxml.jackson.annotation.*;
+import java.util.Objects;
+import java.util.Arrays;
+import com.equinix.openapi.fabric.v4.model.Account;
+import com.equinix.openapi.fabric.v4.model.AdvanceConfiguration;
+import com.equinix.openapi.fabric.v4.model.FabricConnectionUuid;
+import com.equinix.openapi.fabric.v4.model.Ipv4;
+import com.equinix.openapi.fabric.v4.model.PrecisionTimePackageResponse;
+import com.equinix.openapi.fabric.v4.model.Project;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
 import java.net.URI;
 import java.util.LinkedHashSet;
-import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * EPT service instance

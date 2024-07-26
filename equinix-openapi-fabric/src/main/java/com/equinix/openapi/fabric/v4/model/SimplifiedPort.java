@@ -11,13 +11,34 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import com.fasterxml.jackson.annotation.*;
-
+import java.util.Objects;
+import java.util.Arrays;
+import com.equinix.openapi.fabric.v4.model.PhysicalPort;
+import com.equinix.openapi.fabric.v4.model.PortAdditionalInfo;
+import com.equinix.openapi.fabric.v4.model.PortDemarcationPoint;
+import com.equinix.openapi.fabric.v4.model.PortDevice;
+import com.equinix.openapi.fabric.v4.model.PortEncapsulation;
+import com.equinix.openapi.fabric.v4.model.PortInterface;
+import com.equinix.openapi.fabric.v4.model.PortOperation;
+import com.equinix.openapi.fabric.v4.model.PortRedundancy;
+import com.equinix.openapi.fabric.v4.model.PortSettings;
+import com.equinix.openapi.fabric.v4.model.PortState;
+import com.equinix.openapi.fabric.v4.model.PortTether;
+import com.equinix.openapi.fabric.v4.model.PortType;
+import com.equinix.openapi.fabric.v4.model.Project;
+import com.equinix.openapi.fabric.v4.model.SimplifiedAccount;
+import com.equinix.openapi.fabric.v4.model.SimplifiedLocation;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Port specification

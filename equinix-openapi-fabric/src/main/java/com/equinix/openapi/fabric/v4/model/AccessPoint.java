@@ -11,11 +11,29 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
+import java.util.Objects;
+import java.util.Arrays;
+import com.equinix.openapi.fabric.v4.model.AccessPointType;
+import com.equinix.openapi.fabric.v4.model.CloudRouter;
+import com.equinix.openapi.fabric.v4.model.MetalInterconnection;
+import com.equinix.openapi.fabric.v4.model.ModelInterface;
+import com.equinix.openapi.fabric.v4.model.PeeringType;
+import com.equinix.openapi.fabric.v4.model.SimplifiedAccount;
+import com.equinix.openapi.fabric.v4.model.SimplifiedLinkProtocol;
+import com.equinix.openapi.fabric.v4.model.SimplifiedLocation;
+import com.equinix.openapi.fabric.v4.model.SimplifiedNetwork;
+import com.equinix.openapi.fabric.v4.model.SimplifiedPort;
+import com.equinix.openapi.fabric.v4.model.SimplifiedServiceProfile;
+import com.equinix.openapi.fabric.v4.model.VirtualDevice;
+import com.equinix.openapi.fabric.v4.model.VirtualNetwork;
+import com.equinix.openapi.fabric.v4.model.VpicInterface;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * Access point object
