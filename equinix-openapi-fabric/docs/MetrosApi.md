@@ -19,36 +19,16 @@ GET Metros retrieves all Equinix Fabric metros, as well as latency data between 
 ### Example
 ```java
 // Import classes:
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
-import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.MetrosApi;
+//import com.equinix.openapi.fabric.ApiClient;
+//import io.restassured.builder.RequestSpecBuilder;
+//import io.restassured.filter.log.ErrorLoggingFilter;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+MetrosApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setBaseUri("https://api.equinix.com"))).metros();
 
-    MetrosApi apiInstance = new MetrosApi(defaultClient);
-    String metroCode = "metroCode_example"; // String | Metro Code
-    try {
-      Metro result = apiInstance.getMetroByCode(metroCode);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling MetrosApi#getMetroByCode");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
+api.getMetroByCode()
+    .metroCodePath(metroCode).execute(r -> r.prettyPeek());
 ```
 
 ### Parameters
@@ -70,14 +50,6 @@ public class Example {
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful operation |  -  |
-| **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-| **500** | Internal Server Error |  -  |
-
 <a name="getMetros"></a>
 # **getMetros**
 > MetroResponse getMetros(presence, offset, limit)
@@ -89,38 +61,15 @@ GET All Subscriber Metros with an option query parameter to return all Equinix F
 ### Example
 ```java
 // Import classes:
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
-import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.MetrosApi;
+//import com.equinix.openapi.fabric.ApiClient;
+//import io.restassured.builder.RequestSpecBuilder;
+//import io.restassured.filter.log.ErrorLoggingFilter;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+MetrosApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setBaseUri("https://api.equinix.com"))).metros();
 
-    MetrosApi apiInstance = new MetrosApi(defaultClient);
-    Presence presence = Presence.fromValue("MY_PORTS"); // Presence | User On Boarded Metros based on Fabric resource availability
-    Integer offset = 1; // Integer | offset
-    Integer limit = 10; // Integer | number of records to fetch
-    try {
-      MetroResponse result = apiInstance.getMetros(presence, offset, limit);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling MetrosApi#getMetros");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
+api.getMetros().execute(r -> r.prettyPeek());
 ```
 
 ### Parameters
@@ -143,12 +92,4 @@ public class Example {
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful operation |  -  |
-| **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-| **500** | Internal Server Error |  -  |
 

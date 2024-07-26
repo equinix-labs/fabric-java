@@ -11,1030 +11,623 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.ApiCallback;
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.ApiResponse;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.Pair;
-import com.equinix.openapi.fabric.ProgressRequestBody;
-import com.equinix.openapi.fabric.ProgressResponseBody;
+import com.equinix.openapi.fabric.v4.model.*;
+import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.common.mapper.TypeRef;
+import io.restassured.http.Method;
+import io.restassured.response.Response;
 
-import com.google.gson.reflect.TypeToken;
-
-import java.io.IOException;
-
-
-import java.math.BigDecimal;
-import com.equinix.openapi.fabric.v4.model.Error;
-import com.equinix.openapi.fabric.v4.model.ServiceToken;
-import com.equinix.openapi.fabric.v4.model.ServiceTokenActionRequest;
-import com.equinix.openapi.fabric.v4.model.ServiceTokenChangeOperation;
-import com.equinix.openapi.fabric.v4.model.ServiceTokenSearchRequest;
-import com.equinix.openapi.fabric.v4.model.ServiceTokens;
-import java.util.UUID;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import javax.ws.rs.core.GenericType;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
+import static io.restassured.http.Method.*;
 
 public class ServiceTokensApi {
-    private ApiClient localVarApiClient;
-    private int localHostIndex;
-    private String localCustomBaseUrl;
 
-    public ServiceTokensApi() {
-        this(Configuration.getDefaultApiClient());
+    private Supplier<RequestSpecBuilder> reqSpecSupplier;
+    private Consumer<RequestSpecBuilder> reqSpecCustomizer;
+
+    private ServiceTokensApi(Supplier<RequestSpecBuilder> reqSpecSupplier) {
+        this.reqSpecSupplier = reqSpecSupplier;
     }
 
-    public ServiceTokensApi(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+    public static ServiceTokensApi serviceTokens(Supplier<RequestSpecBuilder> reqSpecSupplier) {
+        return new ServiceTokensApi(reqSpecSupplier);
     }
 
-    public ApiClient getApiClient() {
-        return localVarApiClient;
+    private RequestSpecBuilder createReqSpec() {
+        RequestSpecBuilder reqSpec = reqSpecSupplier.get();
+        if(reqSpecCustomizer != null) {
+            reqSpecCustomizer.accept(reqSpec);
+        }
+        return reqSpec;
     }
 
-    public void setApiClient(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+    public List<Oper> getAllOperations() {
+        return Arrays.asList(
+                createServiceToken(),
+                createServiceTokenAction(),
+                deleteServiceTokenByUuid(),
+                getServiceTokenByUuid(),
+                getServiceTokens(),
+                searchServiceTokens(),
+                updateServiceTokenByUuid()
+        );
     }
 
-    public int getHostIndex() {
-        return localHostIndex;
+    public CreateServiceTokenOper createServiceToken() {
+        return new CreateServiceTokenOper(createReqSpec());
     }
 
-    public void setHostIndex(int hostIndex) {
-        this.localHostIndex = hostIndex;
+    public CreateServiceTokenActionOper createServiceTokenAction() {
+        return new CreateServiceTokenActionOper(createReqSpec());
     }
 
-    public String getCustomBaseUrl() {
-        return localCustomBaseUrl;
+    public DeleteServiceTokenByUuidOper deleteServiceTokenByUuid() {
+        return new DeleteServiceTokenByUuidOper(createReqSpec());
     }
 
-    public void setCustomBaseUrl(String customBaseUrl) {
-        this.localCustomBaseUrl = customBaseUrl;
+    public GetServiceTokenByUuidOper getServiceTokenByUuid() {
+        return new GetServiceTokenByUuidOper(createReqSpec());
+    }
+
+    public GetServiceTokensOper getServiceTokens() {
+        return new GetServiceTokensOper(createReqSpec());
+    }
+
+    public SearchServiceTokensOper searchServiceTokens() {
+        return new SearchServiceTokensOper(createReqSpec());
+    }
+
+    public UpdateServiceTokenByUuidOper updateServiceTokenByUuid() {
+        return new UpdateServiceTokenByUuidOper(createReqSpec());
     }
 
     /**
-     * Build call for createServiceToken
-     * @param serviceToken  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-     </table>
+     * Customize request specification
+     * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+     * @return api
      */
-    public okhttp3.Call createServiceTokenCall(ServiceToken serviceToken, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
-        }
-
-        Object localVarPostBody = serviceToken;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/serviceTokens";
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
-        }
-
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call createServiceTokenValidateBeforeCall(ServiceToken serviceToken, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'serviceToken' is set
-        if (serviceToken == null) {
-            throw new ApiException("Missing the required parameter 'serviceToken' when calling createServiceToken(Async)");
-        }
-
-        return createServiceTokenCall(serviceToken, _callback);
-
+    public ServiceTokensApi reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+        this.reqSpecCustomizer = reqSpecCustomizer;
+        return this;
     }
 
     /**
      * Create Service Token
      * Create Service Tokens generates Equinix Fabric? service tokens. These tokens authorize users to access protected resources and services.
-     * @param serviceToken  (required)
-     * @return ServiceToken
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #body  (required)
+     * return ServiceToken
      */
-    public ServiceToken createServiceToken(ServiceToken serviceToken) throws ApiException {
-        ApiResponse<ServiceToken> localVarResp = createServiceTokenWithHttpInfo(serviceToken);
-        return localVarResp.getData();
-    }
+    public static class CreateServiceTokenOper implements Oper {
 
-    /**
-     * Create Service Token
-     * Create Service Tokens generates Equinix Fabric? service tokens. These tokens authorize users to access protected resources and services.
-     * @param serviceToken  (required)
-     * @return ApiResponse&lt;ServiceToken&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ServiceToken> createServiceTokenWithHttpInfo(ServiceToken serviceToken) throws ApiException {
-        okhttp3.Call localVarCall = createServiceTokenValidateBeforeCall(serviceToken, null);
-        Type localVarReturnType = new TypeToken<ServiceToken>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = POST;
+        public static final String REQ_URI = "/fabric/v4/serviceTokens";
 
-    /**
-     * Create Service Token (asynchronously)
-     * Create Service Tokens generates Equinix Fabric? service tokens. These tokens authorize users to access protected resources and services.
-     * @param serviceToken  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createServiceTokenAsync(ServiceToken serviceToken, final ApiCallback<ServiceToken> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = createServiceTokenValidateBeforeCall(serviceToken, _callback);
-        Type localVarReturnType = new TypeToken<ServiceToken>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for createServiceTokenAction
-     * @param serviceTokenId Service Token UUID (required)
-     * @param serviceTokenActionRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createServiceTokenActionCall(UUID serviceTokenId, ServiceTokenActionRequest serviceTokenActionRequest, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
+        public CreateServiceTokenOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setContentType("application/json");
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
         }
 
-        Object localVarPostBody = serviceTokenActionRequest;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/serviceTokens/{serviceTokenId}/actions"
-            .replace("{" + "serviceTokenId" + "}", localVarApiClient.escapeString(serviceTokenId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
+        /**
+         * POST /fabric/v4/serviceTokens
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
         }
 
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
+        /**
+         * POST /fabric/v4/serviceTokens
+         * @param handler handler
+         * @return ServiceToken
+         */
+        public ServiceToken executeAs(Function<Response, Response> handler) {
+            TypeRef<ServiceToken> type = new TypeRef<ServiceToken>(){};
+            return execute(handler).as(type);
         }
 
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+         /**
+         * @param serviceToken (ServiceToken)  (required)
+         * @return operation
+         */
+        public CreateServiceTokenOper body(ServiceToken serviceToken) {
+            reqSpec.setBody(serviceToken);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public CreateServiceTokenOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public CreateServiceTokenOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call createServiceTokenActionValidateBeforeCall(UUID serviceTokenId, ServiceTokenActionRequest serviceTokenActionRequest, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'serviceTokenId' is set
-        if (serviceTokenId == null) {
-            throw new ApiException("Missing the required parameter 'serviceTokenId' when calling createServiceTokenAction(Async)");
-        }
-
-        // verify the required parameter 'serviceTokenActionRequest' is set
-        if (serviceTokenActionRequest == null) {
-            throw new ApiException("Missing the required parameter 'serviceTokenActionRequest' when calling createServiceTokenAction(Async)");
-        }
-
-        return createServiceTokenActionCall(serviceTokenId, serviceTokenActionRequest, _callback);
-
-    }
-
     /**
      * ServiceToken Actions
      * This API provides capability to accept/reject user&#39;s servicetokens
-     * @param serviceTokenId Service Token UUID (required)
-     * @param serviceTokenActionRequest  (required)
-     * @return ServiceToken
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #serviceTokenIdPath Service Token UUID (required)
+     * @see #body  (required)
+     * return ServiceToken
      */
-    public ServiceToken createServiceTokenAction(UUID serviceTokenId, ServiceTokenActionRequest serviceTokenActionRequest) throws ApiException {
-        ApiResponse<ServiceToken> localVarResp = createServiceTokenActionWithHttpInfo(serviceTokenId, serviceTokenActionRequest);
-        return localVarResp.getData();
-    }
+    public static class CreateServiceTokenActionOper implements Oper {
 
-    /**
-     * ServiceToken Actions
-     * This API provides capability to accept/reject user&#39;s servicetokens
-     * @param serviceTokenId Service Token UUID (required)
-     * @param serviceTokenActionRequest  (required)
-     * @return ApiResponse&lt;ServiceToken&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ServiceToken> createServiceTokenActionWithHttpInfo(UUID serviceTokenId, ServiceTokenActionRequest serviceTokenActionRequest) throws ApiException {
-        okhttp3.Call localVarCall = createServiceTokenActionValidateBeforeCall(serviceTokenId, serviceTokenActionRequest, null);
-        Type localVarReturnType = new TypeToken<ServiceToken>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = POST;
+        public static final String REQ_URI = "/fabric/v4/serviceTokens/{serviceTokenId}/actions";
 
-    /**
-     * ServiceToken Actions (asynchronously)
-     * This API provides capability to accept/reject user&#39;s servicetokens
-     * @param serviceTokenId Service Token UUID (required)
-     * @param serviceTokenActionRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createServiceTokenActionAsync(UUID serviceTokenId, ServiceTokenActionRequest serviceTokenActionRequest, final ApiCallback<ServiceToken> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = createServiceTokenActionValidateBeforeCall(serviceTokenId, serviceTokenActionRequest, _callback);
-        Type localVarReturnType = new TypeToken<ServiceToken>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for deleteServiceTokenByUuid
-     * @param serviceTokenId Service Token UUID (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 204 </td><td> Deleted Service Token Successfully </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call deleteServiceTokenByUuidCall(UUID serviceTokenId, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
+        public CreateServiceTokenActionOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setContentType("application/json");
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
         }
 
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/serviceTokens/{serviceTokenId}"
-            .replace("{" + "serviceTokenId" + "}", localVarApiClient.escapeString(serviceTokenId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
+        /**
+         * POST /fabric/v4/serviceTokens/{serviceTokenId}/actions
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
         }
 
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
+        /**
+         * POST /fabric/v4/serviceTokens/{serviceTokenId}/actions
+         * @param handler handler
+         * @return ServiceToken
+         */
+        public ServiceToken executeAs(Function<Response, Response> handler) {
+            TypeRef<ServiceToken> type = new TypeRef<ServiceToken>(){};
+            return execute(handler).as(type);
         }
 
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+         /**
+         * @param serviceTokenActionRequest (ServiceTokenActionRequest)  (required)
+         * @return operation
+         */
+        public CreateServiceTokenActionOper body(ServiceTokenActionRequest serviceTokenActionRequest) {
+            reqSpec.setBody(serviceTokenActionRequest);
+            return this;
+        }
+
+        public static final String SERVICE_TOKEN_ID_PATH = "serviceTokenId";
+
+        /**
+         * @param serviceTokenId (UUID) Service Token UUID (required)
+         * @return operation
+         */
+        public CreateServiceTokenActionOper serviceTokenIdPath(Object serviceTokenId) {
+            reqSpec.addPathParam(SERVICE_TOKEN_ID_PATH, serviceTokenId);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public CreateServiceTokenActionOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public CreateServiceTokenActionOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteServiceTokenByUuidValidateBeforeCall(UUID serviceTokenId, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'serviceTokenId' is set
-        if (serviceTokenId == null) {
-            throw new ApiException("Missing the required parameter 'serviceTokenId' when calling deleteServiceTokenByUuid(Async)");
-        }
-
-        return deleteServiceTokenByUuidCall(serviceTokenId, _callback);
-
-    }
-
     /**
      * Delete Token by uuid
      * Delete Service Tokens removes an Equinix Fabric service token corresponding to the specified uuid which are in INACTIVE state.
-     * @param serviceTokenId Service Token UUID (required)
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 204 </td><td> Deleted Service Token Successfully </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #serviceTokenIdPath Service Token UUID (required)
      */
-    public void deleteServiceTokenByUuid(UUID serviceTokenId) throws ApiException {
-        deleteServiceTokenByUuidWithHttpInfo(serviceTokenId);
-    }
+    public static class DeleteServiceTokenByUuidOper implements Oper {
 
-    /**
-     * Delete Token by uuid
-     * Delete Service Tokens removes an Equinix Fabric service token corresponding to the specified uuid which are in INACTIVE state.
-     * @param serviceTokenId Service Token UUID (required)
-     * @return ApiResponse&lt;Void&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 204 </td><td> Deleted Service Token Successfully </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<Void> deleteServiceTokenByUuidWithHttpInfo(UUID serviceTokenId) throws ApiException {
-        okhttp3.Call localVarCall = deleteServiceTokenByUuidValidateBeforeCall(serviceTokenId, null);
-        return localVarApiClient.execute(localVarCall);
-    }
+        public static final Method REQ_METHOD = DELETE;
+        public static final String REQ_URI = "/fabric/v4/serviceTokens/{serviceTokenId}";
 
-    /**
-     * Delete Token by uuid (asynchronously)
-     * Delete Service Tokens removes an Equinix Fabric service token corresponding to the specified uuid which are in INACTIVE state.
-     * @param serviceTokenId Service Token UUID (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 204 </td><td> Deleted Service Token Successfully </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call deleteServiceTokenByUuidAsync(UUID serviceTokenId, final ApiCallback<Void> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = deleteServiceTokenByUuidValidateBeforeCall(serviceTokenId, _callback);
-        localVarApiClient.executeAsync(localVarCall, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getServiceTokenByUuid
-     * @param serviceTokenId Service Token UUID (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getServiceTokenByUuidCall(UUID serviceTokenId, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
+        public DeleteServiceTokenByUuidOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
         }
 
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/serviceTokens/{serviceTokenId}"
-            .replace("{" + "serviceTokenId" + "}", localVarApiClient.escapeString(serviceTokenId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
+        /**
+         * DELETE /fabric/v4/serviceTokens/{serviceTokenId}
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
         }
 
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
+        public static final String SERVICE_TOKEN_ID_PATH = "serviceTokenId";
+
+        /**
+         * @param serviceTokenId (UUID) Service Token UUID (required)
+         * @return operation
+         */
+        public DeleteServiceTokenByUuidOper serviceTokenIdPath(Object serviceTokenId) {
+            reqSpec.addPathParam(SERVICE_TOKEN_ID_PATH, serviceTokenId);
+            return this;
         }
 
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public DeleteServiceTokenByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public DeleteServiceTokenByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getServiceTokenByUuidValidateBeforeCall(UUID serviceTokenId, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'serviceTokenId' is set
-        if (serviceTokenId == null) {
-            throw new ApiException("Missing the required parameter 'serviceTokenId' when calling getServiceTokenByUuid(Async)");
-        }
-
-        return getServiceTokenByUuidCall(serviceTokenId, _callback);
-
-    }
-
     /**
      * Get Token by uuid
      * Get Specified Service Tokens uses the uuid of an Equinix Fabric service token to return details about the token&#39;s type, state, location, bandwidth, and other key properties.
-     * @param serviceTokenId Service Token UUID (required)
-     * @return ServiceToken
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #serviceTokenIdPath Service Token UUID (required)
+     * return ServiceToken
      */
-    public ServiceToken getServiceTokenByUuid(UUID serviceTokenId) throws ApiException {
-        ApiResponse<ServiceToken> localVarResp = getServiceTokenByUuidWithHttpInfo(serviceTokenId);
-        return localVarResp.getData();
-    }
+    public static class GetServiceTokenByUuidOper implements Oper {
 
-    /**
-     * Get Token by uuid
-     * Get Specified Service Tokens uses the uuid of an Equinix Fabric service token to return details about the token&#39;s type, state, location, bandwidth, and other key properties.
-     * @param serviceTokenId Service Token UUID (required)
-     * @return ApiResponse&lt;ServiceToken&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ServiceToken> getServiceTokenByUuidWithHttpInfo(UUID serviceTokenId) throws ApiException {
-        okhttp3.Call localVarCall = getServiceTokenByUuidValidateBeforeCall(serviceTokenId, null);
-        Type localVarReturnType = new TypeToken<ServiceToken>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = GET;
+        public static final String REQ_URI = "/fabric/v4/serviceTokens/{serviceTokenId}";
 
-    /**
-     * Get Token by uuid (asynchronously)
-     * Get Specified Service Tokens uses the uuid of an Equinix Fabric service token to return details about the token&#39;s type, state, location, bandwidth, and other key properties.
-     * @param serviceTokenId Service Token UUID (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getServiceTokenByUuidAsync(UUID serviceTokenId, final ApiCallback<ServiceToken> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = getServiceTokenByUuidValidateBeforeCall(serviceTokenId, _callback);
-        Type localVarReturnType = new TypeToken<ServiceToken>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getServiceTokens
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getServiceTokensCall(BigDecimal offset, BigDecimal limit, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
+        public GetServiceTokenByUuidOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
         }
 
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/serviceTokens";
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        if (offset != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("offset", offset));
+        /**
+         * GET /fabric/v4/serviceTokens/{serviceTokenId}
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
         }
 
-        if (limit != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
+        /**
+         * GET /fabric/v4/serviceTokens/{serviceTokenId}
+         * @param handler handler
+         * @return ServiceToken
+         */
+        public ServiceToken executeAs(Function<Response, Response> handler) {
+            TypeRef<ServiceToken> type = new TypeRef<ServiceToken>(){};
+            return execute(handler).as(type);
         }
 
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
+        public static final String SERVICE_TOKEN_ID_PATH = "serviceTokenId";
+
+        /**
+         * @param serviceTokenId (UUID) Service Token UUID (required)
+         * @return operation
+         */
+        public GetServiceTokenByUuidOper serviceTokenIdPath(Object serviceTokenId) {
+            reqSpec.addPathParam(SERVICE_TOKEN_ID_PATH, serviceTokenId);
+            return this;
         }
 
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public GetServiceTokenByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
         }
 
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public GetServiceTokenByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getServiceTokensValidateBeforeCall(BigDecimal offset, BigDecimal limit, final ApiCallback _callback) throws ApiException {
-        return getServiceTokensCall(offset, limit, _callback);
-
-    }
-
     /**
      * Get All Tokens
      * Get All ServiceTokens creates a list of all Equinix Fabric service tokens associated with the subscriber&#39;s account.
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @return ServiceTokens
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #offsetQuery offset (optional)
+     * @see #limitQuery number of records to fetch (optional)
+     * return ServiceTokens
      */
-    public ServiceTokens getServiceTokens(BigDecimal offset, BigDecimal limit) throws ApiException {
-        ApiResponse<ServiceTokens> localVarResp = getServiceTokensWithHttpInfo(offset, limit);
-        return localVarResp.getData();
-    }
+    public static class GetServiceTokensOper implements Oper {
 
-    /**
-     * Get All Tokens
-     * Get All ServiceTokens creates a list of all Equinix Fabric service tokens associated with the subscriber&#39;s account.
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @return ApiResponse&lt;ServiceTokens&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ServiceTokens> getServiceTokensWithHttpInfo(BigDecimal offset, BigDecimal limit) throws ApiException {
-        okhttp3.Call localVarCall = getServiceTokensValidateBeforeCall(offset, limit, null);
-        Type localVarReturnType = new TypeToken<ServiceTokens>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = GET;
+        public static final String REQ_URI = "/fabric/v4/serviceTokens";
 
-    /**
-     * Get All Tokens (asynchronously)
-     * Get All ServiceTokens creates a list of all Equinix Fabric service tokens associated with the subscriber&#39;s account.
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getServiceTokensAsync(BigDecimal offset, BigDecimal limit, final ApiCallback<ServiceTokens> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = getServiceTokensValidateBeforeCall(offset, limit, _callback);
-        Type localVarReturnType = new TypeToken<ServiceTokens>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for searchServiceTokens
-     * @param serviceTokenSearchRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call searchServiceTokensCall(ServiceTokenSearchRequest serviceTokenSearchRequest, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
+        public GetServiceTokensOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
         }
 
-        Object localVarPostBody = serviceTokenSearchRequest;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/serviceTokens/search";
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
+        /**
+         * GET /fabric/v4/serviceTokens
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
         }
 
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
+        /**
+         * GET /fabric/v4/serviceTokens
+         * @param handler handler
+         * @return ServiceTokens
+         */
+        public ServiceTokens executeAs(Function<Response, Response> handler) {
+            TypeRef<ServiceTokens> type = new TypeRef<ServiceTokens>(){};
+            return execute(handler).as(type);
         }
 
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        public static final String OFFSET_QUERY = "offset";
+
+        /**
+         * @param offset (BigDecimal) offset (optional)
+         * @return operation
+         */
+        public GetServiceTokensOper offsetQuery(Object... offset) {
+            reqSpec.addQueryParam(OFFSET_QUERY, offset);
+            return this;
+        }
+
+        public static final String LIMIT_QUERY = "limit";
+
+        /**
+         * @param limit (BigDecimal) number of records to fetch (optional)
+         * @return operation
+         */
+        public GetServiceTokensOper limitQuery(Object... limit) {
+            reqSpec.addQueryParam(LIMIT_QUERY, limit);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public GetServiceTokensOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public GetServiceTokensOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call searchServiceTokensValidateBeforeCall(ServiceTokenSearchRequest serviceTokenSearchRequest, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'serviceTokenSearchRequest' is set
-        if (serviceTokenSearchRequest == null) {
-            throw new ApiException("Missing the required parameter 'serviceTokenSearchRequest' when calling searchServiceTokens(Async)");
-        }
-
-        return searchServiceTokensCall(serviceTokenSearchRequest, _callback);
-
-    }
-
     /**
      * Search servicetokens
      * The API provides capability to get list of user&#39;s servicetokens using search criteria, including optional filtering, pagination and sorting
-     * @param serviceTokenSearchRequest  (required)
-     * @return ServiceTokens
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #body  (required)
+     * return ServiceTokens
      */
-    public ServiceTokens searchServiceTokens(ServiceTokenSearchRequest serviceTokenSearchRequest) throws ApiException {
-        ApiResponse<ServiceTokens> localVarResp = searchServiceTokensWithHttpInfo(serviceTokenSearchRequest);
-        return localVarResp.getData();
-    }
+    public static class SearchServiceTokensOper implements Oper {
 
-    /**
-     * Search servicetokens
-     * The API provides capability to get list of user&#39;s servicetokens using search criteria, including optional filtering, pagination and sorting
-     * @param serviceTokenSearchRequest  (required)
-     * @return ApiResponse&lt;ServiceTokens&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ServiceTokens> searchServiceTokensWithHttpInfo(ServiceTokenSearchRequest serviceTokenSearchRequest) throws ApiException {
-        okhttp3.Call localVarCall = searchServiceTokensValidateBeforeCall(serviceTokenSearchRequest, null);
-        Type localVarReturnType = new TypeToken<ServiceTokens>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = POST;
+        public static final String REQ_URI = "/fabric/v4/serviceTokens/search";
 
-    /**
-     * Search servicetokens (asynchronously)
-     * The API provides capability to get list of user&#39;s servicetokens using search criteria, including optional filtering, pagination and sorting
-     * @param serviceTokenSearchRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call searchServiceTokensAsync(ServiceTokenSearchRequest serviceTokenSearchRequest, final ApiCallback<ServiceTokens> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = searchServiceTokensValidateBeforeCall(serviceTokenSearchRequest, _callback);
-        Type localVarReturnType = new TypeToken<ServiceTokens>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for updateServiceTokenByUuid
-     * @param serviceTokenId Service Token UUID (required)
-     * @param serviceTokenChangeOperation  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call updateServiceTokenByUuidCall(UUID serviceTokenId, List<ServiceTokenChangeOperation> serviceTokenChangeOperation, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
+        public SearchServiceTokensOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setContentType("application/json");
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
         }
 
-        Object localVarPostBody = serviceTokenChangeOperation;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/serviceTokens/{serviceTokenId}"
-            .replace("{" + "serviceTokenId" + "}", localVarApiClient.escapeString(serviceTokenId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
+        /**
+         * POST /fabric/v4/serviceTokens/search
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
         }
 
-        final String[] localVarContentTypes = {
-            "application/json-patch+json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
+        /**
+         * POST /fabric/v4/serviceTokens/search
+         * @param handler handler
+         * @return ServiceTokens
+         */
+        public ServiceTokens executeAs(Function<Response, Response> handler) {
+            TypeRef<ServiceTokens> type = new TypeRef<ServiceTokens>(){};
+            return execute(handler).as(type);
         }
 
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+         /**
+         * @param serviceTokenSearchRequest (ServiceTokenSearchRequest)  (required)
+         * @return operation
+         */
+        public SearchServiceTokensOper body(ServiceTokenSearchRequest serviceTokenSearchRequest) {
+            reqSpec.setBody(serviceTokenSearchRequest);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public SearchServiceTokensOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public SearchServiceTokensOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateServiceTokenByUuidValidateBeforeCall(UUID serviceTokenId, List<ServiceTokenChangeOperation> serviceTokenChangeOperation, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'serviceTokenId' is set
-        if (serviceTokenId == null) {
-            throw new ApiException("Missing the required parameter 'serviceTokenId' when calling updateServiceTokenByUuid(Async)");
-        }
-
-        // verify the required parameter 'serviceTokenChangeOperation' is set
-        if (serviceTokenChangeOperation == null) {
-            throw new ApiException("Missing the required parameter 'serviceTokenChangeOperation' when calling updateServiceTokenByUuid(Async)");
-        }
-
-        return updateServiceTokenByUuidCall(serviceTokenId, serviceTokenChangeOperation, _callback);
-
-    }
-
     /**
      * Update Token By ID
      * This API provides capability to update user&#39;s Service Token
-     * @param serviceTokenId Service Token UUID (required)
-     * @param serviceTokenChangeOperation  (required)
-     * @return ServiceToken
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #serviceTokenIdPath Service Token UUID (required)
+     * @see #body  (required)
+     * return ServiceToken
      */
-    public ServiceToken updateServiceTokenByUuid(UUID serviceTokenId, List<ServiceTokenChangeOperation> serviceTokenChangeOperation) throws ApiException {
-        ApiResponse<ServiceToken> localVarResp = updateServiceTokenByUuidWithHttpInfo(serviceTokenId, serviceTokenChangeOperation);
-        return localVarResp.getData();
-    }
+    public static class UpdateServiceTokenByUuidOper implements Oper {
 
-    /**
-     * Update Token By ID
-     * This API provides capability to update user&#39;s Service Token
-     * @param serviceTokenId Service Token UUID (required)
-     * @param serviceTokenChangeOperation  (required)
-     * @return ApiResponse&lt;ServiceToken&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ServiceToken> updateServiceTokenByUuidWithHttpInfo(UUID serviceTokenId, List<ServiceTokenChangeOperation> serviceTokenChangeOperation) throws ApiException {
-        okhttp3.Call localVarCall = updateServiceTokenByUuidValidateBeforeCall(serviceTokenId, serviceTokenChangeOperation, null);
-        Type localVarReturnType = new TypeToken<ServiceToken>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = PATCH;
+        public static final String REQ_URI = "/fabric/v4/serviceTokens/{serviceTokenId}";
 
-    /**
-     * Update Token By ID (asynchronously)
-     * This API provides capability to update user&#39;s Service Token
-     * @param serviceTokenId Service Token UUID (required)
-     * @param serviceTokenChangeOperation  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call updateServiceTokenByUuidAsync(UUID serviceTokenId, List<ServiceTokenChangeOperation> serviceTokenChangeOperation, final ApiCallback<ServiceToken> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = updateServiceTokenByUuidValidateBeforeCall(serviceTokenId, serviceTokenChangeOperation, _callback);
-        Type localVarReturnType = new TypeToken<ServiceToken>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+        public UpdateServiceTokenByUuidOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setContentType("application/json-patch+json");
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
+        }
+
+        /**
+         * PATCH /fabric/v4/serviceTokens/{serviceTokenId}
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
+        }
+
+        /**
+         * PATCH /fabric/v4/serviceTokens/{serviceTokenId}
+         * @param handler handler
+         * @return ServiceToken
+         */
+        public ServiceToken executeAs(Function<Response, Response> handler) {
+            TypeRef<ServiceToken> type = new TypeRef<ServiceToken>(){};
+            return execute(handler).as(type);
+        }
+
+         /**
+         * @param serviceTokenChangeOperation (List&lt;ServiceTokenChangeOperation&gt;)  (required)
+         * @return operation
+         */
+        public UpdateServiceTokenByUuidOper body(List<ServiceTokenChangeOperation> serviceTokenChangeOperation) {
+            reqSpec.setBody(serviceTokenChangeOperation);
+            return this;
+        }
+
+        public static final String SERVICE_TOKEN_ID_PATH = "serviceTokenId";
+
+        /**
+         * @param serviceTokenId (UUID) Service Token UUID (required)
+         * @return operation
+         */
+        public UpdateServiceTokenByUuidOper serviceTokenIdPath(Object serviceTokenId) {
+            reqSpec.addPathParam(SERVICE_TOKEN_ID_PATH, serviceTokenId);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public UpdateServiceTokenByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public UpdateServiceTokenByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
 }

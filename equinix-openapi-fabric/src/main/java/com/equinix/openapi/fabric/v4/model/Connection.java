@@ -11,148 +11,113 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.equinix.openapi.fabric.v4.model.Change;
-import com.equinix.openapi.fabric.v4.model.Changelog;
-import com.equinix.openapi.fabric.v4.model.ConnectionDirection;
-import com.equinix.openapi.fabric.v4.model.ConnectionOperation;
-import com.equinix.openapi.fabric.v4.model.ConnectionRedundancy;
-import com.equinix.openapi.fabric.v4.model.ConnectionSide;
-import com.equinix.openapi.fabric.v4.model.ConnectionSideAdditionalInfo;
-import com.equinix.openapi.fabric.v4.model.ConnectionState;
-import com.equinix.openapi.fabric.v4.model.ConnectionType;
-import com.equinix.openapi.fabric.v4.model.GeoScopeType;
-import com.equinix.openapi.fabric.v4.model.Order;
-import com.equinix.openapi.fabric.v4.model.Project;
-import com.equinix.openapi.fabric.v4.model.SimplifiedAccount;
-import com.equinix.openapi.fabric.v4.model.SimplifiedNotification;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.TypeAdapterFactory;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import com.equinix.openapi.fabric.JSON;
+import java.util.Objects;
 
 /**
  * Connection specification
  */
+@JsonPropertyOrder({
+  Connection.JSON_PROPERTY_TYPE,
+  Connection.JSON_PROPERTY_HREF,
+  Connection.JSON_PROPERTY_UUID,
+  Connection.JSON_PROPERTY_NAME,
+  Connection.JSON_PROPERTY_DESCRIPTION,
+  Connection.JSON_PROPERTY_STATE,
+  Connection.JSON_PROPERTY_CHANGE,
+  Connection.JSON_PROPERTY_OPERATION,
+  Connection.JSON_PROPERTY_ORDER,
+  Connection.JSON_PROPERTY_NOTIFICATIONS,
+  Connection.JSON_PROPERTY_ACCOUNT,
+  Connection.JSON_PROPERTY_CHANGE_LOG,
+  Connection.JSON_PROPERTY_BANDWIDTH,
+  Connection.JSON_PROPERTY_GEO_SCOPE,
+  Connection.JSON_PROPERTY_REDUNDANCY,
+  Connection.JSON_PROPERTY_IS_REMOTE,
+  Connection.JSON_PROPERTY_DIRECTION,
+  Connection.JSON_PROPERTY_A_SIDE,
+  Connection.JSON_PROPERTY_Z_SIDE,
+  Connection.JSON_PROPERTY_ADDITIONAL_INFO,
+  Connection.JSON_PROPERTY_PROJECT
+})
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Connection {
-  public static final String SERIALIZED_NAME_TYPE = "type";
-  @SerializedName(SERIALIZED_NAME_TYPE)
+  public static final String JSON_PROPERTY_TYPE = "type";
   private ConnectionType type;
 
-  public static final String SERIALIZED_NAME_HREF = "href";
-  @SerializedName(SERIALIZED_NAME_HREF)
+  public static final String JSON_PROPERTY_HREF = "href";
   private URI href;
 
-  public static final String SERIALIZED_NAME_UUID = "uuid";
-  @SerializedName(SERIALIZED_NAME_UUID)
+  public static final String JSON_PROPERTY_UUID = "uuid";
   private String uuid;
 
-  public static final String SERIALIZED_NAME_NAME = "name";
-  @SerializedName(SERIALIZED_NAME_NAME)
+  public static final String JSON_PROPERTY_NAME = "name";
   private String name;
 
-  public static final String SERIALIZED_NAME_DESCRIPTION = "description";
-  @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
   private String description;
 
-  public static final String SERIALIZED_NAME_STATE = "state";
-  @SerializedName(SERIALIZED_NAME_STATE)
+  public static final String JSON_PROPERTY_STATE = "state";
   private ConnectionState state;
 
-  public static final String SERIALIZED_NAME_CHANGE = "change";
-  @SerializedName(SERIALIZED_NAME_CHANGE)
+  public static final String JSON_PROPERTY_CHANGE = "change";
   private Change change;
 
-  public static final String SERIALIZED_NAME_OPERATION = "operation";
-  @SerializedName(SERIALIZED_NAME_OPERATION)
+  public static final String JSON_PROPERTY_OPERATION = "operation";
   private ConnectionOperation operation;
 
-  public static final String SERIALIZED_NAME_ORDER = "order";
-  @SerializedName(SERIALIZED_NAME_ORDER)
+  public static final String JSON_PROPERTY_ORDER = "order";
   private Order order;
 
-  public static final String SERIALIZED_NAME_NOTIFICATIONS = "notifications";
-  @SerializedName(SERIALIZED_NAME_NOTIFICATIONS)
+  public static final String JSON_PROPERTY_NOTIFICATIONS = "notifications";
   private List<SimplifiedNotification> notifications = new ArrayList<>();
 
-  public static final String SERIALIZED_NAME_ACCOUNT = "account";
-  @SerializedName(SERIALIZED_NAME_ACCOUNT)
+  public static final String JSON_PROPERTY_ACCOUNT = "account";
   private SimplifiedAccount account;
 
-  public static final String SERIALIZED_NAME_CHANGE_LOG = "changeLog";
-  @SerializedName(SERIALIZED_NAME_CHANGE_LOG)
+  public static final String JSON_PROPERTY_CHANGE_LOG = "changeLog";
   private Changelog changeLog;
 
-  public static final String SERIALIZED_NAME_BANDWIDTH = "bandwidth";
-  @SerializedName(SERIALIZED_NAME_BANDWIDTH)
+  public static final String JSON_PROPERTY_BANDWIDTH = "bandwidth";
   private Integer bandwidth;
 
-  public static final String SERIALIZED_NAME_GEO_SCOPE = "geoScope";
-  @SerializedName(SERIALIZED_NAME_GEO_SCOPE)
+  public static final String JSON_PROPERTY_GEO_SCOPE = "geoScope";
   private GeoScopeType geoScope;
 
-  public static final String SERIALIZED_NAME_REDUNDANCY = "redundancy";
-  @SerializedName(SERIALIZED_NAME_REDUNDANCY)
+  public static final String JSON_PROPERTY_REDUNDANCY = "redundancy";
   private ConnectionRedundancy redundancy;
 
-  public static final String SERIALIZED_NAME_IS_REMOTE = "isRemote";
-  @SerializedName(SERIALIZED_NAME_IS_REMOTE)
+  public static final String JSON_PROPERTY_IS_REMOTE = "isRemote";
   private Boolean isRemote;
 
-  public static final String SERIALIZED_NAME_DIRECTION = "direction";
-  @SerializedName(SERIALIZED_NAME_DIRECTION)
+  public static final String JSON_PROPERTY_DIRECTION = "direction";
   private ConnectionDirection direction;
 
-  public static final String SERIALIZED_NAME_A_SIDE = "aSide";
-  @SerializedName(SERIALIZED_NAME_A_SIDE)
+  public static final String JSON_PROPERTY_A_SIDE = "aSide";
   private ConnectionSide aSide;
 
-  public static final String SERIALIZED_NAME_Z_SIDE = "zSide";
-  @SerializedName(SERIALIZED_NAME_Z_SIDE)
+  public static final String JSON_PROPERTY_Z_SIDE = "zSide";
   private ConnectionSide zSide;
 
-  public static final String SERIALIZED_NAME_ADDITIONAL_INFO = "additionalInfo";
-  @SerializedName(SERIALIZED_NAME_ADDITIONAL_INFO)
+  public static final String JSON_PROPERTY_ADDITIONAL_INFO = "additionalInfo";
   private List<ConnectionSideAdditionalInfo> additionalInfo = new ArrayList<>();
 
-  public static final String SERIALIZED_NAME_PROJECT = "project";
-  @SerializedName(SERIALIZED_NAME_PROJECT)
+  public static final String JSON_PROPERTY_PROJECT = "project";
   private Project project;
 
   public Connection() {
   }
 
-  
+  @JsonCreator
   public Connection(
-     URI href
+    @JsonProperty(JSON_PROPERTY_HREF) URI href
   ) {
     this();
     this.href = href;
@@ -169,12 +134,16 @@ public class Connection {
    * @return type
   **/
   @javax.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public ConnectionType getType() {
     return type;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setType(ConnectionType type) {
     this.type = type;
   }
@@ -185,6 +154,8 @@ public class Connection {
    * @return href
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_HREF)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public URI getHref() {
     return href;
@@ -204,12 +175,16 @@ public class Connection {
    * @return uuid
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_UUID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUuid() {
     return uuid;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_UUID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUuid(String uuid) {
     this.uuid = uuid;
   }
@@ -226,12 +201,16 @@ public class Connection {
    * @return name
   **/
   @javax.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getName() {
     return name;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setName(String name) {
     this.name = name;
   }
@@ -248,12 +227,16 @@ public class Connection {
    * @return description
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
     return description;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDescription(String description) {
     this.description = description;
   }
@@ -270,12 +253,16 @@ public class Connection {
    * @return state
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ConnectionState getState() {
     return state;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setState(ConnectionState state) {
     this.state = state;
   }
@@ -292,12 +279,16 @@ public class Connection {
    * @return change
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_CHANGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Change getChange() {
     return change;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CHANGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setChange(Change change) {
     this.change = change;
   }
@@ -314,12 +305,16 @@ public class Connection {
    * @return operation
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_OPERATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ConnectionOperation getOperation() {
     return operation;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_OPERATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOperation(ConnectionOperation operation) {
     this.operation = operation;
   }
@@ -336,12 +331,16 @@ public class Connection {
    * @return order
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ORDER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Order getOrder() {
     return order;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ORDER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOrder(Order order) {
     this.order = order;
   }
@@ -366,12 +365,16 @@ public class Connection {
    * @return notifications
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_NOTIFICATIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<SimplifiedNotification> getNotifications() {
     return notifications;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_NOTIFICATIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNotifications(List<SimplifiedNotification> notifications) {
     this.notifications = notifications;
   }
@@ -388,12 +391,16 @@ public class Connection {
    * @return account
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ACCOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public SimplifiedAccount getAccount() {
     return account;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ACCOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAccount(SimplifiedAccount account) {
     this.account = account;
   }
@@ -410,12 +417,16 @@ public class Connection {
    * @return changeLog
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_CHANGE_LOG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Changelog getChangeLog() {
     return changeLog;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CHANGE_LOG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setChangeLog(Changelog changeLog) {
     this.changeLog = changeLog;
   }
@@ -434,12 +445,16 @@ public class Connection {
    * @return bandwidth
   **/
   @javax.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_BANDWIDTH)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Integer getBandwidth() {
     return bandwidth;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_BANDWIDTH)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setBandwidth(Integer bandwidth) {
     this.bandwidth = bandwidth;
   }
@@ -456,12 +471,16 @@ public class Connection {
    * @return geoScope
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_GEO_SCOPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public GeoScopeType getGeoScope() {
     return geoScope;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_GEO_SCOPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setGeoScope(GeoScopeType geoScope) {
     this.geoScope = geoScope;
   }
@@ -478,12 +497,16 @@ public class Connection {
    * @return redundancy
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_REDUNDANCY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ConnectionRedundancy getRedundancy() {
     return redundancy;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_REDUNDANCY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRedundancy(ConnectionRedundancy redundancy) {
     this.redundancy = redundancy;
   }
@@ -500,12 +523,16 @@ public class Connection {
    * @return isRemote
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_IS_REMOTE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getIsRemote() {
     return isRemote;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_IS_REMOTE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIsRemote(Boolean isRemote) {
     this.isRemote = isRemote;
   }
@@ -522,12 +549,16 @@ public class Connection {
    * @return direction
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_DIRECTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ConnectionDirection getDirection() {
     return direction;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DIRECTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDirection(ConnectionDirection direction) {
     this.direction = direction;
   }
@@ -544,12 +575,16 @@ public class Connection {
    * @return aSide
   **/
   @javax.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_A_SIDE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public ConnectionSide getaSide() {
     return aSide;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_A_SIDE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setaSide(ConnectionSide aSide) {
     this.aSide = aSide;
   }
@@ -566,12 +601,16 @@ public class Connection {
    * @return zSide
   **/
   @javax.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_Z_SIDE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public ConnectionSide getzSide() {
     return zSide;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_Z_SIDE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setzSide(ConnectionSide zSide) {
     this.zSide = zSide;
   }
@@ -596,12 +635,16 @@ public class Connection {
    * @return additionalInfo
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ADDITIONAL_INFO)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<ConnectionSideAdditionalInfo> getAdditionalInfo() {
     return additionalInfo;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ADDITIONAL_INFO)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAdditionalInfo(List<ConnectionSideAdditionalInfo> additionalInfo) {
     this.additionalInfo = additionalInfo;
   }
@@ -618,59 +661,18 @@ public class Connection {
    * @return project
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PROJECT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Project getProject() {
     return project;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PROJECT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setProject(Project project) {
     this.project = project;
-  }
-
-  /**
-   * A container for additional, undeclared properties.
-   * This is a holder for any undeclared properties as specified with
-   * the 'additionalProperties' keyword in the OAS document.
-   */
-  private Map<String, Object> additionalProperties;
-
-  /**
-   * Set the additional (undeclared) property with the specified name and value.
-   * If the property does not already exist, create it otherwise replace it.
-   *
-   * @param key name of the property
-   * @param value value of the property
-   * @return the Connection instance itself
-   */
-  public Connection putAdditionalProperty(String key, Object value) {
-    if (this.additionalProperties == null) {
-        this.additionalProperties = new HashMap<String, Object>();
-    }
-    this.additionalProperties.put(key, value);
-    return this;
-  }
-
-  /**
-   * Return the additional (undeclared) property.
-   *
-   * @return a map of objects
-   */
-  public Map<String, Object> getAdditionalProperties() {
-    return additionalProperties;
-  }
-
-  /**
-   * Return the additional (undeclared) property with the specified name.
-   *
-   * @param key name of the property
-   * @return an object
-   */
-  public Object getAdditionalProperty(String key) {
-    if (this.additionalProperties == null) {
-        return null;
-    }
-    return this.additionalProperties.get(key);
   }
 
 
@@ -703,13 +705,12 @@ public class Connection {
         Objects.equals(this.aSide, connection.aSide) &&
         Objects.equals(this.zSide, connection.zSide) &&
         Objects.equals(this.additionalInfo, connection.additionalInfo) &&
-        Objects.equals(this.project, connection.project)&&
-        Objects.equals(this.additionalProperties, connection.additionalProperties);
+        Objects.equals(this.project, connection.project);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, href, uuid, name, description, state, change, operation, order, notifications, account, changeLog, bandwidth, geoScope, redundancy, isRemote, direction, aSide, zSide, additionalInfo, project, additionalProperties);
+    return Objects.hash(type, href, uuid, name, description, state, change, operation, order, notifications, account, changeLog, bandwidth, geoScope, redundancy, isRemote, direction, aSide, zSide, additionalInfo, project);
   }
 
   @Override
@@ -737,7 +738,6 @@ public class Connection {
     sb.append("    zSide: ").append(toIndentedString(zSide)).append("\n");
     sb.append("    additionalInfo: ").append(toIndentedString(additionalInfo)).append("\n");
     sb.append("    project: ").append(toIndentedString(project)).append("\n");
-    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -753,221 +753,5 @@ public class Connection {
     return o.toString().replace("\n", "\n    ");
   }
 
-
-  public static HashSet<String> openapiFields;
-  public static HashSet<String> openapiRequiredFields;
-
-  static {
-    // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("type");
-    openapiFields.add("href");
-    openapiFields.add("uuid");
-    openapiFields.add("name");
-    openapiFields.add("description");
-    openapiFields.add("state");
-    openapiFields.add("change");
-    openapiFields.add("operation");
-    openapiFields.add("order");
-    openapiFields.add("notifications");
-    openapiFields.add("account");
-    openapiFields.add("changeLog");
-    openapiFields.add("bandwidth");
-    openapiFields.add("geoScope");
-    openapiFields.add("redundancy");
-    openapiFields.add("isRemote");
-    openapiFields.add("direction");
-    openapiFields.add("aSide");
-    openapiFields.add("zSide");
-    openapiFields.add("additionalInfo");
-    openapiFields.add("project");
-
-    // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("type");
-    openapiRequiredFields.add("name");
-    openapiRequiredFields.add("bandwidth");
-    openapiRequiredFields.add("aSide");
-    openapiRequiredFields.add("zSide");
-  }
-
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to Connection
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (!Connection.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in Connection is not found in the empty JSON string", Connection.openapiRequiredFields.toString()));
-        }
-      }
-
-      // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : Connection.openapiRequiredFields) {
-        if (jsonObj.get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
-        }
-      }
-      if ((jsonObj.get("href") != null && !jsonObj.get("href").isJsonNull()) && !jsonObj.get("href").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `href` to be a primitive type in the JSON string but got `%s`", jsonObj.get("href").toString()));
-      }
-      if ((jsonObj.get("uuid") != null && !jsonObj.get("uuid").isJsonNull()) && !jsonObj.get("uuid").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `uuid` to be a primitive type in the JSON string but got `%s`", jsonObj.get("uuid").toString()));
-      }
-      if (!jsonObj.get("name").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
-      }
-      if ((jsonObj.get("description") != null && !jsonObj.get("description").isJsonNull()) && !jsonObj.get("description").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `description` to be a primitive type in the JSON string but got `%s`", jsonObj.get("description").toString()));
-      }
-      // validate the optional field `change`
-      if (jsonObj.get("change") != null && !jsonObj.get("change").isJsonNull()) {
-        Change.validateJsonObject(jsonObj.getAsJsonObject("change"));
-      }
-      // validate the optional field `operation`
-      if (jsonObj.get("operation") != null && !jsonObj.get("operation").isJsonNull()) {
-        ConnectionOperation.validateJsonObject(jsonObj.getAsJsonObject("operation"));
-      }
-      // validate the optional field `order`
-      if (jsonObj.get("order") != null && !jsonObj.get("order").isJsonNull()) {
-        Order.validateJsonObject(jsonObj.getAsJsonObject("order"));
-      }
-      if (jsonObj.get("notifications") != null && !jsonObj.get("notifications").isJsonNull()) {
-        JsonArray jsonArraynotifications = jsonObj.getAsJsonArray("notifications");
-        if (jsonArraynotifications != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("notifications").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `notifications` to be an array in the JSON string but got `%s`", jsonObj.get("notifications").toString()));
-          }
-
-          // validate the optional field `notifications` (array)
-          for (int i = 0; i < jsonArraynotifications.size(); i++) {
-            SimplifiedNotification.validateJsonObject(jsonArraynotifications.get(i).getAsJsonObject());
-          };
-        }
-      }
-      // validate the optional field `account`
-      if (jsonObj.get("account") != null && !jsonObj.get("account").isJsonNull()) {
-        SimplifiedAccount.validateJsonObject(jsonObj.getAsJsonObject("account"));
-      }
-      // validate the optional field `changeLog`
-      if (jsonObj.get("changeLog") != null && !jsonObj.get("changeLog").isJsonNull()) {
-        Changelog.validateJsonObject(jsonObj.getAsJsonObject("changeLog"));
-      }
-      // validate the optional field `redundancy`
-      if (jsonObj.get("redundancy") != null && !jsonObj.get("redundancy").isJsonNull()) {
-        ConnectionRedundancy.validateJsonObject(jsonObj.getAsJsonObject("redundancy"));
-      }
-      // validate the required field `aSide`
-      ConnectionSide.validateJsonObject(jsonObj.getAsJsonObject("aSide"));
-      // validate the required field `zSide`
-      ConnectionSide.validateJsonObject(jsonObj.getAsJsonObject("zSide"));
-      if (jsonObj.get("additionalInfo") != null && !jsonObj.get("additionalInfo").isJsonNull()) {
-        JsonArray jsonArrayadditionalInfo = jsonObj.getAsJsonArray("additionalInfo");
-        if (jsonArrayadditionalInfo != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("additionalInfo").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `additionalInfo` to be an array in the JSON string but got `%s`", jsonObj.get("additionalInfo").toString()));
-          }
-
-          // validate the optional field `additionalInfo` (array)
-          for (int i = 0; i < jsonArrayadditionalInfo.size(); i++) {
-            ConnectionSideAdditionalInfo.validateJsonObject(jsonArrayadditionalInfo.get(i).getAsJsonObject());
-          };
-        }
-      }
-      // validate the optional field `project`
-      if (jsonObj.get("project") != null && !jsonObj.get("project").isJsonNull()) {
-        Project.validateJsonObject(jsonObj.getAsJsonObject("project"));
-      }
-  }
-
-  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
-    @SuppressWarnings("unchecked")
-    @Override
-    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!Connection.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'Connection' and its subtypes
-       }
-       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<Connection> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(Connection.class));
-
-       return (TypeAdapter<T>) new TypeAdapter<Connection>() {
-           @Override
-           public void write(JsonWriter out, Connection value) throws IOException {
-             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
-             obj.remove("additionalProperties");
-             // serialize additional properties
-             if (value.getAdditionalProperties() != null) {
-               for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
-                 if (entry.getValue() instanceof String)
-                   obj.addProperty(entry.getKey(), (String) entry.getValue());
-                 else if (entry.getValue() instanceof Number)
-                   obj.addProperty(entry.getKey(), (Number) entry.getValue());
-                 else if (entry.getValue() instanceof Boolean)
-                   obj.addProperty(entry.getKey(), (Boolean) entry.getValue());
-                 else if (entry.getValue() instanceof Character)
-                   obj.addProperty(entry.getKey(), (Character) entry.getValue());
-                 else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
-                 }
-               }
-             }
-             elementAdapter.write(out, obj);
-           }
-
-           @Override
-           public Connection read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
-             // store additional fields in the deserialized instance
-             Connection instance = thisAdapter.fromJsonTree(jsonObj);
-             for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
-               if (!openapiFields.contains(entry.getKey())) {
-                 if (entry.getValue().isJsonPrimitive()) { // primitive type
-                   if (entry.getValue().getAsJsonPrimitive().isString())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsString());
-                   else if (entry.getValue().getAsJsonPrimitive().isNumber())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsNumber());
-                   else if (entry.getValue().getAsJsonPrimitive().isBoolean())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
-                   else
-                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else if (entry.getValue().isJsonArray()) {
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
-                 } else { // JSON object
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
-                 }
-               }
-             }
-             return instance;
-           }
-
-       }.nullSafe();
-    }
-  }
-
- /**
-  * Create an instance of Connection given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of Connection
-  * @throws IOException if the JSON string is invalid with respect to Connection
-  */
-  public static Connection fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, Connection.class);
-  }
-
- /**
-  * Convert an instance of Connection to an JSON string
-  *
-  * @return JSON string
-  */
-  public String toJson() {
-    return JSON.getGson().toJson(this);
-  }
 }
 

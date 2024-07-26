@@ -11,2170 +11,1340 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.ApiCallback;
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.ApiResponse;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.Pair;
-import com.equinix.openapi.fabric.ProgressRequestBody;
-import com.equinix.openapi.fabric.ProgressResponseBody;
+import com.equinix.openapi.fabric.v4.model.*;
+import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.common.mapper.TypeRef;
+import io.restassured.http.Method;
+import io.restassured.response.Response;
 
-import com.google.gson.reflect.TypeToken;
-
-import java.io.IOException;
-
-
-import com.equinix.openapi.fabric.v4.model.BGPActionData;
-import com.equinix.openapi.fabric.v4.model.BGPActionRequest;
-import com.equinix.openapi.fabric.v4.model.BGPActionsBulkData;
-import com.equinix.openapi.fabric.v4.model.ConnectionChangeOperation;
-import com.equinix.openapi.fabric.v4.model.ConnectionRoutingProtocolPostRequest;
-import com.equinix.openapi.fabric.v4.model.Error;
-import com.equinix.openapi.fabric.v4.model.GetResponse;
-import com.equinix.openapi.fabric.v4.model.RoutingProtocolBase;
-import com.equinix.openapi.fabric.v4.model.RoutingProtocolChangeData;
-import com.equinix.openapi.fabric.v4.model.RoutingProtocolChangeDataResponse;
-import com.equinix.openapi.fabric.v4.model.RoutingProtocolData;
-import java.util.UUID;
-import com.equinix.openapi.fabric.v4.model.ValidateRequest;
-import com.equinix.openapi.fabric.v4.model.ValidateSubnetResponse;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import javax.ws.rs.core.GenericType;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
+import static io.restassured.http.Method.*;
 
 public class RoutingProtocolsApi {
-    private ApiClient localVarApiClient;
-    private int localHostIndex;
-    private String localCustomBaseUrl;
 
-    public RoutingProtocolsApi() {
-        this(Configuration.getDefaultApiClient());
+    private Supplier<RequestSpecBuilder> reqSpecSupplier;
+    private Consumer<RequestSpecBuilder> reqSpecCustomizer;
+
+    private RoutingProtocolsApi(Supplier<RequestSpecBuilder> reqSpecSupplier) {
+        this.reqSpecSupplier = reqSpecSupplier;
     }
 
-    public RoutingProtocolsApi(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+    public static RoutingProtocolsApi routingProtocols(Supplier<RequestSpecBuilder> reqSpecSupplier) {
+        return new RoutingProtocolsApi(reqSpecSupplier);
     }
 
-    public ApiClient getApiClient() {
-        return localVarApiClient;
+    private RequestSpecBuilder createReqSpec() {
+        RequestSpecBuilder reqSpec = reqSpecSupplier.get();
+        if(reqSpecCustomizer != null) {
+            reqSpecCustomizer.accept(reqSpec);
+        }
+        return reqSpec;
     }
 
-    public void setApiClient(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+    public List<Oper> getAllOperations() {
+        return Arrays.asList(
+                createConnectionRoutingProtocol(),
+                createConnectionRoutingProtocolsInBulk(),
+                deleteConnectionRoutingProtocolByUuid(),
+                getConnectionRoutingProtocolAllBgpActions(),
+                getConnectionRoutingProtocolByUuid(),
+                getConnectionRoutingProtocols(),
+                getConnectionRoutingProtocolsBgpActionByUuid(),
+                getConnectionRoutingProtocolsChangeByUuid(),
+                getConnectionRoutingProtocolsChanges(),
+                patchConnectionRoutingProtocolByUuid(),
+                postConnectionRoutingProtocolBgpActionByUuid(),
+                replaceConnectionRoutingProtocolByUuid(),
+                validateRoutingProtocol()
+        );
     }
 
-    public int getHostIndex() {
-        return localHostIndex;
+    public CreateConnectionRoutingProtocolOper createConnectionRoutingProtocol() {
+        return new CreateConnectionRoutingProtocolOper(createReqSpec());
     }
 
-    public void setHostIndex(int hostIndex) {
-        this.localHostIndex = hostIndex;
+    public CreateConnectionRoutingProtocolsInBulkOper createConnectionRoutingProtocolsInBulk() {
+        return new CreateConnectionRoutingProtocolsInBulkOper(createReqSpec());
     }
 
-    public String getCustomBaseUrl() {
-        return localCustomBaseUrl;
+    public DeleteConnectionRoutingProtocolByUuidOper deleteConnectionRoutingProtocolByUuid() {
+        return new DeleteConnectionRoutingProtocolByUuidOper(createReqSpec());
     }
 
-    public void setCustomBaseUrl(String customBaseUrl) {
-        this.localCustomBaseUrl = customBaseUrl;
+    public GetConnectionRoutingProtocolAllBgpActionsOper getConnectionRoutingProtocolAllBgpActions() {
+        return new GetConnectionRoutingProtocolAllBgpActionsOper(createReqSpec());
+    }
+
+    public GetConnectionRoutingProtocolByUuidOper getConnectionRoutingProtocolByUuid() {
+        return new GetConnectionRoutingProtocolByUuidOper(createReqSpec());
+    }
+
+    public GetConnectionRoutingProtocolsOper getConnectionRoutingProtocols() {
+        return new GetConnectionRoutingProtocolsOper(createReqSpec());
+    }
+
+    public GetConnectionRoutingProtocolsBgpActionByUuidOper getConnectionRoutingProtocolsBgpActionByUuid() {
+        return new GetConnectionRoutingProtocolsBgpActionByUuidOper(createReqSpec());
+    }
+
+    public GetConnectionRoutingProtocolsChangeByUuidOper getConnectionRoutingProtocolsChangeByUuid() {
+        return new GetConnectionRoutingProtocolsChangeByUuidOper(createReqSpec());
+    }
+
+    public GetConnectionRoutingProtocolsChangesOper getConnectionRoutingProtocolsChanges() {
+        return new GetConnectionRoutingProtocolsChangesOper(createReqSpec());
+    }
+
+    public PatchConnectionRoutingProtocolByUuidOper patchConnectionRoutingProtocolByUuid() {
+        return new PatchConnectionRoutingProtocolByUuidOper(createReqSpec());
+    }
+
+    public PostConnectionRoutingProtocolBgpActionByUuidOper postConnectionRoutingProtocolBgpActionByUuid() {
+        return new PostConnectionRoutingProtocolBgpActionByUuidOper(createReqSpec());
+    }
+
+    public ReplaceConnectionRoutingProtocolByUuidOper replaceConnectionRoutingProtocolByUuid() {
+        return new ReplaceConnectionRoutingProtocolByUuidOper(createReqSpec());
+    }
+
+    public ValidateRoutingProtocolOper validateRoutingProtocol() {
+        return new ValidateRoutingProtocolOper(createReqSpec());
     }
 
     /**
-     * Build call for createConnectionRoutingProtocol
-     * @param connectionId Connection Id (required)
-     * @param routingProtocolBase  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     * Customize request specification
+     * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+     * @return api
      */
-    public okhttp3.Call createConnectionRoutingProtocolCall(String connectionId, RoutingProtocolBase routingProtocolBase, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
-        }
-
-        Object localVarPostBody = routingProtocolBase;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/connections/{connectionId}/routingProtocols"
-            .replace("{" + "connectionId" + "}", localVarApiClient.escapeString(connectionId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
-        }
-
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call createConnectionRoutingProtocolValidateBeforeCall(String connectionId, RoutingProtocolBase routingProtocolBase, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'connectionId' is set
-        if (connectionId == null) {
-            throw new ApiException("Missing the required parameter 'connectionId' when calling createConnectionRoutingProtocol(Async)");
-        }
-
-        // verify the required parameter 'routingProtocolBase' is set
-        if (routingProtocolBase == null) {
-            throw new ApiException("Missing the required parameter 'routingProtocolBase' when calling createConnectionRoutingProtocol(Async)");
-        }
-
-        return createConnectionRoutingProtocolCall(connectionId, routingProtocolBase, _callback);
-
+    public RoutingProtocolsApi reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+        this.reqSpecCustomizer = reqSpecCustomizer;
+        return this;
     }
 
     /**
      * Create Protocol
      * This API provides capability to create Routing Protocol for connections
-     * @param connectionId Connection Id (required)
-     * @param routingProtocolBase  (required)
-     * @return RoutingProtocolData
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #connectionIdPath Connection Id (required)
+     * @see #body  (required)
+     * return RoutingProtocolData
      */
-    public RoutingProtocolData createConnectionRoutingProtocol(String connectionId, RoutingProtocolBase routingProtocolBase) throws ApiException {
-        ApiResponse<RoutingProtocolData> localVarResp = createConnectionRoutingProtocolWithHttpInfo(connectionId, routingProtocolBase);
-        return localVarResp.getData();
-    }
+    public static class CreateConnectionRoutingProtocolOper implements Oper {
 
-    /**
-     * Create Protocol
-     * This API provides capability to create Routing Protocol for connections
-     * @param connectionId Connection Id (required)
-     * @param routingProtocolBase  (required)
-     * @return ApiResponse&lt;RoutingProtocolData&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<RoutingProtocolData> createConnectionRoutingProtocolWithHttpInfo(String connectionId, RoutingProtocolBase routingProtocolBase) throws ApiException {
-        okhttp3.Call localVarCall = createConnectionRoutingProtocolValidateBeforeCall(connectionId, routingProtocolBase, null);
-        Type localVarReturnType = new TypeToken<RoutingProtocolData>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = POST;
+        public static final String REQ_URI = "/fabric/v4/connections/{connectionId}/routingProtocols";
 
-    /**
-     * Create Protocol (asynchronously)
-     * This API provides capability to create Routing Protocol for connections
-     * @param connectionId Connection Id (required)
-     * @param routingProtocolBase  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createConnectionRoutingProtocolAsync(String connectionId, RoutingProtocolBase routingProtocolBase, final ApiCallback<RoutingProtocolData> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = createConnectionRoutingProtocolValidateBeforeCall(connectionId, routingProtocolBase, _callback);
-        Type localVarReturnType = new TypeToken<RoutingProtocolData>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for createConnectionRoutingProtocolsInBulk
-     * @param connectionId Connection Id (required)
-     * @param connectionRoutingProtocolPostRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createConnectionRoutingProtocolsInBulkCall(String connectionId, ConnectionRoutingProtocolPostRequest connectionRoutingProtocolPostRequest, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
+        public CreateConnectionRoutingProtocolOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setContentType("application/json");
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
         }
 
-        Object localVarPostBody = connectionRoutingProtocolPostRequest;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/connections/{connectionId}/routingProtocols/bulk"
-            .replace("{" + "connectionId" + "}", localVarApiClient.escapeString(connectionId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
+        /**
+         * POST /fabric/v4/connections/{connectionId}/routingProtocols
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
         }
 
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
+        /**
+         * POST /fabric/v4/connections/{connectionId}/routingProtocols
+         * @param handler handler
+         * @return RoutingProtocolData
+         */
+        public RoutingProtocolData executeAs(Function<Response, Response> handler) {
+            TypeRef<RoutingProtocolData> type = new TypeRef<RoutingProtocolData>(){};
+            return execute(handler).as(type);
         }
 
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+         /**
+         * @param routingProtocolBase (RoutingProtocolBase)  (required)
+         * @return operation
+         */
+        public CreateConnectionRoutingProtocolOper body(RoutingProtocolBase routingProtocolBase) {
+            reqSpec.setBody(routingProtocolBase);
+            return this;
+        }
+
+        public static final String CONNECTION_ID_PATH = "connectionId";
+
+        /**
+         * @param connectionId (String) Connection Id (required)
+         * @return operation
+         */
+        public CreateConnectionRoutingProtocolOper connectionIdPath(Object connectionId) {
+            reqSpec.addPathParam(CONNECTION_ID_PATH, connectionId);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public CreateConnectionRoutingProtocolOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public CreateConnectionRoutingProtocolOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call createConnectionRoutingProtocolsInBulkValidateBeforeCall(String connectionId, ConnectionRoutingProtocolPostRequest connectionRoutingProtocolPostRequest, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'connectionId' is set
-        if (connectionId == null) {
-            throw new ApiException("Missing the required parameter 'connectionId' when calling createConnectionRoutingProtocolsInBulk(Async)");
-        }
-
-        // verify the required parameter 'connectionRoutingProtocolPostRequest' is set
-        if (connectionRoutingProtocolPostRequest == null) {
-            throw new ApiException("Missing the required parameter 'connectionRoutingProtocolPostRequest' when calling createConnectionRoutingProtocolsInBulk(Async)");
-        }
-
-        return createConnectionRoutingProtocolsInBulkCall(connectionId, connectionRoutingProtocolPostRequest, _callback);
-
-    }
-
     /**
      * Bulk Create Protocol
      * This API provides capability to create Routing Protocol for connections
-     * @param connectionId Connection Id (required)
-     * @param connectionRoutingProtocolPostRequest  (required)
-     * @return GetResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #connectionIdPath Connection Id (required)
+     * @see #body  (required)
+     * return GetResponse
      */
-    public GetResponse createConnectionRoutingProtocolsInBulk(String connectionId, ConnectionRoutingProtocolPostRequest connectionRoutingProtocolPostRequest) throws ApiException {
-        ApiResponse<GetResponse> localVarResp = createConnectionRoutingProtocolsInBulkWithHttpInfo(connectionId, connectionRoutingProtocolPostRequest);
-        return localVarResp.getData();
-    }
+    public static class CreateConnectionRoutingProtocolsInBulkOper implements Oper {
 
-    /**
-     * Bulk Create Protocol
-     * This API provides capability to create Routing Protocol for connections
-     * @param connectionId Connection Id (required)
-     * @param connectionRoutingProtocolPostRequest  (required)
-     * @return ApiResponse&lt;GetResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<GetResponse> createConnectionRoutingProtocolsInBulkWithHttpInfo(String connectionId, ConnectionRoutingProtocolPostRequest connectionRoutingProtocolPostRequest) throws ApiException {
-        okhttp3.Call localVarCall = createConnectionRoutingProtocolsInBulkValidateBeforeCall(connectionId, connectionRoutingProtocolPostRequest, null);
-        Type localVarReturnType = new TypeToken<GetResponse>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = POST;
+        public static final String REQ_URI = "/fabric/v4/connections/{connectionId}/routingProtocols/bulk";
 
-    /**
-     * Bulk Create Protocol (asynchronously)
-     * This API provides capability to create Routing Protocol for connections
-     * @param connectionId Connection Id (required)
-     * @param connectionRoutingProtocolPostRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createConnectionRoutingProtocolsInBulkAsync(String connectionId, ConnectionRoutingProtocolPostRequest connectionRoutingProtocolPostRequest, final ApiCallback<GetResponse> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = createConnectionRoutingProtocolsInBulkValidateBeforeCall(connectionId, connectionRoutingProtocolPostRequest, _callback);
-        Type localVarReturnType = new TypeToken<GetResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for deleteConnectionRoutingProtocolByUuid
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param connectionId Connection Id (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call deleteConnectionRoutingProtocolByUuidCall(UUID routingProtocolId, String connectionId, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
+        public CreateConnectionRoutingProtocolsInBulkOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setContentType("application/json");
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
         }
 
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}"
-            .replace("{" + "routingProtocolId" + "}", localVarApiClient.escapeString(routingProtocolId.toString()))
-            .replace("{" + "connectionId" + "}", localVarApiClient.escapeString(connectionId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
+        /**
+         * POST /fabric/v4/connections/{connectionId}/routingProtocols/bulk
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
         }
 
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
+        /**
+         * POST /fabric/v4/connections/{connectionId}/routingProtocols/bulk
+         * @param handler handler
+         * @return GetResponse
+         */
+        public GetResponse executeAs(Function<Response, Response> handler) {
+            TypeRef<GetResponse> type = new TypeRef<GetResponse>(){};
+            return execute(handler).as(type);
         }
 
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+         /**
+         * @param connectionRoutingProtocolPostRequest (ConnectionRoutingProtocolPostRequest)  (required)
+         * @return operation
+         */
+        public CreateConnectionRoutingProtocolsInBulkOper body(ConnectionRoutingProtocolPostRequest connectionRoutingProtocolPostRequest) {
+            reqSpec.setBody(connectionRoutingProtocolPostRequest);
+            return this;
+        }
+
+        public static final String CONNECTION_ID_PATH = "connectionId";
+
+        /**
+         * @param connectionId (String) Connection Id (required)
+         * @return operation
+         */
+        public CreateConnectionRoutingProtocolsInBulkOper connectionIdPath(Object connectionId) {
+            reqSpec.addPathParam(CONNECTION_ID_PATH, connectionId);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public CreateConnectionRoutingProtocolsInBulkOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public CreateConnectionRoutingProtocolsInBulkOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteConnectionRoutingProtocolByUuidValidateBeforeCall(UUID routingProtocolId, String connectionId, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'routingProtocolId' is set
-        if (routingProtocolId == null) {
-            throw new ApiException("Missing the required parameter 'routingProtocolId' when calling deleteConnectionRoutingProtocolByUuid(Async)");
-        }
-
-        // verify the required parameter 'connectionId' is set
-        if (connectionId == null) {
-            throw new ApiException("Missing the required parameter 'connectionId' when calling deleteConnectionRoutingProtocolByUuid(Async)");
-        }
-
-        return deleteConnectionRoutingProtocolByUuidCall(routingProtocolId, connectionId, _callback);
-
-    }
-
     /**
      * Delete Protocol
      * This API provides capability to delete Routing Protocols on virtual connection
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param connectionId Connection Id (required)
-     * @return RoutingProtocolData
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #routingProtocolIdPath Routing Protocol Id (required)
+     * @see #connectionIdPath Connection Id (required)
+     * return RoutingProtocolData
      */
-    public RoutingProtocolData deleteConnectionRoutingProtocolByUuid(UUID routingProtocolId, String connectionId) throws ApiException {
-        ApiResponse<RoutingProtocolData> localVarResp = deleteConnectionRoutingProtocolByUuidWithHttpInfo(routingProtocolId, connectionId);
-        return localVarResp.getData();
+    public static class DeleteConnectionRoutingProtocolByUuidOper implements Oper {
+
+        public static final Method REQ_METHOD = DELETE;
+        public static final String REQ_URI = "/fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}";
+
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
+
+        public DeleteConnectionRoutingProtocolByUuidOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
+        }
+
+        /**
+         * DELETE /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
+        }
+
+        /**
+         * DELETE /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}
+         * @param handler handler
+         * @return RoutingProtocolData
+         */
+        public RoutingProtocolData executeAs(Function<Response, Response> handler) {
+            TypeRef<RoutingProtocolData> type = new TypeRef<RoutingProtocolData>(){};
+            return execute(handler).as(type);
+        }
+
+        public static final String ROUTING_PROTOCOL_ID_PATH = "routingProtocolId";
+
+        /**
+         * @param routingProtocolId (UUID) Routing Protocol Id (required)
+         * @return operation
+         */
+        public DeleteConnectionRoutingProtocolByUuidOper routingProtocolIdPath(Object routingProtocolId) {
+            reqSpec.addPathParam(ROUTING_PROTOCOL_ID_PATH, routingProtocolId);
+            return this;
+        }
+
+        public static final String CONNECTION_ID_PATH = "connectionId";
+
+        /**
+         * @param connectionId (String) Connection Id (required)
+         * @return operation
+         */
+        public DeleteConnectionRoutingProtocolByUuidOper connectionIdPath(Object connectionId) {
+            reqSpec.addPathParam(CONNECTION_ID_PATH, connectionId);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public DeleteConnectionRoutingProtocolByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public DeleteConnectionRoutingProtocolByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    /**
-     * Delete Protocol
-     * This API provides capability to delete Routing Protocols on virtual connection
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param connectionId Connection Id (required)
-     * @return ApiResponse&lt;RoutingProtocolData&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<RoutingProtocolData> deleteConnectionRoutingProtocolByUuidWithHttpInfo(UUID routingProtocolId, String connectionId) throws ApiException {
-        okhttp3.Call localVarCall = deleteConnectionRoutingProtocolByUuidValidateBeforeCall(routingProtocolId, connectionId, null);
-        Type localVarReturnType = new TypeToken<RoutingProtocolData>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Delete Protocol (asynchronously)
-     * This API provides capability to delete Routing Protocols on virtual connection
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param connectionId Connection Id (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call deleteConnectionRoutingProtocolByUuidAsync(UUID routingProtocolId, String connectionId, final ApiCallback<RoutingProtocolData> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = deleteConnectionRoutingProtocolByUuidValidateBeforeCall(routingProtocolId, connectionId, _callback);
-        Type localVarReturnType = new TypeToken<RoutingProtocolData>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getConnectionRoutingProtocolAllBgpActions
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param connectionId Connection Id (required)
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric BGP Action object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getConnectionRoutingProtocolAllBgpActionsCall(UUID routingProtocolId, String connectionId, Integer offset, Integer limit, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
-        }
-
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}/actions"
-            .replace("{" + "routingProtocolId" + "}", localVarApiClient.escapeString(routingProtocolId.toString()))
-            .replace("{" + "connectionId" + "}", localVarApiClient.escapeString(connectionId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        if (offset != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("offset", offset));
-        }
-
-        if (limit != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
-        }
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
-        }
-
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getConnectionRoutingProtocolAllBgpActionsValidateBeforeCall(UUID routingProtocolId, String connectionId, Integer offset, Integer limit, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'routingProtocolId' is set
-        if (routingProtocolId == null) {
-            throw new ApiException("Missing the required parameter 'routingProtocolId' when calling getConnectionRoutingProtocolAllBgpActions(Async)");
-        }
-
-        // verify the required parameter 'connectionId' is set
-        if (connectionId == null) {
-            throw new ApiException("Missing the required parameter 'connectionId' when calling getConnectionRoutingProtocolAllBgpActions(Async)");
-        }
-
-        return getConnectionRoutingProtocolAllBgpActionsCall(routingProtocolId, connectionId, offset, limit, _callback);
-
-    }
-
     /**
      * Get BGP Actions
      * This API provides capability to get all BGP actions status
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param connectionId Connection Id (required)
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @return BGPActionsBulkData
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric BGP Action object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #routingProtocolIdPath Routing Protocol Id (required)
+     * @see #connectionIdPath Connection Id (required)
+     * @see #offsetQuery offset (optional)
+     * @see #limitQuery number of records to fetch (optional)
+     * return BGPActionsBulkData
      */
-    public BGPActionsBulkData getConnectionRoutingProtocolAllBgpActions(UUID routingProtocolId, String connectionId, Integer offset, Integer limit) throws ApiException {
-        ApiResponse<BGPActionsBulkData> localVarResp = getConnectionRoutingProtocolAllBgpActionsWithHttpInfo(routingProtocolId, connectionId, offset, limit);
-        return localVarResp.getData();
-    }
+    public static class GetConnectionRoutingProtocolAllBgpActionsOper implements Oper {
 
-    /**
-     * Get BGP Actions
-     * This API provides capability to get all BGP actions status
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param connectionId Connection Id (required)
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @return ApiResponse&lt;BGPActionsBulkData&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric BGP Action object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<BGPActionsBulkData> getConnectionRoutingProtocolAllBgpActionsWithHttpInfo(UUID routingProtocolId, String connectionId, Integer offset, Integer limit) throws ApiException {
-        okhttp3.Call localVarCall = getConnectionRoutingProtocolAllBgpActionsValidateBeforeCall(routingProtocolId, connectionId, offset, limit, null);
-        Type localVarReturnType = new TypeToken<BGPActionsBulkData>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = GET;
+        public static final String REQ_URI = "/fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}/actions";
 
-    /**
-     * Get BGP Actions (asynchronously)
-     * This API provides capability to get all BGP actions status
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param connectionId Connection Id (required)
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric BGP Action object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getConnectionRoutingProtocolAllBgpActionsAsync(UUID routingProtocolId, String connectionId, Integer offset, Integer limit, final ApiCallback<BGPActionsBulkData> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = getConnectionRoutingProtocolAllBgpActionsValidateBeforeCall(routingProtocolId, connectionId, offset, limit, _callback);
-        Type localVarReturnType = new TypeToken<BGPActionsBulkData>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getConnectionRoutingProtocolByUuid
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param connectionId Connection Id (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getConnectionRoutingProtocolByUuidCall(UUID routingProtocolId, String connectionId, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
+        public GetConnectionRoutingProtocolAllBgpActionsOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
         }
 
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}"
-            .replace("{" + "routingProtocolId" + "}", localVarApiClient.escapeString(routingProtocolId.toString()))
-            .replace("{" + "connectionId" + "}", localVarApiClient.escapeString(connectionId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
+        /**
+         * GET /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}/actions
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
         }
 
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
+        /**
+         * GET /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}/actions
+         * @param handler handler
+         * @return BGPActionsBulkData
+         */
+        public BGPActionsBulkData executeAs(Function<Response, Response> handler) {
+            TypeRef<BGPActionsBulkData> type = new TypeRef<BGPActionsBulkData>(){};
+            return execute(handler).as(type);
         }
 
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        public static final String ROUTING_PROTOCOL_ID_PATH = "routingProtocolId";
+
+        /**
+         * @param routingProtocolId (UUID) Routing Protocol Id (required)
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolAllBgpActionsOper routingProtocolIdPath(Object routingProtocolId) {
+            reqSpec.addPathParam(ROUTING_PROTOCOL_ID_PATH, routingProtocolId);
+            return this;
+        }
+
+        public static final String CONNECTION_ID_PATH = "connectionId";
+
+        /**
+         * @param connectionId (String) Connection Id (required)
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolAllBgpActionsOper connectionIdPath(Object connectionId) {
+            reqSpec.addPathParam(CONNECTION_ID_PATH, connectionId);
+            return this;
+        }
+
+        public static final String OFFSET_QUERY = "offset";
+
+        /**
+         * @param offset (Integer) offset (optional)
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolAllBgpActionsOper offsetQuery(Object... offset) {
+            reqSpec.addQueryParam(OFFSET_QUERY, offset);
+            return this;
+        }
+
+        public static final String LIMIT_QUERY = "limit";
+
+        /**
+         * @param limit (Integer) number of records to fetch (optional)
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolAllBgpActionsOper limitQuery(Object... limit) {
+            reqSpec.addQueryParam(LIMIT_QUERY, limit);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolAllBgpActionsOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolAllBgpActionsOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getConnectionRoutingProtocolByUuidValidateBeforeCall(UUID routingProtocolId, String connectionId, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'routingProtocolId' is set
-        if (routingProtocolId == null) {
-            throw new ApiException("Missing the required parameter 'routingProtocolId' when calling getConnectionRoutingProtocolByUuid(Async)");
-        }
-
-        // verify the required parameter 'connectionId' is set
-        if (connectionId == null) {
-            throw new ApiException("Missing the required parameter 'connectionId' when calling getConnectionRoutingProtocolByUuid(Async)");
-        }
-
-        return getConnectionRoutingProtocolByUuidCall(routingProtocolId, connectionId, _callback);
-
-    }
-
     /**
      * Get Protocol
      * This API provides capability to accept/reject user&#39;s virtual connection
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param connectionId Connection Id (required)
-     * @return RoutingProtocolData
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #routingProtocolIdPath Routing Protocol Id (required)
+     * @see #connectionIdPath Connection Id (required)
+     * return RoutingProtocolData
      */
-    public RoutingProtocolData getConnectionRoutingProtocolByUuid(UUID routingProtocolId, String connectionId) throws ApiException {
-        ApiResponse<RoutingProtocolData> localVarResp = getConnectionRoutingProtocolByUuidWithHttpInfo(routingProtocolId, connectionId);
-        return localVarResp.getData();
+    public static class GetConnectionRoutingProtocolByUuidOper implements Oper {
+
+        public static final Method REQ_METHOD = GET;
+        public static final String REQ_URI = "/fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}";
+
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
+
+        public GetConnectionRoutingProtocolByUuidOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
+        }
+
+        /**
+         * GET /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
+        }
+
+        /**
+         * GET /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}
+         * @param handler handler
+         * @return RoutingProtocolData
+         */
+        public RoutingProtocolData executeAs(Function<Response, Response> handler) {
+            TypeRef<RoutingProtocolData> type = new TypeRef<RoutingProtocolData>(){};
+            return execute(handler).as(type);
+        }
+
+        public static final String ROUTING_PROTOCOL_ID_PATH = "routingProtocolId";
+
+        /**
+         * @param routingProtocolId (UUID) Routing Protocol Id (required)
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolByUuidOper routingProtocolIdPath(Object routingProtocolId) {
+            reqSpec.addPathParam(ROUTING_PROTOCOL_ID_PATH, routingProtocolId);
+            return this;
+        }
+
+        public static final String CONNECTION_ID_PATH = "connectionId";
+
+        /**
+         * @param connectionId (String) Connection Id (required)
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolByUuidOper connectionIdPath(Object connectionId) {
+            reqSpec.addPathParam(CONNECTION_ID_PATH, connectionId);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    /**
-     * Get Protocol
-     * This API provides capability to accept/reject user&#39;s virtual connection
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param connectionId Connection Id (required)
-     * @return ApiResponse&lt;RoutingProtocolData&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<RoutingProtocolData> getConnectionRoutingProtocolByUuidWithHttpInfo(UUID routingProtocolId, String connectionId) throws ApiException {
-        okhttp3.Call localVarCall = getConnectionRoutingProtocolByUuidValidateBeforeCall(routingProtocolId, connectionId, null);
-        Type localVarReturnType = new TypeToken<RoutingProtocolData>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Get Protocol (asynchronously)
-     * This API provides capability to accept/reject user&#39;s virtual connection
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param connectionId Connection Id (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getConnectionRoutingProtocolByUuidAsync(UUID routingProtocolId, String connectionId, final ApiCallback<RoutingProtocolData> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getConnectionRoutingProtocolByUuidValidateBeforeCall(routingProtocolId, connectionId, _callback);
-        Type localVarReturnType = new TypeToken<RoutingProtocolData>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getConnectionRoutingProtocols
-     * @param connectionId Connection Id (required)
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getConnectionRoutingProtocolsCall(String connectionId, Integer offset, Integer limit, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
-        }
-
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/connections/{connectionId}/routingProtocols"
-            .replace("{" + "connectionId" + "}", localVarApiClient.escapeString(connectionId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        if (offset != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("offset", offset));
-        }
-
-        if (limit != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
-        }
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
-        }
-
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getConnectionRoutingProtocolsValidateBeforeCall(String connectionId, Integer offset, Integer limit, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'connectionId' is set
-        if (connectionId == null) {
-            throw new ApiException("Missing the required parameter 'connectionId' when calling getConnectionRoutingProtocols(Async)");
-        }
-
-        return getConnectionRoutingProtocolsCall(connectionId, offset, limit, _callback);
-
-    }
-
     /**
      * GetRoutingProtocols
      * This API provides capability to get Routing Protocols for connections
-     * @param connectionId Connection Id (required)
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @return GetResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #connectionIdPath Connection Id (required)
+     * @see #offsetQuery offset (optional)
+     * @see #limitQuery number of records to fetch (optional)
+     * return GetResponse
      */
-    public GetResponse getConnectionRoutingProtocols(String connectionId, Integer offset, Integer limit) throws ApiException {
-        ApiResponse<GetResponse> localVarResp = getConnectionRoutingProtocolsWithHttpInfo(connectionId, offset, limit);
-        return localVarResp.getData();
+    public static class GetConnectionRoutingProtocolsOper implements Oper {
+
+        public static final Method REQ_METHOD = GET;
+        public static final String REQ_URI = "/fabric/v4/connections/{connectionId}/routingProtocols";
+
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
+
+        public GetConnectionRoutingProtocolsOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
+        }
+
+        /**
+         * GET /fabric/v4/connections/{connectionId}/routingProtocols
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
+        }
+
+        /**
+         * GET /fabric/v4/connections/{connectionId}/routingProtocols
+         * @param handler handler
+         * @return GetResponse
+         */
+        public GetResponse executeAs(Function<Response, Response> handler) {
+            TypeRef<GetResponse> type = new TypeRef<GetResponse>(){};
+            return execute(handler).as(type);
+        }
+
+        public static final String CONNECTION_ID_PATH = "connectionId";
+
+        /**
+         * @param connectionId (String) Connection Id (required)
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolsOper connectionIdPath(Object connectionId) {
+            reqSpec.addPathParam(CONNECTION_ID_PATH, connectionId);
+            return this;
+        }
+
+        public static final String OFFSET_QUERY = "offset";
+
+        /**
+         * @param offset (Integer) offset (optional)
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolsOper offsetQuery(Object... offset) {
+            reqSpec.addQueryParam(OFFSET_QUERY, offset);
+            return this;
+        }
+
+        public static final String LIMIT_QUERY = "limit";
+
+        /**
+         * @param limit (Integer) number of records to fetch (optional)
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolsOper limitQuery(Object... limit) {
+            reqSpec.addQueryParam(LIMIT_QUERY, limit);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolsOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolsOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    /**
-     * GetRoutingProtocols
-     * This API provides capability to get Routing Protocols for connections
-     * @param connectionId Connection Id (required)
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @return ApiResponse&lt;GetResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<GetResponse> getConnectionRoutingProtocolsWithHttpInfo(String connectionId, Integer offset, Integer limit) throws ApiException {
-        okhttp3.Call localVarCall = getConnectionRoutingProtocolsValidateBeforeCall(connectionId, offset, limit, null);
-        Type localVarReturnType = new TypeToken<GetResponse>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * GetRoutingProtocols (asynchronously)
-     * This API provides capability to get Routing Protocols for connections
-     * @param connectionId Connection Id (required)
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getConnectionRoutingProtocolsAsync(String connectionId, Integer offset, Integer limit, final ApiCallback<GetResponse> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getConnectionRoutingProtocolsValidateBeforeCall(connectionId, offset, limit, _callback);
-        Type localVarReturnType = new TypeToken<GetResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getConnectionRoutingProtocolsBgpActionByUuid
-     * @param connectionId Connection Id (required)
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param actionId BGP Action UUID (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric BGP Action object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getConnectionRoutingProtocolsBgpActionByUuidCall(String connectionId, UUID routingProtocolId, UUID actionId, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
-        }
-
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}/actions/{actionId}"
-            .replace("{" + "connectionId" + "}", localVarApiClient.escapeString(connectionId.toString()))
-            .replace("{" + "routingProtocolId" + "}", localVarApiClient.escapeString(routingProtocolId.toString()))
-            .replace("{" + "actionId" + "}", localVarApiClient.escapeString(actionId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
-        }
-
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getConnectionRoutingProtocolsBgpActionByUuidValidateBeforeCall(String connectionId, UUID routingProtocolId, UUID actionId, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'connectionId' is set
-        if (connectionId == null) {
-            throw new ApiException("Missing the required parameter 'connectionId' when calling getConnectionRoutingProtocolsBgpActionByUuid(Async)");
-        }
-
-        // verify the required parameter 'routingProtocolId' is set
-        if (routingProtocolId == null) {
-            throw new ApiException("Missing the required parameter 'routingProtocolId' when calling getConnectionRoutingProtocolsBgpActionByUuid(Async)");
-        }
-
-        // verify the required parameter 'actionId' is set
-        if (actionId == null) {
-            throw new ApiException("Missing the required parameter 'actionId' when calling getConnectionRoutingProtocolsBgpActionByUuid(Async)");
-        }
-
-        return getConnectionRoutingProtocolsBgpActionByUuidCall(connectionId, routingProtocolId, actionId, _callback);
-
-    }
-
     /**
      * Get BGP Action
      * This API provides capability to retrieve specific BGP action
-     * @param connectionId Connection Id (required)
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param actionId BGP Action UUID (required)
-     * @return BGPActionData
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric BGP Action object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #connectionIdPath Connection Id (required)
+     * @see #routingProtocolIdPath Routing Protocol Id (required)
+     * @see #actionIdPath BGP Action UUID (required)
+     * return BGPActionData
      */
-    public BGPActionData getConnectionRoutingProtocolsBgpActionByUuid(String connectionId, UUID routingProtocolId, UUID actionId) throws ApiException {
-        ApiResponse<BGPActionData> localVarResp = getConnectionRoutingProtocolsBgpActionByUuidWithHttpInfo(connectionId, routingProtocolId, actionId);
-        return localVarResp.getData();
+    public static class GetConnectionRoutingProtocolsBgpActionByUuidOper implements Oper {
+
+        public static final Method REQ_METHOD = GET;
+        public static final String REQ_URI = "/fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}/actions/{actionId}";
+
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
+
+        public GetConnectionRoutingProtocolsBgpActionByUuidOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
+        }
+
+        /**
+         * GET /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}/actions/{actionId}
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
+        }
+
+        /**
+         * GET /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}/actions/{actionId}
+         * @param handler handler
+         * @return BGPActionData
+         */
+        public BGPActionData executeAs(Function<Response, Response> handler) {
+            TypeRef<BGPActionData> type = new TypeRef<BGPActionData>(){};
+            return execute(handler).as(type);
+        }
+
+        public static final String CONNECTION_ID_PATH = "connectionId";
+
+        /**
+         * @param connectionId (String) Connection Id (required)
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolsBgpActionByUuidOper connectionIdPath(Object connectionId) {
+            reqSpec.addPathParam(CONNECTION_ID_PATH, connectionId);
+            return this;
+        }
+
+        public static final String ROUTING_PROTOCOL_ID_PATH = "routingProtocolId";
+
+        /**
+         * @param routingProtocolId (UUID) Routing Protocol Id (required)
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolsBgpActionByUuidOper routingProtocolIdPath(Object routingProtocolId) {
+            reqSpec.addPathParam(ROUTING_PROTOCOL_ID_PATH, routingProtocolId);
+            return this;
+        }
+
+        public static final String ACTION_ID_PATH = "actionId";
+
+        /**
+         * @param actionId (UUID) BGP Action UUID (required)
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolsBgpActionByUuidOper actionIdPath(Object actionId) {
+            reqSpec.addPathParam(ACTION_ID_PATH, actionId);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolsBgpActionByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolsBgpActionByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    /**
-     * Get BGP Action
-     * This API provides capability to retrieve specific BGP action
-     * @param connectionId Connection Id (required)
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param actionId BGP Action UUID (required)
-     * @return ApiResponse&lt;BGPActionData&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric BGP Action object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<BGPActionData> getConnectionRoutingProtocolsBgpActionByUuidWithHttpInfo(String connectionId, UUID routingProtocolId, UUID actionId) throws ApiException {
-        okhttp3.Call localVarCall = getConnectionRoutingProtocolsBgpActionByUuidValidateBeforeCall(connectionId, routingProtocolId, actionId, null);
-        Type localVarReturnType = new TypeToken<BGPActionData>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Get BGP Action (asynchronously)
-     * This API provides capability to retrieve specific BGP action
-     * @param connectionId Connection Id (required)
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param actionId BGP Action UUID (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric BGP Action object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getConnectionRoutingProtocolsBgpActionByUuidAsync(String connectionId, UUID routingProtocolId, UUID actionId, final ApiCallback<BGPActionData> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getConnectionRoutingProtocolsBgpActionByUuidValidateBeforeCall(connectionId, routingProtocolId, actionId, _callback);
-        Type localVarReturnType = new TypeToken<BGPActionData>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getConnectionRoutingProtocolsChangeByUuid
-     * @param connectionId Connection Id (required)
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param changeId Routing Protocol Change UUID (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Routing Protocol Change object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getConnectionRoutingProtocolsChangeByUuidCall(String connectionId, UUID routingProtocolId, UUID changeId, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
-        }
-
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}/changes/{changeId}"
-            .replace("{" + "connectionId" + "}", localVarApiClient.escapeString(connectionId.toString()))
-            .replace("{" + "routingProtocolId" + "}", localVarApiClient.escapeString(routingProtocolId.toString()))
-            .replace("{" + "changeId" + "}", localVarApiClient.escapeString(changeId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
-        }
-
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getConnectionRoutingProtocolsChangeByUuidValidateBeforeCall(String connectionId, UUID routingProtocolId, UUID changeId, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'connectionId' is set
-        if (connectionId == null) {
-            throw new ApiException("Missing the required parameter 'connectionId' when calling getConnectionRoutingProtocolsChangeByUuid(Async)");
-        }
-
-        // verify the required parameter 'routingProtocolId' is set
-        if (routingProtocolId == null) {
-            throw new ApiException("Missing the required parameter 'routingProtocolId' when calling getConnectionRoutingProtocolsChangeByUuid(Async)");
-        }
-
-        // verify the required parameter 'changeId' is set
-        if (changeId == null) {
-            throw new ApiException("Missing the required parameter 'changeId' when calling getConnectionRoutingProtocolsChangeByUuid(Async)");
-        }
-
-        return getConnectionRoutingProtocolsChangeByUuidCall(connectionId, routingProtocolId, changeId, _callback);
-
-    }
-
     /**
      * Get Change By ID
      * This API provides capability to retrieve specific Routing Protocol Change
-     * @param connectionId Connection Id (required)
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param changeId Routing Protocol Change UUID (required)
-     * @return RoutingProtocolChangeData
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Routing Protocol Change object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #connectionIdPath Connection Id (required)
+     * @see #routingProtocolIdPath Routing Protocol Id (required)
+     * @see #changeIdPath Routing Protocol Change UUID (required)
+     * return RoutingProtocolChangeData
      */
-    public RoutingProtocolChangeData getConnectionRoutingProtocolsChangeByUuid(String connectionId, UUID routingProtocolId, UUID changeId) throws ApiException {
-        ApiResponse<RoutingProtocolChangeData> localVarResp = getConnectionRoutingProtocolsChangeByUuidWithHttpInfo(connectionId, routingProtocolId, changeId);
-        return localVarResp.getData();
+    public static class GetConnectionRoutingProtocolsChangeByUuidOper implements Oper {
+
+        public static final Method REQ_METHOD = GET;
+        public static final String REQ_URI = "/fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}/changes/{changeId}";
+
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
+
+        public GetConnectionRoutingProtocolsChangeByUuidOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
+        }
+
+        /**
+         * GET /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}/changes/{changeId}
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
+        }
+
+        /**
+         * GET /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}/changes/{changeId}
+         * @param handler handler
+         * @return RoutingProtocolChangeData
+         */
+        public RoutingProtocolChangeData executeAs(Function<Response, Response> handler) {
+            TypeRef<RoutingProtocolChangeData> type = new TypeRef<RoutingProtocolChangeData>(){};
+            return execute(handler).as(type);
+        }
+
+        public static final String CONNECTION_ID_PATH = "connectionId";
+
+        /**
+         * @param connectionId (String) Connection Id (required)
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolsChangeByUuidOper connectionIdPath(Object connectionId) {
+            reqSpec.addPathParam(CONNECTION_ID_PATH, connectionId);
+            return this;
+        }
+
+        public static final String ROUTING_PROTOCOL_ID_PATH = "routingProtocolId";
+
+        /**
+         * @param routingProtocolId (UUID) Routing Protocol Id (required)
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolsChangeByUuidOper routingProtocolIdPath(Object routingProtocolId) {
+            reqSpec.addPathParam(ROUTING_PROTOCOL_ID_PATH, routingProtocolId);
+            return this;
+        }
+
+        public static final String CHANGE_ID_PATH = "changeId";
+
+        /**
+         * @param changeId (UUID) Routing Protocol Change UUID (required)
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolsChangeByUuidOper changeIdPath(Object changeId) {
+            reqSpec.addPathParam(CHANGE_ID_PATH, changeId);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolsChangeByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolsChangeByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    /**
-     * Get Change By ID
-     * This API provides capability to retrieve specific Routing Protocol Change
-     * @param connectionId Connection Id (required)
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param changeId Routing Protocol Change UUID (required)
-     * @return ApiResponse&lt;RoutingProtocolChangeData&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Routing Protocol Change object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<RoutingProtocolChangeData> getConnectionRoutingProtocolsChangeByUuidWithHttpInfo(String connectionId, UUID routingProtocolId, UUID changeId) throws ApiException {
-        okhttp3.Call localVarCall = getConnectionRoutingProtocolsChangeByUuidValidateBeforeCall(connectionId, routingProtocolId, changeId, null);
-        Type localVarReturnType = new TypeToken<RoutingProtocolChangeData>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Get Change By ID (asynchronously)
-     * This API provides capability to retrieve specific Routing Protocol Change
-     * @param connectionId Connection Id (required)
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param changeId Routing Protocol Change UUID (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Routing Protocol Change object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getConnectionRoutingProtocolsChangeByUuidAsync(String connectionId, UUID routingProtocolId, UUID changeId, final ApiCallback<RoutingProtocolChangeData> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getConnectionRoutingProtocolsChangeByUuidValidateBeforeCall(connectionId, routingProtocolId, changeId, _callback);
-        Type localVarReturnType = new TypeToken<RoutingProtocolChangeData>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getConnectionRoutingProtocolsChanges
-     * @param connectionId Connection Id (required)
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Routing Protocol Change object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getConnectionRoutingProtocolsChangesCall(String connectionId, UUID routingProtocolId, Integer offset, Integer limit, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
-        }
-
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}/changes"
-            .replace("{" + "connectionId" + "}", localVarApiClient.escapeString(connectionId.toString()))
-            .replace("{" + "routingProtocolId" + "}", localVarApiClient.escapeString(routingProtocolId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        if (offset != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("offset", offset));
-        }
-
-        if (limit != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
-        }
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
-        }
-
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getConnectionRoutingProtocolsChangesValidateBeforeCall(String connectionId, UUID routingProtocolId, Integer offset, Integer limit, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'connectionId' is set
-        if (connectionId == null) {
-            throw new ApiException("Missing the required parameter 'connectionId' when calling getConnectionRoutingProtocolsChanges(Async)");
-        }
-
-        // verify the required parameter 'routingProtocolId' is set
-        if (routingProtocolId == null) {
-            throw new ApiException("Missing the required parameter 'routingProtocolId' when calling getConnectionRoutingProtocolsChanges(Async)");
-        }
-
-        return getConnectionRoutingProtocolsChangesCall(connectionId, routingProtocolId, offset, limit, _callback);
-
-    }
-
     /**
      * Get Changes
      * This API provides capability to retrieve user&#39;s Routing Protocol Changes
-     * @param connectionId Connection Id (required)
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @return RoutingProtocolChangeDataResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Routing Protocol Change object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #connectionIdPath Connection Id (required)
+     * @see #routingProtocolIdPath Routing Protocol Id (required)
+     * @see #offsetQuery offset (optional)
+     * @see #limitQuery number of records to fetch (optional)
+     * return RoutingProtocolChangeDataResponse
      */
-    public RoutingProtocolChangeDataResponse getConnectionRoutingProtocolsChanges(String connectionId, UUID routingProtocolId, Integer offset, Integer limit) throws ApiException {
-        ApiResponse<RoutingProtocolChangeDataResponse> localVarResp = getConnectionRoutingProtocolsChangesWithHttpInfo(connectionId, routingProtocolId, offset, limit);
-        return localVarResp.getData();
+    public static class GetConnectionRoutingProtocolsChangesOper implements Oper {
+
+        public static final Method REQ_METHOD = GET;
+        public static final String REQ_URI = "/fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}/changes";
+
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
+
+        public GetConnectionRoutingProtocolsChangesOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
+        }
+
+        /**
+         * GET /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}/changes
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
+        }
+
+        /**
+         * GET /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}/changes
+         * @param handler handler
+         * @return RoutingProtocolChangeDataResponse
+         */
+        public RoutingProtocolChangeDataResponse executeAs(Function<Response, Response> handler) {
+            TypeRef<RoutingProtocolChangeDataResponse> type = new TypeRef<RoutingProtocolChangeDataResponse>(){};
+            return execute(handler).as(type);
+        }
+
+        public static final String CONNECTION_ID_PATH = "connectionId";
+
+        /**
+         * @param connectionId (String) Connection Id (required)
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolsChangesOper connectionIdPath(Object connectionId) {
+            reqSpec.addPathParam(CONNECTION_ID_PATH, connectionId);
+            return this;
+        }
+
+        public static final String ROUTING_PROTOCOL_ID_PATH = "routingProtocolId";
+
+        /**
+         * @param routingProtocolId (UUID) Routing Protocol Id (required)
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolsChangesOper routingProtocolIdPath(Object routingProtocolId) {
+            reqSpec.addPathParam(ROUTING_PROTOCOL_ID_PATH, routingProtocolId);
+            return this;
+        }
+
+        public static final String OFFSET_QUERY = "offset";
+
+        /**
+         * @param offset (Integer) offset (optional)
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolsChangesOper offsetQuery(Object... offset) {
+            reqSpec.addQueryParam(OFFSET_QUERY, offset);
+            return this;
+        }
+
+        public static final String LIMIT_QUERY = "limit";
+
+        /**
+         * @param limit (Integer) number of records to fetch (optional)
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolsChangesOper limitQuery(Object... limit) {
+            reqSpec.addQueryParam(LIMIT_QUERY, limit);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolsChangesOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public GetConnectionRoutingProtocolsChangesOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    /**
-     * Get Changes
-     * This API provides capability to retrieve user&#39;s Routing Protocol Changes
-     * @param connectionId Connection Id (required)
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @return ApiResponse&lt;RoutingProtocolChangeDataResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Routing Protocol Change object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<RoutingProtocolChangeDataResponse> getConnectionRoutingProtocolsChangesWithHttpInfo(String connectionId, UUID routingProtocolId, Integer offset, Integer limit) throws ApiException {
-        okhttp3.Call localVarCall = getConnectionRoutingProtocolsChangesValidateBeforeCall(connectionId, routingProtocolId, offset, limit, null);
-        Type localVarReturnType = new TypeToken<RoutingProtocolChangeDataResponse>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Get Changes (asynchronously)
-     * This API provides capability to retrieve user&#39;s Routing Protocol Changes
-     * @param connectionId Connection Id (required)
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Routing Protocol Change object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getConnectionRoutingProtocolsChangesAsync(String connectionId, UUID routingProtocolId, Integer offset, Integer limit, final ApiCallback<RoutingProtocolChangeDataResponse> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getConnectionRoutingProtocolsChangesValidateBeforeCall(connectionId, routingProtocolId, offset, limit, _callback);
-        Type localVarReturnType = new TypeToken<RoutingProtocolChangeDataResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for patchConnectionRoutingProtocolByUuid
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param connectionId Connection Id (required)
-     * @param connectionChangeOperation  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call patchConnectionRoutingProtocolByUuidCall(UUID routingProtocolId, String connectionId, List<ConnectionChangeOperation> connectionChangeOperation, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
-        }
-
-        Object localVarPostBody = connectionChangeOperation;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}"
-            .replace("{" + "routingProtocolId" + "}", localVarApiClient.escapeString(routingProtocolId.toString()))
-            .replace("{" + "connectionId" + "}", localVarApiClient.escapeString(connectionId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
-        }
-
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call patchConnectionRoutingProtocolByUuidValidateBeforeCall(UUID routingProtocolId, String connectionId, List<ConnectionChangeOperation> connectionChangeOperation, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'routingProtocolId' is set
-        if (routingProtocolId == null) {
-            throw new ApiException("Missing the required parameter 'routingProtocolId' when calling patchConnectionRoutingProtocolByUuid(Async)");
-        }
-
-        // verify the required parameter 'connectionId' is set
-        if (connectionId == null) {
-            throw new ApiException("Missing the required parameter 'connectionId' when calling patchConnectionRoutingProtocolByUuid(Async)");
-        }
-
-        // verify the required parameter 'connectionChangeOperation' is set
-        if (connectionChangeOperation == null) {
-            throw new ApiException("Missing the required parameter 'connectionChangeOperation' when calling patchConnectionRoutingProtocolByUuid(Async)");
-        }
-
-        return patchConnectionRoutingProtocolByUuidCall(routingProtocolId, connectionId, connectionChangeOperation, _callback);
-
-    }
-
     /**
      * Patch Protocol
      * This API provides capability to partially update Routing Protocols on a virtual connection
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param connectionId Connection Id (required)
-     * @param connectionChangeOperation  (required)
-     * @return RoutingProtocolData
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #routingProtocolIdPath Routing Protocol Id (required)
+     * @see #connectionIdPath Connection Id (required)
+     * @see #body  (required)
+     * return RoutingProtocolData
      */
-    public RoutingProtocolData patchConnectionRoutingProtocolByUuid(UUID routingProtocolId, String connectionId, List<ConnectionChangeOperation> connectionChangeOperation) throws ApiException {
-        ApiResponse<RoutingProtocolData> localVarResp = patchConnectionRoutingProtocolByUuidWithHttpInfo(routingProtocolId, connectionId, connectionChangeOperation);
-        return localVarResp.getData();
+    public static class PatchConnectionRoutingProtocolByUuidOper implements Oper {
+
+        public static final Method REQ_METHOD = PATCH;
+        public static final String REQ_URI = "/fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}";
+
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
+
+        public PatchConnectionRoutingProtocolByUuidOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setContentType("application/json");
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
+        }
+
+        /**
+         * PATCH /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
+        }
+
+        /**
+         * PATCH /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}
+         * @param handler handler
+         * @return RoutingProtocolData
+         */
+        public RoutingProtocolData executeAs(Function<Response, Response> handler) {
+            TypeRef<RoutingProtocolData> type = new TypeRef<RoutingProtocolData>(){};
+            return execute(handler).as(type);
+        }
+
+         /**
+         * @param connectionChangeOperation (List&lt;ConnectionChangeOperation&gt;)  (required)
+         * @return operation
+         */
+        public PatchConnectionRoutingProtocolByUuidOper body(List<ConnectionChangeOperation> connectionChangeOperation) {
+            reqSpec.setBody(connectionChangeOperation);
+            return this;
+        }
+
+        public static final String ROUTING_PROTOCOL_ID_PATH = "routingProtocolId";
+
+        /**
+         * @param routingProtocolId (UUID) Routing Protocol Id (required)
+         * @return operation
+         */
+        public PatchConnectionRoutingProtocolByUuidOper routingProtocolIdPath(Object routingProtocolId) {
+            reqSpec.addPathParam(ROUTING_PROTOCOL_ID_PATH, routingProtocolId);
+            return this;
+        }
+
+        public static final String CONNECTION_ID_PATH = "connectionId";
+
+        /**
+         * @param connectionId (String) Connection Id (required)
+         * @return operation
+         */
+        public PatchConnectionRoutingProtocolByUuidOper connectionIdPath(Object connectionId) {
+            reqSpec.addPathParam(CONNECTION_ID_PATH, connectionId);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public PatchConnectionRoutingProtocolByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public PatchConnectionRoutingProtocolByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    /**
-     * Patch Protocol
-     * This API provides capability to partially update Routing Protocols on a virtual connection
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param connectionId Connection Id (required)
-     * @param connectionChangeOperation  (required)
-     * @return ApiResponse&lt;RoutingProtocolData&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<RoutingProtocolData> patchConnectionRoutingProtocolByUuidWithHttpInfo(UUID routingProtocolId, String connectionId, List<ConnectionChangeOperation> connectionChangeOperation) throws ApiException {
-        okhttp3.Call localVarCall = patchConnectionRoutingProtocolByUuidValidateBeforeCall(routingProtocolId, connectionId, connectionChangeOperation, null);
-        Type localVarReturnType = new TypeToken<RoutingProtocolData>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Patch Protocol (asynchronously)
-     * This API provides capability to partially update Routing Protocols on a virtual connection
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param connectionId Connection Id (required)
-     * @param connectionChangeOperation  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call patchConnectionRoutingProtocolByUuidAsync(UUID routingProtocolId, String connectionId, List<ConnectionChangeOperation> connectionChangeOperation, final ApiCallback<RoutingProtocolData> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = patchConnectionRoutingProtocolByUuidValidateBeforeCall(routingProtocolId, connectionId, connectionChangeOperation, _callback);
-        Type localVarReturnType = new TypeToken<RoutingProtocolData>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for postConnectionRoutingProtocolBgpActionByUuid
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param connectionId Connection Id (required)
-     * @param bgPActionRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call postConnectionRoutingProtocolBgpActionByUuidCall(UUID routingProtocolId, String connectionId, BGPActionRequest bgPActionRequest, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
-        }
-
-        Object localVarPostBody = bgPActionRequest;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}/actions"
-            .replace("{" + "routingProtocolId" + "}", localVarApiClient.escapeString(routingProtocolId.toString()))
-            .replace("{" + "connectionId" + "}", localVarApiClient.escapeString(connectionId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
-        }
-
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call postConnectionRoutingProtocolBgpActionByUuidValidateBeforeCall(UUID routingProtocolId, String connectionId, BGPActionRequest bgPActionRequest, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'routingProtocolId' is set
-        if (routingProtocolId == null) {
-            throw new ApiException("Missing the required parameter 'routingProtocolId' when calling postConnectionRoutingProtocolBgpActionByUuid(Async)");
-        }
-
-        // verify the required parameter 'connectionId' is set
-        if (connectionId == null) {
-            throw new ApiException("Missing the required parameter 'connectionId' when calling postConnectionRoutingProtocolBgpActionByUuid(Async)");
-        }
-
-        // verify the required parameter 'bgPActionRequest' is set
-        if (bgPActionRequest == null) {
-            throw new ApiException("Missing the required parameter 'bgPActionRequest' when calling postConnectionRoutingProtocolBgpActionByUuid(Async)");
-        }
-
-        return postConnectionRoutingProtocolBgpActionByUuidCall(routingProtocolId, connectionId, bgPActionRequest, _callback);
-
-    }
-
     /**
      * Clear/Reset BGP
      * This API provides capability to clear/reset Routing Protocols BGP session
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param connectionId Connection Id (required)
-     * @param bgPActionRequest  (required)
-     * @return BGPActionData
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #routingProtocolIdPath Routing Protocol Id (required)
+     * @see #connectionIdPath Connection Id (required)
+     * @see #body  (required)
+     * return BGPActionData
      */
-    public BGPActionData postConnectionRoutingProtocolBgpActionByUuid(UUID routingProtocolId, String connectionId, BGPActionRequest bgPActionRequest) throws ApiException {
-        ApiResponse<BGPActionData> localVarResp = postConnectionRoutingProtocolBgpActionByUuidWithHttpInfo(routingProtocolId, connectionId, bgPActionRequest);
-        return localVarResp.getData();
+    public static class PostConnectionRoutingProtocolBgpActionByUuidOper implements Oper {
+
+        public static final Method REQ_METHOD = POST;
+        public static final String REQ_URI = "/fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}/actions";
+
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
+
+        public PostConnectionRoutingProtocolBgpActionByUuidOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setContentType("application/json");
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
+        }
+
+        /**
+         * POST /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}/actions
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
+        }
+
+        /**
+         * POST /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}/actions
+         * @param handler handler
+         * @return BGPActionData
+         */
+        public BGPActionData executeAs(Function<Response, Response> handler) {
+            TypeRef<BGPActionData> type = new TypeRef<BGPActionData>(){};
+            return execute(handler).as(type);
+        }
+
+         /**
+         * @param bgPActionRequest (BGPActionRequest)  (required)
+         * @return operation
+         */
+        public PostConnectionRoutingProtocolBgpActionByUuidOper body(BGPActionRequest bgPActionRequest) {
+            reqSpec.setBody(bgPActionRequest);
+            return this;
+        }
+
+        public static final String ROUTING_PROTOCOL_ID_PATH = "routingProtocolId";
+
+        /**
+         * @param routingProtocolId (UUID) Routing Protocol Id (required)
+         * @return operation
+         */
+        public PostConnectionRoutingProtocolBgpActionByUuidOper routingProtocolIdPath(Object routingProtocolId) {
+            reqSpec.addPathParam(ROUTING_PROTOCOL_ID_PATH, routingProtocolId);
+            return this;
+        }
+
+        public static final String CONNECTION_ID_PATH = "connectionId";
+
+        /**
+         * @param connectionId (String) Connection Id (required)
+         * @return operation
+         */
+        public PostConnectionRoutingProtocolBgpActionByUuidOper connectionIdPath(Object connectionId) {
+            reqSpec.addPathParam(CONNECTION_ID_PATH, connectionId);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public PostConnectionRoutingProtocolBgpActionByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public PostConnectionRoutingProtocolBgpActionByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    /**
-     * Clear/Reset BGP
-     * This API provides capability to clear/reset Routing Protocols BGP session
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param connectionId Connection Id (required)
-     * @param bgPActionRequest  (required)
-     * @return ApiResponse&lt;BGPActionData&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<BGPActionData> postConnectionRoutingProtocolBgpActionByUuidWithHttpInfo(UUID routingProtocolId, String connectionId, BGPActionRequest bgPActionRequest) throws ApiException {
-        okhttp3.Call localVarCall = postConnectionRoutingProtocolBgpActionByUuidValidateBeforeCall(routingProtocolId, connectionId, bgPActionRequest, null);
-        Type localVarReturnType = new TypeToken<BGPActionData>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Clear/Reset BGP (asynchronously)
-     * This API provides capability to clear/reset Routing Protocols BGP session
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param connectionId Connection Id (required)
-     * @param bgPActionRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call postConnectionRoutingProtocolBgpActionByUuidAsync(UUID routingProtocolId, String connectionId, BGPActionRequest bgPActionRequest, final ApiCallback<BGPActionData> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = postConnectionRoutingProtocolBgpActionByUuidValidateBeforeCall(routingProtocolId, connectionId, bgPActionRequest, _callback);
-        Type localVarReturnType = new TypeToken<BGPActionData>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for replaceConnectionRoutingProtocolByUuid
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param connectionId Connection Id (required)
-     * @param routingProtocolBase  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call replaceConnectionRoutingProtocolByUuidCall(UUID routingProtocolId, String connectionId, RoutingProtocolBase routingProtocolBase, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
-        }
-
-        Object localVarPostBody = routingProtocolBase;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}"
-            .replace("{" + "routingProtocolId" + "}", localVarApiClient.escapeString(routingProtocolId.toString()))
-            .replace("{" + "connectionId" + "}", localVarApiClient.escapeString(connectionId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
-        }
-
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call replaceConnectionRoutingProtocolByUuidValidateBeforeCall(UUID routingProtocolId, String connectionId, RoutingProtocolBase routingProtocolBase, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'routingProtocolId' is set
-        if (routingProtocolId == null) {
-            throw new ApiException("Missing the required parameter 'routingProtocolId' when calling replaceConnectionRoutingProtocolByUuid(Async)");
-        }
-
-        // verify the required parameter 'connectionId' is set
-        if (connectionId == null) {
-            throw new ApiException("Missing the required parameter 'connectionId' when calling replaceConnectionRoutingProtocolByUuid(Async)");
-        }
-
-        // verify the required parameter 'routingProtocolBase' is set
-        if (routingProtocolBase == null) {
-            throw new ApiException("Missing the required parameter 'routingProtocolBase' when calling replaceConnectionRoutingProtocolByUuid(Async)");
-        }
-
-        return replaceConnectionRoutingProtocolByUuidCall(routingProtocolId, connectionId, routingProtocolBase, _callback);
-
-    }
-
     /**
      * Replace Protocol
      * This API provides capability to replace complete Routing Protocols on a virtual connection
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param connectionId Connection Id (required)
-     * @param routingProtocolBase  (required)
-     * @return RoutingProtocolData
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #routingProtocolIdPath Routing Protocol Id (required)
+     * @see #connectionIdPath Connection Id (required)
+     * @see #body  (required)
+     * return RoutingProtocolData
      */
-    public RoutingProtocolData replaceConnectionRoutingProtocolByUuid(UUID routingProtocolId, String connectionId, RoutingProtocolBase routingProtocolBase) throws ApiException {
-        ApiResponse<RoutingProtocolData> localVarResp = replaceConnectionRoutingProtocolByUuidWithHttpInfo(routingProtocolId, connectionId, routingProtocolBase);
-        return localVarResp.getData();
-    }
+    public static class ReplaceConnectionRoutingProtocolByUuidOper implements Oper {
 
-    /**
-     * Replace Protocol
-     * This API provides capability to replace complete Routing Protocols on a virtual connection
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param connectionId Connection Id (required)
-     * @param routingProtocolBase  (required)
-     * @return ApiResponse&lt;RoutingProtocolData&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<RoutingProtocolData> replaceConnectionRoutingProtocolByUuidWithHttpInfo(UUID routingProtocolId, String connectionId, RoutingProtocolBase routingProtocolBase) throws ApiException {
-        okhttp3.Call localVarCall = replaceConnectionRoutingProtocolByUuidValidateBeforeCall(routingProtocolId, connectionId, routingProtocolBase, null);
-        Type localVarReturnType = new TypeToken<RoutingProtocolData>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = PUT;
+        public static final String REQ_URI = "/fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}";
 
-    /**
-     * Replace Protocol (asynchronously)
-     * This API provides capability to replace complete Routing Protocols on a virtual connection
-     * @param routingProtocolId Routing Protocol Id (required)
-     * @param connectionId Connection Id (required)
-     * @param routingProtocolBase  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Connection ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call replaceConnectionRoutingProtocolByUuidAsync(UUID routingProtocolId, String connectionId, RoutingProtocolBase routingProtocolBase, final ApiCallback<RoutingProtocolData> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = replaceConnectionRoutingProtocolByUuidValidateBeforeCall(routingProtocolId, connectionId, routingProtocolBase, _callback);
-        Type localVarReturnType = new TypeToken<RoutingProtocolData>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for validateRoutingProtocol
-     * @param routerId Cloud Router UUID (required)
-     * @param validateRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call validateRoutingProtocolCall(UUID routerId, ValidateRequest validateRequest, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
+        public ReplaceConnectionRoutingProtocolByUuidOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setContentType("application/json");
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
         }
 
-        Object localVarPostBody = validateRequest;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/routers/{routerId}/validate"
-            .replace("{" + "routerId" + "}", localVarApiClient.escapeString(routerId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
+        /**
+         * PUT /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
         }
 
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
+        /**
+         * PUT /fabric/v4/connections/{connectionId}/routingProtocols/{routingProtocolId}
+         * @param handler handler
+         * @return RoutingProtocolData
+         */
+        public RoutingProtocolData executeAs(Function<Response, Response> handler) {
+            TypeRef<RoutingProtocolData> type = new TypeRef<RoutingProtocolData>(){};
+            return execute(handler).as(type);
         }
 
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+         /**
+         * @param routingProtocolBase (RoutingProtocolBase)  (required)
+         * @return operation
+         */
+        public ReplaceConnectionRoutingProtocolByUuidOper body(RoutingProtocolBase routingProtocolBase) {
+            reqSpec.setBody(routingProtocolBase);
+            return this;
+        }
+
+        public static final String ROUTING_PROTOCOL_ID_PATH = "routingProtocolId";
+
+        /**
+         * @param routingProtocolId (UUID) Routing Protocol Id (required)
+         * @return operation
+         */
+        public ReplaceConnectionRoutingProtocolByUuidOper routingProtocolIdPath(Object routingProtocolId) {
+            reqSpec.addPathParam(ROUTING_PROTOCOL_ID_PATH, routingProtocolId);
+            return this;
+        }
+
+        public static final String CONNECTION_ID_PATH = "connectionId";
+
+        /**
+         * @param connectionId (String) Connection Id (required)
+         * @return operation
+         */
+        public ReplaceConnectionRoutingProtocolByUuidOper connectionIdPath(Object connectionId) {
+            reqSpec.addPathParam(CONNECTION_ID_PATH, connectionId);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public ReplaceConnectionRoutingProtocolByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public ReplaceConnectionRoutingProtocolByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call validateRoutingProtocolValidateBeforeCall(UUID routerId, ValidateRequest validateRequest, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'routerId' is set
-        if (routerId == null) {
-            throw new ApiException("Missing the required parameter 'routerId' when calling validateRoutingProtocol(Async)");
-        }
-
-        // verify the required parameter 'validateRequest' is set
-        if (validateRequest == null) {
-            throw new ApiException("Missing the required parameter 'validateRequest' when calling validateRoutingProtocol(Async)");
-        }
-
-        return validateRoutingProtocolCall(routerId, validateRequest, _callback);
-
-    }
-
     /**
      * Validate Subnet
      * This API provides capability to validate all subnets associated with any connection in the given FCR
-     * @param routerId Cloud Router UUID (required)
-     * @param validateRequest  (required)
-     * @return ValidateSubnetResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #routerIdPath Cloud Router UUID (required)
+     * @see #body  (required)
+     * return ValidateSubnetResponse
      */
-    public ValidateSubnetResponse validateRoutingProtocol(UUID routerId, ValidateRequest validateRequest) throws ApiException {
-        ApiResponse<ValidateSubnetResponse> localVarResp = validateRoutingProtocolWithHttpInfo(routerId, validateRequest);
-        return localVarResp.getData();
-    }
+    public static class ValidateRoutingProtocolOper implements Oper {
 
-    /**
-     * Validate Subnet
-     * This API provides capability to validate all subnets associated with any connection in the given FCR
-     * @param routerId Cloud Router UUID (required)
-     * @param validateRequest  (required)
-     * @return ApiResponse&lt;ValidateSubnetResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ValidateSubnetResponse> validateRoutingProtocolWithHttpInfo(UUID routerId, ValidateRequest validateRequest) throws ApiException {
-        okhttp3.Call localVarCall = validateRoutingProtocolValidateBeforeCall(routerId, validateRequest, null);
-        Type localVarReturnType = new TypeToken<ValidateSubnetResponse>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = POST;
+        public static final String REQ_URI = "/fabric/v4/routers/{routerId}/validate";
 
-    /**
-     * Validate Subnet (asynchronously)
-     * This API provides capability to validate all subnets associated with any connection in the given FCR
-     * @param routerId Cloud Router UUID (required)
-     * @param validateRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call validateRoutingProtocolAsync(UUID routerId, ValidateRequest validateRequest, final ApiCallback<ValidateSubnetResponse> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = validateRoutingProtocolValidateBeforeCall(routerId, validateRequest, _callback);
-        Type localVarReturnType = new TypeToken<ValidateSubnetResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+        public ValidateRoutingProtocolOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setContentType("application/json");
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
+        }
+
+        /**
+         * POST /fabric/v4/routers/{routerId}/validate
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
+        }
+
+        /**
+         * POST /fabric/v4/routers/{routerId}/validate
+         * @param handler handler
+         * @return ValidateSubnetResponse
+         */
+        public ValidateSubnetResponse executeAs(Function<Response, Response> handler) {
+            TypeRef<ValidateSubnetResponse> type = new TypeRef<ValidateSubnetResponse>(){};
+            return execute(handler).as(type);
+        }
+
+         /**
+         * @param validateRequest (ValidateRequest)  (required)
+         * @return operation
+         */
+        public ValidateRoutingProtocolOper body(ValidateRequest validateRequest) {
+            reqSpec.setBody(validateRequest);
+            return this;
+        }
+
+        public static final String ROUTER_ID_PATH = "routerId";
+
+        /**
+         * @param routerId (UUID) Cloud Router UUID (required)
+         * @return operation
+         */
+        public ValidateRoutingProtocolOper routerIdPath(Object routerId) {
+            reqSpec.addPathParam(ROUTER_ID_PATH, routerId);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public ValidateRoutingProtocolOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public ValidateRoutingProtocolOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
 }

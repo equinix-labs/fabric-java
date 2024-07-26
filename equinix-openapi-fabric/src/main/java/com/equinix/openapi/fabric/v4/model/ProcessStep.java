@@ -11,51 +11,29 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.TypeAdapterFactory;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import com.equinix.openapi.fabric.JSON;
 
 /**
  * Definition of customized step while making connection
  */
+@JsonPropertyOrder({
+  ProcessStep.JSON_PROPERTY_TITLE,
+  ProcessStep.JSON_PROPERTY_SUB_TITLE,
+  ProcessStep.JSON_PROPERTY_DESCRIPTION
+})
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ProcessStep {
-  public static final String SERIALIZED_NAME_TITLE = "title";
-  @SerializedName(SERIALIZED_NAME_TITLE)
+  public static final String JSON_PROPERTY_TITLE = "title";
   private String title;
 
-  public static final String SERIALIZED_NAME_SUB_TITLE = "subTitle";
-  @SerializedName(SERIALIZED_NAME_SUB_TITLE)
+  public static final String JSON_PROPERTY_SUB_TITLE = "subTitle";
   private String subTitle;
 
-  public static final String SERIALIZED_NAME_DESCRIPTION = "description";
-  @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
   private String description;
 
   public ProcessStep() {
@@ -72,12 +50,16 @@ public class ProcessStep {
    * @return title
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_TITLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTitle() {
     return title;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TITLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTitle(String title) {
     this.title = title;
   }
@@ -94,12 +76,16 @@ public class ProcessStep {
    * @return subTitle
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_SUB_TITLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSubTitle() {
     return subTitle;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_SUB_TITLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSubTitle(String subTitle) {
     this.subTitle = subTitle;
   }
@@ -116,59 +102,18 @@ public class ProcessStep {
    * @return description
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
     return description;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDescription(String description) {
     this.description = description;
-  }
-
-  /**
-   * A container for additional, undeclared properties.
-   * This is a holder for any undeclared properties as specified with
-   * the 'additionalProperties' keyword in the OAS document.
-   */
-  private Map<String, Object> additionalProperties;
-
-  /**
-   * Set the additional (undeclared) property with the specified name and value.
-   * If the property does not already exist, create it otherwise replace it.
-   *
-   * @param key name of the property
-   * @param value value of the property
-   * @return the ProcessStep instance itself
-   */
-  public ProcessStep putAdditionalProperty(String key, Object value) {
-    if (this.additionalProperties == null) {
-        this.additionalProperties = new HashMap<String, Object>();
-    }
-    this.additionalProperties.put(key, value);
-    return this;
-  }
-
-  /**
-   * Return the additional (undeclared) property.
-   *
-   * @return a map of objects
-   */
-  public Map<String, Object> getAdditionalProperties() {
-    return additionalProperties;
-  }
-
-  /**
-   * Return the additional (undeclared) property with the specified name.
-   *
-   * @param key name of the property
-   * @return an object
-   */
-  public Object getAdditionalProperty(String key) {
-    if (this.additionalProperties == null) {
-        return null;
-    }
-    return this.additionalProperties.get(key);
   }
 
 
@@ -183,13 +128,12 @@ public class ProcessStep {
     ProcessStep processStep = (ProcessStep) o;
     return Objects.equals(this.title, processStep.title) &&
         Objects.equals(this.subTitle, processStep.subTitle) &&
-        Objects.equals(this.description, processStep.description)&&
-        Objects.equals(this.additionalProperties, processStep.additionalProperties);
+        Objects.equals(this.description, processStep.description);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(title, subTitle, description, additionalProperties);
+    return Objects.hash(title, subTitle, description);
   }
 
   @Override
@@ -199,7 +143,6 @@ public class ProcessStep {
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    subTitle: ").append(toIndentedString(subTitle)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -215,128 +158,5 @@ public class ProcessStep {
     return o.toString().replace("\n", "\n    ");
   }
 
-
-  public static HashSet<String> openapiFields;
-  public static HashSet<String> openapiRequiredFields;
-
-  static {
-    // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("title");
-    openapiFields.add("subTitle");
-    openapiFields.add("description");
-
-    // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-  }
-
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to ProcessStep
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (!ProcessStep.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in ProcessStep is not found in the empty JSON string", ProcessStep.openapiRequiredFields.toString()));
-        }
-      }
-      if ((jsonObj.get("title") != null && !jsonObj.get("title").isJsonNull()) && !jsonObj.get("title").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `title` to be a primitive type in the JSON string but got `%s`", jsonObj.get("title").toString()));
-      }
-      if ((jsonObj.get("subTitle") != null && !jsonObj.get("subTitle").isJsonNull()) && !jsonObj.get("subTitle").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `subTitle` to be a primitive type in the JSON string but got `%s`", jsonObj.get("subTitle").toString()));
-      }
-      if ((jsonObj.get("description") != null && !jsonObj.get("description").isJsonNull()) && !jsonObj.get("description").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `description` to be a primitive type in the JSON string but got `%s`", jsonObj.get("description").toString()));
-      }
-  }
-
-  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
-    @SuppressWarnings("unchecked")
-    @Override
-    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!ProcessStep.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'ProcessStep' and its subtypes
-       }
-       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<ProcessStep> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(ProcessStep.class));
-
-       return (TypeAdapter<T>) new TypeAdapter<ProcessStep>() {
-           @Override
-           public void write(JsonWriter out, ProcessStep value) throws IOException {
-             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
-             obj.remove("additionalProperties");
-             // serialize additional properties
-             if (value.getAdditionalProperties() != null) {
-               for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
-                 if (entry.getValue() instanceof String)
-                   obj.addProperty(entry.getKey(), (String) entry.getValue());
-                 else if (entry.getValue() instanceof Number)
-                   obj.addProperty(entry.getKey(), (Number) entry.getValue());
-                 else if (entry.getValue() instanceof Boolean)
-                   obj.addProperty(entry.getKey(), (Boolean) entry.getValue());
-                 else if (entry.getValue() instanceof Character)
-                   obj.addProperty(entry.getKey(), (Character) entry.getValue());
-                 else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
-                 }
-               }
-             }
-             elementAdapter.write(out, obj);
-           }
-
-           @Override
-           public ProcessStep read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
-             // store additional fields in the deserialized instance
-             ProcessStep instance = thisAdapter.fromJsonTree(jsonObj);
-             for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
-               if (!openapiFields.contains(entry.getKey())) {
-                 if (entry.getValue().isJsonPrimitive()) { // primitive type
-                   if (entry.getValue().getAsJsonPrimitive().isString())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsString());
-                   else if (entry.getValue().getAsJsonPrimitive().isNumber())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsNumber());
-                   else if (entry.getValue().getAsJsonPrimitive().isBoolean())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
-                   else
-                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else if (entry.getValue().isJsonArray()) {
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
-                 } else { // JSON object
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
-                 }
-               }
-             }
-             return instance;
-           }
-
-       }.nullSafe();
-    }
-  }
-
- /**
-  * Create an instance of ProcessStep given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ProcessStep
-  * @throws IOException if the JSON string is invalid with respect to ProcessStep
-  */
-  public static ProcessStep fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, ProcessStep.class);
-  }
-
- /**
-  * Convert an instance of ProcessStep to an JSON string
-  *
-  * @return JSON string
-  */
-  public String toJson() {
-    return JSON.getGson().toJson(this);
-  }
 }
 

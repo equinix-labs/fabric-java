@@ -24,36 +24,16 @@ This API provides capability to create user&#39;s virtual connection
 ### Example
 ```java
 // Import classes:
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
-import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.ConnectionsApi;
+//import com.equinix.openapi.fabric.ApiClient;
+//import io.restassured.builder.RequestSpecBuilder;
+//import io.restassured.filter.log.ErrorLoggingFilter;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+ConnectionsApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setBaseUri("https://api.equinix.com"))).connections();
 
-    ConnectionsApi apiInstance = new ConnectionsApi(defaultClient);
-    ConnectionPostRequest connectionPostRequest = new ConnectionPostRequest(); // ConnectionPostRequest | 
-    try {
-      Connection result = apiInstance.createConnection(connectionPostRequest);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConnectionsApi#createConnection");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
+api.createConnection()
+    .body(connectionPostRequest).execute(r -> r.prettyPeek());
 ```
 
 ### Parameters
@@ -75,15 +55,6 @@ public class Example {
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **201** | Accept Connection Request |  -  |
-| **400** | Bad request |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **405** | Method not allowed |  -  |
-
 <a name="createConnectionAction"></a>
 # **createConnectionAction**
 > ConnectionAction createConnectionAction(connectionId, connectionActionRequest)
@@ -95,37 +66,17 @@ This API provides capability to accept/reject user&#39;s virtual connection
 ### Example
 ```java
 // Import classes:
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
-import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.ConnectionsApi;
+//import com.equinix.openapi.fabric.ApiClient;
+//import io.restassured.builder.RequestSpecBuilder;
+//import io.restassured.filter.log.ErrorLoggingFilter;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+ConnectionsApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setBaseUri("https://api.equinix.com"))).connections();
 
-    ConnectionsApi apiInstance = new ConnectionsApi(defaultClient);
-    String connectionId = "connectionId_example"; // String | Connection Id
-    ConnectionActionRequest connectionActionRequest = new ConnectionActionRequest(); // ConnectionActionRequest | 
-    try {
-      ConnectionAction result = apiInstance.createConnectionAction(connectionId, connectionActionRequest);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConnectionsApi#createConnectionAction");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
+api.createConnectionAction()
+    .connectionIdPath(connectionId)
+    .body(connectionActionRequest).execute(r -> r.prettyPeek());
 ```
 
 ### Parameters
@@ -148,15 +99,6 @@ public class Example {
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **202** | Successful operation |  -  |
-| **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-
 <a name="deleteConnectionByUuid"></a>
 # **deleteConnectionByUuid**
 > Connection deleteConnectionByUuid(connectionId)
@@ -168,36 +110,16 @@ Delete Connection by ID
 ### Example
 ```java
 // Import classes:
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
-import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.ConnectionsApi;
+//import com.equinix.openapi.fabric.ApiClient;
+//import io.restassured.builder.RequestSpecBuilder;
+//import io.restassured.filter.log.ErrorLoggingFilter;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+ConnectionsApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setBaseUri("https://api.equinix.com"))).connections();
 
-    ConnectionsApi apiInstance = new ConnectionsApi(defaultClient);
-    String connectionId = "connectionId_example"; // String | Connection UUID
-    try {
-      Connection result = apiInstance.deleteConnectionByUuid(connectionId);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConnectionsApi#deleteConnectionByUuid");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
+api.deleteConnectionByUuid()
+    .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
 ```
 
 ### Parameters
@@ -219,16 +141,6 @@ public class Example {
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Delete Connection Request |  -  |
-| **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **405** | Method not allowed |  -  |
-
 <a name="getConnectionByUuid"></a>
 # **getConnectionByUuid**
 > Connection getConnectionByUuid(connectionId, direction)
@@ -240,37 +152,16 @@ The API provides capability to get user&#39;s virtual connection details (Servic
 ### Example
 ```java
 // Import classes:
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
-import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.ConnectionsApi;
+//import com.equinix.openapi.fabric.ApiClient;
+//import io.restassured.builder.RequestSpecBuilder;
+//import io.restassured.filter.log.ErrorLoggingFilter;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+ConnectionsApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setBaseUri("https://api.equinix.com"))).connections();
 
-    ConnectionsApi apiInstance = new ConnectionsApi(defaultClient);
-    String connectionId = "connectionId_example"; // String | Connection Id
-    ConnectionDirection direction = ConnectionDirection.fromValue("INTERNAL"); // ConnectionDirection | Connection Direction
-    try {
-      Connection result = apiInstance.getConnectionByUuid(connectionId, direction);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConnectionsApi#getConnectionByUuid");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
+api.getConnectionByUuid()
+    .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
 ```
 
 ### Parameters
@@ -293,14 +184,6 @@ public class Example {
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful operation |  -  |
-| **400** | Bad request |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-
 <a name="searchConnections"></a>
 # **searchConnections**
 > ConnectionSearchResponse searchConnections(searchRequest)
@@ -312,36 +195,16 @@ The API provides capability to get list of user&#39;s virtual connections using 
 ### Example
 ```java
 // Import classes:
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
-import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.ConnectionsApi;
+//import com.equinix.openapi.fabric.ApiClient;
+//import io.restassured.builder.RequestSpecBuilder;
+//import io.restassured.filter.log.ErrorLoggingFilter;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+ConnectionsApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setBaseUri("https://api.equinix.com"))).connections();
 
-    ConnectionsApi apiInstance = new ConnectionsApi(defaultClient);
-    SearchRequest searchRequest = new SearchRequest(); // SearchRequest | 
-    try {
-      ConnectionSearchResponse result = apiInstance.searchConnections(searchRequest);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConnectionsApi#searchConnections");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
+api.searchConnections()
+    .body(searchRequest).execute(r -> r.prettyPeek());
 ```
 
 ### Parameters
@@ -363,15 +226,6 @@ public class Example {
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful operation |  -  |
-| **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-
 <a name="updateConnectionByUuid"></a>
 # **updateConnectionByUuid**
 > Connection updateConnectionByUuid(connectionId, connectionChangeOperation)
@@ -383,37 +237,17 @@ Update Connection by ID
 ### Example
 ```java
 // Import classes:
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
-import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.ConnectionsApi;
+//import com.equinix.openapi.fabric.ApiClient;
+//import io.restassured.builder.RequestSpecBuilder;
+//import io.restassured.filter.log.ErrorLoggingFilter;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+ConnectionsApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setBaseUri("https://api.equinix.com"))).connections();
 
-    ConnectionsApi apiInstance = new ConnectionsApi(defaultClient);
-    String connectionId = "connectionId_example"; // String | Connection Id
-    List<ConnectionChangeOperation> connectionChangeOperation = Arrays.asList(); // List<ConnectionChangeOperation> | 
-    try {
-      Connection result = apiInstance.updateConnectionByUuid(connectionId, connectionChangeOperation);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConnectionsApi#updateConnectionByUuid");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
+api.updateConnectionByUuid()
+    .connectionIdPath(connectionId)
+    .body(connectionChangeOperation).execute(r -> r.prettyPeek());
 ```
 
 ### Parameters
@@ -436,14 +270,6 @@ public class Example {
  - **Content-Type**: application/json-patch+json
  - **Accept**: application/json
 
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **202** | Successful operation |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-
 <a name="validateConnections"></a>
 # **validateConnections**
 > ConnectionResponse validateConnections(validateRequest)
@@ -455,36 +281,16 @@ This API provides capability to validate by auth key
 ### Example
 ```java
 // Import classes:
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
-import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.ConnectionsApi;
+//import com.equinix.openapi.fabric.ApiClient;
+//import io.restassured.builder.RequestSpecBuilder;
+//import io.restassured.filter.log.ErrorLoggingFilter;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+ConnectionsApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setBaseUri("https://api.equinix.com"))).connections();
 
-    ConnectionsApi apiInstance = new ConnectionsApi(defaultClient);
-    ValidateRequest validateRequest = new ValidateRequest(); // ValidateRequest | 
-    try {
-      ConnectionResponse result = apiInstance.validateConnections(validateRequest);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ConnectionsApi#validateConnections");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
+api.validateConnections()
+    .body(validateRequest).execute(r -> r.prettyPeek());
 ```
 
 ### Parameters
@@ -505,10 +311,4 @@ public class Example {
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful operation |  -  |
-| **400** | Bad request |  -  |
 

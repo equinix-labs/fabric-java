@@ -11,52 +11,30 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.time.OffsetDateTime;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.TypeAdapterFactory;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import com.equinix.openapi.fabric.JSON;
+import java.util.Objects;
 
 /**
  * Bandwidth utilization statistics for a specified interval.
  */
+@JsonPropertyOrder({
+  Metrics.JSON_PROPERTY_INTERVAL_END_TIMESTAMP,
+  Metrics.JSON_PROPERTY_MAX,
+  Metrics.JSON_PROPERTY_MEAN
+})
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Metrics {
-  public static final String SERIALIZED_NAME_INTERVAL_END_TIMESTAMP = "intervalEndTimestamp";
-  @SerializedName(SERIALIZED_NAME_INTERVAL_END_TIMESTAMP)
+  public static final String JSON_PROPERTY_INTERVAL_END_TIMESTAMP = "intervalEndTimestamp";
   private OffsetDateTime intervalEndTimestamp;
 
-  public static final String SERIALIZED_NAME_MAX = "max";
-  @SerializedName(SERIALIZED_NAME_MAX)
+  public static final String JSON_PROPERTY_MAX = "max";
   private Float max;
 
-  public static final String SERIALIZED_NAME_MEAN = "mean";
-  @SerializedName(SERIALIZED_NAME_MEAN)
+  public static final String JSON_PROPERTY_MEAN = "mean";
   private Float mean;
 
   public Metrics() {
@@ -73,12 +51,16 @@ public class Metrics {
    * @return intervalEndTimestamp
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_INTERVAL_END_TIMESTAMP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getIntervalEndTimestamp() {
     return intervalEndTimestamp;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_INTERVAL_END_TIMESTAMP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIntervalEndTimestamp(OffsetDateTime intervalEndTimestamp) {
     this.intervalEndTimestamp = intervalEndTimestamp;
   }
@@ -95,12 +77,16 @@ public class Metrics {
    * @return max
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_MAX)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Float getMax() {
     return max;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MAX)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMax(Float max) {
     this.max = max;
   }
@@ -117,59 +103,18 @@ public class Metrics {
    * @return mean
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_MEAN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Float getMean() {
     return mean;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MEAN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMean(Float mean) {
     this.mean = mean;
-  }
-
-  /**
-   * A container for additional, undeclared properties.
-   * This is a holder for any undeclared properties as specified with
-   * the 'additionalProperties' keyword in the OAS document.
-   */
-  private Map<String, Object> additionalProperties;
-
-  /**
-   * Set the additional (undeclared) property with the specified name and value.
-   * If the property does not already exist, create it otherwise replace it.
-   *
-   * @param key name of the property
-   * @param value value of the property
-   * @return the Metrics instance itself
-   */
-  public Metrics putAdditionalProperty(String key, Object value) {
-    if (this.additionalProperties == null) {
-        this.additionalProperties = new HashMap<String, Object>();
-    }
-    this.additionalProperties.put(key, value);
-    return this;
-  }
-
-  /**
-   * Return the additional (undeclared) property.
-   *
-   * @return a map of objects
-   */
-  public Map<String, Object> getAdditionalProperties() {
-    return additionalProperties;
-  }
-
-  /**
-   * Return the additional (undeclared) property with the specified name.
-   *
-   * @param key name of the property
-   * @return an object
-   */
-  public Object getAdditionalProperty(String key) {
-    if (this.additionalProperties == null) {
-        return null;
-    }
-    return this.additionalProperties.get(key);
   }
 
 
@@ -184,13 +129,12 @@ public class Metrics {
     Metrics metrics = (Metrics) o;
     return Objects.equals(this.intervalEndTimestamp, metrics.intervalEndTimestamp) &&
         Objects.equals(this.max, metrics.max) &&
-        Objects.equals(this.mean, metrics.mean)&&
-        Objects.equals(this.additionalProperties, metrics.additionalProperties);
+        Objects.equals(this.mean, metrics.mean);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(intervalEndTimestamp, max, mean, additionalProperties);
+    return Objects.hash(intervalEndTimestamp, max, mean);
   }
 
   @Override
@@ -200,7 +144,6 @@ public class Metrics {
     sb.append("    intervalEndTimestamp: ").append(toIndentedString(intervalEndTimestamp)).append("\n");
     sb.append("    max: ").append(toIndentedString(max)).append("\n");
     sb.append("    mean: ").append(toIndentedString(mean)).append("\n");
-    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -216,119 +159,5 @@ public class Metrics {
     return o.toString().replace("\n", "\n    ");
   }
 
-
-  public static HashSet<String> openapiFields;
-  public static HashSet<String> openapiRequiredFields;
-
-  static {
-    // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("intervalEndTimestamp");
-    openapiFields.add("max");
-    openapiFields.add("mean");
-
-    // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-  }
-
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to Metrics
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (!Metrics.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in Metrics is not found in the empty JSON string", Metrics.openapiRequiredFields.toString()));
-        }
-      }
-  }
-
-  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
-    @SuppressWarnings("unchecked")
-    @Override
-    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!Metrics.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'Metrics' and its subtypes
-       }
-       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<Metrics> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(Metrics.class));
-
-       return (TypeAdapter<T>) new TypeAdapter<Metrics>() {
-           @Override
-           public void write(JsonWriter out, Metrics value) throws IOException {
-             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
-             obj.remove("additionalProperties");
-             // serialize additional properties
-             if (value.getAdditionalProperties() != null) {
-               for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
-                 if (entry.getValue() instanceof String)
-                   obj.addProperty(entry.getKey(), (String) entry.getValue());
-                 else if (entry.getValue() instanceof Number)
-                   obj.addProperty(entry.getKey(), (Number) entry.getValue());
-                 else if (entry.getValue() instanceof Boolean)
-                   obj.addProperty(entry.getKey(), (Boolean) entry.getValue());
-                 else if (entry.getValue() instanceof Character)
-                   obj.addProperty(entry.getKey(), (Character) entry.getValue());
-                 else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
-                 }
-               }
-             }
-             elementAdapter.write(out, obj);
-           }
-
-           @Override
-           public Metrics read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
-             // store additional fields in the deserialized instance
-             Metrics instance = thisAdapter.fromJsonTree(jsonObj);
-             for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
-               if (!openapiFields.contains(entry.getKey())) {
-                 if (entry.getValue().isJsonPrimitive()) { // primitive type
-                   if (entry.getValue().getAsJsonPrimitive().isString())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsString());
-                   else if (entry.getValue().getAsJsonPrimitive().isNumber())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsNumber());
-                   else if (entry.getValue().getAsJsonPrimitive().isBoolean())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
-                   else
-                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else if (entry.getValue().isJsonArray()) {
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
-                 } else { // JSON object
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
-                 }
-               }
-             }
-             return instance;
-           }
-
-       }.nullSafe();
-    }
-  }
-
- /**
-  * Create an instance of Metrics given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of Metrics
-  * @throws IOException if the JSON string is invalid with respect to Metrics
-  */
-  public static Metrics fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, Metrics.class);
-  }
-
- /**
-  * Convert an instance of Metrics to an JSON string
-  *
-  * @return JSON string
-  */
-  public String toJson() {
-    return JSON.getGson().toJson(this);
-  }
 }
 

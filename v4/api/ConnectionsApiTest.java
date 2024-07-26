@@ -1,6 +1,5 @@
 /*
  * Equinix Fabric API v4
- * Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br>
  *
  * Contact: api-support@equinix.com
  *
@@ -9,142 +8,422 @@
  * Do not edit the class manually.
  */
 
+
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.ApiException;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Disabled;
+import com.equinix.openapi.fabric.v4.model.Connection;
+import com.equinix.openapi.fabric.v4.model.ConnectionAction;
+import com.equinix.openapi.fabric.v4.model.ConnectionActionRequest;
+import com.equinix.openapi.fabric.v4.model.ConnectionChangeOperation;
+import com.equinix.openapi.fabric.v4.model.ConnectionDirection;
+import com.equinix.openapi.fabric.v4.model.ConnectionPostRequest;
+import com.equinix.openapi.fabric.v4.model.ConnectionResponse;
+import com.equinix.openapi.fabric.v4.model.ConnectionSearchResponse;
+import com.equinix.openapi.fabric.v4.model.Error;
+import com.equinix.openapi.fabric.v4.model.SearchRequest;
+import com.equinix.openapi.fabric.v4.model.ValidateRequest;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.v4.api.ConnectionsApi;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.filter.log.ErrorLoggingFilter;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.Ignore;
+
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import static io.restassured.config.ObjectMapperConfig.objectMapperConfig;
+import static io.restassured.config.RestAssuredConfig.config;
+import static com.equinix.openapi.fabric.JacksonObjectMapper.jackson;
 
 /**
  * API tests for ConnectionsApi
  */
-@Disabled
-public class ConnectionsApiTest extends AbstractTest {
+@Ignore
+public class ConnectionsApiTest {
 
-    private final ConnectionsApi api = new ConnectionsApi(generateToken());
+    private ConnectionsApi api;
+
+    @Before
+    public void createApi() {
+        api = ApiClient.api(ApiClient.Config.apiConfig().reqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setConfig(config().objectMapperConfig(objectMapperConfig().defaultObjectMapper(jackson())))
+                        .addFilter(new ErrorLoggingFilter())
+                        .setBaseUri("https://api.equinix.com"))).connections();
+    }
 
     /**
-     * Create Connection
-     * <p>
-     * This API provides capability to create user&#39;s virtual connection
-     *
-     * @throws ApiException if the Api call fails
+     * Accept Connection Request
      */
     @Test
-    public void createConnectionTest() throws ApiException {
-        //
-        //ConnectionPostRequest connectionPostRequest = null;
-        //
-        //Connection response = api.createConnection(connectionPostRequest);
-
+    public void shouldSee201AfterCreateConnection() {
+        ConnectionPostRequest connectionPostRequest = null;
+        api.createConnection()
+                .body(connectionPostRequest).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Connection Actions
-     * <p>
-     * This API provides capability to accept/reject user&#39;s virtual connection
-     *
-     * @throws ApiException if the Api call fails
+     * Bad request
      */
     @Test
-    public void createConnectionActionTest() throws ApiException {
-        //
-        //String connectionId = null;
-        //
-        //ConnectionActionRequest connectionActionRequest = null;
-        //
-        //ConnectionAction response = api.createConnectionAction(connectionId, connectionActionRequest);
-
+    public void shouldSee400AfterCreateConnection() {
+        ConnectionPostRequest connectionPostRequest = null;
+        api.createConnection()
+                .body(connectionPostRequest).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Delete by ID
-     * <p>
-     * Delete Connection by ID
-     *
-     * @throws ApiException if the Api call fails
+     * Forbidden
      */
     @Test
-    public void deleteConnectionByUuidTest() throws ApiException {
-        //
-        //String connectionId = null;
-        //
-        //Connection response = api.deleteConnectionByUuid(connectionId);
-
+    public void shouldSee403AfterCreateConnection() {
+        ConnectionPostRequest connectionPostRequest = null;
+        api.createConnection()
+                .body(connectionPostRequest).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Get Connection by ID
-     * <p>
-     * The API provides capability to get user&#39;s virtual connection details (Service Tokens, Access Points, Link Protocols, etc) by it&#39;s connection ID (UUID)
-     *
-     * @throws ApiException if the Api call fails
+     * Not Found
      */
     @Test
-    public void getConnectionByUuidTest() throws ApiException {
-        //
-        //String connectionId = null;
-        //
-        //ConnectionDirection direction = null;
-        //
-        //Connection response = api.getConnectionByUuid(connectionId, direction);
-
+    public void shouldSee404AfterCreateConnection() {
+        ConnectionPostRequest connectionPostRequest = null;
+        api.createConnection()
+                .body(connectionPostRequest).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Search connections
-     * <p>
-     * The API provides capability to get list of user&#39;s virtual connections using search criteria, including optional filtering, pagination and sorting
-     *
-     * @throws ApiException if the Api call fails
+     * Method not allowed
      */
     @Test
-    public void searchConnectionsTest() throws ApiException {
-        //
-        //SearchRequest searchRequest = null;
-        //
-        //ConnectionSearchResponse response = api.searchConnections(searchRequest);
+    public void shouldSee405AfterCreateConnection() {
+        ConnectionPostRequest connectionPostRequest = null;
+        api.createConnection()
+                .body(connectionPostRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
 
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee202AfterCreateConnectionAction() {
+        String connectionId = null;
+        ConnectionActionRequest connectionActionRequest = null;
+        api.createConnectionAction()
+                .connectionIdPath(connectionId)
+                .body(connectionActionRequest).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Update by ID
-     * <p>
-     * Update Connection by ID
-     *
-     * @throws ApiException if the Api call fails
+     * Bad request
      */
     @Test
-    public void updateConnectionByUuidTest() throws ApiException {
-        //
-        //String connectionId = null;
-        //
-        //List<ConnectionChangeOperation> connectionChangeOperation = null;
-        //
-        //Connection response = api.updateConnectionByUuid(connectionId, connectionChangeOperation);
-
+    public void shouldSee400AfterCreateConnectionAction() {
+        String connectionId = null;
+        ConnectionActionRequest connectionActionRequest = null;
+        api.createConnectionAction()
+                .connectionIdPath(connectionId)
+                .body(connectionActionRequest).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Validate Connection
-     * <p>
-     * This API provides capability to validate by auth key
-     *
-     * @throws ApiException if the Api call fails
+     * Unauthorized
      */
     @Test
-    public void validateConnectionsTest() throws ApiException {
-        //
-        //ValidateRequest validateRequest = null;
-        //
-        //ConnectionResponse response = api.validateConnections(validateRequest);
-
+    public void shouldSee401AfterCreateConnectionAction() {
+        String connectionId = null;
+        ConnectionActionRequest connectionActionRequest = null;
+        api.createConnectionAction()
+                .connectionIdPath(connectionId)
+                .body(connectionActionRequest).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterCreateConnectionAction() {
+        String connectionId = null;
+        ConnectionActionRequest connectionActionRequest = null;
+        api.createConnectionAction()
+                .connectionIdPath(connectionId)
+                .body(connectionActionRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Not Found
+     */
+    @Test
+    public void shouldSee404AfterCreateConnectionAction() {
+        String connectionId = null;
+        ConnectionActionRequest connectionActionRequest = null;
+        api.createConnectionAction()
+                .connectionIdPath(connectionId)
+                .body(connectionActionRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Delete Connection Request
+     */
+    @Test
+    public void shouldSee200AfterDeleteConnectionByUuid() {
+        String connectionId = null;
+        api.deleteConnectionByUuid()
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterDeleteConnectionByUuid() {
+        String connectionId = null;
+        api.deleteConnectionByUuid()
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterDeleteConnectionByUuid() {
+        String connectionId = null;
+        api.deleteConnectionByUuid()
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterDeleteConnectionByUuid() {
+        String connectionId = null;
+        api.deleteConnectionByUuid()
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Not Found
+     */
+    @Test
+    public void shouldSee404AfterDeleteConnectionByUuid() {
+        String connectionId = null;
+        api.deleteConnectionByUuid()
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Method not allowed
+     */
+    @Test
+    public void shouldSee405AfterDeleteConnectionByUuid() {
+        String connectionId = null;
+        api.deleteConnectionByUuid()
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee200AfterGetConnectionByUuid() {
+        String connectionId = null;
+        ConnectionDirection direction = null;
+        api.getConnectionByUuid()
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterGetConnectionByUuid() {
+        String connectionId = null;
+        ConnectionDirection direction = null;
+        api.getConnectionByUuid()
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterGetConnectionByUuid() {
+        String connectionId = null;
+        ConnectionDirection direction = null;
+        api.getConnectionByUuid()
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Not Found
+     */
+    @Test
+    public void shouldSee404AfterGetConnectionByUuid() {
+        String connectionId = null;
+        ConnectionDirection direction = null;
+        api.getConnectionByUuid()
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee200AfterSearchConnections() {
+        SearchRequest searchRequest = null;
+        api.searchConnections()
+                .body(searchRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterSearchConnections() {
+        SearchRequest searchRequest = null;
+        api.searchConnections()
+                .body(searchRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterSearchConnections() {
+        SearchRequest searchRequest = null;
+        api.searchConnections()
+                .body(searchRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterSearchConnections() {
+        SearchRequest searchRequest = null;
+        api.searchConnections()
+                .body(searchRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Not Found
+     */
+    @Test
+    public void shouldSee404AfterSearchConnections() {
+        SearchRequest searchRequest = null;
+        api.searchConnections()
+                .body(searchRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee202AfterUpdateConnectionByUuid() {
+        String connectionId = null;
+        List<ConnectionChangeOperation> connectionChangeOperation = null;
+        api.updateConnectionByUuid()
+                .connectionIdPath(connectionId)
+                .body(connectionChangeOperation).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterUpdateConnectionByUuid() {
+        String connectionId = null;
+        List<ConnectionChangeOperation> connectionChangeOperation = null;
+        api.updateConnectionByUuid()
+                .connectionIdPath(connectionId)
+                .body(connectionChangeOperation).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterUpdateConnectionByUuid() {
+        String connectionId = null;
+        List<ConnectionChangeOperation> connectionChangeOperation = null;
+        api.updateConnectionByUuid()
+                .connectionIdPath(connectionId)
+                .body(connectionChangeOperation).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Not Found
+     */
+    @Test
+    public void shouldSee404AfterUpdateConnectionByUuid() {
+        String connectionId = null;
+        List<ConnectionChangeOperation> connectionChangeOperation = null;
+        api.updateConnectionByUuid()
+                .connectionIdPath(connectionId)
+                .body(connectionChangeOperation).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee200AfterValidateConnections() {
+        ValidateRequest validateRequest = null;
+        api.validateConnections()
+                .body(validateRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterValidateConnections() {
+        ValidateRequest validateRequest = null;
+        api.validateConnections()
+                .body(validateRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
 }

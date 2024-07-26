@@ -11,20 +11,12 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.annotations.SerializedName;
-
-import java.io.IOException;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * BGP action state
  */
-@JsonAdapter(BGPActionStates.Adapter.class)
 public enum BGPActionStates {
   
   PENDING("PENDING"),
@@ -39,6 +31,7 @@ public enum BGPActionStates {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -48,6 +41,7 @@ public enum BGPActionStates {
     return String.valueOf(value);
   }
 
+  @JsonCreator
   public static BGPActionStates fromValue(String value) {
     for (BGPActionStates b : BGPActionStates.values()) {
       if (b.value.equals(value)) {
@@ -55,19 +49,6 @@ public enum BGPActionStates {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-
-  public static class Adapter extends TypeAdapter<BGPActionStates> {
-    @Override
-    public void write(final JsonWriter jsonWriter, final BGPActionStates enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
-
-    @Override
-    public BGPActionStates read(final JsonReader jsonReader) throws IOException {
-      String value = jsonReader.nextString();
-      return BGPActionStates.fromValue(value);
-    }
   }
 }
 

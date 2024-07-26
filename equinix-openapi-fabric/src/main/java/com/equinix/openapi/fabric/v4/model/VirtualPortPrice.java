@@ -11,87 +11,58 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.util.Objects;
-import java.util.Arrays;
-import com.equinix.openapi.fabric.v4.model.ConnectivitySource;
-import com.equinix.openapi.fabric.v4.model.LinkAggregationGroup;
-import com.equinix.openapi.fabric.v4.model.VirtualPortConfiguration;
-import com.equinix.openapi.fabric.v4.model.VirtualPortLocation;
-import com.equinix.openapi.fabric.v4.model.VirtualPortRedundancy;
-import com.equinix.openapi.fabric.v4.model.VirtualPortServiceType;
-import com.equinix.openapi.fabric.v4.model.VirtualPortType;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
 import java.util.UUID;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.TypeAdapterFactory;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import com.equinix.openapi.fabric.JSON;
 
 /**
  * Preferences and settings for a virtual port connected to an internet service provider (ISP) or other Equinix platform entity.
  */
+@JsonPropertyOrder({
+  VirtualPortPrice.JSON_PROPERTY_UUID,
+  VirtualPortPrice.JSON_PROPERTY_TYPE,
+  VirtualPortPrice.JSON_PROPERTY_LOCATION,
+  VirtualPortPrice.JSON_PROPERTY_LAG,
+  VirtualPortPrice.JSON_PROPERTY_PHYSICAL_PORTS_QUANTITY,
+  VirtualPortPrice.JSON_PROPERTY_BANDWIDTH,
+  VirtualPortPrice.JSON_PROPERTY_REDUNDANCY,
+  VirtualPortPrice.JSON_PROPERTY_CONNECTIVITY_SOURCE,
+  VirtualPortPrice.JSON_PROPERTY_SERVICE_TYPE,
+  VirtualPortPrice.JSON_PROPERTY_SETTINGS
+})
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class VirtualPortPrice {
-  public static final String SERIALIZED_NAME_UUID = "uuid";
-  @SerializedName(SERIALIZED_NAME_UUID)
+  public static final String JSON_PROPERTY_UUID = "uuid";
   private UUID uuid;
 
-  public static final String SERIALIZED_NAME_TYPE = "type";
-  @SerializedName(SERIALIZED_NAME_TYPE)
+  public static final String JSON_PROPERTY_TYPE = "type";
   private VirtualPortType type;
 
-  public static final String SERIALIZED_NAME_LOCATION = "location";
-  @SerializedName(SERIALIZED_NAME_LOCATION)
+  public static final String JSON_PROPERTY_LOCATION = "location";
   private VirtualPortLocation location;
 
-  public static final String SERIALIZED_NAME_LAG = "lag";
-  @SerializedName(SERIALIZED_NAME_LAG)
+  public static final String JSON_PROPERTY_LAG = "lag";
   private LinkAggregationGroup lag;
 
-  public static final String SERIALIZED_NAME_PHYSICAL_PORTS_QUANTITY = "physicalPortsQuantity";
-  @SerializedName(SERIALIZED_NAME_PHYSICAL_PORTS_QUANTITY)
+  public static final String JSON_PROPERTY_PHYSICAL_PORTS_QUANTITY = "physicalPortsQuantity";
   private Integer physicalPortsQuantity = 1;
 
-  public static final String SERIALIZED_NAME_BANDWIDTH = "bandwidth";
-  @SerializedName(SERIALIZED_NAME_BANDWIDTH)
+  public static final String JSON_PROPERTY_BANDWIDTH = "bandwidth";
   private Integer bandwidth;
 
-  public static final String SERIALIZED_NAME_REDUNDANCY = "redundancy";
-  @SerializedName(SERIALIZED_NAME_REDUNDANCY)
+  public static final String JSON_PROPERTY_REDUNDANCY = "redundancy";
   private VirtualPortRedundancy redundancy;
 
-  public static final String SERIALIZED_NAME_CONNECTIVITY_SOURCE = "connectivitySource";
-  @SerializedName(SERIALIZED_NAME_CONNECTIVITY_SOURCE)
+  public static final String JSON_PROPERTY_CONNECTIVITY_SOURCE = "connectivitySource";
   private ConnectivitySource connectivitySource;
 
-  public static final String SERIALIZED_NAME_SERVICE_TYPE = "serviceType";
-  @SerializedName(SERIALIZED_NAME_SERVICE_TYPE)
+  public static final String JSON_PROPERTY_SERVICE_TYPE = "serviceType";
   private VirtualPortServiceType serviceType = VirtualPortServiceType.MSP;
 
-  public static final String SERIALIZED_NAME_SETTINGS = "settings";
-  @SerializedName(SERIALIZED_NAME_SETTINGS)
+  public static final String JSON_PROPERTY_SETTINGS = "settings";
   private VirtualPortConfiguration settings;
 
   public VirtualPortPrice() {
@@ -108,12 +79,16 @@ public class VirtualPortPrice {
    * @return uuid
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_UUID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public UUID getUuid() {
     return uuid;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_UUID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUuid(UUID uuid) {
     this.uuid = uuid;
   }
@@ -130,12 +105,16 @@ public class VirtualPortPrice {
    * @return type
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public VirtualPortType getType() {
     return type;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setType(VirtualPortType type) {
     this.type = type;
   }
@@ -152,12 +131,16 @@ public class VirtualPortPrice {
    * @return location
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_LOCATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public VirtualPortLocation getLocation() {
     return location;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_LOCATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLocation(VirtualPortLocation location) {
     this.location = location;
   }
@@ -174,12 +157,16 @@ public class VirtualPortPrice {
    * @return lag
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_LAG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public LinkAggregationGroup getLag() {
     return lag;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_LAG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLag(LinkAggregationGroup lag) {
     this.lag = lag;
   }
@@ -196,12 +183,16 @@ public class VirtualPortPrice {
    * @return physicalPortsQuantity
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PHYSICAL_PORTS_QUANTITY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getPhysicalPortsQuantity() {
     return physicalPortsQuantity;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PHYSICAL_PORTS_QUANTITY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPhysicalPortsQuantity(Integer physicalPortsQuantity) {
     this.physicalPortsQuantity = physicalPortsQuantity;
   }
@@ -218,12 +209,16 @@ public class VirtualPortPrice {
    * @return bandwidth
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_BANDWIDTH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getBandwidth() {
     return bandwidth;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_BANDWIDTH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBandwidth(Integer bandwidth) {
     this.bandwidth = bandwidth;
   }
@@ -240,12 +235,16 @@ public class VirtualPortPrice {
    * @return redundancy
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_REDUNDANCY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public VirtualPortRedundancy getRedundancy() {
     return redundancy;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_REDUNDANCY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRedundancy(VirtualPortRedundancy redundancy) {
     this.redundancy = redundancy;
   }
@@ -262,12 +261,16 @@ public class VirtualPortPrice {
    * @return connectivitySource
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_CONNECTIVITY_SOURCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ConnectivitySource getConnectivitySource() {
     return connectivitySource;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONNECTIVITY_SOURCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectivitySource(ConnectivitySource connectivitySource) {
     this.connectivitySource = connectivitySource;
   }
@@ -284,12 +287,16 @@ public class VirtualPortPrice {
    * @return serviceType
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_SERVICE_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public VirtualPortServiceType getServiceType() {
     return serviceType;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_SERVICE_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setServiceType(VirtualPortServiceType serviceType) {
     this.serviceType = serviceType;
   }
@@ -306,59 +313,18 @@ public class VirtualPortPrice {
    * @return settings
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_SETTINGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public VirtualPortConfiguration getSettings() {
     return settings;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_SETTINGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSettings(VirtualPortConfiguration settings) {
     this.settings = settings;
-  }
-
-  /**
-   * A container for additional, undeclared properties.
-   * This is a holder for any undeclared properties as specified with
-   * the 'additionalProperties' keyword in the OAS document.
-   */
-  private Map<String, Object> additionalProperties;
-
-  /**
-   * Set the additional (undeclared) property with the specified name and value.
-   * If the property does not already exist, create it otherwise replace it.
-   *
-   * @param key name of the property
-   * @param value value of the property
-   * @return the VirtualPortPrice instance itself
-   */
-  public VirtualPortPrice putAdditionalProperty(String key, Object value) {
-    if (this.additionalProperties == null) {
-        this.additionalProperties = new HashMap<String, Object>();
-    }
-    this.additionalProperties.put(key, value);
-    return this;
-  }
-
-  /**
-   * Return the additional (undeclared) property.
-   *
-   * @return a map of objects
-   */
-  public Map<String, Object> getAdditionalProperties() {
-    return additionalProperties;
-  }
-
-  /**
-   * Return the additional (undeclared) property with the specified name.
-   *
-   * @param key name of the property
-   * @return an object
-   */
-  public Object getAdditionalProperty(String key) {
-    if (this.additionalProperties == null) {
-        return null;
-    }
-    return this.additionalProperties.get(key);
   }
 
 
@@ -380,13 +346,12 @@ public class VirtualPortPrice {
         Objects.equals(this.redundancy, virtualPortPrice.redundancy) &&
         Objects.equals(this.connectivitySource, virtualPortPrice.connectivitySource) &&
         Objects.equals(this.serviceType, virtualPortPrice.serviceType) &&
-        Objects.equals(this.settings, virtualPortPrice.settings)&&
-        Objects.equals(this.additionalProperties, virtualPortPrice.additionalProperties);
+        Objects.equals(this.settings, virtualPortPrice.settings);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(uuid, type, location, lag, physicalPortsQuantity, bandwidth, redundancy, connectivitySource, serviceType, settings, additionalProperties);
+    return Objects.hash(uuid, type, location, lag, physicalPortsQuantity, bandwidth, redundancy, connectivitySource, serviceType, settings);
   }
 
   @Override
@@ -403,7 +368,6 @@ public class VirtualPortPrice {
     sb.append("    connectivitySource: ").append(toIndentedString(connectivitySource)).append("\n");
     sb.append("    serviceType: ").append(toIndentedString(serviceType)).append("\n");
     sb.append("    settings: ").append(toIndentedString(settings)).append("\n");
-    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -419,149 +383,5 @@ public class VirtualPortPrice {
     return o.toString().replace("\n", "\n    ");
   }
 
-
-  public static HashSet<String> openapiFields;
-  public static HashSet<String> openapiRequiredFields;
-
-  static {
-    // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("uuid");
-    openapiFields.add("type");
-    openapiFields.add("location");
-    openapiFields.add("lag");
-    openapiFields.add("physicalPortsQuantity");
-    openapiFields.add("bandwidth");
-    openapiFields.add("redundancy");
-    openapiFields.add("connectivitySource");
-    openapiFields.add("serviceType");
-    openapiFields.add("settings");
-
-    // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-  }
-
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to VirtualPortPrice
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (!VirtualPortPrice.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in VirtualPortPrice is not found in the empty JSON string", VirtualPortPrice.openapiRequiredFields.toString()));
-        }
-      }
-      if ((jsonObj.get("uuid") != null && !jsonObj.get("uuid").isJsonNull()) && !jsonObj.get("uuid").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `uuid` to be a primitive type in the JSON string but got `%s`", jsonObj.get("uuid").toString()));
-      }
-      // validate the optional field `location`
-      if (jsonObj.get("location") != null && !jsonObj.get("location").isJsonNull()) {
-        VirtualPortLocation.validateJsonObject(jsonObj.getAsJsonObject("location"));
-      }
-      // validate the optional field `lag`
-      if (jsonObj.get("lag") != null && !jsonObj.get("lag").isJsonNull()) {
-        LinkAggregationGroup.validateJsonObject(jsonObj.getAsJsonObject("lag"));
-      }
-      // validate the optional field `redundancy`
-      if (jsonObj.get("redundancy") != null && !jsonObj.get("redundancy").isJsonNull()) {
-        VirtualPortRedundancy.validateJsonObject(jsonObj.getAsJsonObject("redundancy"));
-      }
-      // validate the optional field `connectivitySource`
-      if (jsonObj.get("connectivitySource") != null && !jsonObj.get("connectivitySource").isJsonNull()) {
-        ConnectivitySource.validateJsonObject(jsonObj.getAsJsonObject("connectivitySource"));
-      }
-      // validate the optional field `settings`
-      if (jsonObj.get("settings") != null && !jsonObj.get("settings").isJsonNull()) {
-        VirtualPortConfiguration.validateJsonObject(jsonObj.getAsJsonObject("settings"));
-      }
-  }
-
-  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
-    @SuppressWarnings("unchecked")
-    @Override
-    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!VirtualPortPrice.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'VirtualPortPrice' and its subtypes
-       }
-       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<VirtualPortPrice> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(VirtualPortPrice.class));
-
-       return (TypeAdapter<T>) new TypeAdapter<VirtualPortPrice>() {
-           @Override
-           public void write(JsonWriter out, VirtualPortPrice value) throws IOException {
-             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
-             obj.remove("additionalProperties");
-             // serialize additional properties
-             if (value.getAdditionalProperties() != null) {
-               for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
-                 if (entry.getValue() instanceof String)
-                   obj.addProperty(entry.getKey(), (String) entry.getValue());
-                 else if (entry.getValue() instanceof Number)
-                   obj.addProperty(entry.getKey(), (Number) entry.getValue());
-                 else if (entry.getValue() instanceof Boolean)
-                   obj.addProperty(entry.getKey(), (Boolean) entry.getValue());
-                 else if (entry.getValue() instanceof Character)
-                   obj.addProperty(entry.getKey(), (Character) entry.getValue());
-                 else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
-                 }
-               }
-             }
-             elementAdapter.write(out, obj);
-           }
-
-           @Override
-           public VirtualPortPrice read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
-             // store additional fields in the deserialized instance
-             VirtualPortPrice instance = thisAdapter.fromJsonTree(jsonObj);
-             for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
-               if (!openapiFields.contains(entry.getKey())) {
-                 if (entry.getValue().isJsonPrimitive()) { // primitive type
-                   if (entry.getValue().getAsJsonPrimitive().isString())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsString());
-                   else if (entry.getValue().getAsJsonPrimitive().isNumber())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsNumber());
-                   else if (entry.getValue().getAsJsonPrimitive().isBoolean())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
-                   else
-                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else if (entry.getValue().isJsonArray()) {
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
-                 } else { // JSON object
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
-                 }
-               }
-             }
-             return instance;
-           }
-
-       }.nullSafe();
-    }
-  }
-
- /**
-  * Create an instance of VirtualPortPrice given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of VirtualPortPrice
-  * @throws IOException if the JSON string is invalid with respect to VirtualPortPrice
-  */
-  public static VirtualPortPrice fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, VirtualPortPrice.class);
-  }
-
- /**
-  * Convert an instance of VirtualPortPrice to an JSON string
-  *
-  * @return JSON string
-  */
-  public String toJson() {
-    return JSON.getGson().toJson(this);
-  }
 }
 

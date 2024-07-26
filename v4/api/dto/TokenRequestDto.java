@@ -1,21 +1,21 @@
 package com.equinix.openapi.fabric.v4.api.dto;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class TokenRequestDto {
-    @SerializedName("user_password")
+    @JsonProperty("user_password")
     private String userPassword;
 
-    @SerializedName("grant_type")
+    @JsonProperty("grant_type")
     private String grantType;
 
-    @SerializedName("user_name")
+    @JsonProperty("user_name")
     private String userName;
 
-    @SerializedName("client_secret")
+    @JsonProperty("client_secret")
     private String clientSecret;
 
-    @SerializedName("client_id")
+    @JsonProperty("client_id")
     private String clientId;
 
     public String getUserPassword() {

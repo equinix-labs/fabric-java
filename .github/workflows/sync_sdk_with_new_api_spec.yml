@@ -15,6 +15,7 @@ jobs:
 
     env:
       TEST_DATA_UAT_QINQ_PORT: ${{ secrets.TEST_DATA_UAT_QINQ_PORT }}
+      TEST_DATA_UAT_FCR_USER: ${{secrets.TEST_DATA_UAT_FCR_USER }}
 
     steps:
       - name: Get current date

@@ -1,6 +1,5 @@
 /*
  * Equinix Fabric API v4
- * Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br>
  *
  * Contact: api-support@equinix.com
  *
@@ -9,284 +8,1222 @@
  * Do not edit the class manually.
  */
 
+
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.ApiException;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Disabled;
+import com.equinix.openapi.fabric.v4.model.BGPActionData;
+import com.equinix.openapi.fabric.v4.model.BGPActionRequest;
+import com.equinix.openapi.fabric.v4.model.BGPActionsBulkData;
+import com.equinix.openapi.fabric.v4.model.ConnectionChangeOperation;
+import com.equinix.openapi.fabric.v4.model.ConnectionRoutingProtocolPostRequest;
+import com.equinix.openapi.fabric.v4.model.Error;
+import com.equinix.openapi.fabric.v4.model.GetResponse;
+import com.equinix.openapi.fabric.v4.model.RoutingProtocolBase;
+import com.equinix.openapi.fabric.v4.model.RoutingProtocolChangeData;
+import com.equinix.openapi.fabric.v4.model.RoutingProtocolChangeDataResponse;
+import com.equinix.openapi.fabric.v4.model.RoutingProtocolData;
+import java.util.UUID;
+import com.equinix.openapi.fabric.v4.model.ValidateRequest;
+import com.equinix.openapi.fabric.v4.model.ValidateSubnetResponse;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.v4.api.RoutingProtocolsApi;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.filter.log.ErrorLoggingFilter;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.Ignore;
+
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import static io.restassured.config.ObjectMapperConfig.objectMapperConfig;
+import static io.restassured.config.RestAssuredConfig.config;
+import static com.equinix.openapi.fabric.JacksonObjectMapper.jackson;
 
 /**
  * API tests for RoutingProtocolsApi
  */
-@Disabled
-public class RoutingProtocolsApiTest extends AbstractTest {
+@Ignore
+public class RoutingProtocolsApiTest {
 
-    private final RoutingProtocolsApi api = new RoutingProtocolsApi(generateToken());
+    private RoutingProtocolsApi api;
+
+    @Before
+    public void createApi() {
+        api = new TokenGenerator().generate().routingProtocols();
+    }
 
     /**
-     * Create Protocol
-     * <p>
-     * This API provides capability to create Routing Protocol for connections
-     *
-     * @throws ApiException if the Api call fails
+     * Successful operation
      */
     @Test
-    public void createConnectionRoutingProtocolTest() throws ApiException {
-        //
-        //String connectionId = null;
-        //
-        //RoutingProtocolBase routingProtocolBase = null;
-        //
-        //RoutingProtocolData response = api.createConnectionRoutingProtocol(connectionId, routingProtocolBase);
-
+    public void shouldSee202AfterCreateConnectionRoutingProtocol() {
+        String connectionId = null;
+        RoutingProtocolBase routingProtocolBase = null;
+        api.createConnectionRoutingProtocol()
+                .connectionIdPath(connectionId)
+                .body(routingProtocolBase).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Bulk Create Protocol
-     * <p>
-     * This API provides capability to create Routing Protocol for connections
-     *
-     * @throws ApiException if the Api call fails
+     * Bad request
      */
     @Test
-    public void createConnectionRoutingProtocolsInBulkTest() throws ApiException {
-        //
-        //String connectionId = null;
-        //
-        //ConnectionRoutingProtocolPostRequest connectionRoutingProtocolPostRequest = null;
-        //
-        //GetResponse response = api.createConnectionRoutingProtocolsInBulk(connectionId, connectionRoutingProtocolPostRequest);
-
+    public void shouldSee400AfterCreateConnectionRoutingProtocol() {
+        String connectionId = null;
+        RoutingProtocolBase routingProtocolBase = null;
+        api.createConnectionRoutingProtocol()
+                .connectionIdPath(connectionId)
+                .body(routingProtocolBase).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Delete Protocol
-     * <p>
-     * This API provides capability to delete Routing Protocols on virtual connection
-     *
-     * @throws ApiException if the Api call fails
+     * Unauthorized
      */
     @Test
-    public void deleteConnectionRoutingProtocolByUuidTest() throws ApiException {
-        //
-        //UUID routingProtocolId = null;
-        //
-        //String connectionId = null;
-        //
-        //RoutingProtocolData response = api.deleteConnectionRoutingProtocolByUuid(routingProtocolId, connectionId);
-
+    public void shouldSee401AfterCreateConnectionRoutingProtocol() {
+        String connectionId = null;
+        RoutingProtocolBase routingProtocolBase = null;
+        api.createConnectionRoutingProtocol()
+                .connectionIdPath(connectionId)
+                .body(routingProtocolBase).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Get BGP Actions
-     * <p>
-     * This API provides capability to get all BGP actions status
-     *
-     * @throws ApiException if the Api call fails
+     * Forbidden
      */
     @Test
-    public void getConnectionRoutingProtocolAllBgpActionsTest() throws ApiException {
-        //
-        //UUID routingProtocolId = null;
-        //
-        //String connectionId = null;
-        //
-        //Integer offset = null;
-        //
-        //Integer limit = null;
-        //
-        //BGPActionsBulkData response = api.getConnectionRoutingProtocolAllBgpActions(routingProtocolId, connectionId, offset, limit);
-
+    public void shouldSee403AfterCreateConnectionRoutingProtocol() {
+        String connectionId = null;
+        RoutingProtocolBase routingProtocolBase = null;
+        api.createConnectionRoutingProtocol()
+                .connectionIdPath(connectionId)
+                .body(routingProtocolBase).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Get Protocol
-     * <p>
-     * This API provides capability to accept/reject user&#39;s virtual connection
-     *
-     * @throws ApiException if the Api call fails
+     * Connection ID Not Found
      */
     @Test
-    public void getConnectionRoutingProtocolByUuidTest() throws ApiException {
-        //
-        //UUID routingProtocolId = null;
-        //
-        //String connectionId = null;
-        //
-        //RoutingProtocolData response = api.getConnectionRoutingProtocolByUuid(routingProtocolId, connectionId);
-
+    public void shouldSee404AfterCreateConnectionRoutingProtocol() {
+        String connectionId = null;
+        RoutingProtocolBase routingProtocolBase = null;
+        api.createConnectionRoutingProtocol()
+                .connectionIdPath(connectionId)
+                .body(routingProtocolBase).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * GetRoutingProtocols
-     * <p>
-     * This API provides capability to get Routing Protocols for connections
-     *
-     * @throws ApiException if the Api call fails
+     * Unsupported Media Type
      */
     @Test
-    public void getConnectionRoutingProtocolsTest() throws ApiException {
-        //
-        //String connectionId = null;
-        //
-        //Integer offset = null;
-        //
-        //Integer limit = null;
-        //
-        //GetResponse response = api.getConnectionRoutingProtocols(connectionId, offset, limit);
-
+    public void shouldSee415AfterCreateConnectionRoutingProtocol() {
+        String connectionId = null;
+        RoutingProtocolBase routingProtocolBase = null;
+        api.createConnectionRoutingProtocol()
+                .connectionIdPath(connectionId)
+                .body(routingProtocolBase).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Get BGP Action
-     * <p>
-     * This API provides capability to retrieve specific BGP action
-     *
-     * @throws ApiException if the Api call fails
+     * Internal server error
      */
     @Test
-    public void getConnectionRoutingProtocolsBgpActionByUuidTest() throws ApiException {
-        //
-        //String connectionId = null;
-        //
-        //UUID routingProtocolId = null;
-        //
-        //UUID actionId = null;
-        //
-        //BGPActionData response = api.getConnectionRoutingProtocolsBgpActionByUuid(connectionId, routingProtocolId, actionId);
+    public void shouldSee500AfterCreateConnectionRoutingProtocol() {
+        String connectionId = null;
+        RoutingProtocolBase routingProtocolBase = null;
+        api.createConnectionRoutingProtocol()
+                .connectionIdPath(connectionId)
+                .body(routingProtocolBase).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
 
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee202AfterCreateConnectionRoutingProtocolsInBulk() {
+        String connectionId = null;
+        ConnectionRoutingProtocolPostRequest connectionRoutingProtocolPostRequest = null;
+        api.createConnectionRoutingProtocolsInBulk()
+                .connectionIdPath(connectionId)
+                .body(connectionRoutingProtocolPostRequest).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Get Change By ID
-     * <p>
-     * This API provides capability to retrieve specific Routing Protocol Change
-     *
-     * @throws ApiException if the Api call fails
+     * Bad request
      */
     @Test
-    public void getConnectionRoutingProtocolsChangeByUuidTest() throws ApiException {
-        //
-        //String connectionId = null;
-        //
-        //UUID routingProtocolId = null;
-        //
-        //UUID changeId = null;
-        //
-        //RoutingProtocolChangeData response = api.getConnectionRoutingProtocolsChangeByUuid(connectionId, routingProtocolId, changeId);
-
+    public void shouldSee400AfterCreateConnectionRoutingProtocolsInBulk() {
+        String connectionId = null;
+        ConnectionRoutingProtocolPostRequest connectionRoutingProtocolPostRequest = null;
+        api.createConnectionRoutingProtocolsInBulk()
+                .connectionIdPath(connectionId)
+                .body(connectionRoutingProtocolPostRequest).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Get Changes
-     * <p>
-     * This API provides capability to retrieve user&#39;s Routing Protocol Changes
-     *
-     * @throws ApiException if the Api call fails
+     * Unauthorized
      */
     @Test
-    public void getConnectionRoutingProtocolsChangesTest() throws ApiException {
-        //
-        //String connectionId = null;
-        //
-        //UUID routingProtocolId = null;
-        //
-        //Integer offset = null;
-        //
-        //Integer limit = null;
-        //
-        //RoutingProtocolChangeDataResponse response = api.getConnectionRoutingProtocolsChanges(connectionId, routingProtocolId, offset, limit);
-
+    public void shouldSee401AfterCreateConnectionRoutingProtocolsInBulk() {
+        String connectionId = null;
+        ConnectionRoutingProtocolPostRequest connectionRoutingProtocolPostRequest = null;
+        api.createConnectionRoutingProtocolsInBulk()
+                .connectionIdPath(connectionId)
+                .body(connectionRoutingProtocolPostRequest).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Patch Protocol
-     * <p>
-     * This API provides capability to partially update Routing Protocols on a virtual connection
-     *
-     * @throws ApiException if the Api call fails
+     * Forbidden
      */
     @Test
-    public void patchConnectionRoutingProtocolByUuidTest() throws ApiException {
-        //
-        //UUID routingProtocolId = null;
-        //
-        //String connectionId = null;
-        //
-        //List<ConnectionChangeOperation> connectionChangeOperation = null;
-        //
-        //RoutingProtocolData response = api.patchConnectionRoutingProtocolByUuid(routingProtocolId, connectionId, connectionChangeOperation);
-
+    public void shouldSee403AfterCreateConnectionRoutingProtocolsInBulk() {
+        String connectionId = null;
+        ConnectionRoutingProtocolPostRequest connectionRoutingProtocolPostRequest = null;
+        api.createConnectionRoutingProtocolsInBulk()
+                .connectionIdPath(connectionId)
+                .body(connectionRoutingProtocolPostRequest).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Clear/Reset BGP
-     * <p>
-     * This API provides capability to clear/reset Routing Protocols BGP session
-     *
-     * @throws ApiException if the Api call fails
+     * Connection ID Not Found
      */
     @Test
-    public void postConnectionRoutingProtocolBgpActionByUuidTest() throws ApiException {
-        //
-        //UUID routingProtocolId = null;
-        //
-        //String connectionId = null;
-        //
-        //BGPActionRequest bgPActionRequest = null;
-        //
-        //BGPActionData response = api.postConnectionRoutingProtocolBgpActionByUuid(routingProtocolId, connectionId, bgPActionRequest);
-
+    public void shouldSee404AfterCreateConnectionRoutingProtocolsInBulk() {
+        String connectionId = null;
+        ConnectionRoutingProtocolPostRequest connectionRoutingProtocolPostRequest = null;
+        api.createConnectionRoutingProtocolsInBulk()
+                .connectionIdPath(connectionId)
+                .body(connectionRoutingProtocolPostRequest).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Replace Protocol
-     * <p>
-     * This API provides capability to replace complete Routing Protocols on a virtual connection
-     *
-     * @throws ApiException if the Api call fails
+     * Unsupported Media Type
      */
     @Test
-    public void replaceConnectionRoutingProtocolByUuidTest() throws ApiException {
-        //
-        //UUID routingProtocolId = null;
-        //
-        //String connectionId = null;
-        //
-        //RoutingProtocolBase routingProtocolBase = null;
-        //
-        //RoutingProtocolData response = api.replaceConnectionRoutingProtocolByUuid(routingProtocolId, connectionId, routingProtocolBase);
-
+    public void shouldSee415AfterCreateConnectionRoutingProtocolsInBulk() {
+        String connectionId = null;
+        ConnectionRoutingProtocolPostRequest connectionRoutingProtocolPostRequest = null;
+        api.createConnectionRoutingProtocolsInBulk()
+                .connectionIdPath(connectionId)
+                .body(connectionRoutingProtocolPostRequest).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Validate Subnet
-     * <p>
-     * This API provides capability to validate all subnets associated with any connection in the given FCR
-     *
-     * @throws ApiException if the Api call fails
+     * Internal server error
      */
     @Test
-    public void validateRoutingProtocolTest() throws ApiException {
-        //
-        //UUID routerId = null;
-        //
-        //ValidateRequest validateRequest = null;
-        //
-        //ValidateSubnetResponse response = api.validateRoutingProtocol(routerId, validateRequest);
-
+    public void shouldSee500AfterCreateConnectionRoutingProtocolsInBulk() {
+        String connectionId = null;
+        ConnectionRoutingProtocolPostRequest connectionRoutingProtocolPostRequest = null;
+        api.createConnectionRoutingProtocolsInBulk()
+                .connectionIdPath(connectionId)
+                .body(connectionRoutingProtocolPostRequest).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
+
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee202AfterDeleteConnectionRoutingProtocolByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        api.deleteConnectionRoutingProtocolByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterDeleteConnectionRoutingProtocolByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        api.deleteConnectionRoutingProtocolByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterDeleteConnectionRoutingProtocolByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        api.deleteConnectionRoutingProtocolByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterDeleteConnectionRoutingProtocolByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        api.deleteConnectionRoutingProtocolByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Connection ID Not Found
+     */
+    @Test
+    public void shouldSee404AfterDeleteConnectionRoutingProtocolByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        api.deleteConnectionRoutingProtocolByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unsupported Media Type
+     */
+    @Test
+    public void shouldSee415AfterDeleteConnectionRoutingProtocolByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        api.deleteConnectionRoutingProtocolByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal server error
+     */
+    @Test
+    public void shouldSee500AfterDeleteConnectionRoutingProtocolByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        api.deleteConnectionRoutingProtocolByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Fabric BGP Action object
+     */
+    @Test
+    public void shouldSee200AfterGetConnectionRoutingProtocolAllBgpActions() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getConnectionRoutingProtocolAllBgpActions()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterGetConnectionRoutingProtocolAllBgpActions() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getConnectionRoutingProtocolAllBgpActions()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterGetConnectionRoutingProtocolAllBgpActions() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getConnectionRoutingProtocolAllBgpActions()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterGetConnectionRoutingProtocolAllBgpActions() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getConnectionRoutingProtocolAllBgpActions()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Connection ID Not Found
+     */
+    @Test
+    public void shouldSee404AfterGetConnectionRoutingProtocolAllBgpActions() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getConnectionRoutingProtocolAllBgpActions()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unsupported Media Type
+     */
+    @Test
+    public void shouldSee415AfterGetConnectionRoutingProtocolAllBgpActions() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getConnectionRoutingProtocolAllBgpActions()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal server error
+     */
+    @Test
+    public void shouldSee500AfterGetConnectionRoutingProtocolAllBgpActions() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getConnectionRoutingProtocolAllBgpActions()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee200AfterGetConnectionRoutingProtocolByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        api.getConnectionRoutingProtocolByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterGetConnectionRoutingProtocolByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        api.getConnectionRoutingProtocolByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterGetConnectionRoutingProtocolByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        api.getConnectionRoutingProtocolByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterGetConnectionRoutingProtocolByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        api.getConnectionRoutingProtocolByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Connection ID Not Found
+     */
+    @Test
+    public void shouldSee404AfterGetConnectionRoutingProtocolByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        api.getConnectionRoutingProtocolByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unsupported Media Type
+     */
+    @Test
+    public void shouldSee415AfterGetConnectionRoutingProtocolByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        api.getConnectionRoutingProtocolByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal server error
+     */
+    @Test
+    public void shouldSee500AfterGetConnectionRoutingProtocolByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        api.getConnectionRoutingProtocolByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee200AfterGetConnectionRoutingProtocols() {
+        String connectionId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getConnectionRoutingProtocols()
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterGetConnectionRoutingProtocols() {
+        String connectionId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getConnectionRoutingProtocols()
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterGetConnectionRoutingProtocols() {
+        String connectionId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getConnectionRoutingProtocols()
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterGetConnectionRoutingProtocols() {
+        String connectionId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getConnectionRoutingProtocols()
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Connection ID Not Found
+     */
+    @Test
+    public void shouldSee404AfterGetConnectionRoutingProtocols() {
+        String connectionId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getConnectionRoutingProtocols()
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal server error
+     */
+    @Test
+    public void shouldSee500AfterGetConnectionRoutingProtocols() {
+        String connectionId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getConnectionRoutingProtocols()
+                .connectionIdPath(connectionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Fabric BGP Action object
+     */
+    @Test
+    public void shouldSee200AfterGetConnectionRoutingProtocolsBgpActionByUuid() {
+        String connectionId = null;
+        UUID routingProtocolId = null;
+        UUID actionId = null;
+        api.getConnectionRoutingProtocolsBgpActionByUuid()
+                .connectionIdPath(connectionId)
+                .routingProtocolIdPath(routingProtocolId)
+                .actionIdPath(actionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterGetConnectionRoutingProtocolsBgpActionByUuid() {
+        String connectionId = null;
+        UUID routingProtocolId = null;
+        UUID actionId = null;
+        api.getConnectionRoutingProtocolsBgpActionByUuid()
+                .connectionIdPath(connectionId)
+                .routingProtocolIdPath(routingProtocolId)
+                .actionIdPath(actionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterGetConnectionRoutingProtocolsBgpActionByUuid() {
+        String connectionId = null;
+        UUID routingProtocolId = null;
+        UUID actionId = null;
+        api.getConnectionRoutingProtocolsBgpActionByUuid()
+                .connectionIdPath(connectionId)
+                .routingProtocolIdPath(routingProtocolId)
+                .actionIdPath(actionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterGetConnectionRoutingProtocolsBgpActionByUuid() {
+        String connectionId = null;
+        UUID routingProtocolId = null;
+        UUID actionId = null;
+        api.getConnectionRoutingProtocolsBgpActionByUuid()
+                .connectionIdPath(connectionId)
+                .routingProtocolIdPath(routingProtocolId)
+                .actionIdPath(actionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Connection ID Not Found
+     */
+    @Test
+    public void shouldSee404AfterGetConnectionRoutingProtocolsBgpActionByUuid() {
+        String connectionId = null;
+        UUID routingProtocolId = null;
+        UUID actionId = null;
+        api.getConnectionRoutingProtocolsBgpActionByUuid()
+                .connectionIdPath(connectionId)
+                .routingProtocolIdPath(routingProtocolId)
+                .actionIdPath(actionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal server error
+     */
+    @Test
+    public void shouldSee500AfterGetConnectionRoutingProtocolsBgpActionByUuid() {
+        String connectionId = null;
+        UUID routingProtocolId = null;
+        UUID actionId = null;
+        api.getConnectionRoutingProtocolsBgpActionByUuid()
+                .connectionIdPath(connectionId)
+                .routingProtocolIdPath(routingProtocolId)
+                .actionIdPath(actionId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Fabric Routing Protocol Change object
+     */
+    @Test
+    public void shouldSee200AfterGetConnectionRoutingProtocolsChangeByUuid() {
+        String connectionId = null;
+        UUID routingProtocolId = null;
+        UUID changeId = null;
+        api.getConnectionRoutingProtocolsChangeByUuid()
+                .connectionIdPath(connectionId)
+                .routingProtocolIdPath(routingProtocolId)
+                .changeIdPath(changeId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterGetConnectionRoutingProtocolsChangeByUuid() {
+        String connectionId = null;
+        UUID routingProtocolId = null;
+        UUID changeId = null;
+        api.getConnectionRoutingProtocolsChangeByUuid()
+                .connectionIdPath(connectionId)
+                .routingProtocolIdPath(routingProtocolId)
+                .changeIdPath(changeId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterGetConnectionRoutingProtocolsChangeByUuid() {
+        String connectionId = null;
+        UUID routingProtocolId = null;
+        UUID changeId = null;
+        api.getConnectionRoutingProtocolsChangeByUuid()
+                .connectionIdPath(connectionId)
+                .routingProtocolIdPath(routingProtocolId)
+                .changeIdPath(changeId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterGetConnectionRoutingProtocolsChangeByUuid() {
+        String connectionId = null;
+        UUID routingProtocolId = null;
+        UUID changeId = null;
+        api.getConnectionRoutingProtocolsChangeByUuid()
+                .connectionIdPath(connectionId)
+                .routingProtocolIdPath(routingProtocolId)
+                .changeIdPath(changeId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Connection ID Not Found
+     */
+    @Test
+    public void shouldSee404AfterGetConnectionRoutingProtocolsChangeByUuid() {
+        String connectionId = null;
+        UUID routingProtocolId = null;
+        UUID changeId = null;
+        api.getConnectionRoutingProtocolsChangeByUuid()
+                .connectionIdPath(connectionId)
+                .routingProtocolIdPath(routingProtocolId)
+                .changeIdPath(changeId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal server error
+     */
+    @Test
+    public void shouldSee500AfterGetConnectionRoutingProtocolsChangeByUuid() {
+        String connectionId = null;
+        UUID routingProtocolId = null;
+        UUID changeId = null;
+        api.getConnectionRoutingProtocolsChangeByUuid()
+                .connectionIdPath(connectionId)
+                .routingProtocolIdPath(routingProtocolId)
+                .changeIdPath(changeId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Fabric Routing Protocol Change object
+     */
+    @Test
+    public void shouldSee200AfterGetConnectionRoutingProtocolsChanges() {
+        String connectionId = null;
+        UUID routingProtocolId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getConnectionRoutingProtocolsChanges()
+                .connectionIdPath(connectionId)
+                .routingProtocolIdPath(routingProtocolId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterGetConnectionRoutingProtocolsChanges() {
+        String connectionId = null;
+        UUID routingProtocolId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getConnectionRoutingProtocolsChanges()
+                .connectionIdPath(connectionId)
+                .routingProtocolIdPath(routingProtocolId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterGetConnectionRoutingProtocolsChanges() {
+        String connectionId = null;
+        UUID routingProtocolId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getConnectionRoutingProtocolsChanges()
+                .connectionIdPath(connectionId)
+                .routingProtocolIdPath(routingProtocolId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterGetConnectionRoutingProtocolsChanges() {
+        String connectionId = null;
+        UUID routingProtocolId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getConnectionRoutingProtocolsChanges()
+                .connectionIdPath(connectionId)
+                .routingProtocolIdPath(routingProtocolId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Connection ID Not Found
+     */
+    @Test
+    public void shouldSee404AfterGetConnectionRoutingProtocolsChanges() {
+        String connectionId = null;
+        UUID routingProtocolId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getConnectionRoutingProtocolsChanges()
+                .connectionIdPath(connectionId)
+                .routingProtocolIdPath(routingProtocolId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal server error
+     */
+    @Test
+    public void shouldSee500AfterGetConnectionRoutingProtocolsChanges() {
+        String connectionId = null;
+        UUID routingProtocolId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getConnectionRoutingProtocolsChanges()
+                .connectionIdPath(connectionId)
+                .routingProtocolIdPath(routingProtocolId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee202AfterPatchConnectionRoutingProtocolByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        List<ConnectionChangeOperation> connectionChangeOperation = null;
+        api.patchConnectionRoutingProtocolByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId)
+                .body(connectionChangeOperation).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterPatchConnectionRoutingProtocolByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        List<ConnectionChangeOperation> connectionChangeOperation = null;
+        api.patchConnectionRoutingProtocolByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId)
+                .body(connectionChangeOperation).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterPatchConnectionRoutingProtocolByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        List<ConnectionChangeOperation> connectionChangeOperation = null;
+        api.patchConnectionRoutingProtocolByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId)
+                .body(connectionChangeOperation).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterPatchConnectionRoutingProtocolByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        List<ConnectionChangeOperation> connectionChangeOperation = null;
+        api.patchConnectionRoutingProtocolByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId)
+                .body(connectionChangeOperation).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Connection ID Not Found
+     */
+    @Test
+    public void shouldSee404AfterPatchConnectionRoutingProtocolByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        List<ConnectionChangeOperation> connectionChangeOperation = null;
+        api.patchConnectionRoutingProtocolByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId)
+                .body(connectionChangeOperation).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unsupported Media Type
+     */
+    @Test
+    public void shouldSee415AfterPatchConnectionRoutingProtocolByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        List<ConnectionChangeOperation> connectionChangeOperation = null;
+        api.patchConnectionRoutingProtocolByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId)
+                .body(connectionChangeOperation).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal server error
+     */
+    @Test
+    public void shouldSee500AfterPatchConnectionRoutingProtocolByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        List<ConnectionChangeOperation> connectionChangeOperation = null;
+        api.patchConnectionRoutingProtocolByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId)
+                .body(connectionChangeOperation).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee202AfterPostConnectionRoutingProtocolBgpActionByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        BGPActionRequest bgPActionRequest = null;
+        api.postConnectionRoutingProtocolBgpActionByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId)
+                .body(bgPActionRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterPostConnectionRoutingProtocolBgpActionByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        BGPActionRequest bgPActionRequest = null;
+        api.postConnectionRoutingProtocolBgpActionByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId)
+                .body(bgPActionRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterPostConnectionRoutingProtocolBgpActionByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        BGPActionRequest bgPActionRequest = null;
+        api.postConnectionRoutingProtocolBgpActionByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId)
+                .body(bgPActionRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterPostConnectionRoutingProtocolBgpActionByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        BGPActionRequest bgPActionRequest = null;
+        api.postConnectionRoutingProtocolBgpActionByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId)
+                .body(bgPActionRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Connection ID Not Found
+     */
+    @Test
+    public void shouldSee404AfterPostConnectionRoutingProtocolBgpActionByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        BGPActionRequest bgPActionRequest = null;
+        api.postConnectionRoutingProtocolBgpActionByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId)
+                .body(bgPActionRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unsupported Media Type
+     */
+    @Test
+    public void shouldSee415AfterPostConnectionRoutingProtocolBgpActionByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        BGPActionRequest bgPActionRequest = null;
+        api.postConnectionRoutingProtocolBgpActionByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId)
+                .body(bgPActionRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal server error
+     */
+    @Test
+    public void shouldSee500AfterPostConnectionRoutingProtocolBgpActionByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        BGPActionRequest bgPActionRequest = null;
+        api.postConnectionRoutingProtocolBgpActionByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId)
+                .body(bgPActionRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee202AfterReplaceConnectionRoutingProtocolByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        RoutingProtocolBase routingProtocolBase = null;
+        api.replaceConnectionRoutingProtocolByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId)
+                .body(routingProtocolBase).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterReplaceConnectionRoutingProtocolByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        RoutingProtocolBase routingProtocolBase = null;
+        api.replaceConnectionRoutingProtocolByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId)
+                .body(routingProtocolBase).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterReplaceConnectionRoutingProtocolByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        RoutingProtocolBase routingProtocolBase = null;
+        api.replaceConnectionRoutingProtocolByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId)
+                .body(routingProtocolBase).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterReplaceConnectionRoutingProtocolByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        RoutingProtocolBase routingProtocolBase = null;
+        api.replaceConnectionRoutingProtocolByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId)
+                .body(routingProtocolBase).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Connection ID Not Found
+     */
+    @Test
+    public void shouldSee404AfterReplaceConnectionRoutingProtocolByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        RoutingProtocolBase routingProtocolBase = null;
+        api.replaceConnectionRoutingProtocolByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId)
+                .body(routingProtocolBase).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unsupported Media Type
+     */
+    @Test
+    public void shouldSee415AfterReplaceConnectionRoutingProtocolByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        RoutingProtocolBase routingProtocolBase = null;
+        api.replaceConnectionRoutingProtocolByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId)
+                .body(routingProtocolBase).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal server error
+     */
+    @Test
+    public void shouldSee500AfterReplaceConnectionRoutingProtocolByUuid() {
+        UUID routingProtocolId = null;
+        String connectionId = null;
+        RoutingProtocolBase routingProtocolBase = null;
+        api.replaceConnectionRoutingProtocolByUuid()
+                .routingProtocolIdPath(routingProtocolId)
+                .connectionIdPath(connectionId)
+                .body(routingProtocolBase).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee200AfterValidateRoutingProtocol() {
+        UUID routerId = null;
+        ValidateRequest validateRequest = null;
+        api.validateRoutingProtocol()
+                .routerIdPath(routerId)
+                .body(validateRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterValidateRoutingProtocol() {
+        UUID routerId = null;
+        ValidateRequest validateRequest = null;
+        api.validateRoutingProtocol()
+                .routerIdPath(routerId)
+                .body(validateRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
 }

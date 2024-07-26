@@ -24,36 +24,16 @@ Create Service Tokens generates Equinix Fabric? service tokens. These tokens aut
 ### Example
 ```java
 // Import classes:
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
-import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.ServiceTokensApi;
+//import com.equinix.openapi.fabric.ApiClient;
+//import io.restassured.builder.RequestSpecBuilder;
+//import io.restassured.filter.log.ErrorLoggingFilter;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+ServiceTokensApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setBaseUri("https://api.equinix.com"))).serviceTokens();
 
-    ServiceTokensApi apiInstance = new ServiceTokensApi(defaultClient);
-    ServiceToken serviceToken = new ServiceToken(); // ServiceToken | 
-    try {
-      ServiceToken result = apiInstance.createServiceToken(serviceToken);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ServiceTokensApi#createServiceToken");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
+api.createServiceToken()
+    .body(serviceToken).execute(r -> r.prettyPeek());
 ```
 
 ### Parameters
@@ -75,14 +55,6 @@ public class Example {
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **201** | Successful operation |  -  |
-| **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
-
 <a name="createServiceTokenAction"></a>
 # **createServiceTokenAction**
 > ServiceToken createServiceTokenAction(serviceTokenId, serviceTokenActionRequest)
@@ -94,37 +66,17 @@ This API provides capability to accept/reject user&#39;s servicetokens
 ### Example
 ```java
 // Import classes:
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
-import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.ServiceTokensApi;
+//import com.equinix.openapi.fabric.ApiClient;
+//import io.restassured.builder.RequestSpecBuilder;
+//import io.restassured.filter.log.ErrorLoggingFilter;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+ServiceTokensApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setBaseUri("https://api.equinix.com"))).serviceTokens();
 
-    ServiceTokensApi apiInstance = new ServiceTokensApi(defaultClient);
-    UUID serviceTokenId = UUID.randomUUID(); // UUID | Service Token UUID
-    ServiceTokenActionRequest serviceTokenActionRequest = new ServiceTokenActionRequest(); // ServiceTokenActionRequest | 
-    try {
-      ServiceToken result = apiInstance.createServiceTokenAction(serviceTokenId, serviceTokenActionRequest);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ServiceTokensApi#createServiceTokenAction");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
+api.createServiceTokenAction()
+    .serviceTokenIdPath(serviceTokenId)
+    .body(serviceTokenActionRequest).execute(r -> r.prettyPeek());
 ```
 
 ### Parameters
@@ -147,15 +99,6 @@ public class Example {
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **202** | Successful operation |  -  |
-| **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-
 <a name="deleteServiceTokenByUuid"></a>
 # **deleteServiceTokenByUuid**
 > deleteServiceTokenByUuid(serviceTokenId)
@@ -167,35 +110,16 @@ Delete Service Tokens removes an Equinix Fabric service token corresponding to t
 ### Example
 ```java
 // Import classes:
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
-import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.ServiceTokensApi;
+//import com.equinix.openapi.fabric.ApiClient;
+//import io.restassured.builder.RequestSpecBuilder;
+//import io.restassured.filter.log.ErrorLoggingFilter;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+ServiceTokensApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setBaseUri("https://api.equinix.com"))).serviceTokens();
 
-    ServiceTokensApi apiInstance = new ServiceTokensApi(defaultClient);
-    UUID serviceTokenId = UUID.randomUUID(); // UUID | Service Token UUID
-    try {
-      apiInstance.deleteServiceTokenByUuid(serviceTokenId);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ServiceTokensApi#deleteServiceTokenByUuid");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
+api.deleteServiceTokenByUuid()
+    .serviceTokenIdPath(serviceTokenId).execute(r -> r.prettyPeek());
 ```
 
 ### Parameters
@@ -217,13 +141,6 @@ null (empty response body)
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **204** | Deleted Service Token Successfully |  -  |
-| **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-
 <a name="getServiceTokenByUuid"></a>
 # **getServiceTokenByUuid**
 > ServiceToken getServiceTokenByUuid(serviceTokenId)
@@ -235,36 +152,16 @@ Get Specified Service Tokens uses the uuid of an Equinix Fabric service token to
 ### Example
 ```java
 // Import classes:
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
-import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.ServiceTokensApi;
+//import com.equinix.openapi.fabric.ApiClient;
+//import io.restassured.builder.RequestSpecBuilder;
+//import io.restassured.filter.log.ErrorLoggingFilter;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+ServiceTokensApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setBaseUri("https://api.equinix.com"))).serviceTokens();
 
-    ServiceTokensApi apiInstance = new ServiceTokensApi(defaultClient);
-    UUID serviceTokenId = UUID.randomUUID(); // UUID | Service Token UUID
-    try {
-      ServiceToken result = apiInstance.getServiceTokenByUuid(serviceTokenId);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ServiceTokensApi#getServiceTokenByUuid");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
+api.getServiceTokenByUuid()
+    .serviceTokenIdPath(serviceTokenId).execute(r -> r.prettyPeek());
 ```
 
 ### Parameters
@@ -286,14 +183,6 @@ public class Example {
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful operation |  -  |
-| **400** | Bad request |  -  |
-| **403** | Forbidden |  -  |
-| **500** | Internal server error |  -  |
-
 <a name="getServiceTokens"></a>
 # **getServiceTokens**
 > ServiceTokens getServiceTokens(offset, limit)
@@ -305,37 +194,15 @@ Get All ServiceTokens creates a list of all Equinix Fabric service tokens associ
 ### Example
 ```java
 // Import classes:
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
-import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.ServiceTokensApi;
+//import com.equinix.openapi.fabric.ApiClient;
+//import io.restassured.builder.RequestSpecBuilder;
+//import io.restassured.filter.log.ErrorLoggingFilter;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+ServiceTokensApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setBaseUri("https://api.equinix.com"))).serviceTokens();
 
-    ServiceTokensApi apiInstance = new ServiceTokensApi(defaultClient);
-    BigDecimal offset = new BigDecimal(78); // BigDecimal | offset
-    BigDecimal limit = new BigDecimal(78); // BigDecimal | number of records to fetch
-    try {
-      ServiceTokens result = apiInstance.getServiceTokens(offset, limit);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ServiceTokensApi#getServiceTokens");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
+api.getServiceTokens().execute(r -> r.prettyPeek());
 ```
 
 ### Parameters
@@ -358,12 +225,6 @@ public class Example {
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful operation |  -  |
-| **403** | Forbidden |  -  |
-
 <a name="searchServiceTokens"></a>
 # **searchServiceTokens**
 > ServiceTokens searchServiceTokens(serviceTokenSearchRequest)
@@ -375,36 +236,16 @@ The API provides capability to get list of user&#39;s servicetokens using search
 ### Example
 ```java
 // Import classes:
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
-import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.ServiceTokensApi;
+//import com.equinix.openapi.fabric.ApiClient;
+//import io.restassured.builder.RequestSpecBuilder;
+//import io.restassured.filter.log.ErrorLoggingFilter;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+ServiceTokensApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setBaseUri("https://api.equinix.com"))).serviceTokens();
 
-    ServiceTokensApi apiInstance = new ServiceTokensApi(defaultClient);
-    ServiceTokenSearchRequest serviceTokenSearchRequest = new ServiceTokenSearchRequest(); // ServiceTokenSearchRequest | 
-    try {
-      ServiceTokens result = apiInstance.searchServiceTokens(serviceTokenSearchRequest);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ServiceTokensApi#searchServiceTokens");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
+api.searchServiceTokens()
+    .body(serviceTokenSearchRequest).execute(r -> r.prettyPeek());
 ```
 
 ### Parameters
@@ -426,15 +267,6 @@ public class Example {
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful operation |  -  |
-| **400** | Bad request |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **500** | Internal server error |  -  |
-
 <a name="updateServiceTokenByUuid"></a>
 # **updateServiceTokenByUuid**
 > ServiceToken updateServiceTokenByUuid(serviceTokenId, serviceTokenChangeOperation)
@@ -446,37 +278,17 @@ This API provides capability to update user&#39;s Service Token
 ### Example
 ```java
 // Import classes:
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
-import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.ServiceTokensApi;
+//import com.equinix.openapi.fabric.ApiClient;
+//import io.restassured.builder.RequestSpecBuilder;
+//import io.restassured.filter.log.ErrorLoggingFilter;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+ServiceTokensApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setBaseUri("https://api.equinix.com"))).serviceTokens();
 
-    ServiceTokensApi apiInstance = new ServiceTokensApi(defaultClient);
-    UUID serviceTokenId = UUID.randomUUID(); // UUID | Service Token UUID
-    List<ServiceTokenChangeOperation> serviceTokenChangeOperation = Arrays.asList(); // List<ServiceTokenChangeOperation> | 
-    try {
-      ServiceToken result = apiInstance.updateServiceTokenByUuid(serviceTokenId, serviceTokenChangeOperation);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ServiceTokensApi#updateServiceTokenByUuid");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
+api.updateServiceTokenByUuid()
+    .serviceTokenIdPath(serviceTokenId)
+    .body(serviceTokenChangeOperation).execute(r -> r.prettyPeek());
 ```
 
 ### Parameters
@@ -498,11 +310,4 @@ public class Example {
 
  - **Content-Type**: application/json-patch+json
  - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful operation |  -  |
-| **400** | Bad request |  -  |
-| **403** | Forbidden |  -  |
 

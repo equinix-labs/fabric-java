@@ -11,20 +11,12 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.annotations.SerializedName;
-
-import java.io.IOException;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Possible field names to use on sorting
  */
-@JsonAdapter(SortBy.Adapter.class)
 public enum SortBy {
   
   NAME("/name"),
@@ -83,6 +75,7 @@ public enum SortBy {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -92,6 +85,7 @@ public enum SortBy {
     return String.valueOf(value);
   }
 
+  @JsonCreator
   public static SortBy fromValue(String value) {
     for (SortBy b : SortBy.values()) {
       if (b.value.equals(value)) {
@@ -99,19 +93,6 @@ public enum SortBy {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-
-  public static class Adapter extends TypeAdapter<SortBy> {
-    @Override
-    public void write(final JsonWriter jsonWriter, final SortBy enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
-
-    @Override
-    public SortBy read(final JsonReader jsonReader) throws IOException {
-      String value = jsonReader.nextString();
-      return SortBy.fromValue(value);
-    }
   }
 }
 

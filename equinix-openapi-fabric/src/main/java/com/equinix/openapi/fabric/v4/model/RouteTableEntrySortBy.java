@@ -11,20 +11,12 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.annotations.SerializedName;
-
-import java.io.IOException;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Possible field names to use on sorting
  */
-@JsonAdapter(RouteTableEntrySortBy.Adapter.class)
 public enum RouteTableEntrySortBy {
   
   CHANGELOG_CREATEDDATETIME("/changeLog/createdDateTime"),
@@ -45,6 +37,7 @@ public enum RouteTableEntrySortBy {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -54,6 +47,7 @@ public enum RouteTableEntrySortBy {
     return String.valueOf(value);
   }
 
+  @JsonCreator
   public static RouteTableEntrySortBy fromValue(String value) {
     for (RouteTableEntrySortBy b : RouteTableEntrySortBy.values()) {
       if (b.value.equals(value)) {
@@ -61,19 +55,6 @@ public enum RouteTableEntrySortBy {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-
-  public static class Adapter extends TypeAdapter<RouteTableEntrySortBy> {
-    @Override
-    public void write(final JsonWriter jsonWriter, final RouteTableEntrySortBy enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
-
-    @Override
-    public RouteTableEntrySortBy read(final JsonReader jsonReader) throws IOException {
-      String value = jsonReader.nextString();
-      return RouteTableEntrySortBy.fromValue(value);
-    }
   }
 }
 

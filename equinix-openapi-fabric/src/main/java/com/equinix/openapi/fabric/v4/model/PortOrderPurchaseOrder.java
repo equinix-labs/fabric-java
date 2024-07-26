@@ -11,66 +11,43 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
+import com.fasterxml.jackson.annotation.*;
+
 import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
 import java.util.UUID;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.TypeAdapterFactory;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import com.equinix.openapi.fabric.JSON;
 
 /**
  * purchase order
  */
+@JsonPropertyOrder({
+  PortOrderPurchaseOrder.JSON_PROPERTY_NUMBER,
+  PortOrderPurchaseOrder.JSON_PROPERTY_AMOUNT,
+  PortOrderPurchaseOrder.JSON_PROPERTY_START_DATE,
+  PortOrderPurchaseOrder.JSON_PROPERTY_END_DATE,
+  PortOrderPurchaseOrder.JSON_PROPERTY_ATTACHMENT_ID,
+  PortOrderPurchaseOrder.JSON_PROPERTY_SELECTION_TYPE
+})
+@JsonTypeName("PortOrder_purchaseOrder")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PortOrderPurchaseOrder {
-  public static final String SERIALIZED_NAME_NUMBER = "number";
-  @SerializedName(SERIALIZED_NAME_NUMBER)
+  public static final String JSON_PROPERTY_NUMBER = "number";
   private String number;
 
-  public static final String SERIALIZED_NAME_AMOUNT = "amount";
-  @SerializedName(SERIALIZED_NAME_AMOUNT)
+  public static final String JSON_PROPERTY_AMOUNT = "amount";
   private String amount;
 
-  public static final String SERIALIZED_NAME_START_DATE = "startDate";
-  @SerializedName(SERIALIZED_NAME_START_DATE)
+  public static final String JSON_PROPERTY_START_DATE = "startDate";
   private String startDate;
 
-  public static final String SERIALIZED_NAME_END_DATE = "endDate";
-  @SerializedName(SERIALIZED_NAME_END_DATE)
+  public static final String JSON_PROPERTY_END_DATE = "endDate";
   private String endDate;
 
-  public static final String SERIALIZED_NAME_ATTACHMENT_ID = "attachmentId";
-  @SerializedName(SERIALIZED_NAME_ATTACHMENT_ID)
+  public static final String JSON_PROPERTY_ATTACHMENT_ID = "attachmentId";
   private UUID attachmentId;
 
   /**
    * Gets or Sets selectionType
    */
-  @JsonAdapter(SelectionTypeEnum.Adapter.class)
   public enum SelectionTypeEnum {
     EXEMPTION("EXEMPTION"),
     
@@ -86,6 +63,7 @@ public class PortOrderPurchaseOrder {
       this.value = value;
     }
 
+    @JsonValue
     public String getValue() {
       return value;
     }
@@ -95,6 +73,7 @@ public class PortOrderPurchaseOrder {
       return String.valueOf(value);
     }
 
+    @JsonCreator
     public static SelectionTypeEnum fromValue(String value) {
       for (SelectionTypeEnum b : SelectionTypeEnum.values()) {
         if (b.value.equals(value)) {
@@ -103,23 +82,9 @@ public class PortOrderPurchaseOrder {
       }
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
-
-    public static class Adapter extends TypeAdapter<SelectionTypeEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final SelectionTypeEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public SelectionTypeEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return SelectionTypeEnum.fromValue(value);
-      }
-    }
   }
 
-  public static final String SERIALIZED_NAME_SELECTION_TYPE = "selectionType";
-  @SerializedName(SERIALIZED_NAME_SELECTION_TYPE)
+  public static final String JSON_PROPERTY_SELECTION_TYPE = "selectionType";
   private SelectionTypeEnum selectionType;
 
   public PortOrderPurchaseOrder() {
@@ -136,12 +101,16 @@ public class PortOrderPurchaseOrder {
    * @return number
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_NUMBER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getNumber() {
     return number;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_NUMBER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNumber(String number) {
     this.number = number;
   }
@@ -158,12 +127,16 @@ public class PortOrderPurchaseOrder {
    * @return amount
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_AMOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getAmount() {
     return amount;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_AMOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAmount(String amount) {
     this.amount = amount;
   }
@@ -180,12 +153,16 @@ public class PortOrderPurchaseOrder {
    * @return startDate
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_START_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getStartDate() {
     return startDate;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_START_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStartDate(String startDate) {
     this.startDate = startDate;
   }
@@ -202,12 +179,16 @@ public class PortOrderPurchaseOrder {
    * @return endDate
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_END_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getEndDate() {
     return endDate;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_END_DATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEndDate(String endDate) {
     this.endDate = endDate;
   }
@@ -224,12 +205,16 @@ public class PortOrderPurchaseOrder {
    * @return attachmentId
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ATTACHMENT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public UUID getAttachmentId() {
     return attachmentId;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ATTACHMENT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAttachmentId(UUID attachmentId) {
     this.attachmentId = attachmentId;
   }
@@ -246,59 +231,18 @@ public class PortOrderPurchaseOrder {
    * @return selectionType
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_SELECTION_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public SelectionTypeEnum getSelectionType() {
     return selectionType;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_SELECTION_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSelectionType(SelectionTypeEnum selectionType) {
     this.selectionType = selectionType;
-  }
-
-  /**
-   * A container for additional, undeclared properties.
-   * This is a holder for any undeclared properties as specified with
-   * the 'additionalProperties' keyword in the OAS document.
-   */
-  private Map<String, Object> additionalProperties;
-
-  /**
-   * Set the additional (undeclared) property with the specified name and value.
-   * If the property does not already exist, create it otherwise replace it.
-   *
-   * @param key name of the property
-   * @param value value of the property
-   * @return the PortOrderPurchaseOrder instance itself
-   */
-  public PortOrderPurchaseOrder putAdditionalProperty(String key, Object value) {
-    if (this.additionalProperties == null) {
-        this.additionalProperties = new HashMap<String, Object>();
-    }
-    this.additionalProperties.put(key, value);
-    return this;
-  }
-
-  /**
-   * Return the additional (undeclared) property.
-   *
-   * @return a map of objects
-   */
-  public Map<String, Object> getAdditionalProperties() {
-    return additionalProperties;
-  }
-
-  /**
-   * Return the additional (undeclared) property with the specified name.
-   *
-   * @param key name of the property
-   * @return an object
-   */
-  public Object getAdditionalProperty(String key) {
-    if (this.additionalProperties == null) {
-        return null;
-    }
-    return this.additionalProperties.get(key);
   }
 
 
@@ -316,13 +260,12 @@ public class PortOrderPurchaseOrder {
         Objects.equals(this.startDate, portOrderPurchaseOrder.startDate) &&
         Objects.equals(this.endDate, portOrderPurchaseOrder.endDate) &&
         Objects.equals(this.attachmentId, portOrderPurchaseOrder.attachmentId) &&
-        Objects.equals(this.selectionType, portOrderPurchaseOrder.selectionType)&&
-        Objects.equals(this.additionalProperties, portOrderPurchaseOrder.additionalProperties);
+        Objects.equals(this.selectionType, portOrderPurchaseOrder.selectionType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(number, amount, startDate, endDate, attachmentId, selectionType, additionalProperties);
+    return Objects.hash(number, amount, startDate, endDate, attachmentId, selectionType);
   }
 
   @Override
@@ -335,7 +278,6 @@ public class PortOrderPurchaseOrder {
     sb.append("    endDate: ").append(toIndentedString(endDate)).append("\n");
     sb.append("    attachmentId: ").append(toIndentedString(attachmentId)).append("\n");
     sb.append("    selectionType: ").append(toIndentedString(selectionType)).append("\n");
-    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -351,140 +293,5 @@ public class PortOrderPurchaseOrder {
     return o.toString().replace("\n", "\n    ");
   }
 
-
-  public static HashSet<String> openapiFields;
-  public static HashSet<String> openapiRequiredFields;
-
-  static {
-    // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("number");
-    openapiFields.add("amount");
-    openapiFields.add("startDate");
-    openapiFields.add("endDate");
-    openapiFields.add("attachmentId");
-    openapiFields.add("selectionType");
-
-    // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-  }
-
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to PortOrderPurchaseOrder
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (!PortOrderPurchaseOrder.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in PortOrderPurchaseOrder is not found in the empty JSON string", PortOrderPurchaseOrder.openapiRequiredFields.toString()));
-        }
-      }
-      if ((jsonObj.get("number") != null && !jsonObj.get("number").isJsonNull()) && !jsonObj.get("number").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `number` to be a primitive type in the JSON string but got `%s`", jsonObj.get("number").toString()));
-      }
-      if ((jsonObj.get("amount") != null && !jsonObj.get("amount").isJsonNull()) && !jsonObj.get("amount").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `amount` to be a primitive type in the JSON string but got `%s`", jsonObj.get("amount").toString()));
-      }
-      if ((jsonObj.get("startDate") != null && !jsonObj.get("startDate").isJsonNull()) && !jsonObj.get("startDate").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `startDate` to be a primitive type in the JSON string but got `%s`", jsonObj.get("startDate").toString()));
-      }
-      if ((jsonObj.get("endDate") != null && !jsonObj.get("endDate").isJsonNull()) && !jsonObj.get("endDate").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `endDate` to be a primitive type in the JSON string but got `%s`", jsonObj.get("endDate").toString()));
-      }
-      if ((jsonObj.get("attachmentId") != null && !jsonObj.get("attachmentId").isJsonNull()) && !jsonObj.get("attachmentId").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `attachmentId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("attachmentId").toString()));
-      }
-      if ((jsonObj.get("selectionType") != null && !jsonObj.get("selectionType").isJsonNull()) && !jsonObj.get("selectionType").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `selectionType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("selectionType").toString()));
-      }
-  }
-
-  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
-    @SuppressWarnings("unchecked")
-    @Override
-    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!PortOrderPurchaseOrder.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'PortOrderPurchaseOrder' and its subtypes
-       }
-       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<PortOrderPurchaseOrder> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(PortOrderPurchaseOrder.class));
-
-       return (TypeAdapter<T>) new TypeAdapter<PortOrderPurchaseOrder>() {
-           @Override
-           public void write(JsonWriter out, PortOrderPurchaseOrder value) throws IOException {
-             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
-             obj.remove("additionalProperties");
-             // serialize additional properties
-             if (value.getAdditionalProperties() != null) {
-               for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
-                 if (entry.getValue() instanceof String)
-                   obj.addProperty(entry.getKey(), (String) entry.getValue());
-                 else if (entry.getValue() instanceof Number)
-                   obj.addProperty(entry.getKey(), (Number) entry.getValue());
-                 else if (entry.getValue() instanceof Boolean)
-                   obj.addProperty(entry.getKey(), (Boolean) entry.getValue());
-                 else if (entry.getValue() instanceof Character)
-                   obj.addProperty(entry.getKey(), (Character) entry.getValue());
-                 else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
-                 }
-               }
-             }
-             elementAdapter.write(out, obj);
-           }
-
-           @Override
-           public PortOrderPurchaseOrder read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
-             // store additional fields in the deserialized instance
-             PortOrderPurchaseOrder instance = thisAdapter.fromJsonTree(jsonObj);
-             for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
-               if (!openapiFields.contains(entry.getKey())) {
-                 if (entry.getValue().isJsonPrimitive()) { // primitive type
-                   if (entry.getValue().getAsJsonPrimitive().isString())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsString());
-                   else if (entry.getValue().getAsJsonPrimitive().isNumber())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsNumber());
-                   else if (entry.getValue().getAsJsonPrimitive().isBoolean())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
-                   else
-                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else if (entry.getValue().isJsonArray()) {
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
-                 } else { // JSON object
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
-                 }
-               }
-             }
-             return instance;
-           }
-
-       }.nullSafe();
-    }
-  }
-
- /**
-  * Create an instance of PortOrderPurchaseOrder given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of PortOrderPurchaseOrder
-  * @throws IOException if the JSON string is invalid with respect to PortOrderPurchaseOrder
-  */
-  public static PortOrderPurchaseOrder fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, PortOrderPurchaseOrder.class);
-  }
-
- /**
-  * Convert an instance of PortOrderPurchaseOrder to an JSON string
-  *
-  * @return JSON string
-  */
-  public String toJson() {
-    return JSON.getGson().toJson(this);
-  }
 }
 

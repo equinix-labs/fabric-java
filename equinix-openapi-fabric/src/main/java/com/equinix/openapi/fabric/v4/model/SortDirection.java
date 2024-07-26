@@ -11,20 +11,12 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.annotations.SerializedName;
-
-import java.io.IOException;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Sorting direction
  */
-@JsonAdapter(SortDirection.Adapter.class)
 public enum SortDirection {
   
   DESC("DESC"),
@@ -37,6 +29,7 @@ public enum SortDirection {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -46,6 +39,7 @@ public enum SortDirection {
     return String.valueOf(value);
   }
 
+  @JsonCreator
   public static SortDirection fromValue(String value) {
     for (SortDirection b : SortDirection.values()) {
       if (b.value.equals(value)) {
@@ -53,19 +47,6 @@ public enum SortDirection {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-
-  public static class Adapter extends TypeAdapter<SortDirection> {
-    @Override
-    public void write(final JsonWriter jsonWriter, final SortDirection enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
-
-    @Override
-    public SortDirection read(final JsonReader jsonReader) throws IOException {
-      String value = jsonReader.nextString();
-      return SortDirection.fromValue(value);
-    }
   }
 }
 

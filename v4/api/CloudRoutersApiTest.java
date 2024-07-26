@@ -1,6 +1,5 @@
 /*
  * Equinix Fabric API v4
- * Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br>
  *
  * Contact: api-support@equinix.com
  *
@@ -11,195 +10,263 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.ApiException;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Disabled;
+import com.equinix.openapi.fabric.v4.api.dto.UserDto;
+import com.equinix.openapi.fabric.v4.model.*;
+import io.restassured.response.Response;
+import org.apache.http.HttpStatus;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import static java.util.Collections.singletonList;
+import static org.junit.Assert.*;
 
 /**
  * API tests for CloudRoutersApi
  */
-@Disabled
-public class CloudRoutersApiTest extends AbstractTest {
+public class CloudRoutersApiTest {
 
-    private final CloudRoutersApi api = new CloudRoutersApi(generateToken());
+    private static final List<UUID> cloudRouterToDelete = new ArrayList<>();
+    private static CloudRoutersApi api;
 
-    /**
-     * Create Routers
-     * <p>
-     * This API provides capability to create user&#39;s Cloud Routers
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void createCloudRouterTest() throws ApiException {
-        //
-        //CloudRouterPostRequest cloudRouterPostRequest = null;
-        //
-        //CloudRouter response = api.createCloudRouter(cloudRouterPostRequest);
+    @BeforeClass
+    public static void createApi() {
+        api = new TokenGenerator().generate().cloudRouters();
+    }
 
-        // TODO: test validations
+    @AfterClass
+    public static void removeResources() {
+        cloudRouterToDelete.forEach(uuid -> {
+            if (getCloudRouterStatus(uuid) == CloudRouterAccessPointState.PROVISIONED) {
+                deleteCloudRouter(uuid);
+            }
+        });
+    }
+
+    public CloudRouter createRouter() {
+        UserDto userDto = (UserDto) Utils.getEnvData(Utils.EnvVariable.TEST_DATA_UAT_FCR_USER);
+        String cloudRouterName = "panthers-test-java-sdk";
+        CloudRouterPostRequest cloudRouterPostRequest = new CloudRouterPostRequest();
+        cloudRouterPostRequest.type(CloudRouterPostRequest.TypeEnum.XF_ROUTER)
+                .name(cloudRouterName)
+                .location(new SimplifiedLocationWithoutIBX().metroCode("SV"))
+                ._package(new CloudRouterPostRequestPackage().code(CloudRouterPostRequestPackage.CodeEnum.STANDARD))
+                .notifications(singletonList(new SimplifiedNotification().type(SimplifiedNotification.TypeEnum.ALL).emails(singletonList("test@test.com"))))
+                .project(new Project().projectId(userDto.getProjectId()))
+                .account(new SimplifiedAccount().accountNumber(Long.valueOf(userDto.getAccountNumber()))
+                );
+
+        Response response = api.createCloudRouter()
+                .body(cloudRouterPostRequest)
+                .execute(r -> r);
+
+        CloudRouter cloudRouter = response.as(CloudRouter.class);
+        cloudRouterToDelete.add(cloudRouter.getUuid());
+        assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+
+        UUID cloudRouterUuid = cloudRouter.getUuid();
+
+        for (int i = 0; i < 5; i++) {
+            cloudRouter = api.getCloudRouterByUuid()
+                    .routerIdPath(cloudRouterUuid)
+                    .execute(re -> re).as(CloudRouter.class);
+
+            if (cloudRouter.getState().equals(CloudRouterAccessPointState.PROVISIONED)) {
+                break;
+            }
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return cloudRouter;
     }
 
     /**
-     * Route table actions
-     * <p>
-     * This API provides capability to refresh route table and bgp session summary information
-     *
-     * @throws ApiException if the Api call fails
+     * Fabric Cloud Router object
      */
     @Test
-    public void createCloudRouterActionTest() throws ApiException {
-        //
-        //UUID routerId = null;
-        //
-        //CloudRouterActionRequest cloudRouterActionRequest = null;
-        //
-        //CloudRouterActionResponse response = api.createCloudRouterAction(routerId, cloudRouterActionRequest);
-
-        // TODO: test validations
+    public void createCloudRouter() {
+        createRouter();
     }
 
     /**
-     * Delete Routers
-     * <p>
-     * This API provides capability to delete user&#39;s Cloud Routers
-     *
-     * @throws ApiException if the Api call fails
+     * Successful operation
      */
     @Test
-    public void deleteCloudRouterByUuidTest() throws ApiException {
-        //
-        //UUID routerId = null;
-        //
-        //api.deleteCloudRouterByUuid(routerId);
-
-        // TODO: test validations
+    public void createCloudRouterAction() {
+        Response response = api.createCloudRouterAction()
+                .routerIdPath(createRouter().getUuid())
+                .body(new CloudRouterActionRequest().type(CloudRouterActionType.ROUTE_TABLE_ENTRY_UPDATE))
+                .execute(r -> r);
+        assertEquals(HttpStatus.SC_ACCEPTED, response.getStatusCode());
     }
 
     /**
-     * Get actions
-     * <p>
-     * This API provides capability to fetch action status
-     *
-     * @throws ApiException if the Api call fails
+     * Deleted Cloud Router Successfully
      */
     @Test
-    public void getCloudRouterActionsTest() throws ApiException {
-        //
-        //UUID routerId = null;
-        //
-        //CloudRouterActionState state = null;
-        //
-        //CloudRouterActionResponse response = api.getCloudRouterActions(routerId, state);
-
-        // TODO: test validations
+    public void deleteCloudRouterByUuid() {
+        deleteCloudRouter(createRouter().getUuid());
     }
 
     /**
-     * Get Routers
-     * <p>
-     * This API provides capability to retrieve user&#39;s Cloud Routers
-     *
-     * @throws ApiException if the Api call fails
+     * Successful operation
      */
     @Test
-    public void getCloudRouterByUuidTest() throws ApiException {
-        //
-        //UUID routerId = null;
-        //
-        //CloudRouter response = api.getCloudRouterByUuid(routerId);
+    public void getCloudRouterActions() {
+        CloudRouter cloudRouter = createRouter();
+        api.createCloudRouterAction()
+                .routerIdPath(cloudRouter.getUuid())
+                .body(new CloudRouterActionRequest().type(CloudRouterActionType.ROUTE_TABLE_ENTRY_UPDATE))
+                .execute(r -> r);
 
-        // TODO: test validations
+        Response response = api.getCloudRouterActions()
+                .routerIdPath(cloudRouter.getUuid())
+                .stateQuery(CloudRouterActionState.DONE, CloudRouterActionState.PENDING)
+                .execute(r -> r);
+        CloudRouterActionResponse cloudRouterActionResponse = response.as(CloudRouterActionResponse.class);
+        assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+        assertEquals(cloudRouterActionResponse.getType(), CloudRouterActionType.ROUTE_TABLE_ENTRY_UPDATE);
     }
 
     /**
-     * Get Package Details
-     * <p>
-     * This API provides capability to retrieve user&#39;s Cloud Routers Package Details
-     *
-     * @throws ApiException if the Api call fails
+     * Fabric Cloud Router object
      */
     @Test
-    public void getCloudRouterPackageByCodeTest() throws ApiException {
-        //
-        //RouterPackageCode routerPackageCode = null;
-        //
-        //CloudRouterPackage response = api.getCloudRouterPackageByCode(routerPackageCode);
+    public void getCloudRouterByUuid() {
+        CloudRouter cloudRouter = createRouter();
 
-        // TODO: test validations
+        Response response = api.getCloudRouterByUuid()
+                .routerIdPath(cloudRouter.getUuid())
+                .execute(r -> r);
+
+        CloudRouter cloudRouterRead = response.as(CloudRouter.class);
+        assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+        assertEquals(cloudRouter.getUuid(), cloudRouterRead.getUuid());
+        assertEquals(cloudRouter.getName(), cloudRouterRead.getName());
+        assertEquals(cloudRouter.getState(), cloudRouterRead.getState());
     }
 
     /**
-     * List Packages
-     * <p>
-     * This API provides capability to retrieve user&#39;s Cloud Routers Packages
-     *
-     * @throws ApiException if the Api call fails
+     * Fabric Cloud Router Package details
      */
     @Test
-    public void getCloudRouterPackagesTest() throws ApiException {
-        //
-        //Integer offset = null;
-        //
-        //Integer limit = null;
-        //
-        //PackageResponse response = api.getCloudRouterPackages(offset, limit);
-
-        // TODO: test validations
+    public void getCloudRouterPackageByCode() {
+        Code routerPackageCode = Code.STANDARD;
+        Response response = api.getCloudRouterPackageByCode()
+                .routerPackageCodePath(routerPackageCode)
+                .execute(r -> r);
+        CloudRouterPackage cloudRouterPackage = response.as(CloudRouterPackage.class);
+        assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+        assertEquals(cloudRouterPackage.getCode(), routerPackageCode);
     }
 
     /**
-     * Search Route Table
-     * <p>
-     * The API provides capability to get list of user&#39;s Fabric Cloud Router route table entries using search criteria, including optional filtering, pagination and sorting
-     *
-     * @throws ApiException if the Api call fails
+     * Fabric Cloud Router Packages
      */
     @Test
-    public void searchCloudRouterRoutesTest() throws ApiException {
-        //
-        //UUID routerId = null;
-        //
-        //RouteTableEntrySearchRequest routeTableEntrySearchRequest = null;
-        //
-        //RouteTableEntrySearchResponse response = api.searchCloudRouterRoutes(routerId, routeTableEntrySearchRequest);
-
-        // TODO: test validations
+    public void getCloudRouterPackages() {
+        Response response = api.getCloudRouterPackages()
+                .offsetQuery(10)
+                .limitQuery(10)
+                .execute(r -> r);
+        PackageResponse packageResponse = response.as(PackageResponse.class);
+        assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+        assertNotNull(packageResponse.getData());
     }
 
     /**
-     * Search Routers
-     * <p>
-     * The API provides capability to get list of user&#39;s Cloud Routers using search criteria, including optional filtering, pagination and sorting
-     *
-     * @throws ApiException if the Api call fails
+     * Successful operation
      */
     @Test
-    public void searchCloudRoutersTest() throws ApiException {
-        //
-        //CloudRouterSearchRequest cloudRouterSearchRequest = null;
-        //
-        //SearchResponse response = api.searchCloudRouters(cloudRouterSearchRequest);
+    public void searchCloudRouterRoutes() {
+        RouteTableEntrySearchRequest routeTableEntrySearchRequest = new RouteTableEntrySearchRequest()
+                .filter(new RouteTableEntryFilters()
+                        .addAndItem(new RouteTableEntryFilter()
+                                .property(SortItem.PropertyEnum.STATE.getValue())
+                                .operator(SearchExpression.OperatorEnum.NOT_EQUAL.getValue())
+                                .values(singletonList("ACTIVE"))))
+                .pagination(new PaginationRequest().offset(10).limit(20))
+                .sort(singletonList(new RouteTableEntrySortCriteria()
+                        .direction(RouteTableEntrySortDirection.DESC)
+                        .property(RouteTableEntrySortBy.CHANGELOG_CREATEDDATETIME)));
 
-        // TODO: test validations
+        Response response = api.searchCloudRouterRoutes()
+                .routerIdPath(createRouter().getUuid())
+                .body(routeTableEntrySearchRequest).execute(r -> r);
+        assertEquals(HttpStatus.SC_OK, response.getStatusCode());
     }
 
     /**
-     * Update Routers
-     * <p>
-     * This API provides capability to update user&#39;s Cloud Routers
-     *
-     * @throws ApiException if the Api call fails
+     * Successful operation
      */
     @Test
-    public void updateCloudRouterByUuidTest() throws ApiException {
-        //
-        //UUID routerId = null;
-        //
-        //List<CloudRouterChangeOperation> cloudRouterChangeOperation = null;
-        //
-        //CloudRouter response = api.updateCloudRouterByUuid(routerId, cloudRouterChangeOperation);
+    public void searchCloudRouters() {
+        CloudRouter cloudRouter = createRouter();
 
-        // TODO: test validations
+        CloudRouterSearchRequest cloudRouterSearchRequest = new CloudRouterSearchRequest()
+                .filter(new CloudRouterFilters()
+                        .addAndItem(new CloudRouterFilter()
+                                .property(SortItem.PropertyEnum.NAME.getValue())
+                                .operator(SearchExpression.OperatorEnum.EQUAL.getValue())
+                                .values(singletonList(cloudRouter.getName())))
+                        .addAndItem(new CloudRouterFilter()
+                                .property(SortItem.PropertyEnum.STATE.getValue())
+                                .operator(SearchExpression.OperatorEnum.EQUAL.getValue())
+                                .values(singletonList(cloudRouter.getState().getValue()))))
+                .pagination(new PaginationRequest().offset(10).limit(20))
+                .sort(singletonList(new CloudRouterSortCriteria()
+                        .direction(CloudRouterSortDirection.DESC)
+                        .property(CloudRouterSortBy.CHANGELOG_CREATEDDATETIME)));
+
+        Response response = api.searchCloudRouters()
+                .body(cloudRouterSearchRequest).execute(r -> r);
+        assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+
+        SearchResponse searchResponse = response.as(SearchResponse.class);
+
+        boolean found = searchResponse.getData().stream().anyMatch(router -> router.getName().equals(cloudRouter.getName()));
+        assertTrue(found);
+    }
+
+    /**
+     * Fabric Cloud Router object
+     */
+    @Test
+    public void updateCloudRouterByUuid() {
+        CloudRouter cloudRouter = createRouter();
+        String updatedName = "panthers_newfcr_name";
+
+        CloudRouterChangeOperation cloudRouterChangeOperation = new CloudRouterChangeOperation()
+                .op(CloudRouterChangeOperation.OpEnum.REPLACE)
+                .path(CloudRouterSortBy.NAME.getValue())
+                .value(updatedName);
+
+        Response response = api.updateCloudRouterByUuid()
+                .routerIdPath(cloudRouter.getUuid())
+                .body(singletonList(cloudRouterChangeOperation)).execute(r -> r);
+
+        CloudRouter updatedCloudRouter = response.as(CloudRouter.class);
+        assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+        assertEquals(updatedName, updatedCloudRouter.getName());
+    }
+
+    private static void deleteCloudRouter(UUID uuid) {
+        Response response = api.deleteCloudRouterByUuid()
+                .routerIdPath(uuid)
+                .execute(r -> r);
+        assertEquals(HttpStatus.SC_NO_CONTENT, response.getStatusCode());
+    }
+
+    private static CloudRouterAccessPointState getCloudRouterStatus(UUID cloudRouterUuid) {
+        return api.getCloudRouterByUuid()
+                .routerIdPath(cloudRouterUuid)
+                .execute(re -> re).as(CloudRouter.class).getState();
     }
 }

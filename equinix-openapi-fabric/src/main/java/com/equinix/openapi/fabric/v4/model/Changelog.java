@@ -11,88 +11,66 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.time.OffsetDateTime;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.TypeAdapterFactory;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import com.equinix.openapi.fabric.JSON;
+import java.util.Objects;
 
 /**
  * Change log
  */
+@JsonPropertyOrder({
+  Changelog.JSON_PROPERTY_CREATED_BY,
+  Changelog.JSON_PROPERTY_CREATED_BY_FULL_NAME,
+  Changelog.JSON_PROPERTY_CREATED_BY_EMAIL,
+  Changelog.JSON_PROPERTY_CREATED_DATE_TIME,
+  Changelog.JSON_PROPERTY_UPDATED_BY,
+  Changelog.JSON_PROPERTY_UPDATED_BY_FULL_NAME,
+  Changelog.JSON_PROPERTY_UPDATED_BY_EMAIL,
+  Changelog.JSON_PROPERTY_UPDATED_DATE_TIME,
+  Changelog.JSON_PROPERTY_DELETED_BY,
+  Changelog.JSON_PROPERTY_DELETED_BY_FULL_NAME,
+  Changelog.JSON_PROPERTY_DELETED_BY_EMAIL,
+  Changelog.JSON_PROPERTY_DELETED_DATE_TIME
+})
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Changelog {
-  public static final String SERIALIZED_NAME_CREATED_BY = "createdBy";
-  @SerializedName(SERIALIZED_NAME_CREATED_BY)
+  public static final String JSON_PROPERTY_CREATED_BY = "createdBy";
   private String createdBy;
 
-  public static final String SERIALIZED_NAME_CREATED_BY_FULL_NAME = "createdByFullName";
-  @SerializedName(SERIALIZED_NAME_CREATED_BY_FULL_NAME)
+  public static final String JSON_PROPERTY_CREATED_BY_FULL_NAME = "createdByFullName";
   private String createdByFullName;
 
-  public static final String SERIALIZED_NAME_CREATED_BY_EMAIL = "createdByEmail";
-  @SerializedName(SERIALIZED_NAME_CREATED_BY_EMAIL)
+  public static final String JSON_PROPERTY_CREATED_BY_EMAIL = "createdByEmail";
   private String createdByEmail;
 
-  public static final String SERIALIZED_NAME_CREATED_DATE_TIME = "createdDateTime";
-  @SerializedName(SERIALIZED_NAME_CREATED_DATE_TIME)
+  public static final String JSON_PROPERTY_CREATED_DATE_TIME = "createdDateTime";
   private OffsetDateTime createdDateTime;
 
-  public static final String SERIALIZED_NAME_UPDATED_BY = "updatedBy";
-  @SerializedName(SERIALIZED_NAME_UPDATED_BY)
+  public static final String JSON_PROPERTY_UPDATED_BY = "updatedBy";
   private String updatedBy;
 
-  public static final String SERIALIZED_NAME_UPDATED_BY_FULL_NAME = "updatedByFullName";
-  @SerializedName(SERIALIZED_NAME_UPDATED_BY_FULL_NAME)
+  public static final String JSON_PROPERTY_UPDATED_BY_FULL_NAME = "updatedByFullName";
   private String updatedByFullName;
 
-  public static final String SERIALIZED_NAME_UPDATED_BY_EMAIL = "updatedByEmail";
-  @SerializedName(SERIALIZED_NAME_UPDATED_BY_EMAIL)
+  public static final String JSON_PROPERTY_UPDATED_BY_EMAIL = "updatedByEmail";
   private String updatedByEmail;
 
-  public static final String SERIALIZED_NAME_UPDATED_DATE_TIME = "updatedDateTime";
-  @SerializedName(SERIALIZED_NAME_UPDATED_DATE_TIME)
+  public static final String JSON_PROPERTY_UPDATED_DATE_TIME = "updatedDateTime";
   private OffsetDateTime updatedDateTime;
 
-  public static final String SERIALIZED_NAME_DELETED_BY = "deletedBy";
-  @SerializedName(SERIALIZED_NAME_DELETED_BY)
+  public static final String JSON_PROPERTY_DELETED_BY = "deletedBy";
   private String deletedBy;
 
-  public static final String SERIALIZED_NAME_DELETED_BY_FULL_NAME = "deletedByFullName";
-  @SerializedName(SERIALIZED_NAME_DELETED_BY_FULL_NAME)
+  public static final String JSON_PROPERTY_DELETED_BY_FULL_NAME = "deletedByFullName";
   private String deletedByFullName;
 
-  public static final String SERIALIZED_NAME_DELETED_BY_EMAIL = "deletedByEmail";
-  @SerializedName(SERIALIZED_NAME_DELETED_BY_EMAIL)
+  public static final String JSON_PROPERTY_DELETED_BY_EMAIL = "deletedByEmail";
   private String deletedByEmail;
 
-  public static final String SERIALIZED_NAME_DELETED_DATE_TIME = "deletedDateTime";
-  @SerializedName(SERIALIZED_NAME_DELETED_DATE_TIME)
+  public static final String JSON_PROPERTY_DELETED_DATE_TIME = "deletedDateTime";
   private OffsetDateTime deletedDateTime;
 
   public Changelog() {
@@ -109,12 +87,16 @@ public class Changelog {
    * @return createdBy
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_CREATED_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCreatedBy() {
     return createdBy;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CREATED_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCreatedBy(String createdBy) {
     this.createdBy = createdBy;
   }
@@ -131,12 +113,16 @@ public class Changelog {
    * @return createdByFullName
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_CREATED_BY_FULL_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCreatedByFullName() {
     return createdByFullName;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CREATED_BY_FULL_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCreatedByFullName(String createdByFullName) {
     this.createdByFullName = createdByFullName;
   }
@@ -153,12 +139,16 @@ public class Changelog {
    * @return createdByEmail
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_CREATED_BY_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCreatedByEmail() {
     return createdByEmail;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CREATED_BY_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCreatedByEmail(String createdByEmail) {
     this.createdByEmail = createdByEmail;
   }
@@ -175,12 +165,16 @@ public class Changelog {
    * @return createdDateTime
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_CREATED_DATE_TIME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getCreatedDateTime() {
     return createdDateTime;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CREATED_DATE_TIME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCreatedDateTime(OffsetDateTime createdDateTime) {
     this.createdDateTime = createdDateTime;
   }
@@ -197,12 +191,16 @@ public class Changelog {
    * @return updatedBy
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_UPDATED_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUpdatedBy() {
     return updatedBy;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_UPDATED_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUpdatedBy(String updatedBy) {
     this.updatedBy = updatedBy;
   }
@@ -219,12 +217,16 @@ public class Changelog {
    * @return updatedByFullName
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_UPDATED_BY_FULL_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUpdatedByFullName() {
     return updatedByFullName;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_UPDATED_BY_FULL_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUpdatedByFullName(String updatedByFullName) {
     this.updatedByFullName = updatedByFullName;
   }
@@ -241,12 +243,16 @@ public class Changelog {
    * @return updatedByEmail
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_UPDATED_BY_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUpdatedByEmail() {
     return updatedByEmail;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_UPDATED_BY_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUpdatedByEmail(String updatedByEmail) {
     this.updatedByEmail = updatedByEmail;
   }
@@ -263,12 +269,16 @@ public class Changelog {
    * @return updatedDateTime
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_UPDATED_DATE_TIME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getUpdatedDateTime() {
     return updatedDateTime;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_UPDATED_DATE_TIME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUpdatedDateTime(OffsetDateTime updatedDateTime) {
     this.updatedDateTime = updatedDateTime;
   }
@@ -285,12 +295,16 @@ public class Changelog {
    * @return deletedBy
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_DELETED_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDeletedBy() {
     return deletedBy;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DELETED_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDeletedBy(String deletedBy) {
     this.deletedBy = deletedBy;
   }
@@ -307,12 +321,16 @@ public class Changelog {
    * @return deletedByFullName
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_DELETED_BY_FULL_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDeletedByFullName() {
     return deletedByFullName;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DELETED_BY_FULL_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDeletedByFullName(String deletedByFullName) {
     this.deletedByFullName = deletedByFullName;
   }
@@ -329,12 +347,16 @@ public class Changelog {
    * @return deletedByEmail
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_DELETED_BY_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDeletedByEmail() {
     return deletedByEmail;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DELETED_BY_EMAIL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDeletedByEmail(String deletedByEmail) {
     this.deletedByEmail = deletedByEmail;
   }
@@ -351,59 +373,18 @@ public class Changelog {
    * @return deletedDateTime
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_DELETED_DATE_TIME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getDeletedDateTime() {
     return deletedDateTime;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DELETED_DATE_TIME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDeletedDateTime(OffsetDateTime deletedDateTime) {
     this.deletedDateTime = deletedDateTime;
-  }
-
-  /**
-   * A container for additional, undeclared properties.
-   * This is a holder for any undeclared properties as specified with
-   * the 'additionalProperties' keyword in the OAS document.
-   */
-  private Map<String, Object> additionalProperties;
-
-  /**
-   * Set the additional (undeclared) property with the specified name and value.
-   * If the property does not already exist, create it otherwise replace it.
-   *
-   * @param key name of the property
-   * @param value value of the property
-   * @return the Changelog instance itself
-   */
-  public Changelog putAdditionalProperty(String key, Object value) {
-    if (this.additionalProperties == null) {
-        this.additionalProperties = new HashMap<String, Object>();
-    }
-    this.additionalProperties.put(key, value);
-    return this;
-  }
-
-  /**
-   * Return the additional (undeclared) property.
-   *
-   * @return a map of objects
-   */
-  public Map<String, Object> getAdditionalProperties() {
-    return additionalProperties;
-  }
-
-  /**
-   * Return the additional (undeclared) property with the specified name.
-   *
-   * @param key name of the property
-   * @return an object
-   */
-  public Object getAdditionalProperty(String key) {
-    if (this.additionalProperties == null) {
-        return null;
-    }
-    return this.additionalProperties.get(key);
   }
 
 
@@ -427,13 +408,12 @@ public class Changelog {
         Objects.equals(this.deletedBy, changelog.deletedBy) &&
         Objects.equals(this.deletedByFullName, changelog.deletedByFullName) &&
         Objects.equals(this.deletedByEmail, changelog.deletedByEmail) &&
-        Objects.equals(this.deletedDateTime, changelog.deletedDateTime)&&
-        Objects.equals(this.additionalProperties, changelog.additionalProperties);
+        Objects.equals(this.deletedDateTime, changelog.deletedDateTime);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(createdBy, createdByFullName, createdByEmail, createdDateTime, updatedBy, updatedByFullName, updatedByEmail, updatedDateTime, deletedBy, deletedByFullName, deletedByEmail, deletedDateTime, additionalProperties);
+    return Objects.hash(createdBy, createdByFullName, createdByEmail, createdDateTime, updatedBy, updatedByFullName, updatedByEmail, updatedDateTime, deletedBy, deletedByFullName, deletedByEmail, deletedDateTime);
   }
 
   @Override
@@ -452,7 +432,6 @@ public class Changelog {
     sb.append("    deletedByFullName: ").append(toIndentedString(deletedByFullName)).append("\n");
     sb.append("    deletedByEmail: ").append(toIndentedString(deletedByEmail)).append("\n");
     sb.append("    deletedDateTime: ").append(toIndentedString(deletedDateTime)).append("\n");
-    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -468,155 +447,5 @@ public class Changelog {
     return o.toString().replace("\n", "\n    ");
   }
 
-
-  public static HashSet<String> openapiFields;
-  public static HashSet<String> openapiRequiredFields;
-
-  static {
-    // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("createdBy");
-    openapiFields.add("createdByFullName");
-    openapiFields.add("createdByEmail");
-    openapiFields.add("createdDateTime");
-    openapiFields.add("updatedBy");
-    openapiFields.add("updatedByFullName");
-    openapiFields.add("updatedByEmail");
-    openapiFields.add("updatedDateTime");
-    openapiFields.add("deletedBy");
-    openapiFields.add("deletedByFullName");
-    openapiFields.add("deletedByEmail");
-    openapiFields.add("deletedDateTime");
-
-    // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-  }
-
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to Changelog
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (!Changelog.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in Changelog is not found in the empty JSON string", Changelog.openapiRequiredFields.toString()));
-        }
-      }
-      if ((jsonObj.get("createdBy") != null && !jsonObj.get("createdBy").isJsonNull()) && !jsonObj.get("createdBy").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `createdBy` to be a primitive type in the JSON string but got `%s`", jsonObj.get("createdBy").toString()));
-      }
-      if ((jsonObj.get("createdByFullName") != null && !jsonObj.get("createdByFullName").isJsonNull()) && !jsonObj.get("createdByFullName").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `createdByFullName` to be a primitive type in the JSON string but got `%s`", jsonObj.get("createdByFullName").toString()));
-      }
-      if ((jsonObj.get("createdByEmail") != null && !jsonObj.get("createdByEmail").isJsonNull()) && !jsonObj.get("createdByEmail").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `createdByEmail` to be a primitive type in the JSON string but got `%s`", jsonObj.get("createdByEmail").toString()));
-      }
-      if ((jsonObj.get("updatedBy") != null && !jsonObj.get("updatedBy").isJsonNull()) && !jsonObj.get("updatedBy").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `updatedBy` to be a primitive type in the JSON string but got `%s`", jsonObj.get("updatedBy").toString()));
-      }
-      if ((jsonObj.get("updatedByFullName") != null && !jsonObj.get("updatedByFullName").isJsonNull()) && !jsonObj.get("updatedByFullName").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `updatedByFullName` to be a primitive type in the JSON string but got `%s`", jsonObj.get("updatedByFullName").toString()));
-      }
-      if ((jsonObj.get("updatedByEmail") != null && !jsonObj.get("updatedByEmail").isJsonNull()) && !jsonObj.get("updatedByEmail").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `updatedByEmail` to be a primitive type in the JSON string but got `%s`", jsonObj.get("updatedByEmail").toString()));
-      }
-      if ((jsonObj.get("deletedBy") != null && !jsonObj.get("deletedBy").isJsonNull()) && !jsonObj.get("deletedBy").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `deletedBy` to be a primitive type in the JSON string but got `%s`", jsonObj.get("deletedBy").toString()));
-      }
-      if ((jsonObj.get("deletedByFullName") != null && !jsonObj.get("deletedByFullName").isJsonNull()) && !jsonObj.get("deletedByFullName").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `deletedByFullName` to be a primitive type in the JSON string but got `%s`", jsonObj.get("deletedByFullName").toString()));
-      }
-      if ((jsonObj.get("deletedByEmail") != null && !jsonObj.get("deletedByEmail").isJsonNull()) && !jsonObj.get("deletedByEmail").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `deletedByEmail` to be a primitive type in the JSON string but got `%s`", jsonObj.get("deletedByEmail").toString()));
-      }
-  }
-
-  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
-    @SuppressWarnings("unchecked")
-    @Override
-    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!Changelog.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'Changelog' and its subtypes
-       }
-       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<Changelog> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(Changelog.class));
-
-       return (TypeAdapter<T>) new TypeAdapter<Changelog>() {
-           @Override
-           public void write(JsonWriter out, Changelog value) throws IOException {
-             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
-             obj.remove("additionalProperties");
-             // serialize additional properties
-             if (value.getAdditionalProperties() != null) {
-               for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
-                 if (entry.getValue() instanceof String)
-                   obj.addProperty(entry.getKey(), (String) entry.getValue());
-                 else if (entry.getValue() instanceof Number)
-                   obj.addProperty(entry.getKey(), (Number) entry.getValue());
-                 else if (entry.getValue() instanceof Boolean)
-                   obj.addProperty(entry.getKey(), (Boolean) entry.getValue());
-                 else if (entry.getValue() instanceof Character)
-                   obj.addProperty(entry.getKey(), (Character) entry.getValue());
-                 else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
-                 }
-               }
-             }
-             elementAdapter.write(out, obj);
-           }
-
-           @Override
-           public Changelog read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
-             // store additional fields in the deserialized instance
-             Changelog instance = thisAdapter.fromJsonTree(jsonObj);
-             for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
-               if (!openapiFields.contains(entry.getKey())) {
-                 if (entry.getValue().isJsonPrimitive()) { // primitive type
-                   if (entry.getValue().getAsJsonPrimitive().isString())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsString());
-                   else if (entry.getValue().getAsJsonPrimitive().isNumber())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsNumber());
-                   else if (entry.getValue().getAsJsonPrimitive().isBoolean())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
-                   else
-                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else if (entry.getValue().isJsonArray()) {
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
-                 } else { // JSON object
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
-                 }
-               }
-             }
-             return instance;
-           }
-
-       }.nullSafe();
-    }
-  }
-
- /**
-  * Create an instance of Changelog given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of Changelog
-  * @throws IOException if the JSON string is invalid with respect to Changelog
-  */
-  public static Changelog fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, Changelog.class);
-  }
-
- /**
-  * Convert an instance of Changelog to an JSON string
-  *
-  * @return JSON string
-  */
-  public String toJson() {
-    return JSON.getGson().toJson(this);
-  }
 }
 

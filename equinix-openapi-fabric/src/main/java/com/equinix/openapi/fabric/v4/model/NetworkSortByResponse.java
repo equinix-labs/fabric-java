@@ -11,20 +11,12 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.annotations.SerializedName;
-
-import java.io.IOException;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Possible field names to use on sorting
  */
-@JsonAdapter(NetworkSortByResponse.Adapter.class)
 public enum NetworkSortByResponse {
   
   NAME("/name"),
@@ -49,6 +41,7 @@ public enum NetworkSortByResponse {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -58,6 +51,7 @@ public enum NetworkSortByResponse {
     return String.valueOf(value);
   }
 
+  @JsonCreator
   public static NetworkSortByResponse fromValue(String value) {
     for (NetworkSortByResponse b : NetworkSortByResponse.values()) {
       if (b.value.equals(value)) {
@@ -65,19 +59,6 @@ public enum NetworkSortByResponse {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-
-  public static class Adapter extends TypeAdapter<NetworkSortByResponse> {
-    @Override
-    public void write(final JsonWriter jsonWriter, final NetworkSortByResponse enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
-
-    @Override
-    public NetworkSortByResponse read(final JsonReader jsonReader) throws IOException {
-      String value = jsonReader.nextString();
-      return NetworkSortByResponse.fromValue(value);
-    }
   }
 }
 

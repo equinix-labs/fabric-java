@@ -11,20 +11,12 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.annotations.SerializedName;
-
-import java.io.IOException;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Cloud Router action type
  */
-@JsonAdapter(CloudRouterActionType.Adapter.class)
 public enum CloudRouterActionType {
   
   BGP_SESSION_STATUS_UPDATE("BGP_SESSION_STATUS_UPDATE"),
@@ -37,6 +29,7 @@ public enum CloudRouterActionType {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -46,6 +39,7 @@ public enum CloudRouterActionType {
     return String.valueOf(value);
   }
 
+  @JsonCreator
   public static CloudRouterActionType fromValue(String value) {
     for (CloudRouterActionType b : CloudRouterActionType.values()) {
       if (b.value.equals(value)) {
@@ -53,19 +47,6 @@ public enum CloudRouterActionType {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-
-  public static class Adapter extends TypeAdapter<CloudRouterActionType> {
-    @Override
-    public void write(final JsonWriter jsonWriter, final CloudRouterActionType enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
-
-    @Override
-    public CloudRouterActionType read(final JsonReader jsonReader) throws IOException {
-      String value = jsonReader.nextString();
-      return CloudRouterActionType.fromValue(value);
-    }
   }
 }
 

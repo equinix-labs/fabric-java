@@ -1,6 +1,5 @@
 /*
  * Equinix Fabric API v4
- * Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br>
  *
  * Contact: api-support@equinix.com
  *
@@ -9,90 +8,204 @@
  * Do not edit the class manually.
  */
 
+
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.v4.api.dto.port.PortDto;
+import com.equinix.openapi.fabric.ApiClient;
 import com.equinix.openapi.fabric.v4.model.*;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.filter.log.ErrorLoggingFilter;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
-import java.time.temporal.ChronoUnit;
-import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static com.equinix.openapi.fabric.JacksonObjectMapper.jackson;
+import static io.restassured.config.ObjectMapperConfig.objectMapperConfig;
+import static io.restassured.config.RestAssuredConfig.config;
 
 /**
  * API tests for StatisticsApi
  */
-@Disabled
-public class StatisticsApiTest extends AbstractTest {
+@Ignore
+public class StatisticsApiTest {
 
-    private final StatisticsApi api = new StatisticsApi(generateToken());
+    private StatisticsApi api;
+
+    @Before
+    public void createApi() {
+        api = ApiClient.api(ApiClient.Config.apiConfig().reqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setConfig(config().objectMapperConfig(objectMapperConfig().defaultObjectMapper(jackson())))
+                        .addFilter(new ErrorLoggingFilter())
+                        .setBaseUri("https://api.equinix.com"))).statistics();
+    }
 
     /**
-     * Get Stats by uuid
-     * <p>
-     * This API provides service-level metrics so that you can view access and gather key information required to manage service subscription sizing and capacity
-     *
-     * @throws ApiException if the Api call fails
+     * Successful operation
      */
-    @Disabled
     @Test
-    public void getConnectionStatsByPortUuidTest() throws ApiException {
-        //
-        //String connectionId = null;
-        //
-        //OffsetDateTime startDateTime = null;
-        //
-        //OffsetDateTime endDateTime = null;
-        //
-        //ViewPoint viewPoint = null;
-        //
-        //Statistics response = api.getConnectionStatsByPortUuid(connectionId, startDateTime, endDateTime, viewPoint);
-
+    public void shouldSee200AfterGetConnectionStatsByPortUuid() {
+        String connectionId = null;
+        OffsetDateTime startDateTime = null;
+        OffsetDateTime endDateTime = null;
+        ViewPoint viewPoint = null;
+        api.getConnectionStatsByPortUuid()
+                .connectionIdPath(connectionId)
+                .startDateTimeQuery(startDateTime)
+                .endDateTimeQuery(endDateTime)
+                .viewPointQuery(viewPoint).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Top Port Statistics
-     * <p>
-     * This API provides top utilized service-level traffic metrics so that you can view access and gather key information required to manage service subscription sizing and capacity.
-     *
-     * @throws ApiException if the Api call fails
+     * Unauthorized
      */
     @Test
-    public void getPortStatsTest() throws ApiException {
-        String projectId = "291639000636552";
-        TopUtilizedStatistics response = api.getPortStats(
-                Collections.singletonList(""),
-                Sort._BANDWIDTHUTILIZATION,
-                5,
-                Duration.P7D,
-                QueryDirection.OUTBOUND,
-                MetricInterval.P7D,
-                projectId);
-        assertEquals(200, api.getApiClient().getStatusCode());
+    public void shouldSee401AfterGetConnectionStatsByPortUuid() {
+        String connectionId = null;
+        OffsetDateTime startDateTime = null;
+        OffsetDateTime endDateTime = null;
+        ViewPoint viewPoint = null;
+        api.getConnectionStatsByPortUuid()
+                .connectionIdPath(connectionId)
+                .startDateTimeQuery(startDateTime)
+                .endDateTimeQuery(endDateTime)
+                .viewPointQuery(viewPoint).execute(r -> r.prettyPeek());
+        // TODO: test validations
     }
 
     /**
-     * Get Stats by uuid
-     * <p>
-     * This API provides service-level traffic metrics so that you can view access and gather key information required to manage service subscription sizing and capacity.
-     *
-     * @throws ApiException if the Api call fails
+     * Forbidden
      */
     @Test
-    public void getPortStatsByPortUuidTest() throws ApiException {
-        PortDto portDto = getPort(EnvVariable.QINQ_PORT);
-        OffsetDateTime startDate = OffsetDateTime.now().minusMonths(3).withOffsetSameLocal(ZoneOffset.UTC).truncatedTo(ChronoUnit.SECONDS);
-        OffsetDateTime endDate = OffsetDateTime.now().withOffsetSameLocal(ZoneOffset.UTC).truncatedTo(ChronoUnit.SECONDS);
-
-        Statistics response = api.getPortStatsByPortUuid(UUID.fromString(portDto.getUuid()), startDate, endDate);
-        assertEquals(200, api.getApiClient().getStatusCode());
-        assertEquals(portDto.getName(), response.getAdditionalProperties().get("name"));
+    public void shouldSee403AfterGetConnectionStatsByPortUuid() {
+        String connectionId = null;
+        OffsetDateTime startDateTime = null;
+        OffsetDateTime endDateTime = null;
+        ViewPoint viewPoint = null;
+        api.getConnectionStatsByPortUuid()
+                .connectionIdPath(connectionId)
+                .startDateTimeQuery(startDateTime)
+                .endDateTimeQuery(endDateTime)
+                .viewPointQuery(viewPoint).execute(r -> r.prettyPeek());
+        // TODO: test validations
     }
+
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee200AfterGetPortStats() {
+        List<String> metros = null;
+        Sort sort = null;
+        Integer top = null;
+        Duration duration = null;
+        QueryDirection direction = null;
+        MetricInterval metricInterval = null;
+        String projectId = null;
+        api.getPortStats()
+                .metrosQuery(metros).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterGetPortStats() {
+        List<String> metros = null;
+        Sort sort = null;
+        Integer top = null;
+        Duration duration = null;
+        QueryDirection direction = null;
+        MetricInterval metricInterval = null;
+        String projectId = null;
+        api.getPortStats()
+                .metrosQuery(metros).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterGetPortStats() {
+        List<String> metros = null;
+        Sort sort = null;
+        Integer top = null;
+        Duration duration = null;
+        QueryDirection direction = null;
+        MetricInterval metricInterval = null;
+        String projectId = null;
+        api.getPortStats()
+                .metrosQuery(metros).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee200AfterGetPortStatsByPortUuid() {
+        UUID portId = null;
+        OffsetDateTime startDateTime = null;
+        OffsetDateTime endDateTime = null;
+        api.getPortStatsByPortUuid()
+                .portIdPath(portId)
+                .startDateTimeQuery(startDateTime)
+                .endDateTimeQuery(endDateTime).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterGetPortStatsByPortUuid() {
+        UUID portId = null;
+        OffsetDateTime startDateTime = null;
+        OffsetDateTime endDateTime = null;
+        api.getPortStatsByPortUuid()
+                .portIdPath(portId)
+                .startDateTimeQuery(startDateTime)
+                .endDateTimeQuery(endDateTime).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterGetPortStatsByPortUuid() {
+        UUID portId = null;
+        OffsetDateTime startDateTime = null;
+        OffsetDateTime endDateTime = null;
+        api.getPortStatsByPortUuid()
+                .portIdPath(portId)
+                .startDateTimeQuery(startDateTime)
+                .endDateTimeQuery(endDateTime).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal server error
+     */
+    @Test
+    public void shouldSee500AfterGetPortStatsByPortUuid() {
+        UUID portId = null;
+        OffsetDateTime startDateTime = null;
+        OffsetDateTime endDateTime = null;
+        api.getPortStatsByPortUuid()
+                .portIdPath(portId)
+                .startDateTimeQuery(startDateTime)
+                .endDateTimeQuery(endDateTime).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
 }

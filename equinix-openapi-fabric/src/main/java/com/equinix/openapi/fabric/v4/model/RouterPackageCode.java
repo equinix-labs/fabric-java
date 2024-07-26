@@ -11,20 +11,12 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.annotations.SerializedName;
-
-import java.io.IOException;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Router package code
  */
-@JsonAdapter(RouterPackageCode.Adapter.class)
 public enum RouterPackageCode {
   
   LAB("LAB"),
@@ -41,6 +33,7 @@ public enum RouterPackageCode {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -50,6 +43,7 @@ public enum RouterPackageCode {
     return String.valueOf(value);
   }
 
+  @JsonCreator
   public static RouterPackageCode fromValue(String value) {
     for (RouterPackageCode b : RouterPackageCode.values()) {
       if (b.value.equals(value)) {
@@ -57,19 +51,6 @@ public enum RouterPackageCode {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-
-  public static class Adapter extends TypeAdapter<RouterPackageCode> {
-    @Override
-    public void write(final JsonWriter jsonWriter, final RouterPackageCode enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
-
-    @Override
-    public RouterPackageCode read(final JsonReader jsonReader) throws IOException {
-      String value = jsonReader.nextString();
-      return RouterPackageCode.fromValue(value);
-    }
   }
 }
 

@@ -11,56 +11,31 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.equinix.openapi.fabric.v4.model.PaginationRequest;
-import com.equinix.openapi.fabric.v4.model.PortExpression;
-import com.equinix.openapi.fabric.v4.model.PortSortCriteria;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.TypeAdapterFactory;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import com.equinix.openapi.fabric.JSON;
+import java.util.Objects;
 
 /**
  * Search requests containing criteria
  */
+@JsonPropertyOrder({
+  PortV4SearchRequest.JSON_PROPERTY_FILTER,
+  PortV4SearchRequest.JSON_PROPERTY_PAGINATION,
+  PortV4SearchRequest.JSON_PROPERTY_SORT
+})
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PortV4SearchRequest {
-  public static final String SERIALIZED_NAME_FILTER = "filter";
-  @SerializedName(SERIALIZED_NAME_FILTER)
+  public static final String JSON_PROPERTY_FILTER = "filter";
   private PortExpression filter;
 
-  public static final String SERIALIZED_NAME_PAGINATION = "pagination";
-  @SerializedName(SERIALIZED_NAME_PAGINATION)
+  public static final String JSON_PROPERTY_PAGINATION = "pagination";
   private PaginationRequest pagination;
 
-  public static final String SERIALIZED_NAME_SORT = "sort";
-  @SerializedName(SERIALIZED_NAME_SORT)
+  public static final String JSON_PROPERTY_SORT = "sort";
   private List<PortSortCriteria> sort = new ArrayList<>();
 
   public PortV4SearchRequest() {
@@ -77,12 +52,16 @@ public class PortV4SearchRequest {
    * @return filter
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_FILTER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public PortExpression getFilter() {
     return filter;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_FILTER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFilter(PortExpression filter) {
     this.filter = filter;
   }
@@ -99,12 +78,16 @@ public class PortV4SearchRequest {
    * @return pagination
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PAGINATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public PaginationRequest getPagination() {
     return pagination;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PAGINATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPagination(PaginationRequest pagination) {
     this.pagination = pagination;
   }
@@ -129,59 +112,18 @@ public class PortV4SearchRequest {
    * @return sort
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_SORT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PortSortCriteria> getSort() {
     return sort;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_SORT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSort(List<PortSortCriteria> sort) {
     this.sort = sort;
-  }
-
-  /**
-   * A container for additional, undeclared properties.
-   * This is a holder for any undeclared properties as specified with
-   * the 'additionalProperties' keyword in the OAS document.
-   */
-  private Map<String, Object> additionalProperties;
-
-  /**
-   * Set the additional (undeclared) property with the specified name and value.
-   * If the property does not already exist, create it otherwise replace it.
-   *
-   * @param key name of the property
-   * @param value value of the property
-   * @return the PortV4SearchRequest instance itself
-   */
-  public PortV4SearchRequest putAdditionalProperty(String key, Object value) {
-    if (this.additionalProperties == null) {
-        this.additionalProperties = new HashMap<String, Object>();
-    }
-    this.additionalProperties.put(key, value);
-    return this;
-  }
-
-  /**
-   * Return the additional (undeclared) property.
-   *
-   * @return a map of objects
-   */
-  public Map<String, Object> getAdditionalProperties() {
-    return additionalProperties;
-  }
-
-  /**
-   * Return the additional (undeclared) property with the specified name.
-   *
-   * @param key name of the property
-   * @return an object
-   */
-  public Object getAdditionalProperty(String key) {
-    if (this.additionalProperties == null) {
-        return null;
-    }
-    return this.additionalProperties.get(key);
   }
 
 
@@ -196,13 +138,12 @@ public class PortV4SearchRequest {
     PortV4SearchRequest portV4SearchRequest = (PortV4SearchRequest) o;
     return Objects.equals(this.filter, portV4SearchRequest.filter) &&
         Objects.equals(this.pagination, portV4SearchRequest.pagination) &&
-        Objects.equals(this.sort, portV4SearchRequest.sort)&&
-        Objects.equals(this.additionalProperties, portV4SearchRequest.additionalProperties);
+        Objects.equals(this.sort, portV4SearchRequest.sort);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(filter, pagination, sort, additionalProperties);
+    return Objects.hash(filter, pagination, sort);
   }
 
   @Override
@@ -212,7 +153,6 @@ public class PortV4SearchRequest {
     sb.append("    filter: ").append(toIndentedString(filter)).append("\n");
     sb.append("    pagination: ").append(toIndentedString(pagination)).append("\n");
     sb.append("    sort: ").append(toIndentedString(sort)).append("\n");
-    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -228,141 +168,5 @@ public class PortV4SearchRequest {
     return o.toString().replace("\n", "\n    ");
   }
 
-
-  public static HashSet<String> openapiFields;
-  public static HashSet<String> openapiRequiredFields;
-
-  static {
-    // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("filter");
-    openapiFields.add("pagination");
-    openapiFields.add("sort");
-
-    // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-  }
-
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to PortV4SearchRequest
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (!PortV4SearchRequest.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in PortV4SearchRequest is not found in the empty JSON string", PortV4SearchRequest.openapiRequiredFields.toString()));
-        }
-      }
-      // validate the optional field `filter`
-      if (jsonObj.get("filter") != null && !jsonObj.get("filter").isJsonNull()) {
-        PortExpression.validateJsonObject(jsonObj.getAsJsonObject("filter"));
-      }
-      // validate the optional field `pagination`
-      if (jsonObj.get("pagination") != null && !jsonObj.get("pagination").isJsonNull()) {
-        PaginationRequest.validateJsonObject(jsonObj.getAsJsonObject("pagination"));
-      }
-      if (jsonObj.get("sort") != null && !jsonObj.get("sort").isJsonNull()) {
-        JsonArray jsonArraysort = jsonObj.getAsJsonArray("sort");
-        if (jsonArraysort != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("sort").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `sort` to be an array in the JSON string but got `%s`", jsonObj.get("sort").toString()));
-          }
-
-          // validate the optional field `sort` (array)
-          for (int i = 0; i < jsonArraysort.size(); i++) {
-            PortSortCriteria.validateJsonObject(jsonArraysort.get(i).getAsJsonObject());
-          };
-        }
-      }
-  }
-
-  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
-    @SuppressWarnings("unchecked")
-    @Override
-    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!PortV4SearchRequest.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'PortV4SearchRequest' and its subtypes
-       }
-       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<PortV4SearchRequest> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(PortV4SearchRequest.class));
-
-       return (TypeAdapter<T>) new TypeAdapter<PortV4SearchRequest>() {
-           @Override
-           public void write(JsonWriter out, PortV4SearchRequest value) throws IOException {
-             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
-             obj.remove("additionalProperties");
-             // serialize additional properties
-             if (value.getAdditionalProperties() != null) {
-               for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
-                 if (entry.getValue() instanceof String)
-                   obj.addProperty(entry.getKey(), (String) entry.getValue());
-                 else if (entry.getValue() instanceof Number)
-                   obj.addProperty(entry.getKey(), (Number) entry.getValue());
-                 else if (entry.getValue() instanceof Boolean)
-                   obj.addProperty(entry.getKey(), (Boolean) entry.getValue());
-                 else if (entry.getValue() instanceof Character)
-                   obj.addProperty(entry.getKey(), (Character) entry.getValue());
-                 else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
-                 }
-               }
-             }
-             elementAdapter.write(out, obj);
-           }
-
-           @Override
-           public PortV4SearchRequest read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
-             // store additional fields in the deserialized instance
-             PortV4SearchRequest instance = thisAdapter.fromJsonTree(jsonObj);
-             for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
-               if (!openapiFields.contains(entry.getKey())) {
-                 if (entry.getValue().isJsonPrimitive()) { // primitive type
-                   if (entry.getValue().getAsJsonPrimitive().isString())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsString());
-                   else if (entry.getValue().getAsJsonPrimitive().isNumber())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsNumber());
-                   else if (entry.getValue().getAsJsonPrimitive().isBoolean())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
-                   else
-                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else if (entry.getValue().isJsonArray()) {
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
-                 } else { // JSON object
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
-                 }
-               }
-             }
-             return instance;
-           }
-
-       }.nullSafe();
-    }
-  }
-
- /**
-  * Create an instance of PortV4SearchRequest given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of PortV4SearchRequest
-  * @throws IOException if the JSON string is invalid with respect to PortV4SearchRequest
-  */
-  public static PortV4SearchRequest fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, PortV4SearchRequest.class);
-  }
-
- /**
-  * Convert an instance of PortV4SearchRequest to an JSON string
-  *
-  * @return JSON string
-  */
-  public String toJson() {
-    return JSON.getGson().toJson(this);
-  }
 }
 

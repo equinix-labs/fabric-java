@@ -11,20 +11,12 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.annotations.SerializedName;
-
-import java.io.IOException;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Sorting direction
  */
-@JsonAdapter(CloudRouterSortDirection.Adapter.class)
 public enum CloudRouterSortDirection {
   
   DESC("DESC"),
@@ -37,6 +29,7 @@ public enum CloudRouterSortDirection {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -46,6 +39,7 @@ public enum CloudRouterSortDirection {
     return String.valueOf(value);
   }
 
+  @JsonCreator
   public static CloudRouterSortDirection fromValue(String value) {
     for (CloudRouterSortDirection b : CloudRouterSortDirection.values()) {
       if (b.value.equals(value)) {
@@ -53,19 +47,6 @@ public enum CloudRouterSortDirection {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-
-  public static class Adapter extends TypeAdapter<CloudRouterSortDirection> {
-    @Override
-    public void write(final JsonWriter jsonWriter, final CloudRouterSortDirection enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
-
-    @Override
-    public CloudRouterSortDirection read(final JsonReader jsonReader) throws IOException {
-      String value = jsonReader.nextString();
-      return CloudRouterSortDirection.fromValue(value);
-    }
   }
 }
 

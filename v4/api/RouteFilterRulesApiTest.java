@@ -1,6 +1,5 @@
 /*
  * Equinix Fabric API v4
- * Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br>
  *
  * Contact: api-support@equinix.com
  *
@@ -9,200 +8,891 @@
  * Do not edit the class manually.
  */
 
+
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.ApiException;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Disabled;
+import com.equinix.openapi.fabric.v4.model.Error;
+import com.equinix.openapi.fabric.v4.model.GetRouteFilterRulesResponse;
+import com.equinix.openapi.fabric.v4.model.RouteFilterRulesBase;
+import com.equinix.openapi.fabric.v4.model.RouteFilterRulesChangeData;
+import com.equinix.openapi.fabric.v4.model.RouteFilterRulesChangeDataResponse;
+import com.equinix.openapi.fabric.v4.model.RouteFilterRulesData;
+import com.equinix.openapi.fabric.v4.model.RouteFilterRulesPatchRequestItem;
+import com.equinix.openapi.fabric.v4.model.RouteFilterRulesPostRequest;
+import java.util.UUID;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.v4.api.RouteFilterRulesApi;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.filter.log.ErrorLoggingFilter;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.Ignore;
+
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import static io.restassured.config.ObjectMapperConfig.objectMapperConfig;
+import static io.restassured.config.RestAssuredConfig.config;
+import static com.equinix.openapi.fabric.JacksonObjectMapper.jackson;
 
 /**
  * API tests for RouteFilterRulesApi
  */
-@Disabled
-public class RouteFilterRulesApiTest extends AbstractTest {
+@Ignore
+public class RouteFilterRulesApiTest {
 
-    private final RouteFilterRulesApi api = new RouteFilterRulesApi(generateToken());
+    private RouteFilterRulesApi api;
+
+    @Before
+    public void createApi() {
+        api = ApiClient.api(ApiClient.Config.apiConfig().reqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setConfig(config().objectMapperConfig(objectMapperConfig().defaultObjectMapper(jackson())))
+                        .addFilter(new ErrorLoggingFilter())
+                        .setBaseUri("https://api.equinix.com"))).routeFilterRules();
+    }
 
     /**
-     * Create RFRule
-     * <p>
-     * This API provides capability to create a Route Filter Rule
-     *
-     * @throws ApiException if the Api call fails
+     * Successful operation
      */
     @Test
-    public void createRouteFilterRuleTest() throws ApiException {
-        //
-        //String routeFilterId = null;
-        //
-        //RouteFilterRulesBase routeFilterRulesBase = null;
-        //
-        //RouteFilterRulesData response = api.createRouteFilterRule(routeFilterId, routeFilterRulesBase);
-
+    public void shouldSee202AfterCreateRouteFilterRule() {
+        String routeFilterId = null;
+        RouteFilterRulesBase routeFilterRulesBase = null;
+        api.createRouteFilterRule()
+                .routeFilterIdPath(routeFilterId)
+                .body(routeFilterRulesBase).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Bulk RFRules
-     * <p>
-     * This API provides capability to create bulk route filter rules
-     *
-     * @throws ApiException if the Api call fails
+     * Bad request
      */
     @Test
-    public void createRouteFilterRulesInBulkTest() throws ApiException {
-        //
-        //String routeFilterId = null;
-        //
-        //RouteFilterRulesPostRequest routeFilterRulesPostRequest = null;
-        //
-        //GetRouteFilterRulesResponse response = api.createRouteFilterRulesInBulk(routeFilterId, routeFilterRulesPostRequest);
-
+    public void shouldSee400AfterCreateRouteFilterRule() {
+        String routeFilterId = null;
+        RouteFilterRulesBase routeFilterRulesBase = null;
+        api.createRouteFilterRule()
+                .routeFilterIdPath(routeFilterId)
+                .body(routeFilterRulesBase).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * DeleteRFRule
-     * <p>
-     * This API provides capability to delete a Route Filter Rule
-     *
-     * @throws ApiException if the Api call fails
+     * Unauthorized
      */
     @Test
-    public void deleteRouteFilterRuleByUuidTest() throws ApiException {
-        //
-        //String routeFilterId = null;
-        //
-        //String routeFilterRuleId = null;
-        //
-        //RouteFilterRulesData response = api.deleteRouteFilterRuleByUuid(routeFilterId, routeFilterRuleId);
-
+    public void shouldSee401AfterCreateRouteFilterRule() {
+        String routeFilterId = null;
+        RouteFilterRulesBase routeFilterRulesBase = null;
+        api.createRouteFilterRule()
+                .routeFilterIdPath(routeFilterId)
+                .body(routeFilterRulesBase).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * GetRFRule By UUID
-     * <p>
-     * This API provides capability to view a Route Filter Rule by UUID
-     *
-     * @throws ApiException if the Api call fails
+     * Forbidden
      */
     @Test
-    public void getRouteFilterRuleByUuidTest() throws ApiException {
-        //
-        //String routeFilterId = null;
-        //
-        //String routeFilterRuleId = null;
-        //
-        //RouteFilterRulesData response = api.getRouteFilterRuleByUuid(routeFilterId, routeFilterRuleId);
-
+    public void shouldSee403AfterCreateRouteFilterRule() {
+        String routeFilterId = null;
+        RouteFilterRulesBase routeFilterRulesBase = null;
+        api.createRouteFilterRule()
+                .routeFilterIdPath(routeFilterId)
+                .body(routeFilterRulesBase).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Get Change By ID
-     * <p>
-     * This API provides capability to retrieve a specific Route Filter Rule&#39;s Changes
-     *
-     * @throws ApiException if the Api call fails
+     * Route Filter Rule ID Not Found
      */
     @Test
-    public void getRouteFilterRuleChangeByUuidTest() throws ApiException {
-        //
-        //String routeFilterId = null;
-        //
-        //String routeFilterRuleId = null;
-        //
-        //UUID changeId = null;
-        //
-        //RouteFilterRulesChangeData response = api.getRouteFilterRuleChangeByUuid(routeFilterId, routeFilterRuleId, changeId);
-
+    public void shouldSee404AfterCreateRouteFilterRule() {
+        String routeFilterId = null;
+        RouteFilterRulesBase routeFilterRulesBase = null;
+        api.createRouteFilterRule()
+                .routeFilterIdPath(routeFilterId)
+                .body(routeFilterRulesBase).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Get All Changes
-     * <p>
-     * This API provides capability to retrieve all of a Route Filter Rule&#39;s Changes
-     *
-     * @throws ApiException if the Api call fails
+     * Unsupported Media Type
      */
     @Test
-    public void getRouteFilterRuleChangesTest() throws ApiException {
-        //
-        //String routeFilterId = null;
-        //
-        //String routeFilterRuleId = null;
-        //
-        //Integer offset = null;
-        //
-        //Integer limit = null;
-        //
-        //RouteFilterRulesChangeDataResponse response = api.getRouteFilterRuleChanges(routeFilterId, routeFilterRuleId, offset, limit);
-
+    public void shouldSee415AfterCreateRouteFilterRule() {
+        String routeFilterId = null;
+        RouteFilterRulesBase routeFilterRulesBase = null;
+        api.createRouteFilterRule()
+                .routeFilterIdPath(routeFilterId)
+                .body(routeFilterRulesBase).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * GetRFRules
-     * <p>
-     * This API provides capability to get all Route Filters Rules for Fabric
-     *
-     * @throws ApiException if the Api call fails
+     * Internal server error
      */
     @Test
-    public void getRouteFilterRulesTest() throws ApiException {
-        //
-        //String routeFilterId = null;
-        //
-        //Integer offset = null;
-        //
-        //Integer limit = null;
-        //
-        //GetRouteFilterRulesResponse response = api.getRouteFilterRules(routeFilterId, offset, limit);
+    public void shouldSee500AfterCreateRouteFilterRule() {
+        String routeFilterId = null;
+        RouteFilterRulesBase routeFilterRulesBase = null;
+        api.createRouteFilterRule()
+                .routeFilterIdPath(routeFilterId)
+                .body(routeFilterRulesBase).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
 
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee202AfterCreateRouteFilterRulesInBulk() {
+        String routeFilterId = null;
+        RouteFilterRulesPostRequest routeFilterRulesPostRequest = null;
+        api.createRouteFilterRulesInBulk()
+                .routeFilterIdPath(routeFilterId)
+                .body(routeFilterRulesPostRequest).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * PatchRFilterRule
-     * <p>
-     * This API provides capability to partially update a Route Filter Rule
-     *
-     * @throws ApiException if the Api call fails
+     * Resource not found
      */
     @Test
-    public void patchRouteFilterRuleByUuidTest() throws ApiException {
-        //
-        //String routeFilterId = null;
-        //
-        //String routeFilterRuleId = null;
-        //
-        //List<RouteFilterRulesPatchRequestItem> routeFilterRulesPatchRequestItem = null;
-        //
-        //RouteFilterRulesData response = api.patchRouteFilterRuleByUuid(routeFilterId, routeFilterRuleId, routeFilterRulesPatchRequestItem);
-
+    public void shouldSee400AfterCreateRouteFilterRulesInBulk() {
+        String routeFilterId = null;
+        RouteFilterRulesPostRequest routeFilterRulesPostRequest = null;
+        api.createRouteFilterRulesInBulk()
+                .routeFilterIdPath(routeFilterId)
+                .body(routeFilterRulesPostRequest).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * ReplaceRFRule
-     * <p>
-     * This API provides capability to replace a Route Filter Rule completely
-     *
-     * @throws ApiException if the Api call fails
+     * Unauthorized
      */
     @Test
-    public void replaceRouteFilterRuleByUuidTest() throws ApiException {
-        //
-        //String routeFilterId = null;
-        //
-        //String routeFilterRuleId = null;
-        //
-        //RouteFilterRulesBase routeFilterRulesBase = null;
-        //
-        //RouteFilterRulesData response = api.replaceRouteFilterRuleByUuid(routeFilterId, routeFilterRuleId, routeFilterRulesBase);
-
+    public void shouldSee401AfterCreateRouteFilterRulesInBulk() {
+        String routeFilterId = null;
+        RouteFilterRulesPostRequest routeFilterRulesPostRequest = null;
+        api.createRouteFilterRulesInBulk()
+                .routeFilterIdPath(routeFilterId)
+                .body(routeFilterRulesPostRequest).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterCreateRouteFilterRulesInBulk() {
+        String routeFilterId = null;
+        RouteFilterRulesPostRequest routeFilterRulesPostRequest = null;
+        api.createRouteFilterRulesInBulk()
+                .routeFilterIdPath(routeFilterId)
+                .body(routeFilterRulesPostRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Not Found
+     */
+    @Test
+    public void shouldSee404AfterCreateRouteFilterRulesInBulk() {
+        String routeFilterId = null;
+        RouteFilterRulesPostRequest routeFilterRulesPostRequest = null;
+        api.createRouteFilterRulesInBulk()
+                .routeFilterIdPath(routeFilterId)
+                .body(routeFilterRulesPostRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unsupported Media Type
+     */
+    @Test
+    public void shouldSee415AfterCreateRouteFilterRulesInBulk() {
+        String routeFilterId = null;
+        RouteFilterRulesPostRequest routeFilterRulesPostRequest = null;
+        api.createRouteFilterRulesInBulk()
+                .routeFilterIdPath(routeFilterId)
+                .body(routeFilterRulesPostRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal server error
+     */
+    @Test
+    public void shouldSee500AfterCreateRouteFilterRulesInBulk() {
+        String routeFilterId = null;
+        RouteFilterRulesPostRequest routeFilterRulesPostRequest = null;
+        api.createRouteFilterRulesInBulk()
+                .routeFilterIdPath(routeFilterId)
+                .body(routeFilterRulesPostRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee202AfterDeleteRouteFilterRuleByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        api.deleteRouteFilterRuleByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterDeleteRouteFilterRuleByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        api.deleteRouteFilterRuleByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterDeleteRouteFilterRuleByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        api.deleteRouteFilterRuleByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterDeleteRouteFilterRuleByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        api.deleteRouteFilterRuleByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Route Filter ID Not Found
+     */
+    @Test
+    public void shouldSee404AfterDeleteRouteFilterRuleByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        api.deleteRouteFilterRuleByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unsupported Media Type
+     */
+    @Test
+    public void shouldSee415AfterDeleteRouteFilterRuleByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        api.deleteRouteFilterRuleByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal server error
+     */
+    @Test
+    public void shouldSee500AfterDeleteRouteFilterRuleByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        api.deleteRouteFilterRuleByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee202AfterGetRouteFilterRuleByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        api.getRouteFilterRuleByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterGetRouteFilterRuleByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        api.getRouteFilterRuleByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterGetRouteFilterRuleByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        api.getRouteFilterRuleByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterGetRouteFilterRuleByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        api.getRouteFilterRuleByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Route Filter ID Not Found
+     */
+    @Test
+    public void shouldSee404AfterGetRouteFilterRuleByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        api.getRouteFilterRuleByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unsupported Media Type
+     */
+    @Test
+    public void shouldSee415AfterGetRouteFilterRuleByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        api.getRouteFilterRuleByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal server error
+     */
+    @Test
+    public void shouldSee500AfterGetRouteFilterRuleByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        api.getRouteFilterRuleByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Fabric Route Filter Change object
+     */
+    @Test
+    public void shouldSee200AfterGetRouteFilterRuleChangeByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        UUID changeId = null;
+        api.getRouteFilterRuleChangeByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId)
+                .changeIdPath(changeId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterGetRouteFilterRuleChangeByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        UUID changeId = null;
+        api.getRouteFilterRuleChangeByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId)
+                .changeIdPath(changeId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterGetRouteFilterRuleChangeByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        UUID changeId = null;
+        api.getRouteFilterRuleChangeByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId)
+                .changeIdPath(changeId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterGetRouteFilterRuleChangeByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        UUID changeId = null;
+        api.getRouteFilterRuleChangeByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId)
+                .changeIdPath(changeId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Route Filter ID Not Found
+     */
+    @Test
+    public void shouldSee404AfterGetRouteFilterRuleChangeByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        UUID changeId = null;
+        api.getRouteFilterRuleChangeByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId)
+                .changeIdPath(changeId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal server error
+     */
+    @Test
+    public void shouldSee500AfterGetRouteFilterRuleChangeByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        UUID changeId = null;
+        api.getRouteFilterRuleChangeByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId)
+                .changeIdPath(changeId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Fabric Route Filter Rule Change object
+     */
+    @Test
+    public void shouldSee200AfterGetRouteFilterRuleChanges() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getRouteFilterRuleChanges()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterGetRouteFilterRuleChanges() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getRouteFilterRuleChanges()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterGetRouteFilterRuleChanges() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getRouteFilterRuleChanges()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterGetRouteFilterRuleChanges() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getRouteFilterRuleChanges()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Route Filter ID Not Found
+     */
+    @Test
+    public void shouldSee404AfterGetRouteFilterRuleChanges() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getRouteFilterRuleChanges()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal server error
+     */
+    @Test
+    public void shouldSee500AfterGetRouteFilterRuleChanges() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getRouteFilterRuleChanges()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee200AfterGetRouteFilterRules() {
+        String routeFilterId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getRouteFilterRules()
+                .routeFilterIdPath(routeFilterId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Resource not found
+     */
+    @Test
+    public void shouldSee400AfterGetRouteFilterRules() {
+        String routeFilterId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getRouteFilterRules()
+                .routeFilterIdPath(routeFilterId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterGetRouteFilterRules() {
+        String routeFilterId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getRouteFilterRules()
+                .routeFilterIdPath(routeFilterId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterGetRouteFilterRules() {
+        String routeFilterId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getRouteFilterRules()
+                .routeFilterIdPath(routeFilterId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Route Filter Rule ID Not Found
+     */
+    @Test
+    public void shouldSee404AfterGetRouteFilterRules() {
+        String routeFilterId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getRouteFilterRules()
+                .routeFilterIdPath(routeFilterId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal server error
+     */
+    @Test
+    public void shouldSee500AfterGetRouteFilterRules() {
+        String routeFilterId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getRouteFilterRules()
+                .routeFilterIdPath(routeFilterId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee202AfterPatchRouteFilterRuleByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        List<RouteFilterRulesPatchRequestItem> routeFilterRulesPatchRequestItem = null;
+        api.patchRouteFilterRuleByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId)
+                .body(routeFilterRulesPatchRequestItem).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterPatchRouteFilterRuleByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        List<RouteFilterRulesPatchRequestItem> routeFilterRulesPatchRequestItem = null;
+        api.patchRouteFilterRuleByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId)
+                .body(routeFilterRulesPatchRequestItem).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterPatchRouteFilterRuleByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        List<RouteFilterRulesPatchRequestItem> routeFilterRulesPatchRequestItem = null;
+        api.patchRouteFilterRuleByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId)
+                .body(routeFilterRulesPatchRequestItem).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterPatchRouteFilterRuleByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        List<RouteFilterRulesPatchRequestItem> routeFilterRulesPatchRequestItem = null;
+        api.patchRouteFilterRuleByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId)
+                .body(routeFilterRulesPatchRequestItem).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Route Filter ID Not Found
+     */
+    @Test
+    public void shouldSee404AfterPatchRouteFilterRuleByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        List<RouteFilterRulesPatchRequestItem> routeFilterRulesPatchRequestItem = null;
+        api.patchRouteFilterRuleByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId)
+                .body(routeFilterRulesPatchRequestItem).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unsupported Media Type
+     */
+    @Test
+    public void shouldSee415AfterPatchRouteFilterRuleByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        List<RouteFilterRulesPatchRequestItem> routeFilterRulesPatchRequestItem = null;
+        api.patchRouteFilterRuleByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId)
+                .body(routeFilterRulesPatchRequestItem).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal server error
+     */
+    @Test
+    public void shouldSee500AfterPatchRouteFilterRuleByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        List<RouteFilterRulesPatchRequestItem> routeFilterRulesPatchRequestItem = null;
+        api.patchRouteFilterRuleByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId)
+                .body(routeFilterRulesPatchRequestItem).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee202AfterReplaceRouteFilterRuleByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        RouteFilterRulesBase routeFilterRulesBase = null;
+        api.replaceRouteFilterRuleByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId)
+                .body(routeFilterRulesBase).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterReplaceRouteFilterRuleByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        RouteFilterRulesBase routeFilterRulesBase = null;
+        api.replaceRouteFilterRuleByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId)
+                .body(routeFilterRulesBase).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterReplaceRouteFilterRuleByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        RouteFilterRulesBase routeFilterRulesBase = null;
+        api.replaceRouteFilterRuleByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId)
+                .body(routeFilterRulesBase).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterReplaceRouteFilterRuleByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        RouteFilterRulesBase routeFilterRulesBase = null;
+        api.replaceRouteFilterRuleByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId)
+                .body(routeFilterRulesBase).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Route Filter ID Not Found
+     */
+    @Test
+    public void shouldSee404AfterReplaceRouteFilterRuleByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        RouteFilterRulesBase routeFilterRulesBase = null;
+        api.replaceRouteFilterRuleByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId)
+                .body(routeFilterRulesBase).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unsupported Media Type
+     */
+    @Test
+    public void shouldSee415AfterReplaceRouteFilterRuleByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        RouteFilterRulesBase routeFilterRulesBase = null;
+        api.replaceRouteFilterRuleByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId)
+                .body(routeFilterRulesBase).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal server error
+     */
+    @Test
+    public void shouldSee500AfterReplaceRouteFilterRuleByUuid() {
+        String routeFilterId = null;
+        String routeFilterRuleId = null;
+        RouteFilterRulesBase routeFilterRulesBase = null;
+        api.replaceRouteFilterRuleByUuid()
+                .routeFilterIdPath(routeFilterId)
+                .routeFilterRuleIdPath(routeFilterRuleId)
+                .body(routeFilterRulesBase).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
 }

@@ -11,351 +11,237 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.ApiCallback;
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.ApiResponse;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.Pair;
-import com.equinix.openapi.fabric.ProgressRequestBody;
-import com.equinix.openapi.fabric.ProgressResponseBody;
-
-import com.google.gson.reflect.TypeToken;
-
-import java.io.IOException;
-
-
 import com.equinix.openapi.fabric.v4.model.Metro;
-import com.equinix.openapi.fabric.v4.model.MetroError;
 import com.equinix.openapi.fabric.v4.model.MetroResponse;
-import com.equinix.openapi.fabric.v4.model.Presence;
+import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.common.mapper.TypeRef;
+import io.restassured.http.Method;
+import io.restassured.response.Response;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import javax.ws.rs.core.GenericType;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
+import static io.restassured.http.Method.GET;
 
 public class MetrosApi {
-    private ApiClient localVarApiClient;
-    private int localHostIndex;
-    private String localCustomBaseUrl;
 
-    public MetrosApi() {
-        this(Configuration.getDefaultApiClient());
+    private Supplier<RequestSpecBuilder> reqSpecSupplier;
+    private Consumer<RequestSpecBuilder> reqSpecCustomizer;
+
+    private MetrosApi(Supplier<RequestSpecBuilder> reqSpecSupplier) {
+        this.reqSpecSupplier = reqSpecSupplier;
     }
 
-    public MetrosApi(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+    public static MetrosApi metros(Supplier<RequestSpecBuilder> reqSpecSupplier) {
+        return new MetrosApi(reqSpecSupplier);
     }
 
-    public ApiClient getApiClient() {
-        return localVarApiClient;
+    private RequestSpecBuilder createReqSpec() {
+        RequestSpecBuilder reqSpec = reqSpecSupplier.get();
+        if(reqSpecCustomizer != null) {
+            reqSpecCustomizer.accept(reqSpec);
+        }
+        return reqSpec;
     }
 
-    public void setApiClient(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+    public List<Oper> getAllOperations() {
+        return Arrays.asList(
+                getMetroByCode(),
+                getMetros()
+        );
     }
 
-    public int getHostIndex() {
-        return localHostIndex;
+    public GetMetroByCodeOper getMetroByCode() {
+        return new GetMetroByCodeOper(createReqSpec());
     }
 
-    public void setHostIndex(int hostIndex) {
-        this.localHostIndex = hostIndex;
-    }
-
-    public String getCustomBaseUrl() {
-        return localCustomBaseUrl;
-    }
-
-    public void setCustomBaseUrl(String customBaseUrl) {
-        this.localCustomBaseUrl = customBaseUrl;
+    public GetMetrosOper getMetros() {
+        return new GetMetrosOper(createReqSpec());
     }
 
     /**
-     * Build call for getMetroByCode
-     * @param metroCode Metro Code (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
-     </table>
+     * Customize request specification
+     * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+     * @return api
      */
-    public okhttp3.Call getMetroByCodeCall(String metroCode, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
-        }
-
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/metros/{metroCode}"
-            .replace("{" + "metroCode" + "}", localVarApiClient.escapeString(metroCode.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
-        }
-
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getMetroByCodeValidateBeforeCall(String metroCode, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'metroCode' is set
-        if (metroCode == null) {
-            throw new ApiException("Missing the required parameter 'metroCode' when calling getMetroByCode(Async)");
-        }
-
-        return getMetroByCodeCall(metroCode, _callback);
-
+    public MetrosApi reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+        this.reqSpecCustomizer = reqSpecCustomizer;
+        return this;
     }
 
     /**
      * Get Metro by Code
      * GET Metros retrieves all Equinix Fabric metros, as well as latency data between each metro location. .
-     * @param metroCode Metro Code (required)
-     * @return Metro
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #metroCodePath Metro Code (required)
+     * return Metro
      */
-    public Metro getMetroByCode(String metroCode) throws ApiException {
-        ApiResponse<Metro> localVarResp = getMetroByCodeWithHttpInfo(metroCode);
-        return localVarResp.getData();
+    public static class GetMetroByCodeOper implements Oper {
+
+        public static final Method REQ_METHOD = GET;
+        public static final String REQ_URI = "/fabric/v4/metros/{metroCode}";
+
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
+
+        public GetMetroByCodeOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
+        }
+
+        /**
+         * GET /fabric/v4/metros/{metroCode}
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
+        }
+
+        /**
+         * GET /fabric/v4/metros/{metroCode}
+         * @param handler handler
+         * @return Metro
+         */
+        public Metro executeAs(Function<Response, Response> handler) {
+            TypeRef<Metro> type = new TypeRef<Metro>(){};
+            return execute(handler).as(type);
+        }
+
+        public static final String METRO_CODE_PATH = "metroCode";
+
+        /**
+         * @param metroCode (String) Metro Code (required)
+         * @return operation
+         */
+        public GetMetroByCodeOper metroCodePath(Object metroCode) {
+            reqSpec.addPathParam(METRO_CODE_PATH, metroCode);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public GetMetroByCodeOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public GetMetroByCodeOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    /**
-     * Get Metro by Code
-     * GET Metros retrieves all Equinix Fabric metros, as well as latency data between each metro location. .
-     * @param metroCode Metro Code (required)
-     * @return ApiResponse&lt;Metro&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<Metro> getMetroByCodeWithHttpInfo(String metroCode) throws ApiException {
-        okhttp3.Call localVarCall = getMetroByCodeValidateBeforeCall(metroCode, null);
-        Type localVarReturnType = new TypeToken<Metro>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Get Metro by Code (asynchronously)
-     * GET Metros retrieves all Equinix Fabric metros, as well as latency data between each metro location. .
-     * @param metroCode Metro Code (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getMetroByCodeAsync(String metroCode, final ApiCallback<Metro> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getMetroByCodeValidateBeforeCall(metroCode, _callback);
-        Type localVarReturnType = new TypeToken<Metro>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getMetros
-     * @param presence User On Boarded Metros based on Fabric resource availability (optional)
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getMetrosCall(Presence presence, Integer offset, Integer limit, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
-        }
-
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/metros";
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        if (presence != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("presence", presence));
-        }
-
-        if (offset != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("offset", offset));
-        }
-
-        if (limit != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
-        }
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
-        }
-
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getMetrosValidateBeforeCall(Presence presence, Integer offset, Integer limit, final ApiCallback _callback) throws ApiException {
-        return getMetrosCall(presence, offset, limit, _callback);
-
-    }
-
     /**
      * Get all Metros
      * GET All Subscriber Metros with an option query parameter to return all Equinix Fabric metros in which the customer has a presence, as well as latency data for each location.
-     * @param presence User On Boarded Metros based on Fabric resource availability (optional)
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @return MetroResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #presenceQuery User On Boarded Metros based on Fabric resource availability (optional)
+     * @see #offsetQuery offset (optional)
+     * @see #limitQuery number of records to fetch (optional)
+     * return MetroResponse
      */
-    public MetroResponse getMetros(Presence presence, Integer offset, Integer limit) throws ApiException {
-        ApiResponse<MetroResponse> localVarResp = getMetrosWithHttpInfo(presence, offset, limit);
-        return localVarResp.getData();
-    }
+    public static class GetMetrosOper implements Oper {
 
-    /**
-     * Get all Metros
-     * GET All Subscriber Metros with an option query parameter to return all Equinix Fabric metros in which the customer has a presence, as well as latency data for each location.
-     * @param presence User On Boarded Metros based on Fabric resource availability (optional)
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @return ApiResponse&lt;MetroResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<MetroResponse> getMetrosWithHttpInfo(Presence presence, Integer offset, Integer limit) throws ApiException {
-        okhttp3.Call localVarCall = getMetrosValidateBeforeCall(presence, offset, limit, null);
-        Type localVarReturnType = new TypeToken<MetroResponse>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = GET;
+        public static final String REQ_URI = "/fabric/v4/metros";
 
-    /**
-     * Get all Metros (asynchronously)
-     * GET All Subscriber Metros with an option query parameter to return all Equinix Fabric metros in which the customer has a presence, as well as latency data for each location.
-     * @param presence User On Boarded Metros based on Fabric resource availability (optional)
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getMetrosAsync(Presence presence, Integer offset, Integer limit, final ApiCallback<MetroResponse> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = getMetrosValidateBeforeCall(presence, offset, limit, _callback);
-        Type localVarReturnType = new TypeToken<MetroResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+        public GetMetrosOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
+        }
+
+        /**
+         * GET /fabric/v4/metros
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
+        }
+
+        /**
+         * GET /fabric/v4/metros
+         * @param handler handler
+         * @return MetroResponse
+         */
+        public MetroResponse executeAs(Function<Response, Response> handler) {
+            TypeRef<MetroResponse> type = new TypeRef<MetroResponse>(){};
+            return execute(handler).as(type);
+        }
+
+        public static final String PRESENCE_QUERY = "presence";
+
+        /**
+         * @param presence (Presence) User On Boarded Metros based on Fabric resource availability (optional)
+         * @return operation
+         */
+        public GetMetrosOper presenceQuery(Object... presence) {
+            reqSpec.addQueryParam(PRESENCE_QUERY, presence);
+            return this;
+        }
+
+        public static final String OFFSET_QUERY = "offset";
+
+        /**
+         * @param offset (Integer) offset (optional)
+         * @return operation
+         */
+        public GetMetrosOper offsetQuery(Object... offset) {
+            reqSpec.addQueryParam(OFFSET_QUERY, offset);
+            return this;
+        }
+
+        public static final String LIMIT_QUERY = "limit";
+
+        /**
+         * @param limit (Integer) number of records to fetch (optional)
+         * @return operation
+         */
+        public GetMetrosOper limitQuery(Object... limit) {
+            reqSpec.addQueryParam(LIMIT_QUERY, limit);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public GetMetrosOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public GetMetrosOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
 }

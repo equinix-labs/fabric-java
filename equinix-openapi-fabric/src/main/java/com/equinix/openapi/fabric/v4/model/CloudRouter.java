@@ -11,106 +11,79 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.equinix.openapi.fabric.v4.model.Changelog;
-import com.equinix.openapi.fabric.v4.model.CloudRouterAccessPointState;
-import com.equinix.openapi.fabric.v4.model.CloudRouterChange;
-import com.equinix.openapi.fabric.v4.model.CloudRouterPostRequestPackage;
-import com.equinix.openapi.fabric.v4.model.Order;
-import com.equinix.openapi.fabric.v4.model.Project;
-import com.equinix.openapi.fabric.v4.model.SimplifiedAccount;
-import com.equinix.openapi.fabric.v4.model.SimplifiedLocationWithoutIBX;
-import com.equinix.openapi.fabric.v4.model.SimplifiedNotification;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
+
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.TypeAdapterFactory;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import com.equinix.openapi.fabric.JSON;
 
 /**
  * Fabric Cloud Router object
  */
+@JsonPropertyOrder({
+  CloudRouter.JSON_PROPERTY_HREF,
+  CloudRouter.JSON_PROPERTY_UUID,
+  CloudRouter.JSON_PROPERTY_NAME,
+  CloudRouter.JSON_PROPERTY_STATE,
+  CloudRouter.JSON_PROPERTY_EQUINIX_ASN,
+  CloudRouter.JSON_PROPERTY_BGP_IPV4_ROUTES_COUNT,
+  CloudRouter.JSON_PROPERTY_BGP_IPV6_ROUTES_COUNT,
+  CloudRouter.JSON_PROPERTY_CONNECTIONS_COUNT,
+  CloudRouter.JSON_PROPERTY_DISTINCT_IPV4_PREFIXES_COUNT,
+  CloudRouter.JSON_PROPERTY_DISTINCT_IPV6_PREFIXES_COUNT,
+  CloudRouter.JSON_PROPERTY_CHANGE_LOG,
+  CloudRouter.JSON_PROPERTY_CHANGE,
+  CloudRouter.JSON_PROPERTY_TYPE,
+  CloudRouter.JSON_PROPERTY_LOCATION,
+  CloudRouter.JSON_PROPERTY_PACKAGE,
+  CloudRouter.JSON_PROPERTY_ORDER,
+  CloudRouter.JSON_PROPERTY_PROJECT,
+  CloudRouter.JSON_PROPERTY_ACCOUNT,
+  CloudRouter.JSON_PROPERTY_NOTIFICATIONS
+})
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CloudRouter {
-  public static final String SERIALIZED_NAME_HREF = "href";
-  @SerializedName(SERIALIZED_NAME_HREF)
+  public static final String JSON_PROPERTY_HREF = "href";
   private URI href;
 
-  public static final String SERIALIZED_NAME_UUID = "uuid";
-  @SerializedName(SERIALIZED_NAME_UUID)
+  public static final String JSON_PROPERTY_UUID = "uuid";
   private UUID uuid;
 
-  public static final String SERIALIZED_NAME_NAME = "name";
-  @SerializedName(SERIALIZED_NAME_NAME)
+  public static final String JSON_PROPERTY_NAME = "name";
   private String name;
 
-  public static final String SERIALIZED_NAME_STATE = "state";
-  @SerializedName(SERIALIZED_NAME_STATE)
+  public static final String JSON_PROPERTY_STATE = "state";
   private CloudRouterAccessPointState state;
 
-  public static final String SERIALIZED_NAME_EQUINIX_ASN = "equinixAsn";
-  @SerializedName(SERIALIZED_NAME_EQUINIX_ASN)
+  public static final String JSON_PROPERTY_EQUINIX_ASN = "equinixAsn";
   private Long equinixAsn;
 
-  public static final String SERIALIZED_NAME_BGP_IPV4_ROUTES_COUNT = "bgpIpv4RoutesCount";
-  @SerializedName(SERIALIZED_NAME_BGP_IPV4_ROUTES_COUNT)
+  public static final String JSON_PROPERTY_BGP_IPV4_ROUTES_COUNT = "bgpIpv4RoutesCount";
   private Integer bgpIpv4RoutesCount;
 
-  public static final String SERIALIZED_NAME_BGP_IPV6_ROUTES_COUNT = "bgpIpv6RoutesCount";
-  @SerializedName(SERIALIZED_NAME_BGP_IPV6_ROUTES_COUNT)
+  public static final String JSON_PROPERTY_BGP_IPV6_ROUTES_COUNT = "bgpIpv6RoutesCount";
   private Integer bgpIpv6RoutesCount;
 
-  public static final String SERIALIZED_NAME_CONNECTIONS_COUNT = "connectionsCount";
-  @SerializedName(SERIALIZED_NAME_CONNECTIONS_COUNT)
+  public static final String JSON_PROPERTY_CONNECTIONS_COUNT = "connectionsCount";
   private Integer connectionsCount;
 
-  public static final String SERIALIZED_NAME_DISTINCT_IPV4_PREFIXES_COUNT = "distinctIpv4PrefixesCount";
-  @SerializedName(SERIALIZED_NAME_DISTINCT_IPV4_PREFIXES_COUNT)
+  public static final String JSON_PROPERTY_DISTINCT_IPV4_PREFIXES_COUNT = "distinctIpv4PrefixesCount";
   private Integer distinctIpv4PrefixesCount;
 
-  public static final String SERIALIZED_NAME_DISTINCT_IPV6_PREFIXES_COUNT = "distinctIpv6PrefixesCount";
-  @SerializedName(SERIALIZED_NAME_DISTINCT_IPV6_PREFIXES_COUNT)
+  public static final String JSON_PROPERTY_DISTINCT_IPV6_PREFIXES_COUNT = "distinctIpv6PrefixesCount";
   private Integer distinctIpv6PrefixesCount;
 
-  public static final String SERIALIZED_NAME_CHANGE_LOG = "changeLog";
-  @SerializedName(SERIALIZED_NAME_CHANGE_LOG)
+  public static final String JSON_PROPERTY_CHANGE_LOG = "changeLog";
   private Changelog changeLog;
 
-  public static final String SERIALIZED_NAME_CHANGE = "change";
-  @SerializedName(SERIALIZED_NAME_CHANGE)
+  public static final String JSON_PROPERTY_CHANGE = "change";
   private CloudRouterChange change;
 
   /**
    * Gets or Sets type
    */
-  @JsonAdapter(TypeEnum.Adapter.class)
   public enum TypeEnum {
     XF_ROUTER("XF_ROUTER");
 
@@ -120,6 +93,7 @@ public class CloudRouter {
       this.value = value;
     }
 
+    @JsonValue
     public String getValue() {
       return value;
     }
@@ -129,6 +103,7 @@ public class CloudRouter {
       return String.valueOf(value);
     }
 
+    @JsonCreator
     public static TypeEnum fromValue(String value) {
       for (TypeEnum b : TypeEnum.values()) {
         if (b.value.equals(value)) {
@@ -137,55 +112,35 @@ public class CloudRouter {
       }
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
-
-    public static class Adapter extends TypeAdapter<TypeEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final TypeEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public TypeEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return TypeEnum.fromValue(value);
-      }
-    }
   }
 
-  public static final String SERIALIZED_NAME_TYPE = "type";
-  @SerializedName(SERIALIZED_NAME_TYPE)
+  public static final String JSON_PROPERTY_TYPE = "type";
   private TypeEnum type;
 
-  public static final String SERIALIZED_NAME_LOCATION = "location";
-  @SerializedName(SERIALIZED_NAME_LOCATION)
+  public static final String JSON_PROPERTY_LOCATION = "location";
   private SimplifiedLocationWithoutIBX location;
 
-  public static final String SERIALIZED_NAME_PACKAGE = "package";
-  @SerializedName(SERIALIZED_NAME_PACKAGE)
+  public static final String JSON_PROPERTY_PACKAGE = "package";
   private CloudRouterPostRequestPackage _package;
 
-  public static final String SERIALIZED_NAME_ORDER = "order";
-  @SerializedName(SERIALIZED_NAME_ORDER)
+  public static final String JSON_PROPERTY_ORDER = "order";
   private Order order;
 
-  public static final String SERIALIZED_NAME_PROJECT = "project";
-  @SerializedName(SERIALIZED_NAME_PROJECT)
+  public static final String JSON_PROPERTY_PROJECT = "project";
   private Project project;
 
-  public static final String SERIALIZED_NAME_ACCOUNT = "account";
-  @SerializedName(SERIALIZED_NAME_ACCOUNT)
+  public static final String JSON_PROPERTY_ACCOUNT = "account";
   private SimplifiedAccount account;
 
-  public static final String SERIALIZED_NAME_NOTIFICATIONS = "notifications";
-  @SerializedName(SERIALIZED_NAME_NOTIFICATIONS)
+  public static final String JSON_PROPERTY_NOTIFICATIONS = "notifications";
   private List<SimplifiedNotification> notifications = new ArrayList<>();
 
   public CloudRouter() {
   }
 
-  
+  @JsonCreator
   public CloudRouter(
-     URI href
+    @JsonProperty(JSON_PROPERTY_HREF) URI href
   ) {
     this();
     this.href = href;
@@ -196,6 +151,8 @@ public class CloudRouter {
    * @return href
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_HREF)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public URI getHref() {
     return href;
@@ -215,12 +172,16 @@ public class CloudRouter {
    * @return uuid
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_UUID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public UUID getUuid() {
     return uuid;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_UUID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUuid(UUID uuid) {
     this.uuid = uuid;
   }
@@ -237,12 +198,16 @@ public class CloudRouter {
    * @return name
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
     return name;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setName(String name) {
     this.name = name;
   }
@@ -259,12 +224,16 @@ public class CloudRouter {
    * @return state
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public CloudRouterAccessPointState getState() {
     return state;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setState(CloudRouterAccessPointState state) {
     this.state = state;
   }
@@ -281,12 +250,16 @@ public class CloudRouter {
    * @return equinixAsn
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_EQUINIX_ASN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Long getEquinixAsn() {
     return equinixAsn;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_EQUINIX_ASN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEquinixAsn(Long equinixAsn) {
     this.equinixAsn = equinixAsn;
   }
@@ -304,12 +277,16 @@ public class CloudRouter {
    * @return bgpIpv4RoutesCount
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_BGP_IPV4_ROUTES_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getBgpIpv4RoutesCount() {
     return bgpIpv4RoutesCount;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_BGP_IPV4_ROUTES_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBgpIpv4RoutesCount(Integer bgpIpv4RoutesCount) {
     this.bgpIpv4RoutesCount = bgpIpv4RoutesCount;
   }
@@ -327,12 +304,16 @@ public class CloudRouter {
    * @return bgpIpv6RoutesCount
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_BGP_IPV6_ROUTES_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getBgpIpv6RoutesCount() {
     return bgpIpv6RoutesCount;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_BGP_IPV6_ROUTES_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBgpIpv6RoutesCount(Integer bgpIpv6RoutesCount) {
     this.bgpIpv6RoutesCount = bgpIpv6RoutesCount;
   }
@@ -350,12 +331,16 @@ public class CloudRouter {
    * @return connectionsCount
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_CONNECTIONS_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getConnectionsCount() {
     return connectionsCount;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONNECTIONS_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionsCount(Integer connectionsCount) {
     this.connectionsCount = connectionsCount;
   }
@@ -373,12 +358,16 @@ public class CloudRouter {
    * @return distinctIpv4PrefixesCount
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_DISTINCT_IPV4_PREFIXES_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getDistinctIpv4PrefixesCount() {
     return distinctIpv4PrefixesCount;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DISTINCT_IPV4_PREFIXES_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDistinctIpv4PrefixesCount(Integer distinctIpv4PrefixesCount) {
     this.distinctIpv4PrefixesCount = distinctIpv4PrefixesCount;
   }
@@ -396,12 +385,16 @@ public class CloudRouter {
    * @return distinctIpv6PrefixesCount
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_DISTINCT_IPV6_PREFIXES_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getDistinctIpv6PrefixesCount() {
     return distinctIpv6PrefixesCount;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DISTINCT_IPV6_PREFIXES_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDistinctIpv6PrefixesCount(Integer distinctIpv6PrefixesCount) {
     this.distinctIpv6PrefixesCount = distinctIpv6PrefixesCount;
   }
@@ -418,12 +411,16 @@ public class CloudRouter {
    * @return changeLog
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_CHANGE_LOG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Changelog getChangeLog() {
     return changeLog;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CHANGE_LOG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setChangeLog(Changelog changeLog) {
     this.changeLog = changeLog;
   }
@@ -440,12 +437,16 @@ public class CloudRouter {
    * @return change
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_CHANGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public CloudRouterChange getChange() {
     return change;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CHANGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setChange(CloudRouterChange change) {
     this.change = change;
   }
@@ -462,12 +463,16 @@ public class CloudRouter {
    * @return type
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public TypeEnum getType() {
     return type;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setType(TypeEnum type) {
     this.type = type;
   }
@@ -484,12 +489,16 @@ public class CloudRouter {
    * @return location
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_LOCATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public SimplifiedLocationWithoutIBX getLocation() {
     return location;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_LOCATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLocation(SimplifiedLocationWithoutIBX location) {
     this.location = location;
   }
@@ -506,12 +515,16 @@ public class CloudRouter {
    * @return _package
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PACKAGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public CloudRouterPostRequestPackage getPackage() {
     return _package;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PACKAGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPackage(CloudRouterPostRequestPackage _package) {
     this._package = _package;
   }
@@ -528,12 +541,16 @@ public class CloudRouter {
    * @return order
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ORDER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Order getOrder() {
     return order;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ORDER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOrder(Order order) {
     this.order = order;
   }
@@ -550,12 +567,16 @@ public class CloudRouter {
    * @return project
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PROJECT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Project getProject() {
     return project;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PROJECT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setProject(Project project) {
     this.project = project;
   }
@@ -572,12 +593,16 @@ public class CloudRouter {
    * @return account
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ACCOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public SimplifiedAccount getAccount() {
     return account;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ACCOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAccount(SimplifiedAccount account) {
     this.account = account;
   }
@@ -602,59 +627,18 @@ public class CloudRouter {
    * @return notifications
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_NOTIFICATIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<SimplifiedNotification> getNotifications() {
     return notifications;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_NOTIFICATIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNotifications(List<SimplifiedNotification> notifications) {
     this.notifications = notifications;
-  }
-
-  /**
-   * A container for additional, undeclared properties.
-   * This is a holder for any undeclared properties as specified with
-   * the 'additionalProperties' keyword in the OAS document.
-   */
-  private Map<String, Object> additionalProperties;
-
-  /**
-   * Set the additional (undeclared) property with the specified name and value.
-   * If the property does not already exist, create it otherwise replace it.
-   *
-   * @param key name of the property
-   * @param value value of the property
-   * @return the CloudRouter instance itself
-   */
-  public CloudRouter putAdditionalProperty(String key, Object value) {
-    if (this.additionalProperties == null) {
-        this.additionalProperties = new HashMap<String, Object>();
-    }
-    this.additionalProperties.put(key, value);
-    return this;
-  }
-
-  /**
-   * Return the additional (undeclared) property.
-   *
-   * @return a map of objects
-   */
-  public Map<String, Object> getAdditionalProperties() {
-    return additionalProperties;
-  }
-
-  /**
-   * Return the additional (undeclared) property with the specified name.
-   *
-   * @param key name of the property
-   * @return an object
-   */
-  public Object getAdditionalProperty(String key) {
-    if (this.additionalProperties == null) {
-        return null;
-    }
-    return this.additionalProperties.get(key);
   }
 
 
@@ -685,13 +669,12 @@ public class CloudRouter {
         Objects.equals(this.order, cloudRouter.order) &&
         Objects.equals(this.project, cloudRouter.project) &&
         Objects.equals(this.account, cloudRouter.account) &&
-        Objects.equals(this.notifications, cloudRouter.notifications)&&
-        Objects.equals(this.additionalProperties, cloudRouter.additionalProperties);
+        Objects.equals(this.notifications, cloudRouter.notifications);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(href, uuid, name, state, equinixAsn, bgpIpv4RoutesCount, bgpIpv6RoutesCount, connectionsCount, distinctIpv4PrefixesCount, distinctIpv6PrefixesCount, changeLog, change, type, location, _package, order, project, account, notifications, additionalProperties);
+    return Objects.hash(href, uuid, name, state, equinixAsn, bgpIpv4RoutesCount, bgpIpv6RoutesCount, connectionsCount, distinctIpv4PrefixesCount, distinctIpv6PrefixesCount, changeLog, change, type, location, _package, order, project, account, notifications);
   }
 
   @Override
@@ -717,7 +700,6 @@ public class CloudRouter {
     sb.append("    project: ").append(toIndentedString(project)).append("\n");
     sb.append("    account: ").append(toIndentedString(account)).append("\n");
     sb.append("    notifications: ").append(toIndentedString(notifications)).append("\n");
-    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -733,178 +715,5 @@ public class CloudRouter {
     return o.toString().replace("\n", "\n    ");
   }
 
-
-  public static HashSet<String> openapiFields;
-  public static HashSet<String> openapiRequiredFields;
-
-  static {
-    // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("type");
-    openapiFields.add("name");
-    openapiFields.add("location");
-    openapiFields.add("package");
-    openapiFields.add("order");
-    openapiFields.add("project");
-    openapiFields.add("account");
-    openapiFields.add("notifications");
-
-    // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-  }
-
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to CloudRouter
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (!CloudRouter.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in CloudRouter is not found in the empty JSON string", CloudRouter.openapiRequiredFields.toString()));
-        }
-      }
-      if ((jsonObj.get("href") != null && !jsonObj.get("href").isJsonNull()) && !jsonObj.get("href").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `href` to be a primitive type in the JSON string but got `%s`", jsonObj.get("href").toString()));
-      }
-      if ((jsonObj.get("uuid") != null && !jsonObj.get("uuid").isJsonNull()) && !jsonObj.get("uuid").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `uuid` to be a primitive type in the JSON string but got `%s`", jsonObj.get("uuid").toString()));
-      }
-      if ((jsonObj.get("name") != null && !jsonObj.get("name").isJsonNull()) && !jsonObj.get("name").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
-      }
-      // validate the optional field `changeLog`
-      if (jsonObj.get("changeLog") != null && !jsonObj.get("changeLog").isJsonNull()) {
-        Changelog.validateJsonObject(jsonObj.getAsJsonObject("changeLog"));
-      }
-      // validate the optional field `change`
-      if (jsonObj.get("change") != null && !jsonObj.get("change").isJsonNull()) {
-        CloudRouterChange.validateJsonObject(jsonObj.getAsJsonObject("change"));
-      }
-      if ((jsonObj.get("type") != null && !jsonObj.get("type").isJsonNull()) && !jsonObj.get("type").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("type").toString()));
-      }
-      // validate the optional field `location`
-      if (jsonObj.get("location") != null && !jsonObj.get("location").isJsonNull()) {
-        SimplifiedLocationWithoutIBX.validateJsonObject(jsonObj.getAsJsonObject("location"));
-      }
-      // validate the optional field `package`
-      if (jsonObj.get("package") != null && !jsonObj.get("package").isJsonNull()) {
-        CloudRouterPostRequestPackage.validateJsonObject(jsonObj.getAsJsonObject("package"));
-      }
-      // validate the optional field `order`
-      if (jsonObj.get("order") != null && !jsonObj.get("order").isJsonNull()) {
-        Order.validateJsonObject(jsonObj.getAsJsonObject("order"));
-      }
-      // validate the optional field `project`
-      if (jsonObj.get("project") != null && !jsonObj.get("project").isJsonNull()) {
-        Project.validateJsonObject(jsonObj.getAsJsonObject("project"));
-      }
-      // validate the optional field `account`
-      if (jsonObj.get("account") != null && !jsonObj.get("account").isJsonNull()) {
-        SimplifiedAccount.validateJsonObject(jsonObj.getAsJsonObject("account"));
-      }
-      if (jsonObj.get("notifications") != null && !jsonObj.get("notifications").isJsonNull()) {
-        JsonArray jsonArraynotifications = jsonObj.getAsJsonArray("notifications");
-        if (jsonArraynotifications != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("notifications").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `notifications` to be an array in the JSON string but got `%s`", jsonObj.get("notifications").toString()));
-          }
-
-          // validate the optional field `notifications` (array)
-          for (int i = 0; i < jsonArraynotifications.size(); i++) {
-            SimplifiedNotification.validateJsonObject(jsonArraynotifications.get(i).getAsJsonObject());
-          };
-        }
-      }
-  }
-
-  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
-    @SuppressWarnings("unchecked")
-    @Override
-    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!CloudRouter.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'CloudRouter' and its subtypes
-       }
-       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<CloudRouter> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(CloudRouter.class));
-
-       return (TypeAdapter<T>) new TypeAdapter<CloudRouter>() {
-           @Override
-           public void write(JsonWriter out, CloudRouter value) throws IOException {
-             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
-             obj.remove("additionalProperties");
-             // serialize additional properties
-             if (value.getAdditionalProperties() != null) {
-               for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
-                 if (entry.getValue() instanceof String)
-                   obj.addProperty(entry.getKey(), (String) entry.getValue());
-                 else if (entry.getValue() instanceof Number)
-                   obj.addProperty(entry.getKey(), (Number) entry.getValue());
-                 else if (entry.getValue() instanceof Boolean)
-                   obj.addProperty(entry.getKey(), (Boolean) entry.getValue());
-                 else if (entry.getValue() instanceof Character)
-                   obj.addProperty(entry.getKey(), (Character) entry.getValue());
-                 else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
-                 }
-               }
-             }
-             elementAdapter.write(out, obj);
-           }
-
-           @Override
-           public CloudRouter read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
-             // store additional fields in the deserialized instance
-             CloudRouter instance = thisAdapter.fromJsonTree(jsonObj);
-             for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
-               if (!openapiFields.contains(entry.getKey())) {
-                 if (entry.getValue().isJsonPrimitive()) { // primitive type
-                   if (entry.getValue().getAsJsonPrimitive().isString())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsString());
-                   else if (entry.getValue().getAsJsonPrimitive().isNumber())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsNumber());
-                   else if (entry.getValue().getAsJsonPrimitive().isBoolean())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
-                   else
-                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else if (entry.getValue().isJsonArray()) {
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
-                 } else { // JSON object
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
-                 }
-               }
-             }
-             return instance;
-           }
-
-       }.nullSafe();
-    }
-  }
-
- /**
-  * Create an instance of CloudRouter given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of CloudRouter
-  * @throws IOException if the JSON string is invalid with respect to CloudRouter
-  */
-  public static CloudRouter fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, CloudRouter.class);
-  }
-
- /**
-  * Convert an instance of CloudRouter to an JSON string
-  *
-  * @return JSON string
-  */
-  public String toJson() {
-    return JSON.getGson().toJson(this);
-  }
 }
 

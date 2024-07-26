@@ -1,25 +1,25 @@
 package com.equinix.openapi.fabric.v4.api.dto;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class TokenResponseDto {
 
-    @SerializedName("access_token")
+    @JsonProperty("access_token")
     private String accessToken;
 
-    @SerializedName("refresh_token")
+    @JsonProperty("refresh_token")
     private String refreshToken;
 
-    @SerializedName("user_name")
+    @JsonProperty("user_name")
     private String userName;
 
-    @SerializedName("token_timeout")
+    @JsonProperty("token_timeout")
     private String tokenTimeout;
 
-    @SerializedName("token_type")
+    @JsonProperty("token_type")
     private String tokenType;
 
-    @SerializedName("refresh_token_timeout")
+    @JsonProperty("refresh_token_timeout")
     private String refreshTokenTimeout;
 
     public String getAccessToken() {

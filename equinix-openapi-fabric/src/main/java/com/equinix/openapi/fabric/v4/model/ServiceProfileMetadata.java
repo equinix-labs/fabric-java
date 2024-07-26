@@ -11,115 +11,93 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.TypeAdapterFactory;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import com.equinix.openapi.fabric.JSON;
 
 /**
  * Metadata. Response attribute. Ignored on request payload.
  */
+@JsonPropertyOrder({
+  ServiceProfileMetadata.JSON_PROPERTY_PROPS,
+  ServiceProfileMetadata.JSON_PROPERTY_REG_EX,
+  ServiceProfileMetadata.JSON_PROPERTY_REG_EX_MSG,
+  ServiceProfileMetadata.JSON_PROPERTY_VLAN_RANGE_MAX_VALUE,
+  ServiceProfileMetadata.JSON_PROPERTY_VLAN_RANGE_MIN_VALUE,
+  ServiceProfileMetadata.JSON_PROPERTY_MAX_QINQ,
+  ServiceProfileMetadata.JSON_PROPERTY_MAX_DOT1Q,
+  ServiceProfileMetadata.JSON_PROPERTY_VARIABLE_BILLING,
+  ServiceProfileMetadata.JSON_PROPERTY_GLOBAL_ORGANIZATION,
+  ServiceProfileMetadata.JSON_PROPERTY_LIMIT_AUTH_KEY_CONN,
+  ServiceProfileMetadata.JSON_PROPERTY_ALLOW_SECONDARY_LOCATION,
+  ServiceProfileMetadata.JSON_PROPERTY_REDUNDANT_PROFILE_ID,
+  ServiceProfileMetadata.JSON_PROPERTY_ALLOW_VC_MIGRATION,
+  ServiceProfileMetadata.JSON_PROPERTY_CONNECTION_EDITABLE,
+  ServiceProfileMetadata.JSON_PROPERTY_RELEASE_VLAN,
+  ServiceProfileMetadata.JSON_PROPERTY_MAX_CONNECTIONS_ON_PORT,
+  ServiceProfileMetadata.JSON_PROPERTY_PORT_ASSIGNMENT_STRATEGY,
+  ServiceProfileMetadata.JSON_PROPERTY_EQX_MANAGED_PORT,
+  ServiceProfileMetadata.JSON_PROPERTY_CONNECTION_NAME_EDITABLE
+})
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ServiceProfileMetadata {
-  public static final String SERIALIZED_NAME_PROPS = "props";
-  @SerializedName(SERIALIZED_NAME_PROPS)
+  public static final String JSON_PROPERTY_PROPS = "props";
   private String props;
 
-  public static final String SERIALIZED_NAME_REG_EX = "regEx";
-  @SerializedName(SERIALIZED_NAME_REG_EX)
+  public static final String JSON_PROPERTY_REG_EX = "regEx";
   private String regEx;
 
-  public static final String SERIALIZED_NAME_REG_EX_MSG = "regExMsg";
-  @SerializedName(SERIALIZED_NAME_REG_EX_MSG)
+  public static final String JSON_PROPERTY_REG_EX_MSG = "regExMsg";
   private String regExMsg;
 
-  public static final String SERIALIZED_NAME_VLAN_RANGE_MAX_VALUE = "vlanRangeMaxValue";
-  @SerializedName(SERIALIZED_NAME_VLAN_RANGE_MAX_VALUE)
+  public static final String JSON_PROPERTY_VLAN_RANGE_MAX_VALUE = "vlanRangeMaxValue";
   private Integer vlanRangeMaxValue;
 
-  public static final String SERIALIZED_NAME_VLAN_RANGE_MIN_VALUE = "vlanRangeMinValue";
-  @SerializedName(SERIALIZED_NAME_VLAN_RANGE_MIN_VALUE)
+  public static final String JSON_PROPERTY_VLAN_RANGE_MIN_VALUE = "vlanRangeMinValue";
   private Integer vlanRangeMinValue;
 
-  public static final String SERIALIZED_NAME_MAX_QINQ = "maxQinq";
-  @SerializedName(SERIALIZED_NAME_MAX_QINQ)
+  public static final String JSON_PROPERTY_MAX_QINQ = "maxQinq";
   private String maxQinq;
 
-  public static final String SERIALIZED_NAME_MAX_DOT1Q = "maxDot1q";
-  @SerializedName(SERIALIZED_NAME_MAX_DOT1Q)
+  public static final String JSON_PROPERTY_MAX_DOT1Q = "maxDot1q";
   private Integer maxDot1q;
 
-  public static final String SERIALIZED_NAME_VARIABLE_BILLING = "variableBilling";
-  @SerializedName(SERIALIZED_NAME_VARIABLE_BILLING)
+  public static final String JSON_PROPERTY_VARIABLE_BILLING = "variableBilling";
   private Boolean variableBilling;
 
-  public static final String SERIALIZED_NAME_GLOBAL_ORGANIZATION = "globalOrganization";
-  @SerializedName(SERIALIZED_NAME_GLOBAL_ORGANIZATION)
+  public static final String JSON_PROPERTY_GLOBAL_ORGANIZATION = "globalOrganization";
   private String globalOrganization;
 
-  public static final String SERIALIZED_NAME_LIMIT_AUTH_KEY_CONN = "limitAuthKeyConn";
-  @SerializedName(SERIALIZED_NAME_LIMIT_AUTH_KEY_CONN)
+  public static final String JSON_PROPERTY_LIMIT_AUTH_KEY_CONN = "limitAuthKeyConn";
   private Boolean limitAuthKeyConn;
 
-  public static final String SERIALIZED_NAME_ALLOW_SECONDARY_LOCATION = "allowSecondaryLocation";
-  @SerializedName(SERIALIZED_NAME_ALLOW_SECONDARY_LOCATION)
+  public static final String JSON_PROPERTY_ALLOW_SECONDARY_LOCATION = "allowSecondaryLocation";
   private Boolean allowSecondaryLocation;
 
-  public static final String SERIALIZED_NAME_REDUNDANT_PROFILE_ID = "redundantProfileId";
-  @SerializedName(SERIALIZED_NAME_REDUNDANT_PROFILE_ID)
+  public static final String JSON_PROPERTY_REDUNDANT_PROFILE_ID = "redundantProfileId";
   private String redundantProfileId;
 
-  public static final String SERIALIZED_NAME_ALLOW_VC_MIGRATION = "allowVcMigration";
-  @SerializedName(SERIALIZED_NAME_ALLOW_VC_MIGRATION)
+  public static final String JSON_PROPERTY_ALLOW_VC_MIGRATION = "allowVcMigration";
   private Boolean allowVcMigration;
 
-  public static final String SERIALIZED_NAME_CONNECTION_EDITABLE = "connectionEditable";
-  @SerializedName(SERIALIZED_NAME_CONNECTION_EDITABLE)
+  public static final String JSON_PROPERTY_CONNECTION_EDITABLE = "connectionEditable";
   private Boolean connectionEditable;
 
-  public static final String SERIALIZED_NAME_RELEASE_VLAN = "releaseVlan";
-  @SerializedName(SERIALIZED_NAME_RELEASE_VLAN)
+  public static final String JSON_PROPERTY_RELEASE_VLAN = "releaseVlan";
   private Boolean releaseVlan;
 
-  public static final String SERIALIZED_NAME_MAX_CONNECTIONS_ON_PORT = "maxConnectionsOnPort";
-  @SerializedName(SERIALIZED_NAME_MAX_CONNECTIONS_ON_PORT)
+  public static final String JSON_PROPERTY_MAX_CONNECTIONS_ON_PORT = "maxConnectionsOnPort";
   private Integer maxConnectionsOnPort;
 
-  public static final String SERIALIZED_NAME_PORT_ASSIGNMENT_STRATEGY = "portAssignmentStrategy";
-  @SerializedName(SERIALIZED_NAME_PORT_ASSIGNMENT_STRATEGY)
+  public static final String JSON_PROPERTY_PORT_ASSIGNMENT_STRATEGY = "portAssignmentStrategy";
   private String portAssignmentStrategy;
 
-  public static final String SERIALIZED_NAME_EQX_MANAGED_PORT = "eqxManagedPort";
-  @SerializedName(SERIALIZED_NAME_EQX_MANAGED_PORT)
+  public static final String JSON_PROPERTY_EQX_MANAGED_PORT = "eqxManagedPort";
   private Boolean eqxManagedPort;
 
-  public static final String SERIALIZED_NAME_CONNECTION_NAME_EDITABLE = "connectionNameEditable";
-  @SerializedName(SERIALIZED_NAME_CONNECTION_NAME_EDITABLE)
+  public static final String JSON_PROPERTY_CONNECTION_NAME_EDITABLE = "connectionNameEditable";
   private Boolean connectionNameEditable;
 
   public ServiceProfileMetadata() {
@@ -136,12 +114,16 @@ public class ServiceProfileMetadata {
    * @return props
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PROPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getProps() {
     return props;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PROPS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setProps(String props) {
     this.props = props;
   }
@@ -158,12 +140,16 @@ public class ServiceProfileMetadata {
    * @return regEx
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_REG_EX)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getRegEx() {
     return regEx;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_REG_EX)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRegEx(String regEx) {
     this.regEx = regEx;
   }
@@ -180,12 +166,16 @@ public class ServiceProfileMetadata {
    * @return regExMsg
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_REG_EX_MSG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getRegExMsg() {
     return regExMsg;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_REG_EX_MSG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRegExMsg(String regExMsg) {
     this.regExMsg = regExMsg;
   }
@@ -202,12 +192,16 @@ public class ServiceProfileMetadata {
    * @return vlanRangeMaxValue
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_VLAN_RANGE_MAX_VALUE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getVlanRangeMaxValue() {
     return vlanRangeMaxValue;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_VLAN_RANGE_MAX_VALUE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVlanRangeMaxValue(Integer vlanRangeMaxValue) {
     this.vlanRangeMaxValue = vlanRangeMaxValue;
   }
@@ -224,12 +218,16 @@ public class ServiceProfileMetadata {
    * @return vlanRangeMinValue
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_VLAN_RANGE_MIN_VALUE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getVlanRangeMinValue() {
     return vlanRangeMinValue;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_VLAN_RANGE_MIN_VALUE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVlanRangeMinValue(Integer vlanRangeMinValue) {
     this.vlanRangeMinValue = vlanRangeMinValue;
   }
@@ -246,12 +244,16 @@ public class ServiceProfileMetadata {
    * @return maxQinq
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_MAX_QINQ)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getMaxQinq() {
     return maxQinq;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MAX_QINQ)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMaxQinq(String maxQinq) {
     this.maxQinq = maxQinq;
   }
@@ -268,12 +270,16 @@ public class ServiceProfileMetadata {
    * @return maxDot1q
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_MAX_DOT1Q)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getMaxDot1q() {
     return maxDot1q;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MAX_DOT1Q)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMaxDot1q(Integer maxDot1q) {
     this.maxDot1q = maxDot1q;
   }
@@ -290,12 +296,16 @@ public class ServiceProfileMetadata {
    * @return variableBilling
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_VARIABLE_BILLING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getVariableBilling() {
     return variableBilling;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_VARIABLE_BILLING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVariableBilling(Boolean variableBilling) {
     this.variableBilling = variableBilling;
   }
@@ -312,12 +322,16 @@ public class ServiceProfileMetadata {
    * @return globalOrganization
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_GLOBAL_ORGANIZATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getGlobalOrganization() {
     return globalOrganization;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_GLOBAL_ORGANIZATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setGlobalOrganization(String globalOrganization) {
     this.globalOrganization = globalOrganization;
   }
@@ -334,12 +348,16 @@ public class ServiceProfileMetadata {
    * @return limitAuthKeyConn
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_LIMIT_AUTH_KEY_CONN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getLimitAuthKeyConn() {
     return limitAuthKeyConn;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_LIMIT_AUTH_KEY_CONN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLimitAuthKeyConn(Boolean limitAuthKeyConn) {
     this.limitAuthKeyConn = limitAuthKeyConn;
   }
@@ -356,12 +374,16 @@ public class ServiceProfileMetadata {
    * @return allowSecondaryLocation
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ALLOW_SECONDARY_LOCATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getAllowSecondaryLocation() {
     return allowSecondaryLocation;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ALLOW_SECONDARY_LOCATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAllowSecondaryLocation(Boolean allowSecondaryLocation) {
     this.allowSecondaryLocation = allowSecondaryLocation;
   }
@@ -378,12 +400,16 @@ public class ServiceProfileMetadata {
    * @return redundantProfileId
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_REDUNDANT_PROFILE_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getRedundantProfileId() {
     return redundantProfileId;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_REDUNDANT_PROFILE_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRedundantProfileId(String redundantProfileId) {
     this.redundantProfileId = redundantProfileId;
   }
@@ -400,12 +426,16 @@ public class ServiceProfileMetadata {
    * @return allowVcMigration
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ALLOW_VC_MIGRATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getAllowVcMigration() {
     return allowVcMigration;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ALLOW_VC_MIGRATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAllowVcMigration(Boolean allowVcMigration) {
     this.allowVcMigration = allowVcMigration;
   }
@@ -422,12 +452,16 @@ public class ServiceProfileMetadata {
    * @return connectionEditable
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_CONNECTION_EDITABLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getConnectionEditable() {
     return connectionEditable;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONNECTION_EDITABLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionEditable(Boolean connectionEditable) {
     this.connectionEditable = connectionEditable;
   }
@@ -444,12 +478,16 @@ public class ServiceProfileMetadata {
    * @return releaseVlan
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_RELEASE_VLAN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getReleaseVlan() {
     return releaseVlan;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_RELEASE_VLAN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setReleaseVlan(Boolean releaseVlan) {
     this.releaseVlan = releaseVlan;
   }
@@ -466,12 +504,16 @@ public class ServiceProfileMetadata {
    * @return maxConnectionsOnPort
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_MAX_CONNECTIONS_ON_PORT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getMaxConnectionsOnPort() {
     return maxConnectionsOnPort;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MAX_CONNECTIONS_ON_PORT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMaxConnectionsOnPort(Integer maxConnectionsOnPort) {
     this.maxConnectionsOnPort = maxConnectionsOnPort;
   }
@@ -488,12 +530,16 @@ public class ServiceProfileMetadata {
    * @return portAssignmentStrategy
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PORT_ASSIGNMENT_STRATEGY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getPortAssignmentStrategy() {
     return portAssignmentStrategy;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PORT_ASSIGNMENT_STRATEGY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPortAssignmentStrategy(String portAssignmentStrategy) {
     this.portAssignmentStrategy = portAssignmentStrategy;
   }
@@ -510,12 +556,16 @@ public class ServiceProfileMetadata {
    * @return eqxManagedPort
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_EQX_MANAGED_PORT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getEqxManagedPort() {
     return eqxManagedPort;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_EQX_MANAGED_PORT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEqxManagedPort(Boolean eqxManagedPort) {
     this.eqxManagedPort = eqxManagedPort;
   }
@@ -532,59 +582,18 @@ public class ServiceProfileMetadata {
    * @return connectionNameEditable
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_CONNECTION_NAME_EDITABLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getConnectionNameEditable() {
     return connectionNameEditable;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONNECTION_NAME_EDITABLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionNameEditable(Boolean connectionNameEditable) {
     this.connectionNameEditable = connectionNameEditable;
-  }
-
-  /**
-   * A container for additional, undeclared properties.
-   * This is a holder for any undeclared properties as specified with
-   * the 'additionalProperties' keyword in the OAS document.
-   */
-  private Map<String, Object> additionalProperties;
-
-  /**
-   * Set the additional (undeclared) property with the specified name and value.
-   * If the property does not already exist, create it otherwise replace it.
-   *
-   * @param key name of the property
-   * @param value value of the property
-   * @return the ServiceProfileMetadata instance itself
-   */
-  public ServiceProfileMetadata putAdditionalProperty(String key, Object value) {
-    if (this.additionalProperties == null) {
-        this.additionalProperties = new HashMap<String, Object>();
-    }
-    this.additionalProperties.put(key, value);
-    return this;
-  }
-
-  /**
-   * Return the additional (undeclared) property.
-   *
-   * @return a map of objects
-   */
-  public Map<String, Object> getAdditionalProperties() {
-    return additionalProperties;
-  }
-
-  /**
-   * Return the additional (undeclared) property with the specified name.
-   *
-   * @param key name of the property
-   * @return an object
-   */
-  public Object getAdditionalProperty(String key) {
-    if (this.additionalProperties == null) {
-        return null;
-    }
-    return this.additionalProperties.get(key);
   }
 
 
@@ -615,13 +624,12 @@ public class ServiceProfileMetadata {
         Objects.equals(this.maxConnectionsOnPort, serviceProfileMetadata.maxConnectionsOnPort) &&
         Objects.equals(this.portAssignmentStrategy, serviceProfileMetadata.portAssignmentStrategy) &&
         Objects.equals(this.eqxManagedPort, serviceProfileMetadata.eqxManagedPort) &&
-        Objects.equals(this.connectionNameEditable, serviceProfileMetadata.connectionNameEditable)&&
-        Objects.equals(this.additionalProperties, serviceProfileMetadata.additionalProperties);
+        Objects.equals(this.connectionNameEditable, serviceProfileMetadata.connectionNameEditable);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(props, regEx, regExMsg, vlanRangeMaxValue, vlanRangeMinValue, maxQinq, maxDot1q, variableBilling, globalOrganization, limitAuthKeyConn, allowSecondaryLocation, redundantProfileId, allowVcMigration, connectionEditable, releaseVlan, maxConnectionsOnPort, portAssignmentStrategy, eqxManagedPort, connectionNameEditable, additionalProperties);
+    return Objects.hash(props, regEx, regExMsg, vlanRangeMaxValue, vlanRangeMinValue, maxQinq, maxDot1q, variableBilling, globalOrganization, limitAuthKeyConn, allowSecondaryLocation, redundantProfileId, allowVcMigration, connectionEditable, releaseVlan, maxConnectionsOnPort, portAssignmentStrategy, eqxManagedPort, connectionNameEditable);
   }
 
   @Override
@@ -647,7 +655,6 @@ public class ServiceProfileMetadata {
     sb.append("    portAssignmentStrategy: ").append(toIndentedString(portAssignmentStrategy)).append("\n");
     sb.append("    eqxManagedPort: ").append(toIndentedString(eqxManagedPort)).append("\n");
     sb.append("    connectionNameEditable: ").append(toIndentedString(connectionNameEditable)).append("\n");
-    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -663,156 +670,5 @@ public class ServiceProfileMetadata {
     return o.toString().replace("\n", "\n    ");
   }
 
-
-  public static HashSet<String> openapiFields;
-  public static HashSet<String> openapiRequiredFields;
-
-  static {
-    // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("props");
-    openapiFields.add("regEx");
-    openapiFields.add("regExMsg");
-    openapiFields.add("vlanRangeMaxValue");
-    openapiFields.add("vlanRangeMinValue");
-    openapiFields.add("maxQinq");
-    openapiFields.add("maxDot1q");
-    openapiFields.add("variableBilling");
-    openapiFields.add("globalOrganization");
-    openapiFields.add("limitAuthKeyConn");
-    openapiFields.add("allowSecondaryLocation");
-    openapiFields.add("redundantProfileId");
-    openapiFields.add("allowVcMigration");
-    openapiFields.add("connectionEditable");
-    openapiFields.add("releaseVlan");
-    openapiFields.add("maxConnectionsOnPort");
-    openapiFields.add("portAssignmentStrategy");
-    openapiFields.add("eqxManagedPort");
-    openapiFields.add("connectionNameEditable");
-
-    // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-  }
-
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to ServiceProfileMetadata
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (!ServiceProfileMetadata.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in ServiceProfileMetadata is not found in the empty JSON string", ServiceProfileMetadata.openapiRequiredFields.toString()));
-        }
-      }
-      if ((jsonObj.get("props") != null && !jsonObj.get("props").isJsonNull()) && !jsonObj.get("props").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `props` to be a primitive type in the JSON string but got `%s`", jsonObj.get("props").toString()));
-      }
-      if ((jsonObj.get("regEx") != null && !jsonObj.get("regEx").isJsonNull()) && !jsonObj.get("regEx").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `regEx` to be a primitive type in the JSON string but got `%s`", jsonObj.get("regEx").toString()));
-      }
-      if ((jsonObj.get("regExMsg") != null && !jsonObj.get("regExMsg").isJsonNull()) && !jsonObj.get("regExMsg").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `regExMsg` to be a primitive type in the JSON string but got `%s`", jsonObj.get("regExMsg").toString()));
-      }
-      if ((jsonObj.get("maxQinq") != null && !jsonObj.get("maxQinq").isJsonNull()) && !jsonObj.get("maxQinq").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `maxQinq` to be a primitive type in the JSON string but got `%s`", jsonObj.get("maxQinq").toString()));
-      }
-      if ((jsonObj.get("globalOrganization") != null && !jsonObj.get("globalOrganization").isJsonNull()) && !jsonObj.get("globalOrganization").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `globalOrganization` to be a primitive type in the JSON string but got `%s`", jsonObj.get("globalOrganization").toString()));
-      }
-      if ((jsonObj.get("redundantProfileId") != null && !jsonObj.get("redundantProfileId").isJsonNull()) && !jsonObj.get("redundantProfileId").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `redundantProfileId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("redundantProfileId").toString()));
-      }
-      if ((jsonObj.get("portAssignmentStrategy") != null && !jsonObj.get("portAssignmentStrategy").isJsonNull()) && !jsonObj.get("portAssignmentStrategy").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `portAssignmentStrategy` to be a primitive type in the JSON string but got `%s`", jsonObj.get("portAssignmentStrategy").toString()));
-      }
-  }
-
-  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
-    @SuppressWarnings("unchecked")
-    @Override
-    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!ServiceProfileMetadata.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'ServiceProfileMetadata' and its subtypes
-       }
-       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<ServiceProfileMetadata> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(ServiceProfileMetadata.class));
-
-       return (TypeAdapter<T>) new TypeAdapter<ServiceProfileMetadata>() {
-           @Override
-           public void write(JsonWriter out, ServiceProfileMetadata value) throws IOException {
-             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
-             obj.remove("additionalProperties");
-             // serialize additional properties
-             if (value.getAdditionalProperties() != null) {
-               for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
-                 if (entry.getValue() instanceof String)
-                   obj.addProperty(entry.getKey(), (String) entry.getValue());
-                 else if (entry.getValue() instanceof Number)
-                   obj.addProperty(entry.getKey(), (Number) entry.getValue());
-                 else if (entry.getValue() instanceof Boolean)
-                   obj.addProperty(entry.getKey(), (Boolean) entry.getValue());
-                 else if (entry.getValue() instanceof Character)
-                   obj.addProperty(entry.getKey(), (Character) entry.getValue());
-                 else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
-                 }
-               }
-             }
-             elementAdapter.write(out, obj);
-           }
-
-           @Override
-           public ServiceProfileMetadata read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
-             // store additional fields in the deserialized instance
-             ServiceProfileMetadata instance = thisAdapter.fromJsonTree(jsonObj);
-             for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
-               if (!openapiFields.contains(entry.getKey())) {
-                 if (entry.getValue().isJsonPrimitive()) { // primitive type
-                   if (entry.getValue().getAsJsonPrimitive().isString())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsString());
-                   else if (entry.getValue().getAsJsonPrimitive().isNumber())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsNumber());
-                   else if (entry.getValue().getAsJsonPrimitive().isBoolean())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
-                   else
-                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else if (entry.getValue().isJsonArray()) {
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
-                 } else { // JSON object
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
-                 }
-               }
-             }
-             return instance;
-           }
-
-       }.nullSafe();
-    }
-  }
-
- /**
-  * Create an instance of ServiceProfileMetadata given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ServiceProfileMetadata
-  * @throws IOException if the JSON string is invalid with respect to ServiceProfileMetadata
-  */
-  public static ServiceProfileMetadata fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, ServiceProfileMetadata.class);
-  }
-
- /**
-  * Convert an instance of ServiceProfileMetadata to an JSON string
-  *
-  * @return JSON string
-  */
-  public String toJson() {
-    return JSON.getGson().toJson(this);
-  }
 }
 

@@ -26,37 +26,17 @@ This API provides capability to create a Route Filter Rule
 ### Example
 ```java
 // Import classes:
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
-import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.RouteFilterRulesApi;
+//import com.equinix.openapi.fabric.ApiClient;
+//import io.restassured.builder.RequestSpecBuilder;
+//import io.restassured.filter.log.ErrorLoggingFilter;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+RouteFilterRulesApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setBaseUri("https://api.equinix.com"))).routeFilterRules();
 
-    RouteFilterRulesApi apiInstance = new RouteFilterRulesApi(defaultClient);
-    String routeFilterId = "routeFilterId_example"; // String | Route Filters Id
-    RouteFilterRulesBase routeFilterRulesBase = new RouteFilterRulesBase(); // RouteFilterRulesBase | 
-    try {
-      RouteFilterRulesData result = apiInstance.createRouteFilterRule(routeFilterId, routeFilterRulesBase);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling RouteFilterRulesApi#createRouteFilterRule");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
+api.createRouteFilterRule()
+    .routeFilterIdPath(routeFilterId)
+    .body(routeFilterRulesBase).execute(r -> r.prettyPeek());
 ```
 
 ### Parameters
@@ -79,17 +59,6 @@ public class Example {
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **202** | Successful operation |  -  |
-| **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Route Filter Rule ID Not Found |  -  |
-| **415** | Unsupported Media Type |  -  |
-| **500** | Internal server error |  -  |
-
 <a name="createRouteFilterRulesInBulk"></a>
 # **createRouteFilterRulesInBulk**
 > GetRouteFilterRulesResponse createRouteFilterRulesInBulk(routeFilterId, routeFilterRulesPostRequest)
@@ -101,37 +70,17 @@ This API provides capability to create bulk route filter rules
 ### Example
 ```java
 // Import classes:
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
-import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.RouteFilterRulesApi;
+//import com.equinix.openapi.fabric.ApiClient;
+//import io.restassured.builder.RequestSpecBuilder;
+//import io.restassured.filter.log.ErrorLoggingFilter;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+RouteFilterRulesApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setBaseUri("https://api.equinix.com"))).routeFilterRules();
 
-    RouteFilterRulesApi apiInstance = new RouteFilterRulesApi(defaultClient);
-    String routeFilterId = "routeFilterId_example"; // String | Route Filters Id
-    RouteFilterRulesPostRequest routeFilterRulesPostRequest = new RouteFilterRulesPostRequest(); // RouteFilterRulesPostRequest | 
-    try {
-      GetRouteFilterRulesResponse result = apiInstance.createRouteFilterRulesInBulk(routeFilterId, routeFilterRulesPostRequest);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling RouteFilterRulesApi#createRouteFilterRulesInBulk");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
+api.createRouteFilterRulesInBulk()
+    .routeFilterIdPath(routeFilterId)
+    .body(routeFilterRulesPostRequest).execute(r -> r.prettyPeek());
 ```
 
 ### Parameters
@@ -154,17 +103,6 @@ public class Example {
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **202** | Successful operation |  -  |
-| **400** | Resource not found |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **415** | Unsupported Media Type |  -  |
-| **500** | Internal server error |  -  |
-
 <a name="deleteRouteFilterRuleByUuid"></a>
 # **deleteRouteFilterRuleByUuid**
 > RouteFilterRulesData deleteRouteFilterRuleByUuid(routeFilterId, routeFilterRuleId)
@@ -176,37 +114,17 @@ This API provides capability to delete a Route Filter Rule
 ### Example
 ```java
 // Import classes:
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
-import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.RouteFilterRulesApi;
+//import com.equinix.openapi.fabric.ApiClient;
+//import io.restassured.builder.RequestSpecBuilder;
+//import io.restassured.filter.log.ErrorLoggingFilter;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+RouteFilterRulesApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setBaseUri("https://api.equinix.com"))).routeFilterRules();
 
-    RouteFilterRulesApi apiInstance = new RouteFilterRulesApi(defaultClient);
-    String routeFilterId = "routeFilterId_example"; // String | Route Filters Id
-    String routeFilterRuleId = "routeFilterRuleId_example"; // String | Route  Filter  Rules Id
-    try {
-      RouteFilterRulesData result = apiInstance.deleteRouteFilterRuleByUuid(routeFilterId, routeFilterRuleId);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling RouteFilterRulesApi#deleteRouteFilterRuleByUuid");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
+api.deleteRouteFilterRuleByUuid()
+    .routeFilterIdPath(routeFilterId)
+    .routeFilterRuleIdPath(routeFilterRuleId).execute(r -> r.prettyPeek());
 ```
 
 ### Parameters
@@ -228,17 +146,6 @@ public class Example {
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **202** | Successful operation |  -  |
-| **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Route Filter ID Not Found |  -  |
-| **415** | Unsupported Media Type |  -  |
-| **500** | Internal server error |  -  |
 
 <a name="getRouteFilterRuleByUuid"></a>
 # **getRouteFilterRuleByUuid**
@@ -251,37 +158,17 @@ This API provides capability to view a Route Filter Rule by UUID
 ### Example
 ```java
 // Import classes:
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
-import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.RouteFilterRulesApi;
+//import com.equinix.openapi.fabric.ApiClient;
+//import io.restassured.builder.RequestSpecBuilder;
+//import io.restassured.filter.log.ErrorLoggingFilter;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+RouteFilterRulesApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setBaseUri("https://api.equinix.com"))).routeFilterRules();
 
-    RouteFilterRulesApi apiInstance = new RouteFilterRulesApi(defaultClient);
-    String routeFilterId = "routeFilterId_example"; // String | Route Filters Id
-    String routeFilterRuleId = "routeFilterRuleId_example"; // String | Route  Filter  Rules Id
-    try {
-      RouteFilterRulesData result = apiInstance.getRouteFilterRuleByUuid(routeFilterId, routeFilterRuleId);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling RouteFilterRulesApi#getRouteFilterRuleByUuid");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
+api.getRouteFilterRuleByUuid()
+    .routeFilterIdPath(routeFilterId)
+    .routeFilterRuleIdPath(routeFilterRuleId).execute(r -> r.prettyPeek());
 ```
 
 ### Parameters
@@ -304,17 +191,6 @@ public class Example {
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **202** | Successful operation |  -  |
-| **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Route Filter ID Not Found |  -  |
-| **415** | Unsupported Media Type |  -  |
-| **500** | Internal server error |  -  |
-
 <a name="getRouteFilterRuleChangeByUuid"></a>
 # **getRouteFilterRuleChangeByUuid**
 > RouteFilterRulesChangeData getRouteFilterRuleChangeByUuid(routeFilterId, routeFilterRuleId, changeId)
@@ -326,38 +202,18 @@ This API provides capability to retrieve a specific Route Filter Rule&#39;s Chan
 ### Example
 ```java
 // Import classes:
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
-import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.RouteFilterRulesApi;
+//import com.equinix.openapi.fabric.ApiClient;
+//import io.restassured.builder.RequestSpecBuilder;
+//import io.restassured.filter.log.ErrorLoggingFilter;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+RouteFilterRulesApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setBaseUri("https://api.equinix.com"))).routeFilterRules();
 
-    RouteFilterRulesApi apiInstance = new RouteFilterRulesApi(defaultClient);
-    String routeFilterId = "routeFilterId_example"; // String | Route Filters Id
-    String routeFilterRuleId = "routeFilterRuleId_example"; // String | Route  Filter  Rules Id
-    UUID changeId = UUID.randomUUID(); // UUID | Route Filter Rule Change UUID
-    try {
-      RouteFilterRulesChangeData result = apiInstance.getRouteFilterRuleChangeByUuid(routeFilterId, routeFilterRuleId, changeId);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling RouteFilterRulesApi#getRouteFilterRuleChangeByUuid");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
+api.getRouteFilterRuleChangeByUuid()
+    .routeFilterIdPath(routeFilterId)
+    .routeFilterRuleIdPath(routeFilterRuleId)
+    .changeIdPath(changeId).execute(r -> r.prettyPeek());
 ```
 
 ### Parameters
@@ -381,16 +237,6 @@ public class Example {
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Fabric Route Filter Change object |  -  |
-| **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Route Filter ID Not Found |  -  |
-| **500** | Internal server error |  -  |
-
 <a name="getRouteFilterRuleChanges"></a>
 # **getRouteFilterRuleChanges**
 > RouteFilterRulesChangeDataResponse getRouteFilterRuleChanges(routeFilterId, routeFilterRuleId, offset, limit)
@@ -402,39 +248,17 @@ This API provides capability to retrieve all of a Route Filter Rule&#39;s Change
 ### Example
 ```java
 // Import classes:
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
-import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.RouteFilterRulesApi;
+//import com.equinix.openapi.fabric.ApiClient;
+//import io.restassured.builder.RequestSpecBuilder;
+//import io.restassured.filter.log.ErrorLoggingFilter;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+RouteFilterRulesApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setBaseUri("https://api.equinix.com"))).routeFilterRules();
 
-    RouteFilterRulesApi apiInstance = new RouteFilterRulesApi(defaultClient);
-    String routeFilterId = "routeFilterId_example"; // String | Route Filters Id
-    String routeFilterRuleId = "routeFilterRuleId_example"; // String | Route  Filter  Rules Id
-    Integer offset = 1; // Integer | offset
-    Integer limit = 10; // Integer | number of records to fetch
-    try {
-      RouteFilterRulesChangeDataResponse result = apiInstance.getRouteFilterRuleChanges(routeFilterId, routeFilterRuleId, offset, limit);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling RouteFilterRulesApi#getRouteFilterRuleChanges");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
+api.getRouteFilterRuleChanges()
+    .routeFilterIdPath(routeFilterId)
+    .routeFilterRuleIdPath(routeFilterRuleId).execute(r -> r.prettyPeek());
 ```
 
 ### Parameters
@@ -459,16 +283,6 @@ public class Example {
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Fabric Route Filter Rule Change object |  -  |
-| **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Route Filter ID Not Found |  -  |
-| **500** | Internal server error |  -  |
-
 <a name="getRouteFilterRules"></a>
 # **getRouteFilterRules**
 > GetRouteFilterRulesResponse getRouteFilterRules(routeFilterId, offset, limit)
@@ -480,38 +294,16 @@ This API provides capability to get all Route Filters Rules for Fabric
 ### Example
 ```java
 // Import classes:
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
-import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.RouteFilterRulesApi;
+//import com.equinix.openapi.fabric.ApiClient;
+//import io.restassured.builder.RequestSpecBuilder;
+//import io.restassured.filter.log.ErrorLoggingFilter;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+RouteFilterRulesApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setBaseUri("https://api.equinix.com"))).routeFilterRules();
 
-    RouteFilterRulesApi apiInstance = new RouteFilterRulesApi(defaultClient);
-    String routeFilterId = "routeFilterId_example"; // String | Route Filters Id
-    Integer offset = 1; // Integer | offset
-    Integer limit = 10; // Integer | number of records to fetch
-    try {
-      GetRouteFilterRulesResponse result = apiInstance.getRouteFilterRules(routeFilterId, offset, limit);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling RouteFilterRulesApi#getRouteFilterRules");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
+api.getRouteFilterRules()
+    .routeFilterIdPath(routeFilterId).execute(r -> r.prettyPeek());
 ```
 
 ### Parameters
@@ -535,16 +327,6 @@ public class Example {
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful operation |  -  |
-| **400** | Resource not found |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Route Filter Rule ID Not Found |  -  |
-| **500** | Internal server error |  -  |
-
 <a name="patchRouteFilterRuleByUuid"></a>
 # **patchRouteFilterRuleByUuid**
 > RouteFilterRulesData patchRouteFilterRuleByUuid(routeFilterId, routeFilterRuleId, routeFilterRulesPatchRequestItem)
@@ -556,38 +338,18 @@ This API provides capability to partially update a Route Filter Rule
 ### Example
 ```java
 // Import classes:
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
-import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.RouteFilterRulesApi;
+//import com.equinix.openapi.fabric.ApiClient;
+//import io.restassured.builder.RequestSpecBuilder;
+//import io.restassured.filter.log.ErrorLoggingFilter;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+RouteFilterRulesApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setBaseUri("https://api.equinix.com"))).routeFilterRules();
 
-    RouteFilterRulesApi apiInstance = new RouteFilterRulesApi(defaultClient);
-    String routeFilterId = "routeFilterId_example"; // String | Route Filters Id
-    String routeFilterRuleId = "routeFilterRuleId_example"; // String | Route  Filter  Rules Id
-    List<RouteFilterRulesPatchRequestItem> routeFilterRulesPatchRequestItem = Arrays.asList(); // List<RouteFilterRulesPatchRequestItem> | 
-    try {
-      RouteFilterRulesData result = apiInstance.patchRouteFilterRuleByUuid(routeFilterId, routeFilterRuleId, routeFilterRulesPatchRequestItem);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling RouteFilterRulesApi#patchRouteFilterRuleByUuid");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
+api.patchRouteFilterRuleByUuid()
+    .routeFilterIdPath(routeFilterId)
+    .routeFilterRuleIdPath(routeFilterRuleId)
+    .body(routeFilterRulesPatchRequestItem).execute(r -> r.prettyPeek());
 ```
 
 ### Parameters
@@ -611,17 +373,6 @@ public class Example {
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **202** | Successful operation |  -  |
-| **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Route Filter ID Not Found |  -  |
-| **415** | Unsupported Media Type |  -  |
-| **500** | Internal server error |  -  |
-
 <a name="replaceRouteFilterRuleByUuid"></a>
 # **replaceRouteFilterRuleByUuid**
 > RouteFilterRulesData replaceRouteFilterRuleByUuid(routeFilterId, routeFilterRuleId, routeFilterRulesBase)
@@ -633,38 +384,18 @@ This API provides capability to replace a Route Filter Rule completely
 ### Example
 ```java
 // Import classes:
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
-import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.RouteFilterRulesApi;
+//import com.equinix.openapi.fabric.ApiClient;
+//import io.restassured.builder.RequestSpecBuilder;
+//import io.restassured.filter.log.ErrorLoggingFilter;
 
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
+RouteFilterRulesApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setBaseUri("https://api.equinix.com"))).routeFilterRules();
 
-    RouteFilterRulesApi apiInstance = new RouteFilterRulesApi(defaultClient);
-    String routeFilterId = "routeFilterId_example"; // String | Route Filters Id
-    String routeFilterRuleId = "routeFilterRuleId_example"; // String | Route  Filter  Rules Id
-    RouteFilterRulesBase routeFilterRulesBase = new RouteFilterRulesBase(); // RouteFilterRulesBase | 
-    try {
-      RouteFilterRulesData result = apiInstance.replaceRouteFilterRuleByUuid(routeFilterId, routeFilterRuleId, routeFilterRulesBase);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling RouteFilterRulesApi#replaceRouteFilterRuleByUuid");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
+api.replaceRouteFilterRuleByUuid()
+    .routeFilterIdPath(routeFilterId)
+    .routeFilterRuleIdPath(routeFilterRuleId)
+    .body(routeFilterRulesBase).execute(r -> r.prettyPeek());
 ```
 
 ### Parameters
@@ -687,15 +418,4 @@ public class Example {
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **202** | Successful operation |  -  |
-| **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Route Filter ID Not Found |  -  |
-| **415** | Unsupported Media Type |  -  |
-| **500** | Internal server error |  -  |
 

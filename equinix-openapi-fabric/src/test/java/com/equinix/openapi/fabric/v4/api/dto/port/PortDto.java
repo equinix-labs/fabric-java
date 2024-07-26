@@ -1,55 +1,55 @@
 package com.equinix.openapi.fabric.v4.api.dto.port;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PortDto{
 
-	@SerializedName("encapsulation")
+	@JsonProperty("encapsulation")
 	private Encapsulation encapsulation;
 
-	@SerializedName("settings")
+	@JsonProperty("settings")
 	private Settings settings;
 
-	@SerializedName("availableBandwidth")
+	@JsonProperty("availableBandwidth")
 	private int availableBandwidth;
 
-	@SerializedName("bandwidth")
+	@JsonProperty("bandwidth")
 	private int bandwidth;
 
-	@SerializedName("lagEnabled")
+	@JsonProperty("lagEnabled")
 	private boolean lagEnabled;
 
-	@SerializedName("type")
+	@JsonProperty("type")
 	private String type;
 
-	@SerializedName("uuid")
+	@JsonProperty("uuid")
 	private String uuid;
 
-	@SerializedName("cvpId")
+	@JsonProperty("cvpId")
 	private String cvpId;
 
-	@SerializedName("lag")
+	@JsonProperty("lag")
 	private Lag lag;
 
-	@SerializedName("usedBandwidth")
+	@JsonProperty("usedBandwidth")
 	private int usedBandwidth;
 
-	@SerializedName("name")
+	@JsonProperty("name")
 	private String name;
 
-	@SerializedName("location")
+	@JsonProperty("location")
 	private Location location;
 
-	@SerializedName("href")
+	@JsonProperty("href")
 	private String href;
 
-	@SerializedName("state")
+	@JsonProperty("state")
 	private String state;
 
-	@SerializedName("redundancy")
+	@JsonProperty("redundancy")
 	private Redundancy redundancy;
 
-	@SerializedName("device")
+	@JsonProperty("device")
 	private Device device;
 
 	public Encapsulation getEncapsulation(){

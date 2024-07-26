@@ -1,16 +1,16 @@
 package com.equinix.openapi.fabric.v4.api.dto.port;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Lag{
 
-	@SerializedName("name")
+	@JsonProperty("name")
 	private String name;
 
-	@SerializedName("id")
+	@JsonProperty("id")
 	private String id;
 
-	@SerializedName("enabled")
+	@JsonProperty("enabled")
 	private boolean enabled;
 
 	public String getName(){

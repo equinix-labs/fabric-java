@@ -1,6 +1,5 @@
 /*
  * Equinix Fabric API v4
- * Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br>
  *
  * Contact: api-support@equinix.com
  *
@@ -11,50 +10,53 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.v4.model.Metro;
 import com.equinix.openapi.fabric.v4.model.MetroResponse;
 import com.equinix.openapi.fabric.v4.model.Presence;
+import io.restassured.response.Response;
+import org.apache.http.HttpStatus;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * API tests for MetrosApi
  */
-public class MetrosApiTest extends AbstractTest {
-    private final MetrosApi api = new MetrosApi(generateToken());
-    private final String metroCode = "DC";
+public class MetrosApiTest {
 
-    /**
-     * Get Metro by Code
-     * <p>
-     * GET Metros retrieves all Equinix Fabric metros, as well as latency data between each metro location. .
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void getMetroByCodeTest() throws ApiException {
-        Metro response = api.getMetroByCode(metroCode);
-        assertEquals(200, api.getApiClient().getStatusCode());
-        assertEquals(metroCode, response.getCode());
+    private final String metroCode = "DC";
+    private MetrosApi api;
+
+    @Before
+    public void createApi() {
+        api = new TokenGenerator().generate().metros();
     }
 
-    /**
-     * Get all Metros
-     * <p>
-     * GET All Subscriber Metros with an option query parameter to return all Equinix Fabric metros in which the customer has a presence, as well as latency data for each location.
-     *
-     * @throws ApiException if the Api call fails
-     */
     @Test
-    public void getMetrosTest() throws ApiException {
-        MetroResponse response = api.getMetros(Presence.MY_PORTS, 1, 10);
-        assertEquals(200, api.getApiClient().getStatusCode());
+    public void getMetroByCode() {
+        Response response = api.getMetroByCode()
+                .metroCodePath(metroCode)
+                .execute(r -> r);
 
-        boolean metroFound = response.getData()
+        Metro metro = response.as(Metro.class);
+        assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+        assertEquals(metroCode, metro.getCode());
+    }
+
+    @Test
+    public void getMetros() {
+        Response response = api.getMetros()
+                .limitQuery(10)
+                .offsetQuery(1)
+                .presenceQuery(Presence.MY_PORTS)
+                .execute(r -> r);
+
+        MetroResponse metroResponse = response.as(MetroResponse.class);
+        assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+        boolean metroFound = metroResponse.getData()
                 .stream().anyMatch(metro -> metro.getCode().equals(metroCode));
 
         assertTrue(metroFound);

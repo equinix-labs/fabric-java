@@ -11,72 +11,49 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.util.Objects;
-import java.util.Arrays;
-import com.equinix.openapi.fabric.v4.model.LinkProtocolType;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.TypeAdapterFactory;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import com.equinix.openapi.fabric.JSON;
 
 /**
  * Connection link protocol configuration - QINQ
  */
+@JsonPropertyOrder({
+  LinkProtocolQinq.JSON_PROPERTY_TYPE,
+  LinkProtocolQinq.JSON_PROPERTY_INNER_TAG_PROTOCOL_ID,
+  LinkProtocolQinq.JSON_PROPERTY_OUTER_TAG_PROTOCOL_ID,
+  LinkProtocolQinq.JSON_PROPERTY_VLAN_C_TAG,
+  LinkProtocolQinq.JSON_PROPERTY_VLAN_S_TAG,
+  LinkProtocolQinq.JSON_PROPERTY_VLAN_C_TAG_MIN,
+  LinkProtocolQinq.JSON_PROPERTY_VLAN_C_TAG_MAX,
+  LinkProtocolQinq.JSON_PROPERTY_SUB_INTERFACE
+})
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class LinkProtocolQinq {
-  public static final String SERIALIZED_NAME_TYPE = "type";
-  @SerializedName(SERIALIZED_NAME_TYPE)
+  public static final String JSON_PROPERTY_TYPE = "type";
   private LinkProtocolType type;
 
-  public static final String SERIALIZED_NAME_INNER_TAG_PROTOCOL_ID = "innerTagProtocolId";
-  @SerializedName(SERIALIZED_NAME_INNER_TAG_PROTOCOL_ID)
+  public static final String JSON_PROPERTY_INNER_TAG_PROTOCOL_ID = "innerTagProtocolId";
   private Integer innerTagProtocolId;
 
-  public static final String SERIALIZED_NAME_OUTER_TAG_PROTOCOL_ID = "outerTagProtocolId";
-  @SerializedName(SERIALIZED_NAME_OUTER_TAG_PROTOCOL_ID)
+  public static final String JSON_PROPERTY_OUTER_TAG_PROTOCOL_ID = "outerTagProtocolId";
   private Integer outerTagProtocolId;
 
-  public static final String SERIALIZED_NAME_VLAN_C_TAG = "vlanCTag";
-  @SerializedName(SERIALIZED_NAME_VLAN_C_TAG)
+  public static final String JSON_PROPERTY_VLAN_C_TAG = "vlanCTag";
   private Integer vlanCTag;
 
-  public static final String SERIALIZED_NAME_VLAN_S_TAG = "vlanSTag";
-  @SerializedName(SERIALIZED_NAME_VLAN_S_TAG)
+  public static final String JSON_PROPERTY_VLAN_S_TAG = "vlanSTag";
   private Integer vlanSTag;
 
-  public static final String SERIALIZED_NAME_VLAN_C_TAG_MIN = "vlanCTagMin";
-  @SerializedName(SERIALIZED_NAME_VLAN_C_TAG_MIN)
+  public static final String JSON_PROPERTY_VLAN_C_TAG_MIN = "vlanCTagMin";
   private Integer vlanCTagMin;
 
-  public static final String SERIALIZED_NAME_VLAN_C_TAG_MAX = "vlanCTagMax";
-  @SerializedName(SERIALIZED_NAME_VLAN_C_TAG_MAX)
+  public static final String JSON_PROPERTY_VLAN_C_TAG_MAX = "vlanCTagMax";
   private Integer vlanCTagMax;
 
-  public static final String SERIALIZED_NAME_SUB_INTERFACE = "subInterface";
-  @SerializedName(SERIALIZED_NAME_SUB_INTERFACE)
+  public static final String JSON_PROPERTY_SUB_INTERFACE = "subInterface";
   private Integer subInterface;
 
   public LinkProtocolQinq() {
@@ -93,12 +70,16 @@ public class LinkProtocolQinq {
    * @return type
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public LinkProtocolType getType() {
     return type;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setType(LinkProtocolType type) {
     this.type = type;
   }
@@ -115,12 +96,16 @@ public class LinkProtocolQinq {
    * @return innerTagProtocolId
   **/
   @javax.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_INNER_TAG_PROTOCOL_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Integer getInnerTagProtocolId() {
     return innerTagProtocolId;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_INNER_TAG_PROTOCOL_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setInnerTagProtocolId(Integer innerTagProtocolId) {
     this.innerTagProtocolId = innerTagProtocolId;
   }
@@ -137,12 +122,16 @@ public class LinkProtocolQinq {
    * @return outerTagProtocolId
   **/
   @javax.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_OUTER_TAG_PROTOCOL_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Integer getOuterTagProtocolId() {
     return outerTagProtocolId;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_OUTER_TAG_PROTOCOL_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setOuterTagProtocolId(Integer outerTagProtocolId) {
     this.outerTagProtocolId = outerTagProtocolId;
   }
@@ -159,12 +148,16 @@ public class LinkProtocolQinq {
    * @return vlanCTag
   **/
   @javax.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_VLAN_C_TAG)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Integer getVlanCTag() {
     return vlanCTag;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_VLAN_C_TAG)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setVlanCTag(Integer vlanCTag) {
     this.vlanCTag = vlanCTag;
   }
@@ -181,12 +174,16 @@ public class LinkProtocolQinq {
    * @return vlanSTag
   **/
   @javax.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_VLAN_S_TAG)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Integer getVlanSTag() {
     return vlanSTag;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_VLAN_S_TAG)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setVlanSTag(Integer vlanSTag) {
     this.vlanSTag = vlanSTag;
   }
@@ -203,12 +200,16 @@ public class LinkProtocolQinq {
    * @return vlanCTagMin
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_VLAN_C_TAG_MIN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getVlanCTagMin() {
     return vlanCTagMin;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_VLAN_C_TAG_MIN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVlanCTagMin(Integer vlanCTagMin) {
     this.vlanCTagMin = vlanCTagMin;
   }
@@ -225,12 +226,16 @@ public class LinkProtocolQinq {
    * @return vlanCTagMax
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_VLAN_C_TAG_MAX)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getVlanCTagMax() {
     return vlanCTagMax;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_VLAN_C_TAG_MAX)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVlanCTagMax(Integer vlanCTagMax) {
     this.vlanCTagMax = vlanCTagMax;
   }
@@ -247,59 +252,18 @@ public class LinkProtocolQinq {
    * @return subInterface
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_SUB_INTERFACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getSubInterface() {
     return subInterface;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_SUB_INTERFACE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSubInterface(Integer subInterface) {
     this.subInterface = subInterface;
-  }
-
-  /**
-   * A container for additional, undeclared properties.
-   * This is a holder for any undeclared properties as specified with
-   * the 'additionalProperties' keyword in the OAS document.
-   */
-  private Map<String, Object> additionalProperties;
-
-  /**
-   * Set the additional (undeclared) property with the specified name and value.
-   * If the property does not already exist, create it otherwise replace it.
-   *
-   * @param key name of the property
-   * @param value value of the property
-   * @return the LinkProtocolQinq instance itself
-   */
-  public LinkProtocolQinq putAdditionalProperty(String key, Object value) {
-    if (this.additionalProperties == null) {
-        this.additionalProperties = new HashMap<String, Object>();
-    }
-    this.additionalProperties.put(key, value);
-    return this;
-  }
-
-  /**
-   * Return the additional (undeclared) property.
-   *
-   * @return a map of objects
-   */
-  public Map<String, Object> getAdditionalProperties() {
-    return additionalProperties;
-  }
-
-  /**
-   * Return the additional (undeclared) property with the specified name.
-   *
-   * @param key name of the property
-   * @return an object
-   */
-  public Object getAdditionalProperty(String key) {
-    if (this.additionalProperties == null) {
-        return null;
-    }
-    return this.additionalProperties.get(key);
   }
 
 
@@ -319,13 +283,12 @@ public class LinkProtocolQinq {
         Objects.equals(this.vlanSTag, linkProtocolQinq.vlanSTag) &&
         Objects.equals(this.vlanCTagMin, linkProtocolQinq.vlanCTagMin) &&
         Objects.equals(this.vlanCTagMax, linkProtocolQinq.vlanCTagMax) &&
-        Objects.equals(this.subInterface, linkProtocolQinq.subInterface)&&
-        Objects.equals(this.additionalProperties, linkProtocolQinq.additionalProperties);
+        Objects.equals(this.subInterface, linkProtocolQinq.subInterface);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, innerTagProtocolId, outerTagProtocolId, vlanCTag, vlanSTag, vlanCTagMin, vlanCTagMax, subInterface, additionalProperties);
+    return Objects.hash(type, innerTagProtocolId, outerTagProtocolId, vlanCTag, vlanSTag, vlanCTagMin, vlanCTagMax, subInterface);
   }
 
   @Override
@@ -340,7 +303,6 @@ public class LinkProtocolQinq {
     sb.append("    vlanCTagMin: ").append(toIndentedString(vlanCTagMin)).append("\n");
     sb.append("    vlanCTagMax: ").append(toIndentedString(vlanCTagMax)).append("\n");
     sb.append("    subInterface: ").append(toIndentedString(subInterface)).append("\n");
-    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -356,135 +318,5 @@ public class LinkProtocolQinq {
     return o.toString().replace("\n", "\n    ");
   }
 
-
-  public static HashSet<String> openapiFields;
-  public static HashSet<String> openapiRequiredFields;
-
-  static {
-    // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("type");
-    openapiFields.add("innerTagProtocolId");
-    openapiFields.add("outerTagProtocolId");
-    openapiFields.add("vlanCTag");
-    openapiFields.add("vlanSTag");
-    openapiFields.add("vlanCTagMin");
-    openapiFields.add("vlanCTagMax");
-    openapiFields.add("subInterface");
-
-    // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("innerTagProtocolId");
-    openapiRequiredFields.add("outerTagProtocolId");
-    openapiRequiredFields.add("vlanCTag");
-    openapiRequiredFields.add("vlanSTag");
-  }
-
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to LinkProtocolQinq
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (!LinkProtocolQinq.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in LinkProtocolQinq is not found in the empty JSON string", LinkProtocolQinq.openapiRequiredFields.toString()));
-        }
-      }
-
-      // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : LinkProtocolQinq.openapiRequiredFields) {
-        if (jsonObj.get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
-        }
-      }
-  }
-
-  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
-    @SuppressWarnings("unchecked")
-    @Override
-    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!LinkProtocolQinq.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'LinkProtocolQinq' and its subtypes
-       }
-       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<LinkProtocolQinq> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(LinkProtocolQinq.class));
-
-       return (TypeAdapter<T>) new TypeAdapter<LinkProtocolQinq>() {
-           @Override
-           public void write(JsonWriter out, LinkProtocolQinq value) throws IOException {
-             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
-             obj.remove("additionalProperties");
-             // serialize additional properties
-             if (value.getAdditionalProperties() != null) {
-               for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
-                 if (entry.getValue() instanceof String)
-                   obj.addProperty(entry.getKey(), (String) entry.getValue());
-                 else if (entry.getValue() instanceof Number)
-                   obj.addProperty(entry.getKey(), (Number) entry.getValue());
-                 else if (entry.getValue() instanceof Boolean)
-                   obj.addProperty(entry.getKey(), (Boolean) entry.getValue());
-                 else if (entry.getValue() instanceof Character)
-                   obj.addProperty(entry.getKey(), (Character) entry.getValue());
-                 else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
-                 }
-               }
-             }
-             elementAdapter.write(out, obj);
-           }
-
-           @Override
-           public LinkProtocolQinq read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
-             // store additional fields in the deserialized instance
-             LinkProtocolQinq instance = thisAdapter.fromJsonTree(jsonObj);
-             for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
-               if (!openapiFields.contains(entry.getKey())) {
-                 if (entry.getValue().isJsonPrimitive()) { // primitive type
-                   if (entry.getValue().getAsJsonPrimitive().isString())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsString());
-                   else if (entry.getValue().getAsJsonPrimitive().isNumber())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsNumber());
-                   else if (entry.getValue().getAsJsonPrimitive().isBoolean())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
-                   else
-                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else if (entry.getValue().isJsonArray()) {
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
-                 } else { // JSON object
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
-                 }
-               }
-             }
-             return instance;
-           }
-
-       }.nullSafe();
-    }
-  }
-
- /**
-  * Create an instance of LinkProtocolQinq given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of LinkProtocolQinq
-  * @throws IOException if the JSON string is invalid with respect to LinkProtocolQinq
-  */
-  public static LinkProtocolQinq fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, LinkProtocolQinq.class);
-  }
-
- /**
-  * Convert an instance of LinkProtocolQinq to an JSON string
-  *
-  * @return JSON string
-  */
-  public String toJson() {
-    return JSON.getGson().toJson(this);
-  }
 }
 

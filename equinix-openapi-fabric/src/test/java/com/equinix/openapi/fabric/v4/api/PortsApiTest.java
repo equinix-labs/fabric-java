@@ -1,6 +1,5 @@
 /*
  * Equinix Fabric API v4
- * Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br>
  *
  * Contact: api-support@equinix.com
  *
@@ -9,164 +8,329 @@
  * Do not edit the class manually.
  */
 
+
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.v4.api.dto.port.PortDto;
-import com.equinix.openapi.fabric.v4.model.*;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Disabled;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.v4.model.BulkPhysicalPort;
+import com.equinix.openapi.fabric.v4.model.BulkPort;
+import com.equinix.openapi.fabric.v4.model.Port;
+import com.equinix.openapi.fabric.v4.model.PortV4SearchRequest;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.filter.log.ErrorLoggingFilter;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.UUID;
 
-import static org.junit.Assert.assertEquals;
+import static com.equinix.openapi.fabric.JacksonObjectMapper.jackson;
+import static io.restassured.config.ObjectMapperConfig.objectMapperConfig;
+import static io.restassured.config.RestAssuredConfig.config;
 
 /**
  * API tests for PortsApi
  */
-@Disabled
-public class PortsApiTest extends AbstractTest {
-    private final PortsApi api = new PortsApi(generateToken());
+@Ignore
+public class PortsApiTest {
+
+    private PortsApi api;
+
+    @Before
+    public void createApi() {
+        api = ApiClient.api(ApiClient.Config.apiConfig().reqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setConfig(config().objectMapperConfig(objectMapperConfig().defaultObjectMapper(jackson())))
+                        .addFilter(new ErrorLoggingFilter())
+                        .setBaseUri("https://api.equinix.com"))).ports();
+    }
 
     /**
-     * Add to Lag
-     * <p>
-     * Add Physical Ports to Virtual Port.&lt;font color&#x3D;\&quot;red\&quot;&gt; &lt;sup color&#x3D;&#39;red&#39;&gt;Preview&lt;/sup&gt;&lt;/font&gt;
-     *
-     * @throws ApiException if the Api call fails
+     * Successful operation
      */
     @Test
-    public void addToLagTest() throws ApiException {
-        //
-        //UUID portId = null;
-        //
-        //BulkPhysicalPort bulkPhysicalPort = null;
-        //
-        //AllPhysicalPortsResponse response = api.addToLag(portId, bulkPhysicalPort);
-
+    public void shouldSee200AfterAddToLag() {
+        UUID portId = null;
+        BulkPhysicalPort bulkPhysicalPort = null;
+        api.addToLag()
+                .portIdPath(portId)
+                .body(bulkPhysicalPort).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Create Port
-     * <p>
-     * Create Port creates Equinix Fabric? Port.&lt;font color&#x3D;\&quot;red\&quot;&gt; &lt;sup color&#x3D;&#39;red&#39;&gt;Preview&lt;/sup&gt;&lt;/font&gt;
-     *
-     * @throws ApiException if the Api call fails
+     * Unauthorized
      */
     @Test
-    public void createBulkPortTest() throws ApiException {
-        //
-        //BulkPort bulkPort = null;
-        //
-        //AllPortsResponse response = api.createBulkPort(bulkPort);
-
+    public void shouldSee401AfterAddToLag() {
+        UUID portId = null;
+        BulkPhysicalPort bulkPhysicalPort = null;
+        api.addToLag()
+                .portIdPath(portId)
+                .body(bulkPhysicalPort).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Create Port
-     * <p>
-     * Creates Equinix Fabric? Port.
-     *
-     * @throws ApiException if the Api call fails
+     * Not Found
      */
     @Test
-    public void createPortTest() throws ApiException {
-        //
-        //Port port = null;
-        //
-        //Port response = api.createPort(port);
-
+    public void shouldSee404AfterAddToLag() {
+        UUID portId = null;
+        BulkPhysicalPort bulkPhysicalPort = null;
+        api.addToLag()
+                .portIdPath(portId)
+                .body(bulkPhysicalPort).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Get Port by uuid
-     * <p>
-     * Get Port By uuid returns details of assigned and available Equinix Fabric port for the specified user credentials. The metro code attribute in the response shows the origin of the proposed connection.
-     *
-     * @throws ApiException if the Api call fails
+     * Internal server error
      */
     @Test
-    public void getPortByUuidTest() throws ApiException {
-        UUID portUUID = UUID.fromString("c4d9350e-7787-787d-1ce0-306a5c00a600");
-        Port response = api.getPortByUuid(UUID.fromString(portUUID.toString()));
-        assertEquals(200, api.getApiClient().getStatusCode());
-        System.out.println(response);
+    public void shouldSee500AfterAddToLag() {
+        UUID portId = null;
+        BulkPhysicalPort bulkPhysicalPort = null;
+        api.addToLag()
+                .portIdPath(portId)
+                .body(bulkPhysicalPort).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful operation for COLO Bulk Port
+     */
+    @Test
+    public void shouldSee201AfterCreateBulkPort() {
+        BulkPort bulkPort = null;
+        api.createBulkPort()
+                .body(bulkPort).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful operation for COLO Single Port Non Lag
+     */
+    @Test
+    public void shouldSee201AfterCreatePort() {
+        Port port = null;
+        api.createPort()
+                .body(port).execute(r -> r.prettyPeek());
+        // TODO: test validations
     }
 
     /**
-     * Get All Ports
-     * <p>
-     * Get All Ports returns details of all assigned and available ports for the specified user credentials. The metro attribute in the response shows the origin of the proposed connection.
-     *
-     * @throws ApiException if the Api call fails
+     * Bad request
      */
     @Test
-    public void getPortsTest() throws ApiException {
-        PortDto portDto = getPort(EnvVariable.QINQ_PORT);
-        AllPortsResponse response = api.getPorts(portDto.getName());
-        assertEquals(200, api.getApiClient().getStatusCode());
-        assertEquals(portDto.getName(), response.getData().get(0).getName());
+    public void shouldSee400AfterCreatePort() {
+        Port port = null;
+        api.createPort()
+                .body(port).execute(r -> r.prettyPeek());
+        // TODO: test validations
     }
+
+    /**
+     * Internal Server Error
+     */
+    @Test
+    public void shouldSee500AfterCreatePort() {
+        Port port = null;
+        api.createPort()
+                .body(port).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Accepted
+     */
+    @Test
+    public void shouldSee202AfterDeletePort() {
+        UUID portId = null;
+        api.deletePort()
+                .portIdPath(portId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterDeletePort() {
+        UUID portId = null;
+        api.deletePort()
+                .portIdPath(portId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterDeletePort() {
+        UUID portId = null;
+        api.deletePort()
+                .portIdPath(portId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Not Found
+     */
+    @Test
+    public void shouldSee404AfterDeletePort() {
+        UUID portId = null;
+        api.deletePort()
+                .portIdPath(portId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee200AfterGetPortByUuid() {
+        UUID portId = null;
+        api.getPortByUuid()
+                .portIdPath(portId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterGetPortByUuid() {
+        UUID portId = null;
+        api.getPortByUuid()
+                .portIdPath(portId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterGetPortByUuid() {
+        UUID portId = null;
+        api.getPortByUuid()
+                .portIdPath(portId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal server error
+     */
+    @Test
+    public void shouldSee500AfterGetPortByUuid() {
+        UUID portId = null;
+        api.getPortByUuid()
+                .portIdPath(portId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee200AfterGetPorts() {
+        String name = null;
+        api.getPorts().execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterGetPorts() {
+        String name = null;
+        api.getPorts().execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
 
     /**
      * Get Vlans
-     * <p>
-     * The API provides capability to retrieve Vlans for a Port.
-     *
-     * @throws ApiException if the Api call fails
      */
     @Test
-    public void getLinkProtocolsTest() throws ApiException {
-        UUID portUUID = UUID.fromString("c4d9350e-7787-787d-1ce0-306a5c00a600");
-        LinkProtocolGetResponse response = api.getVlans(portUUID);
-        assertEquals(200, api.getApiClient().getStatusCode());
-        System.out.println(response);
+    public void shouldSee200AfterGetVlans() {
+        UUID portUuid = null;
+        api.getVlans()
+                .portUuidPath(portUuid).execute(r -> r.prettyPeek());
+        // TODO: test validations
     }
 
     /**
-     * Search ports
-     * <p>
-     * The API provides capability to get list of user&#39;s virtual ports using search criteria, including optional filtering, pagination and sorting
-     *
-     * @throws ApiException if the Api call fails
+     * Bad request
      */
     @Test
-    public void searchPortsTest() throws ApiException {
-        PortV4SearchRequest portV4SearchRequest = new PortV4SearchRequest();
-
-        PortExpression portExpressionProperty1 = new PortExpression()
-                .property(PortSearchFieldName.STATE)
-                .operator(PortExpression.OperatorEnum.EQUAL)
-                .values(Collections.singletonList("ACTIVE"));
-
-        PortExpression portExpressionProperty2 = new PortExpression()
-                .property(PortSearchFieldName.SETTINGS_PRODUCTCODE)
-                .operator(PortExpression.OperatorEnum.EQUAL)
-                .values(Collections.singletonList("CX"));
-
-        PortExpression portExpressionProperty3 = new PortExpression()
-                .property(PortSearchFieldName.PROJECT_PROJECTID)
-                .operator(PortExpression.OperatorEnum.EQUAL)
-                .values(Collections.singletonList("291639000636552"));
-
-        PortExpression item = new PortExpression().and(Arrays.asList(portExpressionProperty1, portExpressionProperty2, portExpressionProperty3));
-
-        portV4SearchRequest.setFilter(new PortExpression().or(Collections.singletonList(item)));
-        portV4SearchRequest.setPagination(new PaginationRequest().limit(1000).offset(0));
-        portV4SearchRequest.sort(Collections.singletonList(new PortSortCriteria().direction(PortSortDirection.DESC).property(PortSortBy._DEVICE_NAME)));
-
-        printJson(portV4SearchRequest);
-
-        AllPortsResponse response = api.searchPorts(portV4SearchRequest);
-        assertEquals(200, api.getApiClient().getStatusCode());
-        System.out.println(response);
-
-//        issue all encapsulation are return no like enum value e.g Qinq
-//        assertNotEquals(null,response.getData().get(0).getType());
+    public void shouldSee400AfterGetVlans() {
+        UUID portUuid = null;
+        api.getVlans()
+                .portUuidPath(portUuid).execute(r -> r.prettyPeek());
+        // TODO: test validations
     }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterGetVlans() {
+        UUID portUuid = null;
+        api.getVlans()
+                .portUuidPath(portUuid).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee200AfterSearchPorts() {
+        PortV4SearchRequest portV4SearchRequest = null;
+        api.searchPorts()
+                .body(portV4SearchRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterSearchPorts() {
+        PortV4SearchRequest portV4SearchRequest = null;
+        api.searchPorts()
+                .body(portV4SearchRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterSearchPorts() {
+        PortV4SearchRequest portV4SearchRequest = null;
+        api.searchPorts()
+                .body(portV4SearchRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Not Found
+     */
+    @Test
+    public void shouldSee404AfterSearchPorts() {
+        PortV4SearchRequest portV4SearchRequest = null;
+        api.searchPorts()
+                .body(portV4SearchRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
 }

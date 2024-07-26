@@ -11,1525 +11,934 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.ApiCallback;
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.ApiResponse;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.Pair;
-import com.equinix.openapi.fabric.ProgressRequestBody;
-import com.equinix.openapi.fabric.ProgressResponseBody;
+import com.equinix.openapi.fabric.v4.model.*;
+import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.common.mapper.TypeRef;
+import io.restassured.http.Method;
+import io.restassured.response.Response;
 
-import com.google.gson.reflect.TypeToken;
-
-import java.io.IOException;
-
-
-import com.equinix.openapi.fabric.v4.model.Error;
-import com.equinix.openapi.fabric.v4.model.GetRouteFilterRulesResponse;
-import com.equinix.openapi.fabric.v4.model.RouteFilterRulesBase;
-import com.equinix.openapi.fabric.v4.model.RouteFilterRulesChangeData;
-import com.equinix.openapi.fabric.v4.model.RouteFilterRulesChangeDataResponse;
-import com.equinix.openapi.fabric.v4.model.RouteFilterRulesData;
-import com.equinix.openapi.fabric.v4.model.RouteFilterRulesPatchRequestItem;
-import com.equinix.openapi.fabric.v4.model.RouteFilterRulesPostRequest;
-import java.util.UUID;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import javax.ws.rs.core.GenericType;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
+import static io.restassured.http.Method.*;
 
 public class RouteFilterRulesApi {
-    private ApiClient localVarApiClient;
-    private int localHostIndex;
-    private String localCustomBaseUrl;
 
-    public RouteFilterRulesApi() {
-        this(Configuration.getDefaultApiClient());
+    private Supplier<RequestSpecBuilder> reqSpecSupplier;
+    private Consumer<RequestSpecBuilder> reqSpecCustomizer;
+
+    private RouteFilterRulesApi(Supplier<RequestSpecBuilder> reqSpecSupplier) {
+        this.reqSpecSupplier = reqSpecSupplier;
     }
 
-    public RouteFilterRulesApi(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+    public static RouteFilterRulesApi routeFilterRules(Supplier<RequestSpecBuilder> reqSpecSupplier) {
+        return new RouteFilterRulesApi(reqSpecSupplier);
     }
 
-    public ApiClient getApiClient() {
-        return localVarApiClient;
+    private RequestSpecBuilder createReqSpec() {
+        RequestSpecBuilder reqSpec = reqSpecSupplier.get();
+        if(reqSpecCustomizer != null) {
+            reqSpecCustomizer.accept(reqSpec);
+        }
+        return reqSpec;
     }
 
-    public void setApiClient(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+    public List<Oper> getAllOperations() {
+        return Arrays.asList(
+                createRouteFilterRule(),
+                createRouteFilterRulesInBulk(),
+                deleteRouteFilterRuleByUuid(),
+                getRouteFilterRuleByUuid(),
+                getRouteFilterRuleChangeByUuid(),
+                getRouteFilterRuleChanges(),
+                getRouteFilterRules(),
+                patchRouteFilterRuleByUuid(),
+                replaceRouteFilterRuleByUuid()
+        );
     }
 
-    public int getHostIndex() {
-        return localHostIndex;
+    public CreateRouteFilterRuleOper createRouteFilterRule() {
+        return new CreateRouteFilterRuleOper(createReqSpec());
     }
 
-    public void setHostIndex(int hostIndex) {
-        this.localHostIndex = hostIndex;
+    public CreateRouteFilterRulesInBulkOper createRouteFilterRulesInBulk() {
+        return new CreateRouteFilterRulesInBulkOper(createReqSpec());
     }
 
-    public String getCustomBaseUrl() {
-        return localCustomBaseUrl;
+    public DeleteRouteFilterRuleByUuidOper deleteRouteFilterRuleByUuid() {
+        return new DeleteRouteFilterRuleByUuidOper(createReqSpec());
     }
 
-    public void setCustomBaseUrl(String customBaseUrl) {
-        this.localCustomBaseUrl = customBaseUrl;
+    public GetRouteFilterRuleByUuidOper getRouteFilterRuleByUuid() {
+        return new GetRouteFilterRuleByUuidOper(createReqSpec());
+    }
+
+    public GetRouteFilterRuleChangeByUuidOper getRouteFilterRuleChangeByUuid() {
+        return new GetRouteFilterRuleChangeByUuidOper(createReqSpec());
+    }
+
+    public GetRouteFilterRuleChangesOper getRouteFilterRuleChanges() {
+        return new GetRouteFilterRuleChangesOper(createReqSpec());
+    }
+
+    public GetRouteFilterRulesOper getRouteFilterRules() {
+        return new GetRouteFilterRulesOper(createReqSpec());
+    }
+
+    public PatchRouteFilterRuleByUuidOper patchRouteFilterRuleByUuid() {
+        return new PatchRouteFilterRuleByUuidOper(createReqSpec());
+    }
+
+    public ReplaceRouteFilterRuleByUuidOper replaceRouteFilterRuleByUuid() {
+        return new ReplaceRouteFilterRuleByUuidOper(createReqSpec());
     }
 
     /**
-     * Build call for createRouteFilterRule
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRulesBase  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter Rule ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     * Customize request specification
+     * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+     * @return api
      */
-    public okhttp3.Call createRouteFilterRuleCall(String routeFilterId, RouteFilterRulesBase routeFilterRulesBase, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
-        }
-
-        Object localVarPostBody = routeFilterRulesBase;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/routeFilters/{routeFilterId}/routeFilterRules"
-            .replace("{" + "routeFilterId" + "}", localVarApiClient.escapeString(routeFilterId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
-        }
-
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call createRouteFilterRuleValidateBeforeCall(String routeFilterId, RouteFilterRulesBase routeFilterRulesBase, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'routeFilterId' is set
-        if (routeFilterId == null) {
-            throw new ApiException("Missing the required parameter 'routeFilterId' when calling createRouteFilterRule(Async)");
-        }
-
-        // verify the required parameter 'routeFilterRulesBase' is set
-        if (routeFilterRulesBase == null) {
-            throw new ApiException("Missing the required parameter 'routeFilterRulesBase' when calling createRouteFilterRule(Async)");
-        }
-
-        return createRouteFilterRuleCall(routeFilterId, routeFilterRulesBase, _callback);
-
+    public RouteFilterRulesApi reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+        this.reqSpecCustomizer = reqSpecCustomizer;
+        return this;
     }
 
     /**
      * Create RFRule
      * This API provides capability to create a Route Filter Rule
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRulesBase  (required)
-     * @return RouteFilterRulesData
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter Rule ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #routeFilterIdPath Route Filters Id (required)
+     * @see #body  (required)
+     * return RouteFilterRulesData
      */
-    public RouteFilterRulesData createRouteFilterRule(String routeFilterId, RouteFilterRulesBase routeFilterRulesBase) throws ApiException {
-        ApiResponse<RouteFilterRulesData> localVarResp = createRouteFilterRuleWithHttpInfo(routeFilterId, routeFilterRulesBase);
-        return localVarResp.getData();
-    }
+    public static class CreateRouteFilterRuleOper implements Oper {
 
-    /**
-     * Create RFRule
-     * This API provides capability to create a Route Filter Rule
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRulesBase  (required)
-     * @return ApiResponse&lt;RouteFilterRulesData&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter Rule ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<RouteFilterRulesData> createRouteFilterRuleWithHttpInfo(String routeFilterId, RouteFilterRulesBase routeFilterRulesBase) throws ApiException {
-        okhttp3.Call localVarCall = createRouteFilterRuleValidateBeforeCall(routeFilterId, routeFilterRulesBase, null);
-        Type localVarReturnType = new TypeToken<RouteFilterRulesData>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = POST;
+        public static final String REQ_URI = "/fabric/v4/routeFilters/{routeFilterId}/routeFilterRules";
 
-    /**
-     * Create RFRule (asynchronously)
-     * This API provides capability to create a Route Filter Rule
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRulesBase  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter Rule ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createRouteFilterRuleAsync(String routeFilterId, RouteFilterRulesBase routeFilterRulesBase, final ApiCallback<RouteFilterRulesData> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = createRouteFilterRuleValidateBeforeCall(routeFilterId, routeFilterRulesBase, _callback);
-        Type localVarReturnType = new TypeToken<RouteFilterRulesData>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for createRouteFilterRulesInBulk
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRulesPostRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Resource not found </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createRouteFilterRulesInBulkCall(String routeFilterId, RouteFilterRulesPostRequest routeFilterRulesPostRequest, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
+        public CreateRouteFilterRuleOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setContentType("application/json");
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
         }
 
-        Object localVarPostBody = routeFilterRulesPostRequest;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/bulk"
-            .replace("{" + "routeFilterId" + "}", localVarApiClient.escapeString(routeFilterId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
+        /**
+         * POST /fabric/v4/routeFilters/{routeFilterId}/routeFilterRules
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
         }
 
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
+        /**
+         * POST /fabric/v4/routeFilters/{routeFilterId}/routeFilterRules
+         * @param handler handler
+         * @return RouteFilterRulesData
+         */
+        public RouteFilterRulesData executeAs(Function<Response, Response> handler) {
+            TypeRef<RouteFilterRulesData> type = new TypeRef<RouteFilterRulesData>(){};
+            return execute(handler).as(type);
         }
 
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+         /**
+         * @param routeFilterRulesBase (RouteFilterRulesBase)  (required)
+         * @return operation
+         */
+        public CreateRouteFilterRuleOper body(RouteFilterRulesBase routeFilterRulesBase) {
+            reqSpec.setBody(routeFilterRulesBase);
+            return this;
+        }
+
+        public static final String ROUTE_FILTER_ID_PATH = "routeFilterId";
+
+        /**
+         * @param routeFilterId (String) Route Filters Id (required)
+         * @return operation
+         */
+        public CreateRouteFilterRuleOper routeFilterIdPath(Object routeFilterId) {
+            reqSpec.addPathParam(ROUTE_FILTER_ID_PATH, routeFilterId);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public CreateRouteFilterRuleOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public CreateRouteFilterRuleOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call createRouteFilterRulesInBulkValidateBeforeCall(String routeFilterId, RouteFilterRulesPostRequest routeFilterRulesPostRequest, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'routeFilterId' is set
-        if (routeFilterId == null) {
-            throw new ApiException("Missing the required parameter 'routeFilterId' when calling createRouteFilterRulesInBulk(Async)");
-        }
-
-        // verify the required parameter 'routeFilterRulesPostRequest' is set
-        if (routeFilterRulesPostRequest == null) {
-            throw new ApiException("Missing the required parameter 'routeFilterRulesPostRequest' when calling createRouteFilterRulesInBulk(Async)");
-        }
-
-        return createRouteFilterRulesInBulkCall(routeFilterId, routeFilterRulesPostRequest, _callback);
-
-    }
-
     /**
      * Bulk RFRules
      * This API provides capability to create bulk route filter rules
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRulesPostRequest  (required)
-     * @return GetRouteFilterRulesResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Resource not found </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #routeFilterIdPath Route Filters Id (required)
+     * @see #body  (required)
+     * return GetRouteFilterRulesResponse
      */
-    public GetRouteFilterRulesResponse createRouteFilterRulesInBulk(String routeFilterId, RouteFilterRulesPostRequest routeFilterRulesPostRequest) throws ApiException {
-        ApiResponse<GetRouteFilterRulesResponse> localVarResp = createRouteFilterRulesInBulkWithHttpInfo(routeFilterId, routeFilterRulesPostRequest);
-        return localVarResp.getData();
-    }
+    public static class CreateRouteFilterRulesInBulkOper implements Oper {
 
-    /**
-     * Bulk RFRules
-     * This API provides capability to create bulk route filter rules
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRulesPostRequest  (required)
-     * @return ApiResponse&lt;GetRouteFilterRulesResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Resource not found </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<GetRouteFilterRulesResponse> createRouteFilterRulesInBulkWithHttpInfo(String routeFilterId, RouteFilterRulesPostRequest routeFilterRulesPostRequest) throws ApiException {
-        okhttp3.Call localVarCall = createRouteFilterRulesInBulkValidateBeforeCall(routeFilterId, routeFilterRulesPostRequest, null);
-        Type localVarReturnType = new TypeToken<GetRouteFilterRulesResponse>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = POST;
+        public static final String REQ_URI = "/fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/bulk";
 
-    /**
-     * Bulk RFRules (asynchronously)
-     * This API provides capability to create bulk route filter rules
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRulesPostRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Resource not found </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createRouteFilterRulesInBulkAsync(String routeFilterId, RouteFilterRulesPostRequest routeFilterRulesPostRequest, final ApiCallback<GetRouteFilterRulesResponse> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = createRouteFilterRulesInBulkValidateBeforeCall(routeFilterId, routeFilterRulesPostRequest, _callback);
-        Type localVarReturnType = new TypeToken<GetRouteFilterRulesResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for deleteRouteFilterRuleByUuid
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRuleId Route  Filter  Rules Id (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call deleteRouteFilterRuleByUuidCall(String routeFilterId, String routeFilterRuleId, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
+        public CreateRouteFilterRulesInBulkOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setContentType("application/json");
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
         }
 
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId}"
-            .replace("{" + "routeFilterId" + "}", localVarApiClient.escapeString(routeFilterId.toString()))
-            .replace("{" + "routeFilterRuleId" + "}", localVarApiClient.escapeString(routeFilterRuleId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
+        /**
+         * POST /fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/bulk
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
         }
 
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
+        /**
+         * POST /fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/bulk
+         * @param handler handler
+         * @return GetRouteFilterRulesResponse
+         */
+        public GetRouteFilterRulesResponse executeAs(Function<Response, Response> handler) {
+            TypeRef<GetRouteFilterRulesResponse> type = new TypeRef<GetRouteFilterRulesResponse>(){};
+            return execute(handler).as(type);
         }
 
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+         /**
+         * @param routeFilterRulesPostRequest (RouteFilterRulesPostRequest)  (required)
+         * @return operation
+         */
+        public CreateRouteFilterRulesInBulkOper body(RouteFilterRulesPostRequest routeFilterRulesPostRequest) {
+            reqSpec.setBody(routeFilterRulesPostRequest);
+            return this;
+        }
+
+        public static final String ROUTE_FILTER_ID_PATH = "routeFilterId";
+
+        /**
+         * @param routeFilterId (String) Route Filters Id (required)
+         * @return operation
+         */
+        public CreateRouteFilterRulesInBulkOper routeFilterIdPath(Object routeFilterId) {
+            reqSpec.addPathParam(ROUTE_FILTER_ID_PATH, routeFilterId);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public CreateRouteFilterRulesInBulkOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public CreateRouteFilterRulesInBulkOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteRouteFilterRuleByUuidValidateBeforeCall(String routeFilterId, String routeFilterRuleId, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'routeFilterId' is set
-        if (routeFilterId == null) {
-            throw new ApiException("Missing the required parameter 'routeFilterId' when calling deleteRouteFilterRuleByUuid(Async)");
-        }
-
-        // verify the required parameter 'routeFilterRuleId' is set
-        if (routeFilterRuleId == null) {
-            throw new ApiException("Missing the required parameter 'routeFilterRuleId' when calling deleteRouteFilterRuleByUuid(Async)");
-        }
-
-        return deleteRouteFilterRuleByUuidCall(routeFilterId, routeFilterRuleId, _callback);
-
-    }
-
     /**
      * DeleteRFRule
      * This API provides capability to delete a Route Filter Rule
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRuleId Route  Filter  Rules Id (required)
-     * @return RouteFilterRulesData
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #routeFilterIdPath Route Filters Id (required)
+     * @see #routeFilterRuleIdPath Route  Filter  Rules Id (required)
+     * return RouteFilterRulesData
      */
-    public RouteFilterRulesData deleteRouteFilterRuleByUuid(String routeFilterId, String routeFilterRuleId) throws ApiException {
-        ApiResponse<RouteFilterRulesData> localVarResp = deleteRouteFilterRuleByUuidWithHttpInfo(routeFilterId, routeFilterRuleId);
-        return localVarResp.getData();
-    }
+    public static class DeleteRouteFilterRuleByUuidOper implements Oper {
 
-    /**
-     * DeleteRFRule
-     * This API provides capability to delete a Route Filter Rule
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRuleId Route  Filter  Rules Id (required)
-     * @return ApiResponse&lt;RouteFilterRulesData&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<RouteFilterRulesData> deleteRouteFilterRuleByUuidWithHttpInfo(String routeFilterId, String routeFilterRuleId) throws ApiException {
-        okhttp3.Call localVarCall = deleteRouteFilterRuleByUuidValidateBeforeCall(routeFilterId, routeFilterRuleId, null);
-        Type localVarReturnType = new TypeToken<RouteFilterRulesData>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = DELETE;
+        public static final String REQ_URI = "/fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId}";
 
-    /**
-     * DeleteRFRule (asynchronously)
-     * This API provides capability to delete a Route Filter Rule
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRuleId Route  Filter  Rules Id (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call deleteRouteFilterRuleByUuidAsync(String routeFilterId, String routeFilterRuleId, final ApiCallback<RouteFilterRulesData> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = deleteRouteFilterRuleByUuidValidateBeforeCall(routeFilterId, routeFilterRuleId, _callback);
-        Type localVarReturnType = new TypeToken<RouteFilterRulesData>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getRouteFilterRuleByUuid
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRuleId Route  Filter  Rules Id (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getRouteFilterRuleByUuidCall(String routeFilterId, String routeFilterRuleId, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
+        public DeleteRouteFilterRuleByUuidOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
         }
 
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId}"
-            .replace("{" + "routeFilterId" + "}", localVarApiClient.escapeString(routeFilterId.toString()))
-            .replace("{" + "routeFilterRuleId" + "}", localVarApiClient.escapeString(routeFilterRuleId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
+        /**
+         * DELETE /fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId}
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
         }
 
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
+        /**
+         * DELETE /fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId}
+         * @param handler handler
+         * @return RouteFilterRulesData
+         */
+        public RouteFilterRulesData executeAs(Function<Response, Response> handler) {
+            TypeRef<RouteFilterRulesData> type = new TypeRef<RouteFilterRulesData>(){};
+            return execute(handler).as(type);
         }
 
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        public static final String ROUTE_FILTER_ID_PATH = "routeFilterId";
+
+        /**
+         * @param routeFilterId (String) Route Filters Id (required)
+         * @return operation
+         */
+        public DeleteRouteFilterRuleByUuidOper routeFilterIdPath(Object routeFilterId) {
+            reqSpec.addPathParam(ROUTE_FILTER_ID_PATH, routeFilterId);
+            return this;
+        }
+
+        public static final String ROUTE_FILTER_RULE_ID_PATH = "routeFilterRuleId";
+
+        /**
+         * @param routeFilterRuleId (String) Route  Filter  Rules Id (required)
+         * @return operation
+         */
+        public DeleteRouteFilterRuleByUuidOper routeFilterRuleIdPath(Object routeFilterRuleId) {
+            reqSpec.addPathParam(ROUTE_FILTER_RULE_ID_PATH, routeFilterRuleId);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public DeleteRouteFilterRuleByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public DeleteRouteFilterRuleByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getRouteFilterRuleByUuidValidateBeforeCall(String routeFilterId, String routeFilterRuleId, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'routeFilterId' is set
-        if (routeFilterId == null) {
-            throw new ApiException("Missing the required parameter 'routeFilterId' when calling getRouteFilterRuleByUuid(Async)");
-        }
-
-        // verify the required parameter 'routeFilterRuleId' is set
-        if (routeFilterRuleId == null) {
-            throw new ApiException("Missing the required parameter 'routeFilterRuleId' when calling getRouteFilterRuleByUuid(Async)");
-        }
-
-        return getRouteFilterRuleByUuidCall(routeFilterId, routeFilterRuleId, _callback);
-
-    }
-
     /**
      * GetRFRule By UUID
      * This API provides capability to view a Route Filter Rule by UUID
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRuleId Route  Filter  Rules Id (required)
-     * @return RouteFilterRulesData
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #routeFilterIdPath Route Filters Id (required)
+     * @see #routeFilterRuleIdPath Route  Filter  Rules Id (required)
+     * return RouteFilterRulesData
      */
-    public RouteFilterRulesData getRouteFilterRuleByUuid(String routeFilterId, String routeFilterRuleId) throws ApiException {
-        ApiResponse<RouteFilterRulesData> localVarResp = getRouteFilterRuleByUuidWithHttpInfo(routeFilterId, routeFilterRuleId);
-        return localVarResp.getData();
+    public static class GetRouteFilterRuleByUuidOper implements Oper {
+
+        public static final Method REQ_METHOD = GET;
+        public static final String REQ_URI = "/fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId}";
+
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
+
+        public GetRouteFilterRuleByUuidOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
+        }
+
+        /**
+         * GET /fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId}
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
+        }
+
+        /**
+         * GET /fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId}
+         * @param handler handler
+         * @return RouteFilterRulesData
+         */
+        public RouteFilterRulesData executeAs(Function<Response, Response> handler) {
+            TypeRef<RouteFilterRulesData> type = new TypeRef<RouteFilterRulesData>(){};
+            return execute(handler).as(type);
+        }
+
+        public static final String ROUTE_FILTER_ID_PATH = "routeFilterId";
+
+        /**
+         * @param routeFilterId (String) Route Filters Id (required)
+         * @return operation
+         */
+        public GetRouteFilterRuleByUuidOper routeFilterIdPath(Object routeFilterId) {
+            reqSpec.addPathParam(ROUTE_FILTER_ID_PATH, routeFilterId);
+            return this;
+        }
+
+        public static final String ROUTE_FILTER_RULE_ID_PATH = "routeFilterRuleId";
+
+        /**
+         * @param routeFilterRuleId (String) Route  Filter  Rules Id (required)
+         * @return operation
+         */
+        public GetRouteFilterRuleByUuidOper routeFilterRuleIdPath(Object routeFilterRuleId) {
+            reqSpec.addPathParam(ROUTE_FILTER_RULE_ID_PATH, routeFilterRuleId);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public GetRouteFilterRuleByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public GetRouteFilterRuleByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    /**
-     * GetRFRule By UUID
-     * This API provides capability to view a Route Filter Rule by UUID
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRuleId Route  Filter  Rules Id (required)
-     * @return ApiResponse&lt;RouteFilterRulesData&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<RouteFilterRulesData> getRouteFilterRuleByUuidWithHttpInfo(String routeFilterId, String routeFilterRuleId) throws ApiException {
-        okhttp3.Call localVarCall = getRouteFilterRuleByUuidValidateBeforeCall(routeFilterId, routeFilterRuleId, null);
-        Type localVarReturnType = new TypeToken<RouteFilterRulesData>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * GetRFRule By UUID (asynchronously)
-     * This API provides capability to view a Route Filter Rule by UUID
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRuleId Route  Filter  Rules Id (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getRouteFilterRuleByUuidAsync(String routeFilterId, String routeFilterRuleId, final ApiCallback<RouteFilterRulesData> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getRouteFilterRuleByUuidValidateBeforeCall(routeFilterId, routeFilterRuleId, _callback);
-        Type localVarReturnType = new TypeToken<RouteFilterRulesData>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getRouteFilterRuleChangeByUuid
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRuleId Route  Filter  Rules Id (required)
-     * @param changeId Route Filter Rule Change UUID (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Route Filter Change object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getRouteFilterRuleChangeByUuidCall(String routeFilterId, String routeFilterRuleId, UUID changeId, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
-        }
-
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId}/changes/{changeId}"
-            .replace("{" + "routeFilterId" + "}", localVarApiClient.escapeString(routeFilterId.toString()))
-            .replace("{" + "routeFilterRuleId" + "}", localVarApiClient.escapeString(routeFilterRuleId.toString()))
-            .replace("{" + "changeId" + "}", localVarApiClient.escapeString(changeId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
-        }
-
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getRouteFilterRuleChangeByUuidValidateBeforeCall(String routeFilterId, String routeFilterRuleId, UUID changeId, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'routeFilterId' is set
-        if (routeFilterId == null) {
-            throw new ApiException("Missing the required parameter 'routeFilterId' when calling getRouteFilterRuleChangeByUuid(Async)");
-        }
-
-        // verify the required parameter 'routeFilterRuleId' is set
-        if (routeFilterRuleId == null) {
-            throw new ApiException("Missing the required parameter 'routeFilterRuleId' when calling getRouteFilterRuleChangeByUuid(Async)");
-        }
-
-        // verify the required parameter 'changeId' is set
-        if (changeId == null) {
-            throw new ApiException("Missing the required parameter 'changeId' when calling getRouteFilterRuleChangeByUuid(Async)");
-        }
-
-        return getRouteFilterRuleChangeByUuidCall(routeFilterId, routeFilterRuleId, changeId, _callback);
-
-    }
-
     /**
      * Get Change By ID
      * This API provides capability to retrieve a specific Route Filter Rule&#39;s Changes
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRuleId Route  Filter  Rules Id (required)
-     * @param changeId Route Filter Rule Change UUID (required)
-     * @return RouteFilterRulesChangeData
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Route Filter Change object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #routeFilterIdPath Route Filters Id (required)
+     * @see #routeFilterRuleIdPath Route  Filter  Rules Id (required)
+     * @see #changeIdPath Route Filter Rule Change UUID (required)
+     * return RouteFilterRulesChangeData
      */
-    public RouteFilterRulesChangeData getRouteFilterRuleChangeByUuid(String routeFilterId, String routeFilterRuleId, UUID changeId) throws ApiException {
-        ApiResponse<RouteFilterRulesChangeData> localVarResp = getRouteFilterRuleChangeByUuidWithHttpInfo(routeFilterId, routeFilterRuleId, changeId);
-        return localVarResp.getData();
+    public static class GetRouteFilterRuleChangeByUuidOper implements Oper {
+
+        public static final Method REQ_METHOD = GET;
+        public static final String REQ_URI = "/fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId}/changes/{changeId}";
+
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
+
+        public GetRouteFilterRuleChangeByUuidOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
+        }
+
+        /**
+         * GET /fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId}/changes/{changeId}
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
+        }
+
+        /**
+         * GET /fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId}/changes/{changeId}
+         * @param handler handler
+         * @return RouteFilterRulesChangeData
+         */
+        public RouteFilterRulesChangeData executeAs(Function<Response, Response> handler) {
+            TypeRef<RouteFilterRulesChangeData> type = new TypeRef<RouteFilterRulesChangeData>(){};
+            return execute(handler).as(type);
+        }
+
+        public static final String ROUTE_FILTER_ID_PATH = "routeFilterId";
+
+        /**
+         * @param routeFilterId (String) Route Filters Id (required)
+         * @return operation
+         */
+        public GetRouteFilterRuleChangeByUuidOper routeFilterIdPath(Object routeFilterId) {
+            reqSpec.addPathParam(ROUTE_FILTER_ID_PATH, routeFilterId);
+            return this;
+        }
+
+        public static final String ROUTE_FILTER_RULE_ID_PATH = "routeFilterRuleId";
+
+        /**
+         * @param routeFilterRuleId (String) Route  Filter  Rules Id (required)
+         * @return operation
+         */
+        public GetRouteFilterRuleChangeByUuidOper routeFilterRuleIdPath(Object routeFilterRuleId) {
+            reqSpec.addPathParam(ROUTE_FILTER_RULE_ID_PATH, routeFilterRuleId);
+            return this;
+        }
+
+        public static final String CHANGE_ID_PATH = "changeId";
+
+        /**
+         * @param changeId (UUID) Route Filter Rule Change UUID (required)
+         * @return operation
+         */
+        public GetRouteFilterRuleChangeByUuidOper changeIdPath(Object changeId) {
+            reqSpec.addPathParam(CHANGE_ID_PATH, changeId);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public GetRouteFilterRuleChangeByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public GetRouteFilterRuleChangeByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    /**
-     * Get Change By ID
-     * This API provides capability to retrieve a specific Route Filter Rule&#39;s Changes
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRuleId Route  Filter  Rules Id (required)
-     * @param changeId Route Filter Rule Change UUID (required)
-     * @return ApiResponse&lt;RouteFilterRulesChangeData&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Route Filter Change object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<RouteFilterRulesChangeData> getRouteFilterRuleChangeByUuidWithHttpInfo(String routeFilterId, String routeFilterRuleId, UUID changeId) throws ApiException {
-        okhttp3.Call localVarCall = getRouteFilterRuleChangeByUuidValidateBeforeCall(routeFilterId, routeFilterRuleId, changeId, null);
-        Type localVarReturnType = new TypeToken<RouteFilterRulesChangeData>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Get Change By ID (asynchronously)
-     * This API provides capability to retrieve a specific Route Filter Rule&#39;s Changes
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRuleId Route  Filter  Rules Id (required)
-     * @param changeId Route Filter Rule Change UUID (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Route Filter Change object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getRouteFilterRuleChangeByUuidAsync(String routeFilterId, String routeFilterRuleId, UUID changeId, final ApiCallback<RouteFilterRulesChangeData> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getRouteFilterRuleChangeByUuidValidateBeforeCall(routeFilterId, routeFilterRuleId, changeId, _callback);
-        Type localVarReturnType = new TypeToken<RouteFilterRulesChangeData>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getRouteFilterRuleChanges
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRuleId Route  Filter  Rules Id (required)
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Route Filter Rule Change object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getRouteFilterRuleChangesCall(String routeFilterId, String routeFilterRuleId, Integer offset, Integer limit, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
-        }
-
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId}/changes"
-            .replace("{" + "routeFilterId" + "}", localVarApiClient.escapeString(routeFilterId.toString()))
-            .replace("{" + "routeFilterRuleId" + "}", localVarApiClient.escapeString(routeFilterRuleId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        if (offset != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("offset", offset));
-        }
-
-        if (limit != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
-        }
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
-        }
-
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getRouteFilterRuleChangesValidateBeforeCall(String routeFilterId, String routeFilterRuleId, Integer offset, Integer limit, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'routeFilterId' is set
-        if (routeFilterId == null) {
-            throw new ApiException("Missing the required parameter 'routeFilterId' when calling getRouteFilterRuleChanges(Async)");
-        }
-
-        // verify the required parameter 'routeFilterRuleId' is set
-        if (routeFilterRuleId == null) {
-            throw new ApiException("Missing the required parameter 'routeFilterRuleId' when calling getRouteFilterRuleChanges(Async)");
-        }
-
-        return getRouteFilterRuleChangesCall(routeFilterId, routeFilterRuleId, offset, limit, _callback);
-
-    }
-
     /**
      * Get All Changes
      * This API provides capability to retrieve all of a Route Filter Rule&#39;s Changes
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRuleId Route  Filter  Rules Id (required)
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @return RouteFilterRulesChangeDataResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Route Filter Rule Change object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #routeFilterIdPath Route Filters Id (required)
+     * @see #routeFilterRuleIdPath Route  Filter  Rules Id (required)
+     * @see #offsetQuery offset (optional)
+     * @see #limitQuery number of records to fetch (optional)
+     * return RouteFilterRulesChangeDataResponse
      */
-    public RouteFilterRulesChangeDataResponse getRouteFilterRuleChanges(String routeFilterId, String routeFilterRuleId, Integer offset, Integer limit) throws ApiException {
-        ApiResponse<RouteFilterRulesChangeDataResponse> localVarResp = getRouteFilterRuleChangesWithHttpInfo(routeFilterId, routeFilterRuleId, offset, limit);
-        return localVarResp.getData();
+    public static class GetRouteFilterRuleChangesOper implements Oper {
+
+        public static final Method REQ_METHOD = GET;
+        public static final String REQ_URI = "/fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId}/changes";
+
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
+
+        public GetRouteFilterRuleChangesOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
+        }
+
+        /**
+         * GET /fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId}/changes
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
+        }
+
+        /**
+         * GET /fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId}/changes
+         * @param handler handler
+         * @return RouteFilterRulesChangeDataResponse
+         */
+        public RouteFilterRulesChangeDataResponse executeAs(Function<Response, Response> handler) {
+            TypeRef<RouteFilterRulesChangeDataResponse> type = new TypeRef<RouteFilterRulesChangeDataResponse>(){};
+            return execute(handler).as(type);
+        }
+
+        public static final String ROUTE_FILTER_ID_PATH = "routeFilterId";
+
+        /**
+         * @param routeFilterId (String) Route Filters Id (required)
+         * @return operation
+         */
+        public GetRouteFilterRuleChangesOper routeFilterIdPath(Object routeFilterId) {
+            reqSpec.addPathParam(ROUTE_FILTER_ID_PATH, routeFilterId);
+            return this;
+        }
+
+        public static final String ROUTE_FILTER_RULE_ID_PATH = "routeFilterRuleId";
+
+        /**
+         * @param routeFilterRuleId (String) Route  Filter  Rules Id (required)
+         * @return operation
+         */
+        public GetRouteFilterRuleChangesOper routeFilterRuleIdPath(Object routeFilterRuleId) {
+            reqSpec.addPathParam(ROUTE_FILTER_RULE_ID_PATH, routeFilterRuleId);
+            return this;
+        }
+
+        public static final String OFFSET_QUERY = "offset";
+
+        /**
+         * @param offset (Integer) offset (optional)
+         * @return operation
+         */
+        public GetRouteFilterRuleChangesOper offsetQuery(Object... offset) {
+            reqSpec.addQueryParam(OFFSET_QUERY, offset);
+            return this;
+        }
+
+        public static final String LIMIT_QUERY = "limit";
+
+        /**
+         * @param limit (Integer) number of records to fetch (optional)
+         * @return operation
+         */
+        public GetRouteFilterRuleChangesOper limitQuery(Object... limit) {
+            reqSpec.addQueryParam(LIMIT_QUERY, limit);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public GetRouteFilterRuleChangesOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public GetRouteFilterRuleChangesOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    /**
-     * Get All Changes
-     * This API provides capability to retrieve all of a Route Filter Rule&#39;s Changes
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRuleId Route  Filter  Rules Id (required)
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @return ApiResponse&lt;RouteFilterRulesChangeDataResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Route Filter Rule Change object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<RouteFilterRulesChangeDataResponse> getRouteFilterRuleChangesWithHttpInfo(String routeFilterId, String routeFilterRuleId, Integer offset, Integer limit) throws ApiException {
-        okhttp3.Call localVarCall = getRouteFilterRuleChangesValidateBeforeCall(routeFilterId, routeFilterRuleId, offset, limit, null);
-        Type localVarReturnType = new TypeToken<RouteFilterRulesChangeDataResponse>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Get All Changes (asynchronously)
-     * This API provides capability to retrieve all of a Route Filter Rule&#39;s Changes
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRuleId Route  Filter  Rules Id (required)
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Route Filter Rule Change object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getRouteFilterRuleChangesAsync(String routeFilterId, String routeFilterRuleId, Integer offset, Integer limit, final ApiCallback<RouteFilterRulesChangeDataResponse> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getRouteFilterRuleChangesValidateBeforeCall(routeFilterId, routeFilterRuleId, offset, limit, _callback);
-        Type localVarReturnType = new TypeToken<RouteFilterRulesChangeDataResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getRouteFilterRules
-     * @param routeFilterId Route Filters Id (required)
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Resource not found </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter Rule ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getRouteFilterRulesCall(String routeFilterId, Integer offset, Integer limit, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
-        }
-
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/routeFilters/{routeFilterId}/routeFilterRules"
-            .replace("{" + "routeFilterId" + "}", localVarApiClient.escapeString(routeFilterId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        if (offset != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("offset", offset));
-        }
-
-        if (limit != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
-        }
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
-        }
-
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getRouteFilterRulesValidateBeforeCall(String routeFilterId, Integer offset, Integer limit, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'routeFilterId' is set
-        if (routeFilterId == null) {
-            throw new ApiException("Missing the required parameter 'routeFilterId' when calling getRouteFilterRules(Async)");
-        }
-
-        return getRouteFilterRulesCall(routeFilterId, offset, limit, _callback);
-
-    }
-
     /**
      * GetRFRules
      * This API provides capability to get all Route Filters Rules for Fabric
-     * @param routeFilterId Route Filters Id (required)
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @return GetRouteFilterRulesResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Resource not found </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter Rule ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #routeFilterIdPath Route Filters Id (required)
+     * @see #offsetQuery offset (optional)
+     * @see #limitQuery number of records to fetch (optional)
+     * return GetRouteFilterRulesResponse
      */
-    public GetRouteFilterRulesResponse getRouteFilterRules(String routeFilterId, Integer offset, Integer limit) throws ApiException {
-        ApiResponse<GetRouteFilterRulesResponse> localVarResp = getRouteFilterRulesWithHttpInfo(routeFilterId, offset, limit);
-        return localVarResp.getData();
+    public static class GetRouteFilterRulesOper implements Oper {
+
+        public static final Method REQ_METHOD = GET;
+        public static final String REQ_URI = "/fabric/v4/routeFilters/{routeFilterId}/routeFilterRules";
+
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
+
+        public GetRouteFilterRulesOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
+        }
+
+        /**
+         * GET /fabric/v4/routeFilters/{routeFilterId}/routeFilterRules
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
+        }
+
+        /**
+         * GET /fabric/v4/routeFilters/{routeFilterId}/routeFilterRules
+         * @param handler handler
+         * @return GetRouteFilterRulesResponse
+         */
+        public GetRouteFilterRulesResponse executeAs(Function<Response, Response> handler) {
+            TypeRef<GetRouteFilterRulesResponse> type = new TypeRef<GetRouteFilterRulesResponse>(){};
+            return execute(handler).as(type);
+        }
+
+        public static final String ROUTE_FILTER_ID_PATH = "routeFilterId";
+
+        /**
+         * @param routeFilterId (String) Route Filters Id (required)
+         * @return operation
+         */
+        public GetRouteFilterRulesOper routeFilterIdPath(Object routeFilterId) {
+            reqSpec.addPathParam(ROUTE_FILTER_ID_PATH, routeFilterId);
+            return this;
+        }
+
+        public static final String OFFSET_QUERY = "offset";
+
+        /**
+         * @param offset (Integer) offset (optional)
+         * @return operation
+         */
+        public GetRouteFilterRulesOper offsetQuery(Object... offset) {
+            reqSpec.addQueryParam(OFFSET_QUERY, offset);
+            return this;
+        }
+
+        public static final String LIMIT_QUERY = "limit";
+
+        /**
+         * @param limit (Integer) number of records to fetch (optional)
+         * @return operation
+         */
+        public GetRouteFilterRulesOper limitQuery(Object... limit) {
+            reqSpec.addQueryParam(LIMIT_QUERY, limit);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public GetRouteFilterRulesOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public GetRouteFilterRulesOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    /**
-     * GetRFRules
-     * This API provides capability to get all Route Filters Rules for Fabric
-     * @param routeFilterId Route Filters Id (required)
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @return ApiResponse&lt;GetRouteFilterRulesResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Resource not found </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter Rule ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<GetRouteFilterRulesResponse> getRouteFilterRulesWithHttpInfo(String routeFilterId, Integer offset, Integer limit) throws ApiException {
-        okhttp3.Call localVarCall = getRouteFilterRulesValidateBeforeCall(routeFilterId, offset, limit, null);
-        Type localVarReturnType = new TypeToken<GetRouteFilterRulesResponse>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * GetRFRules (asynchronously)
-     * This API provides capability to get all Route Filters Rules for Fabric
-     * @param routeFilterId Route Filters Id (required)
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Resource not found </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter Rule ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getRouteFilterRulesAsync(String routeFilterId, Integer offset, Integer limit, final ApiCallback<GetRouteFilterRulesResponse> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = getRouteFilterRulesValidateBeforeCall(routeFilterId, offset, limit, _callback);
-        Type localVarReturnType = new TypeToken<GetRouteFilterRulesResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for patchRouteFilterRuleByUuid
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRuleId Route  Filter  Rules Id (required)
-     * @param routeFilterRulesPatchRequestItem  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call patchRouteFilterRuleByUuidCall(String routeFilterId, String routeFilterRuleId, List<RouteFilterRulesPatchRequestItem> routeFilterRulesPatchRequestItem, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
-        }
-
-        Object localVarPostBody = routeFilterRulesPatchRequestItem;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId}"
-            .replace("{" + "routeFilterId" + "}", localVarApiClient.escapeString(routeFilterId.toString()))
-            .replace("{" + "routeFilterRuleId" + "}", localVarApiClient.escapeString(routeFilterRuleId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
-        }
-
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call patchRouteFilterRuleByUuidValidateBeforeCall(String routeFilterId, String routeFilterRuleId, List<RouteFilterRulesPatchRequestItem> routeFilterRulesPatchRequestItem, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'routeFilterId' is set
-        if (routeFilterId == null) {
-            throw new ApiException("Missing the required parameter 'routeFilterId' when calling patchRouteFilterRuleByUuid(Async)");
-        }
-
-        // verify the required parameter 'routeFilterRuleId' is set
-        if (routeFilterRuleId == null) {
-            throw new ApiException("Missing the required parameter 'routeFilterRuleId' when calling patchRouteFilterRuleByUuid(Async)");
-        }
-
-        // verify the required parameter 'routeFilterRulesPatchRequestItem' is set
-        if (routeFilterRulesPatchRequestItem == null) {
-            throw new ApiException("Missing the required parameter 'routeFilterRulesPatchRequestItem' when calling patchRouteFilterRuleByUuid(Async)");
-        }
-
-        return patchRouteFilterRuleByUuidCall(routeFilterId, routeFilterRuleId, routeFilterRulesPatchRequestItem, _callback);
-
-    }
-
     /**
      * PatchRFilterRule
      * This API provides capability to partially update a Route Filter Rule
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRuleId Route  Filter  Rules Id (required)
-     * @param routeFilterRulesPatchRequestItem  (required)
-     * @return RouteFilterRulesData
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #routeFilterIdPath Route Filters Id (required)
+     * @see #routeFilterRuleIdPath Route  Filter  Rules Id (required)
+     * @see #body  (required)
+     * return RouteFilterRulesData
      */
-    public RouteFilterRulesData patchRouteFilterRuleByUuid(String routeFilterId, String routeFilterRuleId, List<RouteFilterRulesPatchRequestItem> routeFilterRulesPatchRequestItem) throws ApiException {
-        ApiResponse<RouteFilterRulesData> localVarResp = patchRouteFilterRuleByUuidWithHttpInfo(routeFilterId, routeFilterRuleId, routeFilterRulesPatchRequestItem);
-        return localVarResp.getData();
+    public static class PatchRouteFilterRuleByUuidOper implements Oper {
+
+        public static final Method REQ_METHOD = PATCH;
+        public static final String REQ_URI = "/fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId}";
+
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
+
+        public PatchRouteFilterRuleByUuidOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setContentType("application/json");
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
+        }
+
+        /**
+         * PATCH /fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId}
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
+        }
+
+        /**
+         * PATCH /fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId}
+         * @param handler handler
+         * @return RouteFilterRulesData
+         */
+        public RouteFilterRulesData executeAs(Function<Response, Response> handler) {
+            TypeRef<RouteFilterRulesData> type = new TypeRef<RouteFilterRulesData>(){};
+            return execute(handler).as(type);
+        }
+
+         /**
+         * @param routeFilterRulesPatchRequestItem (List&lt;RouteFilterRulesPatchRequestItem&gt;)  (required)
+         * @return operation
+         */
+        public PatchRouteFilterRuleByUuidOper body(List<RouteFilterRulesPatchRequestItem> routeFilterRulesPatchRequestItem) {
+            reqSpec.setBody(routeFilterRulesPatchRequestItem);
+            return this;
+        }
+
+        public static final String ROUTE_FILTER_ID_PATH = "routeFilterId";
+
+        /**
+         * @param routeFilterId (String) Route Filters Id (required)
+         * @return operation
+         */
+        public PatchRouteFilterRuleByUuidOper routeFilterIdPath(Object routeFilterId) {
+            reqSpec.addPathParam(ROUTE_FILTER_ID_PATH, routeFilterId);
+            return this;
+        }
+
+        public static final String ROUTE_FILTER_RULE_ID_PATH = "routeFilterRuleId";
+
+        /**
+         * @param routeFilterRuleId (String) Route  Filter  Rules Id (required)
+         * @return operation
+         */
+        public PatchRouteFilterRuleByUuidOper routeFilterRuleIdPath(Object routeFilterRuleId) {
+            reqSpec.addPathParam(ROUTE_FILTER_RULE_ID_PATH, routeFilterRuleId);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public PatchRouteFilterRuleByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public PatchRouteFilterRuleByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    /**
-     * PatchRFilterRule
-     * This API provides capability to partially update a Route Filter Rule
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRuleId Route  Filter  Rules Id (required)
-     * @param routeFilterRulesPatchRequestItem  (required)
-     * @return ApiResponse&lt;RouteFilterRulesData&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<RouteFilterRulesData> patchRouteFilterRuleByUuidWithHttpInfo(String routeFilterId, String routeFilterRuleId, List<RouteFilterRulesPatchRequestItem> routeFilterRulesPatchRequestItem) throws ApiException {
-        okhttp3.Call localVarCall = patchRouteFilterRuleByUuidValidateBeforeCall(routeFilterId, routeFilterRuleId, routeFilterRulesPatchRequestItem, null);
-        Type localVarReturnType = new TypeToken<RouteFilterRulesData>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * PatchRFilterRule (asynchronously)
-     * This API provides capability to partially update a Route Filter Rule
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRuleId Route  Filter  Rules Id (required)
-     * @param routeFilterRulesPatchRequestItem  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call patchRouteFilterRuleByUuidAsync(String routeFilterId, String routeFilterRuleId, List<RouteFilterRulesPatchRequestItem> routeFilterRulesPatchRequestItem, final ApiCallback<RouteFilterRulesData> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = patchRouteFilterRuleByUuidValidateBeforeCall(routeFilterId, routeFilterRuleId, routeFilterRulesPatchRequestItem, _callback);
-        Type localVarReturnType = new TypeToken<RouteFilterRulesData>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for replaceRouteFilterRuleByUuid
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRuleId Route  Filter  Rules Id (required)
-     * @param routeFilterRulesBase  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call replaceRouteFilterRuleByUuidCall(String routeFilterId, String routeFilterRuleId, RouteFilterRulesBase routeFilterRulesBase, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
-        }
-
-        Object localVarPostBody = routeFilterRulesBase;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId}"
-            .replace("{" + "routeFilterId" + "}", localVarApiClient.escapeString(routeFilterId.toString()))
-            .replace("{" + "routeFilterRuleId" + "}", localVarApiClient.escapeString(routeFilterRuleId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
-        }
-
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call replaceRouteFilterRuleByUuidValidateBeforeCall(String routeFilterId, String routeFilterRuleId, RouteFilterRulesBase routeFilterRulesBase, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'routeFilterId' is set
-        if (routeFilterId == null) {
-            throw new ApiException("Missing the required parameter 'routeFilterId' when calling replaceRouteFilterRuleByUuid(Async)");
-        }
-
-        // verify the required parameter 'routeFilterRuleId' is set
-        if (routeFilterRuleId == null) {
-            throw new ApiException("Missing the required parameter 'routeFilterRuleId' when calling replaceRouteFilterRuleByUuid(Async)");
-        }
-
-        // verify the required parameter 'routeFilterRulesBase' is set
-        if (routeFilterRulesBase == null) {
-            throw new ApiException("Missing the required parameter 'routeFilterRulesBase' when calling replaceRouteFilterRuleByUuid(Async)");
-        }
-
-        return replaceRouteFilterRuleByUuidCall(routeFilterId, routeFilterRuleId, routeFilterRulesBase, _callback);
-
-    }
-
     /**
      * ReplaceRFRule
      * This API provides capability to replace a Route Filter Rule completely
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRuleId Route  Filter  Rules Id (required)
-     * @param routeFilterRulesBase  (required)
-     * @return RouteFilterRulesData
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #routeFilterIdPath Route Filters Id (required)
+     * @see #routeFilterRuleIdPath Route  Filter  Rules Id (required)
+     * @see #body  (required)
+     * return RouteFilterRulesData
      */
-    public RouteFilterRulesData replaceRouteFilterRuleByUuid(String routeFilterId, String routeFilterRuleId, RouteFilterRulesBase routeFilterRulesBase) throws ApiException {
-        ApiResponse<RouteFilterRulesData> localVarResp = replaceRouteFilterRuleByUuidWithHttpInfo(routeFilterId, routeFilterRuleId, routeFilterRulesBase);
-        return localVarResp.getData();
-    }
+    public static class ReplaceRouteFilterRuleByUuidOper implements Oper {
 
-    /**
-     * ReplaceRFRule
-     * This API provides capability to replace a Route Filter Rule completely
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRuleId Route  Filter  Rules Id (required)
-     * @param routeFilterRulesBase  (required)
-     * @return ApiResponse&lt;RouteFilterRulesData&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<RouteFilterRulesData> replaceRouteFilterRuleByUuidWithHttpInfo(String routeFilterId, String routeFilterRuleId, RouteFilterRulesBase routeFilterRulesBase) throws ApiException {
-        okhttp3.Call localVarCall = replaceRouteFilterRuleByUuidValidateBeforeCall(routeFilterId, routeFilterRuleId, routeFilterRulesBase, null);
-        Type localVarReturnType = new TypeToken<RouteFilterRulesData>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = PUT;
+        public static final String REQ_URI = "/fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId}";
 
-    /**
-     * ReplaceRFRule (asynchronously)
-     * This API provides capability to replace a Route Filter Rule completely
-     * @param routeFilterId Route Filters Id (required)
-     * @param routeFilterRuleId Route  Filter  Rules Id (required)
-     * @param routeFilterRulesBase  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call replaceRouteFilterRuleByUuidAsync(String routeFilterId, String routeFilterRuleId, RouteFilterRulesBase routeFilterRulesBase, final ApiCallback<RouteFilterRulesData> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = replaceRouteFilterRuleByUuidValidateBeforeCall(routeFilterId, routeFilterRuleId, routeFilterRulesBase, _callback);
-        Type localVarReturnType = new TypeToken<RouteFilterRulesData>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+        public ReplaceRouteFilterRuleByUuidOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setContentType("application/json");
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
+        }
+
+        /**
+         * PUT /fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId}
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
+        }
+
+        /**
+         * PUT /fabric/v4/routeFilters/{routeFilterId}/routeFilterRules/{routeFilterRuleId}
+         * @param handler handler
+         * @return RouteFilterRulesData
+         */
+        public RouteFilterRulesData executeAs(Function<Response, Response> handler) {
+            TypeRef<RouteFilterRulesData> type = new TypeRef<RouteFilterRulesData>(){};
+            return execute(handler).as(type);
+        }
+
+         /**
+         * @param routeFilterRulesBase (RouteFilterRulesBase)  (required)
+         * @return operation
+         */
+        public ReplaceRouteFilterRuleByUuidOper body(RouteFilterRulesBase routeFilterRulesBase) {
+            reqSpec.setBody(routeFilterRulesBase);
+            return this;
+        }
+
+        public static final String ROUTE_FILTER_ID_PATH = "routeFilterId";
+
+        /**
+         * @param routeFilterId (String) Route Filters Id (required)
+         * @return operation
+         */
+        public ReplaceRouteFilterRuleByUuidOper routeFilterIdPath(Object routeFilterId) {
+            reqSpec.addPathParam(ROUTE_FILTER_ID_PATH, routeFilterId);
+            return this;
+        }
+
+        public static final String ROUTE_FILTER_RULE_ID_PATH = "routeFilterRuleId";
+
+        /**
+         * @param routeFilterRuleId (String) Route  Filter  Rules Id (required)
+         * @return operation
+         */
+        public ReplaceRouteFilterRuleByUuidOper routeFilterRuleIdPath(Object routeFilterRuleId) {
+            reqSpec.addPathParam(ROUTE_FILTER_RULE_ID_PATH, routeFilterRuleId);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public ReplaceRouteFilterRuleByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public ReplaceRouteFilterRuleByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
 }

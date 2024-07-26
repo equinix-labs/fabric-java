@@ -1,22 +1,22 @@
 package com.equinix.openapi.fabric.v4.api.dto.port;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Location{
 
-	@SerializedName("metroName")
+	@JsonProperty("metroName")
 	private String metroName;
 
-	@SerializedName("metroCode")
+	@JsonProperty("metroCode")
 	private String metroCode;
 
-	@SerializedName("href")
+	@JsonProperty("href")
 	private String href;
 
-	@SerializedName("region")
+	@JsonProperty("region")
 	private String region;
 
-	@SerializedName("ibx")
+	@JsonProperty("ibx")
 	private String ibx;
 
 	public String getMetroName(){

@@ -11,1556 +11,880 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.ApiCallback;
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.ApiResponse;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.Pair;
-import com.equinix.openapi.fabric.ProgressRequestBody;
-import com.equinix.openapi.fabric.ProgressResponseBody;
+import com.equinix.openapi.fabric.v4.model.*;
+import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.common.mapper.TypeRef;
+import io.restassured.http.Method;
+import io.restassured.response.Response;
 
-import com.google.gson.reflect.TypeToken;
-
-import java.io.IOException;
-
-
-import com.equinix.openapi.fabric.v4.model.CloudRouter;
-import com.equinix.openapi.fabric.v4.model.CloudRouterActionRequest;
-import com.equinix.openapi.fabric.v4.model.CloudRouterActionResponse;
-import com.equinix.openapi.fabric.v4.model.CloudRouterActionState;
-import com.equinix.openapi.fabric.v4.model.CloudRouterChangeOperation;
-import com.equinix.openapi.fabric.v4.model.CloudRouterPackage;
-import com.equinix.openapi.fabric.v4.model.CloudRouterPostRequest;
-import com.equinix.openapi.fabric.v4.model.CloudRouterSearchRequest;
-import com.equinix.openapi.fabric.v4.model.Error;
-import com.equinix.openapi.fabric.v4.model.PackageResponse;
-import com.equinix.openapi.fabric.v4.model.RouteTableEntrySearchRequest;
-import com.equinix.openapi.fabric.v4.model.RouteTableEntrySearchResponse;
-import com.equinix.openapi.fabric.v4.model.RouterPackageCode;
-import com.equinix.openapi.fabric.v4.model.SearchResponse;
-import java.util.UUID;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import javax.ws.rs.core.GenericType;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
+import static io.restassured.http.Method.*;
 
 public class CloudRoutersApi {
-    private ApiClient localVarApiClient;
-    private int localHostIndex;
-    private String localCustomBaseUrl;
 
-    public CloudRoutersApi() {
-        this(Configuration.getDefaultApiClient());
+    private Supplier<RequestSpecBuilder> reqSpecSupplier;
+    private Consumer<RequestSpecBuilder> reqSpecCustomizer;
+
+    private CloudRoutersApi(Supplier<RequestSpecBuilder> reqSpecSupplier) {
+        this.reqSpecSupplier = reqSpecSupplier;
     }
 
-    public CloudRoutersApi(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+    public static CloudRoutersApi cloudRouters(Supplier<RequestSpecBuilder> reqSpecSupplier) {
+        return new CloudRoutersApi(reqSpecSupplier);
     }
 
-    public ApiClient getApiClient() {
-        return localVarApiClient;
+    private RequestSpecBuilder createReqSpec() {
+        RequestSpecBuilder reqSpec = reqSpecSupplier.get();
+        if(reqSpecCustomizer != null) {
+            reqSpecCustomizer.accept(reqSpec);
+        }
+        return reqSpec;
     }
 
-    public void setApiClient(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+    public List<Oper> getAllOperations() {
+        return Arrays.asList(
+                createCloudRouter(),
+                createCloudRouterAction(),
+                deleteCloudRouterByUuid(),
+                getCloudRouterActions(),
+                getCloudRouterByUuid(),
+                getCloudRouterPackageByCode(),
+                getCloudRouterPackages(),
+                searchCloudRouterRoutes(),
+                searchCloudRouters(),
+                updateCloudRouterByUuid()
+        );
     }
 
-    public int getHostIndex() {
-        return localHostIndex;
+    public CreateCloudRouterOper createCloudRouter() {
+        return new CreateCloudRouterOper(createReqSpec());
     }
 
-    public void setHostIndex(int hostIndex) {
-        this.localHostIndex = hostIndex;
+    public CreateCloudRouterActionOper createCloudRouterAction() {
+        return new CreateCloudRouterActionOper(createReqSpec());
     }
 
-    public String getCustomBaseUrl() {
-        return localCustomBaseUrl;
+    public DeleteCloudRouterByUuidOper deleteCloudRouterByUuid() {
+        return new DeleteCloudRouterByUuidOper(createReqSpec());
     }
 
-    public void setCustomBaseUrl(String customBaseUrl) {
-        this.localCustomBaseUrl = customBaseUrl;
+    public GetCloudRouterActionsOper getCloudRouterActions() {
+        return new GetCloudRouterActionsOper(createReqSpec());
+    }
+
+    public GetCloudRouterByUuidOper getCloudRouterByUuid() {
+        return new GetCloudRouterByUuidOper(createReqSpec());
+    }
+
+    public GetCloudRouterPackageByCodeOper getCloudRouterPackageByCode() {
+        return new GetCloudRouterPackageByCodeOper(createReqSpec());
+    }
+
+    public GetCloudRouterPackagesOper getCloudRouterPackages() {
+        return new GetCloudRouterPackagesOper(createReqSpec());
+    }
+
+    public SearchCloudRouterRoutesOper searchCloudRouterRoutes() {
+        return new SearchCloudRouterRoutesOper(createReqSpec());
+    }
+
+    public SearchCloudRoutersOper searchCloudRouters() {
+        return new SearchCloudRoutersOper(createReqSpec());
+    }
+
+    public UpdateCloudRouterByUuidOper updateCloudRouterByUuid() {
+        return new UpdateCloudRouterByUuidOper(createReqSpec());
     }
 
     /**
-     * Build call for createCloudRouter
-     * @param cloudRouterPostRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Cloud Router object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     * Customize request specification
+     * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+     * @return api
      */
-    public okhttp3.Call createCloudRouterCall(CloudRouterPostRequest cloudRouterPostRequest, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
-        }
-
-        Object localVarPostBody = cloudRouterPostRequest;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/routers";
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
-        }
-
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call createCloudRouterValidateBeforeCall(CloudRouterPostRequest cloudRouterPostRequest, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'cloudRouterPostRequest' is set
-        if (cloudRouterPostRequest == null) {
-            throw new ApiException("Missing the required parameter 'cloudRouterPostRequest' when calling createCloudRouter(Async)");
-        }
-
-        return createCloudRouterCall(cloudRouterPostRequest, _callback);
-
+    public CloudRoutersApi reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+        this.reqSpecCustomizer = reqSpecCustomizer;
+        return this;
     }
 
     /**
      * Create Routers
      * This API provides capability to create user&#39;s Cloud Routers
-     * @param cloudRouterPostRequest  (required)
-     * @return CloudRouter
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Cloud Router object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #body  (required)
+     * return CloudRouter
      */
-    public CloudRouter createCloudRouter(CloudRouterPostRequest cloudRouterPostRequest) throws ApiException {
-        ApiResponse<CloudRouter> localVarResp = createCloudRouterWithHttpInfo(cloudRouterPostRequest);
-        return localVarResp.getData();
-    }
+    public static class CreateCloudRouterOper implements Oper {
 
-    /**
-     * Create Routers
-     * This API provides capability to create user&#39;s Cloud Routers
-     * @param cloudRouterPostRequest  (required)
-     * @return ApiResponse&lt;CloudRouter&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Cloud Router object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<CloudRouter> createCloudRouterWithHttpInfo(CloudRouterPostRequest cloudRouterPostRequest) throws ApiException {
-        okhttp3.Call localVarCall = createCloudRouterValidateBeforeCall(cloudRouterPostRequest, null);
-        Type localVarReturnType = new TypeToken<CloudRouter>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = POST;
+        public static final String REQ_URI = "/fabric/v4/routers";
 
-    /**
-     * Create Routers (asynchronously)
-     * This API provides capability to create user&#39;s Cloud Routers
-     * @param cloudRouterPostRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Cloud Router object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createCloudRouterAsync(CloudRouterPostRequest cloudRouterPostRequest, final ApiCallback<CloudRouter> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = createCloudRouterValidateBeforeCall(cloudRouterPostRequest, _callback);
-        Type localVarReturnType = new TypeToken<CloudRouter>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for createCloudRouterAction
-     * @param routerId Router UUID (required)
-     * @param cloudRouterActionRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Internal server error </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createCloudRouterActionCall(UUID routerId, CloudRouterActionRequest cloudRouterActionRequest, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
+        public CreateCloudRouterOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setContentType("application/json");
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
         }
 
-        Object localVarPostBody = cloudRouterActionRequest;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/routers/{routerId}/actions"
-            .replace("{" + "routerId" + "}", localVarApiClient.escapeString(routerId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
+        /**
+         * POST /fabric/v4/routers
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
         }
 
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
+        /**
+         * POST /fabric/v4/routers
+         * @param handler handler
+         * @return CloudRouter
+         */
+        public CloudRouter executeAs(Function<Response, Response> handler) {
+            TypeRef<CloudRouter> type = new TypeRef<CloudRouter>(){};
+            return execute(handler).as(type);
         }
 
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+         /**
+         * @param cloudRouterPostRequest (CloudRouterPostRequest)  (required)
+         * @return operation
+         */
+        public CreateCloudRouterOper body(CloudRouterPostRequest cloudRouterPostRequest) {
+            reqSpec.setBody(cloudRouterPostRequest);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public CreateCloudRouterOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public CreateCloudRouterOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call createCloudRouterActionValidateBeforeCall(UUID routerId, CloudRouterActionRequest cloudRouterActionRequest, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'routerId' is set
-        if (routerId == null) {
-            throw new ApiException("Missing the required parameter 'routerId' when calling createCloudRouterAction(Async)");
-        }
-
-        // verify the required parameter 'cloudRouterActionRequest' is set
-        if (cloudRouterActionRequest == null) {
-            throw new ApiException("Missing the required parameter 'cloudRouterActionRequest' when calling createCloudRouterAction(Async)");
-        }
-
-        return createCloudRouterActionCall(routerId, cloudRouterActionRequest, _callback);
-
-    }
-
     /**
      * Route table actions
      * This API provides capability to refresh route table and bgp session summary information
-     * @param routerId Router UUID (required)
-     * @param cloudRouterActionRequest  (required)
-     * @return CloudRouterActionResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Internal server error </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #routerIdPath Router UUID (required)
+     * @see #body  (required)
+     * return CloudRouterActionResponse
      */
-    public CloudRouterActionResponse createCloudRouterAction(UUID routerId, CloudRouterActionRequest cloudRouterActionRequest) throws ApiException {
-        ApiResponse<CloudRouterActionResponse> localVarResp = createCloudRouterActionWithHttpInfo(routerId, cloudRouterActionRequest);
-        return localVarResp.getData();
-    }
+    public static class CreateCloudRouterActionOper implements Oper {
 
-    /**
-     * Route table actions
-     * This API provides capability to refresh route table and bgp session summary information
-     * @param routerId Router UUID (required)
-     * @param cloudRouterActionRequest  (required)
-     * @return ApiResponse&lt;CloudRouterActionResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Internal server error </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<CloudRouterActionResponse> createCloudRouterActionWithHttpInfo(UUID routerId, CloudRouterActionRequest cloudRouterActionRequest) throws ApiException {
-        okhttp3.Call localVarCall = createCloudRouterActionValidateBeforeCall(routerId, cloudRouterActionRequest, null);
-        Type localVarReturnType = new TypeToken<CloudRouterActionResponse>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = POST;
+        public static final String REQ_URI = "/fabric/v4/routers/{routerId}/actions";
 
-    /**
-     * Route table actions (asynchronously)
-     * This API provides capability to refresh route table and bgp session summary information
-     * @param routerId Router UUID (required)
-     * @param cloudRouterActionRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Internal server error </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createCloudRouterActionAsync(UUID routerId, CloudRouterActionRequest cloudRouterActionRequest, final ApiCallback<CloudRouterActionResponse> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = createCloudRouterActionValidateBeforeCall(routerId, cloudRouterActionRequest, _callback);
-        Type localVarReturnType = new TypeToken<CloudRouterActionResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for deleteCloudRouterByUuid
-     * @param routerId Cloud Router UUID (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 204 </td><td> Deleted Cloud Router Successfully </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call deleteCloudRouterByUuidCall(UUID routerId, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
+        public CreateCloudRouterActionOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setContentType("application/json");
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
         }
 
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/routers/{routerId}"
-            .replace("{" + "routerId" + "}", localVarApiClient.escapeString(routerId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
+        /**
+         * POST /fabric/v4/routers/{routerId}/actions
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
         }
 
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
+        /**
+         * POST /fabric/v4/routers/{routerId}/actions
+         * @param handler handler
+         * @return CloudRouterActionResponse
+         */
+        public CloudRouterActionResponse executeAs(Function<Response, Response> handler) {
+            TypeRef<CloudRouterActionResponse> type = new TypeRef<CloudRouterActionResponse>(){};
+            return execute(handler).as(type);
         }
 
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+         /**
+         * @param cloudRouterActionRequest (CloudRouterActionRequest)  (required)
+         * @return operation
+         */
+        public CreateCloudRouterActionOper body(CloudRouterActionRequest cloudRouterActionRequest) {
+            reqSpec.setBody(cloudRouterActionRequest);
+            return this;
+        }
+
+        public static final String ROUTER_ID_PATH = "routerId";
+
+        /**
+         * @param routerId (UUID) Router UUID (required)
+         * @return operation
+         */
+        public CreateCloudRouterActionOper routerIdPath(Object routerId) {
+            reqSpec.addPathParam(ROUTER_ID_PATH, routerId);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public CreateCloudRouterActionOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public CreateCloudRouterActionOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteCloudRouterByUuidValidateBeforeCall(UUID routerId, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'routerId' is set
-        if (routerId == null) {
-            throw new ApiException("Missing the required parameter 'routerId' when calling deleteCloudRouterByUuid(Async)");
-        }
-
-        return deleteCloudRouterByUuidCall(routerId, _callback);
-
-    }
-
     /**
      * Delete Routers
      * This API provides capability to delete user&#39;s Cloud Routers
-     * @param routerId Cloud Router UUID (required)
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 204 </td><td> Deleted Cloud Router Successfully </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #routerIdPath Cloud Router UUID (required)
      */
-    public void deleteCloudRouterByUuid(UUID routerId) throws ApiException {
-        deleteCloudRouterByUuidWithHttpInfo(routerId);
-    }
+    public static class DeleteCloudRouterByUuidOper implements Oper {
 
-    /**
-     * Delete Routers
-     * This API provides capability to delete user&#39;s Cloud Routers
-     * @param routerId Cloud Router UUID (required)
-     * @return ApiResponse&lt;Void&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 204 </td><td> Deleted Cloud Router Successfully </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<Void> deleteCloudRouterByUuidWithHttpInfo(UUID routerId) throws ApiException {
-        okhttp3.Call localVarCall = deleteCloudRouterByUuidValidateBeforeCall(routerId, null);
-        return localVarApiClient.execute(localVarCall);
-    }
+        public static final Method REQ_METHOD = DELETE;
+        public static final String REQ_URI = "/fabric/v4/routers/{routerId}";
 
-    /**
-     * Delete Routers (asynchronously)
-     * This API provides capability to delete user&#39;s Cloud Routers
-     * @param routerId Cloud Router UUID (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 204 </td><td> Deleted Cloud Router Successfully </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call deleteCloudRouterByUuidAsync(UUID routerId, final ApiCallback<Void> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = deleteCloudRouterByUuidValidateBeforeCall(routerId, _callback);
-        localVarApiClient.executeAsync(localVarCall, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getCloudRouterActions
-     * @param routerId Router UUID (required)
-     * @param state Action state (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Internal server error </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getCloudRouterActionsCall(UUID routerId, CloudRouterActionState state, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
+        public DeleteCloudRouterByUuidOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
         }
 
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/routers/{routerId}/actions"
-            .replace("{" + "routerId" + "}", localVarApiClient.escapeString(routerId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        if (state != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("state", state));
+        /**
+         * DELETE /fabric/v4/routers/{routerId}
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
         }
 
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
+        public static final String ROUTER_ID_PATH = "routerId";
+
+        /**
+         * @param routerId (UUID) Cloud Router UUID (required)
+         * @return operation
+         */
+        public DeleteCloudRouterByUuidOper routerIdPath(Object routerId) {
+            reqSpec.addPathParam(ROUTER_ID_PATH, routerId);
+            return this;
         }
 
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public DeleteCloudRouterByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
         }
 
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public DeleteCloudRouterByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getCloudRouterActionsValidateBeforeCall(UUID routerId, CloudRouterActionState state, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'routerId' is set
-        if (routerId == null) {
-            throw new ApiException("Missing the required parameter 'routerId' when calling getCloudRouterActions(Async)");
-        }
-
-        return getCloudRouterActionsCall(routerId, state, _callback);
-
-    }
-
     /**
      * Get actions
      * This API provides capability to fetch action status
-     * @param routerId Router UUID (required)
-     * @param state Action state (optional)
-     * @return CloudRouterActionResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Internal server error </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #routerIdPath Router UUID (required)
+     * @see #stateQuery Action state (optional)
+     * return CloudRouterActionResponse
      */
-    public CloudRouterActionResponse getCloudRouterActions(UUID routerId, CloudRouterActionState state) throws ApiException {
-        ApiResponse<CloudRouterActionResponse> localVarResp = getCloudRouterActionsWithHttpInfo(routerId, state);
-        return localVarResp.getData();
-    }
+    public static class GetCloudRouterActionsOper implements Oper {
 
-    /**
-     * Get actions
-     * This API provides capability to fetch action status
-     * @param routerId Router UUID (required)
-     * @param state Action state (optional)
-     * @return ApiResponse&lt;CloudRouterActionResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Internal server error </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<CloudRouterActionResponse> getCloudRouterActionsWithHttpInfo(UUID routerId, CloudRouterActionState state) throws ApiException {
-        okhttp3.Call localVarCall = getCloudRouterActionsValidateBeforeCall(routerId, state, null);
-        Type localVarReturnType = new TypeToken<CloudRouterActionResponse>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = GET;
+        public static final String REQ_URI = "/fabric/v4/routers/{routerId}/actions";
 
-    /**
-     * Get actions (asynchronously)
-     * This API provides capability to fetch action status
-     * @param routerId Router UUID (required)
-     * @param state Action state (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Internal server error </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getCloudRouterActionsAsync(UUID routerId, CloudRouterActionState state, final ApiCallback<CloudRouterActionResponse> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = getCloudRouterActionsValidateBeforeCall(routerId, state, _callback);
-        Type localVarReturnType = new TypeToken<CloudRouterActionResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getCloudRouterByUuid
-     * @param routerId Cloud Router UUID (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Cloud Router object </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getCloudRouterByUuidCall(UUID routerId, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
+        public GetCloudRouterActionsOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
         }
 
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/routers/{routerId}"
-            .replace("{" + "routerId" + "}", localVarApiClient.escapeString(routerId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
+        /**
+         * GET /fabric/v4/routers/{routerId}/actions
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
         }
 
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
+        /**
+         * GET /fabric/v4/routers/{routerId}/actions
+         * @param handler handler
+         * @return CloudRouterActionResponse
+         */
+        public CloudRouterActionResponse executeAs(Function<Response, Response> handler) {
+            TypeRef<CloudRouterActionResponse> type = new TypeRef<CloudRouterActionResponse>(){};
+            return execute(handler).as(type);
         }
 
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        public static final String ROUTER_ID_PATH = "routerId";
+
+        /**
+         * @param routerId (UUID) Router UUID (required)
+         * @return operation
+         */
+        public GetCloudRouterActionsOper routerIdPath(Object routerId) {
+            reqSpec.addPathParam(ROUTER_ID_PATH, routerId);
+            return this;
+        }
+
+        public static final String STATE_QUERY = "state";
+
+        /**
+         * @param state (CloudRouterActionState) Action state (optional)
+         * @return operation
+         */
+        public GetCloudRouterActionsOper stateQuery(Object... state) {
+            reqSpec.addQueryParam(STATE_QUERY, state);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public GetCloudRouterActionsOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public GetCloudRouterActionsOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getCloudRouterByUuidValidateBeforeCall(UUID routerId, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'routerId' is set
-        if (routerId == null) {
-            throw new ApiException("Missing the required parameter 'routerId' when calling getCloudRouterByUuid(Async)");
-        }
-
-        return getCloudRouterByUuidCall(routerId, _callback);
-
-    }
-
     /**
      * Get Routers
      * This API provides capability to retrieve user&#39;s Cloud Routers
-     * @param routerId Cloud Router UUID (required)
-     * @return CloudRouter
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Cloud Router object </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #routerIdPath Cloud Router UUID (required)
+     * return CloudRouter
      */
-    public CloudRouter getCloudRouterByUuid(UUID routerId) throws ApiException {
-        ApiResponse<CloudRouter> localVarResp = getCloudRouterByUuidWithHttpInfo(routerId);
-        return localVarResp.getData();
-    }
+    public static class GetCloudRouterByUuidOper implements Oper {
 
-    /**
-     * Get Routers
-     * This API provides capability to retrieve user&#39;s Cloud Routers
-     * @param routerId Cloud Router UUID (required)
-     * @return ApiResponse&lt;CloudRouter&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Cloud Router object </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<CloudRouter> getCloudRouterByUuidWithHttpInfo(UUID routerId) throws ApiException {
-        okhttp3.Call localVarCall = getCloudRouterByUuidValidateBeforeCall(routerId, null);
-        Type localVarReturnType = new TypeToken<CloudRouter>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = GET;
+        public static final String REQ_URI = "/fabric/v4/routers/{routerId}";
 
-    /**
-     * Get Routers (asynchronously)
-     * This API provides capability to retrieve user&#39;s Cloud Routers
-     * @param routerId Cloud Router UUID (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Cloud Router object </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getCloudRouterByUuidAsync(UUID routerId, final ApiCallback<CloudRouter> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = getCloudRouterByUuidValidateBeforeCall(routerId, _callback);
-        Type localVarReturnType = new TypeToken<CloudRouter>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getCloudRouterPackageByCode
-     * @param routerPackageCode Equinix-assigned Cloud Router package identifier (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Cloud Router Package details </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getCloudRouterPackageByCodeCall(RouterPackageCode routerPackageCode, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
+        public GetCloudRouterByUuidOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
         }
 
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/routerPackages/{routerPackageCode}"
-            .replace("{" + "routerPackageCode" + "}", localVarApiClient.escapeString(routerPackageCode.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
+        /**
+         * GET /fabric/v4/routers/{routerId}
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
         }
 
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
+        /**
+         * GET /fabric/v4/routers/{routerId}
+         * @param handler handler
+         * @return CloudRouter
+         */
+        public CloudRouter executeAs(Function<Response, Response> handler) {
+            TypeRef<CloudRouter> type = new TypeRef<CloudRouter>(){};
+            return execute(handler).as(type);
         }
 
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        public static final String ROUTER_ID_PATH = "routerId";
+
+        /**
+         * @param routerId (UUID) Cloud Router UUID (required)
+         * @return operation
+         */
+        public GetCloudRouterByUuidOper routerIdPath(Object routerId) {
+            reqSpec.addPathParam(ROUTER_ID_PATH, routerId);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public GetCloudRouterByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public GetCloudRouterByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getCloudRouterPackageByCodeValidateBeforeCall(RouterPackageCode routerPackageCode, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'routerPackageCode' is set
-        if (routerPackageCode == null) {
-            throw new ApiException("Missing the required parameter 'routerPackageCode' when calling getCloudRouterPackageByCode(Async)");
-        }
-
-        return getCloudRouterPackageByCodeCall(routerPackageCode, _callback);
-
-    }
-
     /**
      * Get Package Details
      * This API provides capability to retrieve user&#39;s Cloud Routers Package Details
-     * @param routerPackageCode Equinix-assigned Cloud Router package identifier (required)
-     * @return CloudRouterPackage
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Cloud Router Package details </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #routerPackageCodePath Equinix-assigned Cloud Router package identifier (required)
+     * return CloudRouterPackage
      */
-    public CloudRouterPackage getCloudRouterPackageByCode(RouterPackageCode routerPackageCode) throws ApiException {
-        ApiResponse<CloudRouterPackage> localVarResp = getCloudRouterPackageByCodeWithHttpInfo(routerPackageCode);
-        return localVarResp.getData();
-    }
+    public static class GetCloudRouterPackageByCodeOper implements Oper {
 
-    /**
-     * Get Package Details
-     * This API provides capability to retrieve user&#39;s Cloud Routers Package Details
-     * @param routerPackageCode Equinix-assigned Cloud Router package identifier (required)
-     * @return ApiResponse&lt;CloudRouterPackage&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Cloud Router Package details </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<CloudRouterPackage> getCloudRouterPackageByCodeWithHttpInfo(RouterPackageCode routerPackageCode) throws ApiException {
-        okhttp3.Call localVarCall = getCloudRouterPackageByCodeValidateBeforeCall(routerPackageCode, null);
-        Type localVarReturnType = new TypeToken<CloudRouterPackage>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = GET;
+        public static final String REQ_URI = "/fabric/v4/routerPackages/{routerPackageCode}";
 
-    /**
-     * Get Package Details (asynchronously)
-     * This API provides capability to retrieve user&#39;s Cloud Routers Package Details
-     * @param routerPackageCode Equinix-assigned Cloud Router package identifier (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Cloud Router Package details </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getCloudRouterPackageByCodeAsync(RouterPackageCode routerPackageCode, final ApiCallback<CloudRouterPackage> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = getCloudRouterPackageByCodeValidateBeforeCall(routerPackageCode, _callback);
-        Type localVarReturnType = new TypeToken<CloudRouterPackage>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getCloudRouterPackages
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Cloud Router Packages </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getCloudRouterPackagesCall(Integer offset, Integer limit, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
+        public GetCloudRouterPackageByCodeOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
         }
 
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/routerPackages";
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        if (offset != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("offset", offset));
+        /**
+         * GET /fabric/v4/routerPackages/{routerPackageCode}
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
         }
 
-        if (limit != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
+        /**
+         * GET /fabric/v4/routerPackages/{routerPackageCode}
+         * @param handler handler
+         * @return CloudRouterPackage
+         */
+        public CloudRouterPackage executeAs(Function<Response, Response> handler) {
+            TypeRef<CloudRouterPackage> type = new TypeRef<CloudRouterPackage>(){};
+            return execute(handler).as(type);
         }
 
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
+        public static final String ROUTER_PACKAGE_CODE_PATH = "routerPackageCode";
+
+        /**
+         * @param routerPackageCode (RouterPackageCode) Equinix-assigned Cloud Router package identifier (required)
+         * @return operation
+         */
+        public GetCloudRouterPackageByCodeOper routerPackageCodePath(Object routerPackageCode) {
+            reqSpec.addPathParam(ROUTER_PACKAGE_CODE_PATH, routerPackageCode);
+            return this;
         }
 
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public GetCloudRouterPackageByCodeOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
         }
 
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public GetCloudRouterPackageByCodeOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getCloudRouterPackagesValidateBeforeCall(Integer offset, Integer limit, final ApiCallback _callback) throws ApiException {
-        return getCloudRouterPackagesCall(offset, limit, _callback);
-
-    }
-
     /**
      * List Packages
      * This API provides capability to retrieve user&#39;s Cloud Routers Packages
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @return PackageResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Cloud Router Packages </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #offsetQuery offset (optional)
+     * @see #limitQuery number of records to fetch (optional)
+     * return PackageResponse
      */
-    public PackageResponse getCloudRouterPackages(Integer offset, Integer limit) throws ApiException {
-        ApiResponse<PackageResponse> localVarResp = getCloudRouterPackagesWithHttpInfo(offset, limit);
-        return localVarResp.getData();
-    }
+    public static class GetCloudRouterPackagesOper implements Oper {
 
-    /**
-     * List Packages
-     * This API provides capability to retrieve user&#39;s Cloud Routers Packages
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @return ApiResponse&lt;PackageResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Cloud Router Packages </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<PackageResponse> getCloudRouterPackagesWithHttpInfo(Integer offset, Integer limit) throws ApiException {
-        okhttp3.Call localVarCall = getCloudRouterPackagesValidateBeforeCall(offset, limit, null);
-        Type localVarReturnType = new TypeToken<PackageResponse>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = GET;
+        public static final String REQ_URI = "/fabric/v4/routerPackages";
 
-    /**
-     * List Packages (asynchronously)
-     * This API provides capability to retrieve user&#39;s Cloud Routers Packages
-     * @param offset offset (optional)
-     * @param limit number of records to fetch (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Cloud Router Packages </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getCloudRouterPackagesAsync(Integer offset, Integer limit, final ApiCallback<PackageResponse> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = getCloudRouterPackagesValidateBeforeCall(offset, limit, _callback);
-        Type localVarReturnType = new TypeToken<PackageResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for searchCloudRouterRoutes
-     * @param routerId Router UUID (required)
-     * @param routeTableEntrySearchRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Internal server error </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call searchCloudRouterRoutesCall(UUID routerId, RouteTableEntrySearchRequest routeTableEntrySearchRequest, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
+        public GetCloudRouterPackagesOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
         }
 
-        Object localVarPostBody = routeTableEntrySearchRequest;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/routers/{routerId}/routes/search"
-            .replace("{" + "routerId" + "}", localVarApiClient.escapeString(routerId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
+        /**
+         * GET /fabric/v4/routerPackages
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
         }
 
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
+        /**
+         * GET /fabric/v4/routerPackages
+         * @param handler handler
+         * @return PackageResponse
+         */
+        public PackageResponse executeAs(Function<Response, Response> handler) {
+            TypeRef<PackageResponse> type = new TypeRef<PackageResponse>(){};
+            return execute(handler).as(type);
         }
 
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        public static final String OFFSET_QUERY = "offset";
+
+        /**
+         * @param offset (Integer) offset (optional)
+         * @return operation
+         */
+        public GetCloudRouterPackagesOper offsetQuery(Object... offset) {
+            reqSpec.addQueryParam(OFFSET_QUERY, offset);
+            return this;
+        }
+
+        public static final String LIMIT_QUERY = "limit";
+
+        /**
+         * @param limit (Integer) number of records to fetch (optional)
+         * @return operation
+         */
+        public GetCloudRouterPackagesOper limitQuery(Object... limit) {
+            reqSpec.addQueryParam(LIMIT_QUERY, limit);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public GetCloudRouterPackagesOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public GetCloudRouterPackagesOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call searchCloudRouterRoutesValidateBeforeCall(UUID routerId, RouteTableEntrySearchRequest routeTableEntrySearchRequest, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'routerId' is set
-        if (routerId == null) {
-            throw new ApiException("Missing the required parameter 'routerId' when calling searchCloudRouterRoutes(Async)");
-        }
-
-        // verify the required parameter 'routeTableEntrySearchRequest' is set
-        if (routeTableEntrySearchRequest == null) {
-            throw new ApiException("Missing the required parameter 'routeTableEntrySearchRequest' when calling searchCloudRouterRoutes(Async)");
-        }
-
-        return searchCloudRouterRoutesCall(routerId, routeTableEntrySearchRequest, _callback);
-
-    }
-
     /**
      * Search Route Table
      * The API provides capability to get list of user&#39;s Fabric Cloud Router route table entries using search criteria, including optional filtering, pagination and sorting
-     * @param routerId Router UUID (required)
-     * @param routeTableEntrySearchRequest  (required)
-     * @return RouteTableEntrySearchResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Internal server error </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #routerIdPath Router UUID (required)
+     * @see #body  (required)
+     * return RouteTableEntrySearchResponse
      */
-    public RouteTableEntrySearchResponse searchCloudRouterRoutes(UUID routerId, RouteTableEntrySearchRequest routeTableEntrySearchRequest) throws ApiException {
-        ApiResponse<RouteTableEntrySearchResponse> localVarResp = searchCloudRouterRoutesWithHttpInfo(routerId, routeTableEntrySearchRequest);
-        return localVarResp.getData();
-    }
+    public static class SearchCloudRouterRoutesOper implements Oper {
 
-    /**
-     * Search Route Table
-     * The API provides capability to get list of user&#39;s Fabric Cloud Router route table entries using search criteria, including optional filtering, pagination and sorting
-     * @param routerId Router UUID (required)
-     * @param routeTableEntrySearchRequest  (required)
-     * @return ApiResponse&lt;RouteTableEntrySearchResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Internal server error </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<RouteTableEntrySearchResponse> searchCloudRouterRoutesWithHttpInfo(UUID routerId, RouteTableEntrySearchRequest routeTableEntrySearchRequest) throws ApiException {
-        okhttp3.Call localVarCall = searchCloudRouterRoutesValidateBeforeCall(routerId, routeTableEntrySearchRequest, null);
-        Type localVarReturnType = new TypeToken<RouteTableEntrySearchResponse>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = POST;
+        public static final String REQ_URI = "/fabric/v4/routers/{routerId}/routes/search";
 
-    /**
-     * Search Route Table (asynchronously)
-     * The API provides capability to get list of user&#39;s Fabric Cloud Router route table entries using search criteria, including optional filtering, pagination and sorting
-     * @param routerId Router UUID (required)
-     * @param routeTableEntrySearchRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Internal server error </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call searchCloudRouterRoutesAsync(UUID routerId, RouteTableEntrySearchRequest routeTableEntrySearchRequest, final ApiCallback<RouteTableEntrySearchResponse> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = searchCloudRouterRoutesValidateBeforeCall(routerId, routeTableEntrySearchRequest, _callback);
-        Type localVarReturnType = new TypeToken<RouteTableEntrySearchResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for searchCloudRouters
-     * @param cloudRouterSearchRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call searchCloudRoutersCall(CloudRouterSearchRequest cloudRouterSearchRequest, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
+        public SearchCloudRouterRoutesOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setContentType("application/json");
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
         }
 
-        Object localVarPostBody = cloudRouterSearchRequest;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/routers/search";
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
+        /**
+         * POST /fabric/v4/routers/{routerId}/routes/search
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
         }
 
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
+        /**
+         * POST /fabric/v4/routers/{routerId}/routes/search
+         * @param handler handler
+         * @return RouteTableEntrySearchResponse
+         */
+        public RouteTableEntrySearchResponse executeAs(Function<Response, Response> handler) {
+            TypeRef<RouteTableEntrySearchResponse> type = new TypeRef<RouteTableEntrySearchResponse>(){};
+            return execute(handler).as(type);
         }
 
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+         /**
+         * @param routeTableEntrySearchRequest (RouteTableEntrySearchRequest)  (required)
+         * @return operation
+         */
+        public SearchCloudRouterRoutesOper body(RouteTableEntrySearchRequest routeTableEntrySearchRequest) {
+            reqSpec.setBody(routeTableEntrySearchRequest);
+            return this;
+        }
+
+        public static final String ROUTER_ID_PATH = "routerId";
+
+        /**
+         * @param routerId (UUID) Router UUID (required)
+         * @return operation
+         */
+        public SearchCloudRouterRoutesOper routerIdPath(Object routerId) {
+            reqSpec.addPathParam(ROUTER_ID_PATH, routerId);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public SearchCloudRouterRoutesOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public SearchCloudRouterRoutesOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call searchCloudRoutersValidateBeforeCall(CloudRouterSearchRequest cloudRouterSearchRequest, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'cloudRouterSearchRequest' is set
-        if (cloudRouterSearchRequest == null) {
-            throw new ApiException("Missing the required parameter 'cloudRouterSearchRequest' when calling searchCloudRouters(Async)");
-        }
-
-        return searchCloudRoutersCall(cloudRouterSearchRequest, _callback);
-
-    }
-
     /**
      * Search Routers
      * The API provides capability to get list of user&#39;s Cloud Routers using search criteria, including optional filtering, pagination and sorting
-     * @param cloudRouterSearchRequest  (required)
-     * @return SearchResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #body  (required)
+     * return SearchResponse
      */
-    public SearchResponse searchCloudRouters(CloudRouterSearchRequest cloudRouterSearchRequest) throws ApiException {
-        ApiResponse<SearchResponse> localVarResp = searchCloudRoutersWithHttpInfo(cloudRouterSearchRequest);
-        return localVarResp.getData();
-    }
+    public static class SearchCloudRoutersOper implements Oper {
 
-    /**
-     * Search Routers
-     * The API provides capability to get list of user&#39;s Cloud Routers using search criteria, including optional filtering, pagination and sorting
-     * @param cloudRouterSearchRequest  (required)
-     * @return ApiResponse&lt;SearchResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<SearchResponse> searchCloudRoutersWithHttpInfo(CloudRouterSearchRequest cloudRouterSearchRequest) throws ApiException {
-        okhttp3.Call localVarCall = searchCloudRoutersValidateBeforeCall(cloudRouterSearchRequest, null);
-        Type localVarReturnType = new TypeToken<SearchResponse>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = POST;
+        public static final String REQ_URI = "/fabric/v4/routers/search";
 
-    /**
-     * Search Routers (asynchronously)
-     * The API provides capability to get list of user&#39;s Cloud Routers using search criteria, including optional filtering, pagination and sorting
-     * @param cloudRouterSearchRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call searchCloudRoutersAsync(CloudRouterSearchRequest cloudRouterSearchRequest, final ApiCallback<SearchResponse> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = searchCloudRoutersValidateBeforeCall(cloudRouterSearchRequest, _callback);
-        Type localVarReturnType = new TypeToken<SearchResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for updateCloudRouterByUuid
-     * @param routerId Cloud Router UUID (required)
-     * @param cloudRouterChangeOperation  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Cloud Router object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call updateCloudRouterByUuidCall(UUID routerId, List<CloudRouterChangeOperation> cloudRouterChangeOperation, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
+        public SearchCloudRoutersOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setContentType("application/json");
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
         }
 
-        Object localVarPostBody = cloudRouterChangeOperation;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/routers/{routerId}"
-            .replace("{" + "routerId" + "}", localVarApiClient.escapeString(routerId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
+        /**
+         * POST /fabric/v4/routers/search
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
         }
 
-        final String[] localVarContentTypes = {
-            "application/json-patch+json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
+        /**
+         * POST /fabric/v4/routers/search
+         * @param handler handler
+         * @return SearchResponse
+         */
+        public SearchResponse executeAs(Function<Response, Response> handler) {
+            TypeRef<SearchResponse> type = new TypeRef<SearchResponse>(){};
+            return execute(handler).as(type);
         }
 
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+         /**
+         * @param cloudRouterSearchRequest (CloudRouterSearchRequest)  (required)
+         * @return operation
+         */
+        public SearchCloudRoutersOper body(CloudRouterSearchRequest cloudRouterSearchRequest) {
+            reqSpec.setBody(cloudRouterSearchRequest);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public SearchCloudRoutersOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public SearchCloudRoutersOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateCloudRouterByUuidValidateBeforeCall(UUID routerId, List<CloudRouterChangeOperation> cloudRouterChangeOperation, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'routerId' is set
-        if (routerId == null) {
-            throw new ApiException("Missing the required parameter 'routerId' when calling updateCloudRouterByUuid(Async)");
-        }
-
-        // verify the required parameter 'cloudRouterChangeOperation' is set
-        if (cloudRouterChangeOperation == null) {
-            throw new ApiException("Missing the required parameter 'cloudRouterChangeOperation' when calling updateCloudRouterByUuid(Async)");
-        }
-
-        return updateCloudRouterByUuidCall(routerId, cloudRouterChangeOperation, _callback);
-
-    }
-
     /**
      * Update Routers
      * This API provides capability to update user&#39;s Cloud Routers
-     * @param routerId Cloud Router UUID (required)
-     * @param cloudRouterChangeOperation  (required)
-     * @return CloudRouter
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Cloud Router object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #routerIdPath Cloud Router UUID (required)
+     * @see #body  (required)
+     * return CloudRouter
      */
-    public CloudRouter updateCloudRouterByUuid(UUID routerId, List<CloudRouterChangeOperation> cloudRouterChangeOperation) throws ApiException {
-        ApiResponse<CloudRouter> localVarResp = updateCloudRouterByUuidWithHttpInfo(routerId, cloudRouterChangeOperation);
-        return localVarResp.getData();
-    }
+    public static class UpdateCloudRouterByUuidOper implements Oper {
 
-    /**
-     * Update Routers
-     * This API provides capability to update user&#39;s Cloud Routers
-     * @param routerId Cloud Router UUID (required)
-     * @param cloudRouterChangeOperation  (required)
-     * @return ApiResponse&lt;CloudRouter&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Cloud Router object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<CloudRouter> updateCloudRouterByUuidWithHttpInfo(UUID routerId, List<CloudRouterChangeOperation> cloudRouterChangeOperation) throws ApiException {
-        okhttp3.Call localVarCall = updateCloudRouterByUuidValidateBeforeCall(routerId, cloudRouterChangeOperation, null);
-        Type localVarReturnType = new TypeToken<CloudRouter>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = PATCH;
+        public static final String REQ_URI = "/fabric/v4/routers/{routerId}";
 
-    /**
-     * Update Routers (asynchronously)
-     * This API provides capability to update user&#39;s Cloud Routers
-     * @param routerId Cloud Router UUID (required)
-     * @param cloudRouterChangeOperation  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Fabric Cloud Router object </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
-        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call updateCloudRouterByUuidAsync(UUID routerId, List<CloudRouterChangeOperation> cloudRouterChangeOperation, final ApiCallback<CloudRouter> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = updateCloudRouterByUuidValidateBeforeCall(routerId, cloudRouterChangeOperation, _callback);
-        Type localVarReturnType = new TypeToken<CloudRouter>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+        public UpdateCloudRouterByUuidOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setContentType("application/json-patch+json");
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
+        }
+
+        /**
+         * PATCH /fabric/v4/routers/{routerId}
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
+        }
+
+        /**
+         * PATCH /fabric/v4/routers/{routerId}
+         * @param handler handler
+         * @return CloudRouter
+         */
+        public CloudRouter executeAs(Function<Response, Response> handler) {
+            TypeRef<CloudRouter> type = new TypeRef<CloudRouter>(){};
+            return execute(handler).as(type);
+        }
+
+         /**
+         * @param cloudRouterChangeOperation (List&lt;CloudRouterChangeOperation&gt;)  (required)
+         * @return operation
+         */
+        public UpdateCloudRouterByUuidOper body(List<CloudRouterChangeOperation> cloudRouterChangeOperation) {
+            reqSpec.setBody(cloudRouterChangeOperation);
+            return this;
+        }
+
+        public static final String ROUTER_ID_PATH = "routerId";
+
+        /**
+         * @param routerId (UUID) Cloud Router UUID (required)
+         * @return operation
+         */
+        public UpdateCloudRouterByUuidOper routerIdPath(Object routerId) {
+            reqSpec.addPathParam(ROUTER_ID_PATH, routerId);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public UpdateCloudRouterByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public UpdateCloudRouterByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
 }

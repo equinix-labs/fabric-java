@@ -11,20 +11,12 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.annotations.SerializedName;
-
-import java.io.IOException;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Route table entry type
  */
-@JsonAdapter(RouteTableEntryType.Adapter.class)
 public enum RouteTableEntryType {
   
   IPV4_BGP_ROUTE("IPv4_BGP_ROUTE"),
@@ -45,6 +37,7 @@ public enum RouteTableEntryType {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -54,6 +47,7 @@ public enum RouteTableEntryType {
     return String.valueOf(value);
   }
 
+  @JsonCreator
   public static RouteTableEntryType fromValue(String value) {
     for (RouteTableEntryType b : RouteTableEntryType.values()) {
       if (b.value.equals(value)) {
@@ -61,19 +55,6 @@ public enum RouteTableEntryType {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-
-  public static class Adapter extends TypeAdapter<RouteTableEntryType> {
-    @Override
-    public void write(final JsonWriter jsonWriter, final RouteTableEntryType enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
-
-    @Override
-    public RouteTableEntryType read(final JsonReader jsonReader) throws IOException {
-      String value = jsonReader.nextString();
-      return RouteTableEntryType.fromValue(value);
-    }
   }
 }
 

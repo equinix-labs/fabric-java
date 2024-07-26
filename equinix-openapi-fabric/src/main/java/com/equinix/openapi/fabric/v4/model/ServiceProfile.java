@@ -11,148 +11,114 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.equinix.openapi.fabric.v4.model.Changelog;
-import com.equinix.openapi.fabric.v4.model.CustomField;
-import com.equinix.openapi.fabric.v4.model.MarketingInfo;
-import com.equinix.openapi.fabric.v4.model.Project;
-import com.equinix.openapi.fabric.v4.model.ServiceMetro;
-import com.equinix.openapi.fabric.v4.model.ServiceProfileAccessPointCOLO;
-import com.equinix.openapi.fabric.v4.model.ServiceProfileAccessPointType;
-import com.equinix.openapi.fabric.v4.model.ServiceProfileAccessPointVD;
-import com.equinix.openapi.fabric.v4.model.ServiceProfileStateEnum;
-import com.equinix.openapi.fabric.v4.model.ServiceProfileTypeEnum;
-import com.equinix.openapi.fabric.v4.model.ServiceProfileVisibilityEnum;
-import com.equinix.openapi.fabric.v4.model.SimplifiedAccount;
-import com.equinix.openapi.fabric.v4.model.SimplifiedNotification;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.TypeAdapterFactory;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import com.equinix.openapi.fabric.JSON;
 
 /**
  * Service Profile is a software definition for a named provider service and it&#39;s network connectivity requirements. This includes the basic marketing information and one or more sets of access points (a set per each access point type) fulfilling the provider service. 
  */
+@JsonPropertyOrder({
+  ServiceProfile.JSON_PROPERTY_STATE,
+  ServiceProfile.JSON_PROPERTY_ACCOUNT,
+  ServiceProfile.JSON_PROPERTY_PROJECT,
+  ServiceProfile.JSON_PROPERTY_CHANGE_LOG,
+  ServiceProfile.JSON_PROPERTY_HREF,
+  ServiceProfile.JSON_PROPERTY_TYPE,
+  ServiceProfile.JSON_PROPERTY_NAME,
+  ServiceProfile.JSON_PROPERTY_UUID,
+  ServiceProfile.JSON_PROPERTY_DESCRIPTION,
+  ServiceProfile.JSON_PROPERTY_NOTIFICATIONS,
+  ServiceProfile.JSON_PROPERTY_TAGS,
+  ServiceProfile.JSON_PROPERTY_VISIBILITY,
+  ServiceProfile.JSON_PROPERTY_ALLOWED_EMAILS,
+  ServiceProfile.JSON_PROPERTY_ACCESS_POINT_TYPE_CONFIGS,
+  ServiceProfile.JSON_PROPERTY_CUSTOM_FIELDS,
+  ServiceProfile.JSON_PROPERTY_MARKETING_INFO,
+  ServiceProfile.JSON_PROPERTY_PORTS,
+  ServiceProfile.JSON_PROPERTY_VIRTUAL_DEVICES,
+  ServiceProfile.JSON_PROPERTY_METROS,
+  ServiceProfile.JSON_PROPERTY_SELF_PROFILE,
+  ServiceProfile.JSON_PROPERTY_PROJECT_ID
+})
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ServiceProfile {
-  public static final String SERIALIZED_NAME_STATE = "state";
-  @SerializedName(SERIALIZED_NAME_STATE)
+  public static final String JSON_PROPERTY_STATE = "state";
   private ServiceProfileStateEnum state;
 
-  public static final String SERIALIZED_NAME_ACCOUNT = "account";
-  @SerializedName(SERIALIZED_NAME_ACCOUNT)
+  public static final String JSON_PROPERTY_ACCOUNT = "account";
   private SimplifiedAccount account;
 
-  public static final String SERIALIZED_NAME_PROJECT = "project";
-  @SerializedName(SERIALIZED_NAME_PROJECT)
+  public static final String JSON_PROPERTY_PROJECT = "project";
   private Project project;
 
-  public static final String SERIALIZED_NAME_CHANGE_LOG = "changeLog";
-  @SerializedName(SERIALIZED_NAME_CHANGE_LOG)
+  public static final String JSON_PROPERTY_CHANGE_LOG = "changeLog";
   private Changelog changeLog;
 
-  public static final String SERIALIZED_NAME_HREF = "href";
-  @SerializedName(SERIALIZED_NAME_HREF)
+  public static final String JSON_PROPERTY_HREF = "href";
   private URI href;
 
-  public static final String SERIALIZED_NAME_TYPE = "type";
-  @SerializedName(SERIALIZED_NAME_TYPE)
+  public static final String JSON_PROPERTY_TYPE = "type";
   private ServiceProfileTypeEnum type;
 
-  public static final String SERIALIZED_NAME_NAME = "name";
-  @SerializedName(SERIALIZED_NAME_NAME)
+  public static final String JSON_PROPERTY_NAME = "name";
   private String name;
 
-  public static final String SERIALIZED_NAME_UUID = "uuid";
-  @SerializedName(SERIALIZED_NAME_UUID)
+  public static final String JSON_PROPERTY_UUID = "uuid";
   private UUID uuid;
 
-  public static final String SERIALIZED_NAME_DESCRIPTION = "description";
-  @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
   private String description;
 
-  public static final String SERIALIZED_NAME_NOTIFICATIONS = "notifications";
-  @SerializedName(SERIALIZED_NAME_NOTIFICATIONS)
+  public static final String JSON_PROPERTY_NOTIFICATIONS = "notifications";
   private List<SimplifiedNotification> notifications = new ArrayList<>();
 
-  public static final String SERIALIZED_NAME_TAGS = "tags";
-  @SerializedName(SERIALIZED_NAME_TAGS)
+  public static final String JSON_PROPERTY_TAGS = "tags";
   private List<String> tags = new ArrayList<>();
 
-  public static final String SERIALIZED_NAME_VISIBILITY = "visibility";
-  @SerializedName(SERIALIZED_NAME_VISIBILITY)
+  public static final String JSON_PROPERTY_VISIBILITY = "visibility";
   private ServiceProfileVisibilityEnum visibility;
 
-  public static final String SERIALIZED_NAME_ALLOWED_EMAILS = "allowedEmails";
-  @SerializedName(SERIALIZED_NAME_ALLOWED_EMAILS)
+  public static final String JSON_PROPERTY_ALLOWED_EMAILS = "allowedEmails";
   private List<String> allowedEmails = new ArrayList<>();
 
-  public static final String SERIALIZED_NAME_ACCESS_POINT_TYPE_CONFIGS = "accessPointTypeConfigs";
-  @SerializedName(SERIALIZED_NAME_ACCESS_POINT_TYPE_CONFIGS)
+  public static final String JSON_PROPERTY_ACCESS_POINT_TYPE_CONFIGS = "accessPointTypeConfigs";
   private List<ServiceProfileAccessPointType> accessPointTypeConfigs = new ArrayList<>();
 
-  public static final String SERIALIZED_NAME_CUSTOM_FIELDS = "customFields";
-  @SerializedName(SERIALIZED_NAME_CUSTOM_FIELDS)
+  public static final String JSON_PROPERTY_CUSTOM_FIELDS = "customFields";
   private List<CustomField> customFields = new ArrayList<>();
 
-  public static final String SERIALIZED_NAME_MARKETING_INFO = "marketingInfo";
-  @SerializedName(SERIALIZED_NAME_MARKETING_INFO)
+  public static final String JSON_PROPERTY_MARKETING_INFO = "marketingInfo";
   private MarketingInfo marketingInfo;
 
-  public static final String SERIALIZED_NAME_PORTS = "ports";
-  @SerializedName(SERIALIZED_NAME_PORTS)
+  public static final String JSON_PROPERTY_PORTS = "ports";
   private List<ServiceProfileAccessPointCOLO> ports = new ArrayList<>();
 
-  public static final String SERIALIZED_NAME_VIRTUAL_DEVICES = "virtualDevices";
-  @SerializedName(SERIALIZED_NAME_VIRTUAL_DEVICES)
+  public static final String JSON_PROPERTY_VIRTUAL_DEVICES = "virtualDevices";
   private List<ServiceProfileAccessPointVD> virtualDevices = new ArrayList<>();
 
-  public static final String SERIALIZED_NAME_METROS = "metros";
-  @SerializedName(SERIALIZED_NAME_METROS)
+  public static final String JSON_PROPERTY_METROS = "metros";
   private List<ServiceMetro> metros = new ArrayList<>();
 
-  public static final String SERIALIZED_NAME_SELF_PROFILE = "selfProfile";
-  @SerializedName(SERIALIZED_NAME_SELF_PROFILE)
+  public static final String JSON_PROPERTY_SELF_PROFILE = "selfProfile";
   private Boolean selfProfile;
 
-  public static final String SERIALIZED_NAME_PROJECT_ID = "projectId";
-  @SerializedName(SERIALIZED_NAME_PROJECT_ID)
+  public static final String JSON_PROPERTY_PROJECT_ID = "projectId";
   private String projectId;
 
   public ServiceProfile() {
   }
 
-  
+  @JsonCreator
   public ServiceProfile(
-     URI href
+    @JsonProperty(JSON_PROPERTY_HREF) URI href
   ) {
     this();
     this.href = href;
@@ -169,12 +135,16 @@ public class ServiceProfile {
    * @return state
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServiceProfileStateEnum getState() {
     return state;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_STATE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setState(ServiceProfileStateEnum state) {
     this.state = state;
   }
@@ -191,12 +161,16 @@ public class ServiceProfile {
    * @return account
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ACCOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public SimplifiedAccount getAccount() {
     return account;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ACCOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAccount(SimplifiedAccount account) {
     this.account = account;
   }
@@ -213,12 +187,16 @@ public class ServiceProfile {
    * @return project
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PROJECT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Project getProject() {
     return project;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PROJECT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setProject(Project project) {
     this.project = project;
   }
@@ -235,12 +213,16 @@ public class ServiceProfile {
    * @return changeLog
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_CHANGE_LOG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Changelog getChangeLog() {
     return changeLog;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CHANGE_LOG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setChangeLog(Changelog changeLog) {
     this.changeLog = changeLog;
   }
@@ -251,6 +233,8 @@ public class ServiceProfile {
    * @return href
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_HREF)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public URI getHref() {
     return href;
@@ -270,12 +254,16 @@ public class ServiceProfile {
    * @return type
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServiceProfileTypeEnum getType() {
     return type;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setType(ServiceProfileTypeEnum type) {
     this.type = type;
   }
@@ -292,12 +280,16 @@ public class ServiceProfile {
    * @return name
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
     return name;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setName(String name) {
     this.name = name;
   }
@@ -314,12 +306,16 @@ public class ServiceProfile {
    * @return uuid
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_UUID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public UUID getUuid() {
     return uuid;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_UUID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUuid(UUID uuid) {
     this.uuid = uuid;
   }
@@ -336,12 +332,16 @@ public class ServiceProfile {
    * @return description
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
     return description;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDescription(String description) {
     this.description = description;
   }
@@ -366,12 +366,16 @@ public class ServiceProfile {
    * @return notifications
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_NOTIFICATIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<SimplifiedNotification> getNotifications() {
     return notifications;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_NOTIFICATIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNotifications(List<SimplifiedNotification> notifications) {
     this.notifications = notifications;
   }
@@ -396,12 +400,16 @@ public class ServiceProfile {
    * @return tags
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_TAGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getTags() {
     return tags;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TAGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTags(List<String> tags) {
     this.tags = tags;
   }
@@ -418,12 +426,16 @@ public class ServiceProfile {
    * @return visibility
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_VISIBILITY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServiceProfileVisibilityEnum getVisibility() {
     return visibility;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_VISIBILITY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVisibility(ServiceProfileVisibilityEnum visibility) {
     this.visibility = visibility;
   }
@@ -448,12 +460,16 @@ public class ServiceProfile {
    * @return allowedEmails
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ALLOWED_EMAILS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getAllowedEmails() {
     return allowedEmails;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ALLOWED_EMAILS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAllowedEmails(List<String> allowedEmails) {
     this.allowedEmails = allowedEmails;
   }
@@ -478,12 +494,16 @@ public class ServiceProfile {
    * @return accessPointTypeConfigs
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ACCESS_POINT_TYPE_CONFIGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<ServiceProfileAccessPointType> getAccessPointTypeConfigs() {
     return accessPointTypeConfigs;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ACCESS_POINT_TYPE_CONFIGS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAccessPointTypeConfigs(List<ServiceProfileAccessPointType> accessPointTypeConfigs) {
     this.accessPointTypeConfigs = accessPointTypeConfigs;
   }
@@ -508,12 +528,16 @@ public class ServiceProfile {
    * @return customFields
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_CUSTOM_FIELDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<CustomField> getCustomFields() {
     return customFields;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CUSTOM_FIELDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCustomFields(List<CustomField> customFields) {
     this.customFields = customFields;
   }
@@ -530,12 +554,16 @@ public class ServiceProfile {
    * @return marketingInfo
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_MARKETING_INFO)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public MarketingInfo getMarketingInfo() {
     return marketingInfo;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_MARKETING_INFO)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMarketingInfo(MarketingInfo marketingInfo) {
     this.marketingInfo = marketingInfo;
   }
@@ -560,12 +588,16 @@ public class ServiceProfile {
    * @return ports
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PORTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<ServiceProfileAccessPointCOLO> getPorts() {
     return ports;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PORTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPorts(List<ServiceProfileAccessPointCOLO> ports) {
     this.ports = ports;
   }
@@ -590,12 +622,16 @@ public class ServiceProfile {
    * @return virtualDevices
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_VIRTUAL_DEVICES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<ServiceProfileAccessPointVD> getVirtualDevices() {
     return virtualDevices;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_VIRTUAL_DEVICES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVirtualDevices(List<ServiceProfileAccessPointVD> virtualDevices) {
     this.virtualDevices = virtualDevices;
   }
@@ -620,12 +656,16 @@ public class ServiceProfile {
    * @return metros
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_METROS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<ServiceMetro> getMetros() {
     return metros;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_METROS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMetros(List<ServiceMetro> metros) {
     this.metros = metros;
   }
@@ -642,12 +682,16 @@ public class ServiceProfile {
    * @return selfProfile
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_SELF_PROFILE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getSelfProfile() {
     return selfProfile;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_SELF_PROFILE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSelfProfile(Boolean selfProfile) {
     this.selfProfile = selfProfile;
   }
@@ -664,59 +708,18 @@ public class ServiceProfile {
    * @return projectId
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PROJECT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getProjectId() {
     return projectId;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PROJECT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setProjectId(String projectId) {
     this.projectId = projectId;
-  }
-
-  /**
-   * A container for additional, undeclared properties.
-   * This is a holder for any undeclared properties as specified with
-   * the 'additionalProperties' keyword in the OAS document.
-   */
-  private Map<String, Object> additionalProperties;
-
-  /**
-   * Set the additional (undeclared) property with the specified name and value.
-   * If the property does not already exist, create it otherwise replace it.
-   *
-   * @param key name of the property
-   * @param value value of the property
-   * @return the ServiceProfile instance itself
-   */
-  public ServiceProfile putAdditionalProperty(String key, Object value) {
-    if (this.additionalProperties == null) {
-        this.additionalProperties = new HashMap<String, Object>();
-    }
-    this.additionalProperties.put(key, value);
-    return this;
-  }
-
-  /**
-   * Return the additional (undeclared) property.
-   *
-   * @return a map of objects
-   */
-  public Map<String, Object> getAdditionalProperties() {
-    return additionalProperties;
-  }
-
-  /**
-   * Return the additional (undeclared) property with the specified name.
-   *
-   * @param key name of the property
-   * @return an object
-   */
-  public Object getAdditionalProperty(String key) {
-    if (this.additionalProperties == null) {
-        return null;
-    }
-    return this.additionalProperties.get(key);
   }
 
 
@@ -749,13 +752,12 @@ public class ServiceProfile {
         Objects.equals(this.virtualDevices, serviceProfile.virtualDevices) &&
         Objects.equals(this.metros, serviceProfile.metros) &&
         Objects.equals(this.selfProfile, serviceProfile.selfProfile) &&
-        Objects.equals(this.projectId, serviceProfile.projectId)&&
-        Objects.equals(this.additionalProperties, serviceProfile.additionalProperties);
+        Objects.equals(this.projectId, serviceProfile.projectId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(state, account, project, changeLog, href, type, name, uuid, description, notifications, tags, visibility, allowedEmails, accessPointTypeConfigs, customFields, marketingInfo, ports, virtualDevices, metros, selfProfile, projectId, additionalProperties);
+    return Objects.hash(state, account, project, changeLog, href, type, name, uuid, description, notifications, tags, visibility, allowedEmails, accessPointTypeConfigs, customFields, marketingInfo, ports, virtualDevices, metros, selfProfile, projectId);
   }
 
   @Override
@@ -783,7 +785,6 @@ public class ServiceProfile {
     sb.append("    metros: ").append(toIndentedString(metros)).append("\n");
     sb.append("    selfProfile: ").append(toIndentedString(selfProfile)).append("\n");
     sb.append("    projectId: ").append(toIndentedString(projectId)).append("\n");
-    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -799,256 +800,5 @@ public class ServiceProfile {
     return o.toString().replace("\n", "\n    ");
   }
 
-
-  public static HashSet<String> openapiFields;
-  public static HashSet<String> openapiRequiredFields;
-
-  static {
-    // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("href");
-    openapiFields.add("type");
-    openapiFields.add("name");
-    openapiFields.add("uuid");
-    openapiFields.add("description");
-    openapiFields.add("notifications");
-    openapiFields.add("tags");
-    openapiFields.add("visibility");
-    openapiFields.add("allowedEmails");
-    openapiFields.add("accessPointTypeConfigs");
-    openapiFields.add("customFields");
-    openapiFields.add("marketingInfo");
-    openapiFields.add("ports");
-    openapiFields.add("virtualDevices");
-    openapiFields.add("metros");
-    openapiFields.add("selfProfile");
-    openapiFields.add("projectId");
-
-    // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-  }
-
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to ServiceProfile
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (!ServiceProfile.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in ServiceProfile is not found in the empty JSON string", ServiceProfile.openapiRequiredFields.toString()));
-        }
-      }
-      // validate the optional field `account`
-      if (jsonObj.get("account") != null && !jsonObj.get("account").isJsonNull()) {
-        SimplifiedAccount.validateJsonObject(jsonObj.getAsJsonObject("account"));
-      }
-      // validate the optional field `project`
-      if (jsonObj.get("project") != null && !jsonObj.get("project").isJsonNull()) {
-        Project.validateJsonObject(jsonObj.getAsJsonObject("project"));
-      }
-      // validate the optional field `changeLog`
-      if (jsonObj.get("changeLog") != null && !jsonObj.get("changeLog").isJsonNull()) {
-        Changelog.validateJsonObject(jsonObj.getAsJsonObject("changeLog"));
-      }
-      if ((jsonObj.get("href") != null && !jsonObj.get("href").isJsonNull()) && !jsonObj.get("href").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `href` to be a primitive type in the JSON string but got `%s`", jsonObj.get("href").toString()));
-      }
-      if ((jsonObj.get("name") != null && !jsonObj.get("name").isJsonNull()) && !jsonObj.get("name").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
-      }
-      if ((jsonObj.get("uuid") != null && !jsonObj.get("uuid").isJsonNull()) && !jsonObj.get("uuid").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `uuid` to be a primitive type in the JSON string but got `%s`", jsonObj.get("uuid").toString()));
-      }
-      if ((jsonObj.get("description") != null && !jsonObj.get("description").isJsonNull()) && !jsonObj.get("description").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `description` to be a primitive type in the JSON string but got `%s`", jsonObj.get("description").toString()));
-      }
-      if (jsonObj.get("notifications") != null && !jsonObj.get("notifications").isJsonNull()) {
-        JsonArray jsonArraynotifications = jsonObj.getAsJsonArray("notifications");
-        if (jsonArraynotifications != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("notifications").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `notifications` to be an array in the JSON string but got `%s`", jsonObj.get("notifications").toString()));
-          }
-
-          // validate the optional field `notifications` (array)
-          for (int i = 0; i < jsonArraynotifications.size(); i++) {
-            SimplifiedNotification.validateJsonObject(jsonArraynotifications.get(i).getAsJsonObject());
-          };
-        }
-      }
-      // ensure the optional json data is an array if present
-      if (jsonObj.get("tags") != null && !jsonObj.get("tags").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `tags` to be an array in the JSON string but got `%s`", jsonObj.get("tags").toString()));
-      }
-      // ensure the optional json data is an array if present
-      if (jsonObj.get("allowedEmails") != null && !jsonObj.get("allowedEmails").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `allowedEmails` to be an array in the JSON string but got `%s`", jsonObj.get("allowedEmails").toString()));
-      }
-      if (jsonObj.get("accessPointTypeConfigs") != null && !jsonObj.get("accessPointTypeConfigs").isJsonNull()) {
-        JsonArray jsonArrayaccessPointTypeConfigs = jsonObj.getAsJsonArray("accessPointTypeConfigs");
-        if (jsonArrayaccessPointTypeConfigs != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("accessPointTypeConfigs").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `accessPointTypeConfigs` to be an array in the JSON string but got `%s`", jsonObj.get("accessPointTypeConfigs").toString()));
-          }
-
-          // validate the optional field `accessPointTypeConfigs` (array)
-          for (int i = 0; i < jsonArrayaccessPointTypeConfigs.size(); i++) {
-            ServiceProfileAccessPointType.validateJsonObject(jsonArrayaccessPointTypeConfigs.get(i).getAsJsonObject());
-          };
-        }
-      }
-      if (jsonObj.get("customFields") != null && !jsonObj.get("customFields").isJsonNull()) {
-        JsonArray jsonArraycustomFields = jsonObj.getAsJsonArray("customFields");
-        if (jsonArraycustomFields != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("customFields").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `customFields` to be an array in the JSON string but got `%s`", jsonObj.get("customFields").toString()));
-          }
-
-          // validate the optional field `customFields` (array)
-          for (int i = 0; i < jsonArraycustomFields.size(); i++) {
-            CustomField.validateJsonObject(jsonArraycustomFields.get(i).getAsJsonObject());
-          };
-        }
-      }
-      // validate the optional field `marketingInfo`
-      if (jsonObj.get("marketingInfo") != null && !jsonObj.get("marketingInfo").isJsonNull()) {
-        MarketingInfo.validateJsonObject(jsonObj.getAsJsonObject("marketingInfo"));
-      }
-      if (jsonObj.get("ports") != null && !jsonObj.get("ports").isJsonNull()) {
-        JsonArray jsonArrayports = jsonObj.getAsJsonArray("ports");
-        if (jsonArrayports != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("ports").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `ports` to be an array in the JSON string but got `%s`", jsonObj.get("ports").toString()));
-          }
-
-          // validate the optional field `ports` (array)
-          for (int i = 0; i < jsonArrayports.size(); i++) {
-            ServiceProfileAccessPointCOLO.validateJsonObject(jsonArrayports.get(i).getAsJsonObject());
-          };
-        }
-      }
-      if (jsonObj.get("virtualDevices") != null && !jsonObj.get("virtualDevices").isJsonNull()) {
-        JsonArray jsonArrayvirtualDevices = jsonObj.getAsJsonArray("virtualDevices");
-        if (jsonArrayvirtualDevices != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("virtualDevices").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `virtualDevices` to be an array in the JSON string but got `%s`", jsonObj.get("virtualDevices").toString()));
-          }
-
-          // validate the optional field `virtualDevices` (array)
-          for (int i = 0; i < jsonArrayvirtualDevices.size(); i++) {
-            ServiceProfileAccessPointVD.validateJsonObject(jsonArrayvirtualDevices.get(i).getAsJsonObject());
-          };
-        }
-      }
-      if (jsonObj.get("metros") != null && !jsonObj.get("metros").isJsonNull()) {
-        JsonArray jsonArraymetros = jsonObj.getAsJsonArray("metros");
-        if (jsonArraymetros != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("metros").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `metros` to be an array in the JSON string but got `%s`", jsonObj.get("metros").toString()));
-          }
-
-          // validate the optional field `metros` (array)
-          for (int i = 0; i < jsonArraymetros.size(); i++) {
-            ServiceMetro.validateJsonObject(jsonArraymetros.get(i).getAsJsonObject());
-          };
-        }
-      }
-      if ((jsonObj.get("projectId") != null && !jsonObj.get("projectId").isJsonNull()) && !jsonObj.get("projectId").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `projectId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("projectId").toString()));
-      }
-  }
-
-  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
-    @SuppressWarnings("unchecked")
-    @Override
-    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!ServiceProfile.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'ServiceProfile' and its subtypes
-       }
-       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<ServiceProfile> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(ServiceProfile.class));
-
-       return (TypeAdapter<T>) new TypeAdapter<ServiceProfile>() {
-           @Override
-           public void write(JsonWriter out, ServiceProfile value) throws IOException {
-             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
-             obj.remove("additionalProperties");
-             // serialize additional properties
-             if (value.getAdditionalProperties() != null) {
-               for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
-                 if (entry.getValue() instanceof String)
-                   obj.addProperty(entry.getKey(), (String) entry.getValue());
-                 else if (entry.getValue() instanceof Number)
-                   obj.addProperty(entry.getKey(), (Number) entry.getValue());
-                 else if (entry.getValue() instanceof Boolean)
-                   obj.addProperty(entry.getKey(), (Boolean) entry.getValue());
-                 else if (entry.getValue() instanceof Character)
-                   obj.addProperty(entry.getKey(), (Character) entry.getValue());
-                 else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
-                 }
-               }
-             }
-             elementAdapter.write(out, obj);
-           }
-
-           @Override
-           public ServiceProfile read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
-             // store additional fields in the deserialized instance
-             ServiceProfile instance = thisAdapter.fromJsonTree(jsonObj);
-             for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
-               if (!openapiFields.contains(entry.getKey())) {
-                 if (entry.getValue().isJsonPrimitive()) { // primitive type
-                   if (entry.getValue().getAsJsonPrimitive().isString())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsString());
-                   else if (entry.getValue().getAsJsonPrimitive().isNumber())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsNumber());
-                   else if (entry.getValue().getAsJsonPrimitive().isBoolean())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
-                   else
-                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else if (entry.getValue().isJsonArray()) {
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
-                 } else { // JSON object
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
-                 }
-               }
-             }
-             return instance;
-           }
-
-       }.nullSafe();
-    }
-  }
-
- /**
-  * Create an instance of ServiceProfile given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ServiceProfile
-  * @throws IOException if the JSON string is invalid with respect to ServiceProfile
-  */
-  public static ServiceProfile fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, ServiceProfile.class);
-  }
-
- /**
-  * Convert an instance of ServiceProfile to an JSON string
-  *
-  * @return JSON string
-  */
-  public String toJson() {
-    return JSON.getGson().toJson(this);
-  }
 }
 

@@ -1,6 +1,5 @@
 /*
  * Equinix Fabric API v4
- * Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br>
  *
  * Contact: api-support@equinix.com
  *
@@ -9,173 +8,597 @@
  * Do not edit the class manually.
  */
 
+
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.ApiException;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Disabled;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.v4.model.JsonPatchOperation;
+import com.equinix.openapi.fabric.v4.model.ServiceProfileRequest;
+import com.equinix.openapi.fabric.v4.model.ServiceProfileSearchRequest;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.filter.log.ErrorLoggingFilter;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+
+import java.util.List;
+import java.util.UUID;
+
+import static com.equinix.openapi.fabric.JacksonObjectMapper.jackson;
+import static io.restassured.config.ObjectMapperConfig.objectMapperConfig;
+import static io.restassured.config.RestAssuredConfig.config;
 
 /**
  * API tests for ServiceProfilesApi
  */
-@Disabled
-public class ServiceProfilesApiTest extends AbstractTest {
+@Ignore
+public class ServiceProfilesApiTest {
 
-    private final ServiceProfilesApi api = new ServiceProfilesApi(generateToken());
+    private ServiceProfilesApi api;
+
+    @Before
+    public void createApi() {
+        api = ApiClient.api(ApiClient.Config.apiConfig().reqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setConfig(config().objectMapperConfig(objectMapperConfig().defaultObjectMapper(jackson())))
+                        .addFilter(new ErrorLoggingFilter())
+                        .setBaseUri("https://api.equinix.com"))).serviceProfiles();
+    }
 
     /**
-     * Create Profile
-     * <p>
-     * Create Service Profile creates Equinix Fabric? Service Profile.
-     *
-     * @throws ApiException if the Api call fails
+     * Successful Create operation
      */
     @Test
-    public void createServiceProfileTest() throws ApiException {
-        //
-        //ServiceProfileRequest serviceProfileRequest = null;
-        //
-        //ServiceProfile response = api.createServiceProfile(serviceProfileRequest);
-
+    public void shouldSee201AfterCreateServiceProfile() {
+        ServiceProfileRequest serviceProfileRequest = null;
+        api.createServiceProfile()
+                .body(serviceProfileRequest).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Delete Profile
-     * <p>
-     * delete Service Profile by UUID
-     *
-     * @throws ApiException if the Api call fails
+     * Bad request
      */
     @Test
-    public void deleteServiceProfileByUuidTest() throws ApiException {
-        //
-        //UUID serviceProfileId = null;
-        //
-        //ServiceProfile response = api.deleteServiceProfileByUuid(serviceProfileId);
-
+    public void shouldSee400AfterCreateServiceProfile() {
+        ServiceProfileRequest serviceProfileRequest = null;
+        api.createServiceProfile()
+                .body(serviceProfileRequest).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Get Profile
-     * <p>
-     * Get service profile by UUID. View Point parameter if set to zSide will give seller&#39;s view of the profile otherwise buyer&#39;s view.
-     *
-     * @throws ApiException if the Api call fails
+     * Unauthorized
      */
     @Test
-    public void getServiceProfileByUuidTest() throws ApiException {
-        //
-        //UUID serviceProfileId = null;
-        //
-        //String viewPoint = null;
-        //
-        //ServiceProfile response = api.getServiceProfileByUuid(serviceProfileId, viewPoint);
-
+    public void shouldSee401AfterCreateServiceProfile() {
+        ServiceProfileRequest serviceProfileRequest = null;
+        api.createServiceProfile()
+                .body(serviceProfileRequest).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Get Profile Metros
-     * <p>
-     * Get service profile metros by UUID.
-     *
-     * @throws ApiException if the Api call fails
+     * Forbidden
      */
     @Test
-    public void getServiceProfileMetrosByUuidTest() throws ApiException {
-        //
-        //UUID serviceProfileId = null;
-        //
-        //Integer offset = null;
-        //
-        //Integer limit = null;
-        //
-        //ServiceMetros response = api.getServiceProfileMetrosByUuid(serviceProfileId, offset, limit);
-
+    public void shouldSee403AfterCreateServiceProfile() {
+        ServiceProfileRequest serviceProfileRequest = null;
+        api.createServiceProfile()
+                .body(serviceProfileRequest).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Get all Profiles
-     * <p>
-     * The API request returns all Equinix Fabric Service Profiles in accordance with the view point requested.
-     *
-     * @throws ApiException if the Api call fails
+     * Internal Server Error
      */
     @Test
-    public void getServiceProfilesTest() throws ApiException {
-        //
-        //Integer offset = null;
-        //
-        //Integer limit = null;
-        //
-        //String viewPoint = null;
-        //
-        //ServiceProfiles response = api.getServiceProfiles(offset, limit, viewPoint);
+    public void shouldSee500AfterCreateServiceProfile() {
+        ServiceProfileRequest serviceProfileRequest = null;
+        api.createServiceProfile()
+                .body(serviceProfileRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
 
+
+    /**
+     * Successful Delete operation
+     */
+    @Test
+    public void shouldSee200AfterDeleteServiceProfileByUuid() {
+        UUID serviceProfileId = null;
+        api.deleteServiceProfileByUuid()
+                .serviceProfileIdPath(serviceProfileId).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Replace Profile
-     * <p>
-     * This API request replaces a service profile definition
-     *
-     * @throws ApiException if the Api call fails
+     * Bad request
      */
     @Test
-    public void putServiceProfileByUuidTest() throws ApiException {
-        //
-        //UUID serviceProfileId = null;
-        //
-        //String ifMatch = null;
-        //
-        //ServiceProfileRequest serviceProfileRequest = null;
-        //
-        //ServiceProfile response = api.putServiceProfileByUuid(serviceProfileId, ifMatch, serviceProfileRequest);
-
+    public void shouldSee400AfterDeleteServiceProfileByUuid() {
+        UUID serviceProfileId = null;
+        api.deleteServiceProfileByUuid()
+                .serviceProfileIdPath(serviceProfileId).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Profile Search
-     * <p>
-     * Search service profiles by search criteria
-     *
-     * @throws ApiException if the Api call fails
+     * Unauthorized
      */
     @Test
-    public void searchServiceProfilesTest() throws ApiException {
-        //
-        //ServiceProfileSearchRequest serviceProfileSearchRequest = null;
-        //
-        //String viewPoint = null;
-        //
-        //ServiceProfiles response = api.searchServiceProfiles(serviceProfileSearchRequest, viewPoint);
-
+    public void shouldSee401AfterDeleteServiceProfileByUuid() {
+        UUID serviceProfileId = null;
+        api.deleteServiceProfileByUuid()
+                .serviceProfileIdPath(serviceProfileId).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Update Profile
-     * <p>
-     * Update Service Profile by UUID
-     *
-     * @throws ApiException if the Api call fails
+     * Forbidden
      */
     @Test
-    public void updateServiceProfileByUuidTest() throws ApiException {
-        //
-        //UUID serviceProfileId = null;
-        //
-        //String ifMatch = null;
-        //
-        //List<JsonPatchOperation> jsonPatchOperation = null;
-        //
-        //ServiceProfile response = api.updateServiceProfileByUuid(serviceProfileId, ifMatch, jsonPatchOperation);
-
+    public void shouldSee403AfterDeleteServiceProfileByUuid() {
+        UUID serviceProfileId = null;
+        api.deleteServiceProfileByUuid()
+                .serviceProfileIdPath(serviceProfileId).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
+
+    /**
+     * Not Found
+     */
+    @Test
+    public void shouldSee404AfterDeleteServiceProfileByUuid() {
+        UUID serviceProfileId = null;
+        api.deleteServiceProfileByUuid()
+                .serviceProfileIdPath(serviceProfileId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal Server Error
+     */
+    @Test
+    public void shouldSee500AfterDeleteServiceProfileByUuid() {
+        UUID serviceProfileId = null;
+        api.deleteServiceProfileByUuid()
+                .serviceProfileIdPath(serviceProfileId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee200AfterGetServiceProfileByUuid() {
+        UUID serviceProfileId = null;
+        String viewPoint = null;
+        api.getServiceProfileByUuid()
+                .serviceProfileIdPath(serviceProfileId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterGetServiceProfileByUuid() {
+        UUID serviceProfileId = null;
+        String viewPoint = null;
+        api.getServiceProfileByUuid()
+                .serviceProfileIdPath(serviceProfileId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterGetServiceProfileByUuid() {
+        UUID serviceProfileId = null;
+        String viewPoint = null;
+        api.getServiceProfileByUuid()
+                .serviceProfileIdPath(serviceProfileId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterGetServiceProfileByUuid() {
+        UUID serviceProfileId = null;
+        String viewPoint = null;
+        api.getServiceProfileByUuid()
+                .serviceProfileIdPath(serviceProfileId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal Server Error
+     */
+    @Test
+    public void shouldSee500AfterGetServiceProfileByUuid() {
+        UUID serviceProfileId = null;
+        String viewPoint = null;
+        api.getServiceProfileByUuid()
+                .serviceProfileIdPath(serviceProfileId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee200AfterGetServiceProfileMetrosByUuid() {
+        UUID serviceProfileId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getServiceProfileMetrosByUuid()
+                .serviceProfileIdPath(serviceProfileId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterGetServiceProfileMetrosByUuid() {
+        UUID serviceProfileId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getServiceProfileMetrosByUuid()
+                .serviceProfileIdPath(serviceProfileId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterGetServiceProfileMetrosByUuid() {
+        UUID serviceProfileId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getServiceProfileMetrosByUuid()
+                .serviceProfileIdPath(serviceProfileId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterGetServiceProfileMetrosByUuid() {
+        UUID serviceProfileId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getServiceProfileMetrosByUuid()
+                .serviceProfileIdPath(serviceProfileId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal Server Error
+     */
+    @Test
+    public void shouldSee500AfterGetServiceProfileMetrosByUuid() {
+        UUID serviceProfileId = null;
+        Integer offset = null;
+        Integer limit = null;
+        api.getServiceProfileMetrosByUuid()
+                .serviceProfileIdPath(serviceProfileId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee200AfterGetServiceProfiles() {
+        Integer offset = null;
+        Integer limit = null;
+        String viewPoint = null;
+        api.getServiceProfiles().execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterGetServiceProfiles() {
+        Integer offset = null;
+        Integer limit = null;
+        String viewPoint = null;
+        api.getServiceProfiles().execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterGetServiceProfiles() {
+        Integer offset = null;
+        Integer limit = null;
+        String viewPoint = null;
+        api.getServiceProfiles().execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterGetServiceProfiles() {
+        Integer offset = null;
+        Integer limit = null;
+        String viewPoint = null;
+        api.getServiceProfiles().execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal Server Error
+     */
+    @Test
+    public void shouldSee500AfterGetServiceProfiles() {
+        Integer offset = null;
+        Integer limit = null;
+        String viewPoint = null;
+        api.getServiceProfiles().execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful Put operation
+     */
+    @Test
+    public void shouldSee202AfterPutServiceProfileByUuid() {
+        UUID serviceProfileId = null;
+        String ifMatch = null;
+        ServiceProfileRequest serviceProfileRequest = null;
+        api.putServiceProfileByUuid()
+                .serviceProfileIdPath(serviceProfileId)
+                .ifMatchHeader(ifMatch)
+                .body(serviceProfileRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterPutServiceProfileByUuid() {
+        UUID serviceProfileId = null;
+        String ifMatch = null;
+        ServiceProfileRequest serviceProfileRequest = null;
+        api.putServiceProfileByUuid()
+                .serviceProfileIdPath(serviceProfileId)
+                .ifMatchHeader(ifMatch)
+                .body(serviceProfileRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterPutServiceProfileByUuid() {
+        UUID serviceProfileId = null;
+        String ifMatch = null;
+        ServiceProfileRequest serviceProfileRequest = null;
+        api.putServiceProfileByUuid()
+                .serviceProfileIdPath(serviceProfileId)
+                .ifMatchHeader(ifMatch)
+                .body(serviceProfileRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterPutServiceProfileByUuid() {
+        UUID serviceProfileId = null;
+        String ifMatch = null;
+        ServiceProfileRequest serviceProfileRequest = null;
+        api.putServiceProfileByUuid()
+                .serviceProfileIdPath(serviceProfileId)
+                .ifMatchHeader(ifMatch)
+                .body(serviceProfileRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Not Found
+     */
+    @Test
+    public void shouldSee404AfterPutServiceProfileByUuid() {
+        UUID serviceProfileId = null;
+        String ifMatch = null;
+        ServiceProfileRequest serviceProfileRequest = null;
+        api.putServiceProfileByUuid()
+                .serviceProfileIdPath(serviceProfileId)
+                .ifMatchHeader(ifMatch)
+                .body(serviceProfileRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal Server Error
+     */
+    @Test
+    public void shouldSee500AfterPutServiceProfileByUuid() {
+        UUID serviceProfileId = null;
+        String ifMatch = null;
+        ServiceProfileRequest serviceProfileRequest = null;
+        api.putServiceProfileByUuid()
+                .serviceProfileIdPath(serviceProfileId)
+                .ifMatchHeader(ifMatch)
+                .body(serviceProfileRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee200AfterSearchServiceProfiles() {
+        ServiceProfileSearchRequest serviceProfileSearchRequest = null;
+        String viewPoint = null;
+        api.searchServiceProfiles()
+                .body(serviceProfileSearchRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterSearchServiceProfiles() {
+        ServiceProfileSearchRequest serviceProfileSearchRequest = null;
+        String viewPoint = null;
+        api.searchServiceProfiles()
+                .body(serviceProfileSearchRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterSearchServiceProfiles() {
+        ServiceProfileSearchRequest serviceProfileSearchRequest = null;
+        String viewPoint = null;
+        api.searchServiceProfiles()
+                .body(serviceProfileSearchRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal Server Error
+     */
+    @Test
+    public void shouldSee500AfterSearchServiceProfiles() {
+        ServiceProfileSearchRequest serviceProfileSearchRequest = null;
+        String viewPoint = null;
+        api.searchServiceProfiles()
+                .body(serviceProfileSearchRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful Patch operation
+     */
+    @Test
+    public void shouldSee200AfterUpdateServiceProfileByUuid() {
+        UUID serviceProfileId = null;
+        String ifMatch = null;
+        List<JsonPatchOperation> jsonPatchOperation = null;
+        api.updateServiceProfileByUuid()
+                .serviceProfileIdPath(serviceProfileId)
+                .ifMatchHeader(ifMatch)
+                .body(jsonPatchOperation).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterUpdateServiceProfileByUuid() {
+        UUID serviceProfileId = null;
+        String ifMatch = null;
+        List<JsonPatchOperation> jsonPatchOperation = null;
+        api.updateServiceProfileByUuid()
+                .serviceProfileIdPath(serviceProfileId)
+                .ifMatchHeader(ifMatch)
+                .body(jsonPatchOperation).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterUpdateServiceProfileByUuid() {
+        UUID serviceProfileId = null;
+        String ifMatch = null;
+        List<JsonPatchOperation> jsonPatchOperation = null;
+        api.updateServiceProfileByUuid()
+                .serviceProfileIdPath(serviceProfileId)
+                .ifMatchHeader(ifMatch)
+                .body(jsonPatchOperation).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterUpdateServiceProfileByUuid() {
+        UUID serviceProfileId = null;
+        String ifMatch = null;
+        List<JsonPatchOperation> jsonPatchOperation = null;
+        api.updateServiceProfileByUuid()
+                .serviceProfileIdPath(serviceProfileId)
+                .ifMatchHeader(ifMatch)
+                .body(jsonPatchOperation).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Not Found
+     */
+    @Test
+    public void shouldSee404AfterUpdateServiceProfileByUuid() {
+        UUID serviceProfileId = null;
+        String ifMatch = null;
+        List<JsonPatchOperation> jsonPatchOperation = null;
+        api.updateServiceProfileByUuid()
+                .serviceProfileIdPath(serviceProfileId)
+                .ifMatchHeader(ifMatch)
+                .body(jsonPatchOperation).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Precondition Failed
+     */
+    @Test
+    public void shouldSee412AfterUpdateServiceProfileByUuid() {
+        UUID serviceProfileId = null;
+        String ifMatch = null;
+        List<JsonPatchOperation> jsonPatchOperation = null;
+        api.updateServiceProfileByUuid()
+                .serviceProfileIdPath(serviceProfileId)
+                .ifMatchHeader(ifMatch)
+                .body(jsonPatchOperation).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal Server Error
+     */
+    @Test
+    public void shouldSee500AfterUpdateServiceProfileByUuid() {
+        UUID serviceProfileId = null;
+        String ifMatch = null;
+        List<JsonPatchOperation> jsonPatchOperation = null;
+        api.updateServiceProfileByUuid()
+                .serviceProfileIdPath(serviceProfileId)
+                .ifMatchHeader(ifMatch)
+                .body(jsonPatchOperation).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
 }

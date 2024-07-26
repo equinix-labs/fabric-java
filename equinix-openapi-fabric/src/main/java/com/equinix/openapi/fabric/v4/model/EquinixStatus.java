@@ -11,20 +11,12 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.annotations.SerializedName;
-
-import java.io.IOException;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Connection status
  */
-@JsonAdapter(EquinixStatus.Adapter.class)
 public enum EquinixStatus {
   
   REJECTED_ACK("REJECTED_ACK"),
@@ -95,6 +87,7 @@ public enum EquinixStatus {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -104,6 +97,7 @@ public enum EquinixStatus {
     return String.valueOf(value);
   }
 
+  @JsonCreator
   public static EquinixStatus fromValue(String value) {
     for (EquinixStatus b : EquinixStatus.values()) {
       if (b.value.equals(value)) {
@@ -111,19 +105,6 @@ public enum EquinixStatus {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-
-  public static class Adapter extends TypeAdapter<EquinixStatus> {
-    @Override
-    public void write(final JsonWriter jsonWriter, final EquinixStatus enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
-
-    @Override
-    public EquinixStatus read(final JsonReader jsonReader) throws IOException {
-      String value = jsonReader.nextString();
-      return EquinixStatus.fromValue(value);
-    }
   }
 }
 

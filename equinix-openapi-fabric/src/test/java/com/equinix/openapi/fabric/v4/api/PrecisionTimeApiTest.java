@@ -1,6 +1,5 @@
 /*
  * Equinix Fabric API v4
- * Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br>
  *
  * Contact: api-support@equinix.com
  *
@@ -9,136 +8,426 @@
  * Do not edit the class manually.
  */
 
+
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.ApiException;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Disabled;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.v4.model.PrecisionTimeChangeOperation;
+import com.equinix.openapi.fabric.v4.model.PrecisionTimeServiceRequest;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.filter.log.ErrorLoggingFilter;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+
+import java.util.List;
+import java.util.UUID;
+
+import static com.equinix.openapi.fabric.JacksonObjectMapper.jackson;
+import static io.restassured.config.ObjectMapperConfig.objectMapperConfig;
+import static io.restassured.config.RestAssuredConfig.config;
 
 /**
  * API tests for PrecisionTimeApi
  */
-@Disabled
-public class PrecisionTimeApiTest extends AbstractTest {
+@Ignore
+public class PrecisionTimeApiTest {
 
-    private final PrecisionTimeApi api = new PrecisionTimeApi(generateToken());
+    private PrecisionTimeApi api;
+
+    @Before
+    public void createApi() {
+        api = ApiClient.api(ApiClient.Config.apiConfig().reqSpecSupplier(
+                () -> new RequestSpecBuilder()
+                        .setConfig(config().objectMapperConfig(objectMapperConfig().defaultObjectMapper(jackson())))
+                        .addFilter(new ErrorLoggingFilter())
+                        .setBaseUri("https://api.equinix.com"))).precisionTime();
+    }
 
     /**
-     * Create Time Service
-     * <p>
-     * The API provides capability to create timing service
-     *
-     * @throws ApiException if the Api call fails
+     * Successful operation
      */
     @Test
-    public void createTimeServicesTest() throws ApiException {
-        //
-        //PrecisionTimeServiceRequest precisionTimeServiceRequest = null;
-        //
-        //PrecisionTimeServiceCreateResponse response = api.createTimeServices(precisionTimeServiceRequest);
-
+    public void shouldSee202AfterCreateTimeServices() {
+        PrecisionTimeServiceRequest precisionTimeServiceRequest = null;
+        api.createTimeServices()
+                .body(precisionTimeServiceRequest).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Delete time service
-     * <p>
-     * Delete EPT service by it&#39;s uuid
-     *
-     * @throws ApiException if the Api call fails
+     * Bad request
      */
     @Test
-    public void deleteTimeServiceByIdTest() throws ApiException {
-        //
-        //UUID serviceId = null;
-        //
-        //PrecisionTimeServiceCreateResponse response = api.deleteTimeServiceById(serviceId);
-
+    public void shouldSee400AfterCreateTimeServices() {
+        PrecisionTimeServiceRequest precisionTimeServiceRequest = null;
+        api.createTimeServices()
+                .body(precisionTimeServiceRequest).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Get Time Service
-     * <p>
-     * The API provides capability to get precision timing service&#39;s details
-     *
-     * @throws ApiException if the Api call fails
+     * Unauthorized
      */
     @Test
-    public void getTimeServicesByIdTest() throws ApiException {
-        //
-        //UUID serviceId = null;
-        //
-        //PrecisionTimeServiceCreateResponse response = api.getTimeServicesById(serviceId);
-
+    public void shouldSee401AfterCreateTimeServices() {
+        PrecisionTimeServiceRequest precisionTimeServiceRequest = null;
+        api.createTimeServices()
+                .body(precisionTimeServiceRequest).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Get Connection Links
-     * <p>
-     * The API provides capability to get prevision timing service&#39;s details
-     *
-     * @throws ApiException if the Api call fails
+     * Forbidden
      */
     @Test
-    public void getTimeServicesConnectionsByServiceIdTest() throws ApiException {
-        //
-        //UUID serviceId = null;
-        //
-        //PrecisionTimeServiceConnectionsResponse response = api.getTimeServicesConnectionsByServiceId(serviceId);
-
+    public void shouldSee403AfterCreateTimeServices() {
+        PrecisionTimeServiceRequest precisionTimeServiceRequest = null;
+        api.createTimeServices()
+                .body(precisionTimeServiceRequest).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Get Package By Code
-     * <p>
-     * The API provides capability to get timing service&#39;s package by code
-     *
-     * @throws ApiException if the Api call fails
+     * Unsupported Media Type
      */
     @Test
-    public void getTimeServicesPackageByCodeTest() throws ApiException {
-        //
-        //String packageCode = null;
-        //
-        //PrecisionTimePackageResponse response = api.getTimeServicesPackageByCode(packageCode);
-
+    public void shouldSee415AfterCreateTimeServices() {
+        PrecisionTimeServiceRequest precisionTimeServiceRequest = null;
+        api.createTimeServices()
+                .body(precisionTimeServiceRequest).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Get Packages
-     * <p>
-     * The API provides capability to get timing service&#39;s packages
-     *
-     * @throws ApiException if the Api call fails
+     * Internal server error
      */
     @Test
-    public void getTimeServicesPackagesTest() throws ApiException {
-        //
-        //PrecisionTimeServicePackagesResponse response = api.getTimeServicesPackages();
+    public void shouldSee500AfterCreateTimeServices() {
+        PrecisionTimeServiceRequest precisionTimeServiceRequest = null;
+        api.createTimeServices()
+                .body(precisionTimeServiceRequest).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
 
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee202AfterDeleteTimeServiceById() {
+        UUID serviceId = null;
+        api.deleteTimeServiceById()
+                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
 
     /**
-     * Patch time service
-     * <p>
-     * The API provides capability to update timing service
-     *
-     * @throws ApiException if the Api call fails
+     * Unauthorized
      */
     @Test
-    public void updateTimeServicesByIdTest() throws ApiException {
-        //
-        //UUID serviceId = null;
-        //
-        //List<PrecisionTimeChangeOperation> precisionTimeChangeOperation = null;
-        //
-        //PrecisionTimeServiceCreateResponse response = api.updateTimeServicesById(serviceId, precisionTimeChangeOperation);
-
+    public void shouldSee401AfterDeleteTimeServiceById() {
+        UUID serviceId = null;
+        api.deleteTimeServiceById()
+                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
         // TODO: test validations
     }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterDeleteTimeServiceById() {
+        UUID serviceId = null;
+        api.deleteTimeServiceById()
+                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unsupported Media Type
+     */
+    @Test
+    public void shouldSee415AfterDeleteTimeServiceById() {
+        UUID serviceId = null;
+        api.deleteTimeServiceById()
+                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal server error
+     */
+    @Test
+    public void shouldSee500AfterDeleteTimeServiceById() {
+        UUID serviceId = null;
+        api.deleteTimeServiceById()
+                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee200AfterGetTimeServicesById() {
+        UUID serviceId = null;
+        api.getTimeServicesById()
+                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterGetTimeServicesById() {
+        UUID serviceId = null;
+        api.getTimeServicesById()
+                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterGetTimeServicesById() {
+        UUID serviceId = null;
+        api.getTimeServicesById()
+                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterGetTimeServicesById() {
+        UUID serviceId = null;
+        api.getTimeServicesById()
+                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unsupported Media Type
+     */
+    @Test
+    public void shouldSee415AfterGetTimeServicesById() {
+        UUID serviceId = null;
+        api.getTimeServicesById()
+                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal server error
+     */
+    @Test
+    public void shouldSee500AfterGetTimeServicesById() {
+        UUID serviceId = null;
+        api.getTimeServicesById()
+                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Return Time Service Connection
+     */
+    @Test
+    public void shouldSee200AfterGetTimeServicesConnectionsByServiceId() {
+        UUID serviceId = null;
+        api.getTimeServicesConnectionsByServiceId()
+                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterGetTimeServicesConnectionsByServiceId() {
+        UUID serviceId = null;
+        api.getTimeServicesConnectionsByServiceId()
+                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterGetTimeServicesConnectionsByServiceId() {
+        UUID serviceId = null;
+        api.getTimeServicesConnectionsByServiceId()
+                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unsupported Media Type
+     */
+    @Test
+    public void shouldSee415AfterGetTimeServicesConnectionsByServiceId() {
+        UUID serviceId = null;
+        api.getTimeServicesConnectionsByServiceId()
+                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal server error
+     */
+    @Test
+    public void shouldSee500AfterGetTimeServicesConnectionsByServiceId() {
+        UUID serviceId = null;
+        api.getTimeServicesConnectionsByServiceId()
+                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee200AfterGetTimeServicesPackageByCode() {
+        String packageCode = null;
+        api.getTimeServicesPackageByCode()
+                .packageCodePath(packageCode).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unsupported Media Type
+     */
+    @Test
+    public void shouldSee415AfterGetTimeServicesPackageByCode() {
+        String packageCode = null;
+        api.getTimeServicesPackageByCode()
+                .packageCodePath(packageCode).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal server error
+     */
+    @Test
+    public void shouldSee500AfterGetTimeServicesPackageByCode() {
+        String packageCode = null;
+        api.getTimeServicesPackageByCode()
+                .packageCodePath(packageCode).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee200AfterGetTimeServicesPackages() {
+        api.getTimeServicesPackages().execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unsupported Media Type
+     */
+    @Test
+    public void shouldSee415AfterGetTimeServicesPackages() {
+        api.getTimeServicesPackages().execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal server error
+     */
+    @Test
+    public void shouldSee500AfterGetTimeServicesPackages() {
+        api.getTimeServicesPackages().execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+
+    /**
+     * Successful operation
+     */
+    @Test
+    public void shouldSee202AfterUpdateTimeServicesById() {
+        UUID serviceId = null;
+        List<PrecisionTimeChangeOperation> precisionTimeChangeOperation = null;
+        api.updateTimeServicesById()
+                .serviceIdPath(serviceId)
+                .body(precisionTimeChangeOperation).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Bad request
+     */
+    @Test
+    public void shouldSee400AfterUpdateTimeServicesById() {
+        UUID serviceId = null;
+        List<PrecisionTimeChangeOperation> precisionTimeChangeOperation = null;
+        api.updateTimeServicesById()
+                .serviceIdPath(serviceId)
+                .body(precisionTimeChangeOperation).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unauthorized
+     */
+    @Test
+    public void shouldSee401AfterUpdateTimeServicesById() {
+        UUID serviceId = null;
+        List<PrecisionTimeChangeOperation> precisionTimeChangeOperation = null;
+        api.updateTimeServicesById()
+                .serviceIdPath(serviceId)
+                .body(precisionTimeChangeOperation).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Forbidden
+     */
+    @Test
+    public void shouldSee403AfterUpdateTimeServicesById() {
+        UUID serviceId = null;
+        List<PrecisionTimeChangeOperation> precisionTimeChangeOperation = null;
+        api.updateTimeServicesById()
+                .serviceIdPath(serviceId)
+                .body(precisionTimeChangeOperation).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Unsupported Media Type
+     */
+    @Test
+    public void shouldSee415AfterUpdateTimeServicesById() {
+        UUID serviceId = null;
+        List<PrecisionTimeChangeOperation> precisionTimeChangeOperation = null;
+        api.updateTimeServicesById()
+                .serviceIdPath(serviceId)
+                .body(precisionTimeChangeOperation).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
+    /**
+     * Internal server error
+     */
+    @Test
+    public void shouldSee500AfterUpdateTimeServicesById() {
+        UUID serviceId = null;
+        List<PrecisionTimeChangeOperation> precisionTimeChangeOperation = null;
+        api.updateTimeServicesById()
+                .serviceIdPath(serviceId)
+                .body(precisionTimeChangeOperation).execute(r -> r.prettyPeek());
+        // TODO: test validations
+    }
+
 }

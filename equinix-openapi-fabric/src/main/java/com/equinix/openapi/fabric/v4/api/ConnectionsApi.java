@@ -11,1059 +11,633 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.ApiCallback;
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.ApiResponse;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.Pair;
-import com.equinix.openapi.fabric.ProgressRequestBody;
-import com.equinix.openapi.fabric.ProgressResponseBody;
+import com.equinix.openapi.fabric.v4.model.*;
+import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.common.mapper.TypeRef;
+import io.restassured.http.Method;
+import io.restassured.response.Response;
 
-import com.google.gson.reflect.TypeToken;
-
-import java.io.IOException;
-
-
-import com.equinix.openapi.fabric.v4.model.Connection;
-import com.equinix.openapi.fabric.v4.model.ConnectionAction;
-import com.equinix.openapi.fabric.v4.model.ConnectionActionRequest;
-import com.equinix.openapi.fabric.v4.model.ConnectionChangeOperation;
-import com.equinix.openapi.fabric.v4.model.ConnectionDirection;
-import com.equinix.openapi.fabric.v4.model.ConnectionPostRequest;
-import com.equinix.openapi.fabric.v4.model.ConnectionResponse;
-import com.equinix.openapi.fabric.v4.model.ConnectionSearchResponse;
-import com.equinix.openapi.fabric.v4.model.Error;
-import com.equinix.openapi.fabric.v4.model.SearchRequest;
-import com.equinix.openapi.fabric.v4.model.ValidateRequest;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import javax.ws.rs.core.GenericType;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
+import static io.restassured.http.Method.*;
 
 public class ConnectionsApi {
-    private ApiClient localVarApiClient;
-    private int localHostIndex;
-    private String localCustomBaseUrl;
 
-    public ConnectionsApi() {
-        this(Configuration.getDefaultApiClient());
+    private Supplier<RequestSpecBuilder> reqSpecSupplier;
+    private Consumer<RequestSpecBuilder> reqSpecCustomizer;
+
+    private ConnectionsApi(Supplier<RequestSpecBuilder> reqSpecSupplier) {
+        this.reqSpecSupplier = reqSpecSupplier;
     }
 
-    public ConnectionsApi(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+    public static ConnectionsApi connections(Supplier<RequestSpecBuilder> reqSpecSupplier) {
+        return new ConnectionsApi(reqSpecSupplier);
     }
 
-    public ApiClient getApiClient() {
-        return localVarApiClient;
+    private RequestSpecBuilder createReqSpec() {
+        RequestSpecBuilder reqSpec = reqSpecSupplier.get();
+        if(reqSpecCustomizer != null) {
+            reqSpecCustomizer.accept(reqSpec);
+        }
+        return reqSpec;
     }
 
-    public void setApiClient(ApiClient apiClient) {
-        this.localVarApiClient = apiClient;
+    public List<Oper> getAllOperations() {
+        return Arrays.asList(
+                createConnection(),
+                createConnectionAction(),
+                deleteConnectionByUuid(),
+                getConnectionByUuid(),
+                searchConnections(),
+                updateConnectionByUuid(),
+                validateConnections()
+        );
     }
 
-    public int getHostIndex() {
-        return localHostIndex;
+    public CreateConnectionOper createConnection() {
+        return new CreateConnectionOper(createReqSpec());
     }
 
-    public void setHostIndex(int hostIndex) {
-        this.localHostIndex = hostIndex;
+    public CreateConnectionActionOper createConnectionAction() {
+        return new CreateConnectionActionOper(createReqSpec());
     }
 
-    public String getCustomBaseUrl() {
-        return localCustomBaseUrl;
+    public DeleteConnectionByUuidOper deleteConnectionByUuid() {
+        return new DeleteConnectionByUuidOper(createReqSpec());
     }
 
-    public void setCustomBaseUrl(String customBaseUrl) {
-        this.localCustomBaseUrl = customBaseUrl;
+    public GetConnectionByUuidOper getConnectionByUuid() {
+        return new GetConnectionByUuidOper(createReqSpec());
+    }
+
+    public SearchConnectionsOper searchConnections() {
+        return new SearchConnectionsOper(createReqSpec());
+    }
+
+    public UpdateConnectionByUuidOper updateConnectionByUuid() {
+        return new UpdateConnectionByUuidOper(createReqSpec());
+    }
+
+    public ValidateConnectionsOper validateConnections() {
+        return new ValidateConnectionsOper(createReqSpec());
     }
 
     /**
-     * Build call for createConnection
-     * @param connectionPostRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td> Accept Connection Request </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 405 </td><td> Method not allowed </td><td>  -  </td></tr>
-     </table>
+     * Customize request specification
+     * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+     * @return api
      */
-    public okhttp3.Call createConnectionCall(ConnectionPostRequest connectionPostRequest, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
-        }
-
-        Object localVarPostBody = connectionPostRequest;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/connections";
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
-        }
-
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call createConnectionValidateBeforeCall(ConnectionPostRequest connectionPostRequest, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'connectionPostRequest' is set
-        if (connectionPostRequest == null) {
-            throw new ApiException("Missing the required parameter 'connectionPostRequest' when calling createConnection(Async)");
-        }
-
-        return createConnectionCall(connectionPostRequest, _callback);
-
+    public ConnectionsApi reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+        this.reqSpecCustomizer = reqSpecCustomizer;
+        return this;
     }
 
     /**
      * Create Connection
      * This API provides capability to create user&#39;s virtual connection
-     * @param connectionPostRequest  (required)
-     * @return Connection
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td> Accept Connection Request </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 405 </td><td> Method not allowed </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #body  (required)
+     * return Connection
      */
-    public Connection createConnection(ConnectionPostRequest connectionPostRequest) throws ApiException {
-        ApiResponse<Connection> localVarResp = createConnectionWithHttpInfo(connectionPostRequest);
-        return localVarResp.getData();
-    }
+    public static class CreateConnectionOper implements Oper {
 
-    /**
-     * Create Connection
-     * This API provides capability to create user&#39;s virtual connection
-     * @param connectionPostRequest  (required)
-     * @return ApiResponse&lt;Connection&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td> Accept Connection Request </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 405 </td><td> Method not allowed </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<Connection> createConnectionWithHttpInfo(ConnectionPostRequest connectionPostRequest) throws ApiException {
-        okhttp3.Call localVarCall = createConnectionValidateBeforeCall(connectionPostRequest, null);
-        Type localVarReturnType = new TypeToken<Connection>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = POST;
+        public static final String REQ_URI = "/fabric/v4/connections";
 
-    /**
-     * Create Connection (asynchronously)
-     * This API provides capability to create user&#39;s virtual connection
-     * @param connectionPostRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td> Accept Connection Request </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 405 </td><td> Method not allowed </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createConnectionAsync(ConnectionPostRequest connectionPostRequest, final ApiCallback<Connection> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = createConnectionValidateBeforeCall(connectionPostRequest, _callback);
-        Type localVarReturnType = new TypeToken<Connection>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for createConnectionAction
-     * @param connectionId Connection Id (required)
-     * @param connectionActionRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createConnectionActionCall(String connectionId, ConnectionActionRequest connectionActionRequest, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
+        public CreateConnectionOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setContentType("application/json");
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
         }
 
-        Object localVarPostBody = connectionActionRequest;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/connections/{connectionId}/actions"
-            .replace("{" + "connectionId" + "}", localVarApiClient.escapeString(connectionId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
+        /**
+         * POST /fabric/v4/connections
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
         }
 
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
+        /**
+         * POST /fabric/v4/connections
+         * @param handler handler
+         * @return Connection
+         */
+        public Connection executeAs(Function<Response, Response> handler) {
+            TypeRef<Connection> type = new TypeRef<Connection>(){};
+            return execute(handler).as(type);
         }
 
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+         /**
+         * @param connectionPostRequest (ConnectionPostRequest)  (required)
+         * @return operation
+         */
+        public CreateConnectionOper body(ConnectionPostRequest connectionPostRequest) {
+            reqSpec.setBody(connectionPostRequest);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public CreateConnectionOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public CreateConnectionOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call createConnectionActionValidateBeforeCall(String connectionId, ConnectionActionRequest connectionActionRequest, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'connectionId' is set
-        if (connectionId == null) {
-            throw new ApiException("Missing the required parameter 'connectionId' when calling createConnectionAction(Async)");
-        }
-
-        // verify the required parameter 'connectionActionRequest' is set
-        if (connectionActionRequest == null) {
-            throw new ApiException("Missing the required parameter 'connectionActionRequest' when calling createConnectionAction(Async)");
-        }
-
-        return createConnectionActionCall(connectionId, connectionActionRequest, _callback);
-
-    }
-
     /**
      * Connection Actions
      * This API provides capability to accept/reject user&#39;s virtual connection
-     * @param connectionId Connection Id (required)
-     * @param connectionActionRequest  (required)
-     * @return ConnectionAction
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #connectionIdPath Connection Id (required)
+     * @see #body  (required)
+     * return ConnectionAction
      */
-    public ConnectionAction createConnectionAction(String connectionId, ConnectionActionRequest connectionActionRequest) throws ApiException {
-        ApiResponse<ConnectionAction> localVarResp = createConnectionActionWithHttpInfo(connectionId, connectionActionRequest);
-        return localVarResp.getData();
-    }
+    public static class CreateConnectionActionOper implements Oper {
 
-    /**
-     * Connection Actions
-     * This API provides capability to accept/reject user&#39;s virtual connection
-     * @param connectionId Connection Id (required)
-     * @param connectionActionRequest  (required)
-     * @return ApiResponse&lt;ConnectionAction&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ConnectionAction> createConnectionActionWithHttpInfo(String connectionId, ConnectionActionRequest connectionActionRequest) throws ApiException {
-        okhttp3.Call localVarCall = createConnectionActionValidateBeforeCall(connectionId, connectionActionRequest, null);
-        Type localVarReturnType = new TypeToken<ConnectionAction>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = POST;
+        public static final String REQ_URI = "/fabric/v4/connections/{connectionId}/actions";
 
-    /**
-     * Connection Actions (asynchronously)
-     * This API provides capability to accept/reject user&#39;s virtual connection
-     * @param connectionId Connection Id (required)
-     * @param connectionActionRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createConnectionActionAsync(String connectionId, ConnectionActionRequest connectionActionRequest, final ApiCallback<ConnectionAction> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = createConnectionActionValidateBeforeCall(connectionId, connectionActionRequest, _callback);
-        Type localVarReturnType = new TypeToken<ConnectionAction>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for deleteConnectionByUuid
-     * @param connectionId Connection UUID (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Delete Connection Request </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 405 </td><td> Method not allowed </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call deleteConnectionByUuidCall(String connectionId, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
+        public CreateConnectionActionOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setContentType("application/json");
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
         }
 
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/connections/{connectionId}"
-            .replace("{" + "connectionId" + "}", localVarApiClient.escapeString(connectionId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
+        /**
+         * POST /fabric/v4/connections/{connectionId}/actions
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
         }
 
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
+        /**
+         * POST /fabric/v4/connections/{connectionId}/actions
+         * @param handler handler
+         * @return ConnectionAction
+         */
+        public ConnectionAction executeAs(Function<Response, Response> handler) {
+            TypeRef<ConnectionAction> type = new TypeRef<ConnectionAction>(){};
+            return execute(handler).as(type);
         }
 
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+         /**
+         * @param connectionActionRequest (ConnectionActionRequest)  (required)
+         * @return operation
+         */
+        public CreateConnectionActionOper body(ConnectionActionRequest connectionActionRequest) {
+            reqSpec.setBody(connectionActionRequest);
+            return this;
+        }
+
+        public static final String CONNECTION_ID_PATH = "connectionId";
+
+        /**
+         * @param connectionId (String) Connection Id (required)
+         * @return operation
+         */
+        public CreateConnectionActionOper connectionIdPath(Object connectionId) {
+            reqSpec.addPathParam(CONNECTION_ID_PATH, connectionId);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public CreateConnectionActionOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public CreateConnectionActionOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteConnectionByUuidValidateBeforeCall(String connectionId, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'connectionId' is set
-        if (connectionId == null) {
-            throw new ApiException("Missing the required parameter 'connectionId' when calling deleteConnectionByUuid(Async)");
-        }
-
-        return deleteConnectionByUuidCall(connectionId, _callback);
-
-    }
-
     /**
      * Delete by ID
      * Delete Connection by ID
-     * @param connectionId Connection UUID (required)
-     * @return Connection
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Delete Connection Request </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 405 </td><td> Method not allowed </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #connectionIdPath Connection UUID (required)
+     * return Connection
      */
-    public Connection deleteConnectionByUuid(String connectionId) throws ApiException {
-        ApiResponse<Connection> localVarResp = deleteConnectionByUuidWithHttpInfo(connectionId);
-        return localVarResp.getData();
-    }
+    public static class DeleteConnectionByUuidOper implements Oper {
 
-    /**
-     * Delete by ID
-     * Delete Connection by ID
-     * @param connectionId Connection UUID (required)
-     * @return ApiResponse&lt;Connection&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Delete Connection Request </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 405 </td><td> Method not allowed </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<Connection> deleteConnectionByUuidWithHttpInfo(String connectionId) throws ApiException {
-        okhttp3.Call localVarCall = deleteConnectionByUuidValidateBeforeCall(connectionId, null);
-        Type localVarReturnType = new TypeToken<Connection>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = DELETE;
+        public static final String REQ_URI = "/fabric/v4/connections/{connectionId}";
 
-    /**
-     * Delete by ID (asynchronously)
-     * Delete Connection by ID
-     * @param connectionId Connection UUID (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Delete Connection Request </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 405 </td><td> Method not allowed </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call deleteConnectionByUuidAsync(String connectionId, final ApiCallback<Connection> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = deleteConnectionByUuidValidateBeforeCall(connectionId, _callback);
-        Type localVarReturnType = new TypeToken<Connection>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for getConnectionByUuid
-     * @param connectionId Connection Id (required)
-     * @param direction Connection Direction (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getConnectionByUuidCall(String connectionId, ConnectionDirection direction, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
+        public DeleteConnectionByUuidOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
         }
 
-        Object localVarPostBody = null;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/connections/{connectionId}"
-            .replace("{" + "connectionId" + "}", localVarApiClient.escapeString(connectionId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        if (direction != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("direction", direction));
+        /**
+         * DELETE /fabric/v4/connections/{connectionId}
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
         }
 
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
+        /**
+         * DELETE /fabric/v4/connections/{connectionId}
+         * @param handler handler
+         * @return Connection
+         */
+        public Connection executeAs(Function<Response, Response> handler) {
+            TypeRef<Connection> type = new TypeRef<Connection>(){};
+            return execute(handler).as(type);
         }
 
-        final String[] localVarContentTypes = {
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
+        public static final String CONNECTION_ID_PATH = "connectionId";
+
+        /**
+         * @param connectionId (String) Connection UUID (required)
+         * @return operation
+         */
+        public DeleteConnectionByUuidOper connectionIdPath(Object connectionId) {
+            reqSpec.addPathParam(CONNECTION_ID_PATH, connectionId);
+            return this;
         }
 
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public DeleteConnectionByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public DeleteConnectionByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call getConnectionByUuidValidateBeforeCall(String connectionId, ConnectionDirection direction, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'connectionId' is set
-        if (connectionId == null) {
-            throw new ApiException("Missing the required parameter 'connectionId' when calling getConnectionByUuid(Async)");
-        }
-
-        return getConnectionByUuidCall(connectionId, direction, _callback);
-
-    }
-
     /**
      * Get Connection by ID
      * The API provides capability to get user&#39;s virtual connection details (Service Tokens, Access Points, Link Protocols, etc) by it&#39;s connection ID (UUID)
-     * @param connectionId Connection Id (required)
-     * @param direction Connection Direction (optional)
-     * @return Connection
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #connectionIdPath Connection Id (required)
+     * @see #directionQuery Connection Direction (optional)
+     * return Connection
      */
-    public Connection getConnectionByUuid(String connectionId, ConnectionDirection direction) throws ApiException {
-        ApiResponse<Connection> localVarResp = getConnectionByUuidWithHttpInfo(connectionId, direction);
-        return localVarResp.getData();
-    }
+    public static class GetConnectionByUuidOper implements Oper {
 
-    /**
-     * Get Connection by ID
-     * The API provides capability to get user&#39;s virtual connection details (Service Tokens, Access Points, Link Protocols, etc) by it&#39;s connection ID (UUID)
-     * @param connectionId Connection Id (required)
-     * @param direction Connection Direction (optional)
-     * @return ApiResponse&lt;Connection&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<Connection> getConnectionByUuidWithHttpInfo(String connectionId, ConnectionDirection direction) throws ApiException {
-        okhttp3.Call localVarCall = getConnectionByUuidValidateBeforeCall(connectionId, direction, null);
-        Type localVarReturnType = new TypeToken<Connection>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = GET;
+        public static final String REQ_URI = "/fabric/v4/connections/{connectionId}";
 
-    /**
-     * Get Connection by ID (asynchronously)
-     * The API provides capability to get user&#39;s virtual connection details (Service Tokens, Access Points, Link Protocols, etc) by it&#39;s connection ID (UUID)
-     * @param connectionId Connection Id (required)
-     * @param direction Connection Direction (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call getConnectionByUuidAsync(String connectionId, ConnectionDirection direction, final ApiCallback<Connection> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = getConnectionByUuidValidateBeforeCall(connectionId, direction, _callback);
-        Type localVarReturnType = new TypeToken<Connection>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for searchConnections
-     * @param searchRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call searchConnectionsCall(SearchRequest searchRequest, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
+        public GetConnectionByUuidOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
         }
 
-        Object localVarPostBody = searchRequest;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/connections/search";
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
+        /**
+         * GET /fabric/v4/connections/{connectionId}
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
         }
 
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
+        /**
+         * GET /fabric/v4/connections/{connectionId}
+         * @param handler handler
+         * @return Connection
+         */
+        public Connection executeAs(Function<Response, Response> handler) {
+            TypeRef<Connection> type = new TypeRef<Connection>(){};
+            return execute(handler).as(type);
         }
 
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        public static final String CONNECTION_ID_PATH = "connectionId";
+
+        /**
+         * @param connectionId (String) Connection Id (required)
+         * @return operation
+         */
+        public GetConnectionByUuidOper connectionIdPath(Object connectionId) {
+            reqSpec.addPathParam(CONNECTION_ID_PATH, connectionId);
+            return this;
+        }
+
+        public static final String DIRECTION_QUERY = "direction";
+
+        /**
+         * @param direction (ConnectionDirection) Connection Direction (optional)
+         * @return operation
+         */
+        public GetConnectionByUuidOper directionQuery(Object... direction) {
+            reqSpec.addQueryParam(DIRECTION_QUERY, direction);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public GetConnectionByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public GetConnectionByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call searchConnectionsValidateBeforeCall(SearchRequest searchRequest, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'searchRequest' is set
-        if (searchRequest == null) {
-            throw new ApiException("Missing the required parameter 'searchRequest' when calling searchConnections(Async)");
-        }
-
-        return searchConnectionsCall(searchRequest, _callback);
-
-    }
-
     /**
      * Search connections
      * The API provides capability to get list of user&#39;s virtual connections using search criteria, including optional filtering, pagination and sorting
-     * @param searchRequest  (required)
-     * @return ConnectionSearchResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #body  (required)
+     * return ConnectionSearchResponse
      */
-    public ConnectionSearchResponse searchConnections(SearchRequest searchRequest) throws ApiException {
-        ApiResponse<ConnectionSearchResponse> localVarResp = searchConnectionsWithHttpInfo(searchRequest);
-        return localVarResp.getData();
-    }
+    public static class SearchConnectionsOper implements Oper {
 
-    /**
-     * Search connections
-     * The API provides capability to get list of user&#39;s virtual connections using search criteria, including optional filtering, pagination and sorting
-     * @param searchRequest  (required)
-     * @return ApiResponse&lt;ConnectionSearchResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ConnectionSearchResponse> searchConnectionsWithHttpInfo(SearchRequest searchRequest) throws ApiException {
-        okhttp3.Call localVarCall = searchConnectionsValidateBeforeCall(searchRequest, null);
-        Type localVarReturnType = new TypeToken<ConnectionSearchResponse>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = POST;
+        public static final String REQ_URI = "/fabric/v4/connections/search";
 
-    /**
-     * Search connections (asynchronously)
-     * The API provides capability to get list of user&#39;s virtual connections using search criteria, including optional filtering, pagination and sorting
-     * @param searchRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call searchConnectionsAsync(SearchRequest searchRequest, final ApiCallback<ConnectionSearchResponse> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = searchConnectionsValidateBeforeCall(searchRequest, _callback);
-        Type localVarReturnType = new TypeToken<ConnectionSearchResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for updateConnectionByUuid
-     * @param connectionId Connection Id (required)
-     * @param connectionChangeOperation  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call updateConnectionByUuidCall(String connectionId, List<ConnectionChangeOperation> connectionChangeOperation, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
+        public SearchConnectionsOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setContentType("application/json");
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
         }
 
-        Object localVarPostBody = connectionChangeOperation;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/connections/{connectionId}"
-            .replace("{" + "connectionId" + "}", localVarApiClient.escapeString(connectionId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
+        /**
+         * POST /fabric/v4/connections/search
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
         }
 
-        final String[] localVarContentTypes = {
-            "application/json-patch+json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
+        /**
+         * POST /fabric/v4/connections/search
+         * @param handler handler
+         * @return ConnectionSearchResponse
+         */
+        public ConnectionSearchResponse executeAs(Function<Response, Response> handler) {
+            TypeRef<ConnectionSearchResponse> type = new TypeRef<ConnectionSearchResponse>(){};
+            return execute(handler).as(type);
         }
 
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+         /**
+         * @param searchRequest (SearchRequest)  (required)
+         * @return operation
+         */
+        public SearchConnectionsOper body(SearchRequest searchRequest) {
+            reqSpec.setBody(searchRequest);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public SearchConnectionsOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public SearchConnectionsOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateConnectionByUuidValidateBeforeCall(String connectionId, List<ConnectionChangeOperation> connectionChangeOperation, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'connectionId' is set
-        if (connectionId == null) {
-            throw new ApiException("Missing the required parameter 'connectionId' when calling updateConnectionByUuid(Async)");
-        }
-
-        // verify the required parameter 'connectionChangeOperation' is set
-        if (connectionChangeOperation == null) {
-            throw new ApiException("Missing the required parameter 'connectionChangeOperation' when calling updateConnectionByUuid(Async)");
-        }
-
-        return updateConnectionByUuidCall(connectionId, connectionChangeOperation, _callback);
-
-    }
-
     /**
      * Update by ID
      * Update Connection by ID
-     * @param connectionId Connection Id (required)
-     * @param connectionChangeOperation  (required)
-     * @return Connection
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #connectionIdPath Connection Id (required)
+     * @see #body  (required)
+     * return Connection
      */
-    public Connection updateConnectionByUuid(String connectionId, List<ConnectionChangeOperation> connectionChangeOperation) throws ApiException {
-        ApiResponse<Connection> localVarResp = updateConnectionByUuidWithHttpInfo(connectionId, connectionChangeOperation);
-        return localVarResp.getData();
-    }
+    public static class UpdateConnectionByUuidOper implements Oper {
 
-    /**
-     * Update by ID
-     * Update Connection by ID
-     * @param connectionId Connection Id (required)
-     * @param connectionChangeOperation  (required)
-     * @return ApiResponse&lt;Connection&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<Connection> updateConnectionByUuidWithHttpInfo(String connectionId, List<ConnectionChangeOperation> connectionChangeOperation) throws ApiException {
-        okhttp3.Call localVarCall = updateConnectionByUuidValidateBeforeCall(connectionId, connectionChangeOperation, null);
-        Type localVarReturnType = new TypeToken<Connection>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = PATCH;
+        public static final String REQ_URI = "/fabric/v4/connections/{connectionId}";
 
-    /**
-     * Update by ID (asynchronously)
-     * Update Connection by ID
-     * @param connectionId Connection Id (required)
-     * @param connectionChangeOperation  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call updateConnectionByUuidAsync(String connectionId, List<ConnectionChangeOperation> connectionChangeOperation, final ApiCallback<Connection> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = updateConnectionByUuidValidateBeforeCall(connectionId, connectionChangeOperation, _callback);
-        Type localVarReturnType = new TypeToken<Connection>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for validateConnections
-     * @param validateRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call validateConnectionsCall(ValidateRequest validateRequest, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
+        public UpdateConnectionByUuidOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setContentType("application/json-patch+json");
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
         }
 
-        Object localVarPostBody = validateRequest;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/connections/validate";
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
+        /**
+         * PATCH /fabric/v4/connections/{connectionId}
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
         }
 
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
+        /**
+         * PATCH /fabric/v4/connections/{connectionId}
+         * @param handler handler
+         * @return Connection
+         */
+        public Connection executeAs(Function<Response, Response> handler) {
+            TypeRef<Connection> type = new TypeRef<Connection>(){};
+            return execute(handler).as(type);
         }
 
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+         /**
+         * @param connectionChangeOperation (List&lt;ConnectionChangeOperation&gt;)  (required)
+         * @return operation
+         */
+        public UpdateConnectionByUuidOper body(List<ConnectionChangeOperation> connectionChangeOperation) {
+            reqSpec.setBody(connectionChangeOperation);
+            return this;
+        }
+
+        public static final String CONNECTION_ID_PATH = "connectionId";
+
+        /**
+         * @param connectionId (String) Connection Id (required)
+         * @return operation
+         */
+        public UpdateConnectionByUuidOper connectionIdPath(Object connectionId) {
+            reqSpec.addPathParam(CONNECTION_ID_PATH, connectionId);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public UpdateConnectionByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public UpdateConnectionByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call validateConnectionsValidateBeforeCall(ValidateRequest validateRequest, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'validateRequest' is set
-        if (validateRequest == null) {
-            throw new ApiException("Missing the required parameter 'validateRequest' when calling validateConnections(Async)");
-        }
-
-        return validateConnectionsCall(validateRequest, _callback);
-
-    }
-
     /**
      * Validate Connection
      * This API provides capability to validate by auth key
-     * @param validateRequest  (required)
-     * @return ConnectionResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-     </table>
+     *
+     * @see #body  (required)
+     * return ConnectionResponse
      */
-    public ConnectionResponse validateConnections(ValidateRequest validateRequest) throws ApiException {
-        ApiResponse<ConnectionResponse> localVarResp = validateConnectionsWithHttpInfo(validateRequest);
-        return localVarResp.getData();
-    }
+    public static class ValidateConnectionsOper implements Oper {
 
-    /**
-     * Validate Connection
-     * This API provides capability to validate by auth key
-     * @param validateRequest  (required)
-     * @return ApiResponse&lt;ConnectionResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<ConnectionResponse> validateConnectionsWithHttpInfo(ValidateRequest validateRequest) throws ApiException {
-        okhttp3.Call localVarCall = validateConnectionsValidateBeforeCall(validateRequest, null);
-        Type localVarReturnType = new TypeToken<ConnectionResponse>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
+        public static final Method REQ_METHOD = POST;
+        public static final String REQ_URI = "/fabric/v4/connections/validate";
 
-    /**
-     * Validate Connection (asynchronously)
-     * This API provides capability to validate by auth key
-     * @param validateRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call validateConnectionsAsync(ValidateRequest validateRequest, final ApiCallback<ConnectionResponse> _callback) throws ApiException {
+        private RequestSpecBuilder reqSpec;
+        private ResponseSpecBuilder respSpec;
 
-        okhttp3.Call localVarCall = validateConnectionsValidateBeforeCall(validateRequest, _callback);
-        Type localVarReturnType = new TypeToken<ConnectionResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+        public ValidateConnectionsOper(RequestSpecBuilder reqSpec) {
+            this.reqSpec = reqSpec;
+            reqSpec.setContentType("application/json");
+            reqSpec.setAccept("application/json");
+            this.respSpec = new ResponseSpecBuilder();
+        }
+
+        /**
+         * POST /fabric/v4/connections/validate
+         * @param handler handler
+         * @param <T> type
+         * @return type
+         */
+        @Override
+        public <T> T execute(Function<Response, T> handler) {
+            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
+        }
+
+        /**
+         * POST /fabric/v4/connections/validate
+         * @param handler handler
+         * @return ConnectionResponse
+         */
+        public ConnectionResponse executeAs(Function<Response, Response> handler) {
+            TypeRef<ConnectionResponse> type = new TypeRef<ConnectionResponse>(){};
+            return execute(handler).as(type);
+        }
+
+         /**
+         * @param validateRequest (ValidateRequest)  (required)
+         * @return operation
+         */
+        public ValidateConnectionsOper body(ValidateRequest validateRequest) {
+            reqSpec.setBody(validateRequest);
+            return this;
+        }
+
+        /**
+         * Customize request specification
+         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
+         * @return operation
+         */
+        public ValidateConnectionsOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
+            reqSpecCustomizer.accept(reqSpec);
+            return this;
+        }
+
+        /**
+         * Customize response specification
+         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
+         * @return operation
+         */
+        public ValidateConnectionsOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
+            respSpecCustomizer.accept(respSpec);
+            return this;
+        }
     }
 }

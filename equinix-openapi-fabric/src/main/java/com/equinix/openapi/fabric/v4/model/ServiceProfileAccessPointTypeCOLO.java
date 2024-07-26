@@ -11,107 +11,80 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.equinix.openapi.fabric.v4.model.ApiConfig;
-import com.equinix.openapi.fabric.v4.model.AuthenticationKey;
-import com.equinix.openapi.fabric.v4.model.ServiceProfileAccessPointTypeEnum;
-import com.equinix.openapi.fabric.v4.model.ServiceProfileLinkProtocolConfig;
-import com.equinix.openapi.fabric.v4.model.ServiceProfileMetadata;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.TypeAdapterFactory;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import com.equinix.openapi.fabric.JSON;
+import java.util.Objects;
 
 /**
  * Colo Access Point Type
  */
+@JsonPropertyOrder({
+  ServiceProfileAccessPointTypeCOLO.JSON_PROPERTY_UUID,
+  ServiceProfileAccessPointTypeCOLO.JSON_PROPERTY_TYPE,
+  ServiceProfileAccessPointTypeCOLO.JSON_PROPERTY_SUPPORTED_BANDWIDTHS,
+  ServiceProfileAccessPointTypeCOLO.JSON_PROPERTY_ALLOW_REMOTE_CONNECTIONS,
+  ServiceProfileAccessPointTypeCOLO.JSON_PROPERTY_ALLOW_CUSTOM_BANDWIDTH,
+  ServiceProfileAccessPointTypeCOLO.JSON_PROPERTY_BANDWIDTH_ALERT_THRESHOLD,
+  ServiceProfileAccessPointTypeCOLO.JSON_PROPERTY_ALLOW_BANDWIDTH_AUTO_APPROVAL,
+  ServiceProfileAccessPointTypeCOLO.JSON_PROPERTY_ALLOW_BANDWIDTH_UPGRADE,
+  ServiceProfileAccessPointTypeCOLO.JSON_PROPERTY_LINK_PROTOCOL_CONFIG,
+  ServiceProfileAccessPointTypeCOLO.JSON_PROPERTY_ENABLE_AUTO_GENERATE_SERVICE_KEY,
+  ServiceProfileAccessPointTypeCOLO.JSON_PROPERTY_CONNECTION_REDUNDANCY_REQUIRED,
+  ServiceProfileAccessPointTypeCOLO.JSON_PROPERTY_API_CONFIG,
+  ServiceProfileAccessPointTypeCOLO.JSON_PROPERTY_CONNECTION_LABEL,
+  ServiceProfileAccessPointTypeCOLO.JSON_PROPERTY_AUTHENTICATION_KEY,
+  ServiceProfileAccessPointTypeCOLO.JSON_PROPERTY_METADATA
+})
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ServiceProfileAccessPointTypeCOLO {
-  public static final String SERIALIZED_NAME_UUID = "uuid";
-  @SerializedName(SERIALIZED_NAME_UUID)
+  public static final String JSON_PROPERTY_UUID = "uuid";
   private String uuid;
 
-  public static final String SERIALIZED_NAME_TYPE = "type";
-  @SerializedName(SERIALIZED_NAME_TYPE)
+  public static final String JSON_PROPERTY_TYPE = "type";
   private ServiceProfileAccessPointTypeEnum type;
 
-  public static final String SERIALIZED_NAME_SUPPORTED_BANDWIDTHS = "supportedBandwidths";
-  @SerializedName(SERIALIZED_NAME_SUPPORTED_BANDWIDTHS)
+  public static final String JSON_PROPERTY_SUPPORTED_BANDWIDTHS = "supportedBandwidths";
   private List<Integer> supportedBandwidths = new ArrayList<>();
 
-  public static final String SERIALIZED_NAME_ALLOW_REMOTE_CONNECTIONS = "allowRemoteConnections";
-  @SerializedName(SERIALIZED_NAME_ALLOW_REMOTE_CONNECTIONS)
+  public static final String JSON_PROPERTY_ALLOW_REMOTE_CONNECTIONS = "allowRemoteConnections";
   private Boolean allowRemoteConnections = false;
 
-  public static final String SERIALIZED_NAME_ALLOW_CUSTOM_BANDWIDTH = "allowCustomBandwidth";
-  @SerializedName(SERIALIZED_NAME_ALLOW_CUSTOM_BANDWIDTH)
+  public static final String JSON_PROPERTY_ALLOW_CUSTOM_BANDWIDTH = "allowCustomBandwidth";
   private Boolean allowCustomBandwidth = false;
 
-  public static final String SERIALIZED_NAME_BANDWIDTH_ALERT_THRESHOLD = "bandwidthAlertThreshold";
-  @SerializedName(SERIALIZED_NAME_BANDWIDTH_ALERT_THRESHOLD)
+  public static final String JSON_PROPERTY_BANDWIDTH_ALERT_THRESHOLD = "bandwidthAlertThreshold";
   private BigDecimal bandwidthAlertThreshold;
 
-  public static final String SERIALIZED_NAME_ALLOW_BANDWIDTH_AUTO_APPROVAL = "allowBandwidthAutoApproval";
-  @SerializedName(SERIALIZED_NAME_ALLOW_BANDWIDTH_AUTO_APPROVAL)
+  public static final String JSON_PROPERTY_ALLOW_BANDWIDTH_AUTO_APPROVAL = "allowBandwidthAutoApproval";
   private Boolean allowBandwidthAutoApproval = false;
 
-  public static final String SERIALIZED_NAME_ALLOW_BANDWIDTH_UPGRADE = "allowBandwidthUpgrade";
-  @SerializedName(SERIALIZED_NAME_ALLOW_BANDWIDTH_UPGRADE)
+  public static final String JSON_PROPERTY_ALLOW_BANDWIDTH_UPGRADE = "allowBandwidthUpgrade";
   private Boolean allowBandwidthUpgrade;
 
-  public static final String SERIALIZED_NAME_LINK_PROTOCOL_CONFIG = "linkProtocolConfig";
-  @SerializedName(SERIALIZED_NAME_LINK_PROTOCOL_CONFIG)
+  public static final String JSON_PROPERTY_LINK_PROTOCOL_CONFIG = "linkProtocolConfig";
   private ServiceProfileLinkProtocolConfig linkProtocolConfig;
 
-  public static final String SERIALIZED_NAME_ENABLE_AUTO_GENERATE_SERVICE_KEY = "enableAutoGenerateServiceKey";
-  @SerializedName(SERIALIZED_NAME_ENABLE_AUTO_GENERATE_SERVICE_KEY)
+  public static final String JSON_PROPERTY_ENABLE_AUTO_GENERATE_SERVICE_KEY = "enableAutoGenerateServiceKey";
   private Boolean enableAutoGenerateServiceKey;
 
-  public static final String SERIALIZED_NAME_CONNECTION_REDUNDANCY_REQUIRED = "connectionRedundancyRequired";
-  @SerializedName(SERIALIZED_NAME_CONNECTION_REDUNDANCY_REQUIRED)
+  public static final String JSON_PROPERTY_CONNECTION_REDUNDANCY_REQUIRED = "connectionRedundancyRequired";
   private Boolean connectionRedundancyRequired = false;
 
-  public static final String SERIALIZED_NAME_API_CONFIG = "apiConfig";
-  @SerializedName(SERIALIZED_NAME_API_CONFIG)
+  public static final String JSON_PROPERTY_API_CONFIG = "apiConfig";
   private ApiConfig apiConfig;
 
-  public static final String SERIALIZED_NAME_CONNECTION_LABEL = "connectionLabel";
-  @SerializedName(SERIALIZED_NAME_CONNECTION_LABEL)
+  public static final String JSON_PROPERTY_CONNECTION_LABEL = "connectionLabel";
   private String connectionLabel;
 
-  public static final String SERIALIZED_NAME_AUTHENTICATION_KEY = "authenticationKey";
-  @SerializedName(SERIALIZED_NAME_AUTHENTICATION_KEY)
+  public static final String JSON_PROPERTY_AUTHENTICATION_KEY = "authenticationKey";
   private AuthenticationKey authenticationKey;
 
-  public static final String SERIALIZED_NAME_METADATA = "metadata";
-  @SerializedName(SERIALIZED_NAME_METADATA)
+  public static final String JSON_PROPERTY_METADATA = "metadata";
   private ServiceProfileMetadata metadata;
 
   public ServiceProfileAccessPointTypeCOLO() {
@@ -128,12 +101,16 @@ public class ServiceProfileAccessPointTypeCOLO {
    * @return uuid
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_UUID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUuid() {
     return uuid;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_UUID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUuid(String uuid) {
     this.uuid = uuid;
   }
@@ -150,12 +127,16 @@ public class ServiceProfileAccessPointTypeCOLO {
    * @return type
   **/
   @javax.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public ServiceProfileAccessPointTypeEnum getType() {
     return type;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setType(ServiceProfileAccessPointTypeEnum type) {
     this.type = type;
   }
@@ -180,12 +161,16 @@ public class ServiceProfileAccessPointTypeCOLO {
    * @return supportedBandwidths
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_SUPPORTED_BANDWIDTHS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Integer> getSupportedBandwidths() {
     return supportedBandwidths;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_SUPPORTED_BANDWIDTHS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSupportedBandwidths(List<Integer> supportedBandwidths) {
     this.supportedBandwidths = supportedBandwidths;
   }
@@ -202,12 +187,16 @@ public class ServiceProfileAccessPointTypeCOLO {
    * @return allowRemoteConnections
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ALLOW_REMOTE_CONNECTIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getAllowRemoteConnections() {
     return allowRemoteConnections;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ALLOW_REMOTE_CONNECTIONS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAllowRemoteConnections(Boolean allowRemoteConnections) {
     this.allowRemoteConnections = allowRemoteConnections;
   }
@@ -224,12 +213,16 @@ public class ServiceProfileAccessPointTypeCOLO {
    * @return allowCustomBandwidth
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ALLOW_CUSTOM_BANDWIDTH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getAllowCustomBandwidth() {
     return allowCustomBandwidth;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ALLOW_CUSTOM_BANDWIDTH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAllowCustomBandwidth(Boolean allowCustomBandwidth) {
     this.allowCustomBandwidth = allowCustomBandwidth;
   }
@@ -246,12 +239,16 @@ public class ServiceProfileAccessPointTypeCOLO {
    * @return bandwidthAlertThreshold
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_BANDWIDTH_ALERT_THRESHOLD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public BigDecimal getBandwidthAlertThreshold() {
     return bandwidthAlertThreshold;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_BANDWIDTH_ALERT_THRESHOLD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBandwidthAlertThreshold(BigDecimal bandwidthAlertThreshold) {
     this.bandwidthAlertThreshold = bandwidthAlertThreshold;
   }
@@ -268,12 +265,16 @@ public class ServiceProfileAccessPointTypeCOLO {
    * @return allowBandwidthAutoApproval
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ALLOW_BANDWIDTH_AUTO_APPROVAL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getAllowBandwidthAutoApproval() {
     return allowBandwidthAutoApproval;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ALLOW_BANDWIDTH_AUTO_APPROVAL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAllowBandwidthAutoApproval(Boolean allowBandwidthAutoApproval) {
     this.allowBandwidthAutoApproval = allowBandwidthAutoApproval;
   }
@@ -290,12 +291,16 @@ public class ServiceProfileAccessPointTypeCOLO {
    * @return allowBandwidthUpgrade
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ALLOW_BANDWIDTH_UPGRADE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getAllowBandwidthUpgrade() {
     return allowBandwidthUpgrade;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ALLOW_BANDWIDTH_UPGRADE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAllowBandwidthUpgrade(Boolean allowBandwidthUpgrade) {
     this.allowBandwidthUpgrade = allowBandwidthUpgrade;
   }
@@ -312,12 +317,16 @@ public class ServiceProfileAccessPointTypeCOLO {
    * @return linkProtocolConfig
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_LINK_PROTOCOL_CONFIG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServiceProfileLinkProtocolConfig getLinkProtocolConfig() {
     return linkProtocolConfig;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_LINK_PROTOCOL_CONFIG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLinkProtocolConfig(ServiceProfileLinkProtocolConfig linkProtocolConfig) {
     this.linkProtocolConfig = linkProtocolConfig;
   }
@@ -334,12 +343,16 @@ public class ServiceProfileAccessPointTypeCOLO {
    * @return enableAutoGenerateServiceKey
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ENABLE_AUTO_GENERATE_SERVICE_KEY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getEnableAutoGenerateServiceKey() {
     return enableAutoGenerateServiceKey;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ENABLE_AUTO_GENERATE_SERVICE_KEY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setEnableAutoGenerateServiceKey(Boolean enableAutoGenerateServiceKey) {
     this.enableAutoGenerateServiceKey = enableAutoGenerateServiceKey;
   }
@@ -356,12 +369,16 @@ public class ServiceProfileAccessPointTypeCOLO {
    * @return connectionRedundancyRequired
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_CONNECTION_REDUNDANCY_REQUIRED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getConnectionRedundancyRequired() {
     return connectionRedundancyRequired;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONNECTION_REDUNDANCY_REQUIRED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionRedundancyRequired(Boolean connectionRedundancyRequired) {
     this.connectionRedundancyRequired = connectionRedundancyRequired;
   }
@@ -378,12 +395,16 @@ public class ServiceProfileAccessPointTypeCOLO {
    * @return apiConfig
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_API_CONFIG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ApiConfig getApiConfig() {
     return apiConfig;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_API_CONFIG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setApiConfig(ApiConfig apiConfig) {
     this.apiConfig = apiConfig;
   }
@@ -400,12 +421,16 @@ public class ServiceProfileAccessPointTypeCOLO {
    * @return connectionLabel
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_CONNECTION_LABEL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getConnectionLabel() {
     return connectionLabel;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONNECTION_LABEL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionLabel(String connectionLabel) {
     this.connectionLabel = connectionLabel;
   }
@@ -422,12 +447,16 @@ public class ServiceProfileAccessPointTypeCOLO {
    * @return authenticationKey
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_AUTHENTICATION_KEY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public AuthenticationKey getAuthenticationKey() {
     return authenticationKey;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_AUTHENTICATION_KEY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAuthenticationKey(AuthenticationKey authenticationKey) {
     this.authenticationKey = authenticationKey;
   }
@@ -444,59 +473,18 @@ public class ServiceProfileAccessPointTypeCOLO {
    * @return metadata
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_METADATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServiceProfileMetadata getMetadata() {
     return metadata;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_METADATA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMetadata(ServiceProfileMetadata metadata) {
     this.metadata = metadata;
-  }
-
-  /**
-   * A container for additional, undeclared properties.
-   * This is a holder for any undeclared properties as specified with
-   * the 'additionalProperties' keyword in the OAS document.
-   */
-  private Map<String, Object> additionalProperties;
-
-  /**
-   * Set the additional (undeclared) property with the specified name and value.
-   * If the property does not already exist, create it otherwise replace it.
-   *
-   * @param key name of the property
-   * @param value value of the property
-   * @return the ServiceProfileAccessPointTypeCOLO instance itself
-   */
-  public ServiceProfileAccessPointTypeCOLO putAdditionalProperty(String key, Object value) {
-    if (this.additionalProperties == null) {
-        this.additionalProperties = new HashMap<String, Object>();
-    }
-    this.additionalProperties.put(key, value);
-    return this;
-  }
-
-  /**
-   * Return the additional (undeclared) property.
-   *
-   * @return a map of objects
-   */
-  public Map<String, Object> getAdditionalProperties() {
-    return additionalProperties;
-  }
-
-  /**
-   * Return the additional (undeclared) property with the specified name.
-   *
-   * @param key name of the property
-   * @return an object
-   */
-  public Object getAdditionalProperty(String key) {
-    if (this.additionalProperties == null) {
-        return null;
-    }
-    return this.additionalProperties.get(key);
   }
 
 
@@ -523,13 +511,12 @@ public class ServiceProfileAccessPointTypeCOLO {
         Objects.equals(this.apiConfig, serviceProfileAccessPointTypeCOLO.apiConfig) &&
         Objects.equals(this.connectionLabel, serviceProfileAccessPointTypeCOLO.connectionLabel) &&
         Objects.equals(this.authenticationKey, serviceProfileAccessPointTypeCOLO.authenticationKey) &&
-        Objects.equals(this.metadata, serviceProfileAccessPointTypeCOLO.metadata)&&
-        Objects.equals(this.additionalProperties, serviceProfileAccessPointTypeCOLO.additionalProperties);
+        Objects.equals(this.metadata, serviceProfileAccessPointTypeCOLO.metadata);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(uuid, type, supportedBandwidths, allowRemoteConnections, allowCustomBandwidth, bandwidthAlertThreshold, allowBandwidthAutoApproval, allowBandwidthUpgrade, linkProtocolConfig, enableAutoGenerateServiceKey, connectionRedundancyRequired, apiConfig, connectionLabel, authenticationKey, metadata, additionalProperties);
+    return Objects.hash(uuid, type, supportedBandwidths, allowRemoteConnections, allowCustomBandwidth, bandwidthAlertThreshold, allowBandwidthAutoApproval, allowBandwidthUpgrade, linkProtocolConfig, enableAutoGenerateServiceKey, connectionRedundancyRequired, apiConfig, connectionLabel, authenticationKey, metadata);
   }
 
   @Override
@@ -551,7 +538,6 @@ public class ServiceProfileAccessPointTypeCOLO {
     sb.append("    connectionLabel: ").append(toIndentedString(connectionLabel)).append("\n");
     sb.append("    authenticationKey: ").append(toIndentedString(authenticationKey)).append("\n");
     sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
-    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -567,165 +553,5 @@ public class ServiceProfileAccessPointTypeCOLO {
     return o.toString().replace("\n", "\n    ");
   }
 
-
-  public static HashSet<String> openapiFields;
-  public static HashSet<String> openapiRequiredFields;
-
-  static {
-    // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("uuid");
-    openapiFields.add("type");
-    openapiFields.add("supportedBandwidths");
-    openapiFields.add("allowRemoteConnections");
-    openapiFields.add("allowCustomBandwidth");
-    openapiFields.add("bandwidthAlertThreshold");
-    openapiFields.add("allowBandwidthAutoApproval");
-    openapiFields.add("allowBandwidthUpgrade");
-    openapiFields.add("linkProtocolConfig");
-    openapiFields.add("enableAutoGenerateServiceKey");
-    openapiFields.add("connectionRedundancyRequired");
-    openapiFields.add("apiConfig");
-    openapiFields.add("connectionLabel");
-    openapiFields.add("authenticationKey");
-    openapiFields.add("metadata");
-
-    // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("type");
-  }
-
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to ServiceProfileAccessPointTypeCOLO
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (!ServiceProfileAccessPointTypeCOLO.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in ServiceProfileAccessPointTypeCOLO is not found in the empty JSON string", ServiceProfileAccessPointTypeCOLO.openapiRequiredFields.toString()));
-        }
-      }
-
-      // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : ServiceProfileAccessPointTypeCOLO.openapiRequiredFields) {
-        if (jsonObj.get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
-        }
-      }
-      if ((jsonObj.get("uuid") != null && !jsonObj.get("uuid").isJsonNull()) && !jsonObj.get("uuid").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `uuid` to be a primitive type in the JSON string but got `%s`", jsonObj.get("uuid").toString()));
-      }
-      // ensure the optional json data is an array if present
-      if (jsonObj.get("supportedBandwidths") != null && !jsonObj.get("supportedBandwidths").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `supportedBandwidths` to be an array in the JSON string but got `%s`", jsonObj.get("supportedBandwidths").toString()));
-      }
-      // validate the optional field `linkProtocolConfig`
-      if (jsonObj.get("linkProtocolConfig") != null && !jsonObj.get("linkProtocolConfig").isJsonNull()) {
-        ServiceProfileLinkProtocolConfig.validateJsonObject(jsonObj.getAsJsonObject("linkProtocolConfig"));
-      }
-      // validate the optional field `apiConfig`
-      if (jsonObj.get("apiConfig") != null && !jsonObj.get("apiConfig").isJsonNull()) {
-        ApiConfig.validateJsonObject(jsonObj.getAsJsonObject("apiConfig"));
-      }
-      if ((jsonObj.get("connectionLabel") != null && !jsonObj.get("connectionLabel").isJsonNull()) && !jsonObj.get("connectionLabel").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `connectionLabel` to be a primitive type in the JSON string but got `%s`", jsonObj.get("connectionLabel").toString()));
-      }
-      // validate the optional field `authenticationKey`
-      if (jsonObj.get("authenticationKey") != null && !jsonObj.get("authenticationKey").isJsonNull()) {
-        AuthenticationKey.validateJsonObject(jsonObj.getAsJsonObject("authenticationKey"));
-      }
-      // validate the optional field `metadata`
-      if (jsonObj.get("metadata") != null && !jsonObj.get("metadata").isJsonNull()) {
-        ServiceProfileMetadata.validateJsonObject(jsonObj.getAsJsonObject("metadata"));
-      }
-  }
-
-  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
-    @SuppressWarnings("unchecked")
-    @Override
-    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!ServiceProfileAccessPointTypeCOLO.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'ServiceProfileAccessPointTypeCOLO' and its subtypes
-       }
-       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<ServiceProfileAccessPointTypeCOLO> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(ServiceProfileAccessPointTypeCOLO.class));
-
-       return (TypeAdapter<T>) new TypeAdapter<ServiceProfileAccessPointTypeCOLO>() {
-           @Override
-           public void write(JsonWriter out, ServiceProfileAccessPointTypeCOLO value) throws IOException {
-             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
-             obj.remove("additionalProperties");
-             // serialize additional properties
-             if (value.getAdditionalProperties() != null) {
-               for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
-                 if (entry.getValue() instanceof String)
-                   obj.addProperty(entry.getKey(), (String) entry.getValue());
-                 else if (entry.getValue() instanceof Number)
-                   obj.addProperty(entry.getKey(), (Number) entry.getValue());
-                 else if (entry.getValue() instanceof Boolean)
-                   obj.addProperty(entry.getKey(), (Boolean) entry.getValue());
-                 else if (entry.getValue() instanceof Character)
-                   obj.addProperty(entry.getKey(), (Character) entry.getValue());
-                 else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
-                 }
-               }
-             }
-             elementAdapter.write(out, obj);
-           }
-
-           @Override
-           public ServiceProfileAccessPointTypeCOLO read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
-             // store additional fields in the deserialized instance
-             ServiceProfileAccessPointTypeCOLO instance = thisAdapter.fromJsonTree(jsonObj);
-             for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
-               if (!openapiFields.contains(entry.getKey())) {
-                 if (entry.getValue().isJsonPrimitive()) { // primitive type
-                   if (entry.getValue().getAsJsonPrimitive().isString())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsString());
-                   else if (entry.getValue().getAsJsonPrimitive().isNumber())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsNumber());
-                   else if (entry.getValue().getAsJsonPrimitive().isBoolean())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
-                   else
-                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else if (entry.getValue().isJsonArray()) {
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
-                 } else { // JSON object
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
-                 }
-               }
-             }
-             return instance;
-           }
-
-       }.nullSafe();
-    }
-  }
-
- /**
-  * Create an instance of ServiceProfileAccessPointTypeCOLO given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ServiceProfileAccessPointTypeCOLO
-  * @throws IOException if the JSON string is invalid with respect to ServiceProfileAccessPointTypeCOLO
-  */
-  public static ServiceProfileAccessPointTypeCOLO fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, ServiceProfileAccessPointTypeCOLO.class);
-  }
-
- /**
-  * Convert an instance of ServiceProfileAccessPointTypeCOLO to an JSON string
-  *
-  * @return JSON string
-  */
-  public String toJson() {
-    return JSON.getGson().toJson(this);
-  }
 }
 

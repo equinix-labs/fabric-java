@@ -11,20 +11,12 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.annotations.SerializedName;
-
-import java.io.IOException;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Price category
  */
-@JsonAdapter(PriceCategory.Adapter.class)
 public enum PriceCategory {
   
   COUNTRY("COUNTRY"),
@@ -37,6 +29,7 @@ public enum PriceCategory {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -46,6 +39,7 @@ public enum PriceCategory {
     return String.valueOf(value);
   }
 
+  @JsonCreator
   public static PriceCategory fromValue(String value) {
     for (PriceCategory b : PriceCategory.values()) {
       if (b.value.equals(value)) {
@@ -53,19 +47,6 @@ public enum PriceCategory {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-
-  public static class Adapter extends TypeAdapter<PriceCategory> {
-    @Override
-    public void write(final JsonWriter jsonWriter, final PriceCategory enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
-
-    @Override
-    public PriceCategory read(final JsonReader jsonReader) throws IOException {
-      String value = jsonReader.nextString();
-      return PriceCategory.fromValue(value);
-    }
   }
 }
 

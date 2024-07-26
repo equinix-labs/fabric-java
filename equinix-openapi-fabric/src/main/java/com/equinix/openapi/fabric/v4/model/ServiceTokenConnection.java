@@ -11,50 +11,32 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.equinix.openapi.fabric.v4.model.ServiceTokenSide;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
+
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.TypeAdapterFactory;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import com.equinix.openapi.fabric.JSON;
 
 /**
  * Service Token Connection Type Information
  */
+@JsonPropertyOrder({
+  ServiceTokenConnection.JSON_PROPERTY_TYPE,
+  ServiceTokenConnection.JSON_PROPERTY_HREF,
+  ServiceTokenConnection.JSON_PROPERTY_UUID,
+  ServiceTokenConnection.JSON_PROPERTY_ALLOW_REMOTE_CONNECTION,
+  ServiceTokenConnection.JSON_PROPERTY_BANDWIDTH_LIMIT,
+  ServiceTokenConnection.JSON_PROPERTY_SUPPORTED_BANDWIDTHS,
+  ServiceTokenConnection.JSON_PROPERTY_A_SIDE,
+  ServiceTokenConnection.JSON_PROPERTY_Z_SIDE
+})
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ServiceTokenConnection {
   /**
    * Type of Connection
    */
-  @JsonAdapter(TypeEnum.Adapter.class)
   public enum TypeEnum {
     EVPL_VC("EVPL_VC");
 
@@ -64,6 +46,7 @@ public class ServiceTokenConnection {
       this.value = value;
     }
 
+    @JsonValue
     public String getValue() {
       return value;
     }
@@ -73,6 +56,7 @@ public class ServiceTokenConnection {
       return String.valueOf(value);
     }
 
+    @JsonCreator
     public static TypeEnum fromValue(String value) {
       for (TypeEnum b : TypeEnum.values()) {
         if (b.value.equals(value)) {
@@ -81,59 +65,38 @@ public class ServiceTokenConnection {
       }
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
-
-    public static class Adapter extends TypeAdapter<TypeEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final TypeEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public TypeEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return TypeEnum.fromValue(value);
-      }
-    }
   }
 
-  public static final String SERIALIZED_NAME_TYPE = "type";
-  @SerializedName(SERIALIZED_NAME_TYPE)
+  public static final String JSON_PROPERTY_TYPE = "type";
   private TypeEnum type;
 
-  public static final String SERIALIZED_NAME_HREF = "href";
-  @SerializedName(SERIALIZED_NAME_HREF)
+  public static final String JSON_PROPERTY_HREF = "href";
   private URI href;
 
-  public static final String SERIALIZED_NAME_UUID = "uuid";
-  @SerializedName(SERIALIZED_NAME_UUID)
+  public static final String JSON_PROPERTY_UUID = "uuid";
   private UUID uuid;
 
-  public static final String SERIALIZED_NAME_ALLOW_REMOTE_CONNECTION = "allowRemoteConnection";
-  @SerializedName(SERIALIZED_NAME_ALLOW_REMOTE_CONNECTION)
+  public static final String JSON_PROPERTY_ALLOW_REMOTE_CONNECTION = "allowRemoteConnection";
   private Boolean allowRemoteConnection = false;
 
-  public static final String SERIALIZED_NAME_BANDWIDTH_LIMIT = "bandwidthLimit";
-  @SerializedName(SERIALIZED_NAME_BANDWIDTH_LIMIT)
+  public static final String JSON_PROPERTY_BANDWIDTH_LIMIT = "bandwidthLimit";
   private Integer bandwidthLimit;
 
-  public static final String SERIALIZED_NAME_SUPPORTED_BANDWIDTHS = "supportedBandwidths";
-  @SerializedName(SERIALIZED_NAME_SUPPORTED_BANDWIDTHS)
+  public static final String JSON_PROPERTY_SUPPORTED_BANDWIDTHS = "supportedBandwidths";
   private List<Integer> supportedBandwidths = new ArrayList<>();
 
-  public static final String SERIALIZED_NAME_A_SIDE = "aSide";
-  @SerializedName(SERIALIZED_NAME_A_SIDE)
+  public static final String JSON_PROPERTY_A_SIDE = "aSide";
   private ServiceTokenSide aSide;
 
-  public static final String SERIALIZED_NAME_Z_SIDE = "zSide";
-  @SerializedName(SERIALIZED_NAME_Z_SIDE)
+  public static final String JSON_PROPERTY_Z_SIDE = "zSide";
   private ServiceTokenSide zSide;
 
   public ServiceTokenConnection() {
   }
 
-  
+  @JsonCreator
   public ServiceTokenConnection(
-     URI href
+    @JsonProperty(JSON_PROPERTY_HREF) URI href
   ) {
     this();
     this.href = href;
@@ -150,12 +113,16 @@ public class ServiceTokenConnection {
    * @return type
   **/
   @javax.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public TypeEnum getType() {
     return type;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setType(TypeEnum type) {
     this.type = type;
   }
@@ -166,6 +133,8 @@ public class ServiceTokenConnection {
    * @return href
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_HREF)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public URI getHref() {
     return href;
@@ -185,12 +154,16 @@ public class ServiceTokenConnection {
    * @return uuid
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_UUID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public UUID getUuid() {
     return uuid;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_UUID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUuid(UUID uuid) {
     this.uuid = uuid;
   }
@@ -207,12 +180,16 @@ public class ServiceTokenConnection {
    * @return allowRemoteConnection
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ALLOW_REMOTE_CONNECTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getAllowRemoteConnection() {
     return allowRemoteConnection;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ALLOW_REMOTE_CONNECTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAllowRemoteConnection(Boolean allowRemoteConnection) {
     this.allowRemoteConnection = allowRemoteConnection;
   }
@@ -231,12 +208,16 @@ public class ServiceTokenConnection {
    * @return bandwidthLimit
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_BANDWIDTH_LIMIT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getBandwidthLimit() {
     return bandwidthLimit;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_BANDWIDTH_LIMIT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBandwidthLimit(Integer bandwidthLimit) {
     this.bandwidthLimit = bandwidthLimit;
   }
@@ -261,12 +242,16 @@ public class ServiceTokenConnection {
    * @return supportedBandwidths
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_SUPPORTED_BANDWIDTHS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<Integer> getSupportedBandwidths() {
     return supportedBandwidths;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_SUPPORTED_BANDWIDTHS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSupportedBandwidths(List<Integer> supportedBandwidths) {
     this.supportedBandwidths = supportedBandwidths;
   }
@@ -283,12 +268,16 @@ public class ServiceTokenConnection {
    * @return aSide
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_A_SIDE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServiceTokenSide getaSide() {
     return aSide;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_A_SIDE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setaSide(ServiceTokenSide aSide) {
     this.aSide = aSide;
   }
@@ -305,59 +294,18 @@ public class ServiceTokenConnection {
    * @return zSide
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_Z_SIDE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServiceTokenSide getzSide() {
     return zSide;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_Z_SIDE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setzSide(ServiceTokenSide zSide) {
     this.zSide = zSide;
-  }
-
-  /**
-   * A container for additional, undeclared properties.
-   * This is a holder for any undeclared properties as specified with
-   * the 'additionalProperties' keyword in the OAS document.
-   */
-  private Map<String, Object> additionalProperties;
-
-  /**
-   * Set the additional (undeclared) property with the specified name and value.
-   * If the property does not already exist, create it otherwise replace it.
-   *
-   * @param key name of the property
-   * @param value value of the property
-   * @return the ServiceTokenConnection instance itself
-   */
-  public ServiceTokenConnection putAdditionalProperty(String key, Object value) {
-    if (this.additionalProperties == null) {
-        this.additionalProperties = new HashMap<String, Object>();
-    }
-    this.additionalProperties.put(key, value);
-    return this;
-  }
-
-  /**
-   * Return the additional (undeclared) property.
-   *
-   * @return a map of objects
-   */
-  public Map<String, Object> getAdditionalProperties() {
-    return additionalProperties;
-  }
-
-  /**
-   * Return the additional (undeclared) property with the specified name.
-   *
-   * @param key name of the property
-   * @return an object
-   */
-  public Object getAdditionalProperty(String key) {
-    if (this.additionalProperties == null) {
-        return null;
-    }
-    return this.additionalProperties.get(key);
   }
 
 
@@ -377,13 +325,12 @@ public class ServiceTokenConnection {
         Objects.equals(this.bandwidthLimit, serviceTokenConnection.bandwidthLimit) &&
         Objects.equals(this.supportedBandwidths, serviceTokenConnection.supportedBandwidths) &&
         Objects.equals(this.aSide, serviceTokenConnection.aSide) &&
-        Objects.equals(this.zSide, serviceTokenConnection.zSide)&&
-        Objects.equals(this.additionalProperties, serviceTokenConnection.additionalProperties);
+        Objects.equals(this.zSide, serviceTokenConnection.zSide);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, href, uuid, allowRemoteConnection, bandwidthLimit, supportedBandwidths, aSide, zSide, additionalProperties);
+    return Objects.hash(type, href, uuid, allowRemoteConnection, bandwidthLimit, supportedBandwidths, aSide, zSide);
   }
 
   @Override
@@ -398,7 +345,6 @@ public class ServiceTokenConnection {
     sb.append("    supportedBandwidths: ").append(toIndentedString(supportedBandwidths)).append("\n");
     sb.append("    aSide: ").append(toIndentedString(aSide)).append("\n");
     sb.append("    zSide: ").append(toIndentedString(zSide)).append("\n");
-    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -414,153 +360,5 @@ public class ServiceTokenConnection {
     return o.toString().replace("\n", "\n    ");
   }
 
-
-  public static HashSet<String> openapiFields;
-  public static HashSet<String> openapiRequiredFields;
-
-  static {
-    // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("type");
-    openapiFields.add("href");
-    openapiFields.add("uuid");
-    openapiFields.add("allowRemoteConnection");
-    openapiFields.add("bandwidthLimit");
-    openapiFields.add("supportedBandwidths");
-    openapiFields.add("aSide");
-    openapiFields.add("zSide");
-
-    // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("type");
-  }
-
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to ServiceTokenConnection
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (!ServiceTokenConnection.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in ServiceTokenConnection is not found in the empty JSON string", ServiceTokenConnection.openapiRequiredFields.toString()));
-        }
-      }
-
-      // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : ServiceTokenConnection.openapiRequiredFields) {
-        if (jsonObj.get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
-        }
-      }
-      if (!jsonObj.get("type").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("type").toString()));
-      }
-      if ((jsonObj.get("href") != null && !jsonObj.get("href").isJsonNull()) && !jsonObj.get("href").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `href` to be a primitive type in the JSON string but got `%s`", jsonObj.get("href").toString()));
-      }
-      if ((jsonObj.get("uuid") != null && !jsonObj.get("uuid").isJsonNull()) && !jsonObj.get("uuid").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `uuid` to be a primitive type in the JSON string but got `%s`", jsonObj.get("uuid").toString()));
-      }
-      // ensure the optional json data is an array if present
-      if (jsonObj.get("supportedBandwidths") != null && !jsonObj.get("supportedBandwidths").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `supportedBandwidths` to be an array in the JSON string but got `%s`", jsonObj.get("supportedBandwidths").toString()));
-      }
-      // validate the optional field `aSide`
-      if (jsonObj.get("aSide") != null && !jsonObj.get("aSide").isJsonNull()) {
-        ServiceTokenSide.validateJsonObject(jsonObj.getAsJsonObject("aSide"));
-      }
-      // validate the optional field `zSide`
-      if (jsonObj.get("zSide") != null && !jsonObj.get("zSide").isJsonNull()) {
-        ServiceTokenSide.validateJsonObject(jsonObj.getAsJsonObject("zSide"));
-      }
-  }
-
-  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
-    @SuppressWarnings("unchecked")
-    @Override
-    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!ServiceTokenConnection.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'ServiceTokenConnection' and its subtypes
-       }
-       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<ServiceTokenConnection> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(ServiceTokenConnection.class));
-
-       return (TypeAdapter<T>) new TypeAdapter<ServiceTokenConnection>() {
-           @Override
-           public void write(JsonWriter out, ServiceTokenConnection value) throws IOException {
-             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
-             obj.remove("additionalProperties");
-             // serialize additional properties
-             if (value.getAdditionalProperties() != null) {
-               for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
-                 if (entry.getValue() instanceof String)
-                   obj.addProperty(entry.getKey(), (String) entry.getValue());
-                 else if (entry.getValue() instanceof Number)
-                   obj.addProperty(entry.getKey(), (Number) entry.getValue());
-                 else if (entry.getValue() instanceof Boolean)
-                   obj.addProperty(entry.getKey(), (Boolean) entry.getValue());
-                 else if (entry.getValue() instanceof Character)
-                   obj.addProperty(entry.getKey(), (Character) entry.getValue());
-                 else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
-                 }
-               }
-             }
-             elementAdapter.write(out, obj);
-           }
-
-           @Override
-           public ServiceTokenConnection read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
-             // store additional fields in the deserialized instance
-             ServiceTokenConnection instance = thisAdapter.fromJsonTree(jsonObj);
-             for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
-               if (!openapiFields.contains(entry.getKey())) {
-                 if (entry.getValue().isJsonPrimitive()) { // primitive type
-                   if (entry.getValue().getAsJsonPrimitive().isString())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsString());
-                   else if (entry.getValue().getAsJsonPrimitive().isNumber())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsNumber());
-                   else if (entry.getValue().getAsJsonPrimitive().isBoolean())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
-                   else
-                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else if (entry.getValue().isJsonArray()) {
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
-                 } else { // JSON object
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
-                 }
-               }
-             }
-             return instance;
-           }
-
-       }.nullSafe();
-    }
-  }
-
- /**
-  * Create an instance of ServiceTokenConnection given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ServiceTokenConnection
-  * @throws IOException if the JSON string is invalid with respect to ServiceTokenConnection
-  */
-  public static ServiceTokenConnection fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, ServiceTokenConnection.class);
-  }
-
- /**
-  * Convert an instance of ServiceTokenConnection to an JSON string
-  *
-  * @return JSON string
-  */
-  public String toJson() {
-    return JSON.getGson().toJson(this);
-  }
 }
 

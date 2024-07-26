@@ -11,20 +11,12 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.annotations.SerializedName;
-
-import java.io.IOException;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Key or set of keys that organizes the search payload by property (such as createdDate or metroCode) or by direction. Ascending (ASC) is the default value. The \&quot;?\&quot; prefix indicates descending (DESC) order.
  */
-@JsonAdapter(Sort.Adapter.class)
 public enum Sort {
   
   _BANDWIDTHUTILIZATION("-bandwidthUtilization");
@@ -35,6 +27,7 @@ public enum Sort {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -44,6 +37,7 @@ public enum Sort {
     return String.valueOf(value);
   }
 
+  @JsonCreator
   public static Sort fromValue(String value) {
     for (Sort b : Sort.values()) {
       if (b.value.equals(value)) {
@@ -51,19 +45,6 @@ public enum Sort {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-
-  public static class Adapter extends TypeAdapter<Sort> {
-    @Override
-    public void write(final JsonWriter jsonWriter, final Sort enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
-
-    @Override
-    public Sort read(final JsonReader jsonReader) throws IOException {
-      String value = jsonReader.nextString();
-      return Sort.fromValue(value);
-    }
   }
 }
 

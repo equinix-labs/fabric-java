@@ -11,45 +11,23 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
+import com.fasterxml.jackson.annotation.*;
+
 import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.TypeAdapterFactory;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import com.equinix.openapi.fabric.JSON;
 
 /**
  * Fabric Cloud Router change operation data
  */
+@JsonPropertyOrder({
+  CloudRouterChangeOperation.JSON_PROPERTY_OP,
+  CloudRouterChangeOperation.JSON_PROPERTY_PATH,
+  CloudRouterChangeOperation.JSON_PROPERTY_VALUE
+})
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CloudRouterChangeOperation {
   /**
    * Handy shortcut for operation name
    */
-  @JsonAdapter(OpEnum.Adapter.class)
   public enum OpEnum {
     REPLACE("replace"),
     
@@ -63,6 +41,7 @@ public class CloudRouterChangeOperation {
       this.value = value;
     }
 
+    @JsonValue
     public String getValue() {
       return value;
     }
@@ -72,6 +51,7 @@ public class CloudRouterChangeOperation {
       return String.valueOf(value);
     }
 
+    @JsonCreator
     public static OpEnum fromValue(String value) {
       for (OpEnum b : OpEnum.values()) {
         if (b.value.equals(value)) {
@@ -80,31 +60,15 @@ public class CloudRouterChangeOperation {
       }
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
-
-    public static class Adapter extends TypeAdapter<OpEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final OpEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public OpEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return OpEnum.fromValue(value);
-      }
-    }
   }
 
-  public static final String SERIALIZED_NAME_OP = "op";
-  @SerializedName(SERIALIZED_NAME_OP)
+  public static final String JSON_PROPERTY_OP = "op";
   private OpEnum op;
 
-  public static final String SERIALIZED_NAME_PATH = "path";
-  @SerializedName(SERIALIZED_NAME_PATH)
+  public static final String JSON_PROPERTY_PATH = "path";
   private String path;
 
-  public static final String SERIALIZED_NAME_VALUE = "value";
-  @SerializedName(SERIALIZED_NAME_VALUE)
+  public static final String JSON_PROPERTY_VALUE = "value";
   private Object value;
 
   public CloudRouterChangeOperation() {
@@ -121,12 +85,16 @@ public class CloudRouterChangeOperation {
    * @return op
   **/
   @javax.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_OP)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public OpEnum getOp() {
     return op;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_OP)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setOp(OpEnum op) {
     this.op = op;
   }
@@ -143,12 +111,16 @@ public class CloudRouterChangeOperation {
    * @return path
   **/
   @javax.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_PATH)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getPath() {
     return path;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PATH)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setPath(String path) {
     this.path = path;
   }
@@ -165,59 +137,18 @@ public class CloudRouterChangeOperation {
    * @return value
   **/
   @javax.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Object getValue() {
     return value;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setValue(Object value) {
     this.value = value;
-  }
-
-  /**
-   * A container for additional, undeclared properties.
-   * This is a holder for any undeclared properties as specified with
-   * the 'additionalProperties' keyword in the OAS document.
-   */
-  private Map<String, Object> additionalProperties;
-
-  /**
-   * Set the additional (undeclared) property with the specified name and value.
-   * If the property does not already exist, create it otherwise replace it.
-   *
-   * @param key name of the property
-   * @param value value of the property
-   * @return the CloudRouterChangeOperation instance itself
-   */
-  public CloudRouterChangeOperation putAdditionalProperty(String key, Object value) {
-    if (this.additionalProperties == null) {
-        this.additionalProperties = new HashMap<String, Object>();
-    }
-    this.additionalProperties.put(key, value);
-    return this;
-  }
-
-  /**
-   * Return the additional (undeclared) property.
-   *
-   * @return a map of objects
-   */
-  public Map<String, Object> getAdditionalProperties() {
-    return additionalProperties;
-  }
-
-  /**
-   * Return the additional (undeclared) property with the specified name.
-   *
-   * @param key name of the property
-   * @return an object
-   */
-  public Object getAdditionalProperty(String key) {
-    if (this.additionalProperties == null) {
-        return null;
-    }
-    return this.additionalProperties.get(key);
   }
 
 
@@ -232,13 +163,12 @@ public class CloudRouterChangeOperation {
     CloudRouterChangeOperation cloudRouterChangeOperation = (CloudRouterChangeOperation) o;
     return Objects.equals(this.op, cloudRouterChangeOperation.op) &&
         Objects.equals(this.path, cloudRouterChangeOperation.path) &&
-        Objects.equals(this.value, cloudRouterChangeOperation.value)&&
-        Objects.equals(this.additionalProperties, cloudRouterChangeOperation.additionalProperties);
+        Objects.equals(this.value, cloudRouterChangeOperation.value);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(op, path, value, additionalProperties);
+    return Objects.hash(op, path, value);
   }
 
   @Override
@@ -248,7 +178,6 @@ public class CloudRouterChangeOperation {
     sb.append("    op: ").append(toIndentedString(op)).append("\n");
     sb.append("    path: ").append(toIndentedString(path)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
-    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -264,135 +193,5 @@ public class CloudRouterChangeOperation {
     return o.toString().replace("\n", "\n    ");
   }
 
-
-  public static HashSet<String> openapiFields;
-  public static HashSet<String> openapiRequiredFields;
-
-  static {
-    // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("op");
-    openapiFields.add("path");
-    openapiFields.add("value");
-
-    // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("op");
-    openapiRequiredFields.add("path");
-    openapiRequiredFields.add("value");
-  }
-
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to CloudRouterChangeOperation
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (!CloudRouterChangeOperation.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in CloudRouterChangeOperation is not found in the empty JSON string", CloudRouterChangeOperation.openapiRequiredFields.toString()));
-        }
-      }
-
-      // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : CloudRouterChangeOperation.openapiRequiredFields) {
-        if (jsonObj.get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
-        }
-      }
-      if (!jsonObj.get("op").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `op` to be a primitive type in the JSON string but got `%s`", jsonObj.get("op").toString()));
-      }
-      if (!jsonObj.get("path").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `path` to be a primitive type in the JSON string but got `%s`", jsonObj.get("path").toString()));
-      }
-  }
-
-  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
-    @SuppressWarnings("unchecked")
-    @Override
-    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!CloudRouterChangeOperation.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'CloudRouterChangeOperation' and its subtypes
-       }
-       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<CloudRouterChangeOperation> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(CloudRouterChangeOperation.class));
-
-       return (TypeAdapter<T>) new TypeAdapter<CloudRouterChangeOperation>() {
-           @Override
-           public void write(JsonWriter out, CloudRouterChangeOperation value) throws IOException {
-             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
-             obj.remove("additionalProperties");
-             // serialize additional properties
-             if (value.getAdditionalProperties() != null) {
-               for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
-                 if (entry.getValue() instanceof String)
-                   obj.addProperty(entry.getKey(), (String) entry.getValue());
-                 else if (entry.getValue() instanceof Number)
-                   obj.addProperty(entry.getKey(), (Number) entry.getValue());
-                 else if (entry.getValue() instanceof Boolean)
-                   obj.addProperty(entry.getKey(), (Boolean) entry.getValue());
-                 else if (entry.getValue() instanceof Character)
-                   obj.addProperty(entry.getKey(), (Character) entry.getValue());
-                 else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
-                 }
-               }
-             }
-             elementAdapter.write(out, obj);
-           }
-
-           @Override
-           public CloudRouterChangeOperation read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
-             // store additional fields in the deserialized instance
-             CloudRouterChangeOperation instance = thisAdapter.fromJsonTree(jsonObj);
-             for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
-               if (!openapiFields.contains(entry.getKey())) {
-                 if (entry.getValue().isJsonPrimitive()) { // primitive type
-                   if (entry.getValue().getAsJsonPrimitive().isString())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsString());
-                   else if (entry.getValue().getAsJsonPrimitive().isNumber())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsNumber());
-                   else if (entry.getValue().getAsJsonPrimitive().isBoolean())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
-                   else
-                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else if (entry.getValue().isJsonArray()) {
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
-                 } else { // JSON object
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
-                 }
-               }
-             }
-             return instance;
-           }
-
-       }.nullSafe();
-    }
-  }
-
- /**
-  * Create an instance of CloudRouterChangeOperation given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of CloudRouterChangeOperation
-  * @throws IOException if the JSON string is invalid with respect to CloudRouterChangeOperation
-  */
-  public static CloudRouterChangeOperation fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, CloudRouterChangeOperation.class);
-  }
-
- /**
-  * Convert an instance of CloudRouterChangeOperation to an JSON string
-  *
-  * @return JSON string
-  */
-  public String toJson() {
-    return JSON.getGson().toJson(this);
-  }
 }
 

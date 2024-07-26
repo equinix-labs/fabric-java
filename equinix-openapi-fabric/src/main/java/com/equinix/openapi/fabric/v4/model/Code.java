@@ -11,20 +11,12 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.annotations.SerializedName;
-
-import java.io.IOException;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Cloud Router package code
  */
-@JsonAdapter(Code.Adapter.class)
 public enum Code {
   
   LAB("LAB"),
@@ -41,6 +33,7 @@ public enum Code {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -50,6 +43,7 @@ public enum Code {
     return String.valueOf(value);
   }
 
+  @JsonCreator
   public static Code fromValue(String value) {
     for (Code b : Code.values()) {
       if (b.value.equals(value)) {
@@ -57,19 +51,6 @@ public enum Code {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-
-  public static class Adapter extends TypeAdapter<Code> {
-    @Override
-    public void write(final JsonWriter jsonWriter, final Code enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
-
-    @Override
-    public Code read(final JsonReader jsonReader) throws IOException {
-      String value = jsonReader.nextString();
-      return Code.fromValue(value);
-    }
   }
 }
 

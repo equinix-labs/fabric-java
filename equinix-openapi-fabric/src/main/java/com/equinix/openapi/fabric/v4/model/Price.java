@@ -11,87 +11,60 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.equinix.openapi.fabric.v4.model.FabricCloudRouterPrice;
-import com.equinix.openapi.fabric.v4.model.IpBlockPrice;
-import com.equinix.openapi.fabric.v4.model.PriceCategory;
-import com.equinix.openapi.fabric.v4.model.PriceCharge;
-import com.equinix.openapi.fabric.v4.model.ProductType;
-import com.equinix.openapi.fabric.v4.model.SimplifiedAccount;
-import com.equinix.openapi.fabric.v4.model.VirtualConnectionPrice;
-import com.equinix.openapi.fabric.v4.model.VirtualPortPrice;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.TypeAdapterFactory;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import com.equinix.openapi.fabric.JSON;
+import java.util.Objects;
 
 /**
  * Price
  */
+@JsonPropertyOrder({
+  Price.JSON_PROPERTY_HREF,
+  Price.JSON_PROPERTY_TYPE,
+  Price.JSON_PROPERTY_CODE,
+  Price.JSON_PROPERTY_NAME,
+  Price.JSON_PROPERTY_DESCRIPTION,
+  Price.JSON_PROPERTY_ACCOUNT,
+  Price.JSON_PROPERTY_CHARGES,
+  Price.JSON_PROPERTY_CURRENCY,
+  Price.JSON_PROPERTY_TERM_LENGTH,
+  Price.JSON_PROPERTY_CATGORY,
+  Price.JSON_PROPERTY_CONNECTION,
+  Price.JSON_PROPERTY_IP_BLOCK,
+  Price.JSON_PROPERTY_ROUTER,
+  Price.JSON_PROPERTY_PORT
+})
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Price {
-  public static final String SERIALIZED_NAME_HREF = "href";
-  @SerializedName(SERIALIZED_NAME_HREF)
+  public static final String JSON_PROPERTY_HREF = "href";
   private String href;
 
-  public static final String SERIALIZED_NAME_TYPE = "type";
-  @SerializedName(SERIALIZED_NAME_TYPE)
+  public static final String JSON_PROPERTY_TYPE = "type";
   private ProductType type;
 
-  public static final String SERIALIZED_NAME_CODE = "code";
-  @SerializedName(SERIALIZED_NAME_CODE)
+  public static final String JSON_PROPERTY_CODE = "code";
   private String code;
 
-  public static final String SERIALIZED_NAME_NAME = "name";
-  @SerializedName(SERIALIZED_NAME_NAME)
+  public static final String JSON_PROPERTY_NAME = "name";
   private String name;
 
-  public static final String SERIALIZED_NAME_DESCRIPTION = "description";
-  @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
   private String description;
 
-  public static final String SERIALIZED_NAME_ACCOUNT = "account";
-  @SerializedName(SERIALIZED_NAME_ACCOUNT)
+  public static final String JSON_PROPERTY_ACCOUNT = "account";
   private SimplifiedAccount account;
 
-  public static final String SERIALIZED_NAME_CHARGES = "charges";
-  @SerializedName(SERIALIZED_NAME_CHARGES)
+  public static final String JSON_PROPERTY_CHARGES = "charges";
   private List<PriceCharge> charges = new ArrayList<>();
 
-  public static final String SERIALIZED_NAME_CURRENCY = "currency";
-  @SerializedName(SERIALIZED_NAME_CURRENCY)
+  public static final String JSON_PROPERTY_CURRENCY = "currency";
   private String currency;
 
   /**
    * In months. No value means unlimited
    */
-  @JsonAdapter(TermLengthEnum.Adapter.class)
   public enum TermLengthEnum {
     NUMBER_12(12),
     
@@ -105,6 +78,7 @@ public class Price {
       this.value = value;
     }
 
+    @JsonValue
     public Integer getValue() {
       return value;
     }
@@ -114,6 +88,7 @@ public class Price {
       return String.valueOf(value);
     }
 
+    @JsonCreator
     public static TermLengthEnum fromValue(Integer value) {
       for (TermLengthEnum b : TermLengthEnum.values()) {
         if (b.value.equals(value)) {
@@ -122,43 +97,24 @@ public class Price {
       }
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
-
-    public static class Adapter extends TypeAdapter<TermLengthEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final TermLengthEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public TermLengthEnum read(final JsonReader jsonReader) throws IOException {
-        Integer value =  jsonReader.nextInt();
-        return TermLengthEnum.fromValue(value);
-      }
-    }
   }
 
-  public static final String SERIALIZED_NAME_TERM_LENGTH = "termLength";
-  @SerializedName(SERIALIZED_NAME_TERM_LENGTH)
+  public static final String JSON_PROPERTY_TERM_LENGTH = "termLength";
   private TermLengthEnum termLength;
 
-  public static final String SERIALIZED_NAME_CATGORY = "catgory";
-  @SerializedName(SERIALIZED_NAME_CATGORY)
+  public static final String JSON_PROPERTY_CATGORY = "catgory";
   private PriceCategory catgory;
 
-  public static final String SERIALIZED_NAME_CONNECTION = "connection";
-  @SerializedName(SERIALIZED_NAME_CONNECTION)
+  public static final String JSON_PROPERTY_CONNECTION = "connection";
   private VirtualConnectionPrice connection;
 
-  public static final String SERIALIZED_NAME_IP_BLOCK = "ipBlock";
-  @SerializedName(SERIALIZED_NAME_IP_BLOCK)
+  public static final String JSON_PROPERTY_IP_BLOCK = "ipBlock";
   private IpBlockPrice ipBlock;
 
-  public static final String SERIALIZED_NAME_ROUTER = "router";
-  @SerializedName(SERIALIZED_NAME_ROUTER)
+  public static final String JSON_PROPERTY_ROUTER = "router";
   private FabricCloudRouterPrice router;
 
-  public static final String SERIALIZED_NAME_PORT = "port";
-  @SerializedName(SERIALIZED_NAME_PORT)
+  public static final String JSON_PROPERTY_PORT = "port";
   private VirtualPortPrice port;
 
   public Price() {
@@ -175,12 +131,16 @@ public class Price {
    * @return href
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_HREF)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getHref() {
     return href;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_HREF)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setHref(String href) {
     this.href = href;
   }
@@ -197,12 +157,16 @@ public class Price {
    * @return type
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ProductType getType() {
     return type;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setType(ProductType type) {
     this.type = type;
   }
@@ -219,12 +183,16 @@ public class Price {
    * @return code
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_CODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCode() {
     return code;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCode(String code) {
     this.code = code;
   }
@@ -241,12 +209,16 @@ public class Price {
    * @return name
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
     return name;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setName(String name) {
     this.name = name;
   }
@@ -263,12 +235,16 @@ public class Price {
    * @return description
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
     return description;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDescription(String description) {
     this.description = description;
   }
@@ -285,12 +261,16 @@ public class Price {
    * @return account
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ACCOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public SimplifiedAccount getAccount() {
     return account;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ACCOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAccount(SimplifiedAccount account) {
     this.account = account;
   }
@@ -315,12 +295,16 @@ public class Price {
    * @return charges
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_CHARGES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PriceCharge> getCharges() {
     return charges;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CHARGES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCharges(List<PriceCharge> charges) {
     this.charges = charges;
   }
@@ -337,12 +321,16 @@ public class Price {
    * @return currency
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_CURRENCY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCurrency() {
     return currency;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CURRENCY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCurrency(String currency) {
     this.currency = currency;
   }
@@ -359,12 +347,16 @@ public class Price {
    * @return termLength
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_TERM_LENGTH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public TermLengthEnum getTermLength() {
     return termLength;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_TERM_LENGTH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTermLength(TermLengthEnum termLength) {
     this.termLength = termLength;
   }
@@ -381,12 +373,16 @@ public class Price {
    * @return catgory
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_CATGORY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public PriceCategory getCatgory() {
     return catgory;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CATGORY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCatgory(PriceCategory catgory) {
     this.catgory = catgory;
   }
@@ -403,12 +399,16 @@ public class Price {
    * @return connection
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_CONNECTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public VirtualConnectionPrice getConnection() {
     return connection;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_CONNECTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnection(VirtualConnectionPrice connection) {
     this.connection = connection;
   }
@@ -425,12 +425,16 @@ public class Price {
    * @return ipBlock
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_IP_BLOCK)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public IpBlockPrice getIpBlock() {
     return ipBlock;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_IP_BLOCK)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIpBlock(IpBlockPrice ipBlock) {
     this.ipBlock = ipBlock;
   }
@@ -447,12 +451,16 @@ public class Price {
    * @return router
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ROUTER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public FabricCloudRouterPrice getRouter() {
     return router;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_ROUTER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRouter(FabricCloudRouterPrice router) {
     this.router = router;
   }
@@ -469,59 +477,18 @@ public class Price {
    * @return port
   **/
   @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PORT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public VirtualPortPrice getPort() {
     return port;
   }
 
 
+  @JsonProperty(JSON_PROPERTY_PORT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPort(VirtualPortPrice port) {
     this.port = port;
-  }
-
-  /**
-   * A container for additional, undeclared properties.
-   * This is a holder for any undeclared properties as specified with
-   * the 'additionalProperties' keyword in the OAS document.
-   */
-  private Map<String, Object> additionalProperties;
-
-  /**
-   * Set the additional (undeclared) property with the specified name and value.
-   * If the property does not already exist, create it otherwise replace it.
-   *
-   * @param key name of the property
-   * @param value value of the property
-   * @return the Price instance itself
-   */
-  public Price putAdditionalProperty(String key, Object value) {
-    if (this.additionalProperties == null) {
-        this.additionalProperties = new HashMap<String, Object>();
-    }
-    this.additionalProperties.put(key, value);
-    return this;
-  }
-
-  /**
-   * Return the additional (undeclared) property.
-   *
-   * @return a map of objects
-   */
-  public Map<String, Object> getAdditionalProperties() {
-    return additionalProperties;
-  }
-
-  /**
-   * Return the additional (undeclared) property with the specified name.
-   *
-   * @param key name of the property
-   * @return an object
-   */
-  public Object getAdditionalProperty(String key) {
-    if (this.additionalProperties == null) {
-        return null;
-    }
-    return this.additionalProperties.get(key);
   }
 
 
@@ -547,13 +514,12 @@ public class Price {
         Objects.equals(this.connection, price.connection) &&
         Objects.equals(this.ipBlock, price.ipBlock) &&
         Objects.equals(this.router, price.router) &&
-        Objects.equals(this.port, price.port)&&
-        Objects.equals(this.additionalProperties, price.additionalProperties);
+        Objects.equals(this.port, price.port);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(href, type, code, name, description, account, charges, currency, termLength, catgory, connection, ipBlock, router, port, additionalProperties);
+    return Objects.hash(href, type, code, name, description, account, charges, currency, termLength, catgory, connection, ipBlock, router, port);
   }
 
   @Override
@@ -574,7 +540,6 @@ public class Price {
     sb.append("    ipBlock: ").append(toIndentedString(ipBlock)).append("\n");
     sb.append("    router: ").append(toIndentedString(router)).append("\n");
     sb.append("    port: ").append(toIndentedString(port)).append("\n");
-    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -590,179 +555,5 @@ public class Price {
     return o.toString().replace("\n", "\n    ");
   }
 
-
-  public static HashSet<String> openapiFields;
-  public static HashSet<String> openapiRequiredFields;
-
-  static {
-    // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("href");
-    openapiFields.add("type");
-    openapiFields.add("code");
-    openapiFields.add("name");
-    openapiFields.add("description");
-    openapiFields.add("account");
-    openapiFields.add("charges");
-    openapiFields.add("currency");
-    openapiFields.add("termLength");
-    openapiFields.add("catgory");
-    openapiFields.add("connection");
-    openapiFields.add("ipBlock");
-    openapiFields.add("router");
-    openapiFields.add("port");
-
-    // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-  }
-
- /**
-  * Validates the JSON Object and throws an exception if issues found
-  *
-  * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to Price
-  */
-  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (!Price.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in Price is not found in the empty JSON string", Price.openapiRequiredFields.toString()));
-        }
-      }
-      if ((jsonObj.get("href") != null && !jsonObj.get("href").isJsonNull()) && !jsonObj.get("href").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `href` to be a primitive type in the JSON string but got `%s`", jsonObj.get("href").toString()));
-      }
-      if ((jsonObj.get("code") != null && !jsonObj.get("code").isJsonNull()) && !jsonObj.get("code").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `code` to be a primitive type in the JSON string but got `%s`", jsonObj.get("code").toString()));
-      }
-      if ((jsonObj.get("name") != null && !jsonObj.get("name").isJsonNull()) && !jsonObj.get("name").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
-      }
-      if ((jsonObj.get("description") != null && !jsonObj.get("description").isJsonNull()) && !jsonObj.get("description").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `description` to be a primitive type in the JSON string but got `%s`", jsonObj.get("description").toString()));
-      }
-      // validate the optional field `account`
-      if (jsonObj.get("account") != null && !jsonObj.get("account").isJsonNull()) {
-        SimplifiedAccount.validateJsonObject(jsonObj.getAsJsonObject("account"));
-      }
-      if (jsonObj.get("charges") != null && !jsonObj.get("charges").isJsonNull()) {
-        JsonArray jsonArraycharges = jsonObj.getAsJsonArray("charges");
-        if (jsonArraycharges != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("charges").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `charges` to be an array in the JSON string but got `%s`", jsonObj.get("charges").toString()));
-          }
-
-          // validate the optional field `charges` (array)
-          for (int i = 0; i < jsonArraycharges.size(); i++) {
-            PriceCharge.validateJsonObject(jsonArraycharges.get(i).getAsJsonObject());
-          };
-        }
-      }
-      if ((jsonObj.get("currency") != null && !jsonObj.get("currency").isJsonNull()) && !jsonObj.get("currency").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `currency` to be a primitive type in the JSON string but got `%s`", jsonObj.get("currency").toString()));
-      }
-      // validate the optional field `connection`
-      if (jsonObj.get("connection") != null && !jsonObj.get("connection").isJsonNull()) {
-        VirtualConnectionPrice.validateJsonObject(jsonObj.getAsJsonObject("connection"));
-      }
-      // validate the optional field `ipBlock`
-      if (jsonObj.get("ipBlock") != null && !jsonObj.get("ipBlock").isJsonNull()) {
-        IpBlockPrice.validateJsonObject(jsonObj.getAsJsonObject("ipBlock"));
-      }
-      // validate the optional field `router`
-      if (jsonObj.get("router") != null && !jsonObj.get("router").isJsonNull()) {
-        FabricCloudRouterPrice.validateJsonObject(jsonObj.getAsJsonObject("router"));
-      }
-      // validate the optional field `port`
-      if (jsonObj.get("port") != null && !jsonObj.get("port").isJsonNull()) {
-        VirtualPortPrice.validateJsonObject(jsonObj.getAsJsonObject("port"));
-      }
-  }
-
-  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
-    @SuppressWarnings("unchecked")
-    @Override
-    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!Price.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'Price' and its subtypes
-       }
-       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<Price> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(Price.class));
-
-       return (TypeAdapter<T>) new TypeAdapter<Price>() {
-           @Override
-           public void write(JsonWriter out, Price value) throws IOException {
-             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
-             obj.remove("additionalProperties");
-             // serialize additional properties
-             if (value.getAdditionalProperties() != null) {
-               for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
-                 if (entry.getValue() instanceof String)
-                   obj.addProperty(entry.getKey(), (String) entry.getValue());
-                 else if (entry.getValue() instanceof Number)
-                   obj.addProperty(entry.getKey(), (Number) entry.getValue());
-                 else if (entry.getValue() instanceof Boolean)
-                   obj.addProperty(entry.getKey(), (Boolean) entry.getValue());
-                 else if (entry.getValue() instanceof Character)
-                   obj.addProperty(entry.getKey(), (Character) entry.getValue());
-                 else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
-                 }
-               }
-             }
-             elementAdapter.write(out, obj);
-           }
-
-           @Override
-           public Price read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
-             // store additional fields in the deserialized instance
-             Price instance = thisAdapter.fromJsonTree(jsonObj);
-             for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
-               if (!openapiFields.contains(entry.getKey())) {
-                 if (entry.getValue().isJsonPrimitive()) { // primitive type
-                   if (entry.getValue().getAsJsonPrimitive().isString())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsString());
-                   else if (entry.getValue().getAsJsonPrimitive().isNumber())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsNumber());
-                   else if (entry.getValue().getAsJsonPrimitive().isBoolean())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
-                   else
-                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else if (entry.getValue().isJsonArray()) {
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
-                 } else { // JSON object
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
-                 }
-               }
-             }
-             return instance;
-           }
-
-       }.nullSafe();
-    }
-  }
-
- /**
-  * Create an instance of Price given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of Price
-  * @throws IOException if the JSON string is invalid with respect to Price
-  */
-  public static Price fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, Price.class);
-  }
-
- /**
-  * Convert an instance of Price to an JSON string
-  *
-  * @return JSON string
-  */
-  public String toJson() {
-    return JSON.getGson().toJson(this);
-  }
 }
 

@@ -1,6 +1,5 @@
 /*
  * Equinix Fabric API v4
- * Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br>
  *
  * Contact: api-support@equinix.com
  *
@@ -11,34 +10,35 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.v4.model.FilterBody;
 import com.equinix.openapi.fabric.v4.model.PriceSearchResponse;
 import com.equinix.openapi.fabric.v4.model.SearchExpression;
-import org.junit.jupiter.api.Test;
+import io.restassured.response.Response;
+import org.apache.http.HttpStatus;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 /**
  * API tests for PricesApi
  */
+public class PricesApiTest {
 
-public class PricesApiTest extends AbstractTest {
-    private final PricesApi api = new PricesApi(generateToken());
+    private PricesApi api;
 
-    /**
-     * Get Prices
-     * <p>
-     * Search prices by search criteria
-     *
-     * @throws ApiException if the Api call fails
-     */
+    @Before
+    public void createApi() {
+        api = new TokenGenerator().generate().prices();
+    }
+
     @Test
-    public void searchPricesTest() throws ApiException {
+    public void searchPrices() {
         SearchExpression itemProperty1 = new SearchExpression()
                 .property("/type")
                 .operator(SearchExpression.OperatorEnum.EQUAL)
@@ -61,8 +61,12 @@ public class PricesApiTest extends AbstractTest {
         FilterBody filterBody = new FilterBody();
         filterBody.setFilter(item);
 
-        PriceSearchResponse response = api.searchPrices(filterBody);
-        assertEquals(200, api.getApiClient().getStatusCode());
-        assertNotEquals(null, response.getData().get(0).getType());
+        Response response = api.searchPrices()
+                .body(filterBody)
+                .execute(r -> r);
+
+        PriceSearchResponse priceSearchResponse = response.as(PriceSearchResponse.class);
+        assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+        assertNotEquals(null, priceSearchResponse.getData().get(0).getType());
     }
 }

@@ -11,20 +11,12 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.annotations.SerializedName;
-
-import java.io.IOException;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Network scope
  */
-@JsonAdapter(NetworkScope.Adapter.class)
 public enum NetworkScope {
   
   REGIONAL("REGIONAL"),
@@ -39,6 +31,7 @@ public enum NetworkScope {
     this.value = value;
   }
 
+  @JsonValue
   public String getValue() {
     return value;
   }
@@ -48,6 +41,7 @@ public enum NetworkScope {
     return String.valueOf(value);
   }
 
+  @JsonCreator
   public static NetworkScope fromValue(String value) {
     for (NetworkScope b : NetworkScope.values()) {
       if (b.value.equals(value)) {
@@ -55,19 +49,6 @@ public enum NetworkScope {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-
-  public static class Adapter extends TypeAdapter<NetworkScope> {
-    @Override
-    public void write(final JsonWriter jsonWriter, final NetworkScope enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
-
-    @Override
-    public NetworkScope read(final JsonReader jsonReader) throws IOException {
-      String value = jsonReader.nextString();
-      return NetworkScope.fromValue(value);
-    }
   }
 }
 

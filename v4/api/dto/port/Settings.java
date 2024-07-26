@@ -1,16 +1,16 @@
 package com.equinix.openapi.fabric.v4.api.dto.port;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Settings{
 
-	@SerializedName("buyout")
+	@JsonProperty("buyout")
 	private boolean buyout;
 
-	@SerializedName("placeVcOrderPermission")
+	@JsonProperty("placeVcOrderPermission")
 	private boolean placeVcOrderPermission;
 
-	@SerializedName("viewPortPermission")
+	@JsonProperty("viewPortPermission")
 	private boolean viewPortPermission;
 
 	public boolean isBuyout(){
