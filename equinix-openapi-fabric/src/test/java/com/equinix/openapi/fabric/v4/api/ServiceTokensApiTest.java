@@ -14,7 +14,6 @@ import com.equinix.openapi.fabric.v4.model.ServiceToken;
 import com.equinix.openapi.fabric.v4.model.ServiceTokenActionRequest;
 import com.equinix.openapi.fabric.v4.model.ServiceTokenChangeOperation;
 import com.equinix.openapi.fabric.v4.model.ServiceTokenSearchRequest;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -28,12 +27,7 @@ import java.util.UUID;
 @Ignore
 public class ServiceTokensApiTest {
 
-    private ServiceTokensApi api;
-
-    @Before
-    public void createApi() {
-        api = new TokenGenerator().generate().serviceTokens();
-    }
+    private ServiceTokensApi api = TokenGenerator.getApiClient().serviceTokens();
 
     /**
      * Successful operation

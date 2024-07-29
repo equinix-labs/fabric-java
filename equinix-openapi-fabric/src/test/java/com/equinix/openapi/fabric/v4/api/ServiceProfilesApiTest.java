@@ -13,7 +13,7 @@ package com.equinix.openapi.fabric.v4.api;
 import com.equinix.openapi.fabric.v4.model.JsonPatchOperation;
 import com.equinix.openapi.fabric.v4.model.ServiceProfileRequest;
 import com.equinix.openapi.fabric.v4.model.ServiceProfileSearchRequest;
-import org.junit.Before;
+import io.restassured.response.Response;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -26,12 +26,7 @@ import java.util.UUID;
 @Ignore
 public class ServiceProfilesApiTest {
 
-    private ServiceProfilesApi api;
-
-    @Before
-    public void createApi() {
-        api = new TokenGenerator().generate().serviceProfiles();
-    }
+    private ServiceProfilesApi api = TokenGenerator.getApiClient().serviceProfiles();
 
     /**
      * Successful Create operation
@@ -132,5 +127,9 @@ public class ServiceProfilesApiTest {
                 .ifMatchHeader(ifMatch)
                 .body(jsonPatchOperation).execute(r -> r);
         // TODO: test validations
+    }
+
+    public Response getServiceProfilesByQueryResponse(String viewPointQuery) {
+        return api.getServiceProfiles().offsetQuery(1).limitQuery(10).viewPointQuery(viewPointQuery).execute(r -> r);
     }
 }

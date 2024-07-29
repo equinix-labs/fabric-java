@@ -14,7 +14,6 @@ import com.equinix.openapi.fabric.v4.model.ConnectionRouteFiltersBase;
 import com.equinix.openapi.fabric.v4.model.RouteFiltersBase;
 import com.equinix.openapi.fabric.v4.model.RouteFiltersPatchRequestItem;
 import com.equinix.openapi.fabric.v4.model.RouteFiltersSearchBase;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -27,12 +26,7 @@ import java.util.UUID;
 @Ignore
 public class RouteFiltersApiTest {
 
-    private RouteFiltersApi api;
-
-    @Before
-    public void createApi() {
-        api = new TokenGenerator().generate().routeFilters();
-    }
+    private RouteFiltersApi api = TokenGenerator.getApiClient().routeFilters();
 
     /**
      * Successful operation

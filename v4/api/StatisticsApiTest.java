@@ -11,7 +11,6 @@
 package com.equinix.openapi.fabric.v4.api;
 
 import com.equinix.openapi.fabric.v4.model.*;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -25,12 +24,7 @@ import java.util.UUID;
 @Ignore
 public class StatisticsApiTest {
 
-    private StatisticsApi api;
-
-    @Before
-    public void createApi() {
-        api = new TokenGenerator().generate().statistics();
-    }
+    private StatisticsApi api = TokenGenerator.getApiClient().statistics();
 
     /**
      * Successful operation

@@ -25,13 +25,18 @@ import java.util.function.Supplier;
 import static com.equinix.openapi.fabric.JacksonObjectMapper.jackson;
 import static io.restassured.config.ObjectMapperConfig.objectMapperConfig;
 import static io.restassured.config.RestAssuredConfig.config;
+import static java.util.Objects.isNull;
 
 /**
  * API tests for RouteFiltersApi
  */
 public class TokenGenerator {
 
-    public ApiClient generate() {
+    public static ApiClient getApiClient() {
+        return isNull(apiClient) ? generate() : apiClient;
+    }
+
+    private static ApiClient generate() {
         String baseUrl = System.getProperty("envUrl");
 
         TokenRequestDto tokenRequestDto = new TokenRequestDto()
@@ -55,10 +60,12 @@ public class TokenGenerator {
         return ApiClient.api(ApiClient.Config.apiConfig().reqSpecSupplier(
                 () -> new RequestSpecBuilder()
                         .setConfig(config().objectMapperConfig(objectMapperConfig().defaultObjectMapper(jackson())))
-                        .addHeader("Authorization", "Bearer " +tokenResponseDto.getAccessToken())
+                        .addHeader("Authorization", "Bearer " + tokenResponseDto.getAccessToken())
                         .addFilter(new RequestLoggingFilter())
                         .addFilter(new ResponseLoggingFilter())
                         .addFilter(new ErrorLoggingFilter())
                         .setBaseUri(baseUrl)));
-    }
+    }    public static ApiClient apiClient = getApiClient();
+
+
 }

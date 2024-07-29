@@ -13,7 +13,6 @@ package com.equinix.openapi.fabric.v4.api;
 import com.equinix.openapi.fabric.v4.model.RouteFilterRulesBase;
 import com.equinix.openapi.fabric.v4.model.RouteFilterRulesPatchRequestItem;
 import com.equinix.openapi.fabric.v4.model.RouteFilterRulesPostRequest;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -26,12 +25,7 @@ import java.util.UUID;
 @Ignore
 public class RouteFilterRulesApiTest {
 
-    private RouteFilterRulesApi api;
-
-    @Before
-    public void createApi() {
-        api = new TokenGenerator().generate().routeFilterRules();
-    }
+    private RouteFilterRulesApi api = TokenGenerator.getApiClient().routeFilterRules();
 
     /**
      * Successful operation

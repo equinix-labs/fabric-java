@@ -11,7 +11,6 @@
 package com.equinix.openapi.fabric.v4.api;
 
 import com.equinix.openapi.fabric.v4.model.*;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -24,12 +23,7 @@ import java.util.UUID;
 @Ignore
 public class RoutingProtocolsApiTest {
 
-    private RoutingProtocolsApi api;
-
-    @Before
-    public void createApi() {
-        api = new TokenGenerator().generate().routingProtocols();
-    }
+    private RoutingProtocolsApi api = TokenGenerator.getApiClient().routingProtocols();
 
     /**
      * Successful operation

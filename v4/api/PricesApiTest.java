@@ -15,8 +15,6 @@ import com.equinix.openapi.fabric.v4.model.PriceSearchResponse;
 import com.equinix.openapi.fabric.v4.model.SearchExpression;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -30,12 +28,7 @@ import static org.junit.Assert.assertNotEquals;
  */
 public class PricesApiTest {
 
-    private PricesApi api;
-
-    @Before
-    public void createApi() {
-        api = new TokenGenerator().generate().prices();
-    }
+    private PricesApi api = TokenGenerator.getApiClient().prices();
 
     @Test
     public void searchPrices() {

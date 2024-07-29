@@ -15,7 +15,6 @@ import com.equinix.openapi.fabric.v4.model.*;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -31,12 +30,7 @@ import static org.junit.Assert.*;
 public class CloudRoutersApiTest {
 
     private static final List<UUID> cloudRouterToDelete = new ArrayList<>();
-    private static CloudRoutersApi api;
-
-    @BeforeClass
-    public static void createApi() {
-        api = new TokenGenerator().generate().cloudRouters();
-    }
+    private static CloudRoutersApi api = TokenGenerator.getApiClient().cloudRouters();
 
     @AfterClass
     public static void removeResources() {

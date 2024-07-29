@@ -12,7 +12,6 @@ package com.equinix.openapi.fabric.v4.api;
 
 import com.equinix.openapi.fabric.v4.model.PrecisionTimeChangeOperation;
 import com.equinix.openapi.fabric.v4.model.PrecisionTimeServiceRequest;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -25,12 +24,7 @@ import java.util.UUID;
 @Ignore
 public class PrecisionTimeApiTest {
 
-    private PrecisionTimeApi api;
-
-    @Before
-    public void createApi() {
-        api = new TokenGenerator().generate().precisionTime();
-    }
+    private PrecisionTimeApi api = TokenGenerator.getApiClient().precisionTime();
 
     /**
      * Successful operation

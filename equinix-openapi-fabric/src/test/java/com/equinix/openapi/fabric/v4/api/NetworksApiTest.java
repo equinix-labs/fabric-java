@@ -12,7 +12,6 @@ package com.equinix.openapi.fabric.v4.api;
 
 import com.equinix.openapi.fabric.v4.model.NetworkChangeOperation;
 import com.equinix.openapi.fabric.v4.model.NetworkPostRequest;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -25,12 +24,7 @@ import java.util.UUID;
 @Ignore
 public class NetworksApiTest {
 
-    private NetworksApi api;
-
-    @Before
-    public void createApi() {
-        api = new TokenGenerator().generate().networks();
-    }
+    private NetworksApi api = TokenGenerator.getApiClient().networks();
 
     /**
      * Fabric Network Access point object

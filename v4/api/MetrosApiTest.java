@@ -15,8 +15,6 @@ import com.equinix.openapi.fabric.v4.model.MetroResponse;
 import com.equinix.openapi.fabric.v4.model.Presence;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -28,12 +26,7 @@ import static org.junit.Assert.assertTrue;
 public class MetrosApiTest {
 
     private final String metroCode = "DC";
-    private MetrosApi api;
-
-    @Before
-    public void createApi() {
-        api = new TokenGenerator().generate().metros();
-    }
+    private MetrosApi api = TokenGenerator.getApiClient().metros();
 
     @Test
     public void getMetroByCode() {

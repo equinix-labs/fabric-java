@@ -10,7 +10,6 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -20,12 +19,7 @@ import org.junit.Test;
 @Ignore
 public class HealthApiTest {
 
-    private HealthApi api;
-
-    @Before
-    public void createApi() {
-        api = new TokenGenerator().generate().health();
-    }
+    private HealthApi api = TokenGenerator.getApiClient().health();
 
     /**
      * Successful operation

@@ -10,115 +10,32 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.v4.model.BulkPhysicalPort;
-import com.equinix.openapi.fabric.v4.model.BulkPort;
+import com.equinix.openapi.fabric.v4.api.dto.port.PortDto;
+import com.equinix.openapi.fabric.v4.model.AllPortsResponse;
 import com.equinix.openapi.fabric.v4.model.Port;
-import com.equinix.openapi.fabric.v4.model.PortV4SearchRequest;
-import org.junit.Before;
-import org.junit.Ignore;
+import io.restassured.response.Response;
+import org.apache.http.HttpStatus;
 import org.junit.Test;
 
-import java.util.UUID;
+import static org.junit.Assert.assertEquals;
 
 /**
  * API tests for PortsApi
  */
-@Ignore
 public class PortsApiTest {
 
-    private PortsApi api;
-
-    @Before
-    public void createApi() {
-        api = new TokenGenerator().generate().ports();
-    }
+    private PortsApi api = TokenGenerator.getApiClient().ports();
 
     /**
      * Successful operation
      */
     @Test
-    public void shouldSee200AfterAddToLag() {
-        UUID portId = null;
-        BulkPhysicalPort bulkPhysicalPort = null;
-        api.addToLag()
-                .portIdPath(portId)
-                .body(bulkPhysicalPort).execute(r -> r);
-        // TODO: test validations
-    }
-
-    /**
-     * Successful operation for COLO Bulk Port
-     */
-    @Test
-    public void shouldSee201AfterCreateBulkPort() {
-        BulkPort bulkPort = null;
-        api.createBulkPort()
-                .body(bulkPort).execute(r -> r);
-        // TODO: test validations
-    }
-
-    /**
-     * Successful operation for COLO Single Port Non Lag
-     */
-    @Test
-    public void shouldSee201AfterCreatePort() {
-        Port port = null;
-        api.createPort()
-                .body(port).execute(r -> r);
-        // TODO: test validations
-    }
-
-    /**
-     * Accepted
-     */
-    @Test
-    public void shouldSee202AfterDeletePort() {
-        UUID portId = null;
-        api.deletePort()
-                .portIdPath(portId).execute(r -> r);
-        // TODO: test validations
-    }
-
-    /**
-     * Successful operation
-     */
-    @Test
-    public void shouldSee200AfterGetPortByUuid() {
-        UUID portId = null;
-        api.getPortByUuid()
-                .portIdPath(portId).execute(r -> r);
-        // TODO: test validations
-    }
-
-    /**
-     * Successful operation
-     */
-    @Test
-    public void shouldSee200AfterGetPorts() {
-        String name = null;
-        api.getPorts().execute(r -> r);
-        // TODO: test validations
-    }
-
-    /**
-     * Get Vlans
-     */
-    @Test
-    public void shouldSee200AfterGetVlans() {
-        UUID portUuid = null;
-        api.getVlans()
-                .portUuidPath(portUuid).execute(r -> r);
-        // TODO: test validations
-    }
-
-    /**
-     * Successful operation
-     */
-    @Test
-    public void shouldSee200AfterSearchPorts() {
-        PortV4SearchRequest portV4SearchRequest = null;
-        api.searchPorts()
-                .body(portV4SearchRequest).execute(r -> r);
-        // TODO: test validations
+    public void getPorts() {
+        PortDto portDto = (PortDto) Utils.getEnvData(Utils.EnvVariable.QINQ_PORT);
+        Response response = api.getPorts().nameQuery(portDto.getName()).execute(r -> r);
+        Port port = response.as(AllPortsResponse.class).getData().get(0);
+        assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+        assertEquals(port.getName(), portDto.getName());
+        assertEquals(port.getUuid().toString(), portDto.getUuid());
     }
 }
