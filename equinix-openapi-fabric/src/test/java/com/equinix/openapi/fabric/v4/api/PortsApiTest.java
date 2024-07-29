@@ -10,14 +10,18 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
+import com.equinix.openapi.fabric.v4.api.dto.UserDto;
 import com.equinix.openapi.fabric.v4.api.dto.port.PortDto;
-import com.equinix.openapi.fabric.v4.model.AllPortsResponse;
-import com.equinix.openapi.fabric.v4.model.Port;
+import com.equinix.openapi.fabric.v4.model.*;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 
+import java.util.List;
+
+import static java.util.Collections.singletonList;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * API tests for PortsApi
@@ -37,5 +41,35 @@ public class PortsApiTest {
         assertEquals(HttpStatus.SC_OK, response.getStatusCode());
         assertEquals(port.getName(), portDto.getName());
         assertEquals(port.getUuid().toString(), portDto.getUuid());
+    }
+
+    @Test
+    public void searchPorts() {
+        UserDto userDto = (UserDto) Utils.getEnvData(Utils.EnvVariable.TEST_DATA_UAT_FCR_USER);
+
+        PortV4SearchRequest portV4SearchRequest = new PortV4SearchRequest()
+                .filter(new PortExpression().addOrItem(new PortExpression()
+                        .addAndItem(new PortExpression()
+                                .operator(PortExpression.OperatorEnum.EQUAL)
+                                .property(PortSearchFieldName.STATE)
+                                .values(singletonList("ACTIVE")))
+                        .addAndItem(new PortExpression()
+                                .operator(PortExpression.OperatorEnum.EQUAL)
+                                .property(PortSearchFieldName.PROJECT_PROJECTID)
+                                .values(singletonList(userDto.getProjectId())))
+                        .addAndItem(new PortExpression()
+                                .operator(PortExpression.OperatorEnum.EQUAL)
+                                .property(PortSearchFieldName.SETTINGS_PRODUCTCODE)
+                                .values(singletonList("CX"))
+                        )))
+                .pagination(new PaginationRequest()
+                        .offset(0)
+                        .limit(100))
+                .sort(singletonList(new PortSortCriteria().property(PortSortBy._DEVICE_NAME).direction(PortSortDirection.DESC)));
+
+        Response response = api.searchPorts().body(portV4SearchRequest).execute(r -> r);
+        List<Port> ports = response.as(AllPortsResponse.class).getData();
+        assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+        assertTrue(!ports.isEmpty());
     }
 }

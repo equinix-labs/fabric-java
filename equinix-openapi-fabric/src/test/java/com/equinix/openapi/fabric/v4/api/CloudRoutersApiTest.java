@@ -32,13 +32,17 @@ public class CloudRoutersApiTest {
     private static final List<UUID> cloudRouterToDelete = new ArrayList<>();
     private static CloudRoutersApi api = TokenGenerator.getApiClient().cloudRouters();
 
-    @AfterClass
-    public static void removeResources() {
+    public static void removeCloudRouters() {
         cloudRouterToDelete.forEach(uuid -> {
             if (getCloudRouterStatus(uuid) == CloudRouterAccessPointState.PROVISIONED) {
                 deleteCloudRouter(uuid);
             }
         });
+    }
+
+    @AfterClass
+    public static void removeResources() {
+        removeCloudRouters();
     }
 
     public CloudRouter createRouter() {

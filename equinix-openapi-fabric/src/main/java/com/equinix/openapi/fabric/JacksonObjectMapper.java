@@ -34,6 +34,7 @@ public class JacksonObjectMapper extends Jackson2Mapper {
             mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
             mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             mapper.configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false);
+            mapper.configure(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL, true);
             mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
             mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
             mapper.enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING);

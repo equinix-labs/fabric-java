@@ -11,13 +11,14 @@
 
 package com.equinix.openapi.fabric;
 
-import com.fasterxml.jackson.annotation.*;
-import com.fasterxml.jackson.databind.*;
-import org.openapitools.jackson.nullable.JsonNullableModule;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-
 import io.restassured.internal.mapping.Jackson2Mapper;
 import io.restassured.path.json.mapper.factory.Jackson2ObjectMapperFactory;
+import org.openapitools.jackson.nullable.JsonNullableModule;
 
 
 public class JacksonObjectMapper extends Jackson2Mapper {
@@ -33,6 +34,7 @@ mapper = new ObjectMapper();
 mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 mapper.configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false);
+mapper.configure(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL, true);
 mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
 mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 mapper.enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING);
