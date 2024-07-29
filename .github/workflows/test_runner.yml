@@ -4,6 +4,8 @@ name: Test Runner
 
 on:
   workflow_dispatch:
+  push:
+    branches: [ "**" ]
 
 jobs:
   build:
