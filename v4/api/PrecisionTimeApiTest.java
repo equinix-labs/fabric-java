@@ -8,34 +8,16 @@
  * Do not edit the class manually.
  */
 
-
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.v4.model.Error;
 import com.equinix.openapi.fabric.v4.model.PrecisionTimeChangeOperation;
-import com.equinix.openapi.fabric.v4.model.PrecisionTimePackageResponse;
-import com.equinix.openapi.fabric.v4.model.PrecisionTimeServiceConnectionsResponse;
-import com.equinix.openapi.fabric.v4.model.PrecisionTimeServiceCreateResponse;
-import com.equinix.openapi.fabric.v4.model.PrecisionTimeServicePackagesResponse;
 import com.equinix.openapi.fabric.v4.model.PrecisionTimeServiceRequest;
-import java.util.UUID;
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.v4.api.PrecisionTimeApi;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.filter.log.ErrorLoggingFilter;
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Test;
 
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import static io.restassured.config.ObjectMapperConfig.objectMapperConfig;
-import static io.restassured.config.RestAssuredConfig.config;
-import static com.equinix.openapi.fabric.JacksonObjectMapper.jackson;
+import java.util.UUID;
 
 /**
  * API tests for PrecisionTimeApi
@@ -47,11 +29,7 @@ public class PrecisionTimeApiTest {
 
     @Before
     public void createApi() {
-        api = ApiClient.api(ApiClient.Config.apiConfig().reqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setConfig(config().objectMapperConfig(objectMapperConfig().defaultObjectMapper(jackson())))
-                        .addFilter(new ErrorLoggingFilter())
-                        .setBaseUri("https://api.equinix.com"))).precisionTime();
+        api = new TokenGenerator().generate().precisionTime();
     }
 
     /**
@@ -61,65 +39,9 @@ public class PrecisionTimeApiTest {
     public void shouldSee202AfterCreateTimeServices() {
         PrecisionTimeServiceRequest precisionTimeServiceRequest = null;
         api.createTimeServices()
-                .body(precisionTimeServiceRequest).execute(r -> r.prettyPeek());
+                .body(precisionTimeServiceRequest).execute(r -> r);
         // TODO: test validations
     }
-
-    /**
-     * Bad request
-     */
-    @Test
-    public void shouldSee400AfterCreateTimeServices() {
-        PrecisionTimeServiceRequest precisionTimeServiceRequest = null;
-        api.createTimeServices()
-                .body(precisionTimeServiceRequest).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Unauthorized
-     */
-    @Test
-    public void shouldSee401AfterCreateTimeServices() {
-        PrecisionTimeServiceRequest precisionTimeServiceRequest = null;
-        api.createTimeServices()
-                .body(precisionTimeServiceRequest).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Forbidden
-     */
-    @Test
-    public void shouldSee403AfterCreateTimeServices() {
-        PrecisionTimeServiceRequest precisionTimeServiceRequest = null;
-        api.createTimeServices()
-                .body(precisionTimeServiceRequest).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Unsupported Media Type
-     */
-    @Test
-    public void shouldSee415AfterCreateTimeServices() {
-        PrecisionTimeServiceRequest precisionTimeServiceRequest = null;
-        api.createTimeServices()
-                .body(precisionTimeServiceRequest).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Internal server error
-     */
-    @Test
-    public void shouldSee500AfterCreateTimeServices() {
-        PrecisionTimeServiceRequest precisionTimeServiceRequest = null;
-        api.createTimeServices()
-                .body(precisionTimeServiceRequest).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
 
     /**
      * Successful operation
@@ -128,54 +50,9 @@ public class PrecisionTimeApiTest {
     public void shouldSee202AfterDeleteTimeServiceById() {
         UUID serviceId = null;
         api.deleteTimeServiceById()
-                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
+                .serviceIdPath(serviceId).execute(r -> r);
         // TODO: test validations
     }
-
-    /**
-     * Unauthorized
-     */
-    @Test
-    public void shouldSee401AfterDeleteTimeServiceById() {
-        UUID serviceId = null;
-        api.deleteTimeServiceById()
-                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Forbidden
-     */
-    @Test
-    public void shouldSee403AfterDeleteTimeServiceById() {
-        UUID serviceId = null;
-        api.deleteTimeServiceById()
-                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Unsupported Media Type
-     */
-    @Test
-    public void shouldSee415AfterDeleteTimeServiceById() {
-        UUID serviceId = null;
-        api.deleteTimeServiceById()
-                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Internal server error
-     */
-    @Test
-    public void shouldSee500AfterDeleteTimeServiceById() {
-        UUID serviceId = null;
-        api.deleteTimeServiceById()
-                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
 
     /**
      * Successful operation
@@ -184,65 +61,9 @@ public class PrecisionTimeApiTest {
     public void shouldSee200AfterGetTimeServicesById() {
         UUID serviceId = null;
         api.getTimeServicesById()
-                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
+                .serviceIdPath(serviceId).execute(r -> r);
         // TODO: test validations
     }
-
-    /**
-     * Bad request
-     */
-    @Test
-    public void shouldSee400AfterGetTimeServicesById() {
-        UUID serviceId = null;
-        api.getTimeServicesById()
-                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Unauthorized
-     */
-    @Test
-    public void shouldSee401AfterGetTimeServicesById() {
-        UUID serviceId = null;
-        api.getTimeServicesById()
-                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Forbidden
-     */
-    @Test
-    public void shouldSee403AfterGetTimeServicesById() {
-        UUID serviceId = null;
-        api.getTimeServicesById()
-                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Unsupported Media Type
-     */
-    @Test
-    public void shouldSee415AfterGetTimeServicesById() {
-        UUID serviceId = null;
-        api.getTimeServicesById()
-                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Internal server error
-     */
-    @Test
-    public void shouldSee500AfterGetTimeServicesById() {
-        UUID serviceId = null;
-        api.getTimeServicesById()
-                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
 
     /**
      * Return Time Service Connection
@@ -251,54 +72,9 @@ public class PrecisionTimeApiTest {
     public void shouldSee200AfterGetTimeServicesConnectionsByServiceId() {
         UUID serviceId = null;
         api.getTimeServicesConnectionsByServiceId()
-                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
+                .serviceIdPath(serviceId).execute(r -> r);
         // TODO: test validations
     }
-
-    /**
-     * Unauthorized
-     */
-    @Test
-    public void shouldSee401AfterGetTimeServicesConnectionsByServiceId() {
-        UUID serviceId = null;
-        api.getTimeServicesConnectionsByServiceId()
-                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Forbidden
-     */
-    @Test
-    public void shouldSee403AfterGetTimeServicesConnectionsByServiceId() {
-        UUID serviceId = null;
-        api.getTimeServicesConnectionsByServiceId()
-                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Unsupported Media Type
-     */
-    @Test
-    public void shouldSee415AfterGetTimeServicesConnectionsByServiceId() {
-        UUID serviceId = null;
-        api.getTimeServicesConnectionsByServiceId()
-                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Internal server error
-     */
-    @Test
-    public void shouldSee500AfterGetTimeServicesConnectionsByServiceId() {
-        UUID serviceId = null;
-        api.getTimeServicesConnectionsByServiceId()
-                .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
 
     /**
      * Successful operation
@@ -307,60 +83,18 @@ public class PrecisionTimeApiTest {
     public void shouldSee200AfterGetTimeServicesPackageByCode() {
         String packageCode = null;
         api.getTimeServicesPackageByCode()
-                .packageCodePath(packageCode).execute(r -> r.prettyPeek());
+                .packageCodePath(packageCode).execute(r -> r);
         // TODO: test validations
     }
-
-    /**
-     * Unsupported Media Type
-     */
-    @Test
-    public void shouldSee415AfterGetTimeServicesPackageByCode() {
-        String packageCode = null;
-        api.getTimeServicesPackageByCode()
-                .packageCodePath(packageCode).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Internal server error
-     */
-    @Test
-    public void shouldSee500AfterGetTimeServicesPackageByCode() {
-        String packageCode = null;
-        api.getTimeServicesPackageByCode()
-                .packageCodePath(packageCode).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
 
     /**
      * Successful operation
      */
     @Test
     public void shouldSee200AfterGetTimeServicesPackages() {
-        api.getTimeServicesPackages().execute(r -> r.prettyPeek());
+        api.getTimeServicesPackages().execute(r -> r);
         // TODO: test validations
     }
-
-    /**
-     * Unsupported Media Type
-     */
-    @Test
-    public void shouldSee415AfterGetTimeServicesPackages() {
-        api.getTimeServicesPackages().execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Internal server error
-     */
-    @Test
-    public void shouldSee500AfterGetTimeServicesPackages() {
-        api.getTimeServicesPackages().execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
 
     /**
      * Successful operation
@@ -371,73 +105,7 @@ public class PrecisionTimeApiTest {
         List<PrecisionTimeChangeOperation> precisionTimeChangeOperation = null;
         api.updateTimeServicesById()
                 .serviceIdPath(serviceId)
-                .body(precisionTimeChangeOperation).execute(r -> r.prettyPeek());
+                .body(precisionTimeChangeOperation).execute(r -> r);
         // TODO: test validations
     }
-
-    /**
-     * Bad request
-     */
-    @Test
-    public void shouldSee400AfterUpdateTimeServicesById() {
-        UUID serviceId = null;
-        List<PrecisionTimeChangeOperation> precisionTimeChangeOperation = null;
-        api.updateTimeServicesById()
-                .serviceIdPath(serviceId)
-                .body(precisionTimeChangeOperation).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Unauthorized
-     */
-    @Test
-    public void shouldSee401AfterUpdateTimeServicesById() {
-        UUID serviceId = null;
-        List<PrecisionTimeChangeOperation> precisionTimeChangeOperation = null;
-        api.updateTimeServicesById()
-                .serviceIdPath(serviceId)
-                .body(precisionTimeChangeOperation).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Forbidden
-     */
-    @Test
-    public void shouldSee403AfterUpdateTimeServicesById() {
-        UUID serviceId = null;
-        List<PrecisionTimeChangeOperation> precisionTimeChangeOperation = null;
-        api.updateTimeServicesById()
-                .serviceIdPath(serviceId)
-                .body(precisionTimeChangeOperation).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Unsupported Media Type
-     */
-    @Test
-    public void shouldSee415AfterUpdateTimeServicesById() {
-        UUID serviceId = null;
-        List<PrecisionTimeChangeOperation> precisionTimeChangeOperation = null;
-        api.updateTimeServicesById()
-                .serviceIdPath(serviceId)
-                .body(precisionTimeChangeOperation).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Internal server error
-     */
-    @Test
-    public void shouldSee500AfterUpdateTimeServicesById() {
-        UUID serviceId = null;
-        List<PrecisionTimeChangeOperation> precisionTimeChangeOperation = null;
-        api.updateTimeServicesById()
-                .serviceIdPath(serviceId)
-                .body(precisionTimeChangeOperation).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
 }

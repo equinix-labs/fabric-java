@@ -8,34 +8,19 @@
  * Do not edit the class manually.
  */
 
-
 package com.equinix.openapi.fabric.v4.api;
 
-import java.math.BigDecimal;
-import com.equinix.openapi.fabric.v4.model.Error;
 import com.equinix.openapi.fabric.v4.model.ServiceToken;
 import com.equinix.openapi.fabric.v4.model.ServiceTokenActionRequest;
 import com.equinix.openapi.fabric.v4.model.ServiceTokenChangeOperation;
 import com.equinix.openapi.fabric.v4.model.ServiceTokenSearchRequest;
-import com.equinix.openapi.fabric.v4.model.ServiceTokens;
-import java.util.UUID;
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.v4.api.ServiceTokensApi;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.filter.log.ErrorLoggingFilter;
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Test;
 
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
-import static io.restassured.config.ObjectMapperConfig.objectMapperConfig;
-import static io.restassured.config.RestAssuredConfig.config;
-import static com.equinix.openapi.fabric.JacksonObjectMapper.jackson;
+import java.util.UUID;
 
 /**
  * API tests for ServiceTokensApi
@@ -47,11 +32,7 @@ public class ServiceTokensApiTest {
 
     @Before
     public void createApi() {
-        api = ApiClient.api(ApiClient.Config.apiConfig().reqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setConfig(config().objectMapperConfig(objectMapperConfig().defaultObjectMapper(jackson())))
-                        .addFilter(new ErrorLoggingFilter())
-                        .setBaseUri("https://api.equinix.com"))).serviceTokens();
+        api = new TokenGenerator().generate().serviceTokens();
     }
 
     /**
@@ -61,43 +42,9 @@ public class ServiceTokensApiTest {
     public void shouldSee201AfterCreateServiceToken() {
         ServiceToken serviceToken = null;
         api.createServiceToken()
-                .body(serviceToken).execute(r -> r.prettyPeek());
+                .body(serviceToken).execute(r -> r);
         // TODO: test validations
     }
-
-    /**
-     * Bad request
-     */
-    @Test
-    public void shouldSee400AfterCreateServiceToken() {
-        ServiceToken serviceToken = null;
-        api.createServiceToken()
-                .body(serviceToken).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Unauthorized
-     */
-    @Test
-    public void shouldSee401AfterCreateServiceToken() {
-        ServiceToken serviceToken = null;
-        api.createServiceToken()
-                .body(serviceToken).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Forbidden
-     */
-    @Test
-    public void shouldSee403AfterCreateServiceToken() {
-        ServiceToken serviceToken = null;
-        api.createServiceToken()
-                .body(serviceToken).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
 
     /**
      * Successful operation
@@ -108,62 +55,9 @@ public class ServiceTokensApiTest {
         ServiceTokenActionRequest serviceTokenActionRequest = null;
         api.createServiceTokenAction()
                 .serviceTokenIdPath(serviceTokenId)
-                .body(serviceTokenActionRequest).execute(r -> r.prettyPeek());
+                .body(serviceTokenActionRequest).execute(r -> r);
         // TODO: test validations
     }
-
-    /**
-     * Bad request
-     */
-    @Test
-    public void shouldSee400AfterCreateServiceTokenAction() {
-        UUID serviceTokenId = null;
-        ServiceTokenActionRequest serviceTokenActionRequest = null;
-        api.createServiceTokenAction()
-                .serviceTokenIdPath(serviceTokenId)
-                .body(serviceTokenActionRequest).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Unauthorized
-     */
-    @Test
-    public void shouldSee401AfterCreateServiceTokenAction() {
-        UUID serviceTokenId = null;
-        ServiceTokenActionRequest serviceTokenActionRequest = null;
-        api.createServiceTokenAction()
-                .serviceTokenIdPath(serviceTokenId)
-                .body(serviceTokenActionRequest).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Forbidden
-     */
-    @Test
-    public void shouldSee403AfterCreateServiceTokenAction() {
-        UUID serviceTokenId = null;
-        ServiceTokenActionRequest serviceTokenActionRequest = null;
-        api.createServiceTokenAction()
-                .serviceTokenIdPath(serviceTokenId)
-                .body(serviceTokenActionRequest).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Not Found
-     */
-    @Test
-    public void shouldSee404AfterCreateServiceTokenAction() {
-        UUID serviceTokenId = null;
-        ServiceTokenActionRequest serviceTokenActionRequest = null;
-        api.createServiceTokenAction()
-                .serviceTokenIdPath(serviceTokenId)
-                .body(serviceTokenActionRequest).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
 
     /**
      * Deleted Service Token Successfully
@@ -172,32 +66,9 @@ public class ServiceTokensApiTest {
     public void shouldSee204AfterDeleteServiceTokenByUuid() {
         UUID serviceTokenId = null;
         api.deleteServiceTokenByUuid()
-                .serviceTokenIdPath(serviceTokenId).execute(r -> r.prettyPeek());
+                .serviceTokenIdPath(serviceTokenId).execute(r -> r);
         // TODO: test validations
     }
-
-    /**
-     * Bad request
-     */
-    @Test
-    public void shouldSee400AfterDeleteServiceTokenByUuid() {
-        UUID serviceTokenId = null;
-        api.deleteServiceTokenByUuid()
-                .serviceTokenIdPath(serviceTokenId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Unauthorized
-     */
-    @Test
-    public void shouldSee401AfterDeleteServiceTokenByUuid() {
-        UUID serviceTokenId = null;
-        api.deleteServiceTokenByUuid()
-                .serviceTokenIdPath(serviceTokenId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
 
     /**
      * Successful operation
@@ -206,43 +77,9 @@ public class ServiceTokensApiTest {
     public void shouldSee200AfterGetServiceTokenByUuid() {
         UUID serviceTokenId = null;
         api.getServiceTokenByUuid()
-                .serviceTokenIdPath(serviceTokenId).execute(r -> r.prettyPeek());
+                .serviceTokenIdPath(serviceTokenId).execute(r -> r);
         // TODO: test validations
     }
-
-    /**
-     * Bad request
-     */
-    @Test
-    public void shouldSee400AfterGetServiceTokenByUuid() {
-        UUID serviceTokenId = null;
-        api.getServiceTokenByUuid()
-                .serviceTokenIdPath(serviceTokenId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Forbidden
-     */
-    @Test
-    public void shouldSee403AfterGetServiceTokenByUuid() {
-        UUID serviceTokenId = null;
-        api.getServiceTokenByUuid()
-                .serviceTokenIdPath(serviceTokenId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Internal server error
-     */
-    @Test
-    public void shouldSee500AfterGetServiceTokenByUuid() {
-        UUID serviceTokenId = null;
-        api.getServiceTokenByUuid()
-                .serviceTokenIdPath(serviceTokenId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
 
     /**
      * Successful operation
@@ -251,21 +88,9 @@ public class ServiceTokensApiTest {
     public void shouldSee200AfterGetServiceTokens() {
         BigDecimal offset = null;
         BigDecimal limit = null;
-        api.getServiceTokens().execute(r -> r.prettyPeek());
+        api.getServiceTokens().execute(r -> r);
         // TODO: test validations
     }
-
-    /**
-     * Forbidden
-     */
-    @Test
-    public void shouldSee403AfterGetServiceTokens() {
-        BigDecimal offset = null;
-        BigDecimal limit = null;
-        api.getServiceTokens().execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
 
     /**
      * Successful operation
@@ -274,54 +99,9 @@ public class ServiceTokensApiTest {
     public void shouldSee200AfterSearchServiceTokens() {
         ServiceTokenSearchRequest serviceTokenSearchRequest = null;
         api.searchServiceTokens()
-                .body(serviceTokenSearchRequest).execute(r -> r.prettyPeek());
+                .body(serviceTokenSearchRequest).execute(r -> r);
         // TODO: test validations
     }
-
-    /**
-     * Bad request
-     */
-    @Test
-    public void shouldSee400AfterSearchServiceTokens() {
-        ServiceTokenSearchRequest serviceTokenSearchRequest = null;
-        api.searchServiceTokens()
-                .body(serviceTokenSearchRequest).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Forbidden
-     */
-    @Test
-    public void shouldSee403AfterSearchServiceTokens() {
-        ServiceTokenSearchRequest serviceTokenSearchRequest = null;
-        api.searchServiceTokens()
-                .body(serviceTokenSearchRequest).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Not Found
-     */
-    @Test
-    public void shouldSee404AfterSearchServiceTokens() {
-        ServiceTokenSearchRequest serviceTokenSearchRequest = null;
-        api.searchServiceTokens()
-                .body(serviceTokenSearchRequest).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Internal server error
-     */
-    @Test
-    public void shouldSee500AfterSearchServiceTokens() {
-        ServiceTokenSearchRequest serviceTokenSearchRequest = null;
-        api.searchServiceTokens()
-                .body(serviceTokenSearchRequest).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
 
     /**
      * Successful operation
@@ -332,34 +112,7 @@ public class ServiceTokensApiTest {
         List<ServiceTokenChangeOperation> serviceTokenChangeOperation = null;
         api.updateServiceTokenByUuid()
                 .serviceTokenIdPath(serviceTokenId)
-                .body(serviceTokenChangeOperation).execute(r -> r.prettyPeek());
+                .body(serviceTokenChangeOperation).execute(r -> r);
         // TODO: test validations
     }
-
-    /**
-     * Bad request
-     */
-    @Test
-    public void shouldSee400AfterUpdateServiceTokenByUuid() {
-        UUID serviceTokenId = null;
-        List<ServiceTokenChangeOperation> serviceTokenChangeOperation = null;
-        api.updateServiceTokenByUuid()
-                .serviceTokenIdPath(serviceTokenId)
-                .body(serviceTokenChangeOperation).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Forbidden
-     */
-    @Test
-    public void shouldSee403AfterUpdateServiceTokenByUuid() {
-        UUID serviceTokenId = null;
-        List<ServiceTokenChangeOperation> serviceTokenChangeOperation = null;
-        api.updateServiceTokenByUuid()
-                .serviceTokenIdPath(serviceTokenId)
-                .body(serviceTokenChangeOperation).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
 }

@@ -8,27 +8,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.v4.model.HealthResponse;
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.v4.api.HealthApi;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.filter.log.ErrorLoggingFilter;
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.Ignore;
-
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import static io.restassured.config.ObjectMapperConfig.objectMapperConfig;
-import static io.restassured.config.RestAssuredConfig.config;
-import static com.equinix.openapi.fabric.JacksonObjectMapper.jackson;
+import org.junit.Test;
 
 /**
  * API tests for HealthApi
@@ -40,11 +24,7 @@ public class HealthApiTest {
 
     @Before
     public void createApi() {
-        api = ApiClient.api(ApiClient.Config.apiConfig().reqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setConfig(config().objectMapperConfig(objectMapperConfig().defaultObjectMapper(jackson())))
-                        .addFilter(new ErrorLoggingFilter())
-                        .setBaseUri("https://api.equinix.com"))).health();
+        api = new TokenGenerator().generate().health();
     }
 
     /**
@@ -52,8 +32,7 @@ public class HealthApiTest {
      */
     @Test
     public void shouldSee200AfterGetStatus() {
-        api.getStatus().execute(r -> r.prettyPeek());
+        api.getStatus().execute(r -> r);
         // TODO: test validations
     }
-
 }

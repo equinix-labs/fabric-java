@@ -8,36 +8,16 @@
  * Do not edit the class manually.
  */
 
-
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.v4.model.Error;
-import com.equinix.openapi.fabric.v4.model.Network;
-import com.equinix.openapi.fabric.v4.model.NetworkChange;
 import com.equinix.openapi.fabric.v4.model.NetworkChangeOperation;
-import com.equinix.openapi.fabric.v4.model.NetworkChangeResponse;
-import com.equinix.openapi.fabric.v4.model.NetworkConnections;
 import com.equinix.openapi.fabric.v4.model.NetworkPostRequest;
-import com.equinix.openapi.fabric.v4.model.NetworkSearchRequest;
-import com.equinix.openapi.fabric.v4.model.NetworkSearchResponse;
-import java.util.UUID;
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.v4.api.NetworksApi;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.filter.log.ErrorLoggingFilter;
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Test;
 
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import static io.restassured.config.ObjectMapperConfig.objectMapperConfig;
-import static io.restassured.config.RestAssuredConfig.config;
-import static com.equinix.openapi.fabric.JacksonObjectMapper.jackson;
+import java.util.UUID;
 
 /**
  * API tests for NetworksApi
@@ -49,11 +29,7 @@ public class NetworksApiTest {
 
     @Before
     public void createApi() {
-        api = ApiClient.api(ApiClient.Config.apiConfig().reqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setConfig(config().objectMapperConfig(objectMapperConfig().defaultObjectMapper(jackson())))
-                        .addFilter(new ErrorLoggingFilter())
-                        .setBaseUri("https://api.equinix.com"))).networks();
+        api = new TokenGenerator().generate().networks();
     }
 
     /**
@@ -63,65 +39,9 @@ public class NetworksApiTest {
     public void shouldSee202AfterCreateNetwork() {
         NetworkPostRequest networkPostRequest = null;
         api.createNetwork()
-                .body(networkPostRequest).execute(r -> r.prettyPeek());
+                .body(networkPostRequest).execute(r -> r);
         // TODO: test validations
     }
-
-    /**
-     * Bad request
-     */
-    @Test
-    public void shouldSee400AfterCreateNetwork() {
-        NetworkPostRequest networkPostRequest = null;
-        api.createNetwork()
-                .body(networkPostRequest).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Unauthorized
-     */
-    @Test
-    public void shouldSee401AfterCreateNetwork() {
-        NetworkPostRequest networkPostRequest = null;
-        api.createNetwork()
-                .body(networkPostRequest).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Forbidden
-     */
-    @Test
-    public void shouldSee403AfterCreateNetwork() {
-        NetworkPostRequest networkPostRequest = null;
-        api.createNetwork()
-                .body(networkPostRequest).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Unsupported Media Type
-     */
-    @Test
-    public void shouldSee415AfterCreateNetwork() {
-        NetworkPostRequest networkPostRequest = null;
-        api.createNetwork()
-                .body(networkPostRequest).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Internal server error
-     */
-    @Test
-    public void shouldSee500AfterCreateNetwork() {
-        NetworkPostRequest networkPostRequest = null;
-        api.createNetwork()
-                .body(networkPostRequest).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
 
     /**
      * Fabric Network Access point object
@@ -130,110 +50,9 @@ public class NetworksApiTest {
     public void shouldSee202AfterDeleteNetworkByUuid() {
         UUID networkId = null;
         api.deleteNetworkByUuid()
-                .networkIdPath(networkId).execute(r -> r.prettyPeek());
+                .networkIdPath(networkId).execute(r -> r);
         // TODO: test validations
     }
-
-    /**
-     * Bad request
-     */
-    @Test
-    public void shouldSee400AfterDeleteNetworkByUuid() {
-        UUID networkId = null;
-        api.deleteNetworkByUuid()
-                .networkIdPath(networkId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Unauthorized
-     */
-    @Test
-    public void shouldSee401AfterDeleteNetworkByUuid() {
-        UUID networkId = null;
-        api.deleteNetworkByUuid()
-                .networkIdPath(networkId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Forbidden
-     */
-    @Test
-    public void shouldSee403AfterDeleteNetworkByUuid() {
-        UUID networkId = null;
-        api.deleteNetworkByUuid()
-                .networkIdPath(networkId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Not Found
-     */
-    @Test
-    public void shouldSee404AfterDeleteNetworkByUuid() {
-        UUID networkId = null;
-        api.deleteNetworkByUuid()
-                .networkIdPath(networkId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-
-    /**
-     * Fabric Network Access point object
-     */
-    @Test
-    public void shouldSee200AfterGetConnectionsByNetworkUuid() {
-        UUID networkId = null;
-        api.getConnectionsByNetworkUuid()
-                .networkIdPath(networkId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Bad request
-     */
-    @Test
-    public void shouldSee400AfterGetConnectionsByNetworkUuid() {
-        UUID networkId = null;
-        api.getConnectionsByNetworkUuid()
-                .networkIdPath(networkId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Unauthorized
-     */
-    @Test
-    public void shouldSee401AfterGetConnectionsByNetworkUuid() {
-        UUID networkId = null;
-        api.getConnectionsByNetworkUuid()
-                .networkIdPath(networkId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Forbidden
-     */
-    @Test
-    public void shouldSee403AfterGetConnectionsByNetworkUuid() {
-        UUID networkId = null;
-        api.getConnectionsByNetworkUuid()
-                .networkIdPath(networkId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Unsupported Media Type
-     */
-    @Test
-    public void shouldSee415AfterGetConnectionsByNetworkUuid() {
-        UUID networkId = null;
-        api.getConnectionsByNetworkUuid()
-                .networkIdPath(networkId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
 
     /**
      * Fabric Network Access point object
@@ -242,43 +61,9 @@ public class NetworksApiTest {
     public void shouldSee200AfterGetNetworkByUuid() {
         UUID networkId = null;
         api.getNetworkByUuid()
-                .networkIdPath(networkId).execute(r -> r.prettyPeek());
+                .networkIdPath(networkId).execute(r -> r);
         // TODO: test validations
     }
-
-    /**
-     * Unauthorized
-     */
-    @Test
-    public void shouldSee401AfterGetNetworkByUuid() {
-        UUID networkId = null;
-        api.getNetworkByUuid()
-                .networkIdPath(networkId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Forbidden
-     */
-    @Test
-    public void shouldSee403AfterGetNetworkByUuid() {
-        UUID networkId = null;
-        api.getNetworkByUuid()
-                .networkIdPath(networkId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Not Found
-     */
-    @Test
-    public void shouldSee404AfterGetNetworkByUuid() {
-        UUID networkId = null;
-        api.getNetworkByUuid()
-                .networkIdPath(networkId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
 
     /**
      * Fabric Network Access point object
@@ -289,62 +74,9 @@ public class NetworksApiTest {
         UUID changeId = null;
         api.getNetworkChangeByUuid()
                 .networkIdPath(networkId)
-                .changeIdPath(changeId).execute(r -> r.prettyPeek());
+                .changeIdPath(changeId).execute(r -> r);
         // TODO: test validations
     }
-
-    /**
-     * Bad request
-     */
-    @Test
-    public void shouldSee400AfterGetNetworkChangeByUuid() {
-        UUID networkId = null;
-        UUID changeId = null;
-        api.getNetworkChangeByUuid()
-                .networkIdPath(networkId)
-                .changeIdPath(changeId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Unauthorized
-     */
-    @Test
-    public void shouldSee401AfterGetNetworkChangeByUuid() {
-        UUID networkId = null;
-        UUID changeId = null;
-        api.getNetworkChangeByUuid()
-                .networkIdPath(networkId)
-                .changeIdPath(changeId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Forbidden
-     */
-    @Test
-    public void shouldSee403AfterGetNetworkChangeByUuid() {
-        UUID networkId = null;
-        UUID changeId = null;
-        api.getNetworkChangeByUuid()
-                .networkIdPath(networkId)
-                .changeIdPath(changeId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Not Found
-     */
-    @Test
-    public void shouldSee404AfterGetNetworkChangeByUuid() {
-        UUID networkId = null;
-        UUID changeId = null;
-        api.getNetworkChangeByUuid()
-                .networkIdPath(networkId)
-                .changeIdPath(changeId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
 
     /**
      * Fabric Network Access point object
@@ -353,110 +85,9 @@ public class NetworksApiTest {
     public void shouldSee200AfterGetNetworkChanges() {
         UUID networkId = null;
         api.getNetworkChanges()
-                .networkIdPath(networkId).execute(r -> r.prettyPeek());
+                .networkIdPath(networkId).execute(r -> r);
         // TODO: test validations
     }
-
-    /**
-     * Bad request
-     */
-    @Test
-    public void shouldSee400AfterGetNetworkChanges() {
-        UUID networkId = null;
-        api.getNetworkChanges()
-                .networkIdPath(networkId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Unauthorized
-     */
-    @Test
-    public void shouldSee401AfterGetNetworkChanges() {
-        UUID networkId = null;
-        api.getNetworkChanges()
-                .networkIdPath(networkId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Forbidden
-     */
-    @Test
-    public void shouldSee403AfterGetNetworkChanges() {
-        UUID networkId = null;
-        api.getNetworkChanges()
-                .networkIdPath(networkId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Unsupported Media Type
-     */
-    @Test
-    public void shouldSee415AfterGetNetworkChanges() {
-        UUID networkId = null;
-        api.getNetworkChanges()
-                .networkIdPath(networkId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-
-    /**
-     * Fabric Network Access point object
-     */
-    @Test
-    public void shouldSee200AfterSearchNetworks() {
-        NetworkSearchRequest networkSearchRequest = null;
-        api.searchNetworks()
-                .body(networkSearchRequest).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Bad request
-     */
-    @Test
-    public void shouldSee400AfterSearchNetworks() {
-        NetworkSearchRequest networkSearchRequest = null;
-        api.searchNetworks()
-                .body(networkSearchRequest).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Unauthorized
-     */
-    @Test
-    public void shouldSee401AfterSearchNetworks() {
-        NetworkSearchRequest networkSearchRequest = null;
-        api.searchNetworks()
-                .body(networkSearchRequest).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Forbidden
-     */
-    @Test
-    public void shouldSee403AfterSearchNetworks() {
-        NetworkSearchRequest networkSearchRequest = null;
-        api.searchNetworks()
-                .body(networkSearchRequest).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Unsupported Media Type
-     */
-    @Test
-    public void shouldSee415AfterSearchNetworks() {
-        NetworkSearchRequest networkSearchRequest = null;
-        api.searchNetworks()
-                .body(networkSearchRequest).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
 
     /**
      * Fabric Network Access point object
@@ -467,73 +98,7 @@ public class NetworksApiTest {
         List<NetworkChangeOperation> networkChangeOperation = null;
         api.updateNetworkByUuid()
                 .networkIdPath(networkId)
-                .body(networkChangeOperation).execute(r -> r.prettyPeek());
+                .body(networkChangeOperation).execute(r -> r);
         // TODO: test validations
     }
-
-    /**
-     * Bad request
-     */
-    @Test
-    public void shouldSee400AfterUpdateNetworkByUuid() {
-        UUID networkId = null;
-        List<NetworkChangeOperation> networkChangeOperation = null;
-        api.updateNetworkByUuid()
-                .networkIdPath(networkId)
-                .body(networkChangeOperation).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Unauthorized
-     */
-    @Test
-    public void shouldSee401AfterUpdateNetworkByUuid() {
-        UUID networkId = null;
-        List<NetworkChangeOperation> networkChangeOperation = null;
-        api.updateNetworkByUuid()
-                .networkIdPath(networkId)
-                .body(networkChangeOperation).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Forbidden
-     */
-    @Test
-    public void shouldSee403AfterUpdateNetworkByUuid() {
-        UUID networkId = null;
-        List<NetworkChangeOperation> networkChangeOperation = null;
-        api.updateNetworkByUuid()
-                .networkIdPath(networkId)
-                .body(networkChangeOperation).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Not Found
-     */
-    @Test
-    public void shouldSee404AfterUpdateNetworkByUuid() {
-        UUID networkId = null;
-        List<NetworkChangeOperation> networkChangeOperation = null;
-        api.updateNetworkByUuid()
-                .networkIdPath(networkId)
-                .body(networkChangeOperation).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Unsupported Media Type
-     */
-    @Test
-    public void shouldSee415AfterUpdateNetworkByUuid() {
-        UUID networkId = null;
-        List<NetworkChangeOperation> networkChangeOperation = null;
-        api.updateNetworkByUuid()
-                .networkIdPath(networkId)
-                .body(networkChangeOperation).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
 }

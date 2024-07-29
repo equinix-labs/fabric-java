@@ -8,36 +8,16 @@
  * Do not edit the class manually.
  */
 
-
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.v4.model.Duration;
-import com.equinix.openapi.fabric.v4.model.Error;
-import com.equinix.openapi.fabric.v4.model.MetricInterval;
-import java.time.OffsetDateTime;
-import com.equinix.openapi.fabric.v4.model.QueryDirection;
-import com.equinix.openapi.fabric.v4.model.Sort;
-import com.equinix.openapi.fabric.v4.model.Statistics;
-import com.equinix.openapi.fabric.v4.model.TopUtilizedStatistics;
-import java.util.UUID;
-import com.equinix.openapi.fabric.v4.model.ViewPoint;
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.v4.api.StatisticsApi;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.v4.model.*;
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Test;
 
-import java.time.LocalDate;
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import static io.restassured.config.ObjectMapperConfig.objectMapperConfig;
-import static io.restassured.config.RestAssuredConfig.config;
-import static com.equinix.openapi.fabric.JacksonObjectMapper.jackson;
+import java.util.UUID;
 
 /**
  * API tests for StatisticsApi
@@ -49,11 +29,7 @@ public class StatisticsApiTest {
 
     @Before
     public void createApi() {
-        api = ApiClient.api(ApiClient.Config.apiConfig().reqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setConfig(config().objectMapperConfig(objectMapperConfig().defaultObjectMapper(jackson())))
-                        .addFilter(new ErrorLoggingFilter())
-                        .setBaseUri("https://api.equinix.com"))).statistics();
+        api = new TokenGenerator().generate().statistics();
     }
 
     /**
@@ -69,44 +45,9 @@ public class StatisticsApiTest {
                 .connectionIdPath(connectionId)
                 .startDateTimeQuery(startDateTime)
                 .endDateTimeQuery(endDateTime)
-                .viewPointQuery(viewPoint).execute(r -> r.prettyPeek());
+                .viewPointQuery(viewPoint).execute(r -> r);
         // TODO: test validations
     }
-
-    /**
-     * Unauthorized
-     */
-    @Test
-    public void shouldSee401AfterGetConnectionStatsByPortUuid() {
-        String connectionId = null;
-        OffsetDateTime startDateTime = null;
-        OffsetDateTime endDateTime = null;
-        ViewPoint viewPoint = null;
-        api.getConnectionStatsByPortUuid()
-                .connectionIdPath(connectionId)
-                .startDateTimeQuery(startDateTime)
-                .endDateTimeQuery(endDateTime)
-                .viewPointQuery(viewPoint).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Forbidden
-     */
-    @Test
-    public void shouldSee403AfterGetConnectionStatsByPortUuid() {
-        String connectionId = null;
-        OffsetDateTime startDateTime = null;
-        OffsetDateTime endDateTime = null;
-        ViewPoint viewPoint = null;
-        api.getConnectionStatsByPortUuid()
-                .connectionIdPath(connectionId)
-                .startDateTimeQuery(startDateTime)
-                .endDateTimeQuery(endDateTime)
-                .viewPointQuery(viewPoint).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
 
     /**
      * Successful operation
@@ -121,44 +62,9 @@ public class StatisticsApiTest {
         MetricInterval metricInterval = null;
         String projectId = null;
         api.getPortStats()
-                .metrosQuery(metros).execute(r -> r.prettyPeek());
+                .metrosQuery(metros).execute(r -> r);
         // TODO: test validations
     }
-
-    /**
-     * Unauthorized
-     */
-    @Test
-    public void shouldSee401AfterGetPortStats() {
-        List<String> metros = null;
-        Sort sort = null;
-        Integer top = null;
-        Duration duration = null;
-        QueryDirection direction = null;
-        MetricInterval metricInterval = null;
-        String projectId = null;
-        api.getPortStats()
-                .metrosQuery(metros).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Forbidden
-     */
-    @Test
-    public void shouldSee403AfterGetPortStats() {
-        List<String> metros = null;
-        Sort sort = null;
-        Integer top = null;
-        Duration duration = null;
-        QueryDirection direction = null;
-        MetricInterval metricInterval = null;
-        String projectId = null;
-        api.getPortStats()
-                .metrosQuery(metros).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
 
     /**
      * Successful operation
@@ -171,53 +77,7 @@ public class StatisticsApiTest {
         api.getPortStatsByPortUuid()
                 .portIdPath(portId)
                 .startDateTimeQuery(startDateTime)
-                .endDateTimeQuery(endDateTime).execute(r -> r.prettyPeek());
+                .endDateTimeQuery(endDateTime).execute(r -> r);
         // TODO: test validations
     }
-
-    /**
-     * Unauthorized
-     */
-    @Test
-    public void shouldSee401AfterGetPortStatsByPortUuid() {
-        UUID portId = null;
-        OffsetDateTime startDateTime = null;
-        OffsetDateTime endDateTime = null;
-        api.getPortStatsByPortUuid()
-                .portIdPath(portId)
-                .startDateTimeQuery(startDateTime)
-                .endDateTimeQuery(endDateTime).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Forbidden
-     */
-    @Test
-    public void shouldSee403AfterGetPortStatsByPortUuid() {
-        UUID portId = null;
-        OffsetDateTime startDateTime = null;
-        OffsetDateTime endDateTime = null;
-        api.getPortStatsByPortUuid()
-                .portIdPath(portId)
-                .startDateTimeQuery(startDateTime)
-                .endDateTimeQuery(endDateTime).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Internal server error
-     */
-    @Test
-    public void shouldSee500AfterGetPortStatsByPortUuid() {
-        UUID portId = null;
-        OffsetDateTime startDateTime = null;
-        OffsetDateTime endDateTime = null;
-        api.getPortStatsByPortUuid()
-                .portIdPath(portId)
-                .startDateTimeQuery(startDateTime)
-                .endDateTimeQuery(endDateTime).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
 }

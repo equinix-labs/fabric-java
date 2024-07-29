@@ -8,35 +8,17 @@
  * Do not edit the class manually.
  */
 
-
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.v4.model.AllPhysicalPortsResponse;
-import com.equinix.openapi.fabric.v4.model.AllPortsResponse;
 import com.equinix.openapi.fabric.v4.model.BulkPhysicalPort;
 import com.equinix.openapi.fabric.v4.model.BulkPort;
-import com.equinix.openapi.fabric.v4.model.Error;
-import com.equinix.openapi.fabric.v4.model.LinkProtocolGetResponse;
 import com.equinix.openapi.fabric.v4.model.Port;
 import com.equinix.openapi.fabric.v4.model.PortV4SearchRequest;
-import java.util.UUID;
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.v4.api.PortsApi;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.filter.log.ErrorLoggingFilter;
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Test;
 
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import static io.restassured.config.ObjectMapperConfig.objectMapperConfig;
-import static io.restassured.config.RestAssuredConfig.config;
-import static com.equinix.openapi.fabric.JacksonObjectMapper.jackson;
+import java.util.UUID;
 
 /**
  * API tests for PortsApi
@@ -48,11 +30,7 @@ public class PortsApiTest {
 
     @Before
     public void createApi() {
-        api = ApiClient.api(ApiClient.Config.apiConfig().reqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setConfig(config().objectMapperConfig(objectMapperConfig().defaultObjectMapper(jackson())))
-                        .addFilter(new ErrorLoggingFilter())
-                        .setBaseUri("https://api.equinix.com"))).ports();
+        api = new TokenGenerator().generate().ports();
     }
 
     /**
@@ -64,49 +42,9 @@ public class PortsApiTest {
         BulkPhysicalPort bulkPhysicalPort = null;
         api.addToLag()
                 .portIdPath(portId)
-                .body(bulkPhysicalPort).execute(r -> r.prettyPeek());
+                .body(bulkPhysicalPort).execute(r -> r);
         // TODO: test validations
     }
-
-    /**
-     * Unauthorized
-     */
-    @Test
-    public void shouldSee401AfterAddToLag() {
-        UUID portId = null;
-        BulkPhysicalPort bulkPhysicalPort = null;
-        api.addToLag()
-                .portIdPath(portId)
-                .body(bulkPhysicalPort).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Not Found
-     */
-    @Test
-    public void shouldSee404AfterAddToLag() {
-        UUID portId = null;
-        BulkPhysicalPort bulkPhysicalPort = null;
-        api.addToLag()
-                .portIdPath(portId)
-                .body(bulkPhysicalPort).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Internal server error
-     */
-    @Test
-    public void shouldSee500AfterAddToLag() {
-        UUID portId = null;
-        BulkPhysicalPort bulkPhysicalPort = null;
-        api.addToLag()
-                .portIdPath(portId)
-                .body(bulkPhysicalPort).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
 
     /**
      * Successful operation for COLO Bulk Port
@@ -115,10 +53,9 @@ public class PortsApiTest {
     public void shouldSee201AfterCreateBulkPort() {
         BulkPort bulkPort = null;
         api.createBulkPort()
-                .body(bulkPort).execute(r -> r.prettyPeek());
+                .body(bulkPort).execute(r -> r);
         // TODO: test validations
     }
-
 
     /**
      * Successful operation for COLO Single Port Non Lag
@@ -127,32 +64,9 @@ public class PortsApiTest {
     public void shouldSee201AfterCreatePort() {
         Port port = null;
         api.createPort()
-                .body(port).execute(r -> r.prettyPeek());
+                .body(port).execute(r -> r);
         // TODO: test validations
     }
-
-    /**
-     * Bad request
-     */
-    @Test
-    public void shouldSee400AfterCreatePort() {
-        Port port = null;
-        api.createPort()
-                .body(port).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Internal Server Error
-     */
-    @Test
-    public void shouldSee500AfterCreatePort() {
-        Port port = null;
-        api.createPort()
-                .body(port).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
 
     /**
      * Accepted
@@ -161,43 +75,9 @@ public class PortsApiTest {
     public void shouldSee202AfterDeletePort() {
         UUID portId = null;
         api.deletePort()
-                .portIdPath(portId).execute(r -> r.prettyPeek());
+                .portIdPath(portId).execute(r -> r);
         // TODO: test validations
     }
-
-    /**
-     * Bad request
-     */
-    @Test
-    public void shouldSee400AfterDeletePort() {
-        UUID portId = null;
-        api.deletePort()
-                .portIdPath(portId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Unauthorized
-     */
-    @Test
-    public void shouldSee401AfterDeletePort() {
-        UUID portId = null;
-        api.deletePort()
-                .portIdPath(portId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Not Found
-     */
-    @Test
-    public void shouldSee404AfterDeletePort() {
-        UUID portId = null;
-        api.deletePort()
-                .portIdPath(portId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
 
     /**
      * Successful operation
@@ -206,43 +86,9 @@ public class PortsApiTest {
     public void shouldSee200AfterGetPortByUuid() {
         UUID portId = null;
         api.getPortByUuid()
-                .portIdPath(portId).execute(r -> r.prettyPeek());
+                .portIdPath(portId).execute(r -> r);
         // TODO: test validations
     }
-
-    /**
-     * Bad request
-     */
-    @Test
-    public void shouldSee400AfterGetPortByUuid() {
-        UUID portId = null;
-        api.getPortByUuid()
-                .portIdPath(portId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Forbidden
-     */
-    @Test
-    public void shouldSee403AfterGetPortByUuid() {
-        UUID portId = null;
-        api.getPortByUuid()
-                .portIdPath(portId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Internal server error
-     */
-    @Test
-    public void shouldSee500AfterGetPortByUuid() {
-        UUID portId = null;
-        api.getPortByUuid()
-                .portIdPath(portId).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
 
     /**
      * Successful operation
@@ -250,20 +96,9 @@ public class PortsApiTest {
     @Test
     public void shouldSee200AfterGetPorts() {
         String name = null;
-        api.getPorts().execute(r -> r.prettyPeek());
+        api.getPorts().execute(r -> r);
         // TODO: test validations
     }
-
-    /**
-     * Forbidden
-     */
-    @Test
-    public void shouldSee403AfterGetPorts() {
-        String name = null;
-        api.getPorts().execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
 
     /**
      * Get Vlans
@@ -272,32 +107,9 @@ public class PortsApiTest {
     public void shouldSee200AfterGetVlans() {
         UUID portUuid = null;
         api.getVlans()
-                .portUuidPath(portUuid).execute(r -> r.prettyPeek());
+                .portUuidPath(portUuid).execute(r -> r);
         // TODO: test validations
     }
-
-    /**
-     * Bad request
-     */
-    @Test
-    public void shouldSee400AfterGetVlans() {
-        UUID portUuid = null;
-        api.getVlans()
-                .portUuidPath(portUuid).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Forbidden
-     */
-    @Test
-    public void shouldSee403AfterGetVlans() {
-        UUID portUuid = null;
-        api.getVlans()
-                .portUuidPath(portUuid).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
 
     /**
      * Successful operation
@@ -306,41 +118,7 @@ public class PortsApiTest {
     public void shouldSee200AfterSearchPorts() {
         PortV4SearchRequest portV4SearchRequest = null;
         api.searchPorts()
-                .body(portV4SearchRequest).execute(r -> r.prettyPeek());
+                .body(portV4SearchRequest).execute(r -> r);
         // TODO: test validations
     }
-
-    /**
-     * Bad request
-     */
-    @Test
-    public void shouldSee400AfterSearchPorts() {
-        PortV4SearchRequest portV4SearchRequest = null;
-        api.searchPorts()
-                .body(portV4SearchRequest).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Unauthorized
-     */
-    @Test
-    public void shouldSee401AfterSearchPorts() {
-        PortV4SearchRequest portV4SearchRequest = null;
-        api.searchPorts()
-                .body(portV4SearchRequest).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
-    /**
-     * Not Found
-     */
-    @Test
-    public void shouldSee404AfterSearchPorts() {
-        PortV4SearchRequest portV4SearchRequest = null;
-        api.searchPorts()
-                .body(portV4SearchRequest).execute(r -> r.prettyPeek());
-        // TODO: test validations
-    }
-
 }
