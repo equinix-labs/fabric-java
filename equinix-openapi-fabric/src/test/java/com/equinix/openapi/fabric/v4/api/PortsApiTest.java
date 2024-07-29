@@ -28,13 +28,13 @@ import static org.junit.Assert.assertTrue;
  */
 public class PortsApiTest {
 
-    private PortsApi api = TokenGenerator.getApiClient().ports();
+    private static PortsApi api = TokenGenerator.getApiClient().ports();
 
     /**
      * Successful operation
      */
     @Test
-    public void getPorts() {
+    public void getPort() {
         PortDto portDto = (PortDto) Utils.getEnvData(Utils.EnvVariable.QINQ_PORT);
         Response response = api.getPorts().nameQuery(portDto.getName()).execute(r -> r);
         Port port = response.as(AllPortsResponse.class).getData().get(0);
@@ -45,6 +45,13 @@ public class PortsApiTest {
 
     @Test
     public void searchPorts() {
+        Response response = getPorts();
+        List<Port> ports = response.as(AllPortsResponse.class).getData();
+        assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+        assertTrue(!ports.isEmpty());
+    }
+
+    public static Response getPorts() {
         UserDto userDto = (UserDto) Utils.getEnvData(Utils.EnvVariable.TEST_DATA_UAT_FCR_USER);
 
         PortV4SearchRequest portV4SearchRequest = new PortV4SearchRequest()
@@ -59,6 +66,10 @@ public class PortsApiTest {
                                 .values(singletonList(userDto.getProjectId())))
                         .addAndItem(new PortExpression()
                                 .operator(PortExpression.OperatorEnum.EQUAL)
+                                .property(PortSearchFieldName.PROJECT_PROJECTID)
+                                .values(singletonList(userDto.getProjectId())))
+                        .addAndItem(new PortExpression()
+                                .operator(PortExpression.OperatorEnum.EQUAL)
                                 .property(PortSearchFieldName.SETTINGS_PRODUCTCODE)
                                 .values(singletonList("CX"))
                         )))
@@ -67,9 +78,6 @@ public class PortsApiTest {
                         .limit(100))
                 .sort(singletonList(new PortSortCriteria().property(PortSortBy._DEVICE_NAME).direction(PortSortDirection.DESC)));
 
-        Response response = api.searchPorts().body(portV4SearchRequest).execute(r -> r);
-        List<Port> ports = response.as(AllPortsResponse.class).getData();
-        assertEquals(HttpStatus.SC_OK, response.getStatusCode());
-        assertTrue(!ports.isEmpty());
+        return api.searchPorts().body(portV4SearchRequest).execute(r -> r);
     }
 }

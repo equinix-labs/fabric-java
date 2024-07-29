@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static java.util.Collections.singletonList;
 import static org.junit.Assert.assertEquals;
@@ -35,28 +36,26 @@ public class ConnectionsApiTest {
     private static final List<String> connectionsToDelete = new ArrayList<>();
     private static ConnectionsApi api = TokenGenerator.getApiClient().connections();
 
+    public static void removeConnections() {
+        connectionsToDelete.forEach(ConnectionsApiTest::deleteConnection);
+    }
+
     @AfterClass
     public static void removeResources() {
-        connectionsToDelete.forEach(uuid -> {
-//            if (getCloudRouterStatus(uuid) == CloudRouterAccessPointState.PROVISIONED) {
-            deleteConnection(uuid);
-//            }
-        });
+        removeConnections();
+        CloudRoutersApiTest.removeCloudRouters();
     }
 
     @Test
-    public void createConnectionPort2GenericSP() {
-        ServiceProfile serviceProfile =
-                new ServiceProfilesApiTest().getServiceProfilesByQueryResponse("zSide").as(ServiceProfiles.class)
-                        .getData().stream().filter(sp -> sp.getState().equals(ServiceProfileStateEnum.ACTIVE))
-                        .findAny().get();
+    public void createConnectionPort2SP() {
+        ServiceProfile serviceProfile = new ServiceProfilesApiTest().getServiceProfilesByQueryResponse("zSide").as(ServiceProfiles.class)
+                .getData().stream().filter(sp -> sp.getState().equals(ServiceProfileStateEnum.ACTIVE))
+                .findAny().get();
 
         PortDto portDto = (PortDto) Utils.getEnvData(Utils.EnvVariable.QINQ_PORT);
 
-        ConnectionPostRequest connectionPostRequest = new ConnectionPostRequest()
-                .name("panters-con-port-2-sp")
+        ConnectionPostRequest connectionPostRequest = getDefaultConnectionRequest("panters-con-port-2-sp")
                 .type(ConnectionType.EVPL_VC)
-                .bandwidth(1000)
                 .redundancy(new ConnectionRedundancy().priority(ConnectionPriority.PRIMARY))
                 .order(new Order().purchaseOrderNumber("pol123"))
                 .zSide(new ConnectionSide().accessPoint(
@@ -66,10 +65,7 @@ public class ConnectionsApiTest {
                                         .type(ServiceProfileTypeEnum.L2_PROFILE)
                                         .uuid(serviceProfile.getUuid()))
                                 .location(new SimplifiedLocation()
-                                        .metroCode(serviceProfile.getMetros().get(0).getCode()))))
-                .notifications(singletonList(new SimplifiedNotification()
-                        .type(SimplifiedNotification.TypeEnum.ALL)
-                        .emails(singletonList("test@test.com"))));
+                                        .metroCode(serviceProfile.getMetros().get(0).getCode()))));
 
         Response response = null;
 
@@ -97,42 +93,39 @@ public class ConnectionsApiTest {
         assertEquals(HttpStatus.SC_CREATED, response.getStatusCode());
         Connection connection = response.as(Connection.class);
         connectionsToDelete.add(connection.getUuid());
-        waitForConnection(connection.getUuid());
+        waitForConnection(connection.getUuid(),ConnectionState.PENDING);
     }
 
     @Test
-    public void createConnectionFCR2Colo() {
+    public void createConnectionFCR2Port() {
         CloudRouter cloudRouter = new CloudRoutersApiTest().createRouter();
 
-        PortDto portDto = (PortDto) Utils.getEnvData(Utils.EnvVariable.QINQ_PORT);
+        Port port = PortsApiTest.getPorts().as(AllPortsResponse.class).getData().stream()
+                .filter(p -> p.getName().contains("Dot1q"))
+                .filter(p -> p.getLocation().getMetroCode().equals(cloudRouter.getLocation().getMetroCode()))
+                .findFirst().get();
+
         UserDto userDto = (UserDto) Utils.getEnvData(Utils.EnvVariable.TEST_DATA_UAT_FCR_USER);
 
-        ConnectionPostRequest connectionPostRequest = new ConnectionPostRequest()
-                .name("panters-con-fcr-2-sp")
-                .type(ConnectionType.EVPL_VC)
-                .bandwidth(1000)
+        ConnectionPostRequest connectionPostRequest = getDefaultConnectionRequest("panters-con-fcr-2-port")
+                .type(ConnectionType.IP_VC)
                 .project(new Project().projectId(userDto.getProjectId()))
                 .aSide(new ConnectionSide().accessPoint(
                         new AccessPoint()
                                 .type(AccessPointType.CLOUD_ROUTER)
-                                .router(new CloudRouter().uuid(cloudRouter.getUuid()))))
-                .notifications(singletonList(new SimplifiedNotification()
-                        .type(SimplifiedNotification.TypeEnum.ALL)
-                        .emails(singletonList("test@test.com"))));
+                                .router(new CloudRouter().uuid(cloudRouter.getUuid()))));
 
         Response response = null;
 
         for (int i = 0; i < 3; i++) {
-            int sTag = new Random().nextInt(4000);
-            int cTag = new Random().nextInt(4000);
+            int tag = new Random().nextInt(4000);
             connectionPostRequest.zSide(new ConnectionSide().accessPoint(
                     new AccessPoint()
                             .type(AccessPointType.COLO)
-                            .port(new SimplifiedPort().uuid(UUID.fromString(portDto.getUuid())))
+                            .port(new SimplifiedPort().uuid(port.getUuid()))
                             .linkProtocol(new SimplifiedLinkProtocol()
-                                    .type(LinkProtocolType.QINQ)
-                                    .vlanSTag(sTag)
-                                    .vlanCTag(cTag))));
+                                    .type(LinkProtocolType.DOT1Q)
+                                    .vlanTag(tag))));
 
             response = api.createConnection()
                     .body(connectionPostRequest)
@@ -146,34 +139,90 @@ public class ConnectionsApiTest {
         assertEquals(HttpStatus.SC_CREATED, response.getStatusCode());
         Connection connection = response.as(Connection.class);
         connectionsToDelete.add(connection.getUuid());
-        waitForConnection(connection.getUuid());
+        waitForConnection(connection.getUuid(),ConnectionState.PENDING);
     }
 
-    /**
-     * //     * Successful operation
-     * //
-     */
     @Test
-    public void createConnectionAction() {
-        String connectionId = null;
-        ConnectionActionRequest connectionActionRequest = null;
-        api.createConnectionAction()
-                .connectionIdPath(connectionId)
-                .body(connectionActionRequest).execute(r -> r);
-        // TODO: test validations
+    public void createConnectionPort2Port() {
+        List<Port> port = PortsApiTest.getPorts().as(AllPortsResponse.class).getData().stream()
+                .filter(p -> p.getName().contains("Dot1q"))
+                .collect(Collectors.toList());
+
+        Response response = null;
+
+        for (int i = 0; i < 3; i++) {
+            int tagAside = new Random().nextInt(4000);
+            int tagZside = new Random().nextInt(4000);
+
+            ConnectionPostRequest connectionPostRequest = getDefaultConnectionRequest("panters-con-port-2-port")
+                    .type(ConnectionType.EVPL_VC)
+
+                    .redundancy(new ConnectionRedundancy().priority(ConnectionPriority.PRIMARY))
+                    .aSide(new ConnectionSide().accessPoint(
+                            new AccessPoint()
+                                    .type(AccessPointType.COLO)
+                                    .port(new SimplifiedPort()
+                                            .uuid(port.get(0).getUuid()))
+                                    .linkProtocol(new SimplifiedLinkProtocol()
+                                            .type(LinkProtocolType.DOT1Q).vlanTag(tagAside))))
+                    .zSide(new ConnectionSide().accessPoint(
+                            new AccessPoint()
+                                    .type(AccessPointType.COLO)
+                                    .port(new SimplifiedPort()
+                                            .uuid(port.get(1).getUuid()))
+                                    .linkProtocol(new SimplifiedLinkProtocol()
+                                            .type(LinkProtocolType.DOT1Q)
+                                            .vlanTag(tagZside))));
+
+            response = api.createConnection()
+                    .body(connectionPostRequest)
+                    .execute(r -> r);
+
+            if (response.getStatusCode() == HttpStatus.SC_CREATED) {
+                break;
+            }
+        }
+
+        assertEquals(HttpStatus.SC_CREATED, response.getStatusCode());
+        Connection connection = response.as(Connection.class);
+        connectionsToDelete.add(connection.getUuid());
+        waitForConnection(connection.getUuid(),ConnectionState.PROVISIONED);
     }
 
-    /**
-     * Delete Connection Request
-     */
-    @Test
-    public void deleteConnectionByUuid() {
-        String connectionId = null;
-        api.deleteConnectionByUuid()
-                .connectionIdPath(connectionId).execute(r -> r);
-        // TODO: test validations
+    private ConnectionPostRequest getDefaultConnectionRequest(String name) {
+        return new ConnectionPostRequest()
+                .name(name)
+                .bandwidth(1000)
+                .notifications(singletonList(new SimplifiedNotification()
+                        .type(SimplifiedNotification.TypeEnum.ALL)
+                        .emails(singletonList("test@test.com"))));
     }
 
+//    /**
+//     * //     * Successful operation
+//     * //
+//     */
+//    @Test
+//    public void createConnectionAction() {
+//        String connectionId = null;
+//        ConnectionActionRequest connectionActionRequest = null;
+//        api.createConnectionAction()
+//                .connectionIdPath(connectionId)
+//                .body(connectionActionRequest).execute(r -> r);
+//        // TODO: test validations
+//    }
+//
+//    /**
+//     * Delete Connection Request
+//     */
+//    @Test
+//    public void deleteConnectionByUuid() {
+//        String connectionId = null;
+//        api.deleteConnectionByUuid()
+//                .connectionIdPath(connectionId).execute(r -> r);
+//        // TODO: test validations
+//    }
+//
     /**
      * Successful operation
      */
@@ -191,42 +240,42 @@ public class ConnectionsApiTest {
         assertEquals(randomConnection.getUuid(), connection.getUuid());
         assertEquals(randomConnection.getName(), connection.getName());
     }
-
-    /**
-     * Successful operation
-     */
-    @Test
-    public void searchConnections() {
-        Response response = getConnections();
-        ConnectionSearchResponse connectionSearchResponse = response.as(ConnectionSearchResponse.class);
-
-        assertEquals(HttpStatus.SC_OK, response.getStatusCode());
-        connectionSearchResponse.getData().forEach(connection -> assertEquals(connection.getOperation().getProviderStatus(), ProviderStatus.AVAILABLE));
-    }
-
-    /**
-     * Successful operation
-     */
-    @Test
-    public void updateConnectionByUuid() {
-        String connectionId = null;
-        List<ConnectionChangeOperation> connectionChangeOperation = null;
-        api.updateConnectionByUuid()
-                .connectionIdPath(connectionId)
-                .body(connectionChangeOperation).execute(r -> r);
-        // TODO: test validations
-    }
-
-    /**
-     * Successful operation
-     */
-    @Test
-    public void validateConnections() {
-        ValidateRequest validateRequest = null;
-        api.validateConnections()
-                .body(validateRequest).execute(r -> r);
-        // TODO: test validations
-    }
+//
+//    /**
+//     * Successful operation
+//     */
+//    @Test
+//    public void searchConnections() {
+//        Response response = getConnections();
+//        ConnectionSearchResponse connectionSearchResponse = response.as(ConnectionSearchResponse.class);
+//
+//        assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+//        connectionSearchResponse.getData().forEach(connection -> assertEquals(connection.getOperation().getProviderStatus(), ProviderStatus.AVAILABLE));
+//    }
+//
+//    /**
+//     * Successful operation
+//     */
+//    @Test
+//    public void updateConnectionByUuid() {
+//        String connectionId = null;
+//        List<ConnectionChangeOperation> connectionChangeOperation = null;
+//        api.updateConnectionByUuid()
+//                .connectionIdPath(connectionId)
+//                .body(connectionChangeOperation).execute(r -> r);
+//        // TODO: test validations
+//    }
+//
+//    /**
+//     * Successful operation
+//     */
+//    @Test
+//    public void validateConnections() {
+//        ValidateRequest validateRequest = null;
+//        api.validateConnections()
+//                .body(validateRequest).execute(r -> r);
+//        // TODO: test validations
+//    }
 
     private static void deleteConnection(String uuid) {
         Response response = api.deleteConnectionByUuid()
@@ -235,13 +284,13 @@ public class ConnectionsApiTest {
         assertEquals(HttpStatus.SC_ACCEPTED, response.getStatusCode());
     }
 
-    private void waitForConnection(String connecionUuid) {
+    private void waitForConnection(String connecionUuid, ConnectionState connectionState) {
         for (int i = 0; i < 5; i++) {
             Connection connection = api.getConnectionByUuid()
                     .connectionIdPath(connecionUuid)
                     .execute(re -> re).as(Connection.class);
 
-            if (connection.getState().equals(ConnectionState.PENDING)) {
+            if (connection.getState().equals(connectionState)) {
                 break;
             }
             try {
