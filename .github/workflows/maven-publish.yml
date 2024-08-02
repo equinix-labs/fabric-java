@@ -17,10 +17,6 @@ jobs:
       contents: read
       packages: write
 
-    env:
-      TEST_DATA_UAT_QINQ_PORT: ${{ secrets.TEST_DATA_UAT_QINQ_PORT }}
-      TEST_DATA_UAT_FCR_USER: ${{secrets.TEST_DATA_UAT_FCR_USER }}
-
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 11
@@ -35,13 +31,7 @@ jobs:
       working-directory: ./equinix-openapi-fabric
 
       run: |- 
-        mvn deploy -s $GITHUB_WORKSPACE/settings.xml -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/equinix-labs/fabric-java \
-        -DenvUrl=${{ env.TEST_HOST_URL }} -DuserName=${{ env.TEST_USER_NAME }} -DuserPassword=${{ env.TEST_USER_PASSWORD }} \
-        -DclientId=${{ env.CLIENT_ID }} -DclientSecret=${{ env.CLIENT_SECRET }}
+        mvn deploy -DskipTests -s $GITHUB_WORKSPACE/settings.xml -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/equinix-labs/fabric-java 
+
       env:
         GITHUB_TOKEN: ${{ github.token }}
-        TEST_HOST_URL: https://uatapi.equinix.com
-        CLIENT_ID: ${{ secrets.TEST_USER_CLIENT_ID }}
-        CLIENT_SECRET: ${{ secrets.TEST_USER_CLIENT_SECRET }}
-        TEST_USER_NAME: ${{ secrets.TEST_USER_NAME }}
-        TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
