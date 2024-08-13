@@ -11,17 +11,49 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import com.equinix.openapi.fabric.JSON;
-import com.google.gson.*;
+import java.util.Objects;
+import java.util.Arrays;
+import com.equinix.openapi.fabric.v4.model.Changelog;
+import com.equinix.openapi.fabric.v4.model.CloudRouterAccessPointState;
+import com.equinix.openapi.fabric.v4.model.CloudRouterChange;
+import com.equinix.openapi.fabric.v4.model.CloudRouterPostRequestPackage;
+import com.equinix.openapi.fabric.v4.model.MarketplaceSubscription;
+import com.equinix.openapi.fabric.v4.model.Order;
+import com.equinix.openapi.fabric.v4.model.Project;
+import com.equinix.openapi.fabric.v4.model.SimplifiedAccount;
+import com.equinix.openapi.fabric.v4.model.SimplifiedLocationWithoutIBX;
+import com.equinix.openapi.fabric.v4.model.SimplifiedNotification;
+import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-
 import java.io.IOException;
 import java.net.URI;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.TypeAdapterFactory;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import com.equinix.openapi.fabric.JSON;
 
 /**
  * Fabric Cloud Router object

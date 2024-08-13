@@ -11,12 +11,30 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.*;
-import com.equinix.openapi.fabric.v4.model.SubscriptionResponse;
+import com.equinix.openapi.fabric.ApiCallback;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.ApiResponse;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.Pair;
+import com.equinix.openapi.fabric.ProgressRequestBody;
+import com.equinix.openapi.fabric.ProgressResponseBody;
+
 import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
+
+
+import com.equinix.openapi.fabric.v4.model.Error;
+import com.equinix.openapi.fabric.v4.model.SubscriptionResponse;
+import java.util.UUID;
+
 import java.lang.reflect.Type;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.ws.rs.core.GenericType;
 
 public class MarketplaceSubscriptionsApi {
     private ApiClient localVarApiClient;

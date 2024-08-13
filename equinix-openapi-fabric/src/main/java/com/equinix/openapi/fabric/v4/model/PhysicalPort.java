@@ -11,16 +11,48 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import com.equinix.openapi.fabric.JSON;
-import com.google.gson.*;
+import java.util.Objects;
+import java.util.Arrays;
+import com.equinix.openapi.fabric.v4.model.PhysicalPortType;
+import com.equinix.openapi.fabric.v4.model.PortAdditionalInfo;
+import com.equinix.openapi.fabric.v4.model.PortDemarcationPoint;
+import com.equinix.openapi.fabric.v4.model.PortLoa;
+import com.equinix.openapi.fabric.v4.model.PortNotification;
+import com.equinix.openapi.fabric.v4.model.PortOperation;
+import com.equinix.openapi.fabric.v4.model.PortOrder;
+import com.equinix.openapi.fabric.v4.model.PortState;
+import com.equinix.openapi.fabric.v4.model.PortTether;
+import com.equinix.openapi.fabric.v4.model.SimplifiedAccount;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-
 import java.io.IOException;
 import java.net.URI;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.TypeAdapterFactory;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import com.equinix.openapi.fabric.JSON;
 
 /**
  * Physical Port specification
