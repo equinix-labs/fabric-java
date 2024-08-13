@@ -1,7 +1,7 @@
 # equinix-openapi-fabric
 
 Equinix Fabric API v4
-- API version: 4.14
+- API version: 4.15
 
 Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br> </br> <b>Integrations (SDKs, Tools) links:</b> </br> <a href=\"https://deploy.equinix.com/labs/fabric-java\\\">Fabric Java SDK</a> </br> <a href=\"https://deploy.equinix.com/labs/equinix-sdk-go\\\">Fabric Go SDK</a> </br> <a href=\"https://deploy.equinix.com/labs/terraform-provider-equinix\\\">Equinix Terraform Provider</a> </br> <a href=\"https://deploy.equinix.com/labs/terraform-equinix-fabric\\\">Fabric Terraform Modules</a> </br> <a href=\"https://deploy.equinix.com/labs/pulumi-provider-equinix/\">Equinix Pulumi Provider</a> </br>
 
@@ -137,6 +137,7 @@ Class | Method | HTTP request | Description
 *ConnectionsApi* | [**updateConnectionByUuid**](docs/ConnectionsApi.md#updateConnectionByUuid) | **PATCH** /fabric/v4/connections/{connectionId} | Update by ID
 *ConnectionsApi* | [**validateConnections**](docs/ConnectionsApi.md#validateConnections) | **POST** /fabric/v4/connections/validate | Validate Connection
 *HealthApi* | [**getStatus**](docs/HealthApi.md#getStatus) | **GET** /fabric/v4/health | Get service status
+*MarketplaceSubscriptionsApi* | [**getSubscriptionById**](docs/MarketplaceSubscriptionsApi.md#getSubscriptionById) | **GET** /fabric/v4/marketplaceSubscriptions/{subscriptionId} | Get Subscription
 *MetrosApi* | [**getMetroByCode**](docs/MetrosApi.md#getMetroByCode) | **GET** /fabric/v4/metros/{metroCode} | Get Metro by Code
 *MetrosApi* | [**getMetros**](docs/MetrosApi.md#getMetros) | **GET** /fabric/v4/metros | Get all Metros
 *NetworksApi* | [**createNetwork**](docs/NetworksApi.md#createNetwork) | **POST** /fabric/v4/networks | Create Network
@@ -161,6 +162,7 @@ Class | Method | HTTP request | Description
 *PrecisionTimeApi* | [**getTimeServicesConnectionsByServiceId**](docs/PrecisionTimeApi.md#getTimeServicesConnectionsByServiceId) | **GET** /fabric/v4/timeServices/{serviceId}/connections | Get Connection Links
 *PrecisionTimeApi* | [**getTimeServicesPackageByCode**](docs/PrecisionTimeApi.md#getTimeServicesPackageByCode) | **GET** /fabric/v4/timeServicePackages/{packageCode} | Get Package By Code
 *PrecisionTimeApi* | [**getTimeServicesPackages**](docs/PrecisionTimeApi.md#getTimeServicesPackages) | **GET** /fabric/v4/timeServicePackages | Get Packages
+*PrecisionTimeApi* | [**searchTimeServices**](docs/PrecisionTimeApi.md#searchTimeServices) | **POST** /fabric/v4/timeServices/search | Search Time Services
 *PrecisionTimeApi* | [**updateTimeServicesById**](docs/PrecisionTimeApi.md#updateTimeServicesById) | **PATCH** /fabric/v4/timeServices/{serviceId} | Patch time service
 *PricesApi* | [**searchPrices**](docs/PricesApi.md#searchPrices) | **POST** /fabric/v4/prices/search | Get Prices
 *RouteFilterRulesApi* | [**createRouteFilterRule**](docs/RouteFilterRulesApi.md#createRouteFilterRule) | **POST** /fabric/v4/routeFilters/{routeFilterId}/routeFilterRules | Create RFRule
@@ -331,6 +333,7 @@ Class | Method | HTTP request | Description
  - [LinkProtocolUntagged](docs/LinkProtocolUntagged.md)
  - [LinkProtocolVxlan](docs/LinkProtocolVxlan.md)
  - [MarketingInfo](docs/MarketingInfo.md)
+ - [MarketplaceSubscription](docs/MarketplaceSubscription.md)
  - [Md5](docs/Md5.md)
  - [MetalInterconnection](docs/MetalInterconnection.md)
  - [MetricInterval](docs/MetricInterval.md)
@@ -406,6 +409,7 @@ Class | Method | HTTP request | Description
  - [PrecisionTimeServiceCreateResponse](docs/PrecisionTimeServiceCreateResponse.md)
  - [PrecisionTimeServicePackagesResponse](docs/PrecisionTimeServicePackagesResponse.md)
  - [PrecisionTimeServiceRequest](docs/PrecisionTimeServiceRequest.md)
+ - [PrecisionTimeServiceResponse](docs/PrecisionTimeServiceResponse.md)
  - [Presence](docs/Presence.md)
  - [Price](docs/Price.md)
  - [PriceCategory](docs/PriceCategory.md)
@@ -499,6 +503,7 @@ Class | Method | HTTP request | Description
  - [ServiceProfileTypeEnum](docs/ServiceProfileTypeEnum.md)
  - [ServiceProfileVisibilityEnum](docs/ServiceProfileVisibilityEnum.md)
  - [ServiceProfiles](docs/ServiceProfiles.md)
+ - [ServiceSearchResponse](docs/ServiceSearchResponse.md)
  - [ServiceToken](docs/ServiceToken.md)
  - [ServiceTokenActionRequest](docs/ServiceTokenActionRequest.md)
  - [ServiceTokenActions](docs/ServiceTokenActions.md)
@@ -529,6 +534,21 @@ Class | Method | HTTP request | Description
  - [SortItem](docs/SortItem.md)
  - [Statistics](docs/Statistics.md)
  - [SubInterface](docs/SubInterface.md)
+ - [SubscriptionAsset](docs/SubscriptionAsset.md)
+ - [SubscriptionAssetType](docs/SubscriptionAssetType.md)
+ - [SubscriptionEntitlementResponse](docs/SubscriptionEntitlementResponse.md)
+ - [SubscriptionResponse](docs/SubscriptionResponse.md)
+ - [SubscriptionRouterPackageType](docs/SubscriptionRouterPackageType.md)
+ - [SubscriptionStatus](docs/SubscriptionStatus.md)
+ - [SubscriptionTrial](docs/SubscriptionTrial.md)
+ - [TimeServiceFilter](docs/TimeServiceFilter.md)
+ - [TimeServiceFilters](docs/TimeServiceFilters.md)
+ - [TimeServiceOrFilter](docs/TimeServiceOrFilter.md)
+ - [TimeServiceSimpleExpression](docs/TimeServiceSimpleExpression.md)
+ - [TimeServiceSortBy](docs/TimeServiceSortBy.md)
+ - [TimeServiceSortCriteria](docs/TimeServiceSortCriteria.md)
+ - [TimeServiceSortDirection](docs/TimeServiceSortDirection.md)
+ - [TimeServicesSearchRequest](docs/TimeServicesSearchRequest.md)
  - [TopUtilizedStatistics](docs/TopUtilizedStatistics.md)
  - [ValidateRequest](docs/ValidateRequest.md)
  - [ValidateRequestFilter](docs/ValidateRequestFilter.md)

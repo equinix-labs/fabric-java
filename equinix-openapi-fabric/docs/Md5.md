@@ -8,7 +8,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**type** | [**TypeEnum**](#TypeEnum) |  |  [optional] |
-|**id** | **String** |  |  [optional] |
+|**id** | **Integer** |  |  [optional] |
 |**password** | **String** |  |  [optional] |
 
 

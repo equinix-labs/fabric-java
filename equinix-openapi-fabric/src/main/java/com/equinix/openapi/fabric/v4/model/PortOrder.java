@@ -57,6 +57,10 @@ public class PortOrder {
   @SerializedName(SERIALIZED_NAME_ORDER_ID)
   private String orderId;
 
+  public static final String SERIALIZED_NAME_CUSTOMER_REFERENCE_ID = "customerReferenceId";
+  @SerializedName(SERIALIZED_NAME_CUSTOMER_REFERENCE_ID)
+  private String customerReferenceId;
+
   public static final String SERIALIZED_NAME_ORDER_NUMBER = "orderNumber";
   @SerializedName(SERIALIZED_NAME_ORDER_NUMBER)
   private String orderNumber;
@@ -113,6 +117,28 @@ public class PortOrder {
 
   public void setOrderId(String orderId) {
     this.orderId = orderId;
+  }
+
+
+  public PortOrder customerReferenceId(String customerReferenceId) {
+    
+    this.customerReferenceId = customerReferenceId;
+    return this;
+  }
+
+   /**
+   * Customer order reference Id
+   * @return customerReferenceId
+  **/
+  @javax.annotation.Nullable
+
+  public String getCustomerReferenceId() {
+    return customerReferenceId;
+  }
+
+
+  public void setCustomerReferenceId(String customerReferenceId) {
+    this.customerReferenceId = customerReferenceId;
   }
 
 
@@ -238,6 +264,7 @@ public class PortOrder {
     PortOrder portOrder = (PortOrder) o;
     return Objects.equals(this.purchaseOrder, portOrder.purchaseOrder) &&
         Objects.equals(this.orderId, portOrder.orderId) &&
+        Objects.equals(this.customerReferenceId, portOrder.customerReferenceId) &&
         Objects.equals(this.orderNumber, portOrder.orderNumber) &&
         Objects.equals(this.uuid, portOrder.uuid) &&
         Objects.equals(this.signature, portOrder.signature)&&
@@ -246,7 +273,7 @@ public class PortOrder {
 
   @Override
   public int hashCode() {
-    return Objects.hash(purchaseOrder, orderId, orderNumber, uuid, signature, additionalProperties);
+    return Objects.hash(purchaseOrder, orderId, customerReferenceId, orderNumber, uuid, signature, additionalProperties);
   }
 
   @Override
@@ -255,6 +282,7 @@ public class PortOrder {
     sb.append("class PortOrder {\n");
     sb.append("    purchaseOrder: ").append(toIndentedString(purchaseOrder)).append("\n");
     sb.append("    orderId: ").append(toIndentedString(orderId)).append("\n");
+    sb.append("    customerReferenceId: ").append(toIndentedString(customerReferenceId)).append("\n");
     sb.append("    orderNumber: ").append(toIndentedString(orderNumber)).append("\n");
     sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
     sb.append("    signature: ").append(toIndentedString(signature)).append("\n");
@@ -283,6 +311,7 @@ public class PortOrder {
     openapiFields = new HashSet<String>();
     openapiFields.add("purchaseOrder");
     openapiFields.add("orderId");
+    openapiFields.add("customerReferenceId");
     openapiFields.add("orderNumber");
     openapiFields.add("uuid");
     openapiFields.add("signature");
@@ -309,6 +338,9 @@ public class PortOrder {
       }
       if ((jsonObj.get("orderId") != null && !jsonObj.get("orderId").isJsonNull()) && !jsonObj.get("orderId").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `orderId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("orderId").toString()));
+      }
+      if ((jsonObj.get("customerReferenceId") != null && !jsonObj.get("customerReferenceId").isJsonNull()) && !jsonObj.get("customerReferenceId").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `customerReferenceId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("customerReferenceId").toString()));
       }
       if ((jsonObj.get("orderNumber") != null && !jsonObj.get("orderNumber").isJsonNull()) && !jsonObj.get("orderNumber").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `orderNumber` to be a primitive type in the JSON string but got `%s`", jsonObj.get("orderNumber").toString()));

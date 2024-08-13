@@ -32,6 +32,8 @@ import com.equinix.openapi.fabric.v4.model.PrecisionTimeServiceConnectionsRespon
 import com.equinix.openapi.fabric.v4.model.PrecisionTimeServiceCreateResponse;
 import com.equinix.openapi.fabric.v4.model.PrecisionTimeServicePackagesResponse;
 import com.equinix.openapi.fabric.v4.model.PrecisionTimeServiceRequest;
+import com.equinix.openapi.fabric.v4.model.ServiceSearchResponse;
+import com.equinix.openapi.fabric.v4.model.TimeServicesSearchRequest;
 import java.util.UUID;
 
 import java.lang.reflect.Type;
@@ -891,6 +893,149 @@ public class PrecisionTimeApi {
 
         okhttp3.Call localVarCall = getTimeServicesPackagesValidateBeforeCall(_callback);
         Type localVarReturnType = new TypeToken<PrecisionTimeServicePackagesResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for searchTimeServices
+     * @param timeServicesSearchRequest  (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call searchTimeServicesCall(TimeServicesSearchRequest timeServicesSearchRequest, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = timeServicesSearchRequest;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/timeServices/search";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call searchTimeServicesValidateBeforeCall(TimeServicesSearchRequest timeServicesSearchRequest, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'timeServicesSearchRequest' is set
+        if (timeServicesSearchRequest == null) {
+            throw new ApiException("Missing the required parameter 'timeServicesSearchRequest' when calling searchTimeServices(Async)");
+        }
+
+        return searchTimeServicesCall(timeServicesSearchRequest, _callback);
+
+    }
+
+    /**
+     * Search Time Services
+     * The API provides capability to get list of user&#39;s Time Services using search criteria, including optional filtering, pagination and sorting
+     * @param timeServicesSearchRequest  (required)
+     * @return ServiceSearchResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ServiceSearchResponse searchTimeServices(TimeServicesSearchRequest timeServicesSearchRequest) throws ApiException {
+        ApiResponse<ServiceSearchResponse> localVarResp = searchTimeServicesWithHttpInfo(timeServicesSearchRequest);
+        return localVarResp.getData();
+    }
+
+    /**
+     * Search Time Services
+     * The API provides capability to get list of user&#39;s Time Services using search criteria, including optional filtering, pagination and sorting
+     * @param timeServicesSearchRequest  (required)
+     * @return ApiResponse&lt;ServiceSearchResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<ServiceSearchResponse> searchTimeServicesWithHttpInfo(TimeServicesSearchRequest timeServicesSearchRequest) throws ApiException {
+        okhttp3.Call localVarCall = searchTimeServicesValidateBeforeCall(timeServicesSearchRequest, null);
+        Type localVarReturnType = new TypeToken<ServiceSearchResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Search Time Services (asynchronously)
+     * The API provides capability to get list of user&#39;s Time Services using search criteria, including optional filtering, pagination and sorting
+     * @param timeServicesSearchRequest  (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call searchTimeServicesAsync(TimeServicesSearchRequest timeServicesSearchRequest, final ApiCallback<ServiceSearchResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = searchTimeServicesValidateBeforeCall(timeServicesSearchRequest, _callback);
+        Type localVarReturnType = new TypeToken<ServiceSearchResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

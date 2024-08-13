@@ -19,8 +19,6 @@ Fabric Precision Timing change operation data
 | Name | Value |
 |---- | -----|
 | REPLACE | &quot;replace&quot; |
-| ADD | &quot;add&quot; |
-| REMOVE | &quot;remove&quot; |
 
 
 
@@ -28,11 +26,8 @@ Fabric Precision Timing change operation data
 
 | Name | Value |
 |---- | -----|
-| IPV4 | &quot;/ipv4&quot; |
 | NAME | &quot;/name&quot; |
-| ADVANCECONFIGURATION_NTP | &quot;/advanceConfiguration/ntp&quot; |
-| ADVANCECONFIGURATION_PTP | &quot;/advanceConfiguration/ptp&quot; |
-| PACKAGE | &quot;/package&quot; |
+| PACKAGE_CODE | &quot;/package/code&quot; |
 
 
 

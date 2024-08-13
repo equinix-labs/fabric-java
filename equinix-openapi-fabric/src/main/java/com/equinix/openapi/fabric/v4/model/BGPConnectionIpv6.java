@@ -63,6 +63,14 @@ public class BGPConnectionIpv6 {
   @SerializedName(SERIALIZED_NAME_OUTBOUND_A_S_PREPEND_COUNT)
   private Long outboundASPrependCount;
 
+  public static final String SERIALIZED_NAME_INBOUND_M_E_D = "inboundMED";
+  @SerializedName(SERIALIZED_NAME_INBOUND_M_E_D)
+  private Long inboundMED;
+
+  public static final String SERIALIZED_NAME_OUTBOUND_M_E_D = "outboundMED";
+  @SerializedName(SERIALIZED_NAME_OUTBOUND_M_E_D)
+  private Long outboundMED;
+
   public static final String SERIALIZED_NAME_OPERATION = "operation";
   @SerializedName(SERIALIZED_NAME_OPERATION)
   private BGPConnectionOperation operation;
@@ -158,6 +166,50 @@ public class BGPConnectionIpv6 {
   }
 
 
+  public BGPConnectionIpv6 inboundMED(Long inboundMED) {
+    
+    this.inboundMED = inboundMED;
+    return this;
+  }
+
+   /**
+   * inbound Multi Exit Discriminator attribute
+   * @return inboundMED
+  **/
+  @javax.annotation.Nullable
+
+  public Long getInboundMED() {
+    return inboundMED;
+  }
+
+
+  public void setInboundMED(Long inboundMED) {
+    this.inboundMED = inboundMED;
+  }
+
+
+  public BGPConnectionIpv6 outboundMED(Long outboundMED) {
+    
+    this.outboundMED = outboundMED;
+    return this;
+  }
+
+   /**
+   * inbound Multi Exit Discriminator attribute
+   * @return outboundMED
+  **/
+  @javax.annotation.Nullable
+
+  public Long getOutboundMED() {
+    return outboundMED;
+  }
+
+
+  public void setOutboundMED(Long outboundMED) {
+    this.outboundMED = outboundMED;
+  }
+
+
   public BGPConnectionIpv6 operation(BGPConnectionOperation operation) {
     
     this.operation = operation;
@@ -238,13 +290,15 @@ public class BGPConnectionIpv6 {
         Objects.equals(this.equinixPeerIp, bgPConnectionIpv6.equinixPeerIp) &&
         Objects.equals(this.enabled, bgPConnectionIpv6.enabled) &&
         Objects.equals(this.outboundASPrependCount, bgPConnectionIpv6.outboundASPrependCount) &&
+        Objects.equals(this.inboundMED, bgPConnectionIpv6.inboundMED) &&
+        Objects.equals(this.outboundMED, bgPConnectionIpv6.outboundMED) &&
         Objects.equals(this.operation, bgPConnectionIpv6.operation)&&
         Objects.equals(this.additionalProperties, bgPConnectionIpv6.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(customerPeerIp, equinixPeerIp, enabled, outboundASPrependCount, operation, additionalProperties);
+    return Objects.hash(customerPeerIp, equinixPeerIp, enabled, outboundASPrependCount, inboundMED, outboundMED, operation, additionalProperties);
   }
 
   @Override
@@ -255,6 +309,8 @@ public class BGPConnectionIpv6 {
     sb.append("    equinixPeerIp: ").append(toIndentedString(equinixPeerIp)).append("\n");
     sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
     sb.append("    outboundASPrependCount: ").append(toIndentedString(outboundASPrependCount)).append("\n");
+    sb.append("    inboundMED: ").append(toIndentedString(inboundMED)).append("\n");
+    sb.append("    outboundMED: ").append(toIndentedString(outboundMED)).append("\n");
     sb.append("    operation: ").append(toIndentedString(operation)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
@@ -283,6 +339,8 @@ public class BGPConnectionIpv6 {
     openapiFields.add("equinixPeerIp");
     openapiFields.add("enabled");
     openapiFields.add("outboundASPrependCount");
+    openapiFields.add("inboundMED");
+    openapiFields.add("outboundMED");
     openapiFields.add("operation");
 
     // a set of required properties/fields (JSON key names)

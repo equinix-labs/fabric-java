@@ -22,7 +22,7 @@ info:
     url: https://developer.equinix.com/agreement
   termsOfService: https://www.equinix.com/about/legal/terms
   title: Equinix Fabric API v4
-  version: "4.14"
+  version: "4.15"
 externalDocs:
   description: Find more information on Equinix Developer Portal
   url: https://developer.equinix.com
@@ -206,6 +206,9 @@ paths:
               Fcr2IpWan:
                 $ref: '#/components/examples/Fcr2IpWan'
                 value: null
+              Fcr2Sp-Aws-Marketplace-subscription:
+                $ref: '#/components/examples/Fcr2Sp-Aws-marketplaceSubscription'
+                value: null
               Fcr2MetalNetwork:
                 $ref: '#/components/examples/Fcr2Metal-Network'
                 value: null
@@ -306,6 +309,9 @@ paths:
                   value: null
                 Fcr2IpWan:
                   $ref: '#/components/examples/Fcr2IpWan-response'
+                  value: null
+                Fcr2Sp-Marketplace-subscription:
+                  $ref: '#/components/examples/Fcr2Sp-marketplaceSubscription-Response'
                   value: null
                 ServiceToken2PortResponseDot1Q:
                   $ref: '#/components/examples/AsideServiceToken2PortResponseWithDot1q'
@@ -697,6 +703,9 @@ paths:
               BGPSync:
                 $ref: '#/components/examples/Connection_Provider_Status_Request'
                 value: null
+              GetProviderBandwidth:
+                $ref: '#/components/examples/Connection_Provider_Bandwidth_Request'
+                value: null
               AcceptZSide-NetworkEdge:
                 $ref: '#/components/examples/AcceptZSide_NetworkEdge_Request'
                 value: null
@@ -710,6 +719,9 @@ paths:
               examples:
                 connectionActionExample:
                   $ref: '#/components/examples/ConnectionActionResponse'
+                  value: null
+                GetProviderBandwidth:
+                  $ref: '#/components/examples/Connection_Provider_Bandwidth_Response'
                   value: null
               schema:
                 $ref: '#/components/schemas/ConnectionAction'
@@ -6456,6 +6468,9 @@ paths:
               CreateProPackage:
                 $ref: '#/components/examples/CreateStandardPackage'
                 value: null
+              CreateWithMarketplaceSubscription:
+                $ref: '#/components/examples/CreateWithMarketplaceSubscription'
+                value: null
             schema:
               $ref: '#/components/schemas/CloudRouterPostRequest'
         required: true
@@ -6466,6 +6481,9 @@ paths:
               examples:
                 cloudRouterResponse:
                   $ref: '#/components/examples/CloudRouterPostResponseExample'
+                  value: null
+                cloudRouterResponseForMarketplaceSubscription:
+                  $ref: '#/components/examples/CloudRouterPostResponseMarketplaceExample'
                   value: null
               schema:
                 $ref: '#/components/schemas/CloudRouter'
@@ -6614,6 +6632,9 @@ paths:
               examples:
                 cloudRouterResponse:
                   $ref: '#/components/examples/CloudRouterResponseExample'
+                  value: null
+                cloudRouterResponseMarketplace:
+                  $ref: '#/components/examples/CloudRouterResponseExampleMarketplace'
                   value: null
               schema:
                 $ref: '#/components/schemas/CloudRouter'
@@ -8370,7 +8391,10 @@ paths:
           application/json-patch+json:
             examples:
               editName:
-                $ref: '#/components/examples/edit'
+                $ref: '#/components/examples/editName'
+                value: null
+              editPackageCode:
+                $ref: '#/components/examples/editPackageCode'
                 value: null
             schema:
               items:
@@ -8583,14 +8607,17 @@ paths:
         content:
           application/json:
             examples:
-              ntpSingleStandard:
-                $ref: '#/components/examples/ntpSingleStandard'
+              ntpStandard:
+                $ref: '#/components/examples/ntpStandard'
                 value: null
-              ptpSingleStandard:
-                $ref: '#/components/examples/ptpSingleStandard'
+              ptpStandard:
+                $ref: '#/components/examples/ptpStandard'
                 value: null
-              ptpSingleEnterpriseWithAdvanceConfiguration:
-                $ref: '#/components/examples/ptpSingleEnterpriseWithAdvanceConfiguration'
+              ptpEnterpriseWithAdvanceConfiguration:
+                $ref: '#/components/examples/ptpEnterpriseWithAdvanceConfiguration'
+                value: null
+              ntpEnterpriseWithAdvanceConfiguration:
+                $ref: '#/components/examples/ntpEnterpriseWithAdvanceConfiguration'
                 value: null
             schema:
               $ref: '#/components/schemas/precisionTimeServiceRequest'
@@ -8790,6 +8817,94 @@ paths:
       - Precision Time
       x-content-type: application/json
       x-accepts: application/json
+  /fabric/v4/timeServices/search:
+    post:
+      description: "The API provides capability to get list of user's Time Services\
+        \ using search criteria, including optional filtering, pagination and sorting"
+      operationId: searchTimeServices
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            examples:
+              SearchFilterByStatus:
+                $ref: '#/components/examples/SearchTimeServicesFilterByStatus'
+                value: null
+              SearchFilterByNameAndProtocol:
+                $ref: '#/components/examples/SearchTimeServicesByNameAndProtocol'
+                value: null
+              SearchFilterOrAnd:
+                $ref: '#/components/examples/SearchTimeServicesFilterOrAnd'
+                value: null
+            schema:
+              $ref: '#/components/schemas/TimeServicesSearchRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                Example:
+                  $ref: '#/components/examples/serviceSearchResponse'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ServiceSearchResponse'
+          description: Successful operation
+        "400":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/service_400_invalid_sorting'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
+        "415":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/415'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unsupported Media Type
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
+      summary: Search Time Services
+      tags:
+      - Precision Time
+      x-content-type: application/json
+      x-accepts: application/json
   /fabric/v4/timeServices/{serviceId}/connections:
     get:
       description: The API provides capability to get prevision timing service's details
@@ -8951,6 +9066,75 @@ paths:
       summary: Get Package By Code
       tags:
       - Precision Time
+      x-accepts: application/json
+  /fabric/v4/marketplaceSubscriptions/{subscriptionId}:
+    get:
+      description: The API provides capability to get subscription
+      operationId: getSubscriptionById
+      parameters:
+      - description: Subscription UUID
+        explode: false
+        in: path
+        name: subscriptionId
+        required: true
+        schema:
+          $ref: '#/components/schemas/SubscriptionId'
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/subscription-response'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/SubscriptionResponse'
+          description: Successful operation
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
+        "415":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/415'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unsupported Media Type
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
+      summary: Get Subscription
+      tags:
+      - Marketplace Subscriptions
+      x-preview: false
       x-accepts: application/json
 components:
   examples:
@@ -10495,6 +10679,35 @@ components:
           emails:
           - test@equinix.com
           - test1@equinix.com
+    Fcr2Sp-Aws-marketplaceSubscription:
+      value:
+        type: IP_VC
+        name: My-FCR-AWSConnection
+        bandwidth: 100
+        redundancy:
+          priority: PRIMARY
+        aSide:
+          accessPoint:
+            type: CLOUD_ROUTER
+            router:
+              uuid: 66a21614-1c4a-11ec-9621-0242ac130002
+        zSide:
+          accessPoint:
+            type: SP
+            profile:
+              type: L2_PROFILE
+              uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
+            location:
+              metroCode: SV
+            sellerRegion: us-west-1
+            authenticationKey: xx-xx-xx
+        project:
+          projectId: ae708bbb-d669-406a-845a-99b39ff65fd0
+        notifications:
+        - type: ALL
+          emails:
+          - test@equinix.com
+          - test1@equinix.com
     Fcr2Metal-Network:
       value:
         type: IP_VC
@@ -11461,6 +11674,47 @@ components:
         operation:
           equinixStatus: PROVISIONING
           providerStatus: NOT_AVAILABLE
+        notifications:
+        - type: ALL
+          emails:
+          - test@equinix.com
+          - test1@equinix.com
+        changeLog:
+          createdBy: test
+          createdByFullName: test
+          createdByEmail: test@equinix.com
+          createdDateTime: 2022-05-12T17:53:45.401Z
+    Fcr2Sp-marketplaceSubscription-Response:
+      value:
+        href: https://api.equinix.com/fabric/v4/connections/0ed42ea7-2df8-470d-ad59-e432d768b4f1
+        type: IP_VC
+        uuid: 0ed42ea7-2df8-470d-ad59-e432d768b4f1
+        name: GP_FG2GCP_001
+        bandwidth: 50
+        redundancy:
+          group: 4f786b3f-27d4-48e0-8571-423d085826c1
+          priority: PRIMARY
+        order:
+          billingTier: Up to 50 MB
+        aSide:
+          accessPoint:
+            type: CLOUD_ROUTER
+            router:
+              href: https://api.equinix.com/fabric/v4/routers/56d267f3-a566-47a8-8cf9-40e6cc925bf0
+              uuid: 56d267f3-a566-47a8-8cf9-40e6cc925bf0
+        zSide:
+          accessPoint:
+            type: SP
+            profile:
+              href: https://api.equinix.com/fabric/v4/serviceProfiles/c7922adf-34b5-4d4e-a87c-cae8c899ef90
+              uuid: c7922adf-34b5-4d4e-a87c-cae8c899ef90
+        marketplaceSubscription:
+          href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+          type: AWS_MARKETPLACE_SUBSCRIPTION
+          uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
+        operation:
+          equinixStatus: PROVISIONING
+          providerStatus: PROVISIONING
         notifications:
         - type: ALL
           emails:
@@ -13834,6 +14088,9 @@ components:
     Connection_Provider_Status_Request:
       value:
         type: CONNECTION_PROVIDER_STATUS_REQUEST
+    Connection_Provider_Bandwidth_Request:
+      value:
+        type: CONNECTION_PROVIDER_BANDWIDTH_REQUEST
     AcceptZSide_NetworkEdge_Request:
       value:
         type: CONNECTION_CREATION_ACCEPTANCE
@@ -13867,6 +14124,16 @@ components:
         changeLog:
           createdDateTime: 2020-04-21T10:30:00Z
           updatedDateTime: 2020-05-21T10:30:00Z
+    Connection_Provider_Bandwidth_Response:
+      value:
+        href: https://api.equinix.com/fabric/v4/connections/9b8c5042-b553-4d5e-a2ac-c73bf6d4fd81/actions/37c10edc-ba2e-4240-a850-8a48f9c47d00
+        type: CONNECTION_PROVIDER_BANDWIDTH_REQUEST
+        uuid: 3a58dd05-f46d-4b1d-a154-2e85c396ea62
+        data:
+          providerBandwidth: 500
+        changeLog:
+          createdDateTime: 2020-04-21T10:30:00Z
+          updatedDateTime: 2020-05-21T10:30:00Z
     RoutingProtocolGetAll:
       value:
         pagination:
@@ -13892,13 +14159,16 @@ components:
             updatedDateTime: 2021-10-30T07:21:39Z
           type: BGP
           bgpIpv4:
-            customerPeerIp: 10.1.1.3
+            customerPeerIp: 192.168.100.2
             enabled: true
             outboundASPrependCount: 3
+            inboundMED: 1000
+            outboundMED: 2000
             operation:
               operationalStatus: UNKNOWN
           customerAsn: 10000
           equinixAsn: 10001
+          asOverrideEnabled: true
         - href: https://api.equinix.com/fabric/v4/connections/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170/routingProtocols/557400f8-d360-11e9-bb65-2a2ae2dbcce4
           uuid: c9b8e7a2-f3b1-4576-a4a9-1366a63df170
           state: PROVISIONING
@@ -13989,10 +14259,13 @@ components:
           customerPeerIp: 10.1.1.3
           enabled: true
           outboundASPrependCount: 3
+          inboundMED: 1000
+          outboundMED: 2000
           operation:
             operationalStatus: UNKNOWN
         customerAsn: 10000
         equinixAsn: 10001
+        asOverrideEnabled: true
     RoutingProtocolCreateDirectResponse:
       value:
         href: https://api.equinix.com/fabric/v4/connections/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170/routingProtocols/557400f8-d360-11e9-bb65-2a2ae2dbcce4
@@ -14030,12 +14303,17 @@ components:
             customerPeerIp: 10.1.1.2
             equinixPeerIp: 192.168.100.1
             outboundASPrependCount: 3
+            inboundMED: 1000
+            outboundMED: 2000
           bgpIpv6:
-            customerPeerIp: 2001:db8:c59b::1
+            customerPeerIp: 2001:db8:c59b::2
             equinixPeerIp: 2001:db8:c59b::1
             outboundASPrependCount: 3
+            inboundMED: 1000
+            outboundMED: 2000
           customerAsn: 0
           equinixAsn: 0
+          asOverrideEnabled: true
           bgpAuthKey: string
           bfd:
             enabled: true
@@ -14045,16 +14323,21 @@ components:
         data:
         - type: BGP
           bgpIpv4:
-            customerPeerIp: 10.1.1.2
+            customerPeerIp: 192.168.100.2
             equinixPeerIp: 192.168.100.1
             outboundASPrependCount: 3
+            inboundMED: 1000
+            outboundMED: 2000
           bgpIpv6:
-            customerPeerIp: 2001:db8:c59b::1
+            customerPeerIp: 2001:db8:c59b::2
             equinixPeerIp: 2001:db8:c59b::1
             outboundASPrependCount: 3
+            inboundMED: 1000
+            outboundMED: 2000
           customerAsn: 0
           equinixAsn: 0
           bgpAuthKey: string
+          asOverrideEnabled: true
           bfd:
             enabled: true
             interval: 100
@@ -14063,7 +14346,7 @@ components:
           directIpv4:
             equinixIfaceIp: 192.168.100.1/30
           directIpv6:
-            equinixIfaceIp: 2001:7a9::34f4:0:f3dd:1/126
+            equinixIfaceIp: 2001:db8:c59b::1/125
     "400_routing_protocol":
       value:
       - errorCode: EQ-3041022
@@ -14125,16 +14408,19 @@ components:
       value:
         type: BGP
         bgpIpv4:
-          customerPeerIp: 10.1.1.2
+          customerPeerIp: 192.168.100.2
           equinixPeerIp: 192.168.100.1
           outboundASPrependCount: 3
+          inboundMED: 1000
+          outboundMED: 2000
         bgpIpv6:
-          customerPeerIp: 2001:db8:c59b::1
+          customerPeerIp: 2001:db8:c59b::2
           equinixPeerIp: 2001:db8:c59b::1
           outboundASPrependCount: 3
         customerAsn: 0
         equinixAsn: 0
         bgpAuthKey: string
+        asOverrideEnabled: true
         bfd:
           enabled: true
           interval: 100
@@ -14161,10 +14447,13 @@ components:
           customerPeerIp: 10.1.1.3
           enabled: true
           outboundASPrependCount: 3
+          inboundMED: 1000
+          outboundMED: 2000
           operation:
             operationalStatus: UNKNOWN
         customerAsn: 10000
         equinixAsn: 10001
+        asOverrideEnabled: true
     RoutingProtocolReplaceDirectResponse:
       value:
         href: https://api.equinix.com/fabric/v4/connections/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170/routingProtocols/557400f8-d360-11e9-bb65-2a2ae2dbcce4
@@ -14234,11 +14523,14 @@ components:
           customerPeerIp: 10.1.1.3
           enabled: true
           outboundASPrependCount: 3
+          inboundMED: 1000
+          outboundMED: 2000
           operation:
             operationalStatus: UP
             opStatusChangedAt: 2021-10-30T07:21:39Z
         customerAsn: 10000
         equinixAsn: 10001
+        asOverrideEnabled: true
     PatchRoutingProtocolEnableIPv4:
       value:
       - op: replace
@@ -17572,6 +17864,8 @@ components:
             organizationName: Cust_Org_100179
           changeLog:
             createdDateTime: 2020-06-14T17:21:25.586Z
+          project:
+            projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
     COLOSinglePortNonLag:
       value:
         type: XF_PORT
@@ -17587,6 +17881,8 @@ components:
         encapsulation:
           type: DOT1Q
           tagProtocolId: 33024
+        project:
+          projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
         account:
           accountNumber: "270848"
         notifications:
@@ -17628,6 +17924,8 @@ components:
         encapsulation:
           type: DOT1Q
           tagProtocolId: 33024
+        project:
+          projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
         account:
           accountNumber: "270848"
         notifications:
@@ -17669,6 +17967,8 @@ components:
         encapsulation:
           type: DOT1Q
           tagProtocolId: 33024
+        project:
+          projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
         account:
           accountNumber: "270848"
         notifications:
@@ -17777,6 +18077,8 @@ components:
         encapsulation:
           type: DOT1Q
           tagProtocolId: 33024
+        project:
+          projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
         account:
           accountNumber: "270848"
         notifications:
@@ -17815,6 +18117,8 @@ components:
         encapsulation:
           type: DOT1Q
           tagProtocolId: 33024
+        project:
+          projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
         account:
           accountNumber: "270848"
         notifications:
@@ -17851,6 +18155,8 @@ components:
         encapsulation:
           type: DOT1Q
           tagProtocolId: 33024
+        project:
+          projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
         account:
           accountNumber: "270848"
         order:
@@ -17943,6 +18249,8 @@ components:
         encapsulation:
           type: DOT1Q
           tagProtocolId: 33024
+        project:
+          projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
         account:
           accountNumber: "270848"
         notifications:
@@ -17985,8 +18293,7 @@ components:
           sharedPortType: "false,"
           packageType: STANDARD
         project:
-          href: https://api.equinix.com/resourceManager/v1/projects/567
-          projectId: 567
+          projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
         account:
           accountNumber: 1000
         order:
@@ -18244,6 +18551,8 @@ components:
           settings:
             sharedPortType: false
             packageType: STANDARD
+          project:
+            projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
           notifications:
           - type: TECHNICAL
             registeredUsers:
@@ -18272,6 +18581,8 @@ components:
             group: a6f77b33-96c6-4eeb-8d79-76374d950603
             priority: SECONDARY
           lagEnabled: false
+          project:
+            projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
           settings:
             sharedPortType: false
             packageType: STANDARD
@@ -18309,6 +18620,10 @@ components:
                 firstName: John
                 lastName: Doe
                 email: john.doe@company.com
+          notifications:
+          - registeredUsers:
+            - jaguarsuser-port-order
+            type: NOTIFICATION
         - type: XF_PHYSICAL_PORT
           account:
             accountNumber: 17829
@@ -18333,6 +18648,10 @@ components:
                 firstName: John
                 lastName: Doe
                 email: john.doe@company.com
+          notifications:
+          - registeredUsers:
+            - jaguarsuser-port-order
+            type: NOTIFICATION
     REMOTEAddToLag:
       value:
         data:
@@ -18412,6 +18731,10 @@ components:
             ibx: GV1
           order:
             orderNumber: 1-210210611904
+          notifications:
+          - registeredUsers:
+            - jaguarsuser-port-order
+            type: NOTIFICATION
         - type: XF_PHYSICAL_PORT
           demarcationPoint:
             cabinetUniqueSpaceId: Demarc
@@ -18423,6 +18746,10 @@ components:
             ibx: GV1
           order:
             orderNumber: 1-210210611904
+          notifications:
+          - registeredUsers:
+            - jaguarsuser-port-order
+            type: NOTIFICATION
     portByUUID:
       value:
         href: https://api.equinix.com/fabric/v4/ports/e91484bb-4f65-4ab3-8f77-500dec2f855d
@@ -18499,6 +18826,8 @@ components:
           organizationName: Cust_Org_100179
         changeLog:
           createdDateTime: 2018-06-14T17:21:25.587Z
+        project:
+          projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
     portDelete:
       value:
         href: https://api.equinix.com/fabric/v4/ports/e91484bb-4f65-4ab3-8f77-500dec2f855d
@@ -19514,6 +19843,22 @@ components:
           accountNumber: 272010
         project:
           projectId: "995072000433550"
+    CreateWithMarketplaceSubscription:
+      value:
+        type: XF_ROUTER
+        name: My-Cloud-Router
+        location:
+          metroCode: SV
+        package:
+          code: ADVANCED
+        notifications:
+        - type: ALL
+          emails:
+          - test@test.com
+        project:
+          projectId: ae708bbb-d669-406a-845a-99b39ff65fd0
+        marketplaceSubscription:
+          uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
     CloudRouterPostResponseExample:
       value:
         href: https://api.equinix.com/fabric/v4/routers/201b7346-a9eb-42fe-ae7a-08148c71928d
@@ -19539,6 +19884,36 @@ components:
         bgpIpv4RoutesCount: 0
         bgpIpv6RoutesCount: 0
         connectionsCount: 0
+        changeLog:
+          createdBy: abc@xyz.com
+          createdByFullName: abc
+          createdByEmail: abc@xyz.com
+          createdDateTime: 2021-09-24T06:59:46Z
+    CloudRouterPostResponseMarketplaceExample:
+      value:
+        href: https://api.equinix.com/fabric/v4/routers/201b7346-a9eb-42fe-ae7a-08148c71928d
+        uuid: 201b7346-a9eb-42fe-ae7a-08148c71928d
+        state: PROVISIONED
+        type: XF_ROUTER
+        name: My-Cloud-Router
+        location:
+          metroCode: HH
+        equinixAsn: 30000
+        package:
+          code: STANDARD
+        project:
+          projectId: ae708bbb-d669-406a-845a-99b39ff65fd0
+        notifications:
+        - type: ALL
+          emails:
+          - abc@abc.com
+        bgpIpv4RoutesCount: 0
+        bgpIpv6RoutesCount: 0
+        connectionsCount: 0
+        marketplaceSubscription:
+          href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+          type: AWS_MARKETPLACE_SUBSCRIPTION
+          uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
         changeLog:
           createdBy: abc@xyz.com
           createdByFullName: abc
@@ -19590,6 +19965,42 @@ components:
           deletedByFullName: abc
           deletedByEmail: abc@xyz.com
           deletedDateTime: 2021-09-24T06:59:46Z
+    CloudRouterResponseExampleMarketplace:
+      value:
+        href: https://api.equinix.com/fabric/v4/routers/201b7346-a9eb-42fe-ae7a-08148c71928d
+        uuid: 201b7346-a9eb-42fe-ae7a-08148c71928d
+        state: PROVISIONED
+        type: XF_ROUTER
+        name: My-Cloud-Router
+        location:
+          metroCode: HH
+        equinixAsn: 30000
+        package:
+          code: STANDARD
+        project:
+          projectId: ae708bbb-d669-406a-845a-99b39ff65fd0
+        notifications:
+        - type: ALL
+          emails:
+          - abc@abc.com
+        bgpIpv4RoutesCount: 4
+        bgpIpv6RoutesCount: 4
+        distinctIpv4PrefixesCount: 2
+        distinctIpv6PrefixesCount: 2
+        connectionsCount: 0
+        marketplaceSubscription:
+          href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+          type: AWS_MARKETPLACE_SUBSCRIPTION
+          uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
+        changeLog:
+          createdBy: abc@xyz.com
+          createdByFullName: abc
+          createdByEmail: abc@xyz.com
+          createdDateTime: 2021-09-24T06:59:46Z
+          updatedBy: abc@xyz.com
+          updatedByFullName: abc
+          updatedByEmail: abc@xyz.com
+          updatedDateTime: 2021-09-24T06:59:46Z
     "400_invalid_state":
       value:
       - errorCode: EQ-3040030
@@ -21058,12 +21469,17 @@ components:
       - errorCode: EQ-4800114
         errorMessage: "Only HEX allowed, chars value length should between 10 - 40"
         correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
-    edit:
+    editName:
       value:
       - op: replace
         path: /name
         value: EPT-Single-Service
-    ntpSingleStandard:
+    editPackageCode:
+      value:
+      - op: replace
+        path: /package/code
+        value: NTP_ENTERPRISE
+    ntpStandard:
       value:
         name: EPT-Single-Service
         type: NTP
@@ -21076,7 +21492,7 @@ components:
           secondary: 192.168.0.3
           networkMask: 255.255.255.255
           defaultGateway: 192.167.0.1
-    ptpSingleStandard:
+    ptpStandard:
       value:
         name: EPT-Single-Service
         type: PTP
@@ -21089,14 +21505,14 @@ components:
           secondary: 192.168.0.3
           networkMask: 255.255.255.255
           defaultGateway: 192.167.0.1
-    ptpSingleEnterpriseWithAdvanceConfiguration:
+    ptpEnterpriseWithAdvanceConfiguration:
       value:
         name: EPT-Single-Service
         type: PTP
         connections:
         - uuid: 06dbb0e3-e55d-4090-8aff-fc5654abaad0
         package:
-          code: PTP_STANDARD
+          code: PTP_ENTERPRISE
         ipv4:
           primary: 192.168.0.2
           secondary: 192.168.0.3
@@ -21111,6 +21527,115 @@ components:
             logAnnounceInterval: 0
             logSyncInterval: 0
             logDelayReqInterval: 0
+    ntpEnterpriseWithAdvanceConfiguration:
+      value:
+        name: EPT-Single-Service
+        type: NTP
+        connections:
+        - uuid: 06dbb0e3-e55d-4090-8aff-fc5654abaad0
+        package:
+          code: NTP_ENTERPRISE
+        ipv4:
+          primary: 192.168.0.2
+          secondary: 192.168.0.3
+          networkMask: 255.255.255.255
+          defaultGateway: 192.167.0.1
+        advanceConfiguration:
+          ntp:
+          - type: ASCII
+            id: 12345
+            password: MTIzNDU2Nzg5MA
+    SearchTimeServicesFilterByStatus:
+      value:
+        filter:
+          and:
+          - property: /state
+            operator: =
+            values:
+            - PROVISIONED
+          - property: /project/projectId
+            operator: =
+            values:
+            - "995072000433550"
+        pagination:
+          offset: 0
+          limit: 20
+        sort:
+        - direction: DESC
+          property: /changeLog/createdDateTime
+    SearchTimeServicesByNameAndProtocol:
+      value:
+        filter:
+          and:
+          - property: /name
+            operator: =
+            values:
+            - test-time-service
+          - property: /type
+            operator: =
+            values:
+            - NTP
+          - property: /project/projectId
+            operator: =
+            values:
+            - "995072000433550"
+        pagination:
+          offset: 0
+          limit: 20
+        sort:
+        - direction: DESC
+          property: /changeLog/createdDateTime
+    SearchTimeServicesFilterOrAnd:
+      value:
+        filter:
+          and:
+          - or:
+            - property: /uuid
+              operator: LIKE
+              values:
+              - 676a0c3f-a785-4294-87bc-25fe9318a620%
+            - property: /name
+              operator: LIKE
+              values:
+              - test-time-service
+          - property: /project/projectId
+            operator: =
+            values:
+            - "995072000433550"
+    serviceSearchResponse:
+      value:
+        pagination:
+          offset: 20
+          limit: 20
+          total: 100
+          next: /search?offset=40&limit=20
+          previous: /search?offset=0&limit=20
+        data:
+        - href: https://api.equinix.com/fabric/v4/routers/201b7346-a9eb-42fe-ae7a-08148c71928d
+          uuid: a8ba52de-faae-43b5-b0b1-6904d37ee011
+          name: EPT-NTP-STD-Service
+          type: NTP
+          state: PROVISIONING
+          connections:
+          - href: https://api.equinix.com/fabric/v4/connections/a8ba52de-faae-43b5-b0b1-6904d37ee011
+            uuid: 06dbb0e3-e55d-4090-8aff-fc5654abaad0
+          package:
+            href: https://api.equinix.com/fabric/v4/timeServicePackages/NTP_STANDARD
+            code: NTP_STANDARD
+          ipv4:
+            primary: 192.168.0.2
+            secondary: 192.168.0.3
+            networkMask: 255.255.255.255
+            defaultGateway: 192.167.0.1
+          account:
+            accountNumber: 123456
+    service_400_invalid_sorting:
+      value:
+      - errorCode: EQ-3040039
+        errorMessage: Invalid value for sorting direction.
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+        additionalInfo:
+        - reason: Only accept DESC and ASC for sorting direction.
     serviceConnectionsResponse:
       value:
         pagination:
@@ -21203,7 +21728,79 @@ components:
         changeLog:
           createdDateTime: 2023-05-16T07:50:49.749Z
           updatedDateTime: 2023-05-17T07:50:49.749Z
-    get-all-example:
+    subscription-response:
+      value:
+        href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/c5557b51-7938-4f7d-afaa-41b930903a5e
+        uuid: c5557b51-7938-4f7d-afaa-41b930903a5e
+        state: ACTIVE
+        marketplace: AWS
+        offerType: PRIVATE_OFFER
+        isAutoRenew: false
+        offerId: offer id
+        trial:
+          enabled: true
+          expiryDateTime: 2020-05-21T10:30:00Z
+        entitlements:
+        - uuid: a15b6b20-b765-4bf7-a661-a3e9372d5435
+          name: FCR Standard
+          quantityEntitled: 1
+          quantityConsumed: 0
+          asset:
+            type: XF_ROUTER
+            package:
+              code: STANDARD
+        - uuid: 2e3a9041-19ce-4c80-add3-3e3a069fc5e9
+          name: Connection 500 Mbps
+          quantityEntitled: 1
+          quantityConsumed: 0
+          quantityAvailable: 1
+          asset:
+            type: IP_VC
+            bandwidth: 500
+        changeLog:
+          createdBy: adminuser
+          createdDateTime: 2020-05-21T10:30:00Z
+          updatedBy: adminuser
+          updatedDateTime: 2020-05-21T10:30:00Z
+    StreamResponseExample:
+      value:
+        uuid: d684aa26-8276-48b7-bb42-a6d9def0a418
+        href: https://api.equinix.com/fabric/v4/streams/d684aa26-8276-48b7-bb42-a6d9def0a418
+        type: STREAM_SUBSCRIPTION
+        name: splunk1
+        description: subscription 1
+        enabled: true
+        state: PROVISIONED
+        project:
+          projectId: 123456
+        changelog:
+          createdDateTime: 2024-05-06T16:21:18.545214Z
+    StreamPostRequestExample:
+      value:
+        type: STREAM_SUBSCRIPTION
+        name: splunk1
+        description: subscription 1
+    StreamPutRequestExample:
+      value:
+        name: splunk1
+        description: subscription 1
+        stream:
+          uuid: 36276e58-b5a1-4864-ab5e-be10dff9eac1
+    StreamAssetSearchRequestExample:
+      value:
+        filter:
+          and:
+          - property: /streamUuid
+            operator: =
+            values:
+            - e684aa26-8276-48b7-bb42-a6d9def0a419
+        pagination:
+          offset: 0
+          limit: 20
+        sort:
+        - direction: DESC
+          property: /changeLog/createdDateTime
+    stream-asset-get-all-example:
       value:
         pagination:
           offset: 0
@@ -21211,11 +21808,44 @@ components:
           total: 1
         data:
         - uuid: d684aa26-8276-48b7-bb42-a6d9def0a418
-          href: https://api.equinix.com/fabric/v4/cloudEventSubscriptions/d684aa26-8276-48b7-bb42-a6d9def0a418
-          type: CLOUDEVENT_SUBSCRIPTION
-          name: slack1
+          href: https://api.equinix.com/fabric/v4/ports/e684aa26-8276-48b7-bb42-a6d9def0a419
+          metricsEnabled: true
+          attachmentStatus: ATTACHED
+    StreamRouterAssetResponseExample:
+      value:
+        uuid: d684aa26-8276-48b7-bb42-a6d9def0a418
+        href: https://api.equinix.com/fabric/v4/stream/e684aa26-8276-48b7-bb42-a6d9def0a419/routers/d684aa26-8276-48b7-bb42-a6d9def0a418
+        metricsEnabled: true
+        attachmentStatus: ATTACHED
+    StreamAssetPutRequestExample:
+      value:
+        metricsEnabled: true
+    StreamConnectionAssetResponseExample:
+      value:
+        uuid: d684aa26-8276-48b7-bb42-a6d9def0a418
+        href: https://api.equinix.com/fabric/v4/stream/e684aa26-8276-48b7-bb42-a6d9def0a419/connections/d684aa26-8276-48b7-bb42-a6d9def0a418
+        metricsEnabled: true
+        attachmentStatus: ATTACHED
+    StreamPortAssetResponseExample:
+      value:
+        uuid: d684aa26-8276-48b7-bb42-a6d9def0a418
+        href: https://api.equinix.com/fabric/v4/stream/e684aa26-8276-48b7-bb42-a6d9def0a419/ports/d684aa26-8276-48b7-bb42-a6d9def0a418
+        metricsEnabled: true
+        attachmentStatus: ATTACHED
+    stream-subscription-get-all-example:
+      value:
+        pagination:
+          offset: 0
+          limit: 20
+          total: 1
+        data:
+        - uuid: d684aa26-8276-48b7-bb42-a6d9def0a418
+          href: https://api.equinix.com/fabric/v4/streamSubscriptions/d684aa26-8276-48b7-bb42-a6d9def0a418
+          type: STREAM_SUBSCRIPTION
+          name: splunk
           description: subscription 1
           enabled: true
+          state: PROVISIONED
           filters:
             and:
             - path: subject
@@ -21230,87 +21860,91 @@ components:
               or: []
           sink:
             uri: https://xxxxxx
-            type: SLACK
-            batch: false
-            maxBatchSize: 50
-            maxBatchWaitTime: 5
+            type: SPLUNK_HEC
+            batchEnabled: false
+            batchSizeMax: 50
+            batchWaitTimeMax: 5
           changelog:
             createdDateTime: 2024-05-06T16:21:18.545214Z
-    CloudeventSubscriptionPostRequestExample:
+    StreamSubscriptionPostRequestExample:
       value:
-        type: CLOUDEVENT_SUBSCRIPTION
-        name: slack1
+        type: STREAM_SUBSCRIPTION
+        name: splunk1
         description: subscription 1
         enabled: true
+        stream:
+          uuid: 36276e58-b5a1-4864-ab5e-be10dff9eac1
+        project:
+          projectId: 123456
         filters:
           and:
-          - path: subject
+          - path: type
             operator: LIKE
             values:
-            - '%36276e58-b5a1-4864-ab5e-be10dff9eac1%'
-            or: []
-          - path: equinixproject
-            operator: IN
-            values:
-            - "197607000886247"
+            - '%com.equinix.event.fabric.connection%'
             or: []
         sink:
           uri: https://xxxxxx
-          type: SLACK
-          batch: false
-          maxBatchSize: 50
-          maxBatchWaitTime: 5
-    CloudeventSubscriptionResponseExample:
+          type: SPLUNK_HEC
+          credential:
+            type: ACCESS_TOKEN
+            accessToken: my-access-token
+          batchEnabled: false
+          batchSizeMax: 50
+          batchWaitTimeMax: 5
+    StreamSubscriptionResponseExample:
       value:
         uuid: d684aa26-8276-48b7-bb42-a6d9def0a418
-        href: https://api.equinix.com/fabric/v4/cloudEventSubscriptions/d684aa26-8276-48b7-bb42-a6d9def0a418
-        type: CLOUDEVENT_SUBSCRIPTION
-        name: slack1
-        description: subscription 1
-        enabled: true
+        href: https://api.equinix.com/fabric/v4/streamSubscriptions/d684aa26-8276-48b7-bb42-a6d9def0a418
+        type: TELEMETRY_STREAM
+        name: stream 1
+        description: stream dec 1
+        project:
+          projectId: 1234546
+        state: PROVISIONED
+        assetCount: 1
+        streamSubscriptionCount: 2
         filters:
           and:
-          - path: subject
+          - path: type
             operator: LIKE
             values:
-            - '%36276e58-b5a1-4864-ab5e-be10dff9eac1%'
-            or: []
-          - path: equinixproject
-            operator: IN
-            values:
-            - "197607000886247"
+            - '%com.equinix.event.fabric.connection%'
             or: []
         sink:
           uri: https://xxxxxx
-          type: SLACK
-          batch: false
-          maxBatchSize: 50
-          maxBatchWaitTime: 5
+          type: SPLUNK_HEC
+          credential:
+            type: ACCESS_TOKEN
+            accessToken: my-access-token
+          batchEnabled: false
+          batchSizeMax: 50
+          batchWaitTimeMax: 5
         changelog:
           createdDateTime: 2024-05-06T16:21:18.545214Z
-    CloudeventSubscriptionPutRequestExample:
+    StreamSubscriptionPutRequestExample:
       value:
-        name: slack1
+        name: splunk1
         description: subscription 1
         enabled: true
+        stream:
+          uuid: 36276e58-b5a1-4864-ab5e-be10dff9eac1
         filters:
           and:
-          - path: subject
+          - path: type
             operator: LIKE
             values:
-            - '%36276e58-b5a1-4864-ab5e-be10dff9eac1%'
-            or: []
-          - path: equinixproject
-            operator: IN
-            values:
-            - "197607000886247"
+            - '%equinix.event.fabric.connection%'
             or: []
         sink:
           uri: https://xxxxxx
-          type: SLACK
-          batch: false
-          maxBatchSize: 50
-          maxBatchWaitTime: 5
+          type: SPLUNK_HEC
+          credential:
+            type: ACCESS_TOKEN
+            accessToken: my-access-token
+          batchEnabled: false
+          batchSizeMax: 50
+          batchWaitTimeMax: 5
   headers:
     ETag:
       description: response header - identifier for a specific version of a resource.
@@ -21649,7 +22283,6 @@ components:
             router:
               bgpIpv4RoutesCount: 0
               equinixAsn: 30000
-              distinctIpv4PrefixesCount: 0
               change:
                 data:
                   op: replace
@@ -21661,8 +22294,6 @@ components:
                 uuid: uuid
                 status: COMPLETED
                 updatedDateTime: 2020-11-06T07:00:00Z
-              name: test-fg-1
-              distinctIpv6PrefixesCount: 0
               changeLog:
                 createdByEmail: john.smith@example.com
                 deletedByFullName: John Smith
@@ -21676,11 +22307,18 @@ components:
                 deletedBy: johnsmith
                 deletedByEmail: john.smith@example.com
                 updatedDateTime: 2020-11-06T07:00:00Z
-              href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
-              state: null
               bgpIpv6RoutesCount: 0
               uuid: c9b8e7a2-f3b1-4576-a4a9-1366a63df170
               connectionsCount: 0
+              distinctIpv4PrefixesCount: 0
+              name: test-fg-1
+              distinctIpv6PrefixesCount: 0
+              href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
+              state: null
+              marketplaceSubscription:
+                href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+                type: AWS_MARKETPLACE_SUBSCRIPTION
+                uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
             port:
               serviceType: EPL
               encapsulation:
@@ -21794,7 +22432,17 @@ components:
                   globalCustId: globalCustId
                   orgId: 6
                 interfaceSpeed: 0
+                notifications:
+                - registeredUsers:
+                  - registeredUsers
+                  - registeredUsers
+                  type: NOTIFICATION
+                - registeredUsers:
+                  - registeredUsers
+                  - registeredUsers
+                  type: NOTIFICATION
                 order:
+                  customerReferenceId: customerReferenceId
                   orderNumber: orderNumber
                   orderId: orderId
                   signature:
@@ -21863,7 +22511,17 @@ components:
                   globalCustId: globalCustId
                   orgId: 6
                 interfaceSpeed: 0
+                notifications:
+                - registeredUsers:
+                  - registeredUsers
+                  - registeredUsers
+                  type: NOTIFICATION
+                - registeredUsers:
+                  - registeredUsers
+                  - registeredUsers
+                  type: NOTIFICATION
                 order:
+                  customerReferenceId: customerReferenceId
                   orderNumber: orderNumber
                   orderId: orderId
                   signature:
@@ -21952,6 +22610,10 @@ components:
           priority: null
           group: group
         type: null
+        marketplaceSubscription:
+          href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+          type: AWS_MARKETPLACE_SUBSCRIPTION
+          uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
         notifications:
         - emails:
           - emails
@@ -22301,7 +22963,6 @@ components:
             router:
               bgpIpv4RoutesCount: 0
               equinixAsn: 30000
-              distinctIpv4PrefixesCount: 0
               change:
                 data:
                   op: replace
@@ -22313,8 +22974,6 @@ components:
                 uuid: uuid
                 status: COMPLETED
                 updatedDateTime: 2020-11-06T07:00:00Z
-              name: test-fg-1
-              distinctIpv6PrefixesCount: 0
               changeLog:
                 createdByEmail: john.smith@example.com
                 deletedByFullName: John Smith
@@ -22328,11 +22987,18 @@ components:
                 deletedBy: johnsmith
                 deletedByEmail: john.smith@example.com
                 updatedDateTime: 2020-11-06T07:00:00Z
-              href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
-              state: null
               bgpIpv6RoutesCount: 0
               uuid: c9b8e7a2-f3b1-4576-a4a9-1366a63df170
               connectionsCount: 0
+              distinctIpv4PrefixesCount: 0
+              name: test-fg-1
+              distinctIpv6PrefixesCount: 0
+              href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
+              state: null
+              marketplaceSubscription:
+                href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+                type: AWS_MARKETPLACE_SUBSCRIPTION
+                uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
             port:
               serviceType: EPL
               encapsulation:
@@ -22446,7 +23112,17 @@ components:
                   globalCustId: globalCustId
                   orgId: 6
                 interfaceSpeed: 0
+                notifications:
+                - registeredUsers:
+                  - registeredUsers
+                  - registeredUsers
+                  type: NOTIFICATION
+                - registeredUsers:
+                  - registeredUsers
+                  - registeredUsers
+                  type: NOTIFICATION
                 order:
+                  customerReferenceId: customerReferenceId
                   orderNumber: orderNumber
                   orderId: orderId
                   signature:
@@ -22515,7 +23191,17 @@ components:
                   globalCustId: globalCustId
                   orgId: 6
                 interfaceSpeed: 0
+                notifications:
+                - registeredUsers:
+                  - registeredUsers
+                  - registeredUsers
+                  type: NOTIFICATION
+                - registeredUsers:
+                  - registeredUsers
+                  - registeredUsers
+                  type: NOTIFICATION
                 order:
+                  customerReferenceId: customerReferenceId
                   orderNumber: orderNumber
                   orderId: orderId
                   signature:
@@ -22625,6 +23311,8 @@ components:
           items:
             $ref: '#/components/schemas/ConnectionSideAdditionalInfo'
           type: array
+        marketplaceSubscription:
+          $ref: '#/components/schemas/marketplaceSubscription'
       required:
       - aSide
       - bandwidth
@@ -22963,7 +23651,6 @@ components:
             router:
               bgpIpv4RoutesCount: 0
               equinixAsn: 30000
-              distinctIpv4PrefixesCount: 0
               change:
                 data:
                   op: replace
@@ -22975,8 +23662,6 @@ components:
                 uuid: uuid
                 status: COMPLETED
                 updatedDateTime: 2020-11-06T07:00:00Z
-              name: test-fg-1
-              distinctIpv6PrefixesCount: 0
               changeLog:
                 createdByEmail: john.smith@example.com
                 deletedByFullName: John Smith
@@ -22990,11 +23675,18 @@ components:
                 deletedBy: johnsmith
                 deletedByEmail: john.smith@example.com
                 updatedDateTime: 2020-11-06T07:00:00Z
-              href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
-              state: null
               bgpIpv6RoutesCount: 0
               uuid: c9b8e7a2-f3b1-4576-a4a9-1366a63df170
               connectionsCount: 0
+              distinctIpv4PrefixesCount: 0
+              name: test-fg-1
+              distinctIpv6PrefixesCount: 0
+              href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
+              state: null
+              marketplaceSubscription:
+                href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+                type: AWS_MARKETPLACE_SUBSCRIPTION
+                uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
             port:
               serviceType: EPL
               encapsulation:
@@ -23108,7 +23800,17 @@ components:
                   globalCustId: globalCustId
                   orgId: 6
                 interfaceSpeed: 0
+                notifications:
+                - registeredUsers:
+                  - registeredUsers
+                  - registeredUsers
+                  type: NOTIFICATION
+                - registeredUsers:
+                  - registeredUsers
+                  - registeredUsers
+                  type: NOTIFICATION
                 order:
+                  customerReferenceId: customerReferenceId
                   orderNumber: orderNumber
                   orderId: orderId
                   signature:
@@ -23177,7 +23879,17 @@ components:
                   globalCustId: globalCustId
                   orgId: 6
                 interfaceSpeed: 0
+                notifications:
+                - registeredUsers:
+                  - registeredUsers
+                  - registeredUsers
+                  type: NOTIFICATION
+                - registeredUsers:
+                  - registeredUsers
+                  - registeredUsers
+                  type: NOTIFICATION
                 order:
+                  customerReferenceId: customerReferenceId
                   orderNumber: orderNumber
                   orderId: orderId
                   signature:
@@ -23609,7 +24321,6 @@ components:
             router:
               bgpIpv4RoutesCount: 0
               equinixAsn: 30000
-              distinctIpv4PrefixesCount: 0
               change:
                 data:
                   op: replace
@@ -23621,8 +24332,6 @@ components:
                 uuid: uuid
                 status: COMPLETED
                 updatedDateTime: 2020-11-06T07:00:00Z
-              name: test-fg-1
-              distinctIpv6PrefixesCount: 0
               changeLog:
                 createdByEmail: john.smith@example.com
                 deletedByFullName: John Smith
@@ -23636,11 +24345,18 @@ components:
                 deletedBy: johnsmith
                 deletedByEmail: john.smith@example.com
                 updatedDateTime: 2020-11-06T07:00:00Z
-              href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
-              state: null
               bgpIpv6RoutesCount: 0
               uuid: c9b8e7a2-f3b1-4576-a4a9-1366a63df170
               connectionsCount: 0
+              distinctIpv4PrefixesCount: 0
+              name: test-fg-1
+              distinctIpv6PrefixesCount: 0
+              href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
+              state: null
+              marketplaceSubscription:
+                href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+                type: AWS_MARKETPLACE_SUBSCRIPTION
+                uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
             port:
               serviceType: EPL
               encapsulation:
@@ -23754,7 +24470,17 @@ components:
                   globalCustId: globalCustId
                   orgId: 6
                 interfaceSpeed: 0
+                notifications:
+                - registeredUsers:
+                  - registeredUsers
+                  - registeredUsers
+                  type: NOTIFICATION
+                - registeredUsers:
+                  - registeredUsers
+                  - registeredUsers
+                  type: NOTIFICATION
                 order:
+                  customerReferenceId: customerReferenceId
                   orderNumber: orderNumber
                   orderId: orderId
                   signature:
@@ -23823,7 +24549,17 @@ components:
                   globalCustId: globalCustId
                   orgId: 6
                 interfaceSpeed: 0
+                notifications:
+                - registeredUsers:
+                  - registeredUsers
+                  - registeredUsers
+                  type: NOTIFICATION
+                - registeredUsers:
+                  - registeredUsers
+                  - registeredUsers
+                  type: NOTIFICATION
                 order:
+                  customerReferenceId: customerReferenceId
                   orderNumber: orderNumber
                   orderId: orderId
                   signature:
@@ -23937,6 +24673,10 @@ components:
             correlationId: correlationId
             details: details
           providerStatus: null
+        marketplaceSubscription:
+          href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+          type: AWS_MARKETPLACE_SUBSCRIPTION
+          uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
         notifications:
         - emails:
           - emails
@@ -24027,6 +24767,8 @@ components:
           $ref: '#/components/schemas/ConnectionSide'
         zSide:
           $ref: '#/components/schemas/ConnectionSide'
+        marketplaceSubscription:
+          $ref: '#/components/schemas/marketplaceSubscription'
         additionalInfo:
           description: Connection additional information
           items:
@@ -24070,6 +24812,7 @@ components:
       description: Connection action request
       example:
         data:
+          providerBandwidth: 0
           zSide:
             internetAccess:
               uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
@@ -24396,7 +25139,6 @@ components:
               router:
                 bgpIpv4RoutesCount: 0
                 equinixAsn: 30000
-                distinctIpv4PrefixesCount: 0
                 change:
                   data:
                     op: replace
@@ -24408,8 +25150,6 @@ components:
                   uuid: uuid
                   status: COMPLETED
                   updatedDateTime: 2020-11-06T07:00:00Z
-                name: test-fg-1
-                distinctIpv6PrefixesCount: 0
                 changeLog:
                   createdByEmail: john.smith@example.com
                   deletedByFullName: John Smith
@@ -24423,11 +25163,18 @@ components:
                   deletedBy: johnsmith
                   deletedByEmail: john.smith@example.com
                   updatedDateTime: 2020-11-06T07:00:00Z
-                href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
-                state: null
                 bgpIpv6RoutesCount: 0
                 uuid: c9b8e7a2-f3b1-4576-a4a9-1366a63df170
                 connectionsCount: 0
+                distinctIpv4PrefixesCount: 0
+                name: test-fg-1
+                distinctIpv6PrefixesCount: 0
+                href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
+                state: null
+                marketplaceSubscription:
+                  href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+                  type: AWS_MARKETPLACE_SUBSCRIPTION
+                  uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
               port:
                 serviceType: EPL
                 encapsulation:
@@ -24541,7 +25288,17 @@ components:
                     globalCustId: globalCustId
                     orgId: 6
                   interfaceSpeed: 0
+                  notifications:
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
                   order:
+                    customerReferenceId: customerReferenceId
                     orderNumber: orderNumber
                     orderId: orderId
                     signature:
@@ -24610,7 +25367,17 @@ components:
                     globalCustId: globalCustId
                     orgId: 6
                   interfaceSpeed: 0
+                  notifications:
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
                   order:
+                    customerReferenceId: customerReferenceId
                     orderNumber: orderNumber
                     orderId: orderId
                     signature:
@@ -24703,6 +25470,7 @@ components:
       description: Connection action
       example:
         data:
+          providerBandwidth: 0
           zSide:
             internetAccess:
               uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
@@ -25029,7 +25797,6 @@ components:
               router:
                 bgpIpv4RoutesCount: 0
                 equinixAsn: 30000
-                distinctIpv4PrefixesCount: 0
                 change:
                   data:
                     op: replace
@@ -25041,8 +25808,6 @@ components:
                   uuid: uuid
                   status: COMPLETED
                   updatedDateTime: 2020-11-06T07:00:00Z
-                name: test-fg-1
-                distinctIpv6PrefixesCount: 0
                 changeLog:
                   createdByEmail: john.smith@example.com
                   deletedByFullName: John Smith
@@ -25056,11 +25821,18 @@ components:
                   deletedBy: johnsmith
                   deletedByEmail: john.smith@example.com
                   updatedDateTime: 2020-11-06T07:00:00Z
-                href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
-                state: null
                 bgpIpv6RoutesCount: 0
                 uuid: c9b8e7a2-f3b1-4576-a4a9-1366a63df170
                 connectionsCount: 0
+                distinctIpv4PrefixesCount: 0
+                name: test-fg-1
+                distinctIpv6PrefixesCount: 0
+                href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
+                state: null
+                marketplaceSubscription:
+                  href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+                  type: AWS_MARKETPLACE_SUBSCRIPTION
+                  uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
               port:
                 serviceType: EPL
                 encapsulation:
@@ -25174,7 +25946,17 @@ components:
                     globalCustId: globalCustId
                     orgId: 6
                   interfaceSpeed: 0
+                  notifications:
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
                   order:
+                    customerReferenceId: customerReferenceId
                     orderNumber: orderNumber
                     orderId: orderId
                     signature:
@@ -25243,7 +26025,17 @@ components:
                     globalCustId: globalCustId
                     orgId: 6
                   interfaceSpeed: 0
+                  notifications:
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
                   order:
+                    customerReferenceId: customerReferenceId
                     orderNumber: orderNumber
                     orderId: orderId
                     signature:
@@ -25419,6 +26211,9 @@ components:
         bgpAuthKey:
           description: BGP authorization key
           type: string
+        asOverrideEnabled:
+          description: Enable AS number override
+          type: boolean
         bfd:
           $ref: '#/components/schemas/RoutingProtocolBFD'
       required:
@@ -26159,7 +26954,6 @@ components:
               router:
                 bgpIpv4RoutesCount: 0
                 equinixAsn: 30000
-                distinctIpv4PrefixesCount: 0
                 change:
                   data:
                     op: replace
@@ -26171,8 +26965,6 @@ components:
                   uuid: uuid
                   status: COMPLETED
                   updatedDateTime: 2020-11-06T07:00:00Z
-                name: test-fg-1
-                distinctIpv6PrefixesCount: 0
                 changeLog:
                   createdByEmail: john.smith@example.com
                   deletedByFullName: John Smith
@@ -26186,11 +26978,18 @@ components:
                   deletedBy: johnsmith
                   deletedByEmail: john.smith@example.com
                   updatedDateTime: 2020-11-06T07:00:00Z
-                href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
-                state: null
                 bgpIpv6RoutesCount: 0
                 uuid: c9b8e7a2-f3b1-4576-a4a9-1366a63df170
                 connectionsCount: 0
+                distinctIpv4PrefixesCount: 0
+                name: test-fg-1
+                distinctIpv6PrefixesCount: 0
+                href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
+                state: null
+                marketplaceSubscription:
+                  href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+                  type: AWS_MARKETPLACE_SUBSCRIPTION
+                  uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
               port:
                 serviceType: EPL
                 encapsulation:
@@ -26304,7 +27103,17 @@ components:
                     globalCustId: globalCustId
                     orgId: 6
                   interfaceSpeed: 0
+                  notifications:
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
                   order:
+                    customerReferenceId: customerReferenceId
                     orderNumber: orderNumber
                     orderId: orderId
                     signature:
@@ -26373,7 +27182,17 @@ components:
                     globalCustId: globalCustId
                     orgId: 6
                   interfaceSpeed: 0
+                  notifications:
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
                   order:
+                    customerReferenceId: customerReferenceId
                     orderNumber: orderNumber
                     orderId: orderId
                     signature:
@@ -26805,7 +27624,6 @@ components:
               router:
                 bgpIpv4RoutesCount: 0
                 equinixAsn: 30000
-                distinctIpv4PrefixesCount: 0
                 change:
                   data:
                     op: replace
@@ -26817,8 +27635,6 @@ components:
                   uuid: uuid
                   status: COMPLETED
                   updatedDateTime: 2020-11-06T07:00:00Z
-                name: test-fg-1
-                distinctIpv6PrefixesCount: 0
                 changeLog:
                   createdByEmail: john.smith@example.com
                   deletedByFullName: John Smith
@@ -26832,11 +27648,18 @@ components:
                   deletedBy: johnsmith
                   deletedByEmail: john.smith@example.com
                   updatedDateTime: 2020-11-06T07:00:00Z
-                href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
-                state: null
                 bgpIpv6RoutesCount: 0
                 uuid: c9b8e7a2-f3b1-4576-a4a9-1366a63df170
                 connectionsCount: 0
+                distinctIpv4PrefixesCount: 0
+                name: test-fg-1
+                distinctIpv6PrefixesCount: 0
+                href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
+                state: null
+                marketplaceSubscription:
+                  href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+                  type: AWS_MARKETPLACE_SUBSCRIPTION
+                  uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
               port:
                 serviceType: EPL
                 encapsulation:
@@ -26950,7 +27773,17 @@ components:
                     globalCustId: globalCustId
                     orgId: 6
                   interfaceSpeed: 0
+                  notifications:
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
                   order:
+                    customerReferenceId: customerReferenceId
                     orderNumber: orderNumber
                     orderId: orderId
                     signature:
@@ -27019,7 +27852,17 @@ components:
                     globalCustId: globalCustId
                     orgId: 6
                   interfaceSpeed: 0
+                  notifications:
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
                   order:
+                    customerReferenceId: customerReferenceId
                     orderNumber: orderNumber
                     orderId: orderId
                     signature:
@@ -27133,6 +27976,10 @@ components:
               correlationId: correlationId
               details: details
             providerStatus: null
+          marketplaceSubscription:
+            href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+            type: AWS_MARKETPLACE_SUBSCRIPTION
+            uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
           notifications:
           - emails:
             - emails
@@ -27497,7 +28344,6 @@ components:
               router:
                 bgpIpv4RoutesCount: 0
                 equinixAsn: 30000
-                distinctIpv4PrefixesCount: 0
                 change:
                   data:
                     op: replace
@@ -27509,8 +28355,6 @@ components:
                   uuid: uuid
                   status: COMPLETED
                   updatedDateTime: 2020-11-06T07:00:00Z
-                name: test-fg-1
-                distinctIpv6PrefixesCount: 0
                 changeLog:
                   createdByEmail: john.smith@example.com
                   deletedByFullName: John Smith
@@ -27524,11 +28368,18 @@ components:
                   deletedBy: johnsmith
                   deletedByEmail: john.smith@example.com
                   updatedDateTime: 2020-11-06T07:00:00Z
-                href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
-                state: null
                 bgpIpv6RoutesCount: 0
                 uuid: c9b8e7a2-f3b1-4576-a4a9-1366a63df170
                 connectionsCount: 0
+                distinctIpv4PrefixesCount: 0
+                name: test-fg-1
+                distinctIpv6PrefixesCount: 0
+                href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
+                state: null
+                marketplaceSubscription:
+                  href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+                  type: AWS_MARKETPLACE_SUBSCRIPTION
+                  uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
               port:
                 serviceType: EPL
                 encapsulation:
@@ -27642,7 +28493,17 @@ components:
                     globalCustId: globalCustId
                     orgId: 6
                   interfaceSpeed: 0
+                  notifications:
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
                   order:
+                    customerReferenceId: customerReferenceId
                     orderNumber: orderNumber
                     orderId: orderId
                     signature:
@@ -27711,7 +28572,17 @@ components:
                     globalCustId: globalCustId
                     orgId: 6
                   interfaceSpeed: 0
+                  notifications:
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
                   order:
+                    customerReferenceId: customerReferenceId
                     orderNumber: orderNumber
                     orderId: orderId
                     signature:
@@ -28143,7 +29014,6 @@ components:
               router:
                 bgpIpv4RoutesCount: 0
                 equinixAsn: 30000
-                distinctIpv4PrefixesCount: 0
                 change:
                   data:
                     op: replace
@@ -28155,8 +29025,6 @@ components:
                   uuid: uuid
                   status: COMPLETED
                   updatedDateTime: 2020-11-06T07:00:00Z
-                name: test-fg-1
-                distinctIpv6PrefixesCount: 0
                 changeLog:
                   createdByEmail: john.smith@example.com
                   deletedByFullName: John Smith
@@ -28170,11 +29038,18 @@ components:
                   deletedBy: johnsmith
                   deletedByEmail: john.smith@example.com
                   updatedDateTime: 2020-11-06T07:00:00Z
-                href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
-                state: null
                 bgpIpv6RoutesCount: 0
                 uuid: c9b8e7a2-f3b1-4576-a4a9-1366a63df170
                 connectionsCount: 0
+                distinctIpv4PrefixesCount: 0
+                name: test-fg-1
+                distinctIpv6PrefixesCount: 0
+                href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
+                state: null
+                marketplaceSubscription:
+                  href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+                  type: AWS_MARKETPLACE_SUBSCRIPTION
+                  uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
               port:
                 serviceType: EPL
                 encapsulation:
@@ -28288,7 +29163,17 @@ components:
                     globalCustId: globalCustId
                     orgId: 6
                   interfaceSpeed: 0
+                  notifications:
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
                   order:
+                    customerReferenceId: customerReferenceId
                     orderNumber: orderNumber
                     orderId: orderId
                     signature:
@@ -28357,7 +29242,17 @@ components:
                     globalCustId: globalCustId
                     orgId: 6
                   interfaceSpeed: 0
+                  notifications:
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
                   order:
+                    customerReferenceId: customerReferenceId
                     orderNumber: orderNumber
                     orderId: orderId
                     signature:
@@ -28471,6 +29366,10 @@ components:
               correlationId: correlationId
               details: details
             providerStatus: null
+          marketplaceSubscription:
+            href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+            type: AWS_MARKETPLACE_SUBSCRIPTION
+            uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
           notifications:
           - emails:
             - emails
@@ -30680,6 +31579,7 @@ components:
             group: group
           demarcationPointIbx: demarcationPointIbx
           order:
+            customerReferenceId: customerReferenceId
             orderNumber: orderNumber
             orderId: orderId
             signature:
@@ -30772,7 +31672,17 @@ components:
               globalCustId: globalCustId
               orgId: 6
             interfaceSpeed: 0
+            notifications:
+            - registeredUsers:
+              - registeredUsers
+              - registeredUsers
+              type: NOTIFICATION
+            - registeredUsers:
+              - registeredUsers
+              - registeredUsers
+              type: NOTIFICATION
             order:
+              customerReferenceId: customerReferenceId
               orderNumber: orderNumber
               orderId: orderId
               signature:
@@ -30841,7 +31751,17 @@ components:
               globalCustId: globalCustId
               orgId: 6
             interfaceSpeed: 0
+            notifications:
+            - registeredUsers:
+              - registeredUsers
+              - registeredUsers
+              type: NOTIFICATION
+            - registeredUsers:
+              - registeredUsers
+              - registeredUsers
+              type: NOTIFICATION
             order:
+              customerReferenceId: customerReferenceId
               orderNumber: orderNumber
               orderId: orderId
               signature:
@@ -30958,6 +31878,7 @@ components:
             group: group
           demarcationPointIbx: demarcationPointIbx
           order:
+            customerReferenceId: customerReferenceId
             orderNumber: orderNumber
             orderId: orderId
             signature:
@@ -31050,7 +31971,17 @@ components:
               globalCustId: globalCustId
               orgId: 6
             interfaceSpeed: 0
+            notifications:
+            - registeredUsers:
+              - registeredUsers
+              - registeredUsers
+              type: NOTIFICATION
+            - registeredUsers:
+              - registeredUsers
+              - registeredUsers
+              type: NOTIFICATION
             order:
+              customerReferenceId: customerReferenceId
               orderNumber: orderNumber
               orderId: orderId
               signature:
@@ -31119,7 +32050,17 @@ components:
               globalCustId: globalCustId
               orgId: 6
             interfaceSpeed: 0
+            notifications:
+            - registeredUsers:
+              - registeredUsers
+              - registeredUsers
+              type: NOTIFICATION
+            - registeredUsers:
+              - registeredUsers
+              - registeredUsers
+              type: NOTIFICATION
             order:
+              customerReferenceId: customerReferenceId
               orderNumber: orderNumber
               orderId: orderId
               signature:
@@ -31248,6 +32189,7 @@ components:
           group: group
         demarcationPointIbx: demarcationPointIbx
         order:
+          customerReferenceId: customerReferenceId
           orderNumber: orderNumber
           orderId: orderId
           signature:
@@ -31340,7 +32282,17 @@ components:
             globalCustId: globalCustId
             orgId: 6
           interfaceSpeed: 0
+          notifications:
+          - registeredUsers:
+            - registeredUsers
+            - registeredUsers
+            type: NOTIFICATION
+          - registeredUsers:
+            - registeredUsers
+            - registeredUsers
+            type: NOTIFICATION
           order:
+            customerReferenceId: customerReferenceId
             orderNumber: orderNumber
             orderId: orderId
             signature:
@@ -31409,7 +32361,17 @@ components:
             globalCustId: globalCustId
             orgId: 6
           interfaceSpeed: 0
+          notifications:
+          - registeredUsers:
+            - registeredUsers
+            - registeredUsers
+            type: NOTIFICATION
+          - registeredUsers:
+            - registeredUsers
+            - registeredUsers
+            type: NOTIFICATION
           order:
+            customerReferenceId: customerReferenceId
             orderNumber: orderNumber
             orderId: orderId
             signature:
@@ -31686,7 +32648,17 @@ components:
           globalCustId: globalCustId
           orgId: 6
         interfaceSpeed: 0
+        notifications:
+        - registeredUsers:
+          - registeredUsers
+          - registeredUsers
+          type: NOTIFICATION
+        - registeredUsers:
+          - registeredUsers
+          - registeredUsers
+          type: NOTIFICATION
         order:
+          customerReferenceId: customerReferenceId
           orderNumber: orderNumber
           orderId: orderId
           signature:
@@ -31730,6 +32702,11 @@ components:
           $ref: '#/components/schemas/PortTether'
         demarcationPoint:
           $ref: '#/components/schemas/PortDemarcationPoint'
+        notifications:
+          description: Notification preferences
+          items:
+            $ref: '#/components/schemas/PortNotification'
+          type: array
         additionalInfo:
           description: Physical Port additional information
           items:
@@ -31794,6 +32771,7 @@ components:
             group: group
           demarcationPointIbx: demarcationPointIbx
           order:
+            customerReferenceId: customerReferenceId
             orderNumber: orderNumber
             orderId: orderId
             signature:
@@ -31886,7 +32864,17 @@ components:
               globalCustId: globalCustId
               orgId: 6
             interfaceSpeed: 0
+            notifications:
+            - registeredUsers:
+              - registeredUsers
+              - registeredUsers
+              type: NOTIFICATION
+            - registeredUsers:
+              - registeredUsers
+              - registeredUsers
+              type: NOTIFICATION
             order:
+              customerReferenceId: customerReferenceId
               orderNumber: orderNumber
               orderId: orderId
               signature:
@@ -31955,7 +32943,17 @@ components:
               globalCustId: globalCustId
               orgId: 6
             interfaceSpeed: 0
+            notifications:
+            - registeredUsers:
+              - registeredUsers
+              - registeredUsers
+              type: NOTIFICATION
+            - registeredUsers:
+              - registeredUsers
+              - registeredUsers
+              type: NOTIFICATION
             order:
+              customerReferenceId: customerReferenceId
               orderNumber: orderNumber
               orderId: orderId
               signature:
@@ -32072,6 +33070,7 @@ components:
             group: group
           demarcationPointIbx: demarcationPointIbx
           order:
+            customerReferenceId: customerReferenceId
             orderNumber: orderNumber
             orderId: orderId
             signature:
@@ -32164,7 +33163,17 @@ components:
               globalCustId: globalCustId
               orgId: 6
             interfaceSpeed: 0
+            notifications:
+            - registeredUsers:
+              - registeredUsers
+              - registeredUsers
+              type: NOTIFICATION
+            - registeredUsers:
+              - registeredUsers
+              - registeredUsers
+              type: NOTIFICATION
             order:
+              customerReferenceId: customerReferenceId
               orderNumber: orderNumber
               orderId: orderId
               signature:
@@ -32233,7 +33242,17 @@ components:
               globalCustId: globalCustId
               orgId: 6
             interfaceSpeed: 0
+            notifications:
+            - registeredUsers:
+              - registeredUsers
+              - registeredUsers
+              type: NOTIFICATION
+            - registeredUsers:
+              - registeredUsers
+              - registeredUsers
+              type: NOTIFICATION
             order:
+              customerReferenceId: customerReferenceId
               orderNumber: orderNumber
               orderId: orderId
               signature:
@@ -32367,7 +33386,17 @@ components:
             globalCustId: globalCustId
             orgId: 6
           interfaceSpeed: 0
+          notifications:
+          - registeredUsers:
+            - registeredUsers
+            - registeredUsers
+            type: NOTIFICATION
+          - registeredUsers:
+            - registeredUsers
+            - registeredUsers
+            type: NOTIFICATION
           order:
+            customerReferenceId: customerReferenceId
             orderNumber: orderNumber
             orderId: orderId
             signature:
@@ -32436,7 +33465,17 @@ components:
             globalCustId: globalCustId
             orgId: 6
           interfaceSpeed: 0
+          notifications:
+          - registeredUsers:
+            - registeredUsers
+            - registeredUsers
+            type: NOTIFICATION
+          - registeredUsers:
+            - registeredUsers
+            - registeredUsers
+            type: NOTIFICATION
           order:
+            customerReferenceId: customerReferenceId
             orderNumber: orderNumber
             orderId: orderId
             signature:
@@ -32522,7 +33561,17 @@ components:
             globalCustId: globalCustId
             orgId: 6
           interfaceSpeed: 0
+          notifications:
+          - registeredUsers:
+            - registeredUsers
+            - registeredUsers
+            type: NOTIFICATION
+          - registeredUsers:
+            - registeredUsers
+            - registeredUsers
+            type: NOTIFICATION
           order:
+            customerReferenceId: customerReferenceId
             orderNumber: orderNumber
             orderId: orderId
             signature:
@@ -32591,7 +33640,17 @@ components:
             globalCustId: globalCustId
             orgId: 6
           interfaceSpeed: 0
+          notifications:
+          - registeredUsers:
+            - registeredUsers
+            - registeredUsers
+            type: NOTIFICATION
+          - registeredUsers:
+            - registeredUsers
+            - registeredUsers
+            type: NOTIFICATION
           order:
+            customerReferenceId: customerReferenceId
             orderNumber: orderNumber
             orderId: orderId
             signature:
@@ -33578,6 +34637,10 @@ components:
           href: href
           region: "AMER, APAC, EMEA"
         type: XF_ROUTER
+        marketplaceSubscription:
+          href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+          type: AWS_MARKETPLACE_SUBSCRIPTION
+          uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
         account:
           resellerOrgId: 5
           organizationName: organizationName
@@ -33638,6 +34701,8 @@ components:
           items:
             $ref: '#/components/schemas/SimplifiedNotification'
           type: array
+        marketplaceSubscription:
+          $ref: '#/components/schemas/marketplaceSubscription'
       type: object
     CloudRouter:
       allOf:
@@ -33646,7 +34711,6 @@ components:
       example:
         bgpIpv4RoutesCount: 0
         equinixAsn: 30000
-        distinctIpv4PrefixesCount: 0
         change:
           data:
             op: replace
@@ -33658,8 +34722,6 @@ components:
           uuid: uuid
           status: COMPLETED
           updatedDateTime: 2020-11-06T07:00:00Z
-        name: test-fg-1
-        distinctIpv6PrefixesCount: 0
         changeLog:
           createdByEmail: john.smith@example.com
           deletedByFullName: John Smith
@@ -33673,11 +34735,18 @@ components:
           deletedBy: johnsmith
           deletedByEmail: john.smith@example.com
           updatedDateTime: 2020-11-06T07:00:00Z
-        href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
-        state: null
         bgpIpv6RoutesCount: 0
         uuid: c9b8e7a2-f3b1-4576-a4a9-1366a63df170
         connectionsCount: 0
+        distinctIpv4PrefixesCount: 0
+        name: test-fg-1
+        distinctIpv6PrefixesCount: 0
+        href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
+        state: null
+        marketplaceSubscription:
+          href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+          type: AWS_MARKETPLACE_SUBSCRIPTION
+          uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
       properties:
         href:
           description: Cloud Routers URI
@@ -33722,6 +34791,8 @@ components:
           description: Number of distinct ipv6 routes
           minimum: 0
           type: integer
+        marketplaceSubscription:
+          $ref: '#/components/schemas/marketplaceSubscription'
         changeLog:
           $ref: '#/components/schemas/Changelog'
         change:
@@ -34158,7 +35229,6 @@ components:
         data:
         - bgpIpv4RoutesCount: 0
           equinixAsn: 30000
-          distinctIpv4PrefixesCount: 0
           change:
             data:
               op: replace
@@ -34170,8 +35240,6 @@ components:
             uuid: uuid
             status: COMPLETED
             updatedDateTime: 2020-11-06T07:00:00Z
-          name: test-fg-1
-          distinctIpv6PrefixesCount: 0
           changeLog:
             createdByEmail: john.smith@example.com
             deletedByFullName: John Smith
@@ -34185,14 +35253,20 @@ components:
             deletedBy: johnsmith
             deletedByEmail: john.smith@example.com
             updatedDateTime: 2020-11-06T07:00:00Z
-          href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
-          state: null
           bgpIpv6RoutesCount: 0
           uuid: c9b8e7a2-f3b1-4576-a4a9-1366a63df170
           connectionsCount: 0
+          distinctIpv4PrefixesCount: 0
+          name: test-fg-1
+          distinctIpv6PrefixesCount: 0
+          href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
+          state: null
+          marketplaceSubscription:
+            href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+            type: AWS_MARKETPLACE_SUBSCRIPTION
+            uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
         - bgpIpv4RoutesCount: 0
           equinixAsn: 30000
-          distinctIpv4PrefixesCount: 0
           change:
             data:
               op: replace
@@ -34204,8 +35278,6 @@ components:
             uuid: uuid
             status: COMPLETED
             updatedDateTime: 2020-11-06T07:00:00Z
-          name: test-fg-1
-          distinctIpv6PrefixesCount: 0
           changeLog:
             createdByEmail: john.smith@example.com
             deletedByFullName: John Smith
@@ -34219,11 +35291,18 @@ components:
             deletedBy: johnsmith
             deletedByEmail: john.smith@example.com
             updatedDateTime: 2020-11-06T07:00:00Z
-          href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
-          state: null
           bgpIpv6RoutesCount: 0
           uuid: c9b8e7a2-f3b1-4576-a4a9-1366a63df170
           connectionsCount: 0
+          distinctIpv4PrefixesCount: 0
+          name: test-fg-1
+          distinctIpv6PrefixesCount: 0
+          href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
+          state: null
+          marketplaceSubscription:
+            href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+            type: AWS_MARKETPLACE_SUBSCRIPTION
+            uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
       properties:
         pagination:
           $ref: '#/components/schemas/Pagination'
@@ -34755,7 +35834,6 @@ components:
               router:
                 bgpIpv4RoutesCount: 0
                 equinixAsn: 30000
-                distinctIpv4PrefixesCount: 0
                 change:
                   data:
                     op: replace
@@ -34767,8 +35845,6 @@ components:
                   uuid: uuid
                   status: COMPLETED
                   updatedDateTime: 2020-11-06T07:00:00Z
-                name: test-fg-1
-                distinctIpv6PrefixesCount: 0
                 changeLog:
                   createdByEmail: john.smith@example.com
                   deletedByFullName: John Smith
@@ -34782,11 +35858,18 @@ components:
                   deletedBy: johnsmith
                   deletedByEmail: john.smith@example.com
                   updatedDateTime: 2020-11-06T07:00:00Z
-                href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
-                state: null
                 bgpIpv6RoutesCount: 0
                 uuid: c9b8e7a2-f3b1-4576-a4a9-1366a63df170
                 connectionsCount: 0
+                distinctIpv4PrefixesCount: 0
+                name: test-fg-1
+                distinctIpv6PrefixesCount: 0
+                href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
+                state: null
+                marketplaceSubscription:
+                  href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+                  type: AWS_MARKETPLACE_SUBSCRIPTION
+                  uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
               port:
                 serviceType: EPL
                 encapsulation:
@@ -34900,7 +35983,17 @@ components:
                     globalCustId: globalCustId
                     orgId: 6
                   interfaceSpeed: 0
+                  notifications:
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
                   order:
+                    customerReferenceId: customerReferenceId
                     orderNumber: orderNumber
                     orderId: orderId
                     signature:
@@ -34969,7 +36062,17 @@ components:
                     globalCustId: globalCustId
                     orgId: 6
                   interfaceSpeed: 0
+                  notifications:
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
                   order:
+                    customerReferenceId: customerReferenceId
                     orderNumber: orderNumber
                     orderId: orderId
                     signature:
@@ -35401,7 +36504,6 @@ components:
               router:
                 bgpIpv4RoutesCount: 0
                 equinixAsn: 30000
-                distinctIpv4PrefixesCount: 0
                 change:
                   data:
                     op: replace
@@ -35413,8 +36515,6 @@ components:
                   uuid: uuid
                   status: COMPLETED
                   updatedDateTime: 2020-11-06T07:00:00Z
-                name: test-fg-1
-                distinctIpv6PrefixesCount: 0
                 changeLog:
                   createdByEmail: john.smith@example.com
                   deletedByFullName: John Smith
@@ -35428,11 +36528,18 @@ components:
                   deletedBy: johnsmith
                   deletedByEmail: john.smith@example.com
                   updatedDateTime: 2020-11-06T07:00:00Z
-                href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
-                state: null
                 bgpIpv6RoutesCount: 0
                 uuid: c9b8e7a2-f3b1-4576-a4a9-1366a63df170
                 connectionsCount: 0
+                distinctIpv4PrefixesCount: 0
+                name: test-fg-1
+                distinctIpv6PrefixesCount: 0
+                href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
+                state: null
+                marketplaceSubscription:
+                  href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+                  type: AWS_MARKETPLACE_SUBSCRIPTION
+                  uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
               port:
                 serviceType: EPL
                 encapsulation:
@@ -35546,7 +36653,17 @@ components:
                     globalCustId: globalCustId
                     orgId: 6
                   interfaceSpeed: 0
+                  notifications:
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
                   order:
+                    customerReferenceId: customerReferenceId
                     orderNumber: orderNumber
                     orderId: orderId
                     signature:
@@ -35615,7 +36732,17 @@ components:
                     globalCustId: globalCustId
                     orgId: 6
                   interfaceSpeed: 0
+                  notifications:
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
                   order:
+                    customerReferenceId: customerReferenceId
                     orderNumber: orderNumber
                     orderId: orderId
                     signature:
@@ -35729,6 +36856,10 @@ components:
               correlationId: correlationId
               details: details
             providerStatus: null
+          marketplaceSubscription:
+            href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+            type: AWS_MARKETPLACE_SUBSCRIPTION
+            uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
           notifications:
           - emails:
             - emails
@@ -36093,7 +37224,6 @@ components:
               router:
                 bgpIpv4RoutesCount: 0
                 equinixAsn: 30000
-                distinctIpv4PrefixesCount: 0
                 change:
                   data:
                     op: replace
@@ -36105,8 +37235,6 @@ components:
                   uuid: uuid
                   status: COMPLETED
                   updatedDateTime: 2020-11-06T07:00:00Z
-                name: test-fg-1
-                distinctIpv6PrefixesCount: 0
                 changeLog:
                   createdByEmail: john.smith@example.com
                   deletedByFullName: John Smith
@@ -36120,11 +37248,18 @@ components:
                   deletedBy: johnsmith
                   deletedByEmail: john.smith@example.com
                   updatedDateTime: 2020-11-06T07:00:00Z
-                href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
-                state: null
                 bgpIpv6RoutesCount: 0
                 uuid: c9b8e7a2-f3b1-4576-a4a9-1366a63df170
                 connectionsCount: 0
+                distinctIpv4PrefixesCount: 0
+                name: test-fg-1
+                distinctIpv6PrefixesCount: 0
+                href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
+                state: null
+                marketplaceSubscription:
+                  href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+                  type: AWS_MARKETPLACE_SUBSCRIPTION
+                  uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
               port:
                 serviceType: EPL
                 encapsulation:
@@ -36238,7 +37373,17 @@ components:
                     globalCustId: globalCustId
                     orgId: 6
                   interfaceSpeed: 0
+                  notifications:
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
                   order:
+                    customerReferenceId: customerReferenceId
                     orderNumber: orderNumber
                     orderId: orderId
                     signature:
@@ -36307,7 +37452,17 @@ components:
                     globalCustId: globalCustId
                     orgId: 6
                   interfaceSpeed: 0
+                  notifications:
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
                   order:
+                    customerReferenceId: customerReferenceId
                     orderNumber: orderNumber
                     orderId: orderId
                     signature:
@@ -36739,7 +37894,6 @@ components:
               router:
                 bgpIpv4RoutesCount: 0
                 equinixAsn: 30000
-                distinctIpv4PrefixesCount: 0
                 change:
                   data:
                     op: replace
@@ -36751,8 +37905,6 @@ components:
                   uuid: uuid
                   status: COMPLETED
                   updatedDateTime: 2020-11-06T07:00:00Z
-                name: test-fg-1
-                distinctIpv6PrefixesCount: 0
                 changeLog:
                   createdByEmail: john.smith@example.com
                   deletedByFullName: John Smith
@@ -36766,11 +37918,18 @@ components:
                   deletedBy: johnsmith
                   deletedByEmail: john.smith@example.com
                   updatedDateTime: 2020-11-06T07:00:00Z
-                href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
-                state: null
                 bgpIpv6RoutesCount: 0
                 uuid: c9b8e7a2-f3b1-4576-a4a9-1366a63df170
                 connectionsCount: 0
+                distinctIpv4PrefixesCount: 0
+                name: test-fg-1
+                distinctIpv6PrefixesCount: 0
+                href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
+                state: null
+                marketplaceSubscription:
+                  href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+                  type: AWS_MARKETPLACE_SUBSCRIPTION
+                  uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
               port:
                 serviceType: EPL
                 encapsulation:
@@ -36884,7 +38043,17 @@ components:
                     globalCustId: globalCustId
                     orgId: 6
                   interfaceSpeed: 0
+                  notifications:
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
                   order:
+                    customerReferenceId: customerReferenceId
                     orderNumber: orderNumber
                     orderId: orderId
                     signature:
@@ -36953,7 +38122,17 @@ components:
                     globalCustId: globalCustId
                     orgId: 6
                   interfaceSpeed: 0
+                  notifications:
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
                   order:
+                    customerReferenceId: customerReferenceId
                     orderNumber: orderNumber
                     orderId: orderId
                     signature:
@@ -37067,6 +38246,10 @@ components:
               correlationId: correlationId
               details: details
             providerStatus: null
+          marketplaceSubscription:
+            href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+            type: AWS_MARKETPLACE_SUBSCRIPTION
+            uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
           notifications:
           - emails:
             - emails
@@ -37724,7 +38907,6 @@ components:
               router:
                 bgpIpv4RoutesCount: 0
                 equinixAsn: 30000
-                distinctIpv4PrefixesCount: 0
                 change:
                   data:
                     op: replace
@@ -37736,8 +38918,6 @@ components:
                   uuid: uuid
                   status: COMPLETED
                   updatedDateTime: 2020-11-06T07:00:00Z
-                name: test-fg-1
-                distinctIpv6PrefixesCount: 0
                 changeLog:
                   createdByEmail: john.smith@example.com
                   deletedByFullName: John Smith
@@ -37751,11 +38931,18 @@ components:
                   deletedBy: johnsmith
                   deletedByEmail: john.smith@example.com
                   updatedDateTime: 2020-11-06T07:00:00Z
-                href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
-                state: null
                 bgpIpv6RoutesCount: 0
                 uuid: c9b8e7a2-f3b1-4576-a4a9-1366a63df170
                 connectionsCount: 0
+                distinctIpv4PrefixesCount: 0
+                name: test-fg-1
+                distinctIpv6PrefixesCount: 0
+                href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
+                state: null
+                marketplaceSubscription:
+                  href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+                  type: AWS_MARKETPLACE_SUBSCRIPTION
+                  uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
               port:
                 serviceType: EPL
                 encapsulation:
@@ -37869,7 +39056,17 @@ components:
                     globalCustId: globalCustId
                     orgId: 6
                   interfaceSpeed: 0
+                  notifications:
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
                   order:
+                    customerReferenceId: customerReferenceId
                     orderNumber: orderNumber
                     orderId: orderId
                     signature:
@@ -37938,7 +39135,17 @@ components:
                     globalCustId: globalCustId
                     orgId: 6
                   interfaceSpeed: 0
+                  notifications:
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
                   order:
+                    customerReferenceId: customerReferenceId
                     orderNumber: orderNumber
                     orderId: orderId
                     signature:
@@ -38370,7 +39577,6 @@ components:
               router:
                 bgpIpv4RoutesCount: 0
                 equinixAsn: 30000
-                distinctIpv4PrefixesCount: 0
                 change:
                   data:
                     op: replace
@@ -38382,8 +39588,6 @@ components:
                   uuid: uuid
                   status: COMPLETED
                   updatedDateTime: 2020-11-06T07:00:00Z
-                name: test-fg-1
-                distinctIpv6PrefixesCount: 0
                 changeLog:
                   createdByEmail: john.smith@example.com
                   deletedByFullName: John Smith
@@ -38397,11 +39601,18 @@ components:
                   deletedBy: johnsmith
                   deletedByEmail: john.smith@example.com
                   updatedDateTime: 2020-11-06T07:00:00Z
-                href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
-                state: null
                 bgpIpv6RoutesCount: 0
                 uuid: c9b8e7a2-f3b1-4576-a4a9-1366a63df170
                 connectionsCount: 0
+                distinctIpv4PrefixesCount: 0
+                name: test-fg-1
+                distinctIpv6PrefixesCount: 0
+                href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
+                state: null
+                marketplaceSubscription:
+                  href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+                  type: AWS_MARKETPLACE_SUBSCRIPTION
+                  uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
               port:
                 serviceType: EPL
                 encapsulation:
@@ -38515,7 +39726,17 @@ components:
                     globalCustId: globalCustId
                     orgId: 6
                   interfaceSpeed: 0
+                  notifications:
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
                   order:
+                    customerReferenceId: customerReferenceId
                     orderNumber: orderNumber
                     orderId: orderId
                     signature:
@@ -38584,7 +39805,17 @@ components:
                     globalCustId: globalCustId
                     orgId: 6
                   interfaceSpeed: 0
+                  notifications:
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
                   order:
+                    customerReferenceId: customerReferenceId
                     orderNumber: orderNumber
                     orderId: orderId
                     signature:
@@ -38698,6 +39929,10 @@ components:
               correlationId: correlationId
               details: details
             providerStatus: null
+          marketplaceSubscription:
+            href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+            type: AWS_MARKETPLACE_SUBSCRIPTION
+            uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
           notifications:
           - emails:
             - emails
@@ -39062,7 +40297,6 @@ components:
               router:
                 bgpIpv4RoutesCount: 0
                 equinixAsn: 30000
-                distinctIpv4PrefixesCount: 0
                 change:
                   data:
                     op: replace
@@ -39074,8 +40308,6 @@ components:
                   uuid: uuid
                   status: COMPLETED
                   updatedDateTime: 2020-11-06T07:00:00Z
-                name: test-fg-1
-                distinctIpv6PrefixesCount: 0
                 changeLog:
                   createdByEmail: john.smith@example.com
                   deletedByFullName: John Smith
@@ -39089,11 +40321,18 @@ components:
                   deletedBy: johnsmith
                   deletedByEmail: john.smith@example.com
                   updatedDateTime: 2020-11-06T07:00:00Z
-                href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
-                state: null
                 bgpIpv6RoutesCount: 0
                 uuid: c9b8e7a2-f3b1-4576-a4a9-1366a63df170
                 connectionsCount: 0
+                distinctIpv4PrefixesCount: 0
+                name: test-fg-1
+                distinctIpv6PrefixesCount: 0
+                href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
+                state: null
+                marketplaceSubscription:
+                  href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+                  type: AWS_MARKETPLACE_SUBSCRIPTION
+                  uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
               port:
                 serviceType: EPL
                 encapsulation:
@@ -39207,7 +40446,17 @@ components:
                     globalCustId: globalCustId
                     orgId: 6
                   interfaceSpeed: 0
+                  notifications:
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
                   order:
+                    customerReferenceId: customerReferenceId
                     orderNumber: orderNumber
                     orderId: orderId
                     signature:
@@ -39276,7 +40525,17 @@ components:
                     globalCustId: globalCustId
                     orgId: 6
                   interfaceSpeed: 0
+                  notifications:
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
                   order:
+                    customerReferenceId: customerReferenceId
                     orderNumber: orderNumber
                     orderId: orderId
                     signature:
@@ -39708,7 +40967,6 @@ components:
               router:
                 bgpIpv4RoutesCount: 0
                 equinixAsn: 30000
-                distinctIpv4PrefixesCount: 0
                 change:
                   data:
                     op: replace
@@ -39720,8 +40978,6 @@ components:
                   uuid: uuid
                   status: COMPLETED
                   updatedDateTime: 2020-11-06T07:00:00Z
-                name: test-fg-1
-                distinctIpv6PrefixesCount: 0
                 changeLog:
                   createdByEmail: john.smith@example.com
                   deletedByFullName: John Smith
@@ -39735,11 +40991,18 @@ components:
                   deletedBy: johnsmith
                   deletedByEmail: john.smith@example.com
                   updatedDateTime: 2020-11-06T07:00:00Z
-                href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
-                state: null
                 bgpIpv6RoutesCount: 0
                 uuid: c9b8e7a2-f3b1-4576-a4a9-1366a63df170
                 connectionsCount: 0
+                distinctIpv4PrefixesCount: 0
+                name: test-fg-1
+                distinctIpv6PrefixesCount: 0
+                href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
+                state: null
+                marketplaceSubscription:
+                  href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+                  type: AWS_MARKETPLACE_SUBSCRIPTION
+                  uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
               port:
                 serviceType: EPL
                 encapsulation:
@@ -39853,7 +41116,17 @@ components:
                     globalCustId: globalCustId
                     orgId: 6
                   interfaceSpeed: 0
+                  notifications:
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
                   order:
+                    customerReferenceId: customerReferenceId
                     orderNumber: orderNumber
                     orderId: orderId
                     signature:
@@ -39922,7 +41195,17 @@ components:
                     globalCustId: globalCustId
                     orgId: 6
                   interfaceSpeed: 0
+                  notifications:
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
+                  - registeredUsers:
+                    - registeredUsers
+                    - registeredUsers
+                    type: NOTIFICATION
                   order:
+                    customerReferenceId: customerReferenceId
                     orderNumber: orderNumber
                     orderId: orderId
                     signature:
@@ -40036,6 +41319,10 @@ components:
               correlationId: correlationId
               details: details
             providerStatus: null
+          marketplaceSubscription:
+            href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+            type: AWS_MARKETPLACE_SUBSCRIPTION
+            uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
           notifications:
           - emails:
             - emails
@@ -40188,10 +41475,10 @@ components:
         advanceConfiguration:
           ntp:
           - password: password
-            id: id
+            id: 0
             type: ASCII
           - password: password
-            id: id
+            id: 0
             type: ASCII
           ptp:
             timeScale: ARB
@@ -40302,17 +41589,12 @@ components:
           description: Handy shortcut for operation name
           enum:
           - replace
-          - add
-          - remove
           type: string
         path:
           description: path inside document leading to updated parameter
           enum:
-          - /ipv4
           - /name
-          - /advanceConfiguration/ntp
-          - /advanceConfiguration/ptp
-          - /package
+          - /package/code
           type: string
         value:
           description: new value for updated parameter
@@ -40354,6 +41636,255 @@ components:
       - package
       - type
       title: precisionTimeServiceRequest
+      type: object
+    TimeServicesSearchRequest:
+      description: Search requests containing criteria
+      example:
+        filter:
+          and:
+          - null
+          - null
+          - null
+          - null
+          - null
+        pagination:
+          offset: 0
+          limit: 1
+        sort:
+        - property: null
+          direction: null
+        - property: null
+          direction: null
+      properties:
+        filter:
+          $ref: '#/components/schemas/TimeServiceFilters'
+        pagination:
+          $ref: '#/components/schemas/PaginationRequest'
+        sort:
+          items:
+            $ref: '#/components/schemas/TimeServiceSortCriteria'
+          type: array
+      type: object
+    TimeServiceFilters:
+      example:
+        and:
+        - null
+        - null
+        - null
+        - null
+        - null
+      properties:
+        and:
+          items:
+            $ref: '#/components/schemas/TimeServiceFilter'
+          maxItems: 8
+          type: array
+      type: object
+    TimeServiceFilter:
+      anyOf:
+      - $ref: '#/components/schemas/TimeServiceSimpleExpression'
+      - $ref: '#/components/schemas/TimeServiceOrFilter'
+      type: object
+    TimeServiceSimpleExpression:
+      properties:
+        property:
+          description: |
+            Possible field names to use on filters:
+             * `/project/projectId` - project id (mandatory)
+             * `/name` - Precision Time Service name
+             * `/uuid` - Precision Time Service uuid
+             * `/type` - Precision Time Service protocol
+             * `/state` - Precision Time Service status
+             * `/account/accountNumber` - Precision Time Service account number
+             * `/package/code` - Precision Time Service package
+             * `/*` - all-category search
+          example: /name
+          type: string
+        operator:
+          description: |
+            Possible operators to use on filters:
+             * `=` - equal
+             * `!=` - not equal
+             * `[NOT] BETWEEN` - (not) between
+             * `[NOT] LIKE` - (not) like
+             * `[NOT] IN` - (not) in
+             * `ILIKE` - case-insensitive like
+          example: =
+          type: string
+        values:
+          items:
+            example: FabricPrecisionTimeService-1
+            type: string
+          type: array
+      type: object
+    TimeServiceOrFilter:
+      properties:
+        or:
+          items:
+            $ref: '#/components/schemas/TimeServiceSimpleExpression'
+          maxItems: 3
+          type: array
+      type: object
+    TimeServiceSortCriteria:
+      example:
+        property: null
+        direction: null
+      properties:
+        direction:
+          $ref: '#/components/schemas/TimeServiceSortDirection'
+        property:
+          $ref: '#/components/schemas/TimeServiceSortBy'
+      type: object
+    TimeServiceSortDirection:
+      default: DESC
+      description: Sorting direction
+      enum:
+      - DESC
+      - ASC
+      type: string
+    TimeServiceSortBy:
+      default: /changeLog/updatedDateTime
+      description: Possible field names to use on sorting
+      enum:
+      - /name
+      - /uuid
+      - /state
+      - /type
+      - /package/code
+      - /changeLog/createdDateTime
+      - /changeLog/updatedDateTime
+      type: string
+    ServiceSearchResponse:
+      example:
+        pagination:
+          next: next
+          total: 0
+          offset: 0
+          previous: previous
+          limit: 0
+        data:
+        - advanceConfiguration:
+            ntp:
+            - password: password
+              id: 0
+              type: ASCII
+            - password: password
+              id: 0
+              type: ASCII
+            ptp:
+              timeScale: ARB
+              grantTime: 300
+              logDelayReqInterval: 0
+              domain: 0
+              logSyncInterval: 0
+              priority2: 0
+              transportMode: Multicast
+              priority1: 0
+              logAnnounceInterval: 0
+          package:
+            href: https://api.equinix.com/fabric/v4/timeServicePackage/NTP_STANDARD
+            code: NTP_STANDARD
+            type: TIME_SERVICE_PACKAGE
+            bandwidth: 10
+            accuracyUnit: microseconds
+            accuracySla: 50
+            accuracyAvgMin: 1
+            accuracyAvgMax: 10
+            clientsPerSecondMax: 100
+            redundancySupported: true
+            multiSubnetSupported: true
+            changeLog:
+              createdDateTime: 2023-05-16T07:50:49.749Z
+              updatedDateTime: 2023-05-17T07:50:49.749Z
+          description: description
+          project:
+            projectId: 44f4c4f8-2f39-494e-838c-d8e640591be5
+          type: NTP
+          uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          ipv4:
+            primary: 10.0.0.1
+            secondary: 10.0.0.2
+            networkMask: 255.255.255.240
+            defaultGateway: 10.0.0.3
+          name: name
+          href: https://openapi-generator.tech
+          state: PROVISIONED
+          connections:
+          - uuid: 095be615-a8ad-4c33-8e9c-c7612fbf6c9f
+          - uuid: 095be615-a8ad-4c33-8e9c-c7612fbf6c9f
+          account:
+            accountNumber: 123456
+          order:
+            orderNumber: orderNumber
+            customerReferenceNumber: customerReferenceNumber
+            orderId: orderId
+            purchaseOrderNumber: purchaseOrderNumber
+            billingTier: billingTier
+        - advanceConfiguration:
+            ntp:
+            - password: password
+              id: 0
+              type: ASCII
+            - password: password
+              id: 0
+              type: ASCII
+            ptp:
+              timeScale: ARB
+              grantTime: 300
+              logDelayReqInterval: 0
+              domain: 0
+              logSyncInterval: 0
+              priority2: 0
+              transportMode: Multicast
+              priority1: 0
+              logAnnounceInterval: 0
+          package:
+            href: https://api.equinix.com/fabric/v4/timeServicePackage/NTP_STANDARD
+            code: NTP_STANDARD
+            type: TIME_SERVICE_PACKAGE
+            bandwidth: 10
+            accuracyUnit: microseconds
+            accuracySla: 50
+            accuracyAvgMin: 1
+            accuracyAvgMax: 10
+            clientsPerSecondMax: 100
+            redundancySupported: true
+            multiSubnetSupported: true
+            changeLog:
+              createdDateTime: 2023-05-16T07:50:49.749Z
+              updatedDateTime: 2023-05-17T07:50:49.749Z
+          description: description
+          project:
+            projectId: 44f4c4f8-2f39-494e-838c-d8e640591be5
+          type: NTP
+          uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          ipv4:
+            primary: 10.0.0.1
+            secondary: 10.0.0.2
+            networkMask: 255.255.255.240
+            defaultGateway: 10.0.0.3
+          name: name
+          href: https://openapi-generator.tech
+          state: PROVISIONED
+          connections:
+          - uuid: 095be615-a8ad-4c33-8e9c-c7612fbf6c9f
+          - uuid: 095be615-a8ad-4c33-8e9c-c7612fbf6c9f
+          account:
+            accountNumber: 123456
+          order:
+            orderNumber: orderNumber
+            customerReferenceNumber: customerReferenceNumber
+            orderId: orderId
+            purchaseOrderNumber: purchaseOrderNumber
+            billingTier: billingTier
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        data:
+          description: Data returned from the API call.
+          items:
+            $ref: '#/components/schemas/precisionTimeServiceResponse'
+          type: array
       type: object
     precisionTimeServiceConnectionsResponse:
       description: EPT service instance's L2 connections
@@ -40490,6 +42021,175 @@ components:
       required:
       - code
       title: precisionTimePackageRespose
+      type: object
+    SubscriptionId:
+      description: Subscription Id
+      example: 557400f8-d360-11e9-bb65-2a2ae2dbcce4
+      format: uuid
+      type: string
+    SubscriptionResponse:
+      description: Subscription
+      example:
+        isAutoRenew: true
+        entitlements:
+        - quantityAvailable: 0
+          quantityEntitled: 0
+          quantityConsumed: 0
+          asset:
+            package:
+              code: ADVANCED
+            bandwidth: 5
+            type: null
+          uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        - quantityAvailable: 0
+          quantityEntitled: 0
+          quantityConsumed: 0
+          asset:
+            package:
+              code: ADVANCED
+            bandwidth: 5
+            type: null
+          uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        offerType: PUBLIC
+        marketplace: AWS
+        offerId: offerId
+        changelog:
+          createdByEmail: john.smith@example.com
+          deletedByFullName: John Smith
+          updatedBy: johnsmith
+          createdBy: johnsmith
+          updatedByEmail: john.smith@example.com
+          createdByFullName: John Smith
+          createdDateTime: 2020-11-06T07:00:00Z
+          deletedDateTime: 2020-11-06T07:00:00Z
+          updatedByFullName: John Smith
+          deletedBy: johnsmith
+          deletedByEmail: john.smith@example.com
+          updatedDateTime: 2020-11-06T07:00:00Z
+        href: https://openapi-generator.tech
+        uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        trial:
+          expiryDateTime: 2000-01-23T04:56:07.000+00:00
+          enabled: true
+        status: null
+        subscriptionKey: subscriptionKey
+      properties:
+        href:
+          format: uri
+          type: string
+        uuid:
+          format: uuid
+          type: string
+        status:
+          $ref: '#/components/schemas/SubscriptionStatus'
+        marketplace:
+          enum:
+          - AWS
+          - GCP
+          - AZURE
+          - REDHAT
+          type: string
+        offerType:
+          enum:
+          - PUBLIC
+          - PRIVATE_OFFER
+          type: string
+        isAutoRenew:
+          example: true
+          type: boolean
+        offerId:
+          type: string
+        trial:
+          $ref: '#/components/schemas/SubscriptionTrial'
+        subscriptionKey:
+          type: string
+        entitlements:
+          items:
+            $ref: '#/components/schemas/SubscriptionEntitlementResponse'
+          type: array
+        changelog:
+          $ref: '#/components/schemas/Changelog'
+      type: object
+      x-preview: false
+    SubscriptionStatus:
+      enum:
+      - ACTIVE
+      - EXPIRED
+      - CANCELLED
+      - GRACE_PERIOD
+      type: string
+    SubscriptionTrial:
+      description: Trial
+      example:
+        expiryDateTime: 2000-01-23T04:56:07.000+00:00
+        enabled: true
+      properties:
+        enabled:
+          type: boolean
+        expiryDateTime:
+          format: date-time
+          type: string
+      type: object
+    SubscriptionEntitlementResponse:
+      description: Subscription entitlement
+      example:
+        quantityAvailable: 0
+        quantityEntitled: 0
+        quantityConsumed: 0
+        asset:
+          package:
+            code: ADVANCED
+          bandwidth: 5
+          type: null
+        uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        uuid:
+          description: Subscription Entitlement Id
+          format: uuid
+          type: string
+        quantityEntitled:
+          minimum: 0
+          type: integer
+        quantityConsumed:
+          minimum: 0
+          type: integer
+        quantityAvailable:
+          minimum: 0
+          type: integer
+        asset:
+          $ref: '#/components/schemas/SubscriptionAsset'
+      type: object
+    SubscriptionAsset:
+      description: Asset information
+      example:
+        package:
+          code: ADVANCED
+        bandwidth: 5
+        type: null
+      properties:
+        type:
+          $ref: '#/components/schemas/SubscriptionAssetType'
+        package:
+          $ref: '#/components/schemas/SubscriptionRouterPackageType'
+        bandwidth:
+          type: integer
+      type: object
+    SubscriptionAssetType:
+      enum:
+      - XF_ROUTER
+      - IP_VC
+      type: string
+    SubscriptionRouterPackageType:
+      description: Cloud Router Package Type
+      example:
+        code: ADVANCED
+      properties:
+        code:
+          description: Cloud Router package code
+          enum:
+          - ADVANCED
+          - STANDARD
+          type: string
       type: object
     ConnectionType:
       description: Connection type
@@ -40909,7 +42609,6 @@ components:
           router:
             bgpIpv4RoutesCount: 0
             equinixAsn: 30000
-            distinctIpv4PrefixesCount: 0
             change:
               data:
                 op: replace
@@ -40921,8 +42620,6 @@ components:
               uuid: uuid
               status: COMPLETED
               updatedDateTime: 2020-11-06T07:00:00Z
-            name: test-fg-1
-            distinctIpv6PrefixesCount: 0
             changeLog:
               createdByEmail: john.smith@example.com
               deletedByFullName: John Smith
@@ -40936,11 +42633,18 @@ components:
               deletedBy: johnsmith
               deletedByEmail: john.smith@example.com
               updatedDateTime: 2020-11-06T07:00:00Z
-            href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
-            state: null
             bgpIpv6RoutesCount: 0
             uuid: c9b8e7a2-f3b1-4576-a4a9-1366a63df170
             connectionsCount: 0
+            distinctIpv4PrefixesCount: 0
+            name: test-fg-1
+            distinctIpv6PrefixesCount: 0
+            href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
+            state: null
+            marketplaceSubscription:
+              href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+              type: AWS_MARKETPLACE_SUBSCRIPTION
+              uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
           port:
             serviceType: EPL
             encapsulation:
@@ -41054,7 +42758,17 @@ components:
                 globalCustId: globalCustId
                 orgId: 6
               interfaceSpeed: 0
+              notifications:
+              - registeredUsers:
+                - registeredUsers
+                - registeredUsers
+                type: NOTIFICATION
+              - registeredUsers:
+                - registeredUsers
+                - registeredUsers
+                type: NOTIFICATION
               order:
+                customerReferenceId: customerReferenceId
                 orderNumber: orderNumber
                 orderId: orderId
                 signature:
@@ -41123,7 +42837,17 @@ components:
                 globalCustId: globalCustId
                 orgId: 6
               interfaceSpeed: 0
+              notifications:
+              - registeredUsers:
+                - registeredUsers
+                - registeredUsers
+                type: NOTIFICATION
+              - registeredUsers:
+                - registeredUsers
+                - registeredUsers
+                type: NOTIFICATION
               order:
+                customerReferenceId: customerReferenceId
                 orderNumber: orderNumber
                 orderId: orderId
                 signature:
@@ -41239,6 +42963,30 @@ components:
           type: string
         value:
           description: Value
+          type: string
+      type: object
+    marketplaceSubscription:
+      description: Equinix Fabric Entity for Marketplace Subscription
+      example:
+        href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+        type: AWS_MARKETPLACE_SUBSCRIPTION
+        uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
+      properties:
+        href:
+          description: Marketplace Subscription URI
+          example: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+          format: uri
+          readOnly: true
+          type: string
+        type:
+          description: Marketplace Subscription type
+          enum:
+          - AWS_MARKETPLACE_SUBSCRIPTION
+          example: AWS_MARKETPLACE_SUBSCRIPTION
+          type: string
+        uuid:
+          description: Equinix-assigned Marketplace Subscription identifier
+          example: 20d32a80-0d61-4333-bc03-707b591ae2f5
           type: string
       type: object
     ConnectionState:
@@ -41551,12 +43299,14 @@ components:
       - CONNECTION_UPDATE_REQUEST
       - MIGRATION_EVPL_VC
       - CONNECTION_PROVIDER_STATUS_REQUEST
+      - CONNECTION_PROVIDER_BANDWIDTH_REQUEST
       - ACCEPT_HOSTED_CONNECTION
       - CANCEL_EVPL_VC_DRAFT_ORDERS
       type: string
     ConnectionAcceptanceData:
       description: Connection acceptance data
       example:
+        providerBandwidth: 0
         zSide:
           internetAccess:
             uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
@@ -41883,7 +43633,6 @@ components:
             router:
               bgpIpv4RoutesCount: 0
               equinixAsn: 30000
-              distinctIpv4PrefixesCount: 0
               change:
                 data:
                   op: replace
@@ -41895,8 +43644,6 @@ components:
                 uuid: uuid
                 status: COMPLETED
                 updatedDateTime: 2020-11-06T07:00:00Z
-              name: test-fg-1
-              distinctIpv6PrefixesCount: 0
               changeLog:
                 createdByEmail: john.smith@example.com
                 deletedByFullName: John Smith
@@ -41910,11 +43657,18 @@ components:
                 deletedBy: johnsmith
                 deletedByEmail: john.smith@example.com
                 updatedDateTime: 2020-11-06T07:00:00Z
-              href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
-              state: null
               bgpIpv6RoutesCount: 0
               uuid: c9b8e7a2-f3b1-4576-a4a9-1366a63df170
               connectionsCount: 0
+              distinctIpv4PrefixesCount: 0
+              name: test-fg-1
+              distinctIpv6PrefixesCount: 0
+              href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
+              state: null
+              marketplaceSubscription:
+                href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+                type: AWS_MARKETPLACE_SUBSCRIPTION
+                uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
             port:
               serviceType: EPL
               encapsulation:
@@ -42028,7 +43782,17 @@ components:
                   globalCustId: globalCustId
                   orgId: 6
                 interfaceSpeed: 0
+                notifications:
+                - registeredUsers:
+                  - registeredUsers
+                  - registeredUsers
+                  type: NOTIFICATION
+                - registeredUsers:
+                  - registeredUsers
+                  - registeredUsers
+                  type: NOTIFICATION
                 order:
+                  customerReferenceId: customerReferenceId
                   orderNumber: orderNumber
                   orderId: orderId
                   signature:
@@ -42097,7 +43861,17 @@ components:
                   globalCustId: globalCustId
                   orgId: 6
                 interfaceSpeed: 0
+                notifications:
+                - registeredUsers:
+                  - registeredUsers
+                  - registeredUsers
+                  type: NOTIFICATION
+                - registeredUsers:
+                  - registeredUsers
+                  - registeredUsers
+                  type: NOTIFICATION
                 order:
+                  customerReferenceId: customerReferenceId
                   orderNumber: orderNumber
                   orderId: orderId
                   signature:
@@ -42176,6 +43950,10 @@ components:
       properties:
         zSide:
           $ref: '#/components/schemas/ConnectionSide'
+        providerBandwidth:
+          description: Authorization key bandwidth in Mbps
+          readOnly: true
+          type: integer
       type: object
     BGPConnectionIpv4:
       properties:
@@ -42193,6 +43971,16 @@ components:
         outboundASPrependCount:
           description: AS path prepend count
           example: 3
+          format: int64
+          type: integer
+        inboundMED:
+          description: inbound Multi Exit Discriminator attribute
+          example: 1000
+          format: int64
+          type: integer
+        outboundMED:
+          description: inbound Multi Exit Discriminator attribute
+          example: 2000
           format: int64
           type: integer
         operation:
@@ -42217,6 +44005,16 @@ components:
         outboundASPrependCount:
           description: AS path prepend count
           example: 3
+          format: int64
+          type: integer
+        inboundMED:
+          description: inbound Multi Exit Discriminator attribute
+          example: 1000
+          format: int64
+          type: integer
+        outboundMED:
+          description: inbound Multi Exit Discriminator attribute
+          example: 2000
           format: int64
           type: integer
         operation:
@@ -42279,6 +44077,9 @@ components:
           description: BGP authorization key
           example: testAuthKey
           type: string
+        asOverrideEnabled:
+          description: Enable AS number override
+          type: boolean
         bfd:
           $ref: '#/components/schemas/RoutingProtocolBFD'
         href:
@@ -42791,6 +44592,7 @@ components:
       type: string
     PortOrder:
       example:
+        customerReferenceId: customerReferenceId
         orderNumber: orderNumber
         orderId: orderId
         signature:
@@ -42812,6 +44614,9 @@ components:
           $ref: '#/components/schemas/PortOrder_purchaseOrder'
         orderId:
           description: Order Identification
+          type: string
+        customerReferenceId:
+          description: Customer order reference Id
           type: string
         orderNumber:
           description: Order Reference Number
@@ -43859,10 +45664,10 @@ components:
       example:
         ntp:
         - password: password
-          id: id
+          id: 0
           type: ASCII
         - password: password
-          id: id
+          id: 0
           type: ASCII
         ptp:
           timeScale: ARB
@@ -43900,6 +45705,128 @@ components:
       required:
       - code
       title: precisionTimePackageRequest
+      type: object
+    precisionTimeServiceResponse:
+      description: EPT service instance
+      example:
+        advanceConfiguration:
+          ntp:
+          - password: password
+            id: 0
+            type: ASCII
+          - password: password
+            id: 0
+            type: ASCII
+          ptp:
+            timeScale: ARB
+            grantTime: 300
+            logDelayReqInterval: 0
+            domain: 0
+            logSyncInterval: 0
+            priority2: 0
+            transportMode: Multicast
+            priority1: 0
+            logAnnounceInterval: 0
+        package:
+          href: https://api.equinix.com/fabric/v4/timeServicePackage/NTP_STANDARD
+          code: NTP_STANDARD
+          type: TIME_SERVICE_PACKAGE
+          bandwidth: 10
+          accuracyUnit: microseconds
+          accuracySla: 50
+          accuracyAvgMin: 1
+          accuracyAvgMax: 10
+          clientsPerSecondMax: 100
+          redundancySupported: true
+          multiSubnetSupported: true
+          changeLog:
+            createdDateTime: 2023-05-16T07:50:49.749Z
+            updatedDateTime: 2023-05-17T07:50:49.749Z
+        description: description
+        project:
+          projectId: 44f4c4f8-2f39-494e-838c-d8e640591be5
+        type: NTP
+        uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        ipv4:
+          primary: 10.0.0.1
+          secondary: 10.0.0.2
+          networkMask: 255.255.255.240
+          defaultGateway: 10.0.0.3
+        name: name
+        href: https://openapi-generator.tech
+        state: PROVISIONED
+        connections:
+        - uuid: 095be615-a8ad-4c33-8e9c-c7612fbf6c9f
+        - uuid: 095be615-a8ad-4c33-8e9c-c7612fbf6c9f
+        account:
+          accountNumber: 123456
+        order:
+          orderNumber: orderNumber
+          customerReferenceNumber: customerReferenceNumber
+          orderId: orderId
+          purchaseOrderNumber: purchaseOrderNumber
+          billingTier: billingTier
+      properties:
+        type:
+          enum:
+          - NTP
+          - PTP
+          type: string
+        href:
+          format: uri
+          type: string
+        uuid:
+          description: uuid of the ept service
+          format: uuid
+          type: string
+        name:
+          description: name of the ept service
+          type: string
+        description:
+          type: string
+        state:
+          description: indicate service state
+          enum:
+          - PROVISIONED
+          - PROVISIONING
+          - PROVISIONING_FAILED
+          - CONFIGURING
+          - CANCELLED
+          - DEPROVISIONING_FAILED
+          - PENDING_CONFIGURATION
+          - DEPROVISIONED
+          - CONFIGURING_FAILED
+          - DEPROVISIONING
+          type: string
+        package:
+          $ref: '#/components/schemas/precisionTimePackageResponse'
+        connections:
+          description: fabric l2 connections used for the ept service
+          items:
+            $ref: '#/components/schemas/fabricConnectionUuid'
+          maxItems: 2
+          minItems: 1
+          type: array
+          uniqueItems: true
+        order:
+          $ref: '#/components/schemas/Order'
+        ipv4:
+          $ref: '#/components/schemas/ipv4'
+        advanceConfiguration:
+          $ref: '#/components/schemas/advanceConfiguration'
+        project:
+          $ref: '#/components/schemas/Project'
+        account:
+          $ref: '#/components/schemas/account'
+      required:
+      - href
+      - ipv4
+      - order
+      - package
+      - state
+      - type
+      - uuid
+      title: precisionTimeServiceResponse
       type: object
     connectionLink:
       example:
@@ -44147,7 +46074,6 @@ components:
         router:
           bgpIpv4RoutesCount: 0
           equinixAsn: 30000
-          distinctIpv4PrefixesCount: 0
           change:
             data:
               op: replace
@@ -44159,8 +46085,6 @@ components:
             uuid: uuid
             status: COMPLETED
             updatedDateTime: 2020-11-06T07:00:00Z
-          name: test-fg-1
-          distinctIpv6PrefixesCount: 0
           changeLog:
             createdByEmail: john.smith@example.com
             deletedByFullName: John Smith
@@ -44174,11 +46098,18 @@ components:
             deletedBy: johnsmith
             deletedByEmail: john.smith@example.com
             updatedDateTime: 2020-11-06T07:00:00Z
-          href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
-          state: null
           bgpIpv6RoutesCount: 0
           uuid: c9b8e7a2-f3b1-4576-a4a9-1366a63df170
           connectionsCount: 0
+          distinctIpv4PrefixesCount: 0
+          name: test-fg-1
+          distinctIpv6PrefixesCount: 0
+          href: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
+          state: null
+          marketplaceSubscription:
+            href: https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5
+            type: AWS_MARKETPLACE_SUBSCRIPTION
+            uuid: 20d32a80-0d61-4333-bc03-707b591ae2f5
         port:
           serviceType: EPL
           encapsulation:
@@ -44292,7 +46223,17 @@ components:
               globalCustId: globalCustId
               orgId: 6
             interfaceSpeed: 0
+            notifications:
+            - registeredUsers:
+              - registeredUsers
+              - registeredUsers
+              type: NOTIFICATION
+            - registeredUsers:
+              - registeredUsers
+              - registeredUsers
+              type: NOTIFICATION
             order:
+              customerReferenceId: customerReferenceId
               orderNumber: orderNumber
               orderId: orderId
               signature:
@@ -44361,7 +46302,17 @@ components:
               globalCustId: globalCustId
               orgId: 6
             interfaceSpeed: 0
+            notifications:
+            - registeredUsers:
+              - registeredUsers
+              - registeredUsers
+              type: NOTIFICATION
+            - registeredUsers:
+              - registeredUsers
+              - registeredUsers
+              type: NOTIFICATION
             order:
+              customerReferenceId: customerReferenceId
               orderNumber: orderNumber
               orderId: orderId
               signature:
@@ -45143,7 +47094,17 @@ components:
             globalCustId: globalCustId
             orgId: 6
           interfaceSpeed: 0
+          notifications:
+          - registeredUsers:
+            - registeredUsers
+            - registeredUsers
+            type: NOTIFICATION
+          - registeredUsers:
+            - registeredUsers
+            - registeredUsers
+            type: NOTIFICATION
           order:
+            customerReferenceId: customerReferenceId
             orderNumber: orderNumber
             orderId: orderId
             signature:
@@ -45212,7 +47173,17 @@ components:
             globalCustId: globalCustId
             orgId: 6
           interfaceSpeed: 0
+          notifications:
+          - registeredUsers:
+            - registeredUsers
+            - registeredUsers
+            type: NOTIFICATION
+          - registeredUsers:
+            - registeredUsers
+            - registeredUsers
+            type: NOTIFICATION
           order:
+            customerReferenceId: customerReferenceId
             orderNumber: orderNumber
             orderId: orderId
             signature:
@@ -45761,7 +47732,7 @@ components:
     md5:
       example:
         password: password
-        id: id
+        id: 0
         type: ASCII
       properties:
         type:
@@ -45770,7 +47741,7 @@ components:
           - HEX
           type: string
         id:
-          type: string
+          type: integer
         password:
           type: string
       type: object
