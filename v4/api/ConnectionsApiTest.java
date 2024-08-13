@@ -1,6 +1,5 @@
 /*
  * Equinix Fabric API v4
- * Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br>
  *
  * Contact: api-support@equinix.com
  *
@@ -12,139 +11,370 @@
 package com.equinix.openapi.fabric.v4.api;
 
 import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.v4.api.dto.port.PortDto;
+import com.equinix.openapi.fabric.v4.api.dto.users.UsersItem;
+import com.equinix.openapi.fabric.v4.api.helpers.Utils;
+import com.equinix.openapi.fabric.v4.model.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Disabled;
 
-/**
- * API tests for ConnectionsApi
- */
-@Disabled
-public class ConnectionsApiTest extends AbstractTest {
+import java.util.List;
+import java.util.Random;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
-    private final ConnectionsApi api = new ConnectionsApi(generateToken());
+import static com.equinix.openapi.fabric.v4.api.CloudRoutersApiTest.createRouter;
+import static com.equinix.openapi.fabric.v4.api.PortsApiTest.getPorts;
+import static com.equinix.openapi.fabric.v4.api.helpers.Apis.*;
+import static com.equinix.openapi.fabric.v4.api.helpers.TokenGenerator.users;
+import static java.util.Collections.singletonList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-    /**
-     * Create Connection
-     * <p>
-     * This API provides capability to create user&#39;s virtual connection
-     *
-     * @throws ApiException if the Api call fails
-     */
+public class ConnectionsApiTest {
+    private static final UsersItem.UserName userName = UsersItem.UserName.PANTHERS_FCR;
+
+    public static void removeConnections(UsersItem.UserName userName) {
+        users.get(userName).getUserResources().getConnectionsUuid().forEach(uuid -> {
+            try {
+                deleteConnection(uuid);
+            } catch (ApiException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+    @BeforeAll
+    public static void setUp() {
+        setUserName(userName);
+    }
+
+    @AfterAll
+    public static void removeResources() {
+        removeConnections(userName);
+        CloudRoutersApiTest.removeCloudRouters(userName);
+    }
+
     @Test
-    public void createConnectionTest() throws ApiException {
-        //
-        //ConnectionPostRequest connectionPostRequest = null;
-        //
-        //Connection response = api.createConnection(connectionPostRequest);
+    public void createConnectionVdColo() throws ApiException {
+        UsersItem usersItem = Utils.getUserData(getCurrentUser());
+        Random r = new Random();
+        List<Port> portList = getPorts(userName).getData().stream()
+                .filter(p -> p.getName().contains("Dot1q"))
+                .collect(Collectors.toList());
 
-        // TODO: test validations
+        Port port = portList.get(r.nextInt(portList.size()));
+
+        ConnectionPostRequest connectionPostRequest = getDefaultConnectionRequest("panthers-con-vd-2-colo")
+                .type(ConnectionType.EVPL_VC)
+                .order(new Order().purchaseOrderNumber("pol123"))
+                .aSide(new ConnectionSide().accessPoint(new AccessPoint()
+                        .type(AccessPointType.VD)
+                        .virtualDevice(new VirtualDevice()
+                                .type(VirtualDevice.TypeEnum.EDGE)
+                                .uuid(usersItem.getVirtualDevices().get(0).getUuid()))));
+
+        Connection connection = null;
+
+        for (int i = 0; i < 3; i++) {
+            int vlanTag = new Random().nextInt(4000);
+            connectionPostRequest.zSide(new ConnectionSide().accessPoint(
+                    new AccessPoint()
+                            .type(AccessPointType.COLO)
+                            .port(new SimplifiedPort()
+                                    .uuid(port.getUuid()))
+                            .linkProtocol(new SimplifiedLinkProtocol()
+                                    .type(LinkProtocolType.DOT1Q)
+                                    .vlanTag(vlanTag))));
+
+            connection = connectionsApi.createConnection(connectionPostRequest);
+
+            if (connectionsApi.getApiClient().getStatusCode() == 201) {
+                break;
+            }
+        }
+
+        assertEquals(201, connectionsApi.getApiClient().getStatusCode());
+        users.get(userName).getUserResources().addConnectionUuid(connection.getUuid());
+        waitForConnectionIsInState(connection.getUuid(), EquinixStatus.PROVISIONED);
+    }
+
+    @Test
+    public void createConnectionPort2SP() throws ApiException {
+        Connection connection = createPort2SpConnection();
+        users.get(userName).getUserResources().addConnectionUuid(connection.getUuid());
+        waitForConnectionIsInState(connection.getUuid(), EquinixStatus.PENDING_APPROVAL);
+    }
+
+    @Test
+    public void createConnectionFCR2Port() throws ApiException {
+        Connection connection = createConnectionFCR2ToPort();
+        waitForConnectionIsInState(connection.getUuid(), EquinixStatus.PENDING_INTERFACE_CONFIGURATION);
+    }
+
+    @Test
+    public void createConnectionPort2Port() throws ApiException {
+        createPort2Port();
     }
 
     /**
-     * Connection Actions
-     * <p>
-     * This API provides capability to accept/reject user&#39;s virtual connection
-     *
-     * @throws ApiException if the Api call fails
+     * Successful operation
      */
     @Test
-    public void createConnectionActionTest() throws ApiException {
-        //
-        //String connectionId = null;
-        //
-        //ConnectionActionRequest connectionActionRequest = null;
-        //
-        //ConnectionAction response = api.createConnectionAction(connectionId, connectionActionRequest);
-
-        // TODO: test validations
+    public void searchConnections() throws ApiException {
+        ConnectionSearchResponse connectionSearchResponse = getConnections();
+        assertEquals(200, connectionsApi.getApiClient().getStatusCode());
+        connectionSearchResponse.getData().forEach(connection -> assertEquals(connection.getOperation().getProviderStatus(), ProviderStatus.AVAILABLE));
     }
 
     /**
-     * Delete by ID
-     * <p>
-     * Delete Connection by ID
-     *
-     * @throws ApiException if the Api call fails
+     * Successful operation
      */
     @Test
-    public void deleteConnectionByUuidTest() throws ApiException {
-        //
-        //String connectionId = null;
-        //
-        //Connection response = api.deleteConnectionByUuid(connectionId);
+    public void getConnectionByUuid() throws ApiException {
+        ConnectionSearchResponse connectionSearchResponse = getConnections();
+        Connection randomConnection = connectionSearchResponse.getData().get(new Random().nextInt(connectionSearchResponse.getData().size()));
 
-        // TODO: test validations
+        Connection connection = connectionsApi.getConnectionByUuid(randomConnection.getUuid(), null);
+
+        assertEquals(200, connectionsApi.getApiClient().getStatusCode());
+        assertEquals(randomConnection.getUuid(), connection.getUuid());
+        assertEquals(randomConnection.getName(), connection.getName());
     }
 
     /**
-     * Get Connection by ID
-     * <p>
-     * The API provides capability to get user&#39;s virtual connection details (Service Tokens, Access Points, Link Protocols, etc) by it&#39;s connection ID (UUID)
-     *
-     * @throws ApiException if the Api call fails
+     * Delete Connection Request
      */
     @Test
-    public void getConnectionByUuidTest() throws ApiException {
-        //
-        //String connectionId = null;
-        //
-        //ConnectionDirection direction = null;
-        //
-        //Connection response = api.getConnectionByUuid(connectionId, direction);
+    public void deleteConnectionByUuid() throws ApiException {
+        Connection connection = createPort2SpConnection();
+        connectionsApi.deleteConnectionByUuid(connection.getUuid());
+        waitForConnectionIsInState(connection.getUuid(), EquinixStatus.DELETED);
+        assertEquals(200, connectionsApi.getApiClient().getStatusCode());
+    }
 
-        // TODO: test validations
+    public static Connection createConnectionFCR2ToPort() throws ApiException {
+        CloudRouter cloudRouter = createRouter();
+
+        UsersItem userDto = Utils.getUserData(getCurrentUser());
+
+        Random r = new Random();
+        List<Port> portList = getPorts(userName).getData().stream()
+                .filter(p -> p.getName().contains("Dot1q"))
+                .filter(p -> p.getLocation().getMetroCode().equals(cloudRouter.getLocation().getMetroCode()))
+                .collect(Collectors.toList());
+
+        Port port = portList.get(r.nextInt(portList.size()));
+
+        ConnectionPostRequest connectionPostRequest = getDefaultConnectionRequest("panthers-con-fcr-2-port")
+                .type(ConnectionType.IP_VC)
+                .project(new Project().projectId(userDto.getProjectId()))
+                .aSide(new ConnectionSide().accessPoint(
+                        new AccessPoint()
+                                .type(AccessPointType.CLOUD_ROUTER)
+                                .router(new CloudRouter().uuid(cloudRouter.getUuid()))));
+
+        Connection connection = null;
+        for (int i = 0; i < 3; i++) {
+            int tag = new Random().nextInt(4000);
+            connectionPostRequest.zSide(new ConnectionSide().accessPoint(
+                    new AccessPoint()
+                            .type(AccessPointType.COLO)
+                            .port(new SimplifiedPort().uuid(port.getUuid()))
+                            .linkProtocol(new SimplifiedLinkProtocol()
+                                    .type(LinkProtocolType.DOT1Q)
+                                    .vlanTag(tag))));
+
+            connection = connectionsApi.createConnection(connectionPostRequest);
+
+            if (connectionsApi.getApiClient().getStatusCode() == 201) {
+                break;
+            }
+        }
+
+        assertEquals(201, connectionsApi.getApiClient().getStatusCode());
+
+        users.get(userName).getUserResources().addConnectionUuid(connection.getUuid());
+        return connection;
+    }
+
+    public static ConnectionPostRequest getDefaultConnectionRequest(String name) {
+        return new ConnectionPostRequest()
+                .name(name)
+                .bandwidth(1000)
+                .notifications(singletonList(new SimplifiedNotification()
+                        .type(SimplifiedNotification.TypeEnum.ALL)
+                        .emails(singletonList("test@test.com"))));
+    }
+
+    public static Connection createPort2SpConnection() throws ApiException {
+        ServiceProfile serviceProfile = new ServiceProfilesApiTest().getServiceProfilesByQueryResponse("zSide")
+                .getData().stream().filter(sp -> sp.getState().equals(ServiceProfileStateEnum.ACTIVE))
+                .findAny().get();
+
+        UsersItem usersItem = Utils.getUserData(getCurrentUser());
+        PortDto portDto = usersItem.getPorts().get(0);
+
+        ConnectionPostRequest connectionPostRequest = getDefaultConnectionRequest("panthers-con-port-2-sp")
+                .type(ConnectionType.EVPL_VC)
+                .redundancy(new ConnectionRedundancy().priority(ConnectionPriority.PRIMARY))
+                .order(new Order().purchaseOrderNumber("pol123"))
+                .zSide(new ConnectionSide().accessPoint(
+                        new AccessPoint()
+                                .type(AccessPointType.SP)
+                                .profile(new SimplifiedServiceProfile()
+                                        .type(ServiceProfileTypeEnum.L2_PROFILE)
+                                        .uuid(serviceProfile.getUuid()))
+                                .location(new SimplifiedLocation()
+                                        .metroCode(serviceProfile.getMetros().get(0).getCode()))));
+
+        Connection connection = null;
+
+        for (int i = 0; i < 3; i++) {
+            int sTag = new Random().nextInt(4000);
+            int cTag = new Random().nextInt(4000);
+            connectionPostRequest.aSide(new ConnectionSide().accessPoint(
+                    new AccessPoint()
+                            .type(AccessPointType.COLO)
+                            .port(new SimplifiedPort().uuid(UUID.fromString(portDto.getUuid())))
+                            .linkProtocol(new SimplifiedLinkProtocol()
+                                    .type(LinkProtocolType.QINQ)
+                                    .vlanSTag(sTag)
+                                    .vlanCTag(cTag))));
+
+            connection = connectionsApi.createConnection(connectionPostRequest);
+
+            if (connectionsApi.getApiClient().getStatusCode() == 201) {
+                break;
+            }
+        }
+
+        assertEquals(201, connectionsApi.getApiClient().getStatusCode());
+
+        return connection;
     }
 
     /**
-     * Search connections
-     * <p>
-     * The API provides capability to get list of user&#39;s virtual connections using search criteria, including optional filtering, pagination and sorting
-     *
-     * @throws ApiException if the Api call fails
+     * Successful operation
      */
     @Test
-    public void searchConnectionsTest() throws ApiException {
-        //
-        //SearchRequest searchRequest = null;
-        //
-        //ConnectionSearchResponse response = api.searchConnections(searchRequest);
+    public void updateConnectionByUuid() throws ApiException {
+        Connection connection = createPort2Port();
+        String updatedName = "updated_p2p_connection";
 
-        // TODO: test validations
+        ConnectionChangeOperation connectionChangeOperation = new ConnectionChangeOperation()
+                .op(OpEnum.REPLACE.getValue())
+                .path("/name")
+                .value(updatedName);
+
+        Connection updatedConnection = connectionsApi.updateConnectionByUuid(connection.getUuid(), singletonList(connectionChangeOperation));
+
+        assertEquals(202, connectionsApi.getApiClient().getStatusCode());
+
+        for (int i = 0; i < 5; i++) {
+            updatedConnection = connectionsApi.getConnectionByUuid(connection.getUuid(), null);
+
+            if (updatedConnection.getName().equals(updatedName)) {
+                break;
+            }
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        assertEquals(updatedConnection.getName(), updatedName);
     }
 
-    /**
-     * Update by ID
-     * <p>
-     * Update Connection by ID
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void updateConnectionByUuidTest() throws ApiException {
-        //
-        //String connectionId = null;
-        //
-        //List<ConnectionChangeOperation> connectionChangeOperation = null;
-        //
-        //Connection response = api.updateConnectionByUuid(connectionId, connectionChangeOperation);
+    public static Connection createPort2Port() throws ApiException {
+        List<Port> port = getPorts(userName).getData().stream()
+                .filter(p -> p.getName().contains("Dot1q"))
+                .collect(Collectors.toList());
 
-        // TODO: test validations
+        Connection connection = null;
+
+        for (int i = 0; i < 3; i++) {
+            int tagAside = new Random().nextInt(4000);
+            int tagZside = new Random().nextInt(4000);
+
+            ConnectionPostRequest connectionPostRequest = getDefaultConnectionRequest("panthers-con-port-2-port")
+                    .type(ConnectionType.EVPL_VC)
+
+                    .redundancy(new ConnectionRedundancy().priority(ConnectionPriority.PRIMARY))
+                    .aSide(new ConnectionSide().accessPoint(
+                            new AccessPoint()
+                                    .type(AccessPointType.COLO)
+                                    .port(new SimplifiedPort()
+                                            .uuid(port.get(0).getUuid()))
+                                    .linkProtocol(new SimplifiedLinkProtocol()
+                                            .type(LinkProtocolType.DOT1Q).vlanTag(tagAside))))
+                    .zSide(new ConnectionSide().accessPoint(
+                            new AccessPoint()
+                                    .type(AccessPointType.COLO)
+                                    .port(new SimplifiedPort()
+                                            .uuid(port.get(1).getUuid()))
+                                    .linkProtocol(new SimplifiedLinkProtocol()
+                                            .type(LinkProtocolType.DOT1Q)
+                                            .vlanTag(tagZside))));
+
+            connection = connectionsApi.createConnection(connectionPostRequest);
+
+            if (connectionsApi.getApiClient().getStatusCode() == 201) {
+                break;
+            }
+        }
+
+        assertEquals(201, connectionsApi.getApiClient().getStatusCode());
+        users.get(userName).getUserResources().addConnectionUuid(connection.getUuid());
+        waitForConnectionIsInState(connection.getUuid(), EquinixStatus.PROVISIONED);
+        return connection;
     }
 
-    /**
-     * Validate Connection
-     * <p>
-     * This API provides capability to validate by auth key
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void validateConnectionsTest() throws ApiException {
-        //
-        //ValidateRequest validateRequest = null;
-        //
-        //ConnectionResponse response = api.validateConnections(validateRequest);
+    private static void deleteConnection(String uuid) throws ApiException {
+        connectionsApi.deleteConnectionByUuid(uuid);
+        assertEquals(202, connectionsApi.getApiClient().getStatusCode());
+        waitForConnectionIsInState(uuid, EquinixStatus.DELETED, EquinixStatus.DEPROVISIONED);
+    }
 
-        // TODO: test validations
+    private static void waitForConnectionIsInState(String connectionUuid, EquinixStatus... connectionState) throws ApiException {
+        boolean result = false;
+        EquinixStatus currentState = null;
+        for (int i = 0; i < 5; i++) {
+            Connection connection = connectionsApi.getConnectionByUuid(connectionUuid, null);
+            currentState = connection.getOperation().getEquinixStatus();
+
+            if (connectionState.length > 1) {
+                if (currentState.equals(connectionState[0]) || currentState.equals(connectionState[1])) {
+                    result = true;
+                    break;
+                }
+            } else {
+                if (currentState.equals(connectionState[0])) {
+                    result = true;
+                    break;
+                }
+            }
+            try {
+                Thread.sleep(8000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        assertTrue(result, "Connection ha not reached the expected state: " + connectionState + " current state: " + currentState.getValue());
+    }
+
+    private ConnectionSearchResponse getConnections() throws ApiException {
+        SearchRequest searchRequest = new SearchRequest()
+                .filter(new Expression()
+                        .addAndItem(new Expression()
+                                .property(SearchFieldName._OPERATION_PROVIDERSTATUS)
+                                .operator(Expression.OperatorEnum.EQUAL)
+                                .values(singletonList(ProviderStatus.AVAILABLE.getValue()))))
+                .pagination(new PaginationRequest().limit(5).offset(10))
+                .sort(singletonList(new SortCriteria().property(SortBy.CHANGELOG_UPDATEDDATETIME).direction(SortDirection.DESC)));
+
+        return connectionsApi.searchConnections(searchRequest);
     }
 }

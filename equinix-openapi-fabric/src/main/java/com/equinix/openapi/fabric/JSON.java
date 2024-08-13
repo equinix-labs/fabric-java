@@ -8,20 +8,16 @@
  * Do not edit the class manually.
  */
 
-
 package com.equinix.openapi.fabric;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonParseException;
-import com.google.gson.TypeAdapter;
+import com.equinix.openapi.fabric.v4.model.PortDeviceRedundancy;
+import com.equinix.openapi.fabric.v4.model.PortEncapsulation;
+import com.google.gson.*;
 import com.google.gson.internal.bind.util.ISO8601Utils;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import com.google.gson.JsonElement;
 import io.gsonfire.GsonFireBuilder;
 import io.gsonfire.TypeSelector;
-
 import okio.ByteString;
 
 import java.io.IOException;
@@ -33,10 +29,10 @@ import java.text.ParsePosition;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 import java.util.Date;
-import java.util.Locale;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 /*
  * A JSON utility class
@@ -53,71 +49,9 @@ public class JSON {
     private static LocalDateTypeAdapter localDateTypeAdapter = new LocalDateTypeAdapter();
     private static ByteArrayAdapter byteArrayAdapter = new ByteArrayAdapter();
 
-    @SuppressWarnings("unchecked")
-    public static GsonBuilder createGson() {
-        GsonFireBuilder fireBuilder = new GsonFireBuilder()
-                .registerTypeSelector(com.equinix.openapi.fabric.v4.model.LinkProtocol.class, new TypeSelector<com.equinix.openapi.fabric.v4.model.LinkProtocol>() {
-                    @Override
-                    public Class<? extends com.equinix.openapi.fabric.v4.model.LinkProtocol> getClassForElement(JsonElement readElement) {
-                        Map<String, Class> classByDiscriminatorValue = new HashMap<String, Class>();
-                        classByDiscriminatorValue.put("DOT1Q", com.equinix.openapi.fabric.v4.model.LinkProtocolDot1q.class);
-                        classByDiscriminatorValue.put("EVPN_VXLAN", com.equinix.openapi.fabric.v4.model.LinkProtocolEvpnVxlan.class);
-                        classByDiscriminatorValue.put("QINQ", com.equinix.openapi.fabric.v4.model.LinkProtocolQinq.class);
-                        classByDiscriminatorValue.put("UNTAGGED", com.equinix.openapi.fabric.v4.model.LinkProtocolUntagged.class);
-                        classByDiscriminatorValue.put("VXLAN", com.equinix.openapi.fabric.v4.model.LinkProtocolVxlan.class);
-                        classByDiscriminatorValue.put("LinkProtocol", com.equinix.openapi.fabric.v4.model.LinkProtocol.class);
-                        return getClassByDiscriminator(classByDiscriminatorValue,
-                                getDiscriminatorValue(readElement, "type"));
-                    }
-          })
-                .registerTypeSelector(com.equinix.openapi.fabric.v4.model.MetroError.class, new TypeSelector<com.equinix.openapi.fabric.v4.model.MetroError>() {
-                    @Override
-                    public Class<? extends com.equinix.openapi.fabric.v4.model.MetroError> getClassForElement(JsonElement readElement) {
-                        Map<String, Class> classByDiscriminatorValue = new HashMap<String, Class>();
-                        classByDiscriminatorValue.put("MetroError", com.equinix.openapi.fabric.v4.model.MetroError.class);
-                        return getClassByDiscriminator(classByDiscriminatorValue,
-                                getDiscriminatorValue(readElement, "errorCode"));
-                    }
-          })
-                .registerTypeSelector(com.equinix.openapi.fabric.v4.model.PriceError.class, new TypeSelector<com.equinix.openapi.fabric.v4.model.PriceError>() {
-                    @Override
-                    public Class<? extends com.equinix.openapi.fabric.v4.model.PriceError> getClassForElement(JsonElement readElement) {
-                        Map<String, Class> classByDiscriminatorValue = new HashMap<String, Class>();
-                        classByDiscriminatorValue.put("PriceError", com.equinix.openapi.fabric.v4.model.PriceError.class);
-                        return getClassByDiscriminator(classByDiscriminatorValue,
-                                getDiscriminatorValue(readElement, "errorCode"));
-                    }
-          })
-        ;
-        GsonBuilder builder = fireBuilder.createGsonBuilder();
-        return builder;
-    }
-
-    private static String getDiscriminatorValue(JsonElement readElement, String discriminatorField) {
-        JsonElement element = readElement.getAsJsonObject().get(discriminatorField);
-        if (null == element) {
-            throw new IllegalArgumentException("missing discriminator field: <" + discriminatorField + ">");
-        }
-        return element.getAsString();
-    }
-
-    /**
-     * Returns the Java class that implements the OpenAPI schema for the specified discriminator value.
-     *
-     * @param classByDiscriminatorValue The map of discriminator values to Java classes.
-     * @param discriminatorValue The value of the OpenAPI discriminator in the input data.
-     * @return The Java class that implements the OpenAPI schema
-     */
-    private static Class getClassByDiscriminator(Map classByDiscriminatorValue, String discriminatorValue) {
-        Class clazz = (Class) classByDiscriminatorValue.get(discriminatorValue);
-        if (null == clazz) {
-            throw new IllegalArgumentException("cannot determine model class of name: <" + discriminatorValue + ">");
-        }
-        return clazz;
-    }
-
-    {
+    static {
         GsonBuilder gsonBuilder = createGson();
+        gsonBuilder.registerTypeHierarchyAdapter(Collection.class, new CollectionAdapter());
         gsonBuilder.registerTypeAdapter(Date.class, dateTypeAdapter);
         gsonBuilder.registerTypeAdapter(java.sql.Date.class, sqlDateTypeAdapter);
         gsonBuilder.registerTypeAdapter(OffsetDateTime.class, offsetDateTimeTypeAdapter);
@@ -398,7 +332,63 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(new com.equinix.openapi.fabric.v4.model.VirtualPortPrice.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.equinix.openapi.fabric.v4.model.VirtualPortRedundancy.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.equinix.openapi.fabric.v4.model.VpicInterface.CustomTypeAdapterFactory());
-        gson = gsonBuilder.create();
+        gsonBuilder.registerTypeAdapter(PortEncapsulation.TypeEnum.class,new UppercaseEnumAdapter());
+        gsonBuilder.registerTypeAdapter(PortDeviceRedundancy.PriorityEnum.class,new UppercaseEnumAdapter());
+        gson = gsonBuilder.setPrettyPrinting().create();
+    }
+
+    public static class UppercaseEnumAdapter implements JsonDeserializer<Enum> {
+        @Override
+        public Enum deserialize(JsonElement json, java.lang.reflect.Type type, JsonDeserializationContext context)
+                throws JsonParseException {
+            try {
+                if(type instanceof Class && ((Class<?>) type).isEnum())
+                    return Enum.valueOf((Class<Enum>) type, json.getAsString().toUpperCase());
+                return null;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public static GsonBuilder createGson() {
+        GsonFireBuilder fireBuilder = new GsonFireBuilder()
+                .registerTypeSelector(com.equinix.openapi.fabric.v4.model.LinkProtocol.class, new TypeSelector<com.equinix.openapi.fabric.v4.model.LinkProtocol>() {
+                    @Override
+                    public Class<? extends com.equinix.openapi.fabric.v4.model.LinkProtocol> getClassForElement(JsonElement readElement) {
+                        Map<String, Class> classByDiscriminatorValue = new HashMap<String, Class>();
+                        classByDiscriminatorValue.put("DOT1Q", com.equinix.openapi.fabric.v4.model.LinkProtocolDot1q.class);
+                        classByDiscriminatorValue.put("EVPN_VXLAN", com.equinix.openapi.fabric.v4.model.LinkProtocolEvpnVxlan.class);
+                        classByDiscriminatorValue.put("QINQ", com.equinix.openapi.fabric.v4.model.LinkProtocolQinq.class);
+                        classByDiscriminatorValue.put("UNTAGGED", com.equinix.openapi.fabric.v4.model.LinkProtocolUntagged.class);
+                        classByDiscriminatorValue.put("VXLAN", com.equinix.openapi.fabric.v4.model.LinkProtocolVxlan.class);
+                        classByDiscriminatorValue.put("LinkProtocol", com.equinix.openapi.fabric.v4.model.LinkProtocol.class);
+                        return getClassByDiscriminator(classByDiscriminatorValue,
+                                getDiscriminatorValue(readElement, "type"));
+                    }
+                })
+                .registerTypeSelector(com.equinix.openapi.fabric.v4.model.MetroError.class, new TypeSelector<com.equinix.openapi.fabric.v4.model.MetroError>() {
+                    @Override
+                    public Class<? extends com.equinix.openapi.fabric.v4.model.MetroError> getClassForElement(JsonElement readElement) {
+                        Map<String, Class> classByDiscriminatorValue = new HashMap<String, Class>();
+                        classByDiscriminatorValue.put("MetroError", com.equinix.openapi.fabric.v4.model.MetroError.class);
+                        return getClassByDiscriminator(classByDiscriminatorValue,
+                                getDiscriminatorValue(readElement, "errorCode"));
+                    }
+                })
+                .registerTypeSelector(com.equinix.openapi.fabric.v4.model.PriceError.class, new TypeSelector<com.equinix.openapi.fabric.v4.model.PriceError>() {
+                    @Override
+                    public Class<? extends com.equinix.openapi.fabric.v4.model.PriceError> getClassForElement(JsonElement readElement) {
+                        Map<String, Class> classByDiscriminatorValue = new HashMap<String, Class>();
+                        classByDiscriminatorValue.put("PriceError", com.equinix.openapi.fabric.v4.model.PriceError.class);
+                        return getClassByDiscriminator(classByDiscriminatorValue,
+                                getDiscriminatorValue(readElement, "errorCode"));
+                    }
+                });
+        GsonBuilder builder = fireBuilder.createGsonBuilder();
+        return builder;
     }
 
     /**
@@ -448,6 +438,7 @@ public class JSON {
                 JsonReader jsonReader = new JsonReader(new StringReader(body));
                 // see https://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/com/google/gson/stream/JsonReader.html#setLenient(boolean)
                 jsonReader.setLenient(true);
+                gson.serializeNulls();
                 return gson.fromJson(jsonReader, returnType);
             } else {
                 return gson.fromJson(body, returnType);
@@ -461,6 +452,45 @@ public class JSON {
                 throw (e);
             }
         }
+    }
+
+    public static void setOffsetDateTimeFormat(DateTimeFormatter dateFormat) {
+        offsetDateTimeTypeAdapter.setFormat(dateFormat);
+    }
+
+    public static void setLocalDateFormat(DateTimeFormatter dateFormat) {
+        localDateTypeAdapter.setFormat(dateFormat);
+    }
+
+    public static void setDateFormat(DateFormat dateFormat) {
+        dateTypeAdapter.setFormat(dateFormat);
+    }
+
+    public static void setSqlDateFormat(DateFormat dateFormat) {
+        sqlDateTypeAdapter.setFormat(dateFormat);
+    }
+
+    private static String getDiscriminatorValue(JsonElement readElement, String discriminatorField) {
+        JsonElement element = readElement.getAsJsonObject().get(discriminatorField);
+        if (null == element) {
+            throw new IllegalArgumentException("missing discriminator field: <" + discriminatorField + ">");
+        }
+        return element.getAsString();
+    }
+
+    /**
+     * Returns the Java class that implements the OpenAPI schema for the specified discriminator value.
+     *
+     * @param classByDiscriminatorValue The map of discriminator values to Java classes.
+     * @param discriminatorValue        The value of the OpenAPI discriminator in the input data.
+     * @return The Java class that implements the OpenAPI schema
+     */
+    private static Class getClassByDiscriminator(Map classByDiscriminatorValue, String discriminatorValue) {
+        Class clazz = (Class) classByDiscriminatorValue.get(discriminatorValue);
+        if (null == clazz) {
+            throw new IllegalArgumentException("cannot determine model class of name: <" + discriminatorValue + ">");
+        }
+        return clazz;
     }
 
     /**
@@ -528,7 +558,7 @@ public class JSON {
                 default:
                     String date = in.nextString();
                     if (date.endsWith("+0000")) {
-                        date = date.substring(0, date.length()-5) + "Z";
+                        date = date.substring(0, date.length() - 5) + "Z";
                     }
                     return OffsetDateTime.parse(date, formatter);
             }
@@ -576,14 +606,6 @@ public class JSON {
         }
     }
 
-    public static void setOffsetDateTimeFormat(DateTimeFormatter dateFormat) {
-        offsetDateTimeTypeAdapter.setFormat(dateFormat);
-    }
-
-    public static void setLocalDateFormat(DateTimeFormatter dateFormat) {
-        localDateTypeAdapter.setFormat(dateFormat);
-    }
-
     /**
      * Gson TypeAdapter for java.sql.Date type
      * If the dateFormat is null, a simple "yyyy-MM-dd" format will be used
@@ -593,7 +615,8 @@ public class JSON {
 
         private DateFormat dateFormat;
 
-        public SqlDateTypeAdapter() {}
+        public SqlDateTypeAdapter() {
+        }
 
         public SqlDateTypeAdapter(DateFormat dateFormat) {
             this.dateFormat = dateFormat;
@@ -646,7 +669,8 @@ public class JSON {
 
         private DateFormat dateFormat;
 
-        public DateTypeAdapter() {}
+        public DateTypeAdapter() {
+        }
 
         public DateTypeAdapter(DateFormat dateFormat) {
             this.dateFormat = dateFormat;
@@ -694,12 +718,22 @@ public class JSON {
             }
         }
     }
+}
 
-    public static void setDateFormat(DateFormat dateFormat) {
-        dateTypeAdapter.setFormat(dateFormat);
-    }
+class CollectionAdapter implements JsonSerializer<Collection<?>> {
 
-    public static void setSqlDateFormat(DateFormat dateFormat) {
-        sqlDateTypeAdapter.setFormat(dateFormat);
+    @Override
+    public JsonElement serialize(Collection<?> src, Type typeOfSrc, JsonSerializationContext context) {
+        if (src == null || src.isEmpty()) // exclusion is made here
+            return null;
+
+        JsonArray array = new JsonArray();
+
+        for (Object child : src) {
+            JsonElement element = context.serialize(child);
+            array.add(element);
+        }
+
+        return array;
     }
 }

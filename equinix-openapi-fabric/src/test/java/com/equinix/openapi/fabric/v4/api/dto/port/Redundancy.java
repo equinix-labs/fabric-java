@@ -1,10 +1,10 @@
 package com.equinix.openapi.fabric.v4.api.dto.port;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Redundancy{
 
-	@SerializedName("priority")
+	@JsonProperty("priority")
 	private String priority;
 
 	public String getPriority(){

@@ -1,6 +1,5 @@
 /*
  * Equinix Fabric API v4
- * Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br>
  *
  * Contact: api-support@equinix.com
  *
@@ -12,154 +11,148 @@
 package com.equinix.openapi.fabric.v4.api;
 
 import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.v4.api.dto.users.UsersItem;
+import com.equinix.openapi.fabric.v4.api.helpers.Utils;
+import com.equinix.openapi.fabric.v4.model.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Disabled;
+
+import java.util.UUID;
+
+import static com.equinix.openapi.fabric.v4.api.helpers.TokenGenerator.users;
+import static com.equinix.openapi.fabric.v4.api.helpers.Apis.networksApi;
+import static com.equinix.openapi.fabric.v4.api.helpers.Apis.setUserName;
+import static java.util.Collections.singletonList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 /**
  * API tests for NetworksApi
  */
-@Disabled
-public class NetworksApiTest extends AbstractTest {
+class NetworksApiTest {
+    private static final UsersItem.UserName userName = UsersItem.UserName.PANTHERS_FNV;
 
-    private final NetworksApi api = new NetworksApi(generateToken());
+    public static void removeNetworks(UsersItem.UserName userName) {
+        users.get(userName).getUserResources().getNetworksUuid().forEach(com.equinix.openapi.fabric.v4.api.NetworksApiTest::deleteNetwork);
+    }
 
-    /**
-     * Create Network
-     * <p>
-     * This API provides capability to create user&#39;s Fabric Network
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void createNetworkTest() throws ApiException {
-        //
-        //NetworkPostRequest networkPostRequest = null;
-        //
-        //Network response = api.createNetwork(networkPostRequest);
+    @BeforeAll
+    public static void setUp() {
+        setUserName(userName);
+    }
 
-        // TODO: test validations
+    @AfterAll
+    public static void removeResources() {
+        removeNetworks(userName);
+    }
+
+    public Network createNetwork() throws ApiException {
+        UsersItem user = Utils.getUserData(userName);
+        NetworkPostRequest networkPostRequest = new NetworkPostRequest()
+                .name("network_panthers_test")
+                .type(NetworkType.EVPLAN)
+                .scope(NetworkScope.LOCAL)
+                .project(new Project().projectId(user.getProjectId()))
+                .notifications(singletonList(new SimplifiedNotification()
+                        .type(SimplifiedNotification.TypeEnum.ALL).emails(singletonList("test@equinix.com"))));
+
+        Network network = networksApi.createNetwork(networkPostRequest);
+        assertEquals(201, networksApi.getApiClient().getStatusCode());
+
+        for (int i = 0; i < 5; i++) {
+            Network networkGet = networksApi.getNetworkByUuid(network.getUuid());
+
+            if (networkGet.getState().equals(NetworkState.ACTIVE)) {
+                break;
+            }
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        users.get(userName).getUserResources().addNetworkUuid(network.getUuid());
+        return network;
     }
 
     /**
-     * Delete Network By ID
-     * <p>
-     * This API provides capability to delete user&#39;s Fabric Network
-     *
-     * @throws ApiException if the Api call fails
+     * Fabric Network Access point object
      */
     @Test
-    public void deleteNetworkByUuidTest() throws ApiException {
-        //
-        //UUID networkId = null;
-        //
-        //Network response = api.deleteNetworkByUuid(networkId);
+    public void validateNetworkCreation() throws ApiException {
+        createNetwork();
+    }
 
-        // TODO: test validations
+    public static void deleteNetwork(UUID uuid) {
+
+        try {
+            Network network = networksApi.getNetworkByUuid(uuid);
+            if (!network.getState().equals(NetworkState.DELETED)) {
+                networksApi.deleteNetworkByUuid(uuid);
+                assertEquals(202, networksApi.getApiClient().getStatusCode());
+            }
+        } catch (ApiException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
-     * Get Connections
-     * <p>
-     * The API provides capability to get list of user&#39;s Fabric Network connections
-     *
-     * @throws ApiException if the Api call fails
+     * Fabric Network Access point object
      */
     @Test
-    public void getConnectionsByNetworkUuidTest() throws ApiException {
-        //
-        //UUID networkId = null;
-        //
-        //NetworkConnections response = api.getConnectionsByNetworkUuid(networkId);
-
-        // TODO: test validations
+    public void deleteNetworkByUuid() throws ApiException {
+        Network network = createNetwork();
+        deleteNetwork(network.getUuid());
     }
 
     /**
-     * Get Network By ID
-     * <p>
-     * This API provides capability to retrieve user&#39;s Fabric Network
-     *
-     * @throws ApiException if the Api call fails
+     * Fabric Network Access point object
      */
     @Test
-    public void getNetworkByUuidTest() throws ApiException {
-        //
-        //UUID networkId = null;
-        //
-        //Network response = api.getNetworkByUuid(networkId);
-
-        // TODO: test validations
+    public void getNetworkByUuid() throws ApiException {
+        Network network = createNetwork();
+        Network networkGetResponse = networksApi.getNetworkByUuid(network.getUuid());
+        assertEquals(200, networksApi.getApiClient().getStatusCode());
+        assertEquals(network.getUuid(), networkGetResponse.getUuid());
+        assertEquals(network.getName(), networkGetResponse.getName());
     }
 
     /**
-     * Get Change By ID
-     * <p>
-     * This API provides capability to retrieve user&#39;s Fabric Network Change
-     *
-     * @throws ApiException if the Api call fails
+     * Fabric Network Access point object
      */
     @Test
-    public void getNetworkChangeByUuidTest() throws ApiException {
-        //
-        //UUID networkId = null;
-        //
-        //UUID changeId = null;
-        //
-        //NetworkChange response = api.getNetworkChangeByUuid(networkId, changeId);
+    public void updateNetwork() throws ApiException {
+        String updatedName = "network_new_updatedName";
+        Network network = createNetwork();
+        NetworkChangeOperation changeOperation = new NetworkChangeOperation()
+                .op(NetworkChangeOperation.OpEnum.REPLACE)
+                .path(NetworkSearchFieldName.NAME.getValue())
+                .value(updatedName);
 
-        // TODO: test validations
+        Network networkPutResponse = networksApi.updateNetworkByUuid(network.getUuid(), singletonList(changeOperation));
+        assertEquals(200, networksApi.getApiClient().getStatusCode());
+        assertEquals(updatedName, networkPutResponse.getName());
     }
 
     /**
-     * Get Network Changes
-     * <p>
-     * The API provides capability to get list of user&#39;s Fabric Network changes
-     *
-     * @throws ApiException if the Api call fails
+     * Fabric Network Access point object
      */
     @Test
-    public void getNetworkChangesTest() throws ApiException {
-        //
-        //UUID networkId = null;
-        //
-        //NetworkChangeResponse response = api.getNetworkChanges(networkId);
+    public void searchNetwork() throws ApiException {
+        Network network = createNetwork();
+        NetworkSearchRequest networkSearchRequest = new NetworkSearchRequest()
+                .filter(new NetworkFilter().addAndItem(new NetworkFilter()
+                        .property(NetworkSearchFieldName.UUID)
+                        .operator(NetworkFilter.OperatorEnum.EQUAL)
+                        .values(singletonList(String.valueOf(network.getUuid())))))
+                .sort(singletonList(new NetworkSortCriteria().direction(NetworkSortDirection.DESC).property(NetworkSortBy.CHANGELOG_CREATEDDATETIME)))
+                .pagination(new PaginationRequest().offset(0).limit(20));
 
-        // TODO: test validations
-    }
+        NetworkSearchResponse networkSearchResponse = networksApi.searchNetworks(networkSearchRequest);
 
-    /**
-     * Search Network
-     * <p>
-     * The API provides capability to get list of user&#39;s Fabric Network using search criteria, including optional filtering, pagination and sorting
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void searchNetworksTest() throws ApiException {
-        //
-        //NetworkSearchRequest networkSearchRequest = null;
-        //
-        //NetworkSearchResponse response = api.searchNetworks(networkSearchRequest);
-
-        // TODO: test validations
-    }
-
-    /**
-     * Update Network By ID
-     * <p>
-     * This API provides capability to update user&#39;s Fabric Network
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void updateNetworkByUuidTest() throws ApiException {
-        //
-        //UUID networkId = null;
-        //
-        //List<NetworkChangeOperation> networkChangeOperation = null;
-        //
-        //Network response = api.updateNetworkByUuid(networkId, networkChangeOperation);
-
-        // TODO: test validations
+        assertEquals(200, networksApi.getApiClient().getStatusCode());
+        assertFalse(networkSearchResponse.getData().isEmpty());
     }
 }

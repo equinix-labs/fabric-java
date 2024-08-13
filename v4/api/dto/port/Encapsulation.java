@@ -1,13 +1,13 @@
 package com.equinix.openapi.fabric.v4.api.dto.port;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Encapsulation{
 
-	@SerializedName("tagProtocolId")
+	@JsonProperty("tagProtocolId")
 	private String tagProtocolId;
 
-	@SerializedName("type")
+	@JsonProperty("type")
 	private String type;
 
 	public String getTagProtocolId(){

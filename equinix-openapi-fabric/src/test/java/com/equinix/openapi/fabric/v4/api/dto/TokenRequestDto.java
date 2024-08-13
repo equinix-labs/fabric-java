@@ -2,59 +2,38 @@ package com.equinix.openapi.fabric.v4.api.dto;
 
 import com.google.gson.annotations.SerializedName;
 
-public class TokenRequestDto {
-    @SerializedName("user_password")
-    private String userPassword;
+public class TokenRequestDto{
 
-    @SerializedName("grant_type")
-    private String grantType;
+	@SerializedName("grant_type")
+	private String grantType;
 
-    @SerializedName("user_name")
-    private String userName;
+	@SerializedName("client_secret")
+	private String clientSecret;
 
-    @SerializedName("client_secret")
-    private String clientSecret;
+	@SerializedName("client_id")
+	private String clientId;
 
-    @SerializedName("client_id")
-    private String clientId;
+	public void setGrantType(String grantType){
+		this.grantType = grantType;
+	}
 
-    public String getUserPassword() {
-        return userPassword;
-    }
+	public String getGrantType(){
+		return grantType;
+	}
 
-    public TokenRequestDto setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
-        return this;
-    }
+	public void setClientSecret(String clientSecret){
+		this.clientSecret = clientSecret;
+	}
 
-    public String getGrantType() {
-        return grantType;
-    }
+	public String getClientSecret(){
+		return clientSecret;
+	}
 
-    public String getUserName() {
-        return userName;
-    }
+	public void setClientId(String clientId){
+		this.clientId = clientId;
+	}
 
-    public TokenRequestDto setUserName(String userName) {
-        this.userName = userName;
-        return this;
-    }
-
-    public String getClientSecret() {
-        return clientSecret;
-    }
-
-    public TokenRequestDto setClientSecret(String clientSecret) {
-        this.clientSecret = clientSecret;
-        return this;
-    }
-
-    public String getClientId() {
-        return clientId;
-    }
-
-    public TokenRequestDto setClientId(String clientId) {
-        this.clientId = clientId;
-        return this;
-    }
+	public String getClientId(){
+		return clientId;
+	}
 }

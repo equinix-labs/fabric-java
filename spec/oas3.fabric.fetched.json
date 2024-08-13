@@ -14540,7 +14540,6 @@
           "connectivitySourceType",
           "encapsulation",
           "location",
-          "physicalPortsSpeed",
           "physicalPortsType",
           "settings",
           "type"

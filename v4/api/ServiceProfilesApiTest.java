@@ -1,6 +1,5 @@
 /*
  * Equinix Fabric API v4
- * Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br>
  *
  * Contact: api-support@equinix.com
  *
@@ -12,170 +11,234 @@
 package com.equinix.openapi.fabric.v4.api;
 
 import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.v4.api.dto.users.UsersItem;
+import com.equinix.openapi.fabric.v4.api.helpers.Utils;
+import com.equinix.openapi.fabric.v4.model.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Disabled;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+
+import static com.equinix.openapi.fabric.v4.api.PortsApiTest.getPorts;
+import static com.equinix.openapi.fabric.v4.api.helpers.TokenGenerator.users;
+import static com.equinix.openapi.fabric.v4.api.helpers.Apis.serviceProfilesApi;
+import static com.equinix.openapi.fabric.v4.api.helpers.Apis.setUserName;
+import static com.equinix.openapi.fabric.v4.model.Expression.OperatorEnum.EQUAL;
+import static java.util.Collections.singletonList;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * API tests for ServiceProfilesApi
  */
-@Disabled
-public class ServiceProfilesApiTest extends AbstractTest {
+class ServiceProfilesApiTest {
+    private static final UsersItem.UserName userName = UsersItem.UserName.PANTHERS_FCR;
 
-    private final ServiceProfilesApi api = new ServiceProfilesApi(generateToken());
+    public static void removeServiceProfiles(UsersItem.UserName userName) {
+        users.get(userName).getUserResources().getServiceProfilesUuid().forEach(uuid -> {
+            try {
+                if (!serviceProfilesApi.getServiceProfileByUuid(uuid, null).getState().equals(ServiceProfileStateEnum.DELETED)) {
+                    deleteServiceProfile(uuid);
+                }
+            } catch (ApiException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
 
-    /**
-     * Create Profile
-     * <p>
-     * Create Service Profile creates Equinix Fabric? Service Profile.
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void createServiceProfileTest() throws ApiException {
-        //
-        //ServiceProfileRequest serviceProfileRequest = null;
-        //
-        //ServiceProfile response = api.createServiceProfile(serviceProfileRequest);
 
-        // TODO: test validations
+    @BeforeAll
+    public static void setUp() {
+        setUserName(userName);
+    }
+
+    @AfterAll
+    public static void removeResources() {
+        removeServiceProfiles(userName);
     }
 
     /**
-     * Delete Profile
-     * <p>
-     * delete Service Profile by UUID
-     *
-     * @throws ApiException if the Api call fails
+     * Successful Create operation
      */
     @Test
-    public void deleteServiceProfileByUuidTest() throws ApiException {
-        //
-        //UUID serviceProfileId = null;
-        //
-        //ServiceProfile response = api.deleteServiceProfileByUuid(serviceProfileId);
-
-        // TODO: test validations
+    public void createServiceProfileSp2() throws ApiException {
+        createServiceProfile();
+        assertEquals(201, serviceProfilesApi.getApiClient().getStatusCode());
     }
 
     /**
-     * Get Profile
-     * <p>
-     * Get service profile by UUID. View Point parameter if set to zSide will give seller&#39;s view of the profile otherwise buyer&#39;s view.
-     *
-     * @throws ApiException if the Api call fails
+     * Successful operation
      */
     @Test
-    public void getServiceProfileByUuidTest() throws ApiException {
-        //
-        //UUID serviceProfileId = null;
-        //
-        //String viewPoint = null;
-        //
-        //ServiceProfile response = api.getServiceProfileByUuid(serviceProfileId, viewPoint);
-
-        // TODO: test validations
+    public void getServiceProfileMetrosByUuid() throws ApiException {
+        ServiceProfiles serviceProfiles = getServiceProfilesByQueryResponse("aSide");
+        ServiceProfile serviceProfileToCheck = serviceProfiles.getData().get(0);
+        ServiceMetros serviceMetros = serviceProfilesApi.getServiceProfileMetrosByUuid(serviceProfileToCheck.getUuid(), 0, 10);
+        assertEquals(200, serviceProfilesApi.getApiClient().getStatusCode());
+        assertFalse(serviceMetros.getData().isEmpty());
+        boolean isFound = serviceMetros.getData().stream().anyMatch(metro -> metro.getCode().equals(serviceProfileToCheck.getMetros().get(0).getCode()));
+        assertTrue(isFound);
     }
 
     /**
-     * Get Profile Metros
-     * <p>
-     * Get service profile metros by UUID.
-     *
-     * @throws ApiException if the Api call fails
+     * Successful operation
      */
     @Test
-    public void getServiceProfileMetrosByUuidTest() throws ApiException {
-        //
-        //UUID serviceProfileId = null;
-        //
-        //Integer offset = null;
-        //
-        //Integer limit = null;
-        //
-        //ServiceMetros response = api.getServiceProfileMetrosByUuid(serviceProfileId, offset, limit);
-
-        // TODO: test validations
+    public void getServiceProfiles() throws ApiException {
+        ServiceProfiles serviceProfiles = getServiceProfilesByQueryResponse("zSide");
+        assertEquals(200, serviceProfilesApi.getApiClient().getStatusCode());
+        assertFalse(serviceProfiles.getData().isEmpty());
     }
 
     /**
-     * Get all Profiles
-     * <p>
-     * The API request returns all Equinix Fabric Service Profiles in accordance with the view point requested.
-     *
-     * @throws ApiException if the Api call fails
+     * Successful operation
      */
     @Test
-    public void getServiceProfilesTest() throws ApiException {
-        //
-        //Integer offset = null;
-        //
-        //Integer limit = null;
-        //
-        //String viewPoint = null;
-        //
-        //ServiceProfiles response = api.getServiceProfiles(offset, limit, viewPoint);
-
-        // TODO: test validations
+    public void getServiceProfile() throws ApiException {
+        ServiceProfiles serviceProfiles = getServiceProfilesByQueryResponse("aSide");
+        ServiceProfile serviceProfileToCheck = serviceProfiles.getData().get(0);
+        ServiceProfile serviceProfile = serviceProfilesApi.getServiceProfileByUuid(serviceProfileToCheck.getUuid(), "aSide");
+        assertEquals(200, serviceProfilesApi.getApiClient().getStatusCode());
+        assertEquals(serviceProfileToCheck.getUuid(), serviceProfile.getUuid());
+        assertEquals(serviceProfileToCheck.getName(), serviceProfile.getName());
     }
 
     /**
-     * Replace Profile
-     * <p>
-     * This API request replaces a service profile definition
-     *
-     * @throws ApiException if the Api call fails
+     * Successful Delete operation
      */
     @Test
-    public void putServiceProfileByUuidTest() throws ApiException {
-        //
-        //UUID serviceProfileId = null;
-        //
-        //String ifMatch = null;
-        //
-        //ServiceProfileRequest serviceProfileRequest = null;
-        //
-        //ServiceProfile response = api.putServiceProfileByUuid(serviceProfileId, ifMatch, serviceProfileRequest);
-
-        // TODO: test validations
+    public void deleteServiceProfileByUuid() throws ApiException {
+        ServiceProfile serviceProfile = createServiceProfile();
+        serviceProfilesApi.deleteServiceProfileByUuid(serviceProfile.getUuid());
+        assertEquals(200, serviceProfilesApi.getApiClient().getStatusCode());
     }
 
     /**
-     * Profile Search
-     * <p>
-     * Search service profiles by search criteria
-     *
-     * @throws ApiException if the Api call fails
+     * Successful operation
      */
     @Test
-    public void searchServiceProfilesTest() throws ApiException {
-        //
-        //ServiceProfileSearchRequest serviceProfileSearchRequest = null;
-        //
-        //String viewPoint = null;
-        //
-        //ServiceProfiles response = api.searchServiceProfiles(serviceProfileSearchRequest, viewPoint);
+    public void searchServiceProfiles() throws ApiException {
+        ServiceProfileSearchRequest serviceProfileSearchRequest = new ServiceProfileSearchRequest();
+        ServiceProfileSimpleExpression serviceProfileSimpleExpression = new ServiceProfileSimpleExpression();
+        serviceProfileSimpleExpression.setProperty(ServiceProfileSortBy.STATE.getValue());
+        serviceProfileSimpleExpression.setOperator(EQUAL.getValue());
+        serviceProfileSimpleExpression.setValues(singletonList("ACTIVE"));
+        serviceProfileSearchRequest
+                .filter(new ServiceProfileFilter(serviceProfileSimpleExpression))
+                .sort(singletonList(new ServiceProfileSortCriteria()
+                        .direction(ServiceProfileSortDirection.DESC)
+                        .property(ServiceProfileSortBy.CHANGELOG_UPDATEDDATETIME)))
+                .pagination(new PaginationRequest().
+                        limit(20).offset(00));
+        ServiceProfiles serviceProfiles = serviceProfilesApi.searchServiceProfiles(serviceProfileSearchRequest, "aSide");
+        assertEquals(200, serviceProfilesApi.getApiClient().getStatusCode());
+        assertFalse(serviceProfiles.getData().isEmpty());
+    }
 
-        // TODO: test validations
+    public ServiceProfiles getServiceProfilesByQueryResponse(String viewPointQuery) throws ApiException {
+        return serviceProfilesApi.getServiceProfiles(1, 10, viewPointQuery);
     }
 
     /**
-     * Update Profile
-     * <p>
-     * Update Service Profile by UUID
-     *
-     * @throws ApiException if the Api call fails
+     * Successful Patch operation
      */
     @Test
-    public void updateServiceProfileByUuidTest() throws ApiException {
-        //
-        //UUID serviceProfileId = null;
-        //
-        //String ifMatch = null;
-        //
-        //List<JsonPatchOperation> jsonPatchOperation = null;
-        //
-        //ServiceProfile response = api.updateServiceProfileByUuid(serviceProfileId, ifMatch, jsonPatchOperation);
+    public void updateServiceProfileByUuid() throws ApiException {
+        ServiceProfile serviceProfile = createServiceProfile();
 
-        // TODO: test validations
+        String updatedServiceName = "panthers updated sp2";
+        String updatedDescription = "updated description";
+
+        ServiceProfileRequest serviceProfileRequest = getServiceProfileRequest()
+                .name(updatedServiceName)
+                .description(updatedDescription);
+
+        ServiceProfile updatedServiceProfile = serviceProfilesApi.putServiceProfileByUuid(serviceProfile.getUuid(), "1", serviceProfileRequest);
+
+        assertEquals(202, serviceProfilesApi.getApiClient().getStatusCode());
+        assertEquals(updatedServiceName, updatedServiceProfile.getName());
+        assertEquals(updatedDescription, updatedServiceProfile.getDescription());
+    }
+
+    private static void deleteServiceProfile(UUID uuid) throws ApiException {
+        serviceProfilesApi.deleteServiceProfileByUuid(uuid);
+        assertEquals(200, serviceProfilesApi.getApiClient().getStatusCode());
+        waitForSpIsInState(uuid, ServiceProfileStateEnum.DELETED);
+    }
+
+    private static void waitForSpIsInState(UUID uuid, ServiceProfileStateEnum state) throws ApiException {
+        boolean result = false;
+        ServiceProfileStateEnum currentState = null;
+        for (int i = 0; i < 5; i++) {
+            ServiceProfile serviceProfile = serviceProfilesApi.getServiceProfileByUuid(uuid, null);
+            currentState = serviceProfile.getState();
+            if (serviceProfile.getState().equals(state)) {
+                result = true;
+                break;
+            }
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        assertTrue(result, "Connection ha not reached the expected state: " + state + " current state: " + currentState.getValue())
+        ;
+    }
+
+    private ServiceProfile createServiceProfile() throws ApiException {
+        ServiceProfile serviceProfile = serviceProfilesApi.createServiceProfile(getServiceProfileRequest());
+        users.get(userName).getUserResources().addServiceProfileUuid(serviceProfile.getUuid());
+        return serviceProfile;
+    }
+
+    private ServiceProfileRequest getServiceProfileRequest() throws ApiException {
+        UsersItem usersItem = Utils.getUserData(userName);
+        List<String> email = singletonList("panthersfcr@test.com");
+
+        Port port = getPorts(userName).getData().stream()
+                .filter(p -> p.getName().contains("Dot1q"))
+                .findFirst().get();
+        return new ServiceProfileRequest()
+                .name("panthers-sp2-test")
+                .description("desc")
+                .type(ServiceProfileTypeEnum.L2_PROFILE)
+                .notifications(
+                        Arrays.asList(new SimplifiedNotification().emails(email).type(SimplifiedNotification.TypeEnum.BANDWIDTH_ALERT),
+                                new SimplifiedNotification().emails(email).type(SimplifiedNotification.TypeEnum.CONNECTION_APPROVAL),
+                                new SimplifiedNotification().emails(email).type(SimplifiedNotification.TypeEnum.PROFILE_LIFECYCLE)))
+                .tags(Arrays.asList("SaaS", "VoIP"))
+                .project(new Project().projectId(usersItem.getProjectId()))
+                .visibility(ServiceProfileVisibilityEnum.PRIVATE)
+                .ports(singletonList(new ServiceProfileAccessPointCOLO()
+                        .type(ServiceProfileAccessPointCOLO.TypeEnum.XF_PORT)
+                        .uuid(port.getUuid())
+                        .location(new SimplifiedLocation().metroCode(port.getLocation().getMetroCode()))))
+                .accessPointTypeConfigs(singletonList(new ServiceProfileAccessPointType(new ServiceProfileAccessPointTypeCOLO()
+                        .type(ServiceProfileAccessPointTypeEnum.COLO)
+                        .linkProtocolConfig(new ServiceProfileLinkProtocolConfig()
+                                .encapsulationStrategy(null)
+                                .reuseVlanSTag(false))
+                        .enableAutoGenerateServiceKey(false)
+                        .connectionRedundancyRequired(false)
+                        .apiConfig(new ApiConfig()
+                                .equinixManagedPort(false)
+                                .equinixManagedVlan(false)
+                                .allowOverSubscription(false)
+                                .overSubscriptionLimit(1)
+                                .apiAvailable(false)
+                                .bandwidthFromApi(false))
+                        .authenticationKey(new AuthenticationKey().required(false))
+                        .allowRemoteConnections(true)
+                        .supportedBandwidths(Arrays.asList(10, 50, 200, 500, 1000))
+                        .allowCustomBandwidth(false)
+                        .connectionLabel("Connection")
+                        .allowBandwidthAutoApproval(false)
+                )))
+                .marketingInfo(new MarketingInfo().promotion(false).processSteps(new ArrayList<>()));
     }
 }
