@@ -28,7 +28,7 @@ CRI:=docker # nerdctl
 OPENAPI_CODEGEN_TAG=v6.4.0
 OPENAPI_CODEGEN_IMAGE=openapitools/openapi-generator-cli:${OPENAPI_CODEGEN_TAG}
 DOCKER_OPENAPI=${CRI} run --rm -u ${CURRENT_UID}:${CURRENT_GID} -v $(CURDIR):/local ${OPENAPI_CODEGEN_IMAGE}
-OPENAPI_URL="https://app.swaggerhub.com/apiproxy/registry/equinix-api/fabric/4.14"
+OPENAPI_URL="https://app.swaggerhub.com/apiproxy/registry/equinix-api/fabric/4.15"
 
 generate: clean fetch pre-spec-patch pull docker_generate build_client
 
