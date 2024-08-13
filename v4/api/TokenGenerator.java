@@ -73,7 +73,7 @@ public class TokenGenerator {
             throw new RuntimeException(e);
         }
 
-        ApiClient apiClient = Configuration.getDefaultApiClient();
+        ApiClient apiClient = Configuration.getDefaultApiClient().setBasePath(baseUrl);
         apiClient.addDefaultHeader("Authorization", String.format("Bearer %s",tokenResponseDto.getAccessToken()));
         users.put(userName, new UserUsedDto(userName,apiClient));
         return users.get(userName).getApiClient();

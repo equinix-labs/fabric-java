@@ -14,6 +14,7 @@
 |**customerAsn** | **Long** | Customer asn |  [optional] |
 |**equinixAsn** | **Long** | Equinix asn |  [optional] |
 |**bgpAuthKey** | **String** | BGP authorization key |  [optional] |
+|**asOverrideEnabled** | **Boolean** | Enable AS number override |  [optional] |
 |**bfd** | [**RoutingProtocolBFD**](RoutingProtocolBFD.md) |  |  [optional] |
 |**directIpv4** | [**DirectConnectionIpv4**](DirectConnectionIpv4.md) |  |  [optional] |
 |**directIpv6** | [**DirectConnectionIpv6**](DirectConnectionIpv6.md) |  |  [optional] |

@@ -104,6 +104,10 @@ public class CloudRouterPostRequest {
   @SerializedName(SERIALIZED_NAME_NOTIFICATIONS)
   private List<SimplifiedNotification> notifications = new ArrayList<>();
 
+  public static final String SERIALIZED_NAME_MARKETPLACE_SUBSCRIPTION = "marketplaceSubscription";
+  @SerializedName(SERIALIZED_NAME_MARKETPLACE_SUBSCRIPTION)
+  private MarketplaceSubscription marketplaceSubscription;
+
   public CloudRouterPostRequest() {
   }
 
@@ -290,6 +294,28 @@ public class CloudRouterPostRequest {
     this.notifications = notifications;
   }
 
+
+  public CloudRouterPostRequest marketplaceSubscription(MarketplaceSubscription marketplaceSubscription) {
+    
+    this.marketplaceSubscription = marketplaceSubscription;
+    return this;
+  }
+
+   /**
+   * Get marketplaceSubscription
+   * @return marketplaceSubscription
+  **/
+  @javax.annotation.Nullable
+
+  public MarketplaceSubscription getMarketplaceSubscription() {
+    return marketplaceSubscription;
+  }
+
+
+  public void setMarketplaceSubscription(MarketplaceSubscription marketplaceSubscription) {
+    this.marketplaceSubscription = marketplaceSubscription;
+  }
+
   /**
    * A container for additional, undeclared properties.
    * This is a holder for any undeclared properties as specified with
@@ -352,13 +378,14 @@ public class CloudRouterPostRequest {
         Objects.equals(this.order, cloudRouterPostRequest.order) &&
         Objects.equals(this.project, cloudRouterPostRequest.project) &&
         Objects.equals(this.account, cloudRouterPostRequest.account) &&
-        Objects.equals(this.notifications, cloudRouterPostRequest.notifications)&&
+        Objects.equals(this.notifications, cloudRouterPostRequest.notifications) &&
+        Objects.equals(this.marketplaceSubscription, cloudRouterPostRequest.marketplaceSubscription)&&
         Objects.equals(this.additionalProperties, cloudRouterPostRequest.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, name, location, _package, order, project, account, notifications, additionalProperties);
+    return Objects.hash(type, name, location, _package, order, project, account, notifications, marketplaceSubscription, additionalProperties);
   }
 
   @Override
@@ -373,6 +400,7 @@ public class CloudRouterPostRequest {
     sb.append("    project: ").append(toIndentedString(project)).append("\n");
     sb.append("    account: ").append(toIndentedString(account)).append("\n");
     sb.append("    notifications: ").append(toIndentedString(notifications)).append("\n");
+    sb.append("    marketplaceSubscription: ").append(toIndentedString(marketplaceSubscription)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -404,6 +432,7 @@ public class CloudRouterPostRequest {
     openapiFields.add("project");
     openapiFields.add("account");
     openapiFields.add("notifications");
+    openapiFields.add("marketplaceSubscription");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -460,6 +489,10 @@ public class CloudRouterPostRequest {
             SimplifiedNotification.validateJsonObject(jsonArraynotifications.get(i).getAsJsonObject());
           };
         }
+      }
+      // validate the optional field `marketplaceSubscription`
+      if (jsonObj.get("marketplaceSubscription") != null && !jsonObj.get("marketplaceSubscription").isJsonNull()) {
+        MarketplaceSubscription.validateJsonObject(jsonObj.getAsJsonObject("marketplaceSubscription"));
       }
   }
 

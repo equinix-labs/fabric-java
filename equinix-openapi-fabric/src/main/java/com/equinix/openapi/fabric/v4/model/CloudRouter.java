@@ -68,6 +68,10 @@ public class CloudRouter {
   @SerializedName(SERIALIZED_NAME_DISTINCT_IPV6_PREFIXES_COUNT)
   private Integer distinctIpv6PrefixesCount;
 
+  public static final String SERIALIZED_NAME_MARKETPLACE_SUBSCRIPTION = "marketplaceSubscription";
+  @SerializedName(SERIALIZED_NAME_MARKETPLACE_SUBSCRIPTION)
+  private MarketplaceSubscription marketplaceSubscription;
+
   public static final String SERIALIZED_NAME_CHANGE_LOG = "changeLog";
   @SerializedName(SERIALIZED_NAME_CHANGE_LOG)
   private Changelog changeLog;
@@ -376,6 +380,28 @@ public class CloudRouter {
   }
 
 
+  public CloudRouter marketplaceSubscription(MarketplaceSubscription marketplaceSubscription) {
+    
+    this.marketplaceSubscription = marketplaceSubscription;
+    return this;
+  }
+
+   /**
+   * Get marketplaceSubscription
+   * @return marketplaceSubscription
+  **/
+  @javax.annotation.Nullable
+
+  public MarketplaceSubscription getMarketplaceSubscription() {
+    return marketplaceSubscription;
+  }
+
+
+  public void setMarketplaceSubscription(MarketplaceSubscription marketplaceSubscription) {
+    this.marketplaceSubscription = marketplaceSubscription;
+  }
+
+
   public CloudRouter changeLog(Changelog changeLog) {
     
     this.changeLog = changeLog;
@@ -646,6 +672,7 @@ public class CloudRouter {
         Objects.equals(this.connectionsCount, cloudRouter.connectionsCount) &&
         Objects.equals(this.distinctIpv4PrefixesCount, cloudRouter.distinctIpv4PrefixesCount) &&
         Objects.equals(this.distinctIpv6PrefixesCount, cloudRouter.distinctIpv6PrefixesCount) &&
+        Objects.equals(this.marketplaceSubscription, cloudRouter.marketplaceSubscription) &&
         Objects.equals(this.changeLog, cloudRouter.changeLog) &&
         Objects.equals(this.change, cloudRouter.change) &&
         Objects.equals(this.type, cloudRouter.type) &&
@@ -660,7 +687,7 @@ public class CloudRouter {
 
   @Override
   public int hashCode() {
-    return Objects.hash(href, uuid, name, state, equinixAsn, bgpIpv4RoutesCount, bgpIpv6RoutesCount, connectionsCount, distinctIpv4PrefixesCount, distinctIpv6PrefixesCount, changeLog, change, type, location, _package, order, project, account, notifications, additionalProperties);
+    return Objects.hash(href, uuid, name, state, equinixAsn, bgpIpv4RoutesCount, bgpIpv6RoutesCount, connectionsCount, distinctIpv4PrefixesCount, distinctIpv6PrefixesCount, marketplaceSubscription, changeLog, change, type, location, _package, order, project, account, notifications, additionalProperties);
   }
 
   @Override
@@ -677,6 +704,7 @@ public class CloudRouter {
     sb.append("    connectionsCount: ").append(toIndentedString(connectionsCount)).append("\n");
     sb.append("    distinctIpv4PrefixesCount: ").append(toIndentedString(distinctIpv4PrefixesCount)).append("\n");
     sb.append("    distinctIpv6PrefixesCount: ").append(toIndentedString(distinctIpv6PrefixesCount)).append("\n");
+    sb.append("    marketplaceSubscription: ").append(toIndentedString(marketplaceSubscription)).append("\n");
     sb.append("    changeLog: ").append(toIndentedString(changeLog)).append("\n");
     sb.append("    change: ").append(toIndentedString(change)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
@@ -717,6 +745,7 @@ public class CloudRouter {
     openapiFields.add("project");
     openapiFields.add("account");
     openapiFields.add("notifications");
+    openapiFields.add("marketplaceSubscription");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -742,6 +771,10 @@ public class CloudRouter {
       }
       if ((jsonObj.get("name") != null && !jsonObj.get("name").isJsonNull()) && !jsonObj.get("name").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
+      }
+      // validate the optional field `marketplaceSubscription`
+      if (jsonObj.get("marketplaceSubscription") != null && !jsonObj.get("marketplaceSubscription").isJsonNull()) {
+        MarketplaceSubscription.validateJsonObject(jsonObj.getAsJsonObject("marketplaceSubscription"));
       }
       // validate the optional field `changeLog`
       if (jsonObj.get("changeLog") != null && !jsonObj.get("changeLog").isJsonNull()) {

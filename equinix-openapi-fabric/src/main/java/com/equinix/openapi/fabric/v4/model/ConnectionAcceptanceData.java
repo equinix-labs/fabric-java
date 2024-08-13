@@ -30,7 +30,19 @@ public class ConnectionAcceptanceData {
   @SerializedName(SERIALIZED_NAME_Z_SIDE)
   private ConnectionSide zSide;
 
+  public static final String SERIALIZED_NAME_PROVIDER_BANDWIDTH = "providerBandwidth";
+  @SerializedName(SERIALIZED_NAME_PROVIDER_BANDWIDTH)
+  private Integer providerBandwidth;
+
   public ConnectionAcceptanceData() {
+  }
+
+  
+  public ConnectionAcceptanceData(
+     Integer providerBandwidth
+  ) {
+    this();
+    this.providerBandwidth = providerBandwidth;
   }
 
   public ConnectionAcceptanceData zSide(ConnectionSide zSide) {
@@ -53,6 +65,19 @@ public class ConnectionAcceptanceData {
   public void setzSide(ConnectionSide zSide) {
     this.zSide = zSide;
   }
+
+
+   /**
+   * Authorization key bandwidth in Mbps
+   * @return providerBandwidth
+  **/
+  @javax.annotation.Nullable
+
+  public Integer getProviderBandwidth() {
+    return providerBandwidth;
+  }
+
+
 
   /**
    * A container for additional, undeclared properties.
@@ -109,13 +134,14 @@ public class ConnectionAcceptanceData {
       return false;
     }
     ConnectionAcceptanceData connectionAcceptanceData = (ConnectionAcceptanceData) o;
-    return Objects.equals(this.zSide, connectionAcceptanceData.zSide)&&
+    return Objects.equals(this.zSide, connectionAcceptanceData.zSide) &&
+        Objects.equals(this.providerBandwidth, connectionAcceptanceData.providerBandwidth)&&
         Objects.equals(this.additionalProperties, connectionAcceptanceData.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(zSide, additionalProperties);
+    return Objects.hash(zSide, providerBandwidth, additionalProperties);
   }
 
   @Override
@@ -123,6 +149,7 @@ public class ConnectionAcceptanceData {
     StringBuilder sb = new StringBuilder();
     sb.append("class ConnectionAcceptanceData {\n");
     sb.append("    zSide: ").append(toIndentedString(zSide)).append("\n");
+    sb.append("    providerBandwidth: ").append(toIndentedString(providerBandwidth)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -147,6 +174,7 @@ public class ConnectionAcceptanceData {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("zSide");
+    openapiFields.add("providerBandwidth");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();

@@ -63,6 +63,10 @@ public class PhysicalPort {
   @SerializedName(SERIALIZED_NAME_DEMARCATION_POINT)
   private PortDemarcationPoint demarcationPoint;
 
+  public static final String SERIALIZED_NAME_NOTIFICATIONS = "notifications";
+  @SerializedName(SERIALIZED_NAME_NOTIFICATIONS)
+  private List<PortNotification> notifications = new ArrayList<>();
+
   public static final String SERIALIZED_NAME_ADDITIONAL_INFO = "additionalInfo";
   @SerializedName(SERIALIZED_NAME_ADDITIONAL_INFO)
   private List<PortAdditionalInfo> additionalInfo = new ArrayList<>();
@@ -280,6 +284,36 @@ public class PhysicalPort {
   }
 
 
+  public PhysicalPort notifications(List<PortNotification> notifications) {
+    
+    this.notifications = notifications;
+    return this;
+  }
+
+  public PhysicalPort addNotificationsItem(PortNotification notificationsItem) {
+    if (this.notifications == null) {
+      this.notifications = new ArrayList<>();
+    }
+    this.notifications.add(notificationsItem);
+    return this;
+  }
+
+   /**
+   * Notification preferences
+   * @return notifications
+  **/
+  @javax.annotation.Nullable
+
+  public List<PortNotification> getNotifications() {
+    return notifications;
+  }
+
+
+  public void setNotifications(List<PortNotification> notifications) {
+    this.notifications = notifications;
+  }
+
+
   public PhysicalPort additionalInfo(List<PortAdditionalInfo> additionalInfo) {
     
     this.additionalInfo = additionalInfo;
@@ -447,6 +481,7 @@ public class PhysicalPort {
         Objects.equals(this.interfaceType, physicalPort.interfaceType) &&
         Objects.equals(this.tether, physicalPort.tether) &&
         Objects.equals(this.demarcationPoint, physicalPort.demarcationPoint) &&
+        Objects.equals(this.notifications, physicalPort.notifications) &&
         Objects.equals(this.additionalInfo, physicalPort.additionalInfo) &&
         Objects.equals(this.order, physicalPort.order) &&
         Objects.equals(this.operation, physicalPort.operation) &&
@@ -456,7 +491,7 @@ public class PhysicalPort {
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, id, href, state, account, interfaceSpeed, interfaceType, tether, demarcationPoint, additionalInfo, order, operation, loas, additionalProperties);
+    return Objects.hash(type, id, href, state, account, interfaceSpeed, interfaceType, tether, demarcationPoint, notifications, additionalInfo, order, operation, loas, additionalProperties);
   }
 
   @Override
@@ -472,6 +507,7 @@ public class PhysicalPort {
     sb.append("    interfaceType: ").append(toIndentedString(interfaceType)).append("\n");
     sb.append("    tether: ").append(toIndentedString(tether)).append("\n");
     sb.append("    demarcationPoint: ").append(toIndentedString(demarcationPoint)).append("\n");
+    sb.append("    notifications: ").append(toIndentedString(notifications)).append("\n");
     sb.append("    additionalInfo: ").append(toIndentedString(additionalInfo)).append("\n");
     sb.append("    order: ").append(toIndentedString(order)).append("\n");
     sb.append("    operation: ").append(toIndentedString(operation)).append("\n");
@@ -508,6 +544,7 @@ public class PhysicalPort {
     openapiFields.add("interfaceType");
     openapiFields.add("tether");
     openapiFields.add("demarcationPoint");
+    openapiFields.add("notifications");
     openapiFields.add("additionalInfo");
     openapiFields.add("order");
     openapiFields.add("operation");
@@ -546,6 +583,20 @@ public class PhysicalPort {
       // validate the optional field `demarcationPoint`
       if (jsonObj.get("demarcationPoint") != null && !jsonObj.get("demarcationPoint").isJsonNull()) {
         PortDemarcationPoint.validateJsonObject(jsonObj.getAsJsonObject("demarcationPoint"));
+      }
+      if (jsonObj.get("notifications") != null && !jsonObj.get("notifications").isJsonNull()) {
+        JsonArray jsonArraynotifications = jsonObj.getAsJsonArray("notifications");
+        if (jsonArraynotifications != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("notifications").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `notifications` to be an array in the JSON string but got `%s`", jsonObj.get("notifications").toString()));
+          }
+
+          // validate the optional field `notifications` (array)
+          for (int i = 0; i < jsonArraynotifications.size(); i++) {
+            PortNotification.validateJsonObject(jsonArraynotifications.get(i).getAsJsonObject());
+          };
+        }
       }
       if (jsonObj.get("additionalInfo") != null && !jsonObj.get("additionalInfo").isJsonNull()) {
         JsonArray jsonArrayadditionalInfo = jsonObj.getAsJsonArray("additionalInfo");

@@ -32,11 +32,7 @@ public class PrecisionTimeChangeOperation {
    */
   @JsonAdapter(OpEnum.Adapter.class)
   public enum OpEnum {
-    REPLACE("replace"),
-    
-    ADD("add"),
-    
-    REMOVE("remove");
+    REPLACE("replace");
 
     private String value;
 
@@ -85,15 +81,9 @@ public class PrecisionTimeChangeOperation {
    */
   @JsonAdapter(PathEnum.Adapter.class)
   public enum PathEnum {
-    IPV4("/ipv4"),
-    
     NAME("/name"),
     
-    ADVANCECONFIGURATION_NTP("/advanceConfiguration/ntp"),
-    
-    ADVANCECONFIGURATION_PTP("/advanceConfiguration/ptp"),
-    
-    PACKAGE("/package");
+    PACKAGE_CODE("/package/code");
 
     private String value;
 

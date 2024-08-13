@@ -100,6 +100,10 @@ public class RoutingProtocolBGPType {
   @SerializedName(SERIALIZED_NAME_BGP_AUTH_KEY)
   private String bgpAuthKey;
 
+  public static final String SERIALIZED_NAME_AS_OVERRIDE_ENABLED = "asOverrideEnabled";
+  @SerializedName(SERIALIZED_NAME_AS_OVERRIDE_ENABLED)
+  private Boolean asOverrideEnabled;
+
   public static final String SERIALIZED_NAME_BFD = "bfd";
   @SerializedName(SERIALIZED_NAME_BFD)
   private RoutingProtocolBFD bfd;
@@ -261,6 +265,28 @@ public class RoutingProtocolBGPType {
   }
 
 
+  public RoutingProtocolBGPType asOverrideEnabled(Boolean asOverrideEnabled) {
+    
+    this.asOverrideEnabled = asOverrideEnabled;
+    return this;
+  }
+
+   /**
+   * Enable AS number override
+   * @return asOverrideEnabled
+  **/
+  @javax.annotation.Nullable
+
+  public Boolean getAsOverrideEnabled() {
+    return asOverrideEnabled;
+  }
+
+
+  public void setAsOverrideEnabled(Boolean asOverrideEnabled) {
+    this.asOverrideEnabled = asOverrideEnabled;
+  }
+
+
   public RoutingProtocolBGPType bfd(RoutingProtocolBFD bfd) {
     
     this.bfd = bfd;
@@ -344,13 +370,14 @@ public class RoutingProtocolBGPType {
         Objects.equals(this.customerAsn, routingProtocolBGPType.customerAsn) &&
         Objects.equals(this.equinixAsn, routingProtocolBGPType.equinixAsn) &&
         Objects.equals(this.bgpAuthKey, routingProtocolBGPType.bgpAuthKey) &&
+        Objects.equals(this.asOverrideEnabled, routingProtocolBGPType.asOverrideEnabled) &&
         Objects.equals(this.bfd, routingProtocolBGPType.bfd)&&
         Objects.equals(this.additionalProperties, routingProtocolBGPType.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, name, bgpIpv4, bgpIpv6, customerAsn, equinixAsn, bgpAuthKey, bfd, additionalProperties);
+    return Objects.hash(type, name, bgpIpv4, bgpIpv6, customerAsn, equinixAsn, bgpAuthKey, asOverrideEnabled, bfd, additionalProperties);
   }
 
   @Override
@@ -364,6 +391,7 @@ public class RoutingProtocolBGPType {
     sb.append("    customerAsn: ").append(toIndentedString(customerAsn)).append("\n");
     sb.append("    equinixAsn: ").append(toIndentedString(equinixAsn)).append("\n");
     sb.append("    bgpAuthKey: ").append(toIndentedString(bgpAuthKey)).append("\n");
+    sb.append("    asOverrideEnabled: ").append(toIndentedString(asOverrideEnabled)).append("\n");
     sb.append("    bfd: ").append(toIndentedString(bfd)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
@@ -395,6 +423,7 @@ public class RoutingProtocolBGPType {
     openapiFields.add("customerAsn");
     openapiFields.add("equinixAsn");
     openapiFields.add("bgpAuthKey");
+    openapiFields.add("asOverrideEnabled");
     openapiFields.add("bfd");
 
     // a set of required properties/fields (JSON key names)

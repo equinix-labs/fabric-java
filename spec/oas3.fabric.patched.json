@@ -13,7 +13,7 @@
       "name": "Equinix Inc",
       "url": "https://developer.equinix.com/agreement"
     },
-    "version": "4.14"
+    "version": "4.15"
   },
   "externalDocs": {
     "description": "Find more information on Equinix Developer Portal",
@@ -233,6 +233,9 @@
                 "Fcr2IpWan": {
                   "$ref": "#/components/examples/Fcr2IpWan"
                 },
+                "Fcr2Sp-Aws-Marketplace-subscription": {
+                  "$ref": "#/components/examples/Fcr2Sp-Aws-marketplaceSubscription"
+                },
                 "Fcr2MetalNetwork": {
                   "$ref": "#/components/examples/Fcr2Metal-Network"
                 },
@@ -339,6 +342,9 @@
                   },
                   "Fcr2IpWan": {
                     "$ref": "#/components/examples/Fcr2IpWan-response"
+                  },
+                  "Fcr2Sp-Marketplace-subscription": {
+                    "$ref": "#/components/examples/Fcr2Sp-marketplaceSubscription-Response"
                   },
                   "ServiceToken2PortResponseDot1Q": {
                     "$ref": "#/components/examples/AsideServiceToken2PortResponseWithDot1q"
@@ -846,6 +852,9 @@
                 "BGPSync": {
                   "$ref": "#/components/examples/Connection_Provider_Status_Request"
                 },
+                "GetProviderBandwidth": {
+                  "$ref": "#/components/examples/Connection_Provider_Bandwidth_Request"
+                },
                 "AcceptZSide-NetworkEdge": {
                   "$ref": "#/components/examples/AcceptZSide_NetworkEdge_Request"
                 }
@@ -865,6 +874,9 @@
                 "examples": {
                   "connectionActionExample": {
                     "$ref": "#/components/examples/ConnectionActionResponse"
+                  },
+                  "GetProviderBandwidth": {
+                    "$ref": "#/components/examples/Connection_Provider_Bandwidth_Response"
                   }
                 }
               }
@@ -8747,6 +8759,9 @@
                 },
                 "CreateProPackage": {
                   "$ref": "#/components/examples/CreateStandardPackage"
+                },
+                "CreateWithMarketplaceSubscription": {
+                  "$ref": "#/components/examples/CreateWithMarketplaceSubscription"
                 }
               }
             }
@@ -8764,6 +8779,9 @@
                 "examples": {
                   "cloudRouterResponse": {
                     "$ref": "#/components/examples/CloudRouterPostResponseExample"
+                  },
+                  "cloudRouterResponseForMarketplaceSubscription": {
+                    "$ref": "#/components/examples/CloudRouterPostResponseMarketplaceExample"
                   }
                 }
               }
@@ -8877,6 +8895,9 @@
                 "examples": {
                   "cloudRouterResponse": {
                     "$ref": "#/components/examples/CloudRouterResponseExample"
+                  },
+                  "cloudRouterResponseMarketplace": {
+                    "$ref": "#/components/examples/CloudRouterResponseExampleMarketplace"
                   }
                 }
               }
@@ -11385,7 +11406,10 @@
               },
               "examples": {
                 "editName": {
-                  "$ref": "#/components/examples/edit"
+                  "$ref": "#/components/examples/editName"
+                },
+                "editPackageCode": {
+                  "$ref": "#/components/examples/editPackageCode"
                 }
               }
             }
@@ -11631,14 +11655,17 @@
                 "$ref": "#/components/schemas/precisionTimeServiceRequest"
               },
               "examples": {
-                "ntpSingleStandard": {
-                  "$ref": "#/components/examples/ntpSingleStandard"
+                "ntpStandard": {
+                  "$ref": "#/components/examples/ntpStandard"
                 },
-                "ptpSingleStandard": {
-                  "$ref": "#/components/examples/ptpSingleStandard"
+                "ptpStandard": {
+                  "$ref": "#/components/examples/ptpStandard"
                 },
-                "ptpSingleEnterpriseWithAdvanceConfiguration": {
-                  "$ref": "#/components/examples/ptpSingleEnterpriseWithAdvanceConfiguration"
+                "ptpEnterpriseWithAdvanceConfiguration": {
+                  "$ref": "#/components/examples/ptpEnterpriseWithAdvanceConfiguration"
+                },
+                "ntpEnterpriseWithAdvanceConfiguration": {
+                  "$ref": "#/components/examples/ntpEnterpriseWithAdvanceConfiguration"
                 }
               }
             }
@@ -11800,6 +11827,130 @@
                   },
                   "ValidatePassword": {
                     "$ref": "#/components/examples/400-Validate-Password"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fabric/v4/timeServices/search": {
+      "post": {
+        "tags": [
+          "Precision Time"
+        ],
+        "summary": "Search Time Services",
+        "description": "The API provides capability to get list of user's Time Services using search criteria, including optional filtering, pagination and sorting",
+        "operationId": "searchTimeServices",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TimeServicesSearchRequest"
+              },
+              "examples": {
+                "SearchFilterByStatus": {
+                  "$ref": "#/components/examples/SearchTimeServicesFilterByStatus"
+                },
+                "SearchFilterByNameAndProtocol": {
+                  "$ref": "#/components/examples/SearchTimeServicesByNameAndProtocol"
+                },
+                "SearchFilterOrAnd": {
+                  "$ref": "#/components/examples/SearchTimeServicesFilterOrAnd"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceSearchResponse"
+                },
+                "examples": {
+                  "Example": {
+                    "$ref": "#/components/examples/serviceSearchResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/service_400_invalid_sorting"
                   }
                 }
               }
@@ -12097,6 +12248,105 @@
           }
         }
       }
+    },
+    "/fabric/v4/marketplaceSubscriptions/{subscriptionId}": {
+      "get": {
+        "tags": [
+          "Marketplace Subscriptions"
+        ],
+        "summary": "Get Subscription",
+        "description": "The API provides capability to get subscription",
+        "operationId": "getSubscriptionById",
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "Subscription UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/SubscriptionId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriptionResponse"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/subscription-response"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-preview": false
+      }
     }
   },
   "components": {
@@ -12156,6 +12406,9 @@
             "items": {
               "$ref": "#/components/schemas/ConnectionSideAdditionalInfo"
             }
+          },
+          "marketplaceSubscription": {
+            "$ref": "#/components/schemas/marketplaceSubscription"
           }
         },
         "description": "Create connection post request"
@@ -12240,6 +12493,9 @@
           },
           "zSide": {
             "$ref": "#/components/schemas/ConnectionSide"
+          },
+          "marketplaceSubscription": {
+            "$ref": "#/components/schemas/marketplaceSubscription"
           },
           "additionalInfo": {
             "type": "array",
@@ -12413,6 +12669,10 @@
           "bgpAuthKey": {
             "type": "string",
             "description": "BGP authorization key"
+          },
+          "asOverrideEnabled": {
+            "type": "boolean",
+            "description": "Enable AS number override"
           },
           "bfd": {
             "$ref": "#/components/schemas/RoutingProtocolBFD"
@@ -14510,6 +14770,13 @@
           "demarcationPoint": {
             "$ref": "#/components/schemas/PortDemarcationPoint"
           },
+          "notifications": {
+            "type": "array",
+            "description": "Notification preferences",
+            "items": {
+              "$ref": "#/components/schemas/PortNotification"
+            }
+          },
           "additionalInfo": {
             "type": "array",
             "description": "Physical Port additional information",
@@ -15223,6 +15490,9 @@
             "items": {
               "$ref": "#/components/schemas/SimplifiedNotification"
             }
+          },
+          "marketplaceSubscription": {
+            "$ref": "#/components/schemas/marketplaceSubscription"
           }
         },
         "description": "Create Cloud Router"
@@ -15282,6 +15552,9 @@
             "minimum": 0,
             "type": "integer",
             "description": "Number of distinct ipv6 routes"
+          },
+          "marketplaceSubscription": {
+            "$ref": "#/components/schemas/marketplaceSubscription"
           },
           "changeLog": {
             "$ref": "#/components/schemas/Changelog"
@@ -16270,20 +16543,15 @@
             "type": "string",
             "description": "Handy shortcut for operation name",
             "enum": [
-              "replace",
-              "add",
-              "remove"
+              "replace"
             ]
           },
           "path": {
             "type": "string",
             "description": "path inside document leading to updated parameter",
             "enum": [
-              "/ipv4",
               "/name",
-              "/advanceConfiguration/ntp",
-              "/advanceConfiguration/ptp",
-              "/package"
+              "/package/code"
             ]
           },
           "value": {
@@ -16338,6 +16606,130 @@
           }
         },
         "description": "EPT service instance"
+      },
+      "TimeServicesSearchRequest": {
+        "type": "object",
+        "properties": {
+          "filter": {
+            "$ref": "#/components/schemas/TimeServiceFilters"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/PaginationRequest"
+          },
+          "sort": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TimeServiceSortCriteria"
+            }
+          }
+        },
+        "description": "Search requests containing criteria"
+      },
+      "TimeServiceFilters": {
+        "type": "object",
+        "properties": {
+          "and": {
+            "maxItems": 8,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TimeServiceFilter"
+            }
+          }
+        }
+      },
+      "TimeServiceFilter": {
+        "type": "object",
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/TimeServiceSimpleExpression"
+          },
+          {
+            "$ref": "#/components/schemas/TimeServiceOrFilter"
+          }
+        ]
+      },
+      "TimeServiceSimpleExpression": {
+        "type": "object",
+        "properties": {
+          "property": {
+            "type": "string",
+            "description": "Possible field names to use on filters:\n * `/project/projectId` - project id (mandatory)\n * `/name` - Precision Time Service name\n * `/uuid` - Precision Time Service uuid\n * `/type` - Precision Time Service protocol\n * `/state` - Precision Time Service status\n * `/account/accountNumber` - Precision Time Service account number\n * `/package/code` - Precision Time Service package\n * `/*` - all-category search\n",
+            "example": "/name"
+          },
+          "operator": {
+            "type": "string",
+            "description": "Possible operators to use on filters:\n * `=` - equal\n * `!=` - not equal\n * `[NOT] BETWEEN` - (not) between\n * `[NOT] LIKE` - (not) like\n * `[NOT] IN` - (not) in\n * `ILIKE` - case-insensitive like\n",
+            "example": "="
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "FabricPrecisionTimeService-1"
+            }
+          }
+        }
+      },
+      "TimeServiceOrFilter": {
+        "type": "object",
+        "properties": {
+          "or": {
+            "maxItems": 3,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TimeServiceSimpleExpression"
+            }
+          }
+        }
+      },
+      "TimeServiceSortCriteria": {
+        "type": "object",
+        "properties": {
+          "direction": {
+            "$ref": "#/components/schemas/TimeServiceSortDirection"
+          },
+          "property": {
+            "$ref": "#/components/schemas/TimeServiceSortBy"
+          }
+        }
+      },
+      "TimeServiceSortDirection": {
+        "type": "string",
+        "description": "Sorting direction",
+        "default": "DESC",
+        "enum": [
+          "DESC",
+          "ASC"
+        ]
+      },
+      "TimeServiceSortBy": {
+        "type": "string",
+        "description": "Possible field names to use on sorting",
+        "default": "/changeLog/updatedDateTime",
+        "enum": [
+          "/name",
+          "/uuid",
+          "/state",
+          "/type",
+          "/package/code",
+          "/changeLog/createdDateTime",
+          "/changeLog/updatedDateTime"
+        ]
+      },
+      "ServiceSearchResponse": {
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "data": {
+            "type": "array",
+            "description": "Data returned from the API call.",
+            "items": {
+              "$ref": "#/components/schemas/precisionTimeServiceResponse"
+            }
+          }
+        }
       },
       "precisionTimeServiceConnectionsResponse": {
         "title": "precisionTimeServiceConnectionResponse",
@@ -16453,6 +16845,152 @@
             "updatedDateTime": "2023-05-17T07:50:49.749Z"
           }
         }
+      },
+      "SubscriptionId": {
+        "type": "string",
+        "description": "Subscription Id",
+        "format": "uuid",
+        "example": "557400f8-d360-11e9-bb65-2a2ae2dbcce4"
+      },
+      "SubscriptionResponse": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "format": "uri"
+          },
+          "uuid": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "$ref": "#/components/schemas/SubscriptionStatus"
+          },
+          "marketplace": {
+            "type": "string",
+            "enum": [
+              "AWS",
+              "GCP",
+              "AZURE",
+              "REDHAT"
+            ]
+          },
+          "offerType": {
+            "type": "string",
+            "enum": [
+              "PUBLIC",
+              "PRIVATE_OFFER"
+            ]
+          },
+          "isAutoRenew": {
+            "type": "boolean",
+            "example": true
+          },
+          "offerId": {
+            "type": "string"
+          },
+          "trial": {
+            "$ref": "#/components/schemas/SubscriptionTrial"
+          },
+          "subscriptionKey": {
+            "type": "string"
+          },
+          "entitlements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SubscriptionEntitlementResponse"
+            }
+          },
+          "changelog": {
+            "$ref": "#/components/schemas/Changelog"
+          }
+        },
+        "description": "Subscription",
+        "x-preview": false
+      },
+      "SubscriptionStatus": {
+        "type": "string",
+        "enum": [
+          "ACTIVE",
+          "EXPIRED",
+          "CANCELLED",
+          "GRACE_PERIOD"
+        ]
+      },
+      "SubscriptionTrial": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          },
+          "expiryDateTime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "description": "Trial"
+      },
+      "SubscriptionEntitlementResponse": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "description": "Subscription Entitlement Id",
+            "format": "uuid"
+          },
+          "quantityEntitled": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "quantityConsumed": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "quantityAvailable": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "asset": {
+            "$ref": "#/components/schemas/SubscriptionAsset"
+          }
+        },
+        "description": "Subscription entitlement"
+      },
+      "SubscriptionAsset": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/SubscriptionAssetType"
+          },
+          "package": {
+            "$ref": "#/components/schemas/SubscriptionRouterPackageType"
+          },
+          "bandwidth": {
+            "type": "integer"
+          }
+        },
+        "description": "Asset information"
+      },
+      "SubscriptionAssetType": {
+        "type": "string",
+        "enum": [
+          "XF_ROUTER",
+          "IP_VC"
+        ]
+      },
+      "SubscriptionRouterPackageType": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Cloud Router package code",
+            "enum": [
+              "ADVANCED",
+              "STANDARD"
+            ]
+          }
+        },
+        "description": "Cloud Router Package Type"
       },
       "ConnectionType": {
         "type": "string",
@@ -16602,6 +17140,32 @@
           }
         },
         "description": "Additional information"
+      },
+      "marketplaceSubscription": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "description": "Marketplace Subscription URI",
+            "format": "uri",
+            "readOnly": true,
+            "example": "https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5"
+          },
+          "type": {
+            "type": "string",
+            "description": "Marketplace Subscription type",
+            "example": "AWS_MARKETPLACE_SUBSCRIPTION",
+            "enum": [
+              "AWS_MARKETPLACE_SUBSCRIPTION"
+            ]
+          },
+          "uuid": {
+            "type": "string",
+            "description": "Equinix-assigned Marketplace Subscription identifier",
+            "example": "20d32a80-0d61-4333-bc03-707b591ae2f5"
+          }
+        },
+        "description": "Equinix Fabric Entity for Marketplace Subscription"
       },
       "ConnectionState": {
         "type": "string",
@@ -16903,6 +17467,7 @@
           "CONNECTION_UPDATE_REQUEST",
           "MIGRATION_EVPL_VC",
           "CONNECTION_PROVIDER_STATUS_REQUEST",
+          "CONNECTION_PROVIDER_BANDWIDTH_REQUEST",
           "ACCEPT_HOSTED_CONNECTION",
           "CANCEL_EVPL_VC_DRAFT_ORDERS"
         ]
@@ -16912,6 +17477,11 @@
         "properties": {
           "zSide": {
             "$ref": "#/components/schemas/ConnectionSide"
+          },
+          "providerBandwidth": {
+            "type": "integer",
+            "description": "Authorization key bandwidth in Mbps",
+            "readOnly": true
           }
         },
         "description": "Connection acceptance data"
@@ -16942,6 +17512,18 @@
             "description": "AS path prepend count",
             "format": "int64",
             "example": 3
+          },
+          "inboundMED": {
+            "type": "integer",
+            "description": "inbound Multi Exit Discriminator attribute",
+            "format": "int64",
+            "example": 1000
+          },
+          "outboundMED": {
+            "type": "integer",
+            "description": "inbound Multi Exit Discriminator attribute",
+            "format": "int64",
+            "example": 2000
           },
           "operation": {
             "$ref": "#/components/schemas/BGPConnectionOperation"
@@ -16974,6 +17556,18 @@
             "description": "AS path prepend count",
             "format": "int64",
             "example": 3
+          },
+          "inboundMED": {
+            "type": "integer",
+            "description": "inbound Multi Exit Discriminator attribute",
+            "format": "int64",
+            "example": 1000
+          },
+          "outboundMED": {
+            "type": "integer",
+            "description": "inbound Multi Exit Discriminator attribute",
+            "format": "int64",
+            "example": 2000
           },
           "operation": {
             "$ref": "#/components/schemas/BGPConnectionOperation"
@@ -17054,6 +17648,10 @@
             "type": "string",
             "description": "BGP authorization key",
             "example": "testAuthKey"
+          },
+          "asOverrideEnabled": {
+            "type": "boolean",
+            "description": "Enable AS number override"
           },
           "bfd": {
             "$ref": "#/components/schemas/RoutingProtocolBFD"
@@ -17547,6 +18145,10 @@
           "orderId": {
             "type": "string",
             "description": "Order Identification"
+          },
+          "customerReferenceId": {
+            "type": "string",
+            "description": "Customer order reference Id"
           },
           "orderNumber": {
             "type": "string",
@@ -18687,6 +19289,89 @@
           "code": "NTP_STANDARD"
         }
       },
+      "precisionTimeServiceResponse": {
+        "title": "precisionTimeServiceResponse",
+        "required": [
+          "href",
+          "ipv4",
+          "order",
+          "package",
+          "state",
+          "type",
+          "uuid"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "NTP",
+              "PTP"
+            ]
+          },
+          "href": {
+            "type": "string",
+            "format": "uri"
+          },
+          "uuid": {
+            "type": "string",
+            "description": "uuid of the ept service",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "description": "name of the ept service"
+          },
+          "description": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string",
+            "description": "indicate service state",
+            "enum": [
+              "PROVISIONED",
+              "PROVISIONING",
+              "PROVISIONING_FAILED",
+              "CONFIGURING",
+              "CANCELLED",
+              "DEPROVISIONING_FAILED",
+              "PENDING_CONFIGURATION",
+              "DEPROVISIONED",
+              "CONFIGURING_FAILED",
+              "DEPROVISIONING"
+            ]
+          },
+          "package": {
+            "$ref": "#/components/schemas/precisionTimePackageResponse"
+          },
+          "connections": {
+            "maxItems": 2,
+            "minItems": 1,
+            "uniqueItems": true,
+            "type": "array",
+            "description": "fabric l2 connections used for the ept service",
+            "items": {
+              "$ref": "#/components/schemas/fabricConnectionUuid"
+            }
+          },
+          "order": {
+            "$ref": "#/components/schemas/Order"
+          },
+          "ipv4": {
+            "$ref": "#/components/schemas/ipv4"
+          },
+          "advanceConfiguration": {
+            "$ref": "#/components/schemas/advanceConfiguration"
+          },
+          "project": {
+            "$ref": "#/components/schemas/Project"
+          },
+          "account": {
+            "$ref": "#/components/schemas/account"
+          }
+        },
+        "description": "EPT service instance"
+      },
       "connectionLink": {
         "type": "object",
         "properties": {
@@ -19819,7 +20504,7 @@
             ]
           },
           "id": {
-            "type": "string"
+            "type": "integer"
           },
           "password": {
             "type": "string"
@@ -22740,6 +23425,50 @@
           ]
         }
       },
+      "Fcr2Sp-Aws-marketplaceSubscription": {
+        "value": {
+          "type": "IP_VC",
+          "name": "My-FCR-AWSConnection",
+          "bandwidth": 100,
+          "redundancy": {
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "type": "CLOUD_ROUTER",
+              "router": {
+                "uuid": "66a21614-1c4a-11ec-9621-0242ac130002"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "type": "L2_PROFILE",
+                "uuid": "20d32a80-0d61-4333-bc03-707b591ae2f5"
+              },
+              "location": {
+                "metroCode": "SV"
+              },
+              "sellerRegion": "us-west-1",
+              "authenticationKey": "xx-xx-xx"
+            }
+          },
+          "project": {
+            "projectId": "ae708bbb-d669-406a-845a-99b39ff65fd0"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com",
+                "test1@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
       "Fcr2Metal-Network": {
         "value": {
           "type": "IP_VC",
@@ -24144,6 +24873,64 @@
           "operation": {
             "equinixStatus": "PROVISIONING",
             "providerStatus": "NOT_AVAILABLE"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com",
+                "test1@equinix.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "test",
+            "createdByFullName": "test",
+            "createdByEmail": "test@equinix.com",
+            "createdDateTime": "2022-05-12T17:53:45.401Z"
+          }
+        }
+      },
+      "Fcr2Sp-marketplaceSubscription-Response": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/connections/0ed42ea7-2df8-470d-ad59-e432d768b4f1",
+          "type": "IP_VC",
+          "uuid": "0ed42ea7-2df8-470d-ad59-e432d768b4f1",
+          "name": "GP_FG2GCP_001",
+          "bandwidth": 50,
+          "redundancy": {
+            "group": "4f786b3f-27d4-48e0-8571-423d085826c1",
+            "priority": "PRIMARY"
+          },
+          "order": {
+            "billingTier": "Up to 50 MB"
+          },
+          "aSide": {
+            "accessPoint": {
+              "type": "CLOUD_ROUTER",
+              "router": {
+                "href": "https://api.equinix.com/fabric/v4/routers/56d267f3-a566-47a8-8cf9-40e6cc925bf0",
+                "uuid": "56d267f3-a566-47a8-8cf9-40e6cc925bf0"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "href": "https://api.equinix.com/fabric/v4/serviceProfiles/c7922adf-34b5-4d4e-a87c-cae8c899ef90",
+                "uuid": "c7922adf-34b5-4d4e-a87c-cae8c899ef90"
+              }
+            }
+          },
+          "marketplaceSubscription": {
+            "href": "https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5",
+            "type": "AWS_MARKETPLACE_SUBSCRIPTION",
+            "uuid": "20d32a80-0d61-4333-bc03-707b591ae2f5"
+          },
+          "operation": {
+            "equinixStatus": "PROVISIONING",
+            "providerStatus": "PROVISIONING"
           },
           "notifications": [
             {
@@ -27572,6 +28359,11 @@
           "type": "CONNECTION_PROVIDER_STATUS_REQUEST"
         }
       },
+      "Connection_Provider_Bandwidth_Request": {
+        "value": {
+          "type": "CONNECTION_PROVIDER_BANDWIDTH_REQUEST"
+        }
+      },
       "AcceptZSide_NetworkEdge_Request": {
         "value": {
           "type": "CONNECTION_CREATION_ACCEPTANCE",
@@ -27621,6 +28413,20 @@
           }
         }
       },
+      "Connection_Provider_Bandwidth_Response": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/connections/9b8c5042-b553-4d5e-a2ac-c73bf6d4fd81/actions/37c10edc-ba2e-4240-a850-8a48f9c47d00",
+          "type": "CONNECTION_PROVIDER_BANDWIDTH_REQUEST",
+          "uuid": "3a58dd05-f46d-4b1d-a154-2e85c396ea62",
+          "data": {
+            "providerBandwidth": 500
+          },
+          "changeLog": {
+            "createdDateTime": "2020-04-21T10:30:00Z",
+            "updatedDateTime": "2020-05-21T10:30:00Z"
+          }
+        }
+      },
       "RoutingProtocolGetAll": {
         "value": {
           "pagination": {
@@ -27650,15 +28456,18 @@
               },
               "type": "BGP",
               "bgpIpv4": {
-                "customerPeerIp": "10.1.1.3",
+                "customerPeerIp": "192.168.100.2",
                 "enabled": true,
                 "outboundASPrependCount": 3,
+                "inboundMED": 1000,
+                "outboundMED": 2000,
                 "operation": {
                   "operationalStatus": "UNKNOWN"
                 }
               },
               "customerAsn": 10000,
-              "equinixAsn": 10001
+              "equinixAsn": 10001,
+              "asOverrideEnabled": true
             },
             {
               "href": "https://api.equinix.com/fabric/v4/connections/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170/routingProtocols/557400f8-d360-11e9-bb65-2a2ae2dbcce4",
@@ -27785,12 +28594,15 @@
             "customerPeerIp": "10.1.1.3",
             "enabled": true,
             "outboundASPrependCount": 3,
+            "inboundMED": 1000,
+            "outboundMED": 2000,
             "operation": {
               "operationalStatus": "UNKNOWN"
             }
           },
           "customerAsn": 10000,
-          "equinixAsn": 10001
+          "equinixAsn": 10001,
+          "asOverrideEnabled": true
         }
       },
       "RoutingProtocolCreateDirectResponse": {
@@ -27842,15 +28654,20 @@
               "bgpIpv4": {
                 "customerPeerIp": "10.1.1.2",
                 "equinixPeerIp": "192.168.100.1",
-                "outboundASPrependCount": 3
+                "outboundASPrependCount": 3,
+                "inboundMED": 1000,
+                "outboundMED": 2000
               },
               "bgpIpv6": {
-                "customerPeerIp": "2001:db8:c59b::1",
+                "customerPeerIp": "2001:db8:c59b::2",
                 "equinixPeerIp": "2001:db8:c59b::1",
-                "outboundASPrependCount": 3
+                "outboundASPrependCount": 3,
+                "inboundMED": 1000,
+                "outboundMED": 2000
               },
               "customerAsn": 0,
               "equinixAsn": 0,
+              "asOverrideEnabled": true,
               "bgpAuthKey": "string",
               "bfd": {
                 "enabled": true,
@@ -27866,18 +28683,23 @@
             {
               "type": "BGP",
               "bgpIpv4": {
-                "customerPeerIp": "10.1.1.2",
+                "customerPeerIp": "192.168.100.2",
                 "equinixPeerIp": "192.168.100.1",
-                "outboundASPrependCount": 3
+                "outboundASPrependCount": 3,
+                "inboundMED": 1000,
+                "outboundMED": 2000
               },
               "bgpIpv6": {
-                "customerPeerIp": "2001:db8:c59b::1",
+                "customerPeerIp": "2001:db8:c59b::2",
                 "equinixPeerIp": "2001:db8:c59b::1",
-                "outboundASPrependCount": 3
+                "outboundASPrependCount": 3,
+                "inboundMED": 1000,
+                "outboundMED": 2000
               },
               "customerAsn": 0,
               "equinixAsn": 0,
               "bgpAuthKey": "string",
+              "asOverrideEnabled": true,
               "bfd": {
                 "enabled": true,
                 "interval": 100
@@ -27890,7 +28712,7 @@
                 "equinixIfaceIp": "192.168.100.1/30"
               },
               "directIpv6": {
-                "equinixIfaceIp": "2001:7a9::34f4:0:f3dd:1/126"
+                "equinixIfaceIp": "2001:db8:c59b::1/125"
               }
             }
           ]
@@ -27995,18 +28817,21 @@
         "value": {
           "type": "BGP",
           "bgpIpv4": {
-            "customerPeerIp": "10.1.1.2",
+            "customerPeerIp": "192.168.100.2",
             "equinixPeerIp": "192.168.100.1",
-            "outboundASPrependCount": 3
+            "outboundASPrependCount": 3,
+            "inboundMED": 1000,
+            "outboundMED": 2000
           },
           "bgpIpv6": {
-            "customerPeerIp": "2001:db8:c59b::1",
+            "customerPeerIp": "2001:db8:c59b::2",
             "equinixPeerIp": "2001:db8:c59b::1",
             "outboundASPrependCount": 3
           },
           "customerAsn": 0,
           "equinixAsn": 0,
           "bgpAuthKey": "string",
+          "asOverrideEnabled": true,
           "bfd": {
             "enabled": true,
             "interval": 100
@@ -28038,12 +28863,15 @@
             "customerPeerIp": "10.1.1.3",
             "enabled": true,
             "outboundASPrependCount": 3,
+            "inboundMED": 1000,
+            "outboundMED": 2000,
             "operation": {
               "operationalStatus": "UNKNOWN"
             }
           },
           "customerAsn": 10000,
-          "equinixAsn": 10001
+          "equinixAsn": 10001,
+          "asOverrideEnabled": true
         }
       },
       "RoutingProtocolReplaceDirectResponse": {
@@ -28127,13 +28955,16 @@
             "customerPeerIp": "10.1.1.3",
             "enabled": true,
             "outboundASPrependCount": 3,
+            "inboundMED": 1000,
+            "outboundMED": 2000,
             "operation": {
               "operationalStatus": "UP",
               "opStatusChangedAt": "2021-10-30T07:21:39Z"
             }
           },
           "customerAsn": 10000,
-          "equinixAsn": 10001
+          "equinixAsn": 10001,
+          "asOverrideEnabled": true
         }
       },
       "PatchRoutingProtocolEnableIPv4": {
@@ -33338,6 +34169,9 @@
               },
               "changeLog": {
                 "createdDateTime": "2020-06-14T17:21:25.586Z"
+              },
+              "project": {
+                "projectId": "8f23b36f-db8f-44c8-a6e5-606e1b485931"
               }
             }
           ]
@@ -33360,6 +34194,9 @@
           "encapsulation": {
             "type": "DOT1Q",
             "tagProtocolId": 33024
+          },
+          "project": {
+            "projectId": "8f23b36f-db8f-44c8-a6e5-606e1b485931"
           },
           "account": {
             "accountNumber": "270848"
@@ -33420,6 +34257,9 @@
             "type": "DOT1Q",
             "tagProtocolId": 33024
           },
+          "project": {
+            "projectId": "8f23b36f-db8f-44c8-a6e5-606e1b485931"
+          },
           "account": {
             "accountNumber": "270848"
           },
@@ -33478,6 +34318,9 @@
           "encapsulation": {
             "type": "DOT1Q",
             "tagProtocolId": 33024
+          },
+          "project": {
+            "projectId": "8f23b36f-db8f-44c8-a6e5-606e1b485931"
           },
           "account": {
             "accountNumber": "270848"
@@ -33637,6 +34480,9 @@
             "type": "DOT1Q",
             "tagProtocolId": 33024
           },
+          "project": {
+            "projectId": "8f23b36f-db8f-44c8-a6e5-606e1b485931"
+          },
           "account": {
             "accountNumber": "270848"
           },
@@ -33692,6 +34538,9 @@
             "type": "DOT1Q",
             "tagProtocolId": 33024
           },
+          "project": {
+            "projectId": "8f23b36f-db8f-44c8-a6e5-606e1b485931"
+          },
           "account": {
             "accountNumber": "270848"
           },
@@ -33744,6 +34593,9 @@
           "encapsulation": {
             "type": "DOT1Q",
             "tagProtocolId": 33024
+          },
+          "project": {
+            "projectId": "8f23b36f-db8f-44c8-a6e5-606e1b485931"
           },
           "account": {
             "accountNumber": "270848"
@@ -33886,6 +34738,9 @@
             "type": "DOT1Q",
             "tagProtocolId": 33024
           },
+          "project": {
+            "projectId": "8f23b36f-db8f-44c8-a6e5-606e1b485931"
+          },
           "account": {
             "accountNumber": "270848"
           },
@@ -33943,8 +34798,7 @@
             "packageType": "STANDARD"
           },
           "project": {
-            "href": "https://api.equinix.com/resourceManager/v1/projects/567",
-            "projectId": 567
+            "projectId": "8f23b36f-db8f-44c8-a6e5-606e1b485931"
           },
           "account": {
             "accountNumber": 1000
@@ -34354,6 +35208,9 @@
                 "sharedPortType": false,
                 "packageType": "STANDARD"
               },
+              "project": {
+                "projectId": "8f23b36f-db8f-44c8-a6e5-606e1b485931"
+              },
               "notifications": [
                 {
                   "type": "TECHNICAL",
@@ -34396,6 +35253,9 @@
                 "priority": "SECONDARY"
               },
               "lagEnabled": false,
+              "project": {
+                "projectId": "8f23b36f-db8f-44c8-a6e5-606e1b485931"
+              },
               "settings": {
                 "sharedPortType": false,
                 "packageType": "STANDARD"
@@ -34451,7 +35311,15 @@
                     "email": "john.doe@company.com"
                   }
                 }
-              }
+              },
+              "notifications": [
+                {
+                  "registeredUsers": [
+                    "jaguarsuser-port-order"
+                  ],
+                  "type": "NOTIFICATION"
+                }
+              ]
             },
             {
               "type": "XF_PHYSICAL_PORT",
@@ -34483,7 +35351,15 @@
                     "email": "john.doe@company.com"
                   }
                 }
-              }
+              },
+              "notifications": [
+                {
+                  "registeredUsers": [
+                    "jaguarsuser-port-order"
+                  ],
+                  "type": "NOTIFICATION"
+                }
+              ]
             }
           ]
         }
@@ -34619,7 +35495,15 @@
               },
               "order": {
                 "orderNumber": "1-210210611904"
-              }
+              },
+              "notifications": [
+                {
+                  "registeredUsers": [
+                    "jaguarsuser-port-order"
+                  ],
+                  "type": "NOTIFICATION"
+                }
+              ]
             },
             {
               "type": "XF_PHYSICAL_PORT",
@@ -34634,7 +35518,15 @@
               },
               "order": {
                 "orderNumber": "1-210210611904"
-              }
+              },
+              "notifications": [
+                {
+                  "registeredUsers": [
+                    "jaguarsuser-port-order"
+                  ],
+                  "type": "NOTIFICATION"
+                }
+              ]
             }
           ]
         }
@@ -34734,6 +35626,9 @@
           },
           "changeLog": {
             "createdDateTime": "2018-06-14T17:21:25.587Z"
+          },
+          "project": {
+            "projectId": "8f23b36f-db8f-44c8-a6e5-606e1b485931"
           }
         }
       },
@@ -36107,6 +37002,32 @@
           }
         }
       },
+      "CreateWithMarketplaceSubscription": {
+        "value": {
+          "type": "XF_ROUTER",
+          "name": "My-Cloud-Router",
+          "location": {
+            "metroCode": "SV"
+          },
+          "package": {
+            "code": "ADVANCED"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@test.com"
+              ]
+            }
+          ],
+          "project": {
+            "projectId": "ae708bbb-d669-406a-845a-99b39ff65fd0"
+          },
+          "marketplaceSubscription": {
+            "uuid": "20d32a80-0d61-4333-bc03-707b591ae2f5"
+          }
+        }
+      },
       "CloudRouterPostResponseExample": {
         "value": {
           "href": "https://api.equinix.com/fabric/v4/routers/201b7346-a9eb-42fe-ae7a-08148c71928d",
@@ -36141,6 +37062,47 @@
           "bgpIpv4RoutesCount": 0,
           "bgpIpv6RoutesCount": 0,
           "connectionsCount": 0,
+          "changeLog": {
+            "createdBy": "abc@xyz.com",
+            "createdByFullName": "abc",
+            "createdByEmail": "abc@xyz.com",
+            "createdDateTime": "2021-09-24T06:59:46Z"
+          }
+        }
+      },
+      "CloudRouterPostResponseMarketplaceExample": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/routers/201b7346-a9eb-42fe-ae7a-08148c71928d",
+          "uuid": "201b7346-a9eb-42fe-ae7a-08148c71928d",
+          "state": "PROVISIONED",
+          "type": "XF_ROUTER",
+          "name": "My-Cloud-Router",
+          "location": {
+            "metroCode": "HH"
+          },
+          "equinixAsn": 30000,
+          "package": {
+            "code": "STANDARD"
+          },
+          "project": {
+            "projectId": "ae708bbb-d669-406a-845a-99b39ff65fd0"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "abc@abc.com"
+              ]
+            }
+          ],
+          "bgpIpv4RoutesCount": 0,
+          "bgpIpv6RoutesCount": 0,
+          "connectionsCount": 0,
+          "marketplaceSubscription": {
+            "href": "https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5",
+            "type": "AWS_MARKETPLACE_SUBSCRIPTION",
+            "uuid": "20d32a80-0d61-4333-bc03-707b591ae2f5"
+          },
           "changeLog": {
             "createdBy": "abc@xyz.com",
             "createdByFullName": "abc",
@@ -36208,6 +37170,53 @@
             "deletedByFullName": "abc",
             "deletedByEmail": "abc@xyz.com",
             "deletedDateTime": "2021-09-24T06:59:46Z"
+          }
+        }
+      },
+      "CloudRouterResponseExampleMarketplace": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/routers/201b7346-a9eb-42fe-ae7a-08148c71928d",
+          "uuid": "201b7346-a9eb-42fe-ae7a-08148c71928d",
+          "state": "PROVISIONED",
+          "type": "XF_ROUTER",
+          "name": "My-Cloud-Router",
+          "location": {
+            "metroCode": "HH"
+          },
+          "equinixAsn": 30000,
+          "package": {
+            "code": "STANDARD"
+          },
+          "project": {
+            "projectId": "ae708bbb-d669-406a-845a-99b39ff65fd0"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "abc@abc.com"
+              ]
+            }
+          ],
+          "bgpIpv4RoutesCount": 4,
+          "bgpIpv6RoutesCount": 4,
+          "distinctIpv4PrefixesCount": 2,
+          "distinctIpv6PrefixesCount": 2,
+          "connectionsCount": 0,
+          "marketplaceSubscription": {
+            "href": "https://api.equinix.com/fabric/v4/marketplaceSubscriptions/20d32a80-0d61-4333-bc03-707b591ae2f5",
+            "type": "AWS_MARKETPLACE_SUBSCRIPTION",
+            "uuid": "20d32a80-0d61-4333-bc03-707b591ae2f5"
+          },
+          "changeLog": {
+            "createdBy": "abc@xyz.com",
+            "createdByFullName": "abc",
+            "createdByEmail": "abc@xyz.com",
+            "createdDateTime": "2021-09-24T06:59:46Z",
+            "updatedBy": "abc@xyz.com",
+            "updatedByFullName": "abc",
+            "updatedByEmail": "abc@xyz.com",
+            "updatedDateTime": "2021-09-24T06:59:46Z"
           }
         }
       },
@@ -38516,7 +39525,7 @@
           }
         ]
       },
-      "edit": {
+      "editName": {
         "value": [
           {
             "op": "replace",
@@ -38525,7 +39534,16 @@
           }
         ]
       },
-      "ntpSingleStandard": {
+      "editPackageCode": {
+        "value": [
+          {
+            "op": "replace",
+            "path": "/package/code",
+            "value": "NTP_ENTERPRISE"
+          }
+        ]
+      },
+      "ntpStandard": {
         "value": {
           "name": "EPT-Single-Service",
           "type": "NTP",
@@ -38545,7 +39563,7 @@
           }
         }
       },
-      "ptpSingleStandard": {
+      "ptpStandard": {
         "value": {
           "name": "EPT-Single-Service",
           "type": "PTP",
@@ -38565,7 +39583,7 @@
           }
         }
       },
-      "ptpSingleEnterpriseWithAdvanceConfiguration": {
+      "ptpEnterpriseWithAdvanceConfiguration": {
         "value": {
           "name": "EPT-Single-Service",
           "type": "PTP",
@@ -38575,7 +39593,7 @@
             }
           ],
           "package": {
-            "code": "PTP_STANDARD"
+            "code": "PTP_ENTERPRISE"
           },
           "ipv4": {
             "primary": "192.168.0.2",
@@ -38595,6 +39613,192 @@
             }
           }
         }
+      },
+      "ntpEnterpriseWithAdvanceConfiguration": {
+        "value": {
+          "name": "EPT-Single-Service",
+          "type": "NTP",
+          "connections": [
+            {
+              "uuid": "06dbb0e3-e55d-4090-8aff-fc5654abaad0"
+            }
+          ],
+          "package": {
+            "code": "NTP_ENTERPRISE"
+          },
+          "ipv4": {
+            "primary": "192.168.0.2",
+            "secondary": "192.168.0.3",
+            "networkMask": "255.255.255.255",
+            "defaultGateway": "192.167.0.1"
+          },
+          "advanceConfiguration": {
+            "ntp": [
+              {
+                "type": "ASCII",
+                "id": 12345,
+                "password": "MTIzNDU2Nzg5MA"
+              }
+            ]
+          }
+        }
+      },
+      "SearchTimeServicesFilterByStatus": {
+        "value": {
+          "filter": {
+            "and": [
+              {
+                "property": "/state",
+                "operator": "=",
+                "values": [
+                  "PROVISIONED"
+                ]
+              },
+              {
+                "property": "/project/projectId",
+                "operator": "=",
+                "values": [
+                  "995072000433550"
+                ]
+              }
+            ]
+          },
+          "pagination": {
+            "offset": 0,
+            "limit": 20
+          },
+          "sort": [
+            {
+              "direction": "DESC",
+              "property": "/changeLog/createdDateTime"
+            }
+          ]
+        }
+      },
+      "SearchTimeServicesByNameAndProtocol": {
+        "value": {
+          "filter": {
+            "and": [
+              {
+                "property": "/name",
+                "operator": "=",
+                "values": [
+                  "test-time-service"
+                ]
+              },
+              {
+                "property": "/type",
+                "operator": "=",
+                "values": [
+                  "NTP"
+                ]
+              },
+              {
+                "property": "/project/projectId",
+                "operator": "=",
+                "values": [
+                  "995072000433550"
+                ]
+              }
+            ]
+          },
+          "pagination": {
+            "offset": 0,
+            "limit": 20
+          },
+          "sort": [
+            {
+              "direction": "DESC",
+              "property": "/changeLog/createdDateTime"
+            }
+          ]
+        }
+      },
+      "SearchTimeServicesFilterOrAnd": {
+        "value": {
+          "filter": {
+            "and": [
+              {
+                "or": [
+                  {
+                    "property": "/uuid",
+                    "operator": "LIKE",
+                    "values": [
+                      "676a0c3f-a785-4294-87bc-25fe9318a620%"
+                    ]
+                  },
+                  {
+                    "property": "/name",
+                    "operator": "LIKE",
+                    "values": [
+                      "test-time-service"
+                    ]
+                  }
+                ]
+              },
+              {
+                "property": "/project/projectId",
+                "operator": "=",
+                "values": [
+                  "995072000433550"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "serviceSearchResponse": {
+        "value": {
+          "pagination": {
+            "offset": 20,
+            "limit": 20,
+            "total": 100,
+            "next": "/search?offset=40&limit=20",
+            "previous": "/search?offset=0&limit=20"
+          },
+          "data": [
+            {
+              "href": "https://api.equinix.com/fabric/v4/routers/201b7346-a9eb-42fe-ae7a-08148c71928d",
+              "uuid": "a8ba52de-faae-43b5-b0b1-6904d37ee011",
+              "name": "EPT-NTP-STD-Service",
+              "type": "NTP",
+              "state": "PROVISIONING",
+              "connections": [
+                {
+                  "href": "https://api.equinix.com/fabric/v4/connections/a8ba52de-faae-43b5-b0b1-6904d37ee011",
+                  "uuid": "06dbb0e3-e55d-4090-8aff-fc5654abaad0"
+                }
+              ],
+              "package": {
+                "href": "https://api.equinix.com/fabric/v4/timeServicePackages/NTP_STANDARD",
+                "code": "NTP_STANDARD"
+              },
+              "ipv4": {
+                "primary": "192.168.0.2",
+                "secondary": "192.168.0.3",
+                "networkMask": "255.255.255.255",
+                "defaultGateway": "192.167.0.1"
+              },
+              "account": {
+                "accountNumber": 123456
+              }
+            }
+          ]
+        }
+      },
+      "service_400_invalid_sorting": {
+        "value": [
+          {
+            "errorCode": "EQ-3040039",
+            "errorMessage": "Invalid value for sorting direction.",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515",
+            "additionalInfo": [
+              {
+                "reason": "Only accept DESC and ASC for sorting direction."
+              }
+            ]
+          }
+        ]
       },
       "serviceConnectionsResponse": {
         "value": {
@@ -38715,7 +39919,111 @@
           }
         }
       },
-      "get-all-example": {
+      "subscription-response": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/marketplaceSubscriptions/c5557b51-7938-4f7d-afaa-41b930903a5e",
+          "uuid": "c5557b51-7938-4f7d-afaa-41b930903a5e",
+          "state": "ACTIVE",
+          "marketplace": "AWS",
+          "offerType": "PRIVATE_OFFER",
+          "isAutoRenew": false,
+          "offerId": "offer id",
+          "trial": {
+            "enabled": true,
+            "expiryDateTime": "2020-05-21T10:30:00Z"
+          },
+          "entitlements": [
+            {
+              "uuid": "a15b6b20-b765-4bf7-a661-a3e9372d5435",
+              "name": "FCR Standard",
+              "quantityEntitled": 1,
+              "quantityConsumed": 0,
+              "asset": {
+                "type": "XF_ROUTER",
+                "package": {
+                  "code": "STANDARD"
+                }
+              }
+            },
+            {
+              "uuid": "2e3a9041-19ce-4c80-add3-3e3a069fc5e9",
+              "name": "Connection 500 Mbps",
+              "quantityEntitled": 1,
+              "quantityConsumed": 0,
+              "quantityAvailable": 1,
+              "asset": {
+                "type": "IP_VC",
+                "bandwidth": 500
+              }
+            }
+          ],
+          "changeLog": {
+            "createdBy": "adminuser",
+            "createdDateTime": "2020-05-21T10:30:00Z",
+            "updatedBy": "adminuser",
+            "updatedDateTime": "2020-05-21T10:30:00Z"
+          }
+        }
+      },
+      "StreamResponseExample": {
+        "value": {
+          "uuid": "d684aa26-8276-48b7-bb42-a6d9def0a418",
+          "href": "https://api.equinix.com/fabric/v4/streams/d684aa26-8276-48b7-bb42-a6d9def0a418",
+          "type": "STREAM_SUBSCRIPTION",
+          "name": "splunk1",
+          "description": "subscription 1",
+          "enabled": true,
+          "state": "PROVISIONED",
+          "project": {
+            "projectId": 123456
+          },
+          "changelog": {
+            "createdDateTime": "2024-05-06T16:21:18.545214Z"
+          }
+        }
+      },
+      "StreamPostRequestExample": {
+        "value": {
+          "type": "STREAM_SUBSCRIPTION",
+          "name": "splunk1",
+          "description": "subscription 1"
+        }
+      },
+      "StreamPutRequestExample": {
+        "value": {
+          "name": "splunk1",
+          "description": "subscription 1",
+          "stream": {
+            "uuid": "36276e58-b5a1-4864-ab5e-be10dff9eac1"
+          }
+        }
+      },
+      "StreamAssetSearchRequestExample": {
+        "value": {
+          "filter": {
+            "and": [
+              {
+                "property": "/streamUuid",
+                "operator": "=",
+                "values": [
+                  "e684aa26-8276-48b7-bb42-a6d9def0a419"
+                ]
+              }
+            ]
+          },
+          "pagination": {
+            "offset": 0,
+            "limit": 20
+          },
+          "sort": [
+            {
+              "direction": "DESC",
+              "property": "/changeLog/createdDateTime"
+            }
+          ]
+        }
+      },
+      "stream-asset-get-all-example": {
         "value": {
           "pagination": {
             "offset": 0,
@@ -38725,11 +40033,58 @@
           "data": [
             {
               "uuid": "d684aa26-8276-48b7-bb42-a6d9def0a418",
-              "href": "https://api.equinix.com/fabric/v4/cloudEventSubscriptions/d684aa26-8276-48b7-bb42-a6d9def0a418",
-              "type": "CLOUDEVENT_SUBSCRIPTION",
-              "name": "slack1",
+              "href": "https://api.equinix.com/fabric/v4/ports/e684aa26-8276-48b7-bb42-a6d9def0a419",
+              "metricsEnabled": true,
+              "attachmentStatus": "ATTACHED"
+            }
+          ]
+        }
+      },
+      "StreamRouterAssetResponseExample": {
+        "value": {
+          "uuid": "d684aa26-8276-48b7-bb42-a6d9def0a418",
+          "href": "https://api.equinix.com/fabric/v4/stream/e684aa26-8276-48b7-bb42-a6d9def0a419/routers/d684aa26-8276-48b7-bb42-a6d9def0a418",
+          "metricsEnabled": true,
+          "attachmentStatus": "ATTACHED"
+        }
+      },
+      "StreamAssetPutRequestExample": {
+        "value": {
+          "metricsEnabled": true
+        }
+      },
+      "StreamConnectionAssetResponseExample": {
+        "value": {
+          "uuid": "d684aa26-8276-48b7-bb42-a6d9def0a418",
+          "href": "https://api.equinix.com/fabric/v4/stream/e684aa26-8276-48b7-bb42-a6d9def0a419/connections/d684aa26-8276-48b7-bb42-a6d9def0a418",
+          "metricsEnabled": true,
+          "attachmentStatus": "ATTACHED"
+        }
+      },
+      "StreamPortAssetResponseExample": {
+        "value": {
+          "uuid": "d684aa26-8276-48b7-bb42-a6d9def0a418",
+          "href": "https://api.equinix.com/fabric/v4/stream/e684aa26-8276-48b7-bb42-a6d9def0a419/ports/d684aa26-8276-48b7-bb42-a6d9def0a418",
+          "metricsEnabled": true,
+          "attachmentStatus": "ATTACHED"
+        }
+      },
+      "stream-subscription-get-all-example": {
+        "value": {
+          "pagination": {
+            "offset": 0,
+            "limit": 20,
+            "total": 1
+          },
+          "data": [
+            {
+              "uuid": "d684aa26-8276-48b7-bb42-a6d9def0a418",
+              "href": "https://api.equinix.com/fabric/v4/streamSubscriptions/d684aa26-8276-48b7-bb42-a6d9def0a418",
+              "type": "STREAM_SUBSCRIPTION",
+              "name": "splunk",
               "description": "subscription 1",
               "enabled": true,
+              "state": "PROVISIONED",
               "filters": {
                 "and": [
                   {
@@ -38752,10 +40107,10 @@
               },
               "sink": {
                 "uri": "https://xxxxxx",
-                "type": "SLACK",
-                "batch": false,
-                "maxBatchSize": 50,
-                "maxBatchWaitTime": 5
+                "type": "SPLUNK_HEC",
+                "batchEnabled": false,
+                "batchSizeMax": 50,
+                "batchWaitTimeMax": 5
               },
               "changelog": {
                 "createdDateTime": "2024-05-06T16:21:18.545214Z"
@@ -38764,27 +40119,25 @@
           ]
         }
       },
-      "CloudeventSubscriptionPostRequestExample": {
+      "StreamSubscriptionPostRequestExample": {
         "value": {
-          "type": "CLOUDEVENT_SUBSCRIPTION",
-          "name": "slack1",
+          "type": "STREAM_SUBSCRIPTION",
+          "name": "splunk1",
           "description": "subscription 1",
           "enabled": true,
+          "stream": {
+            "uuid": "36276e58-b5a1-4864-ab5e-be10dff9eac1"
+          },
+          "project": {
+            "projectId": 123456
+          },
           "filters": {
             "and": [
               {
-                "path": "subject",
+                "path": "type",
                 "operator": "LIKE",
                 "values": [
-                  "%36276e58-b5a1-4864-ab5e-be10dff9eac1%"
-                ],
-                "or": []
-              },
-              {
-                "path": "equinixproject",
-                "operator": "IN",
-                "values": [
-                  "197607000886247"
+                  "%com.equinix.event.fabric.connection%"
                 ],
                 "or": []
               }
@@ -38792,36 +40145,37 @@
           },
           "sink": {
             "uri": "https://xxxxxx",
-            "type": "SLACK",
-            "batch": false,
-            "maxBatchSize": 50,
-            "maxBatchWaitTime": 5
+            "type": "SPLUNK_HEC",
+            "credential": {
+              "type": "ACCESS_TOKEN",
+              "accessToken": "my-access-token"
+            },
+            "batchEnabled": false,
+            "batchSizeMax": 50,
+            "batchWaitTimeMax": 5
           }
         }
       },
-      "CloudeventSubscriptionResponseExample": {
+      "StreamSubscriptionResponseExample": {
         "value": {
           "uuid": "d684aa26-8276-48b7-bb42-a6d9def0a418",
-          "href": "https://api.equinix.com/fabric/v4/cloudEventSubscriptions/d684aa26-8276-48b7-bb42-a6d9def0a418",
-          "type": "CLOUDEVENT_SUBSCRIPTION",
-          "name": "slack1",
-          "description": "subscription 1",
-          "enabled": true,
+          "href": "https://api.equinix.com/fabric/v4/streamSubscriptions/d684aa26-8276-48b7-bb42-a6d9def0a418",
+          "type": "TELEMETRY_STREAM",
+          "name": "stream 1",
+          "description": "stream dec 1",
+          "project": {
+            "projectId": 1234546
+          },
+          "state": "PROVISIONED",
+          "assetCount": 1,
+          "streamSubscriptionCount": 2,
           "filters": {
             "and": [
               {
-                "path": "subject",
+                "path": "type",
                 "operator": "LIKE",
                 "values": [
-                  "%36276e58-b5a1-4864-ab5e-be10dff9eac1%"
-                ],
-                "or": []
-              },
-              {
-                "path": "equinixproject",
-                "operator": "IN",
-                "values": [
-                  "197607000886247"
+                  "%com.equinix.event.fabric.connection%"
                 ],
                 "or": []
               }
@@ -38829,36 +40183,35 @@
           },
           "sink": {
             "uri": "https://xxxxxx",
-            "type": "SLACK",
-            "batch": false,
-            "maxBatchSize": 50,
-            "maxBatchWaitTime": 5
+            "type": "SPLUNK_HEC",
+            "credential": {
+              "type": "ACCESS_TOKEN",
+              "accessToken": "my-access-token"
+            },
+            "batchEnabled": false,
+            "batchSizeMax": 50,
+            "batchWaitTimeMax": 5
           },
           "changelog": {
             "createdDateTime": "2024-05-06T16:21:18.545214Z"
           }
         }
       },
-      "CloudeventSubscriptionPutRequestExample": {
+      "StreamSubscriptionPutRequestExample": {
         "value": {
-          "name": "slack1",
+          "name": "splunk1",
           "description": "subscription 1",
           "enabled": true,
+          "stream": {
+            "uuid": "36276e58-b5a1-4864-ab5e-be10dff9eac1"
+          },
           "filters": {
             "and": [
               {
-                "path": "subject",
+                "path": "type",
                 "operator": "LIKE",
                 "values": [
-                  "%36276e58-b5a1-4864-ab5e-be10dff9eac1%"
-                ],
-                "or": []
-              },
-              {
-                "path": "equinixproject",
-                "operator": "IN",
-                "values": [
-                  "197607000886247"
+                  "%equinix.event.fabric.connection%"
                 ],
                 "or": []
               }
@@ -38866,10 +40219,14 @@
           },
           "sink": {
             "uri": "https://xxxxxx",
-            "type": "SLACK",
-            "batch": false,
-            "maxBatchSize": 50,
-            "maxBatchWaitTime": 5
+            "type": "SPLUNK_HEC",
+            "credential": {
+              "type": "ACCESS_TOKEN",
+              "accessToken": "my-access-token"
+            },
+            "batchEnabled": false,
+            "batchSizeMax": 50,
+            "batchWaitTimeMax": 5
           }
         }
       }
