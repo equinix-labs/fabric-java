@@ -17,6 +17,7 @@ Physical Port specification
 |**interfaceType** | **String** | Physical Port Interface Type |  [optional] |
 |**tether** | [**PortTether**](PortTether.md) |  |  [optional] |
 |**demarcationPoint** | [**PortDemarcationPoint**](PortDemarcationPoint.md) |  |  [optional] |
+|**notifications** | [**List&lt;PortNotification&gt;**](PortNotification.md) | Notification preferences |  [optional] |
 |**additionalInfo** | [**List&lt;PortAdditionalInfo&gt;**](PortAdditionalInfo.md) | Physical Port additional information |  [optional] |
 |**order** | [**PortOrder**](PortOrder.md) |  |  [optional] |
 |**operation** | [**PortOperation**](PortOperation.md) |  |  [optional] |

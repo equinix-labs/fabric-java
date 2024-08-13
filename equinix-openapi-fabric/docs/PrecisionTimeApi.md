@@ -10,6 +10,7 @@ All URIs are relative to *https://api.equinix.com*
 | [**getTimeServicesConnectionsByServiceId**](PrecisionTimeApi.md#getTimeServicesConnectionsByServiceId) | **GET** /fabric/v4/timeServices/{serviceId}/connections | Get Connection Links |
 | [**getTimeServicesPackageByCode**](PrecisionTimeApi.md#getTimeServicesPackageByCode) | **GET** /fabric/v4/timeServicePackages/{packageCode} | Get Package By Code |
 | [**getTimeServicesPackages**](PrecisionTimeApi.md#getTimeServicesPackages) | **GET** /fabric/v4/timeServicePackages | Get Packages |
+| [**searchTimeServices**](PrecisionTimeApi.md#searchTimeServices) | **POST** /fabric/v4/timeServices/search | Search Time Services |
 | [**updateTimeServicesById**](PrecisionTimeApi.md#updateTimeServicesById) | **PATCH** /fabric/v4/timeServices/{serviceId} | Patch time service |
 
 
@@ -430,6 +431,78 @@ This endpoint does not need any parameter.
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful operation |  -  |
+| **415** | Unsupported Media Type |  -  |
+| **500** | Internal server error |  -  |
+
+<a name="searchTimeServices"></a>
+# **searchTimeServices**
+> ServiceSearchResponse searchTimeServices(timeServicesSearchRequest)
+
+Search Time Services
+
+The API provides capability to get list of user&#39;s Time Services using search criteria, including optional filtering, pagination and sorting
+
+### Example
+```java
+// Import classes:
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.PrecisionTimeApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
+
+    PrecisionTimeApi apiInstance = new PrecisionTimeApi(defaultClient);
+    TimeServicesSearchRequest timeServicesSearchRequest = new TimeServicesSearchRequest(); // TimeServicesSearchRequest | 
+    try {
+      ServiceSearchResponse result = apiInstance.searchTimeServices(timeServicesSearchRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling PrecisionTimeApi#searchTimeServices");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **timeServicesSearchRequest** | [**TimeServicesSearchRequest**](TimeServicesSearchRequest.md)|  | |
+
+### Return type
+
+[**ServiceSearchResponse**](ServiceSearchResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful operation |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
 

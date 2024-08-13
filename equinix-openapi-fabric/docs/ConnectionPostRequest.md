@@ -19,6 +19,7 @@ Create connection post request
 |**zSide** | [**ConnectionSide**](ConnectionSide.md) |  |  |
 |**project** | [**Project**](Project.md) |  |  [optional] |
 |**additionalInfo** | [**List&lt;ConnectionSideAdditionalInfo&gt;**](ConnectionSideAdditionalInfo.md) | Connection additional information |  [optional] |
+|**marketplaceSubscription** | [**MarketplaceSubscription**](MarketplaceSubscription.md) |  |  [optional] |
 
 
 

@@ -23,6 +23,7 @@ import com.equinix.openapi.fabric.v4.model.ConnectionSideAdditionalInfo;
 import com.equinix.openapi.fabric.v4.model.ConnectionState;
 import com.equinix.openapi.fabric.v4.model.ConnectionType;
 import com.equinix.openapi.fabric.v4.model.GeoScopeType;
+import com.equinix.openapi.fabric.v4.model.MarketplaceSubscription;
 import com.equinix.openapi.fabric.v4.model.Order;
 import com.equinix.openapi.fabric.v4.model.Project;
 import com.equinix.openapi.fabric.v4.model.SimplifiedAccount;
@@ -138,6 +139,10 @@ public class Connection {
   public static final String SERIALIZED_NAME_Z_SIDE = "zSide";
   @SerializedName(SERIALIZED_NAME_Z_SIDE)
   private ConnectionSide zSide;
+
+  public static final String SERIALIZED_NAME_MARKETPLACE_SUBSCRIPTION = "marketplaceSubscription";
+  @SerializedName(SERIALIZED_NAME_MARKETPLACE_SUBSCRIPTION)
+  private MarketplaceSubscription marketplaceSubscription;
 
   public static final String SERIALIZED_NAME_ADDITIONAL_INFO = "additionalInfo";
   @SerializedName(SERIALIZED_NAME_ADDITIONAL_INFO)
@@ -577,6 +582,28 @@ public class Connection {
   }
 
 
+  public Connection marketplaceSubscription(MarketplaceSubscription marketplaceSubscription) {
+    
+    this.marketplaceSubscription = marketplaceSubscription;
+    return this;
+  }
+
+   /**
+   * Get marketplaceSubscription
+   * @return marketplaceSubscription
+  **/
+  @javax.annotation.Nullable
+
+  public MarketplaceSubscription getMarketplaceSubscription() {
+    return marketplaceSubscription;
+  }
+
+
+  public void setMarketplaceSubscription(MarketplaceSubscription marketplaceSubscription) {
+    this.marketplaceSubscription = marketplaceSubscription;
+  }
+
+
   public Connection additionalInfo(List<ConnectionSideAdditionalInfo> additionalInfo) {
     
     this.additionalInfo = additionalInfo;
@@ -702,6 +729,7 @@ public class Connection {
         Objects.equals(this.direction, connection.direction) &&
         Objects.equals(this.aSide, connection.aSide) &&
         Objects.equals(this.zSide, connection.zSide) &&
+        Objects.equals(this.marketplaceSubscription, connection.marketplaceSubscription) &&
         Objects.equals(this.additionalInfo, connection.additionalInfo) &&
         Objects.equals(this.project, connection.project)&&
         Objects.equals(this.additionalProperties, connection.additionalProperties);
@@ -709,7 +737,7 @@ public class Connection {
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, href, uuid, name, description, state, change, operation, order, notifications, account, changeLog, bandwidth, geoScope, redundancy, isRemote, direction, aSide, zSide, additionalInfo, project, additionalProperties);
+    return Objects.hash(type, href, uuid, name, description, state, change, operation, order, notifications, account, changeLog, bandwidth, geoScope, redundancy, isRemote, direction, aSide, zSide, marketplaceSubscription, additionalInfo, project, additionalProperties);
   }
 
   @Override
@@ -735,6 +763,7 @@ public class Connection {
     sb.append("    direction: ").append(toIndentedString(direction)).append("\n");
     sb.append("    aSide: ").append(toIndentedString(aSide)).append("\n");
     sb.append("    zSide: ").append(toIndentedString(zSide)).append("\n");
+    sb.append("    marketplaceSubscription: ").append(toIndentedString(marketplaceSubscription)).append("\n");
     sb.append("    additionalInfo: ").append(toIndentedString(additionalInfo)).append("\n");
     sb.append("    project: ").append(toIndentedString(project)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
@@ -779,6 +808,7 @@ public class Connection {
     openapiFields.add("direction");
     openapiFields.add("aSide");
     openapiFields.add("zSide");
+    openapiFields.add("marketplaceSubscription");
     openapiFields.add("additionalInfo");
     openapiFields.add("project");
 
@@ -864,6 +894,10 @@ public class Connection {
       ConnectionSide.validateJsonObject(jsonObj.getAsJsonObject("aSide"));
       // validate the required field `zSide`
       ConnectionSide.validateJsonObject(jsonObj.getAsJsonObject("zSide"));
+      // validate the optional field `marketplaceSubscription`
+      if (jsonObj.get("marketplaceSubscription") != null && !jsonObj.get("marketplaceSubscription").isJsonNull()) {
+        MarketplaceSubscription.validateJsonObject(jsonObj.getAsJsonObject("marketplaceSubscription"));
+      }
       if (jsonObj.get("additionalInfo") != null && !jsonObj.get("additionalInfo").isJsonNull()) {
         JsonArray jsonArrayadditionalInfo = jsonObj.getAsJsonArray("additionalInfo");
         if (jsonArrayadditionalInfo != null) {

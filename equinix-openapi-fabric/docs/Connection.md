@@ -27,6 +27,7 @@ Connection specification
 |**direction** | **ConnectionDirection** |  |  [optional] |
 |**aSide** | [**ConnectionSide**](ConnectionSide.md) |  |  |
 |**zSide** | [**ConnectionSide**](ConnectionSide.md) |  |  |
+|**marketplaceSubscription** | [**MarketplaceSubscription**](MarketplaceSubscription.md) |  |  [optional] |
 |**additionalInfo** | [**List&lt;ConnectionSideAdditionalInfo&gt;**](ConnectionSideAdditionalInfo.md) | Connection additional information |  [optional] |
 |**project** | [**Project**](Project.md) |  |  [optional] |
 

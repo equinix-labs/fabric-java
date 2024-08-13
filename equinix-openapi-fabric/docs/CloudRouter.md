@@ -18,6 +18,7 @@ Fabric Cloud Router object
 |**connectionsCount** | **Integer** | Number of connections associated with this Access point |  [optional] |
 |**distinctIpv4PrefixesCount** | **Integer** | Number of distinct ipv4 routes |  [optional] |
 |**distinctIpv6PrefixesCount** | **Integer** | Number of distinct ipv6 routes |  [optional] |
+|**marketplaceSubscription** | [**MarketplaceSubscription**](MarketplaceSubscription.md) |  |  [optional] |
 |**changeLog** | [**Changelog**](Changelog.md) |  |  [optional] |
 |**change** | [**CloudRouterChange**](CloudRouterChange.md) |  |  [optional] |
 |**type** | [**TypeEnum**](#TypeEnum) |  |  [optional] |
