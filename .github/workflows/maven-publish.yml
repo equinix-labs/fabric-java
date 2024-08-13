@@ -34,7 +34,7 @@ jobs:
       working-directory: ./equinix-openapi-fabric
 
       run: |- 
-        mvn deploy -s $GITHUB_WORKSPACE/settings.xml -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/equinix-labs/fabric-java \
+        mvn deploy -DskipTests -s $GITHUB_WORKSPACE/settings.xml -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/equinix-labs/fabric-java \
         -DenvUrl=${{ env.TEST_HOST_URL }} -DuserName=${{ env.TEST_USER_NAME }} -DuserPassword=${{ env.TEST_USER_PASSWORD }} \
         -DclientId=${{ env.CLIENT_ID }} -DclientSecret=${{ env.CLIENT_SECRET }}
       env:

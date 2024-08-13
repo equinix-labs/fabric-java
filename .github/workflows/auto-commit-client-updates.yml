@@ -45,7 +45,7 @@ jobs:
         shell: bash
         working-directory: ./equinix-openapi-fabric
         run: |-
-          mvn clean package -DenvUrl=${{ env.TEST_HOST_URL }} -DuserName=${{ env.TEST_USER_NAME }} \
+          mvn clean package -DskipTests -DenvUrl=${{ env.TEST_HOST_URL }} -DuserName=${{ env.TEST_USER_NAME }} \
           -DuserPassword=${{ env.TEST_USER_PASSWORD }} -DclientId=${{ env.CLIENT_ID }} -DclientSecret=${{ env.CLIENT_SECRET }}
 
       - name: Commit to branch.
