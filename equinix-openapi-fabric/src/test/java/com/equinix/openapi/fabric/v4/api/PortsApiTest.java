@@ -10,49 +10,49 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.v4.api.dto.UserDto;
+import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.v4.api.dto.port.PortDto;
+import com.equinix.openapi.fabric.v4.api.dto.users.UsersItem;
 import com.equinix.openapi.fabric.v4.model.*;
-import io.restassured.response.Response;
-import org.apache.http.HttpStatus;
 import org.junit.Test;
 
 import java.util.List;
 
 import static java.util.Collections.singletonList;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * API tests for PortsApi
  */
 public class PortsApiTest {
 
-    private static PortsApi api = TokenGenerator.getApiClient().ports();
+    private static final UsersItem.UserName userName = UsersItem.UserName.PANTHERS_FNV;
+    private static final PortsApi api = new PortsApi(TokenGenerator.getApiClient(userName));
 
     /**
      * Successful operation
      */
     @Test
-    public void getPort() {
+    public void getPort() throws ApiException {
         PortDto portDto = (PortDto) Utils.getEnvData(Utils.EnvVariable.QINQ_PORT);
-        Response response = api.getPorts().nameQuery(portDto.getName()).execute(r -> r);
-        Port port = response.as(AllPortsResponse.class).getData().get(0);
-        assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+        Port port = api.getPorts(portDto.getName()).getData().get(0);
+        assertEquals(200, api.getApiClient().getStatusCode());
         assertEquals(port.getName(), portDto.getName());
         assertEquals(port.getUuid().toString(), portDto.getUuid());
     }
 
     @Test
-    public void searchPorts() {
-        Response response = getPorts();
-        List<Port> ports = response.as(AllPortsResponse.class).getData();
-        assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+    public void searchPorts() throws ApiException {
+        List<Port> ports = getPorts(userName).getData();
+        assertEquals(200, api.getApiClient().getStatusCode());
         assertTrue(!ports.isEmpty());
     }
 
-    public static Response getPorts() {
-        UserDto userDto = (UserDto) Utils.getEnvData(Utils.EnvVariable.TEST_DATA_UAT_FCR_USER);
+    public static AllPortsResponse getPorts(UsersItem.UserName userName) throws ApiException {
+        UsersItem user = Utils.getUserData(userName);
+
+        PortsApi apiLocal = new PortsApi(TokenGenerator.getApiClient(userName));
 
         PortV4SearchRequest portV4SearchRequest = new PortV4SearchRequest()
                 .filter(new PortExpression().addOrItem(new PortExpression()
@@ -63,11 +63,7 @@ public class PortsApiTest {
                         .addAndItem(new PortExpression()
                                 .operator(PortExpression.OperatorEnum.EQUAL)
                                 .property(PortSearchFieldName.PROJECT_PROJECTID)
-                                .values(singletonList(userDto.getProjectId())))
-                        .addAndItem(new PortExpression()
-                                .operator(PortExpression.OperatorEnum.EQUAL)
-                                .property(PortSearchFieldName.PROJECT_PROJECTID)
-                                .values(singletonList(userDto.getProjectId())))
+                                .values(singletonList(user.getProjectId())))
                         .addAndItem(new PortExpression()
                                 .operator(PortExpression.OperatorEnum.EQUAL)
                                 .property(PortSearchFieldName.SETTINGS_PRODUCTCODE)
@@ -78,6 +74,6 @@ public class PortsApiTest {
                         .limit(100))
                 .sort(singletonList(new PortSortCriteria().property(PortSortBy._DEVICE_NAME).direction(PortSortDirection.DESC)));
 
-        return api.searchPorts().body(portV4SearchRequest).execute(r -> r);
+        return apiLocal.searchPorts(portV4SearchRequest);
     }
 }

@@ -1,0 +1,25 @@
+get:
+  description: Displays which providers you can connect to directly from Equinix Metal Metros.
+  summary: Get connectivity to network provider by metro
+  operationId: getInterconnectionMetros
+  tags:
+    -  Interconnections
+  responses:
+    "200":
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/InterconnectionMetroList.yaml'
+      description: ok
+    "403":
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/Error.yaml'
+      description: forbidden
+    "404":
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/Error.yaml'
+      description: not found

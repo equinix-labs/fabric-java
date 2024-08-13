@@ -1,0 +1,51 @@
+diff --git a/spec/services/fabricv4/oas3.patched/swagger.yaml b/spec/services/fabricv4/oas3.patched/swagger.yaml
+index d552403..761c5fa 100644
+--- a/spec/services/fabricv4/oas3.patched/swagger.yaml
++++ b/spec/services/fabricv4/oas3.patched/swagger.yaml
+@@ -10304,7 +10304,6 @@ components:
+             - /advanceConfiguration/ptp
+             - /package
+         value:
+-          type: object
+           description: new value for updated parameter
+       description: Fabric Precision Timing change operation data
+     precisionTimeServiceRequest:
+@@ -10723,7 +10722,6 @@ components:
+           description: path inside document leading to updated parameter
+           example: /ipv6
+         value:
+-          type: object
+           description: new value for updated parameter
+       description: Connection change operation data
+     Actions:
+@@ -11174,7 +11172,6 @@ components:
+           description: path inside document leading to updated parameter
+           example: /expirationDateTime
+         value:
+-          type: object
+           description: new value for updated parameter
+       description: Service Token change operation data
+     ServiceTokenActions:
+@@ -11794,7 +11791,6 @@ components:
+           type: string
+           description: path inside document leading to updated parameter
+         value:
+-          type: object
+           description: new value for updated parameter
+       description: Fabric Cloud Router change operation data
+     CloudRouterActionType:
+@@ -11958,7 +11954,6 @@ components:
+           description: path inside document leading to updated parameter
+           example: /name
+         value:
+-          type: object
+           description: new value for updated parameter
+       description: Network change operation data
+     NetworkSortCriteriaResponse:
+@@ -23856,4 +23851,4 @@ components:
+     BearerAuth:
+       type: http
+       scheme: bearer
+-      bearerFormat: JWT
+\ No newline at end of file
++      bearerFormat: JWT

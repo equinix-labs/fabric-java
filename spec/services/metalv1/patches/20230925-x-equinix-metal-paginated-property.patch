@@ -1,0 +1,147 @@
+diff --git a/spec/services/metalv1/oas3.patched/paths/connections/connection_id/events.yaml b/spec/services/metalv1/oas3.patched/paths/connections/connection_id/events.yaml
+index 8d2121b..e797a39 100644
+--- a/spec/services/metalv1/oas3.patched/paths/connections/connection_id/events.yaml
++++ b/spec/services/metalv1/oas3.patched/paths/connections/connection_id/events.yaml
+@@ -41,3 +41,4 @@ get:
+   summary: Retrieve interconnection events
+   tags:
+   - Events
++  x-equinix-metal-paginated-property: Events
+diff --git a/spec/services/metalv1/oas3.patched/paths/devices/id/events.yaml b/spec/services/metalv1/oas3.patched/paths/devices/id/events.yaml
+index 62a179c..470b51e 100644
+--- a/spec/services/metalv1/oas3.patched/paths/devices/id/events.yaml
++++ b/spec/services/metalv1/oas3.patched/paths/devices/id/events.yaml
+@@ -41,3 +41,4 @@ get:
+   summary: Retrieve device's events
+   tags:
+   - Events
++  x-equinix-metal-paginated-property: Events
+diff --git a/spec/services/metalv1/oas3.patched/paths/events.yaml b/spec/services/metalv1/oas3.patched/paths/events.yaml
+index 6e5042d..7efcc87 100644
+--- a/spec/services/metalv1/oas3.patched/paths/events.yaml
++++ b/spec/services/metalv1/oas3.patched/paths/events.yaml
+@@ -22,3 +22,4 @@ get:
+   summary: Retrieve current user's events
+   tags:
+   - Events
++  x-equinix-metal-paginated-property: Events
+diff --git a/spec/services/metalv1/oas3.patched/paths/organizations.yaml b/spec/services/metalv1/oas3.patched/paths/organizations.yaml
+index 0a21aaf..0a43328 100644
+--- a/spec/services/metalv1/oas3.patched/paths/organizations.yaml
++++ b/spec/services/metalv1/oas3.patched/paths/organizations.yaml
+@@ -41,6 +41,7 @@ get:
+   summary: Retrieve all organizations
+   tags:
+   - Organizations
++  x-equinix-metal-paginated-property: Organizations
+ post:
+   description: Creates an organization.
+   operationId: createOrganization
+diff --git a/spec/services/metalv1/oas3.patched/paths/organizations/id/devices.yaml b/spec/services/metalv1/oas3.patched/paths/organizations/id/devices.yaml
+index 9309843..709f1c1 100644
+--- a/spec/services/metalv1/oas3.patched/paths/organizations/id/devices.yaml
++++ b/spec/services/metalv1/oas3.patched/paths/organizations/id/devices.yaml
+@@ -83,3 +86,4 @@ get:
+   summary: Retrieve all devices of an organization
+   tags:
+   - Devices
++  x-equinix-metal-paginated-property: Devices
+diff --git a/spec/services/metalv1/oas3.patched/paths/organizations/id/events.yaml b/spec/services/metalv1/oas3.patched/paths/organizations/id/events.yaml
+index cd713da..e184181 100644
+--- a/spec/services/metalv1/oas3.patched/paths/organizations/id/events.yaml
++++ b/spec/services/metalv1/oas3.patched/paths/organizations/id/events.yaml
+@@ -41,3 +41,4 @@ get:
+   summary: Retrieve organization's events
+   tags:
+   - Events
++  x-equinix-metal-paginated-property: Events
+diff --git a/spec/services/metalv1/oas3.patched/paths/organizations/id/projects.yaml b/spec/services/metalv1/oas3.patched/paths/organizations/id/projects.yaml
+index 004a17e..3ccaf57 100644
+--- a/spec/services/metalv1/oas3.patched/paths/organizations/id/projects.yaml
++++ b/spec/services/metalv1/oas3.patched/paths/organizations/id/projects.yaml
+@@ -30,6 +30,7 @@ get:
+   summary: Retrieve all projects of an organization
+   tags:
+   - Organizations
++  x-equinix-metal-paginated-property: Projects
+ post:
+   description: Creates a new project for the organization
+   operationId: createOrganizationProject
+diff --git a/spec/services/metalv1/oas3.patched/paths/projects.yaml b/spec/services/metalv1/oas3.patched/paths/projects.yaml
+index e9c147a..19312f2 100644
+--- a/spec/services/metalv1/oas3.patched/paths/projects.yaml
++++ b/spec/services/metalv1/oas3.patched/paths/projects.yaml
+@@ -24,6 +24,7 @@ get:
+   summary: Retrieve all projects
+   tags:
+   - Projects
++  x-equinix-metal-paginated-property: Projects
+ post:
+   description: Creates a new project for the user default organization. If the user
+     don't have an organization, a new one will be created.
+diff --git a/spec/services/metalv1/oas3.patched/paths/projects/id/devices.yaml b/spec/services/metalv1/oas3.patched/paths/projects/id/devices.yaml
+index c939c98..836099e 100644
+--- a/spec/services/metalv1/oas3.patched/paths/projects/id/devices.yaml
++++ b/spec/services/metalv1/oas3.patched/paths/projects/id/devices.yaml
+@@ -83,6 +86,7 @@ get:
+   summary: Retrieve all devices of a project
+   tags:
+   - Devices
++  x-equinix-metal-paginated-property: Devices
+ post:
+   description: |-
+     Creates a new device and provisions it in the specified location.
+diff --git a/spec/services/metalv1/oas3.patched/paths/projects/id/events.yaml b/spec/services/metalv1/oas3.patched/paths/projects/id/events.yaml
+index 233f1f9..9c0119e 100644
+--- a/spec/services/metalv1/oas3.patched/paths/projects/id/events.yaml
++++ b/spec/services/metalv1/oas3.patched/paths/projects/id/events.yaml
+@@ -41,3 +41,4 @@ get:
+   summary: Retrieve project's events
+   tags:
+   - Events
++  x-equinix-metal-paginated-property: Events
+diff --git a/spec/services/metalv1/oas3.patched/paths/projects/id/hardware-reservations.yaml b/spec/services/metalv1/oas3.patched/paths/projects/id/hardware-reservations.yaml
+index 5d95c14..37d7935 100644
+--- a/spec/services/metalv1/oas3.patched/paths/projects/id/hardware-reservations.yaml
++++ b/spec/services/metalv1/oas3.patched/paths/projects/id/hardware-reservations.yaml
+@@ -62,3 +63,4 @@ get:
+   summary: Retrieve all hardware reservations for a given project
+   tags:
+   - HardwareReservations
++  x-equinix-metal-paginated-property: HardwareReservations
+diff --git a/spec/services/metalv1/oas3.patched/paths/projects/project_id/connections.yaml b/spec/services/metalv1/oas3.patched/paths/projects/project_id/connections.yaml
+index f00ac06..b9dda2b 100644
+--- a/spec/services/metalv1/oas3.patched/paths/projects/project_id/connections.yaml
++++ b/spec/services/metalv1/oas3.patched/paths/projects/project_id/connections.yaml
+@@ -35,6 +35,7 @@ get:
+   summary: List project connections
+   tags:
+   - Interconnections
++  x-equinix-metal-paginated-property: Interconnections
+ post:
+   description: Creates a new interconnection request
+   operationId: createProjectInterconnection
+diff --git a/spec/services/metalv1/oas3.patched/paths/projects/project_id/metal-gateways.yaml b/spec/services/metalv1/oas3.patched/paths/projects/project_id/metal-gateways.yaml
+index 3ab78d3..cd306e7 100644
+--- a/spec/services/metalv1/oas3.patched/paths/projects/project_id/metal-gateways.yaml
++++ b/spec/services/metalv1/oas3.patched/paths/projects/project_id/metal-gateways.yaml
+@@ -35,6 +35,7 @@ get:
+   summary: Returns all metal gateways for a project
+   tags:
+   - MetalGateways
++  x-equinix-metal-paginated-property: MetalGateways
+ post:
+   description: Create a metal gateway in a project
+   operationId: createMetalGateway
+diff --git a/spec/services/metalv1/oas3.patched/paths/users.yaml b/spec/services/metalv1/oas3.patched/paths/users.yaml
+index ce1b579..b9e6977 100644
+--- a/spec/services/metalv1/oas3.patched/paths/users.yaml
++++ b/spec/services/metalv1/oas3.patched/paths/users.yaml
+@@ -23,6 +23,7 @@ get:
+   summary: Retrieve all users
+   tags:
+   - Users
++  x-equinix-metal-paginated-property: Users
+ post:
+   description: Creates a user.
+   operationId: createUser

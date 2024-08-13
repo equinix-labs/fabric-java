@@ -11,1100 +11,1880 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.v4.model.ConnectionRouteFilterData;
-import com.equinix.openapi.fabric.v4.model.ConnectionRouteFiltersBase;
-import com.equinix.openapi.fabric.v4.model.Error;
-import com.equinix.openapi.fabric.v4.model.GetAllConnectionRouteFiltersResponse;
-import com.equinix.openapi.fabric.v4.model.GetRouteFilterGetConnectionsResponse;
-import com.equinix.openapi.fabric.v4.model.RouteFilterChangeData;
-import com.equinix.openapi.fabric.v4.model.RouteFilterChangeDataResponse;
-import com.equinix.openapi.fabric.v4.model.RouteFiltersBase;
-import com.equinix.openapi.fabric.v4.model.RouteFiltersData;
-import com.equinix.openapi.fabric.v4.model.RouteFiltersPatchRequestItem;
-import com.equinix.openapi.fabric.v4.model.RouteFiltersSearchBase;
-import com.equinix.openapi.fabric.v4.model.RouteFiltersSearchResponse;
-import java.util.UUID;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import io.restassured.RestAssured;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.builder.ResponseSpecBuilder;
-import io.restassured.common.mapper.TypeRef;
-import io.restassured.http.Method;
-import io.restassured.response.Response;
+import com.equinix.openapi.fabric.*;
+import com.equinix.openapi.fabric.v4.model.*;
+import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
-import static io.restassured.http.Method.*;
+import java.util.*;
 
 public class RouteFiltersApi {
+    private ApiClient localVarApiClient;
+    private int localHostIndex;
+    private String localCustomBaseUrl;
 
-    private Supplier<RequestSpecBuilder> reqSpecSupplier;
-    private Consumer<RequestSpecBuilder> reqSpecCustomizer;
-
-    private RouteFiltersApi(Supplier<RequestSpecBuilder> reqSpecSupplier) {
-        this.reqSpecSupplier = reqSpecSupplier;
+    public RouteFiltersApi() {
+        this(Configuration.getDefaultApiClient());
     }
 
-    public static RouteFiltersApi routeFilters(Supplier<RequestSpecBuilder> reqSpecSupplier) {
-        return new RouteFiltersApi(reqSpecSupplier);
+    public RouteFiltersApi(ApiClient apiClient) {
+        this.localVarApiClient = apiClient;
     }
 
-    private RequestSpecBuilder createReqSpec() {
-        RequestSpecBuilder reqSpec = reqSpecSupplier.get();
-        if(reqSpecCustomizer != null) {
-            reqSpecCustomizer.accept(reqSpec);
-        }
-        return reqSpec;
+    public ApiClient getApiClient() {
+        return localVarApiClient;
     }
 
-    public List<Oper> getAllOperations() {
-        return Arrays.asList(
-                attachConnectionRouteFilter(),
-                createRouteFilter(),
-                deleteRouteFilterByUuid(),
-                detachConnectionRouteFilter(),
-                getConnectionRouteFilterByUuid(),
-                getConnectionRouteFilters(),
-                getRouteFilterByUuid(),
-                getRouteFilterChangeByUuid(),
-                getRouteFilterChanges(),
-                getRouteFilterConnections(),
-                patchRouteFilterByUuid(),
-                searchRouteFilters()
-        );
+    public void setApiClient(ApiClient apiClient) {
+        this.localVarApiClient = apiClient;
     }
 
-    public AttachConnectionRouteFilterOper attachConnectionRouteFilter() {
-        return new AttachConnectionRouteFilterOper(createReqSpec());
+    public int getHostIndex() {
+        return localHostIndex;
     }
 
-    public CreateRouteFilterOper createRouteFilter() {
-        return new CreateRouteFilterOper(createReqSpec());
+    public void setHostIndex(int hostIndex) {
+        this.localHostIndex = hostIndex;
     }
 
-    public DeleteRouteFilterByUuidOper deleteRouteFilterByUuid() {
-        return new DeleteRouteFilterByUuidOper(createReqSpec());
+    public String getCustomBaseUrl() {
+        return localCustomBaseUrl;
     }
 
-    public DetachConnectionRouteFilterOper detachConnectionRouteFilter() {
-        return new DetachConnectionRouteFilterOper(createReqSpec());
-    }
-
-    public GetConnectionRouteFilterByUuidOper getConnectionRouteFilterByUuid() {
-        return new GetConnectionRouteFilterByUuidOper(createReqSpec());
-    }
-
-    public GetConnectionRouteFiltersOper getConnectionRouteFilters() {
-        return new GetConnectionRouteFiltersOper(createReqSpec());
-    }
-
-    public GetRouteFilterByUuidOper getRouteFilterByUuid() {
-        return new GetRouteFilterByUuidOper(createReqSpec());
-    }
-
-    public GetRouteFilterChangeByUuidOper getRouteFilterChangeByUuid() {
-        return new GetRouteFilterChangeByUuidOper(createReqSpec());
-    }
-
-    public GetRouteFilterChangesOper getRouteFilterChanges() {
-        return new GetRouteFilterChangesOper(createReqSpec());
-    }
-
-    public GetRouteFilterConnectionsOper getRouteFilterConnections() {
-        return new GetRouteFilterConnectionsOper(createReqSpec());
-    }
-
-    public PatchRouteFilterByUuidOper patchRouteFilterByUuid() {
-        return new PatchRouteFilterByUuidOper(createReqSpec());
-    }
-
-    public SearchRouteFiltersOper searchRouteFilters() {
-        return new SearchRouteFiltersOper(createReqSpec());
+    public void setCustomBaseUrl(String customBaseUrl) {
+        this.localCustomBaseUrl = customBaseUrl;
     }
 
     /**
-     * Customize request specification
-     * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-     * @return api
+     * Build call for attachConnectionRouteFilter
+     * @param routeFilterId Route Filters Id (required)
+     * @param connectionId Connection Id (required)
+     * @param connectionRouteFiltersBase  (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
      */
-    public RouteFiltersApi reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-        this.reqSpecCustomizer = reqSpecCustomizer;
-        return this;
+    public okhttp3.Call attachConnectionRouteFilterCall(String routeFilterId, String connectionId, ConnectionRouteFiltersBase connectionRouteFiltersBase, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = connectionRouteFiltersBase;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/connections/{connectionId}/routeFilters/{routeFilterId}"
+            .replace("{" + "routeFilterId" + "}", localVarApiClient.escapeString(routeFilterId.toString()))
+            .replace("{" + "connectionId" + "}", localVarApiClient.escapeString(connectionId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call attachConnectionRouteFilterValidateBeforeCall(String routeFilterId, String connectionId, ConnectionRouteFiltersBase connectionRouteFiltersBase, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'routeFilterId' is set
+        if (routeFilterId == null) {
+            throw new ApiException("Missing the required parameter 'routeFilterId' when calling attachConnectionRouteFilter(Async)");
+        }
+
+        // verify the required parameter 'connectionId' is set
+        if (connectionId == null) {
+            throw new ApiException("Missing the required parameter 'connectionId' when calling attachConnectionRouteFilter(Async)");
+        }
+
+        // verify the required parameter 'connectionRouteFiltersBase' is set
+        if (connectionRouteFiltersBase == null) {
+            throw new ApiException("Missing the required parameter 'connectionRouteFiltersBase' when calling attachConnectionRouteFilter(Async)");
+        }
+
+        return attachConnectionRouteFilterCall(routeFilterId, connectionId, connectionRouteFiltersBase, _callback);
+
     }
 
     /**
      * Attach Route Filter
      * This API provides capability to attach a Route Filter to a Connection
-     *
-     * @see #routeFilterIdPath Route Filters Id (required)
-     * @see #connectionIdPath Connection Id (required)
-     * @see #body  (required)
-     * return ConnectionRouteFilterData
+     * @param routeFilterId Route Filters Id (required)
+     * @param connectionId Connection Id (required)
+     * @param connectionRouteFiltersBase  (required)
+     * @return ConnectionRouteFilterData
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
      */
-    public static class AttachConnectionRouteFilterOper implements Oper {
-
-        public static final Method REQ_METHOD = PUT;
-        public static final String REQ_URI = "/fabric/v4/connections/{connectionId}/routeFilters/{routeFilterId}";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public AttachConnectionRouteFilterOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setContentType("application/json");
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * PUT /fabric/v4/connections/{connectionId}/routeFilters/{routeFilterId}
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * PUT /fabric/v4/connections/{connectionId}/routeFilters/{routeFilterId}
-         * @param handler handler
-         * @return ConnectionRouteFilterData
-         */
-        public ConnectionRouteFilterData executeAs(Function<Response, Response> handler) {
-            TypeRef<ConnectionRouteFilterData> type = new TypeRef<ConnectionRouteFilterData>(){};
-            return execute(handler).as(type);
-        }
-
-         /**
-         * @param connectionRouteFiltersBase (ConnectionRouteFiltersBase)  (required)
-         * @return operation
-         */
-        public AttachConnectionRouteFilterOper body(ConnectionRouteFiltersBase connectionRouteFiltersBase) {
-            reqSpec.setBody(connectionRouteFiltersBase);
-            return this;
-        }
-
-        public static final String ROUTE_FILTER_ID_PATH = "routeFilterId";
-
-        /**
-         * @param routeFilterId (String) Route Filters Id (required)
-         * @return operation
-         */
-        public AttachConnectionRouteFilterOper routeFilterIdPath(Object routeFilterId) {
-            reqSpec.addPathParam(ROUTE_FILTER_ID_PATH, routeFilterId);
-            return this;
-        }
-
-        public static final String CONNECTION_ID_PATH = "connectionId";
-
-        /**
-         * @param connectionId (String) Connection Id (required)
-         * @return operation
-         */
-        public AttachConnectionRouteFilterOper connectionIdPath(Object connectionId) {
-            reqSpec.addPathParam(CONNECTION_ID_PATH, connectionId);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public AttachConnectionRouteFilterOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public AttachConnectionRouteFilterOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public ConnectionRouteFilterData attachConnectionRouteFilter(String routeFilterId, String connectionId, ConnectionRouteFiltersBase connectionRouteFiltersBase) throws ApiException {
+        ApiResponse<ConnectionRouteFilterData> localVarResp = attachConnectionRouteFilterWithHttpInfo(routeFilterId, connectionId, connectionRouteFiltersBase);
+        return localVarResp.getData();
     }
+
+    /**
+     * Attach Route Filter
+     * This API provides capability to attach a Route Filter to a Connection
+     * @param routeFilterId Route Filters Id (required)
+     * @param connectionId Connection Id (required)
+     * @param connectionRouteFiltersBase  (required)
+     * @return ApiResponse&lt;ConnectionRouteFilterData&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<ConnectionRouteFilterData> attachConnectionRouteFilterWithHttpInfo(String routeFilterId, String connectionId, ConnectionRouteFiltersBase connectionRouteFiltersBase) throws ApiException {
+        okhttp3.Call localVarCall = attachConnectionRouteFilterValidateBeforeCall(routeFilterId, connectionId, connectionRouteFiltersBase, null);
+        Type localVarReturnType = new TypeToken<ConnectionRouteFilterData>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Attach Route Filter (asynchronously)
+     * This API provides capability to attach a Route Filter to a Connection
+     * @param routeFilterId Route Filters Id (required)
+     * @param connectionId Connection Id (required)
+     * @param connectionRouteFiltersBase  (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call attachConnectionRouteFilterAsync(String routeFilterId, String connectionId, ConnectionRouteFiltersBase connectionRouteFiltersBase, final ApiCallback<ConnectionRouteFilterData> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = attachConnectionRouteFilterValidateBeforeCall(routeFilterId, connectionId, connectionRouteFiltersBase, _callback);
+        Type localVarReturnType = new TypeToken<ConnectionRouteFilterData>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for createRouteFilter
+     * @param routeFiltersBase  (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call createRouteFilterCall(RouteFiltersBase routeFiltersBase, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = routeFiltersBase;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/routeFilters";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call createRouteFilterValidateBeforeCall(RouteFiltersBase routeFiltersBase, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'routeFiltersBase' is set
+        if (routeFiltersBase == null) {
+            throw new ApiException("Missing the required parameter 'routeFiltersBase' when calling createRouteFilter(Async)");
+        }
+
+        return createRouteFilterCall(routeFiltersBase, _callback);
+
+    }
+
     /**
      * Create Route Filters
      * This API provides capability to create a Route Filter
-     *
-     * @see #body  (required)
-     * return RouteFiltersData
+     * @param routeFiltersBase  (required)
+     * @return RouteFiltersData
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
      */
-    public static class CreateRouteFilterOper implements Oper {
-
-        public static final Method REQ_METHOD = POST;
-        public static final String REQ_URI = "/fabric/v4/routeFilters";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public CreateRouteFilterOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setContentType("application/json");
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * POST /fabric/v4/routeFilters
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * POST /fabric/v4/routeFilters
-         * @param handler handler
-         * @return RouteFiltersData
-         */
-        public RouteFiltersData executeAs(Function<Response, Response> handler) {
-            TypeRef<RouteFiltersData> type = new TypeRef<RouteFiltersData>(){};
-            return execute(handler).as(type);
-        }
-
-         /**
-         * @param routeFiltersBase (RouteFiltersBase)  (required)
-         * @return operation
-         */
-        public CreateRouteFilterOper body(RouteFiltersBase routeFiltersBase) {
-            reqSpec.setBody(routeFiltersBase);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public CreateRouteFilterOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public CreateRouteFilterOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public RouteFiltersData createRouteFilter(RouteFiltersBase routeFiltersBase) throws ApiException {
+        ApiResponse<RouteFiltersData> localVarResp = createRouteFilterWithHttpInfo(routeFiltersBase);
+        return localVarResp.getData();
     }
+
+    /**
+     * Create Route Filters
+     * This API provides capability to create a Route Filter
+     * @param routeFiltersBase  (required)
+     * @return ApiResponse&lt;RouteFiltersData&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<RouteFiltersData> createRouteFilterWithHttpInfo(RouteFiltersBase routeFiltersBase) throws ApiException {
+        okhttp3.Call localVarCall = createRouteFilterValidateBeforeCall(routeFiltersBase, null);
+        Type localVarReturnType = new TypeToken<RouteFiltersData>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Create Route Filters (asynchronously)
+     * This API provides capability to create a Route Filter
+     * @param routeFiltersBase  (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call createRouteFilterAsync(RouteFiltersBase routeFiltersBase, final ApiCallback<RouteFiltersData> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = createRouteFilterValidateBeforeCall(routeFiltersBase, _callback);
+        Type localVarReturnType = new TypeToken<RouteFiltersData>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for deleteRouteFilterByUuid
+     * @param routeFilterId Route Filters Id (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call deleteRouteFilterByUuidCall(String routeFilterId, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/routeFilters/{routeFilterId}"
+            .replace("{" + "routeFilterId" + "}", localVarApiClient.escapeString(routeFilterId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call deleteRouteFilterByUuidValidateBeforeCall(String routeFilterId, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'routeFilterId' is set
+        if (routeFilterId == null) {
+            throw new ApiException("Missing the required parameter 'routeFilterId' when calling deleteRouteFilterByUuid(Async)");
+        }
+
+        return deleteRouteFilterByUuidCall(routeFilterId, _callback);
+
+    }
+
     /**
      * Delete Route Filter
      * This API provides capability to delete a Route Filter
-     *
-     * @see #routeFilterIdPath Route Filters Id (required)
-     * return RouteFiltersData
+     * @param routeFilterId Route Filters Id (required)
+     * @return RouteFiltersData
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
      */
-    public static class DeleteRouteFilterByUuidOper implements Oper {
-
-        public static final Method REQ_METHOD = DELETE;
-        public static final String REQ_URI = "/fabric/v4/routeFilters/{routeFilterId}";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public DeleteRouteFilterByUuidOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * DELETE /fabric/v4/routeFilters/{routeFilterId}
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * DELETE /fabric/v4/routeFilters/{routeFilterId}
-         * @param handler handler
-         * @return RouteFiltersData
-         */
-        public RouteFiltersData executeAs(Function<Response, Response> handler) {
-            TypeRef<RouteFiltersData> type = new TypeRef<RouteFiltersData>(){};
-            return execute(handler).as(type);
-        }
-
-        public static final String ROUTE_FILTER_ID_PATH = "routeFilterId";
-
-        /**
-         * @param routeFilterId (String) Route Filters Id (required)
-         * @return operation
-         */
-        public DeleteRouteFilterByUuidOper routeFilterIdPath(Object routeFilterId) {
-            reqSpec.addPathParam(ROUTE_FILTER_ID_PATH, routeFilterId);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public DeleteRouteFilterByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public DeleteRouteFilterByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public RouteFiltersData deleteRouteFilterByUuid(String routeFilterId) throws ApiException {
+        ApiResponse<RouteFiltersData> localVarResp = deleteRouteFilterByUuidWithHttpInfo(routeFilterId);
+        return localVarResp.getData();
     }
+
+    /**
+     * Delete Route Filter
+     * This API provides capability to delete a Route Filter
+     * @param routeFilterId Route Filters Id (required)
+     * @return ApiResponse&lt;RouteFiltersData&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<RouteFiltersData> deleteRouteFilterByUuidWithHttpInfo(String routeFilterId) throws ApiException {
+        okhttp3.Call localVarCall = deleteRouteFilterByUuidValidateBeforeCall(routeFilterId, null);
+        Type localVarReturnType = new TypeToken<RouteFiltersData>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Delete Route Filter (asynchronously)
+     * This API provides capability to delete a Route Filter
+     * @param routeFilterId Route Filters Id (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call deleteRouteFilterByUuidAsync(String routeFilterId, final ApiCallback<RouteFiltersData> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = deleteRouteFilterByUuidValidateBeforeCall(routeFilterId, _callback);
+        Type localVarReturnType = new TypeToken<RouteFiltersData>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for detachConnectionRouteFilter
+     * @param routeFilterId Route Filters Id (required)
+     * @param connectionId Connection Id (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call detachConnectionRouteFilterCall(String routeFilterId, String connectionId, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/connections/{connectionId}/routeFilters/{routeFilterId}"
+            .replace("{" + "routeFilterId" + "}", localVarApiClient.escapeString(routeFilterId.toString()))
+            .replace("{" + "connectionId" + "}", localVarApiClient.escapeString(connectionId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call detachConnectionRouteFilterValidateBeforeCall(String routeFilterId, String connectionId, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'routeFilterId' is set
+        if (routeFilterId == null) {
+            throw new ApiException("Missing the required parameter 'routeFilterId' when calling detachConnectionRouteFilter(Async)");
+        }
+
+        // verify the required parameter 'connectionId' is set
+        if (connectionId == null) {
+            throw new ApiException("Missing the required parameter 'connectionId' when calling detachConnectionRouteFilter(Async)");
+        }
+
+        return detachConnectionRouteFilterCall(routeFilterId, connectionId, _callback);
+
+    }
+
     /**
      * Detach Route Filter
      * This API provides capability to detach a Route Filter from a Connection
-     *
-     * @see #routeFilterIdPath Route Filters Id (required)
-     * @see #connectionIdPath Connection Id (required)
-     * return ConnectionRouteFilterData
+     * @param routeFilterId Route Filters Id (required)
+     * @param connectionId Connection Id (required)
+     * @return ConnectionRouteFilterData
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
      */
-    public static class DetachConnectionRouteFilterOper implements Oper {
-
-        public static final Method REQ_METHOD = DELETE;
-        public static final String REQ_URI = "/fabric/v4/connections/{connectionId}/routeFilters/{routeFilterId}";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public DetachConnectionRouteFilterOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * DELETE /fabric/v4/connections/{connectionId}/routeFilters/{routeFilterId}
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * DELETE /fabric/v4/connections/{connectionId}/routeFilters/{routeFilterId}
-         * @param handler handler
-         * @return ConnectionRouteFilterData
-         */
-        public ConnectionRouteFilterData executeAs(Function<Response, Response> handler) {
-            TypeRef<ConnectionRouteFilterData> type = new TypeRef<ConnectionRouteFilterData>(){};
-            return execute(handler).as(type);
-        }
-
-        public static final String ROUTE_FILTER_ID_PATH = "routeFilterId";
-
-        /**
-         * @param routeFilterId (String) Route Filters Id (required)
-         * @return operation
-         */
-        public DetachConnectionRouteFilterOper routeFilterIdPath(Object routeFilterId) {
-            reqSpec.addPathParam(ROUTE_FILTER_ID_PATH, routeFilterId);
-            return this;
-        }
-
-        public static final String CONNECTION_ID_PATH = "connectionId";
-
-        /**
-         * @param connectionId (String) Connection Id (required)
-         * @return operation
-         */
-        public DetachConnectionRouteFilterOper connectionIdPath(Object connectionId) {
-            reqSpec.addPathParam(CONNECTION_ID_PATH, connectionId);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public DetachConnectionRouteFilterOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public DetachConnectionRouteFilterOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public ConnectionRouteFilterData detachConnectionRouteFilter(String routeFilterId, String connectionId) throws ApiException {
+        ApiResponse<ConnectionRouteFilterData> localVarResp = detachConnectionRouteFilterWithHttpInfo(routeFilterId, connectionId);
+        return localVarResp.getData();
     }
+
+    /**
+     * Detach Route Filter
+     * This API provides capability to detach a Route Filter from a Connection
+     * @param routeFilterId Route Filters Id (required)
+     * @param connectionId Connection Id (required)
+     * @return ApiResponse&lt;ConnectionRouteFilterData&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<ConnectionRouteFilterData> detachConnectionRouteFilterWithHttpInfo(String routeFilterId, String connectionId) throws ApiException {
+        okhttp3.Call localVarCall = detachConnectionRouteFilterValidateBeforeCall(routeFilterId, connectionId, null);
+        Type localVarReturnType = new TypeToken<ConnectionRouteFilterData>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Detach Route Filter (asynchronously)
+     * This API provides capability to detach a Route Filter from a Connection
+     * @param routeFilterId Route Filters Id (required)
+     * @param connectionId Connection Id (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call detachConnectionRouteFilterAsync(String routeFilterId, String connectionId, final ApiCallback<ConnectionRouteFilterData> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = detachConnectionRouteFilterValidateBeforeCall(routeFilterId, connectionId, _callback);
+        Type localVarReturnType = new TypeToken<ConnectionRouteFilterData>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for getConnectionRouteFilterByUuid
+     * @param routeFilterId Route Filters Id (required)
+     * @param connectionId Connection Id (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getConnectionRouteFilterByUuidCall(String routeFilterId, String connectionId, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/connections/{connectionId}/routeFilters/{routeFilterId}"
+            .replace("{" + "routeFilterId" + "}", localVarApiClient.escapeString(routeFilterId.toString()))
+            .replace("{" + "connectionId" + "}", localVarApiClient.escapeString(connectionId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getConnectionRouteFilterByUuidValidateBeforeCall(String routeFilterId, String connectionId, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'routeFilterId' is set
+        if (routeFilterId == null) {
+            throw new ApiException("Missing the required parameter 'routeFilterId' when calling getConnectionRouteFilterByUuid(Async)");
+        }
+
+        // verify the required parameter 'connectionId' is set
+        if (connectionId == null) {
+            throw new ApiException("Missing the required parameter 'connectionId' when calling getConnectionRouteFilterByUuid(Async)");
+        }
+
+        return getConnectionRouteFilterByUuidCall(routeFilterId, connectionId, _callback);
+
+    }
+
     /**
      * Get Route Filter
      * This API provides capability to view a specific Route Filter attached to a Connection
-     *
-     * @see #routeFilterIdPath Route Filters Id (required)
-     * @see #connectionIdPath Connection Id (required)
-     * return ConnectionRouteFilterData
+     * @param routeFilterId Route Filters Id (required)
+     * @param connectionId Connection Id (required)
+     * @return ConnectionRouteFilterData
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
      */
-    public static class GetConnectionRouteFilterByUuidOper implements Oper {
-
-        public static final Method REQ_METHOD = GET;
-        public static final String REQ_URI = "/fabric/v4/connections/{connectionId}/routeFilters/{routeFilterId}";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public GetConnectionRouteFilterByUuidOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * GET /fabric/v4/connections/{connectionId}/routeFilters/{routeFilterId}
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * GET /fabric/v4/connections/{connectionId}/routeFilters/{routeFilterId}
-         * @param handler handler
-         * @return ConnectionRouteFilterData
-         */
-        public ConnectionRouteFilterData executeAs(Function<Response, Response> handler) {
-            TypeRef<ConnectionRouteFilterData> type = new TypeRef<ConnectionRouteFilterData>(){};
-            return execute(handler).as(type);
-        }
-
-        public static final String ROUTE_FILTER_ID_PATH = "routeFilterId";
-
-        /**
-         * @param routeFilterId (String) Route Filters Id (required)
-         * @return operation
-         */
-        public GetConnectionRouteFilterByUuidOper routeFilterIdPath(Object routeFilterId) {
-            reqSpec.addPathParam(ROUTE_FILTER_ID_PATH, routeFilterId);
-            return this;
-        }
-
-        public static final String CONNECTION_ID_PATH = "connectionId";
-
-        /**
-         * @param connectionId (String) Connection Id (required)
-         * @return operation
-         */
-        public GetConnectionRouteFilterByUuidOper connectionIdPath(Object connectionId) {
-            reqSpec.addPathParam(CONNECTION_ID_PATH, connectionId);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public GetConnectionRouteFilterByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public GetConnectionRouteFilterByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public ConnectionRouteFilterData getConnectionRouteFilterByUuid(String routeFilterId, String connectionId) throws ApiException {
+        ApiResponse<ConnectionRouteFilterData> localVarResp = getConnectionRouteFilterByUuidWithHttpInfo(routeFilterId, connectionId);
+        return localVarResp.getData();
     }
+
+    /**
+     * Get Route Filter
+     * This API provides capability to view a specific Route Filter attached to a Connection
+     * @param routeFilterId Route Filters Id (required)
+     * @param connectionId Connection Id (required)
+     * @return ApiResponse&lt;ConnectionRouteFilterData&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<ConnectionRouteFilterData> getConnectionRouteFilterByUuidWithHttpInfo(String routeFilterId, String connectionId) throws ApiException {
+        okhttp3.Call localVarCall = getConnectionRouteFilterByUuidValidateBeforeCall(routeFilterId, connectionId, null);
+        Type localVarReturnType = new TypeToken<ConnectionRouteFilterData>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Get Route Filter (asynchronously)
+     * This API provides capability to view a specific Route Filter attached to a Connection
+     * @param routeFilterId Route Filters Id (required)
+     * @param connectionId Connection Id (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getConnectionRouteFilterByUuidAsync(String routeFilterId, String connectionId, final ApiCallback<ConnectionRouteFilterData> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getConnectionRouteFilterByUuidValidateBeforeCall(routeFilterId, connectionId, _callback);
+        Type localVarReturnType = new TypeToken<ConnectionRouteFilterData>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for getConnectionRouteFilters
+     * @param connectionId Connection Id (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getConnectionRouteFiltersCall(String connectionId, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/connections/{connectionId}/routeFilters"
+            .replace("{" + "connectionId" + "}", localVarApiClient.escapeString(connectionId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getConnectionRouteFiltersValidateBeforeCall(String connectionId, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'connectionId' is set
+        if (connectionId == null) {
+            throw new ApiException("Missing the required parameter 'connectionId' when calling getConnectionRouteFilters(Async)");
+        }
+
+        return getConnectionRouteFiltersCall(connectionId, _callback);
+
+    }
+
     /**
      * Get All RouteFilters
      * This API provides capability to view all Route Filters attached to a Connection
-     *
-     * @see #connectionIdPath Connection Id (required)
-     * return GetAllConnectionRouteFiltersResponse
+     * @param connectionId Connection Id (required)
+     * @return GetAllConnectionRouteFiltersResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
      */
-    public static class GetConnectionRouteFiltersOper implements Oper {
-
-        public static final Method REQ_METHOD = GET;
-        public static final String REQ_URI = "/fabric/v4/connections/{connectionId}/routeFilters";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public GetConnectionRouteFiltersOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * GET /fabric/v4/connections/{connectionId}/routeFilters
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * GET /fabric/v4/connections/{connectionId}/routeFilters
-         * @param handler handler
-         * @return GetAllConnectionRouteFiltersResponse
-         */
-        public GetAllConnectionRouteFiltersResponse executeAs(Function<Response, Response> handler) {
-            TypeRef<GetAllConnectionRouteFiltersResponse> type = new TypeRef<GetAllConnectionRouteFiltersResponse>(){};
-            return execute(handler).as(type);
-        }
-
-        public static final String CONNECTION_ID_PATH = "connectionId";
-
-        /**
-         * @param connectionId (String) Connection Id (required)
-         * @return operation
-         */
-        public GetConnectionRouteFiltersOper connectionIdPath(Object connectionId) {
-            reqSpec.addPathParam(CONNECTION_ID_PATH, connectionId);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public GetConnectionRouteFiltersOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public GetConnectionRouteFiltersOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public GetAllConnectionRouteFiltersResponse getConnectionRouteFilters(String connectionId) throws ApiException {
+        ApiResponse<GetAllConnectionRouteFiltersResponse> localVarResp = getConnectionRouteFiltersWithHttpInfo(connectionId);
+        return localVarResp.getData();
     }
+
+    /**
+     * Get All RouteFilters
+     * This API provides capability to view all Route Filters attached to a Connection
+     * @param connectionId Connection Id (required)
+     * @return ApiResponse&lt;GetAllConnectionRouteFiltersResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<GetAllConnectionRouteFiltersResponse> getConnectionRouteFiltersWithHttpInfo(String connectionId) throws ApiException {
+        okhttp3.Call localVarCall = getConnectionRouteFiltersValidateBeforeCall(connectionId, null);
+        Type localVarReturnType = new TypeToken<GetAllConnectionRouteFiltersResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Get All RouteFilters (asynchronously)
+     * This API provides capability to view all Route Filters attached to a Connection
+     * @param connectionId Connection Id (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getConnectionRouteFiltersAsync(String connectionId, final ApiCallback<GetAllConnectionRouteFiltersResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getConnectionRouteFiltersValidateBeforeCall(connectionId, _callback);
+        Type localVarReturnType = new TypeToken<GetAllConnectionRouteFiltersResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for getRouteFilterByUuid
+     * @param routeFilterId Route Filters Id (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getRouteFilterByUuidCall(String routeFilterId, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/routeFilters/{routeFilterId}"
+            .replace("{" + "routeFilterId" + "}", localVarApiClient.escapeString(routeFilterId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getRouteFilterByUuidValidateBeforeCall(String routeFilterId, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'routeFilterId' is set
+        if (routeFilterId == null) {
+            throw new ApiException("Missing the required parameter 'routeFilterId' when calling getRouteFilterByUuid(Async)");
+        }
+
+        return getRouteFilterByUuidCall(routeFilterId, _callback);
+
+    }
+
     /**
      * Get Filter By UUID
      * This API provides capability to view a Route Filter by UUID
-     *
-     * @see #routeFilterIdPath Route Filters Id (required)
-     * return RouteFiltersData
+     * @param routeFilterId Route Filters Id (required)
+     * @return RouteFiltersData
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
      */
-    public static class GetRouteFilterByUuidOper implements Oper {
-
-        public static final Method REQ_METHOD = GET;
-        public static final String REQ_URI = "/fabric/v4/routeFilters/{routeFilterId}";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public GetRouteFilterByUuidOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * GET /fabric/v4/routeFilters/{routeFilterId}
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * GET /fabric/v4/routeFilters/{routeFilterId}
-         * @param handler handler
-         * @return RouteFiltersData
-         */
-        public RouteFiltersData executeAs(Function<Response, Response> handler) {
-            TypeRef<RouteFiltersData> type = new TypeRef<RouteFiltersData>(){};
-            return execute(handler).as(type);
-        }
-
-        public static final String ROUTE_FILTER_ID_PATH = "routeFilterId";
-
-        /**
-         * @param routeFilterId (String) Route Filters Id (required)
-         * @return operation
-         */
-        public GetRouteFilterByUuidOper routeFilterIdPath(Object routeFilterId) {
-            reqSpec.addPathParam(ROUTE_FILTER_ID_PATH, routeFilterId);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public GetRouteFilterByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public GetRouteFilterByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public RouteFiltersData getRouteFilterByUuid(String routeFilterId) throws ApiException {
+        ApiResponse<RouteFiltersData> localVarResp = getRouteFilterByUuidWithHttpInfo(routeFilterId);
+        return localVarResp.getData();
     }
+
+    /**
+     * Get Filter By UUID
+     * This API provides capability to view a Route Filter by UUID
+     * @param routeFilterId Route Filters Id (required)
+     * @return ApiResponse&lt;RouteFiltersData&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<RouteFiltersData> getRouteFilterByUuidWithHttpInfo(String routeFilterId) throws ApiException {
+        okhttp3.Call localVarCall = getRouteFilterByUuidValidateBeforeCall(routeFilterId, null);
+        Type localVarReturnType = new TypeToken<RouteFiltersData>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Get Filter By UUID (asynchronously)
+     * This API provides capability to view a Route Filter by UUID
+     * @param routeFilterId Route Filters Id (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getRouteFilterByUuidAsync(String routeFilterId, final ApiCallback<RouteFiltersData> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getRouteFilterByUuidValidateBeforeCall(routeFilterId, _callback);
+        Type localVarReturnType = new TypeToken<RouteFiltersData>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for getRouteFilterChangeByUuid
+     * @param routeFilterId Route Filters Id (required)
+     * @param changeId Routing Protocol Change UUID (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Route Filter Change object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getRouteFilterChangeByUuidCall(String routeFilterId, UUID changeId, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/routeFilters/{routeFilterId}/changes/{changeId}"
+            .replace("{" + "routeFilterId" + "}", localVarApiClient.escapeString(routeFilterId.toString()))
+            .replace("{" + "changeId" + "}", localVarApiClient.escapeString(changeId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getRouteFilterChangeByUuidValidateBeforeCall(String routeFilterId, UUID changeId, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'routeFilterId' is set
+        if (routeFilterId == null) {
+            throw new ApiException("Missing the required parameter 'routeFilterId' when calling getRouteFilterChangeByUuid(Async)");
+        }
+
+        // verify the required parameter 'changeId' is set
+        if (changeId == null) {
+            throw new ApiException("Missing the required parameter 'changeId' when calling getRouteFilterChangeByUuid(Async)");
+        }
+
+        return getRouteFilterChangeByUuidCall(routeFilterId, changeId, _callback);
+
+    }
+
     /**
      * Get Change By ID
      * This API provides capability to retrieve a specific Route Filter&#39;s Changes
-     *
-     * @see #routeFilterIdPath Route Filters Id (required)
-     * @see #changeIdPath Routing Protocol Change UUID (required)
-     * return RouteFilterChangeData
+     * @param routeFilterId Route Filters Id (required)
+     * @param changeId Routing Protocol Change UUID (required)
+     * @return RouteFilterChangeData
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Route Filter Change object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
      */
-    public static class GetRouteFilterChangeByUuidOper implements Oper {
-
-        public static final Method REQ_METHOD = GET;
-        public static final String REQ_URI = "/fabric/v4/routeFilters/{routeFilterId}/changes/{changeId}";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public GetRouteFilterChangeByUuidOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * GET /fabric/v4/routeFilters/{routeFilterId}/changes/{changeId}
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * GET /fabric/v4/routeFilters/{routeFilterId}/changes/{changeId}
-         * @param handler handler
-         * @return RouteFilterChangeData
-         */
-        public RouteFilterChangeData executeAs(Function<Response, Response> handler) {
-            TypeRef<RouteFilterChangeData> type = new TypeRef<RouteFilterChangeData>(){};
-            return execute(handler).as(type);
-        }
-
-        public static final String ROUTE_FILTER_ID_PATH = "routeFilterId";
-
-        /**
-         * @param routeFilterId (String) Route Filters Id (required)
-         * @return operation
-         */
-        public GetRouteFilterChangeByUuidOper routeFilterIdPath(Object routeFilterId) {
-            reqSpec.addPathParam(ROUTE_FILTER_ID_PATH, routeFilterId);
-            return this;
-        }
-
-        public static final String CHANGE_ID_PATH = "changeId";
-
-        /**
-         * @param changeId (UUID) Routing Protocol Change UUID (required)
-         * @return operation
-         */
-        public GetRouteFilterChangeByUuidOper changeIdPath(Object changeId) {
-            reqSpec.addPathParam(CHANGE_ID_PATH, changeId);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public GetRouteFilterChangeByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public GetRouteFilterChangeByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public RouteFilterChangeData getRouteFilterChangeByUuid(String routeFilterId, UUID changeId) throws ApiException {
+        ApiResponse<RouteFilterChangeData> localVarResp = getRouteFilterChangeByUuidWithHttpInfo(routeFilterId, changeId);
+        return localVarResp.getData();
     }
+
+    /**
+     * Get Change By ID
+     * This API provides capability to retrieve a specific Route Filter&#39;s Changes
+     * @param routeFilterId Route Filters Id (required)
+     * @param changeId Routing Protocol Change UUID (required)
+     * @return ApiResponse&lt;RouteFilterChangeData&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Route Filter Change object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<RouteFilterChangeData> getRouteFilterChangeByUuidWithHttpInfo(String routeFilterId, UUID changeId) throws ApiException {
+        okhttp3.Call localVarCall = getRouteFilterChangeByUuidValidateBeforeCall(routeFilterId, changeId, null);
+        Type localVarReturnType = new TypeToken<RouteFilterChangeData>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Get Change By ID (asynchronously)
+     * This API provides capability to retrieve a specific Route Filter&#39;s Changes
+     * @param routeFilterId Route Filters Id (required)
+     * @param changeId Routing Protocol Change UUID (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Route Filter Change object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getRouteFilterChangeByUuidAsync(String routeFilterId, UUID changeId, final ApiCallback<RouteFilterChangeData> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getRouteFilterChangeByUuidValidateBeforeCall(routeFilterId, changeId, _callback);
+        Type localVarReturnType = new TypeToken<RouteFilterChangeData>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for getRouteFilterChanges
+     * @param routeFilterId Route Filters Id (required)
+     * @param offset offset (optional)
+     * @param limit number of records to fetch (optional)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Route Filter Change object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getRouteFilterChangesCall(String routeFilterId, Integer offset, Integer limit, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/routeFilters/{routeFilterId}/changes"
+            .replace("{" + "routeFilterId" + "}", localVarApiClient.escapeString(routeFilterId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        if (offset != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("offset", offset));
+        }
+
+        if (limit != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
+        }
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getRouteFilterChangesValidateBeforeCall(String routeFilterId, Integer offset, Integer limit, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'routeFilterId' is set
+        if (routeFilterId == null) {
+            throw new ApiException("Missing the required parameter 'routeFilterId' when calling getRouteFilterChanges(Async)");
+        }
+
+        return getRouteFilterChangesCall(routeFilterId, offset, limit, _callback);
+
+    }
+
     /**
      * Get All Changes
      * This API provides capability to retrieve all of a Route Filter&#39;s Changes
-     *
-     * @see #routeFilterIdPath Route Filters Id (required)
-     * @see #offsetQuery offset (optional)
-     * @see #limitQuery number of records to fetch (optional)
-     * return RouteFilterChangeDataResponse
+     * @param routeFilterId Route Filters Id (required)
+     * @param offset offset (optional)
+     * @param limit number of records to fetch (optional)
+     * @return RouteFilterChangeDataResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Route Filter Change object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
      */
-    public static class GetRouteFilterChangesOper implements Oper {
-
-        public static final Method REQ_METHOD = GET;
-        public static final String REQ_URI = "/fabric/v4/routeFilters/{routeFilterId}/changes";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public GetRouteFilterChangesOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * GET /fabric/v4/routeFilters/{routeFilterId}/changes
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * GET /fabric/v4/routeFilters/{routeFilterId}/changes
-         * @param handler handler
-         * @return RouteFilterChangeDataResponse
-         */
-        public RouteFilterChangeDataResponse executeAs(Function<Response, Response> handler) {
-            TypeRef<RouteFilterChangeDataResponse> type = new TypeRef<RouteFilterChangeDataResponse>(){};
-            return execute(handler).as(type);
-        }
-
-        public static final String ROUTE_FILTER_ID_PATH = "routeFilterId";
-
-        /**
-         * @param routeFilterId (String) Route Filters Id (required)
-         * @return operation
-         */
-        public GetRouteFilterChangesOper routeFilterIdPath(Object routeFilterId) {
-            reqSpec.addPathParam(ROUTE_FILTER_ID_PATH, routeFilterId);
-            return this;
-        }
-
-        public static final String OFFSET_QUERY = "offset";
-
-        /**
-         * @param offset (Integer) offset (optional)
-         * @return operation
-         */
-        public GetRouteFilterChangesOper offsetQuery(Object... offset) {
-            reqSpec.addQueryParam(OFFSET_QUERY, offset);
-            return this;
-        }
-
-        public static final String LIMIT_QUERY = "limit";
-
-        /**
-         * @param limit (Integer) number of records to fetch (optional)
-         * @return operation
-         */
-        public GetRouteFilterChangesOper limitQuery(Object... limit) {
-            reqSpec.addQueryParam(LIMIT_QUERY, limit);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public GetRouteFilterChangesOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public GetRouteFilterChangesOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public RouteFilterChangeDataResponse getRouteFilterChanges(String routeFilterId, Integer offset, Integer limit) throws ApiException {
+        ApiResponse<RouteFilterChangeDataResponse> localVarResp = getRouteFilterChangesWithHttpInfo(routeFilterId, offset, limit);
+        return localVarResp.getData();
     }
+
+    /**
+     * Get All Changes
+     * This API provides capability to retrieve all of a Route Filter&#39;s Changes
+     * @param routeFilterId Route Filters Id (required)
+     * @param offset offset (optional)
+     * @param limit number of records to fetch (optional)
+     * @return ApiResponse&lt;RouteFilterChangeDataResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Route Filter Change object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<RouteFilterChangeDataResponse> getRouteFilterChangesWithHttpInfo(String routeFilterId, Integer offset, Integer limit) throws ApiException {
+        okhttp3.Call localVarCall = getRouteFilterChangesValidateBeforeCall(routeFilterId, offset, limit, null);
+        Type localVarReturnType = new TypeToken<RouteFilterChangeDataResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Get All Changes (asynchronously)
+     * This API provides capability to retrieve all of a Route Filter&#39;s Changes
+     * @param routeFilterId Route Filters Id (required)
+     * @param offset offset (optional)
+     * @param limit number of records to fetch (optional)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Route Filter Change object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getRouteFilterChangesAsync(String routeFilterId, Integer offset, Integer limit, final ApiCallback<RouteFilterChangeDataResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getRouteFilterChangesValidateBeforeCall(routeFilterId, offset, limit, _callback);
+        Type localVarReturnType = new TypeToken<RouteFilterChangeDataResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for getRouteFilterConnections
+     * @param routeFilterId Route Filters Id (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getRouteFilterConnectionsCall(String routeFilterId, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/routeFilters/{routeFilterId}/connections"
+            .replace("{" + "routeFilterId" + "}", localVarApiClient.escapeString(routeFilterId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getRouteFilterConnectionsValidateBeforeCall(String routeFilterId, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'routeFilterId' is set
+        if (routeFilterId == null) {
+            throw new ApiException("Missing the required parameter 'routeFilterId' when calling getRouteFilterConnections(Async)");
+        }
+
+        return getRouteFilterConnectionsCall(routeFilterId, _callback);
+
+    }
+
     /**
      * Get Connections
      * This API provides capability to view all Connections using the Route Filter
-     *
-     * @see #routeFilterIdPath Route Filters Id (required)
-     * return GetRouteFilterGetConnectionsResponse
+     * @param routeFilterId Route Filters Id (required)
+     * @return GetRouteFilterGetConnectionsResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
      */
-    public static class GetRouteFilterConnectionsOper implements Oper {
-
-        public static final Method REQ_METHOD = GET;
-        public static final String REQ_URI = "/fabric/v4/routeFilters/{routeFilterId}/connections";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public GetRouteFilterConnectionsOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * GET /fabric/v4/routeFilters/{routeFilterId}/connections
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * GET /fabric/v4/routeFilters/{routeFilterId}/connections
-         * @param handler handler
-         * @return GetRouteFilterGetConnectionsResponse
-         */
-        public GetRouteFilterGetConnectionsResponse executeAs(Function<Response, Response> handler) {
-            TypeRef<GetRouteFilterGetConnectionsResponse> type = new TypeRef<GetRouteFilterGetConnectionsResponse>(){};
-            return execute(handler).as(type);
-        }
-
-        public static final String ROUTE_FILTER_ID_PATH = "routeFilterId";
-
-        /**
-         * @param routeFilterId (String) Route Filters Id (required)
-         * @return operation
-         */
-        public GetRouteFilterConnectionsOper routeFilterIdPath(Object routeFilterId) {
-            reqSpec.addPathParam(ROUTE_FILTER_ID_PATH, routeFilterId);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public GetRouteFilterConnectionsOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public GetRouteFilterConnectionsOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public GetRouteFilterGetConnectionsResponse getRouteFilterConnections(String routeFilterId) throws ApiException {
+        ApiResponse<GetRouteFilterGetConnectionsResponse> localVarResp = getRouteFilterConnectionsWithHttpInfo(routeFilterId);
+        return localVarResp.getData();
     }
+
+    /**
+     * Get Connections
+     * This API provides capability to view all Connections using the Route Filter
+     * @param routeFilterId Route Filters Id (required)
+     * @return ApiResponse&lt;GetRouteFilterGetConnectionsResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<GetRouteFilterGetConnectionsResponse> getRouteFilterConnectionsWithHttpInfo(String routeFilterId) throws ApiException {
+        okhttp3.Call localVarCall = getRouteFilterConnectionsValidateBeforeCall(routeFilterId, null);
+        Type localVarReturnType = new TypeToken<GetRouteFilterGetConnectionsResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Get Connections (asynchronously)
+     * This API provides capability to view all Connections using the Route Filter
+     * @param routeFilterId Route Filters Id (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getRouteFilterConnectionsAsync(String routeFilterId, final ApiCallback<GetRouteFilterGetConnectionsResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getRouteFilterConnectionsValidateBeforeCall(routeFilterId, _callback);
+        Type localVarReturnType = new TypeToken<GetRouteFilterGetConnectionsResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for patchRouteFilterByUuid
+     * @param routeFilterId Route Filters Id (required)
+     * @param routeFiltersPatchRequestItem  (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call patchRouteFilterByUuidCall(String routeFilterId, List<RouteFiltersPatchRequestItem> routeFiltersPatchRequestItem, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = routeFiltersPatchRequestItem;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/routeFilters/{routeFilterId}"
+            .replace("{" + "routeFilterId" + "}", localVarApiClient.escapeString(routeFilterId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call patchRouteFilterByUuidValidateBeforeCall(String routeFilterId, List<RouteFiltersPatchRequestItem> routeFiltersPatchRequestItem, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'routeFilterId' is set
+        if (routeFilterId == null) {
+            throw new ApiException("Missing the required parameter 'routeFilterId' when calling patchRouteFilterByUuid(Async)");
+        }
+
+        // verify the required parameter 'routeFiltersPatchRequestItem' is set
+        if (routeFiltersPatchRequestItem == null) {
+            throw new ApiException("Missing the required parameter 'routeFiltersPatchRequestItem' when calling patchRouteFilterByUuid(Async)");
+        }
+
+        return patchRouteFilterByUuidCall(routeFilterId, routeFiltersPatchRequestItem, _callback);
+
+    }
+
     /**
      * Patch Route Filter
      * This API provides capability to partially update a Route Filter
-     *
-     * @see #routeFilterIdPath Route Filters Id (required)
-     * @see #body  (required)
-     * return RouteFiltersData
+     * @param routeFilterId Route Filters Id (required)
+     * @param routeFiltersPatchRequestItem  (required)
+     * @return RouteFiltersData
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
      */
-    public static class PatchRouteFilterByUuidOper implements Oper {
-
-        public static final Method REQ_METHOD = PATCH;
-        public static final String REQ_URI = "/fabric/v4/routeFilters/{routeFilterId}";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public PatchRouteFilterByUuidOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setContentType("application/json");
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * PATCH /fabric/v4/routeFilters/{routeFilterId}
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * PATCH /fabric/v4/routeFilters/{routeFilterId}
-         * @param handler handler
-         * @return RouteFiltersData
-         */
-        public RouteFiltersData executeAs(Function<Response, Response> handler) {
-            TypeRef<RouteFiltersData> type = new TypeRef<RouteFiltersData>(){};
-            return execute(handler).as(type);
-        }
-
-         /**
-         * @param routeFiltersPatchRequestItem (List&lt;RouteFiltersPatchRequestItem&gt;)  (required)
-         * @return operation
-         */
-        public PatchRouteFilterByUuidOper body(List<RouteFiltersPatchRequestItem> routeFiltersPatchRequestItem) {
-            reqSpec.setBody(routeFiltersPatchRequestItem);
-            return this;
-        }
-
-        public static final String ROUTE_FILTER_ID_PATH = "routeFilterId";
-
-        /**
-         * @param routeFilterId (String) Route Filters Id (required)
-         * @return operation
-         */
-        public PatchRouteFilterByUuidOper routeFilterIdPath(Object routeFilterId) {
-            reqSpec.addPathParam(ROUTE_FILTER_ID_PATH, routeFilterId);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public PatchRouteFilterByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public PatchRouteFilterByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public RouteFiltersData patchRouteFilterByUuid(String routeFilterId, List<RouteFiltersPatchRequestItem> routeFiltersPatchRequestItem) throws ApiException {
+        ApiResponse<RouteFiltersData> localVarResp = patchRouteFilterByUuidWithHttpInfo(routeFilterId, routeFiltersPatchRequestItem);
+        return localVarResp.getData();
     }
+
+    /**
+     * Patch Route Filter
+     * This API provides capability to partially update a Route Filter
+     * @param routeFilterId Route Filters Id (required)
+     * @param routeFiltersPatchRequestItem  (required)
+     * @return ApiResponse&lt;RouteFiltersData&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<RouteFiltersData> patchRouteFilterByUuidWithHttpInfo(String routeFilterId, List<RouteFiltersPatchRequestItem> routeFiltersPatchRequestItem) throws ApiException {
+        okhttp3.Call localVarCall = patchRouteFilterByUuidValidateBeforeCall(routeFilterId, routeFiltersPatchRequestItem, null);
+        Type localVarReturnType = new TypeToken<RouteFiltersData>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Patch Route Filter (asynchronously)
+     * This API provides capability to partially update a Route Filter
+     * @param routeFilterId Route Filters Id (required)
+     * @param routeFiltersPatchRequestItem  (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call patchRouteFilterByUuidAsync(String routeFilterId, List<RouteFiltersPatchRequestItem> routeFiltersPatchRequestItem, final ApiCallback<RouteFiltersData> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = patchRouteFilterByUuidValidateBeforeCall(routeFilterId, routeFiltersPatchRequestItem, _callback);
+        Type localVarReturnType = new TypeToken<RouteFiltersData>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for searchRouteFilters
+     * @param routeFiltersSearchBase  (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call searchRouteFiltersCall(RouteFiltersSearchBase routeFiltersSearchBase, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = routeFiltersSearchBase;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/routeFilters/search";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call searchRouteFiltersValidateBeforeCall(RouteFiltersSearchBase routeFiltersSearchBase, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'routeFiltersSearchBase' is set
+        if (routeFiltersSearchBase == null) {
+            throw new ApiException("Missing the required parameter 'routeFiltersSearchBase' when calling searchRouteFilters(Async)");
+        }
+
+        return searchRouteFiltersCall(routeFiltersSearchBase, _callback);
+
+    }
+
     /**
      * Search Route Filters
      * This API provides capability to search Route Filters
-     *
-     * @see #body  (required)
-     * return RouteFiltersSearchResponse
+     * @param routeFiltersSearchBase  (required)
+     * @return RouteFiltersSearchResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
      */
-    public static class SearchRouteFiltersOper implements Oper {
+    public RouteFiltersSearchResponse searchRouteFilters(RouteFiltersSearchBase routeFiltersSearchBase) throws ApiException {
+        ApiResponse<RouteFiltersSearchResponse> localVarResp = searchRouteFiltersWithHttpInfo(routeFiltersSearchBase);
+        return localVarResp.getData();
+    }
 
-        public static final Method REQ_METHOD = POST;
-        public static final String REQ_URI = "/fabric/v4/routeFilters/search";
+    /**
+     * Search Route Filters
+     * This API provides capability to search Route Filters
+     * @param routeFiltersSearchBase  (required)
+     * @return ApiResponse&lt;RouteFiltersSearchResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<RouteFiltersSearchResponse> searchRouteFiltersWithHttpInfo(RouteFiltersSearchBase routeFiltersSearchBase) throws ApiException {
+        okhttp3.Call localVarCall = searchRouteFiltersValidateBeforeCall(routeFiltersSearchBase, null);
+        Type localVarReturnType = new TypeToken<RouteFiltersSearchResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
 
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
+    /**
+     * Search Route Filters (asynchronously)
+     * This API provides capability to search Route Filters
+     * @param routeFiltersSearchBase  (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Route Filter ID Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call searchRouteFiltersAsync(RouteFiltersSearchBase routeFiltersSearchBase, final ApiCallback<RouteFiltersSearchResponse> _callback) throws ApiException {
 
-        public SearchRouteFiltersOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setContentType("application/json");
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * POST /fabric/v4/routeFilters/search
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * POST /fabric/v4/routeFilters/search
-         * @param handler handler
-         * @return RouteFiltersSearchResponse
-         */
-        public RouteFiltersSearchResponse executeAs(Function<Response, Response> handler) {
-            TypeRef<RouteFiltersSearchResponse> type = new TypeRef<RouteFiltersSearchResponse>(){};
-            return execute(handler).as(type);
-        }
-
-         /**
-         * @param routeFiltersSearchBase (RouteFiltersSearchBase)  (required)
-         * @return operation
-         */
-        public SearchRouteFiltersOper body(RouteFiltersSearchBase routeFiltersSearchBase) {
-            reqSpec.setBody(routeFiltersSearchBase);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public SearchRouteFiltersOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public SearchRouteFiltersOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+        okhttp3.Call localVarCall = searchRouteFiltersValidateBeforeCall(routeFiltersSearchBase, _callback);
+        Type localVarReturnType = new TypeToken<RouteFiltersSearchResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
     }
 }

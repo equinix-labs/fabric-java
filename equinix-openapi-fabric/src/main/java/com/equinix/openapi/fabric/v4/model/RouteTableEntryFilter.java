@@ -11,208 +11,231 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.equinix.openapi.fabric.v4.model.RouteTableEntryOrFilter;
-import com.equinix.openapi.fabric.v4.model.RouteTableEntrySimpleExpression;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.ArrayList;
-import java.util.List;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.equinix.openapi.fabric.JSON;
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
-/**
- * RouteTableEntryFilter
- */
-@JsonPropertyOrder({
-  RouteTableEntryFilter.JSON_PROPERTY_PROPERTY,
-  RouteTableEntryFilter.JSON_PROPERTY_OPERATOR,
-  RouteTableEntryFilter.JSON_PROPERTY_VALUES,
-  RouteTableEntryFilter.JSON_PROPERTY_OR
-})
+import javax.ws.rs.core.GenericType;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class RouteTableEntryFilter {
-  public static final String JSON_PROPERTY_PROPERTY = "property";
-  private String property;
+public class RouteTableEntryFilter extends AbstractOpenApiSchema {
+    private static final Logger log = Logger.getLogger(RouteTableEntryFilter.class.getName());
 
-  public static final String JSON_PROPERTY_OPERATOR = "operator";
-  private String operator;
+    public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+        @SuppressWarnings("unchecked")
+        @Override
+        public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+            if (!RouteTableEntryFilter.class.isAssignableFrom(type.getRawType())) {
+                return null; // this class only serializes 'RouteTableEntryFilter' and its subtypes
+            }
+            final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+            final TypeAdapter<RouteTableEntryOrFilter> adapterRouteTableEntryOrFilter = gson.getDelegateAdapter(this, TypeToken.get(RouteTableEntryOrFilter.class));
+            final TypeAdapter<RouteTableEntrySimpleExpression> adapterRouteTableEntrySimpleExpression = gson.getDelegateAdapter(this, TypeToken.get(RouteTableEntrySimpleExpression.class));
 
-  public static final String JSON_PROPERTY_VALUES = "values";
-  private List<String> values = new ArrayList<>();
+            return (TypeAdapter<T>) new TypeAdapter<RouteTableEntryFilter>() {
+                @Override
+                public void write(JsonWriter out, RouteTableEntryFilter value) throws IOException {
+                    if (value == null || value.getActualInstance() == null) {
+                        elementAdapter.write(out, null);
+                        return;
+                    }
 
-  public static final String JSON_PROPERTY_OR = "or";
-  private List<RouteTableEntrySimpleExpression> or = new ArrayList<>();
+                    // check if the actual instance is of the type `RouteTableEntryOrFilter`
+                    if (value.getActualInstance() instanceof RouteTableEntryOrFilter) {
+                        JsonObject obj = adapterRouteTableEntryOrFilter.toJsonTree((RouteTableEntryOrFilter)value.getActualInstance()).getAsJsonObject();
+                        elementAdapter.write(out, obj);
+                        return;
+                    }
 
-  public RouteTableEntryFilter() {
-  }
+                    // check if the actual instance is of the type `RouteTableEntrySimpleExpression`
+                    if (value.getActualInstance() instanceof RouteTableEntrySimpleExpression) {
+                        JsonObject obj = adapterRouteTableEntrySimpleExpression.toJsonTree((RouteTableEntrySimpleExpression)value.getActualInstance()).getAsJsonObject();
+                        elementAdapter.write(out, obj);
+                        return;
+                    }
 
-  public RouteTableEntryFilter property(String property) {
-    
-    this.property = property;
-    return this;
-  }
+                    throw new IOException("Failed to serialize as the type doesn't match anyOf schemas: RouteTableEntryOrFilter, RouteTableEntrySimpleExpression");
+                }
 
-   /**
-   * Possible field names to use on filters:  * &#x60;/type&#x60; - Route table entry type  * &#x60;/prefix&#x60; - Route table entry prefix  * &#x60;/nextHop&#x60; - Route table entry nextHop  * &#x60;/state&#x60; - Route table entry state  * &#x60;/_*&#x60; - all-category search 
-   * @return property
-  **/
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PROPERTY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+                @Override
+                public RouteTableEntryFilter read(JsonReader in) throws IOException {
+                    Object deserialized = null;
+                    JsonObject jsonObject = elementAdapter.read(in).getAsJsonObject();
 
-  public String getProperty() {
-    return property;
-  }
+                    // deserialize RouteTableEntryOrFilter
+                    try {
+                        // validate the JSON object to see if any exception is thrown
+                        RouteTableEntryOrFilter.validateJsonObject(jsonObject);
+                        log.log(Level.FINER, "Input data matches schema 'RouteTableEntryOrFilter'");
+                        RouteTableEntryFilter ret = new RouteTableEntryFilter();
+                        ret.setActualInstance(adapterRouteTableEntryOrFilter.fromJsonTree(jsonObject));
+                        return ret;
+                    } catch (Exception e) {
+                        // deserialization failed, continue
+                        log.log(Level.FINER, "Input data does not match schema 'RouteTableEntryOrFilter'", e);
+                    }
 
-
-  @JsonProperty(JSON_PROPERTY_PROPERTY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setProperty(String property) {
-    this.property = property;
-  }
-
-
-  public RouteTableEntryFilter operator(String operator) {
-    
-    this.operator = operator;
-    return this;
-  }
-
-   /**
-   * Possible operators to use on filters:  * &#x60;&#x3D;&#x60; - equal  * &#x60;!&#x3D;&#x60; - not equal  * &#x60;&gt;&#x60; - greater than  * &#x60;&gt;&#x3D;&#x60; - greater than or equal to  * &#x60;&lt;&#x60; - less than  * &#x60;&lt;&#x3D;&#x60; - less than or equal to  * &#x60;[NOT] BETWEEN&#x60; - (not) between  * &#x60;[NOT] LIKE&#x60; - (not) like  * &#x60;[NOT] IN&#x60; - (not) in  * &#x60;~*&#x60; - case-insensitive like 
-   * @return operator
-  **/
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_OPERATOR)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getOperator() {
-    return operator;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_OPERATOR)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOperator(String operator) {
-    this.operator = operator;
-  }
+                    // deserialize RouteTableEntrySimpleExpression
+                    try {
+                        // validate the JSON object to see if any exception is thrown
+                        RouteTableEntrySimpleExpression.validateJsonObject(jsonObject);
+                        log.log(Level.FINER, "Input data matches schema 'RouteTableEntrySimpleExpression'");
+                        RouteTableEntryFilter ret = new RouteTableEntryFilter();
+                        ret.setActualInstance(adapterRouteTableEntrySimpleExpression.fromJsonTree(jsonObject));
+                        return ret;
+                    } catch (Exception e) {
+                        // deserialization failed, continue
+                        log.log(Level.FINER, "Input data does not match schema 'RouteTableEntrySimpleExpression'", e);
+                    }
 
 
-  public RouteTableEntryFilter values(List<String> values) {
-    
-    this.values = values;
-    return this;
-  }
-
-  public RouteTableEntryFilter addValuesItem(String valuesItem) {
-    if (this.values == null) {
-      this.values = new ArrayList<>();
+                    throw new IOException(String.format("Failed deserialization for RouteTableEntryFilter: no class matched. JSON: %s", jsonObject.toString()));
+                }
+            }.nullSafe();
+        }
     }
-    this.values.add(valuesItem);
-    return this;
-  }
 
-   /**
-   * Get values
-   * @return values
-  **/
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_VALUES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    // store a list of schema names defined in anyOf
+    public static final Map<String, GenericType> schemas = new HashMap<String, GenericType>();
 
-  public List<String> getValues() {
-    return values;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_VALUES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setValues(List<String> values) {
-    this.values = values;
-  }
-
-
-  public RouteTableEntryFilter or(List<RouteTableEntrySimpleExpression> or) {
-    
-    this.or = or;
-    return this;
-  }
-
-  public RouteTableEntryFilter addOrItem(RouteTableEntrySimpleExpression orItem) {
-    if (this.or == null) {
-      this.or = new ArrayList<>();
+    public RouteTableEntryFilter() {
+        super("anyOf", Boolean.FALSE);
     }
-    this.or.add(orItem);
-    return this;
-  }
 
-   /**
-   * Get or
-   * @return or
-  **/
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_OR)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<RouteTableEntrySimpleExpression> getOr() {
-    return or;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_OR)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOr(List<RouteTableEntrySimpleExpression> or) {
-    this.or = or;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public RouteTableEntryFilter(RouteTableEntryOrFilter o) {
+        super("anyOf", Boolean.FALSE);
+        setActualInstance(o);
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    public RouteTableEntryFilter(RouteTableEntrySimpleExpression o) {
+        super("anyOf", Boolean.FALSE);
+        setActualInstance(o);
     }
-    RouteTableEntryFilter routeTableEntryFilter = (RouteTableEntryFilter) o;
-    return Objects.equals(this.property, routeTableEntryFilter.property) &&
-        Objects.equals(this.operator, routeTableEntryFilter.operator) &&
-        Objects.equals(this.values, routeTableEntryFilter.values) &&
-        Objects.equals(this.or, routeTableEntryFilter.or);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(property, operator, values, or);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RouteTableEntryFilter {\n");
-    sb.append("    property: ").append(toIndentedString(property)).append("\n");
-    sb.append("    operator: ").append(toIndentedString(operator)).append("\n");
-    sb.append("    values: ").append(toIndentedString(values)).append("\n");
-    sb.append("    or: ").append(toIndentedString(or)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    static {
+        schemas.put("RouteTableEntryOrFilter", new GenericType<RouteTableEntryOrFilter>() {
+        });
+        schemas.put("RouteTableEntrySimpleExpression", new GenericType<RouteTableEntrySimpleExpression>() {
+        });
     }
-    return o.toString().replace("\n", "\n    ");
+
+    @Override
+    public Map<String, GenericType> getSchemas() {
+        return RouteTableEntryFilter.schemas;
+    }
+
+    /**
+     * Set the instance that matches the anyOf child schema, check
+     * the instance parameter is valid against the anyOf child schemas:
+     * RouteTableEntryOrFilter, RouteTableEntrySimpleExpression
+     *
+     * It could be an instance of the 'anyOf' schemas.
+     * The anyOf child schemas may themselves be a composed schema (allOf, anyOf, anyOf).
+     */
+    @Override
+    public void setActualInstance(Object instance) {
+        if (instance instanceof RouteTableEntryOrFilter) {
+            super.setActualInstance(instance);
+            return;
+        }
+
+        if (instance instanceof RouteTableEntrySimpleExpression) {
+            super.setActualInstance(instance);
+            return;
+        }
+
+        throw new RuntimeException("Invalid instance type. Must be RouteTableEntryOrFilter, RouteTableEntrySimpleExpression");
+    }
+
+    /**
+     * Get the actual instance, which can be the following:
+     * RouteTableEntryOrFilter, RouteTableEntrySimpleExpression
+     *
+     * @return The actual instance (RouteTableEntryOrFilter, RouteTableEntrySimpleExpression)
+     */
+    @Override
+    public Object getActualInstance() {
+        return super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `RouteTableEntryOrFilter`. If the actual instance is not `RouteTableEntryOrFilter`,
+     * the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `RouteTableEntryOrFilter`
+     * @throws ClassCastException if the instance is not `RouteTableEntryOrFilter`
+     */
+    public RouteTableEntryOrFilter getRouteTableEntryOrFilter() throws ClassCastException {
+        return (RouteTableEntryOrFilter)super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `RouteTableEntrySimpleExpression`. If the actual instance is not `RouteTableEntrySimpleExpression`,
+     * the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `RouteTableEntrySimpleExpression`
+     * @throws ClassCastException if the instance is not `RouteTableEntrySimpleExpression`
+     */
+    public RouteTableEntrySimpleExpression getRouteTableEntrySimpleExpression() throws ClassCastException {
+        return (RouteTableEntrySimpleExpression)super.getActualInstance();
+    }
+
+
+ /**
+  * Validates the JSON Object and throws an exception if issues found
+  *
+  * @param jsonObj JSON Object
+  * @throws IOException if the JSON Object is invalid with respect to RouteTableEntryFilter
+  */
+  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
+    // validate anyOf schemas one by one
+    int validCount = 0;
+    // validate the json string with RouteTableEntryOrFilter
+    try {
+      RouteTableEntryOrFilter.validateJsonObject(jsonObj);
+      return; // return earlier as at least one schema is valid with respect to the Json object
+      //validCount++;
+    } catch (Exception e) {
+      // continue to the next one
+    }
+    // validate the json string with RouteTableEntrySimpleExpression
+    try {
+      RouteTableEntrySimpleExpression.validateJsonObject(jsonObj);
+      return; // return earlier as at least one schema is valid with respect to the Json object
+      //validCount++;
+    } catch (Exception e) {
+      // continue to the next one
+    }
+    if (validCount == 0) {
+      throw new IOException(String.format("The JSON string is invalid for RouteTableEntryFilter with anyOf schemas: RouteTableEntryOrFilter, RouteTableEntrySimpleExpression. JSON: %s", jsonObj.toString()));
+    }
   }
 
+ /**
+  * Create an instance of RouteTableEntryFilter given an JSON string
+  *
+  * @param jsonString JSON string
+  * @return An instance of RouteTableEntryFilter
+  * @throws IOException if the JSON string is invalid with respect to RouteTableEntryFilter
+  */
+  public static RouteTableEntryFilter fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, RouteTableEntryFilter.class);
+  }
+
+ /**
+  * Convert an instance of RouteTableEntryFilter to an JSON string
+  *
+  * @return JSON string
+  */
+  public String toJson() {
+    return JSON.getGson().toJson(this);
+  }
 }
 

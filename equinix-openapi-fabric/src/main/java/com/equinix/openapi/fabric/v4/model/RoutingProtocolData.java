@@ -11,662 +11,242 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.equinix.openapi.fabric.v4.model.BGPConnectionIpv4;
-import com.equinix.openapi.fabric.v4.model.BGPConnectionIpv6;
-import com.equinix.openapi.fabric.v4.model.Changelog;
-import com.equinix.openapi.fabric.v4.model.DirectConnectionIpv4;
-import com.equinix.openapi.fabric.v4.model.DirectConnectionIpv6;
-import com.equinix.openapi.fabric.v4.model.RoutingProtocolBFD;
-import com.equinix.openapi.fabric.v4.model.RoutingProtocolBGPData;
-import com.equinix.openapi.fabric.v4.model.RoutingProtocolChange;
-import com.equinix.openapi.fabric.v4.model.RoutingProtocolDirectData;
-import com.equinix.openapi.fabric.v4.model.RoutingProtocolOperation;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URI;
-import java.util.UUID;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.equinix.openapi.fabric.JSON;
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
-/**
- * RoutingProtocolData
- */
-@JsonPropertyOrder({
-  RoutingProtocolData.JSON_PROPERTY_TYPE,
-  RoutingProtocolData.JSON_PROPERTY_NAME,
-  RoutingProtocolData.JSON_PROPERTY_BGP_IPV4,
-  RoutingProtocolData.JSON_PROPERTY_BGP_IPV6,
-  RoutingProtocolData.JSON_PROPERTY_CUSTOMER_ASN,
-  RoutingProtocolData.JSON_PROPERTY_EQUINIX_ASN,
-  RoutingProtocolData.JSON_PROPERTY_BGP_AUTH_KEY,
-  RoutingProtocolData.JSON_PROPERTY_BFD,
-  RoutingProtocolData.JSON_PROPERTY_HREF,
-  RoutingProtocolData.JSON_PROPERTY_UUID,
-  RoutingProtocolData.JSON_PROPERTY_STATE,
-  RoutingProtocolData.JSON_PROPERTY_OPERATION,
-  RoutingProtocolData.JSON_PROPERTY_CHANGE,
-  RoutingProtocolData.JSON_PROPERTY_CHANGELOG,
-  RoutingProtocolData.JSON_PROPERTY_DIRECT_IPV4,
-  RoutingProtocolData.JSON_PROPERTY_DIRECT_IPV6
-})
+import javax.ws.rs.core.GenericType;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class RoutingProtocolData {
-  /**
-   * Routing protocol type
-   */
-  public enum TypeEnum {
-    BGP("BGP"),
-    
-    DIRECT("DIRECT");
+public class RoutingProtocolData extends AbstractOpenApiSchema {
+    private static final Logger log = Logger.getLogger(RoutingProtocolData.class.getName());
 
-    private String value;
+    public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+        @SuppressWarnings("unchecked")
+        @Override
+        public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+            if (!RoutingProtocolData.class.isAssignableFrom(type.getRawType())) {
+                return null; // this class only serializes 'RoutingProtocolData' and its subtypes
+            }
+            final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+            final TypeAdapter<RoutingProtocolBGPData> adapterRoutingProtocolBGPData = gson.getDelegateAdapter(this, TypeToken.get(RoutingProtocolBGPData.class));
+            final TypeAdapter<RoutingProtocolDirectData> adapterRoutingProtocolDirectData = gson.getDelegateAdapter(this, TypeToken.get(RoutingProtocolDirectData.class));
 
-    TypeEnum(String value) {
-      this.value = value;
+            return (TypeAdapter<T>) new TypeAdapter<RoutingProtocolData>() {
+                @Override
+                public void write(JsonWriter out, RoutingProtocolData value) throws IOException {
+                    if (value == null || value.getActualInstance() == null) {
+                        elementAdapter.write(out, null);
+                        return;
+                    }
+
+                    // check if the actual instance is of the type `RoutingProtocolBGPData`
+                    if (value.getActualInstance() instanceof RoutingProtocolBGPData) {
+                        JsonObject obj = adapterRoutingProtocolBGPData.toJsonTree((RoutingProtocolBGPData)value.getActualInstance()).getAsJsonObject();
+                        elementAdapter.write(out, obj);
+                        return;
+                    }
+
+                    // check if the actual instance is of the type `RoutingProtocolDirectData`
+                    if (value.getActualInstance() instanceof RoutingProtocolDirectData) {
+                        JsonObject obj = adapterRoutingProtocolDirectData.toJsonTree((RoutingProtocolDirectData)value.getActualInstance()).getAsJsonObject();
+                        elementAdapter.write(out, obj);
+                        return;
+                    }
+
+                    throw new IOException("Failed to serialize as the type doesn't match oneOf schemas: RoutingProtocolBGPData, RoutingProtocolDirectData");
+                }
+
+                @Override
+                public RoutingProtocolData read(JsonReader in) throws IOException {
+                    Object deserialized = null;
+                    JsonObject jsonObject = elementAdapter.read(in).getAsJsonObject();
+
+                    int match = 0;
+                    ArrayList<String> errorMessages = new ArrayList<>();
+                    TypeAdapter actualAdapter = elementAdapter;
+
+                    // deserialize RoutingProtocolBGPData
+                    try {
+                        // validate the JSON object to see if any exception is thrown
+                        RoutingProtocolBGPData.validateJsonObject(jsonObject);
+                        actualAdapter = adapterRoutingProtocolBGPData;
+                        match++;
+                        log.log(Level.FINER, "Input data matches schema 'RoutingProtocolBGPData'");
+                    } catch (Exception e) {
+                        // deserialization failed, continue
+                        errorMessages.add(String.format("Deserialization for RoutingProtocolBGPData failed with `%s`.", e.getMessage()));
+                        log.log(Level.FINER, "Input data does not match schema 'RoutingProtocolBGPData'", e);
+                    }
+
+                    // deserialize RoutingProtocolDirectData
+                    try {
+                        // validate the JSON object to see if any exception is thrown
+                        RoutingProtocolDirectData.validateJsonObject(jsonObject);
+                        actualAdapter = adapterRoutingProtocolDirectData;
+                        match++;
+                        log.log(Level.FINER, "Input data matches schema 'RoutingProtocolDirectData'");
+                    } catch (Exception e) {
+                        // deserialization failed, continue
+                        errorMessages.add(String.format("Deserialization for RoutingProtocolDirectData failed with `%s`.", e.getMessage()));
+                        log.log(Level.FINER, "Input data does not match schema 'RoutingProtocolDirectData'", e);
+                    }
+
+                    if (match == 1) {
+                        RoutingProtocolData ret = new RoutingProtocolData();
+                        ret.setActualInstance(actualAdapter.fromJsonTree(jsonObject));
+                        return ret;
+                    }
+
+                    throw new IOException(String.format("Failed deserialization for RoutingProtocolData: %d classes match result, expected 1. Detailed failure message for oneOf schemas: %s. JSON: %s", match, errorMessages, jsonObject.toString()));
+                }
+            }.nullSafe();
+        }
     }
 
-    @JsonValue
-    public String getValue() {
-      return value;
+    // store a list of schema names defined in oneOf
+    public static final Map<String, GenericType> schemas = new HashMap<String, GenericType>();
+
+    public RoutingProtocolData() {
+        super("oneOf", Boolean.FALSE);
+    }
+
+    public RoutingProtocolData(RoutingProtocolBGPData o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
+    }
+
+    public RoutingProtocolData(RoutingProtocolDirectData o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
+    }
+
+    static {
+        schemas.put("RoutingProtocolBGPData", new GenericType<RoutingProtocolBGPData>() {
+        });
+        schemas.put("RoutingProtocolDirectData", new GenericType<RoutingProtocolDirectData>() {
+        });
     }
 
     @Override
-    public String toString() {
-      return String.valueOf(value);
+    public Map<String, GenericType> getSchemas() {
+        return RoutingProtocolData.schemas;
     }
 
-    @JsonCreator
-    public static TypeEnum fromValue(String value) {
-      for (TypeEnum b : TypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_TYPE = "type";
-  private TypeEnum type;
-
-  public static final String JSON_PROPERTY_NAME = "name";
-  private String name;
-
-  public static final String JSON_PROPERTY_BGP_IPV4 = "bgpIpv4";
-  private BGPConnectionIpv4 bgpIpv4;
-
-  public static final String JSON_PROPERTY_BGP_IPV6 = "bgpIpv6";
-  private BGPConnectionIpv6 bgpIpv6;
-
-  public static final String JSON_PROPERTY_CUSTOMER_ASN = "customerAsn";
-  private Long customerAsn;
-
-  public static final String JSON_PROPERTY_EQUINIX_ASN = "equinixAsn";
-  private Long equinixAsn;
-
-  public static final String JSON_PROPERTY_BGP_AUTH_KEY = "bgpAuthKey";
-  private String bgpAuthKey;
-
-  public static final String JSON_PROPERTY_BFD = "bfd";
-  private RoutingProtocolBFD bfd;
-
-  public static final String JSON_PROPERTY_HREF = "href";
-  private URI href;
-
-  public static final String JSON_PROPERTY_UUID = "uuid";
-  private UUID uuid;
-
-  /**
-   * Gets or Sets state
-   */
-  public enum StateEnum {
-    PROVISIONED("PROVISIONED"),
-    
-    DEPROVISIONED("DEPROVISIONED"),
-    
-    PROVISIONING("PROVISIONING"),
-    
-    DEPROVISIONING("DEPROVISIONING"),
-    
-    REPROVISIONING("REPROVISIONING"),
-    
-    FAILED("FAILED");
-
-    private String value;
-
-    StateEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
+    /**
+     * Set the instance that matches the oneOf child schema, check
+     * the instance parameter is valid against the oneOf child schemas:
+     * RoutingProtocolBGPData, RoutingProtocolDirectData
+     *
+     * It could be an instance of the 'oneOf' schemas.
+     * The oneOf child schemas may themselves be a composed schema (allOf, anyOf, oneOf).
+     */
     @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static StateEnum fromValue(String value) {
-      for (StateEnum b : StateEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+    public void setActualInstance(Object instance) {
+        if (instance instanceof RoutingProtocolBGPData) {
+            super.setActualInstance(instance);
+            return;
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+
+        if (instance instanceof RoutingProtocolDirectData) {
+            super.setActualInstance(instance);
+            return;
+        }
+
+        throw new RuntimeException("Invalid instance type. Must be RoutingProtocolBGPData, RoutingProtocolDirectData");
+    }
+
+    /**
+     * Get the actual instance, which can be the following:
+     * RoutingProtocolBGPData, RoutingProtocolDirectData
+     *
+     * @return The actual instance (RoutingProtocolBGPData, RoutingProtocolDirectData)
+     */
+    @Override
+    public Object getActualInstance() {
+        return super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `RoutingProtocolBGPData`. If the actual instance is not `RoutingProtocolBGPData`,
+     * the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `RoutingProtocolBGPData`
+     * @throws ClassCastException if the instance is not `RoutingProtocolBGPData`
+     */
+    public RoutingProtocolBGPData getRoutingProtocolBGPData() throws ClassCastException {
+        return (RoutingProtocolBGPData)super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `RoutingProtocolDirectData`. If the actual instance is not `RoutingProtocolDirectData`,
+     * the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `RoutingProtocolDirectData`
+     * @throws ClassCastException if the instance is not `RoutingProtocolDirectData`
+     */
+    public RoutingProtocolDirectData getRoutingProtocolDirectData() throws ClassCastException {
+        return (RoutingProtocolDirectData)super.getActualInstance();
+    }
+
+
+ /**
+  * Validates the JSON Object and throws an exception if issues found
+  *
+  * @param jsonObj JSON Object
+  * @throws IOException if the JSON Object is invalid with respect to RoutingProtocolData
+  */
+  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
+    // validate oneOf schemas one by one
+    int validCount = 0;
+    ArrayList<String> errorMessages = new ArrayList<>();
+    // validate the json string with RoutingProtocolBGPData
+    try {
+      RoutingProtocolBGPData.validateJsonObject(jsonObj);
+      validCount++;
+    } catch (Exception e) {
+      errorMessages.add(String.format("Deserialization for RoutingProtocolBGPData failed with `%s`.", e.getMessage()));
+      // continue to the next one
+    }
+    // validate the json string with RoutingProtocolDirectData
+    try {
+      RoutingProtocolDirectData.validateJsonObject(jsonObj);
+      validCount++;
+    } catch (Exception e) {
+      errorMessages.add(String.format("Deserialization for RoutingProtocolDirectData failed with `%s`.", e.getMessage()));
+      // continue to the next one
+    }
+    if (validCount != 1) {
+      throw new IOException(String.format("The JSON string is invalid for RoutingProtocolData with oneOf schemas: RoutingProtocolBGPData, RoutingProtocolDirectData. %d class(es) match the result, expected 1. Detailed failure message for oneOf schemas: %s. JSON: %s", validCount, errorMessages, jsonObj.toString()));
     }
   }
 
-  public static final String JSON_PROPERTY_STATE = "state";
-  private StateEnum state;
-
-  public static final String JSON_PROPERTY_OPERATION = "operation";
-  private RoutingProtocolOperation operation;
-
-  public static final String JSON_PROPERTY_CHANGE = "change";
-  private RoutingProtocolChange change;
-
-  public static final String JSON_PROPERTY_CHANGELOG = "changelog";
-  private Changelog changelog;
-
-  public static final String JSON_PROPERTY_DIRECT_IPV4 = "directIpv4";
-  private DirectConnectionIpv4 directIpv4;
-
-  public static final String JSON_PROPERTY_DIRECT_IPV6 = "directIpv6";
-  private DirectConnectionIpv6 directIpv6;
-
-  public RoutingProtocolData() {
+ /**
+  * Create an instance of RoutingProtocolData given an JSON string
+  *
+  * @param jsonString JSON string
+  * @return An instance of RoutingProtocolData
+  * @throws IOException if the JSON string is invalid with respect to RoutingProtocolData
+  */
+  public static RoutingProtocolData fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, RoutingProtocolData.class);
   }
 
-  public RoutingProtocolData type(TypeEnum type) {
-    
-    this.type = type;
-    return this;
+ /**
+  * Convert an instance of RoutingProtocolData to an JSON string
+  *
+  * @return JSON string
+  */
+  public String toJson() {
+    return JSON.getGson().toJson(this);
   }
-
-   /**
-   * Routing protocol type
-   * @return type
-  **/
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public TypeEnum getType() {
-    return type;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setType(TypeEnum type) {
-    this.type = type;
-  }
-
-
-  public RoutingProtocolData name(String name) {
-    
-    this.name = name;
-    return this;
-  }
-
-   /**
-   * Get name
-   * @return name
-  **/
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getName() {
-    return name;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(String name) {
-    this.name = name;
-  }
-
-
-  public RoutingProtocolData bgpIpv4(BGPConnectionIpv4 bgpIpv4) {
-    
-    this.bgpIpv4 = bgpIpv4;
-    return this;
-  }
-
-   /**
-   * Get bgpIpv4
-   * @return bgpIpv4
-  **/
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_BGP_IPV4)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public BGPConnectionIpv4 getBgpIpv4() {
-    return bgpIpv4;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_BGP_IPV4)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBgpIpv4(BGPConnectionIpv4 bgpIpv4) {
-    this.bgpIpv4 = bgpIpv4;
-  }
-
-
-  public RoutingProtocolData bgpIpv6(BGPConnectionIpv6 bgpIpv6) {
-    
-    this.bgpIpv6 = bgpIpv6;
-    return this;
-  }
-
-   /**
-   * Get bgpIpv6
-   * @return bgpIpv6
-  **/
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_BGP_IPV6)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public BGPConnectionIpv6 getBgpIpv6() {
-    return bgpIpv6;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_BGP_IPV6)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBgpIpv6(BGPConnectionIpv6 bgpIpv6) {
-    this.bgpIpv6 = bgpIpv6;
-  }
-
-
-  public RoutingProtocolData customerAsn(Long customerAsn) {
-    
-    this.customerAsn = customerAsn;
-    return this;
-  }
-
-   /**
-   * Customer asn
-   * @return customerAsn
-  **/
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CUSTOMER_ASN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Long getCustomerAsn() {
-    return customerAsn;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CUSTOMER_ASN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCustomerAsn(Long customerAsn) {
-    this.customerAsn = customerAsn;
-  }
-
-
-  public RoutingProtocolData equinixAsn(Long equinixAsn) {
-    
-    this.equinixAsn = equinixAsn;
-    return this;
-  }
-
-   /**
-   * Equinix asn
-   * @return equinixAsn
-  **/
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_EQUINIX_ASN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Long getEquinixAsn() {
-    return equinixAsn;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_EQUINIX_ASN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEquinixAsn(Long equinixAsn) {
-    this.equinixAsn = equinixAsn;
-  }
-
-
-  public RoutingProtocolData bgpAuthKey(String bgpAuthKey) {
-    
-    this.bgpAuthKey = bgpAuthKey;
-    return this;
-  }
-
-   /**
-   * BGP authorization key
-   * @return bgpAuthKey
-  **/
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_BGP_AUTH_KEY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getBgpAuthKey() {
-    return bgpAuthKey;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_BGP_AUTH_KEY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBgpAuthKey(String bgpAuthKey) {
-    this.bgpAuthKey = bgpAuthKey;
-  }
-
-
-  public RoutingProtocolData bfd(RoutingProtocolBFD bfd) {
-    
-    this.bfd = bfd;
-    return this;
-  }
-
-   /**
-   * Get bfd
-   * @return bfd
-  **/
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_BFD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public RoutingProtocolBFD getBfd() {
-    return bfd;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_BFD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBfd(RoutingProtocolBFD bfd) {
-    this.bfd = bfd;
-  }
-
-
-  public RoutingProtocolData href(URI href) {
-    
-    this.href = href;
-    return this;
-  }
-
-   /**
-   * Routing Protocol URI
-   * @return href
-  **/
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_HREF)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public URI getHref() {
-    return href;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_HREF)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setHref(URI href) {
-    this.href = href;
-  }
-
-
-  public RoutingProtocolData uuid(UUID uuid) {
-    
-    this.uuid = uuid;
-    return this;
-  }
-
-   /**
-   * Routing protocol identifier
-   * @return uuid
-  **/
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_UUID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UUID getUuid() {
-    return uuid;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_UUID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUuid(UUID uuid) {
-    this.uuid = uuid;
-  }
-
-
-  public RoutingProtocolData state(StateEnum state) {
-    
-    this.state = state;
-    return this;
-  }
-
-   /**
-   * Get state
-   * @return state
-  **/
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public StateEnum getState() {
-    return state;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setState(StateEnum state) {
-    this.state = state;
-  }
-
-
-  public RoutingProtocolData operation(RoutingProtocolOperation operation) {
-    
-    this.operation = operation;
-    return this;
-  }
-
-   /**
-   * Get operation
-   * @return operation
-  **/
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_OPERATION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public RoutingProtocolOperation getOperation() {
-    return operation;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_OPERATION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOperation(RoutingProtocolOperation operation) {
-    this.operation = operation;
-  }
-
-
-  public RoutingProtocolData change(RoutingProtocolChange change) {
-    
-    this.change = change;
-    return this;
-  }
-
-   /**
-   * Get change
-   * @return change
-  **/
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CHANGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public RoutingProtocolChange getChange() {
-    return change;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CHANGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setChange(RoutingProtocolChange change) {
-    this.change = change;
-  }
-
-
-  public RoutingProtocolData changelog(Changelog changelog) {
-    
-    this.changelog = changelog;
-    return this;
-  }
-
-   /**
-   * Get changelog
-   * @return changelog
-  **/
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CHANGELOG)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Changelog getChangelog() {
-    return changelog;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CHANGELOG)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setChangelog(Changelog changelog) {
-    this.changelog = changelog;
-  }
-
-
-  public RoutingProtocolData directIpv4(DirectConnectionIpv4 directIpv4) {
-    
-    this.directIpv4 = directIpv4;
-    return this;
-  }
-
-   /**
-   * Get directIpv4
-   * @return directIpv4
-  **/
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DIRECT_IPV4)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public DirectConnectionIpv4 getDirectIpv4() {
-    return directIpv4;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DIRECT_IPV4)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDirectIpv4(DirectConnectionIpv4 directIpv4) {
-    this.directIpv4 = directIpv4;
-  }
-
-
-  public RoutingProtocolData directIpv6(DirectConnectionIpv6 directIpv6) {
-    
-    this.directIpv6 = directIpv6;
-    return this;
-  }
-
-   /**
-   * Get directIpv6
-   * @return directIpv6
-  **/
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DIRECT_IPV6)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public DirectConnectionIpv6 getDirectIpv6() {
-    return directIpv6;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DIRECT_IPV6)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDirectIpv6(DirectConnectionIpv6 directIpv6) {
-    this.directIpv6 = directIpv6;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    RoutingProtocolData routingProtocolData = (RoutingProtocolData) o;
-    return Objects.equals(this.type, routingProtocolData.type) &&
-        Objects.equals(this.name, routingProtocolData.name) &&
-        Objects.equals(this.bgpIpv4, routingProtocolData.bgpIpv4) &&
-        Objects.equals(this.bgpIpv6, routingProtocolData.bgpIpv6) &&
-        Objects.equals(this.customerAsn, routingProtocolData.customerAsn) &&
-        Objects.equals(this.equinixAsn, routingProtocolData.equinixAsn) &&
-        Objects.equals(this.bgpAuthKey, routingProtocolData.bgpAuthKey) &&
-        Objects.equals(this.bfd, routingProtocolData.bfd) &&
-        Objects.equals(this.href, routingProtocolData.href) &&
-        Objects.equals(this.uuid, routingProtocolData.uuid) &&
-        Objects.equals(this.state, routingProtocolData.state) &&
-        Objects.equals(this.operation, routingProtocolData.operation) &&
-        Objects.equals(this.change, routingProtocolData.change) &&
-        Objects.equals(this.changelog, routingProtocolData.changelog) &&
-        Objects.equals(this.directIpv4, routingProtocolData.directIpv4) &&
-        Objects.equals(this.directIpv6, routingProtocolData.directIpv6);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(type, name, bgpIpv4, bgpIpv6, customerAsn, equinixAsn, bgpAuthKey, bfd, href, uuid, state, operation, change, changelog, directIpv4, directIpv6);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class RoutingProtocolData {\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    bgpIpv4: ").append(toIndentedString(bgpIpv4)).append("\n");
-    sb.append("    bgpIpv6: ").append(toIndentedString(bgpIpv6)).append("\n");
-    sb.append("    customerAsn: ").append(toIndentedString(customerAsn)).append("\n");
-    sb.append("    equinixAsn: ").append(toIndentedString(equinixAsn)).append("\n");
-    sb.append("    bgpAuthKey: ").append(toIndentedString(bgpAuthKey)).append("\n");
-    sb.append("    bfd: ").append(toIndentedString(bfd)).append("\n");
-    sb.append("    href: ").append(toIndentedString(href)).append("\n");
-    sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
-    sb.append("    state: ").append(toIndentedString(state)).append("\n");
-    sb.append("    operation: ").append(toIndentedString(operation)).append("\n");
-    sb.append("    change: ").append(toIndentedString(change)).append("\n");
-    sb.append("    changelog: ").append(toIndentedString(changelog)).append("\n");
-    sb.append("    directIpv4: ").append(toIndentedString(directIpv4)).append("\n");
-    sb.append("    directIpv6: ").append(toIndentedString(directIpv6)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
 }
 

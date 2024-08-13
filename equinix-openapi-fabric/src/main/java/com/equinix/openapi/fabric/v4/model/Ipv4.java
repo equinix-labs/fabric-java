@@ -11,38 +11,35 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.equinix.openapi.fabric.JSON;
+import com.google.gson.*;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+
+import java.io.IOException;
+import java.util.*;
 
 /**
  * EPT service network information
  */
-@JsonPropertyOrder({
-  Ipv4.JSON_PROPERTY_PRIMARY,
-  Ipv4.JSON_PROPERTY_SECONDARY,
-  Ipv4.JSON_PROPERTY_NETWORK_MASK,
-  Ipv4.JSON_PROPERTY_DEFAULT_GATEWAY
-})
-@JsonTypeName("ipv4")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Ipv4 {
-  public static final String JSON_PROPERTY_PRIMARY = "primary";
+  public static final String SERIALIZED_NAME_PRIMARY = "primary";
+  @SerializedName(SERIALIZED_NAME_PRIMARY)
   private String primary;
 
-  public static final String JSON_PROPERTY_SECONDARY = "secondary";
+  public static final String SERIALIZED_NAME_SECONDARY = "secondary";
+  @SerializedName(SERIALIZED_NAME_SECONDARY)
   private String secondary;
 
-  public static final String JSON_PROPERTY_NETWORK_MASK = "networkMask";
+  public static final String SERIALIZED_NAME_NETWORK_MASK = "networkMask";
+  @SerializedName(SERIALIZED_NAME_NETWORK_MASK)
   private String networkMask;
 
-  public static final String JSON_PROPERTY_DEFAULT_GATEWAY = "defaultGateway";
+  public static final String SERIALIZED_NAME_DEFAULT_GATEWAY = "defaultGateway";
+  @SerializedName(SERIALIZED_NAME_DEFAULT_GATEWAY)
   private String defaultGateway;
 
   public Ipv4() {
@@ -59,16 +56,12 @@ public class Ipv4 {
    * @return primary
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PRIMARY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getPrimary() {
     return primary;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PRIMARY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPrimary(String primary) {
     this.primary = primary;
   }
@@ -85,16 +78,12 @@ public class Ipv4 {
    * @return secondary
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SECONDARY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSecondary() {
     return secondary;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SECONDARY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSecondary(String secondary) {
     this.secondary = secondary;
   }
@@ -111,16 +100,12 @@ public class Ipv4 {
    * @return networkMask
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NETWORK_MASK)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getNetworkMask() {
     return networkMask;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NETWORK_MASK)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNetworkMask(String networkMask) {
     this.networkMask = networkMask;
   }
@@ -137,18 +122,59 @@ public class Ipv4 {
    * @return defaultGateway
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DEFAULT_GATEWAY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDefaultGateway() {
     return defaultGateway;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DEFAULT_GATEWAY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDefaultGateway(String defaultGateway) {
     this.defaultGateway = defaultGateway;
+  }
+
+  /**
+   * A container for additional, undeclared properties.
+   * This is a holder for any undeclared properties as specified with
+   * the 'additionalProperties' keyword in the OAS document.
+   */
+  private Map<String, Object> additionalProperties;
+
+  /**
+   * Set the additional (undeclared) property with the specified name and value.
+   * If the property does not already exist, create it otherwise replace it.
+   *
+   * @param key name of the property
+   * @param value value of the property
+   * @return the Ipv4 instance itself
+   */
+  public Ipv4 putAdditionalProperty(String key, Object value) {
+    if (this.additionalProperties == null) {
+        this.additionalProperties = new HashMap<String, Object>();
+    }
+    this.additionalProperties.put(key, value);
+    return this;
+  }
+
+  /**
+   * Return the additional (undeclared) property.
+   *
+   * @return a map of objects
+   */
+  public Map<String, Object> getAdditionalProperties() {
+    return additionalProperties;
+  }
+
+  /**
+   * Return the additional (undeclared) property with the specified name.
+   *
+   * @param key name of the property
+   * @return an object
+   */
+  public Object getAdditionalProperty(String key) {
+    if (this.additionalProperties == null) {
+        return null;
+    }
+    return this.additionalProperties.get(key);
   }
 
 
@@ -164,12 +190,13 @@ public class Ipv4 {
     return Objects.equals(this.primary, ipv4.primary) &&
         Objects.equals(this.secondary, ipv4.secondary) &&
         Objects.equals(this.networkMask, ipv4.networkMask) &&
-        Objects.equals(this.defaultGateway, ipv4.defaultGateway);
+        Objects.equals(this.defaultGateway, ipv4.defaultGateway)&&
+        Objects.equals(this.additionalProperties, ipv4.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(primary, secondary, networkMask, defaultGateway);
+    return Objects.hash(primary, secondary, networkMask, defaultGateway, additionalProperties);
   }
 
   @Override
@@ -180,6 +207,7 @@ public class Ipv4 {
     sb.append("    secondary: ").append(toIndentedString(secondary)).append("\n");
     sb.append("    networkMask: ").append(toIndentedString(networkMask)).append("\n");
     sb.append("    defaultGateway: ").append(toIndentedString(defaultGateway)).append("\n");
+    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -195,5 +223,132 @@ public class Ipv4 {
     return o.toString().replace("\n", "\n    ");
   }
 
+
+  public static HashSet<String> openapiFields;
+  public static HashSet<String> openapiRequiredFields;
+
+  static {
+    // a set of all properties/fields (JSON key names)
+    openapiFields = new HashSet<String>();
+    openapiFields.add("primary");
+    openapiFields.add("secondary");
+    openapiFields.add("networkMask");
+    openapiFields.add("defaultGateway");
+
+    // a set of required properties/fields (JSON key names)
+    openapiRequiredFields = new HashSet<String>();
+  }
+
+ /**
+  * Validates the JSON Object and throws an exception if issues found
+  *
+  * @param jsonObj JSON Object
+  * @throws IOException if the JSON Object is invalid with respect to Ipv4
+  */
+  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
+      if (jsonObj == null) {
+        if (!Ipv4.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in Ipv4 is not found in the empty JSON string", Ipv4.openapiRequiredFields.toString()));
+        }
+      }
+      if ((jsonObj.get("primary") != null && !jsonObj.get("primary").isJsonNull()) && !jsonObj.get("primary").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `primary` to be a primitive type in the JSON string but got `%s`", jsonObj.get("primary").toString()));
+      }
+      if ((jsonObj.get("secondary") != null && !jsonObj.get("secondary").isJsonNull()) && !jsonObj.get("secondary").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `secondary` to be a primitive type in the JSON string but got `%s`", jsonObj.get("secondary").toString()));
+      }
+      if ((jsonObj.get("networkMask") != null && !jsonObj.get("networkMask").isJsonNull()) && !jsonObj.get("networkMask").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `networkMask` to be a primitive type in the JSON string but got `%s`", jsonObj.get("networkMask").toString()));
+      }
+      if ((jsonObj.get("defaultGateway") != null && !jsonObj.get("defaultGateway").isJsonNull()) && !jsonObj.get("defaultGateway").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `defaultGateway` to be a primitive type in the JSON string but got `%s`", jsonObj.get("defaultGateway").toString()));
+      }
+  }
+
+  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+       if (!Ipv4.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'Ipv4' and its subtypes
+       }
+       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+       final TypeAdapter<Ipv4> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(Ipv4.class));
+
+       return (TypeAdapter<T>) new TypeAdapter<Ipv4>() {
+           @Override
+           public void write(JsonWriter out, Ipv4 value) throws IOException {
+             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
+             obj.remove("additionalProperties");
+             // serialize additional properties
+             if (value.getAdditionalProperties() != null) {
+               for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
+                 if (entry.getValue() instanceof String)
+                   obj.addProperty(entry.getKey(), (String) entry.getValue());
+                 else if (entry.getValue() instanceof Number)
+                   obj.addProperty(entry.getKey(), (Number) entry.getValue());
+                 else if (entry.getValue() instanceof Boolean)
+                   obj.addProperty(entry.getKey(), (Boolean) entry.getValue());
+                 else if (entry.getValue() instanceof Character)
+                   obj.addProperty(entry.getKey(), (Character) entry.getValue());
+                 else {
+                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
+                 }
+               }
+             }
+             elementAdapter.write(out, obj);
+           }
+
+           @Override
+           public Ipv4 read(JsonReader in) throws IOException {
+             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
+             validateJsonObject(jsonObj);
+             // store additional fields in the deserialized instance
+             Ipv4 instance = thisAdapter.fromJsonTree(jsonObj);
+             for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
+               if (!openapiFields.contains(entry.getKey())) {
+                 if (entry.getValue().isJsonPrimitive()) { // primitive type
+                   if (entry.getValue().getAsJsonPrimitive().isString())
+                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsString());
+                   else if (entry.getValue().getAsJsonPrimitive().isNumber())
+                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsNumber());
+                   else if (entry.getValue().getAsJsonPrimitive().isBoolean())
+                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
+                   else
+                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
+                 } else if (entry.getValue().isJsonArray()) {
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
+                 } else { // JSON object
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
+                 }
+               }
+             }
+             return instance;
+           }
+
+       }.nullSafe();
+    }
+  }
+
+ /**
+  * Create an instance of Ipv4 given an JSON string
+  *
+  * @param jsonString JSON string
+  * @return An instance of Ipv4
+  * @throws IOException if the JSON string is invalid with respect to Ipv4
+  */
+  public static Ipv4 fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, Ipv4.class);
+  }
+
+ /**
+  * Convert an instance of Ipv4 to an JSON string
+  *
+  * @return JSON string
+  */
+  public String toJson() {
+    return JSON.getGson().toJson(this);
+  }
 }
 

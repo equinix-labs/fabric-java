@@ -1,0 +1,34 @@
+get:
+  description: Provides BGP peering information such as the IP and state
+   of the neighbor.
+  summary: Retrieve BGP neighbor states for the VRF
+  operationId: getVrfBGPNeighbors
+  tags:
+    - VRFs
+  parameters:
+    - description: VRF UUID
+      in: path
+      name: id
+      required: true
+      schema:
+        format: uuid
+        type: string
+  responses:
+    "200":
+      content:
+        application/json:
+          schema:
+            $ref: '../../../components/schemas/VrfBGPNeighborsList.yaml'
+      description: ok
+    "403":
+      content:
+        application/json:
+          schema:
+            $ref: '../../../components/schemas/Error.yaml'
+      description: forbidden
+    "404":
+      content:
+        application/json:
+          schema:
+            $ref: '../../../components/schemas/Error.yaml'
+      description: not found

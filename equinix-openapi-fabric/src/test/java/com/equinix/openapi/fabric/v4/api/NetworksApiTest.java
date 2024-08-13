@@ -10,89 +10,137 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.v4.model.NetworkChangeOperation;
-import com.equinix.openapi.fabric.v4.model.NetworkPostRequest;
-import org.junit.Ignore;
-import org.junit.Test;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.v4.api.dto.users.UsersItem;
+import com.equinix.openapi.fabric.v4.model.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Test;
 
-import java.util.List;
 import java.util.UUID;
+
+import static com.equinix.openapi.fabric.v4.api.TokenGenerator.users;
+import static java.util.Collections.singletonList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 /**
  * API tests for NetworksApi
  */
-@Ignore
-public class NetworksApiTest {
+class NetworksApiTest {
+    private static final UsersItem.UserName userName = UsersItem.UserName.PANTHERS_FNV;
+    private static final NetworksApi api = new NetworksApi(TokenGenerator.getApiClient(userName));
 
-    private NetworksApi api = TokenGenerator.getApiClient().networks();
+    public static void removeNetworks(UsersItem.UserName userName) {
+        users.get(userName).getUserResources().getNetworksUuid().forEach(NetworksApiTest::deleteNetwork);
+    }
 
-    /**
-     * Fabric Network Access point object
-     */
-    @Test
-    public void shouldSee202AfterCreateNetwork() {
-        NetworkPostRequest networkPostRequest = null;
-        api.createNetwork()
-                .body(networkPostRequest).execute(r -> r);
-        // TODO: test validations
+    @AfterAll
+    public static void removeResources() {
+        removeNetworks(userName);
+    }
+
+    public Network createNetwork() throws ApiException {
+        UsersItem user = Utils.getUserData(userName);
+        NetworkPostRequest networkPostRequest = new NetworkPostRequest()
+                .name("network_panthers_test")
+                .type(NetworkType.EVPLAN)
+                .scope(NetworkScope.LOCAL)
+                .project(new Project().projectId(user.getProjectId()))
+                .notifications(singletonList(new SimplifiedNotification()
+                        .type(SimplifiedNotification.TypeEnum.ALL).emails(singletonList("test@equinix.com"))));
+
+        Network network = api.createNetwork(networkPostRequest);
+        assertEquals(201, api.getApiClient().getStatusCode());
+
+        for (int i = 0; i < 5; i++) {
+            Network networkGet = api.getNetworkByUuid(network.getUuid());
+
+            if (networkGet.getState().equals(NetworkState.ACTIVE)) {
+                break;
+            }
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        users.get(userName).getUserResources().addNetworkUuid(network.getUuid());
+        return network;
     }
 
     /**
      * Fabric Network Access point object
      */
     @Test
-    public void shouldSee202AfterDeleteNetworkByUuid() {
-        UUID networkId = null;
-        api.deleteNetworkByUuid()
-                .networkIdPath(networkId).execute(r -> r);
-        // TODO: test validations
+    public void validateNetworkCreation() throws ApiException {
+        createNetwork();
+    }
+
+    public static void deleteNetwork(UUID uuid) {
+        try {
+            api.deleteNetworkByUuid(uuid);
+            assertEquals(202, api.getApiClient().getStatusCode());
+        } catch (ApiException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
      * Fabric Network Access point object
      */
     @Test
-    public void shouldSee200AfterGetNetworkByUuid() {
-        UUID networkId = null;
-        api.getNetworkByUuid()
-                .networkIdPath(networkId).execute(r -> r);
-        // TODO: test validations
+    public void deleteNetworkByUuid() throws ApiException {
+        Network network = createNetwork();
+        deleteNetwork(network.getUuid());
     }
 
     /**
      * Fabric Network Access point object
      */
     @Test
-    public void shouldSee200AfterGetNetworkChangeByUuid() {
-        UUID networkId = null;
-        UUID changeId = null;
-        api.getNetworkChangeByUuid()
-                .networkIdPath(networkId)
-                .changeIdPath(changeId).execute(r -> r);
-        // TODO: test validations
+    public void getNetworkByUuid() throws ApiException {
+        Network network = createNetwork();
+        Network networkGetResponse = api.getNetworkByUuid(network.getUuid());
+        assertEquals(200, api.getApiClient().getStatusCode());
+        assertEquals(network.getUuid(), networkGetResponse.getUuid());
+        assertEquals(network.getName(), networkGetResponse.getName());
     }
 
     /**
      * Fabric Network Access point object
      */
     @Test
-    public void shouldSee200AfterGetNetworkChanges() {
-        UUID networkId = null;
-        api.getNetworkChanges()
-                .networkIdPath(networkId).execute(r -> r);
-        // TODO: test validations
+    public void updateNetwork() throws ApiException {
+        String updatedName = "network_new_updatedName";
+        Network network = createNetwork();
+        NetworkChangeOperation changeOperation = new NetworkChangeOperation()
+                .op(NetworkChangeOperation.OpEnum.REPLACE)
+                .path(NetworkSearchFieldName.NAME.getValue())
+                .value(updatedName);
+
+        Network networkPutResponse = api.updateNetworkByUuid(network.getUuid(), singletonList(changeOperation));
+        assertEquals(200, api.getApiClient().getStatusCode());
+        assertEquals(updatedName, networkPutResponse.getName());
     }
 
     /**
      * Fabric Network Access point object
      */
     @Test
-    public void shouldSee200AfterUpdateNetworkByUuid() {
-        UUID networkId = null;
-        List<NetworkChangeOperation> networkChangeOperation = null;
-        api.updateNetworkByUuid()
-                .networkIdPath(networkId)
-                .body(networkChangeOperation).execute(r -> r);
-        // TODO: test validations
+    public void searchNetwork() throws ApiException {
+        Network network = createNetwork();
+        NetworkSearchRequest networkSearchRequest = new NetworkSearchRequest()
+                .filter(new NetworkFilter().addAndItem(new NetworkFilter()
+                        .property(NetworkSearchFieldName.UUID)
+                        .operator(NetworkFilter.OperatorEnum.EQUAL)
+                        .values(singletonList(String.valueOf(network.getUuid())))))
+                .sort(singletonList(new NetworkSortCriteria().direction(NetworkSortDirection.DESC).property(NetworkSortBy.CHANGELOG_CREATEDDATETIME)))
+                .pagination(new PaginationRequest().offset(0).limit(20));
+
+        NetworkSearchResponse networkSearchResponse=api.searchNetworks(networkSearchRequest);
+
+        assertEquals(200, api.getApiClient().getStatusCode());
+        assertFalse(networkSearchResponse.getData().isEmpty());
     }
 }

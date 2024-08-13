@@ -11,17 +11,17 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.io.IOException;
 
 /**
  * Connection priority in redundancy group
  */
+@JsonAdapter(ConnectionPriority.Adapter.class)
 public enum ConnectionPriority {
   
   PRIMARY("PRIMARY"),
@@ -34,7 +34,6 @@ public enum ConnectionPriority {
     this.value = value;
   }
 
-  @JsonValue
   public String getValue() {
     return value;
   }
@@ -44,7 +43,6 @@ public enum ConnectionPriority {
     return String.valueOf(value);
   }
 
-  @JsonCreator
   public static ConnectionPriority fromValue(String value) {
     for (ConnectionPriority b : ConnectionPriority.values()) {
       if (b.value.equals(value)) {
@@ -52,6 +50,19 @@ public enum ConnectionPriority {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
+  }
+
+  public static class Adapter extends TypeAdapter<ConnectionPriority> {
+    @Override
+    public void write(final JsonWriter jsonWriter, final ConnectionPriority enumeration) throws IOException {
+      jsonWriter.value(enumeration.getValue());
+    }
+
+    @Override
+    public ConnectionPriority read(final JsonReader jsonReader) throws IOException {
+      String value = jsonReader.nextString();
+      return ConnectionPriority.fromValue(value);
+    }
   }
 }
 

@@ -11,31 +11,26 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.equinix.openapi.fabric.v4.model.LinkProtocol;
-import com.equinix.openapi.fabric.v4.model.SimplifiedMetadataEntity;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.equinix.openapi.fabric.JSON;
+import com.google.gson.*;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+
+import java.io.IOException;
+import java.util.*;
 
 /**
  * List of criteria for selecting network access points with optimal efficiency, security, compatibility, and availability.
  */
-@JsonPropertyOrder({
-  AccessPointSelector.JSON_PROPERTY_TYPE,
-  AccessPointSelector.JSON_PROPERTY_PORT,
-  AccessPointSelector.JSON_PROPERTY_LINK_PROTOCOL
-})
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AccessPointSelector {
   /**
    * Type of Access point
    */
+  @JsonAdapter(TypeEnum.Adapter.class)
   public enum TypeEnum {
     COLO("COLO");
 
@@ -45,7 +40,6 @@ public class AccessPointSelector {
       this.value = value;
     }
 
-    @JsonValue
     public String getValue() {
       return value;
     }
@@ -55,7 +49,6 @@ public class AccessPointSelector {
       return String.valueOf(value);
     }
 
-    @JsonCreator
     public static TypeEnum fromValue(String value) {
       for (TypeEnum b : TypeEnum.values()) {
         if (b.value.equals(value)) {
@@ -64,15 +57,31 @@ public class AccessPointSelector {
       }
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
+
+    public static class Adapter extends TypeAdapter<TypeEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final TypeEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public TypeEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return TypeEnum.fromValue(value);
+      }
+    }
   }
 
-  public static final String JSON_PROPERTY_TYPE = "type";
+  public static final String SERIALIZED_NAME_TYPE = "type";
+  @SerializedName(SERIALIZED_NAME_TYPE)
   private TypeEnum type;
 
-  public static final String JSON_PROPERTY_PORT = "port";
+  public static final String SERIALIZED_NAME_PORT = "port";
+  @SerializedName(SERIALIZED_NAME_PORT)
   private SimplifiedMetadataEntity port;
 
-  public static final String JSON_PROPERTY_LINK_PROTOCOL = "linkProtocol";
+  public static final String SERIALIZED_NAME_LINK_PROTOCOL = "linkProtocol";
+  @SerializedName(SERIALIZED_NAME_LINK_PROTOCOL)
   private LinkProtocol linkProtocol;
 
   public AccessPointSelector() {
@@ -89,16 +98,12 @@ public class AccessPointSelector {
    * @return type
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public TypeEnum getType() {
     return type;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setType(TypeEnum type) {
     this.type = type;
   }
@@ -115,16 +120,12 @@ public class AccessPointSelector {
    * @return port
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PORT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public SimplifiedMetadataEntity getPort() {
     return port;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PORT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPort(SimplifiedMetadataEntity port) {
     this.port = port;
   }
@@ -141,18 +142,59 @@ public class AccessPointSelector {
    * @return linkProtocol
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LINK_PROTOCOL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public LinkProtocol getLinkProtocol() {
     return linkProtocol;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LINK_PROTOCOL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLinkProtocol(LinkProtocol linkProtocol) {
     this.linkProtocol = linkProtocol;
+  }
+
+  /**
+   * A container for additional, undeclared properties.
+   * This is a holder for any undeclared properties as specified with
+   * the 'additionalProperties' keyword in the OAS document.
+   */
+  private Map<String, Object> additionalProperties;
+
+  /**
+   * Set the additional (undeclared) property with the specified name and value.
+   * If the property does not already exist, create it otherwise replace it.
+   *
+   * @param key name of the property
+   * @param value value of the property
+   * @return the AccessPointSelector instance itself
+   */
+  public AccessPointSelector putAdditionalProperty(String key, Object value) {
+    if (this.additionalProperties == null) {
+        this.additionalProperties = new HashMap<String, Object>();
+    }
+    this.additionalProperties.put(key, value);
+    return this;
+  }
+
+  /**
+   * Return the additional (undeclared) property.
+   *
+   * @return a map of objects
+   */
+  public Map<String, Object> getAdditionalProperties() {
+    return additionalProperties;
+  }
+
+  /**
+   * Return the additional (undeclared) property with the specified name.
+   *
+   * @param key name of the property
+   * @return an object
+   */
+  public Object getAdditionalProperty(String key) {
+    if (this.additionalProperties == null) {
+        return null;
+    }
+    return this.additionalProperties.get(key);
   }
 
 
@@ -167,12 +209,13 @@ public class AccessPointSelector {
     AccessPointSelector accessPointSelector = (AccessPointSelector) o;
     return Objects.equals(this.type, accessPointSelector.type) &&
         Objects.equals(this.port, accessPointSelector.port) &&
-        Objects.equals(this.linkProtocol, accessPointSelector.linkProtocol);
+        Objects.equals(this.linkProtocol, accessPointSelector.linkProtocol)&&
+        Objects.equals(this.additionalProperties, accessPointSelector.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, port, linkProtocol);
+    return Objects.hash(type, port, linkProtocol, additionalProperties);
   }
 
   @Override
@@ -182,6 +225,7 @@ public class AccessPointSelector {
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    port: ").append(toIndentedString(port)).append("\n");
     sb.append("    linkProtocol: ").append(toIndentedString(linkProtocol)).append("\n");
+    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -197,5 +241,130 @@ public class AccessPointSelector {
     return o.toString().replace("\n", "\n    ");
   }
 
+
+  public static HashSet<String> openapiFields;
+  public static HashSet<String> openapiRequiredFields;
+
+  static {
+    // a set of all properties/fields (JSON key names)
+    openapiFields = new HashSet<String>();
+    openapiFields.add("type");
+    openapiFields.add("port");
+    openapiFields.add("linkProtocol");
+
+    // a set of required properties/fields (JSON key names)
+    openapiRequiredFields = new HashSet<String>();
+  }
+
+ /**
+  * Validates the JSON Object and throws an exception if issues found
+  *
+  * @param jsonObj JSON Object
+  * @throws IOException if the JSON Object is invalid with respect to AccessPointSelector
+  */
+  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
+      if (jsonObj == null) {
+        if (!AccessPointSelector.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in AccessPointSelector is not found in the empty JSON string", AccessPointSelector.openapiRequiredFields.toString()));
+        }
+      }
+      if ((jsonObj.get("type") != null && !jsonObj.get("type").isJsonNull()) && !jsonObj.get("type").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("type").toString()));
+      }
+      // validate the optional field `port`
+      if (jsonObj.get("port") != null && !jsonObj.get("port").isJsonNull()) {
+        SimplifiedMetadataEntity.validateJsonObject(jsonObj.getAsJsonObject("port"));
+      }
+      // validate the optional field `linkProtocol`
+      if (jsonObj.get("linkProtocol") != null && !jsonObj.get("linkProtocol").isJsonNull()) {
+        LinkProtocol.validateJsonObject(jsonObj.getAsJsonObject("linkProtocol"));
+      }
+  }
+
+  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+       if (!AccessPointSelector.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'AccessPointSelector' and its subtypes
+       }
+       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+       final TypeAdapter<AccessPointSelector> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(AccessPointSelector.class));
+
+       return (TypeAdapter<T>) new TypeAdapter<AccessPointSelector>() {
+           @Override
+           public void write(JsonWriter out, AccessPointSelector value) throws IOException {
+             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
+             obj.remove("additionalProperties");
+             // serialize additional properties
+             if (value.getAdditionalProperties() != null) {
+               for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
+                 if (entry.getValue() instanceof String)
+                   obj.addProperty(entry.getKey(), (String) entry.getValue());
+                 else if (entry.getValue() instanceof Number)
+                   obj.addProperty(entry.getKey(), (Number) entry.getValue());
+                 else if (entry.getValue() instanceof Boolean)
+                   obj.addProperty(entry.getKey(), (Boolean) entry.getValue());
+                 else if (entry.getValue() instanceof Character)
+                   obj.addProperty(entry.getKey(), (Character) entry.getValue());
+                 else {
+                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
+                 }
+               }
+             }
+             elementAdapter.write(out, obj);
+           }
+
+           @Override
+           public AccessPointSelector read(JsonReader in) throws IOException {
+             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
+             validateJsonObject(jsonObj);
+             // store additional fields in the deserialized instance
+             AccessPointSelector instance = thisAdapter.fromJsonTree(jsonObj);
+             for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
+               if (!openapiFields.contains(entry.getKey())) {
+                 if (entry.getValue().isJsonPrimitive()) { // primitive type
+                   if (entry.getValue().getAsJsonPrimitive().isString())
+                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsString());
+                   else if (entry.getValue().getAsJsonPrimitive().isNumber())
+                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsNumber());
+                   else if (entry.getValue().getAsJsonPrimitive().isBoolean())
+                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
+                   else
+                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
+                 } else if (entry.getValue().isJsonArray()) {
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
+                 } else { // JSON object
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
+                 }
+               }
+             }
+             return instance;
+           }
+
+       }.nullSafe();
+    }
+  }
+
+ /**
+  * Create an instance of AccessPointSelector given an JSON string
+  *
+  * @param jsonString JSON string
+  * @return An instance of AccessPointSelector
+  * @throws IOException if the JSON string is invalid with respect to AccessPointSelector
+  */
+  public static AccessPointSelector fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, AccessPointSelector.class);
+  }
+
+ /**
+  * Convert an instance of AccessPointSelector to an JSON string
+  *
+  * @return JSON string
+  */
+  public String toJson() {
+    return JSON.getGson().toJson(this);
+  }
 }
 

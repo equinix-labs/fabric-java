@@ -1,0 +1,13 @@
+diff --git a/spec/services/fabricv4/oas3.patched/swagger.yaml b/spec/services/fabricv4/oas3.patched/swagger.yaml
+index 403295f..53e4acf 100644
+--- a/spec/services/fabricv4/oas3.patched/swagger.yaml
++++ b/spec/services/fabricv4/oas3.patched/swagger.yaml
+@@ -10711,8 +10711,6 @@ components:
+             $ref: "#/components/schemas/ConnectionSideAdditionalInfo"
+       description: Connection configuration object for each side of multi-segment connection
+     Project:
+-      required:
+-        - projectId
+       type: object
+       properties:
+         projectId:

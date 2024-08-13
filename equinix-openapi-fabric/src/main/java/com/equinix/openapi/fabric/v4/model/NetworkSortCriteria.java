@@ -11,31 +11,27 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.equinix.openapi.fabric.v4.model.NetworkSortBy;
-import com.equinix.openapi.fabric.v4.model.NetworkSortDirection;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.equinix.openapi.fabric.JSON;
+import com.google.gson.*;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+
+import java.io.IOException;
+import java.util.*;
 
 /**
  * NetworkSortCriteria
  */
-@JsonPropertyOrder({
-  NetworkSortCriteria.JSON_PROPERTY_DIRECTION,
-  NetworkSortCriteria.JSON_PROPERTY_PROPERTY
-})
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class NetworkSortCriteria {
-  public static final String JSON_PROPERTY_DIRECTION = "direction";
+  public static final String SERIALIZED_NAME_DIRECTION = "direction";
+  @SerializedName(SERIALIZED_NAME_DIRECTION)
   private NetworkSortDirection direction = NetworkSortDirection.DESC;
 
-  public static final String JSON_PROPERTY_PROPERTY = "property";
+  public static final String SERIALIZED_NAME_PROPERTY = "property";
+  @SerializedName(SERIALIZED_NAME_PROPERTY)
   private NetworkSortBy property = NetworkSortBy.CHANGELOG_UPDATEDDATETIME;
 
   public NetworkSortCriteria() {
@@ -52,16 +48,12 @@ public class NetworkSortCriteria {
    * @return direction
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DIRECTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public NetworkSortDirection getDirection() {
     return direction;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DIRECTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDirection(NetworkSortDirection direction) {
     this.direction = direction;
   }
@@ -78,18 +70,59 @@ public class NetworkSortCriteria {
    * @return property
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PROPERTY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public NetworkSortBy getProperty() {
     return property;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PROPERTY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setProperty(NetworkSortBy property) {
     this.property = property;
+  }
+
+  /**
+   * A container for additional, undeclared properties.
+   * This is a holder for any undeclared properties as specified with
+   * the 'additionalProperties' keyword in the OAS document.
+   */
+  private Map<String, Object> additionalProperties;
+
+  /**
+   * Set the additional (undeclared) property with the specified name and value.
+   * If the property does not already exist, create it otherwise replace it.
+   *
+   * @param key name of the property
+   * @param value value of the property
+   * @return the NetworkSortCriteria instance itself
+   */
+  public NetworkSortCriteria putAdditionalProperty(String key, Object value) {
+    if (this.additionalProperties == null) {
+        this.additionalProperties = new HashMap<String, Object>();
+    }
+    this.additionalProperties.put(key, value);
+    return this;
+  }
+
+  /**
+   * Return the additional (undeclared) property.
+   *
+   * @return a map of objects
+   */
+  public Map<String, Object> getAdditionalProperties() {
+    return additionalProperties;
+  }
+
+  /**
+   * Return the additional (undeclared) property with the specified name.
+   *
+   * @param key name of the property
+   * @return an object
+   */
+  public Object getAdditionalProperty(String key) {
+    if (this.additionalProperties == null) {
+        return null;
+    }
+    return this.additionalProperties.get(key);
   }
 
 
@@ -103,12 +136,13 @@ public class NetworkSortCriteria {
     }
     NetworkSortCriteria networkSortCriteria = (NetworkSortCriteria) o;
     return Objects.equals(this.direction, networkSortCriteria.direction) &&
-        Objects.equals(this.property, networkSortCriteria.property);
+        Objects.equals(this.property, networkSortCriteria.property)&&
+        Objects.equals(this.additionalProperties, networkSortCriteria.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(direction, property);
+    return Objects.hash(direction, property, additionalProperties);
   }
 
   @Override
@@ -117,6 +151,7 @@ public class NetworkSortCriteria {
     sb.append("class NetworkSortCriteria {\n");
     sb.append("    direction: ").append(toIndentedString(direction)).append("\n");
     sb.append("    property: ").append(toIndentedString(property)).append("\n");
+    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -132,5 +167,118 @@ public class NetworkSortCriteria {
     return o.toString().replace("\n", "\n    ");
   }
 
+
+  public static HashSet<String> openapiFields;
+  public static HashSet<String> openapiRequiredFields;
+
+  static {
+    // a set of all properties/fields (JSON key names)
+    openapiFields = new HashSet<String>();
+    openapiFields.add("direction");
+    openapiFields.add("property");
+
+    // a set of required properties/fields (JSON key names)
+    openapiRequiredFields = new HashSet<String>();
+  }
+
+ /**
+  * Validates the JSON Object and throws an exception if issues found
+  *
+  * @param jsonObj JSON Object
+  * @throws IOException if the JSON Object is invalid with respect to NetworkSortCriteria
+  */
+  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
+      if (jsonObj == null) {
+        if (!NetworkSortCriteria.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in NetworkSortCriteria is not found in the empty JSON string", NetworkSortCriteria.openapiRequiredFields.toString()));
+        }
+      }
+  }
+
+  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+       if (!NetworkSortCriteria.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'NetworkSortCriteria' and its subtypes
+       }
+       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+       final TypeAdapter<NetworkSortCriteria> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(NetworkSortCriteria.class));
+
+       return (TypeAdapter<T>) new TypeAdapter<NetworkSortCriteria>() {
+           @Override
+           public void write(JsonWriter out, NetworkSortCriteria value) throws IOException {
+             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
+             obj.remove("additionalProperties");
+             // serialize additional properties
+             if (value.getAdditionalProperties() != null) {
+               for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
+                 if (entry.getValue() instanceof String)
+                   obj.addProperty(entry.getKey(), (String) entry.getValue());
+                 else if (entry.getValue() instanceof Number)
+                   obj.addProperty(entry.getKey(), (Number) entry.getValue());
+                 else if (entry.getValue() instanceof Boolean)
+                   obj.addProperty(entry.getKey(), (Boolean) entry.getValue());
+                 else if (entry.getValue() instanceof Character)
+                   obj.addProperty(entry.getKey(), (Character) entry.getValue());
+                 else {
+                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
+                 }
+               }
+             }
+             elementAdapter.write(out, obj);
+           }
+
+           @Override
+           public NetworkSortCriteria read(JsonReader in) throws IOException {
+             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
+             validateJsonObject(jsonObj);
+             // store additional fields in the deserialized instance
+             NetworkSortCriteria instance = thisAdapter.fromJsonTree(jsonObj);
+             for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
+               if (!openapiFields.contains(entry.getKey())) {
+                 if (entry.getValue().isJsonPrimitive()) { // primitive type
+                   if (entry.getValue().getAsJsonPrimitive().isString())
+                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsString());
+                   else if (entry.getValue().getAsJsonPrimitive().isNumber())
+                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsNumber());
+                   else if (entry.getValue().getAsJsonPrimitive().isBoolean())
+                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
+                   else
+                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
+                 } else if (entry.getValue().isJsonArray()) {
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
+                 } else { // JSON object
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
+                 }
+               }
+             }
+             return instance;
+           }
+
+       }.nullSafe();
+    }
+  }
+
+ /**
+  * Create an instance of NetworkSortCriteria given an JSON string
+  *
+  * @param jsonString JSON string
+  * @return An instance of NetworkSortCriteria
+  * @throws IOException if the JSON string is invalid with respect to NetworkSortCriteria
+  */
+  public static NetworkSortCriteria fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, NetworkSortCriteria.class);
+  }
+
+ /**
+  * Convert an instance of NetworkSortCriteria to an JSON string
+  *
+  * @return JSON string
+  */
+  public String toJson() {
+    return JSON.getGson().toJson(this);
+  }
 }
 

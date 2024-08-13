@@ -1,0 +1,5 @@
+in: header
+name: x-otp-token
+schema:
+  type: string
+required: true

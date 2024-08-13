@@ -1,0 +1,61 @@
+properties:
+  build_date:
+    description: The date on which the current OS image was build and released
+    type: string
+    format: date
+  deprecation_date:
+    description: The date when the OS is deprecated
+    type: string
+    format: date
+  distro:
+    type: string
+  distro_label:
+    type: string
+  end_of_life_date:
+    description: The OS no longer receives any updates and may be disabled at any time
+    type: string
+    format: date
+  end_of_service_date:
+    description: When the OS is nearing end of life, typically 30 days before end of life
+    type: string
+    format: date
+  id:
+    format: uuid
+    type: string
+  licensed:
+    description: Licenced OS is priced according to pricing property
+    type: boolean
+  lifecycle_state:
+    description: Where in the support lifecycle the OS is
+    type: string
+  name:
+    type: string
+  preinstallable:
+    description: Servers can be already preinstalled with OS in order to shorten provision
+      time.
+    type: boolean
+  pricing:
+    description: This object contains price per time unit and optional multiplier
+      value if licence price depends on hardware plan or components (e.g. number of
+      cores)
+    type: object
+  provisionable_on:
+    items:
+      type: string
+    type: array
+  release_date:
+    description: The date when the OS was released
+    type: string
+    format: date
+  release_notes:
+    description: The current release notes for this OS image, typically in Markdown format
+    type: string
+  slug:
+    type: string
+  version:
+    type: string
+  default_operating_system:
+    description: Default operating system for the distro.
+    readOnly: true
+    type: boolean
+type: object

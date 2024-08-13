@@ -1,0 +1,7 @@
+properties:
+  amount:
+    format: float
+    type: number
+  description:
+    type: string
+type: object

@@ -11,113 +11,59 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.equinix.openapi.fabric.v4.model.Changelog;
-import com.equinix.openapi.fabric.v4.model.PhysicalPort;
-import com.equinix.openapi.fabric.v4.model.PortAdditionalInfo;
-import com.equinix.openapi.fabric.v4.model.PortDemarcationPoint;
-import com.equinix.openapi.fabric.v4.model.PortDevice;
-import com.equinix.openapi.fabric.v4.model.PortEncapsulation;
-import com.equinix.openapi.fabric.v4.model.PortInterface;
-import com.equinix.openapi.fabric.v4.model.PortLag;
-import com.equinix.openapi.fabric.v4.model.PortLoa;
-import com.equinix.openapi.fabric.v4.model.PortNotification;
-import com.equinix.openapi.fabric.v4.model.PortOperation;
-import com.equinix.openapi.fabric.v4.model.PortOrder;
-import com.equinix.openapi.fabric.v4.model.PortRedundancy;
-import com.equinix.openapi.fabric.v4.model.PortSettings;
-import com.equinix.openapi.fabric.v4.model.PortState;
-import com.equinix.openapi.fabric.v4.model.PortType;
-import com.equinix.openapi.fabric.v4.model.Project;
-import com.equinix.openapi.fabric.v4.model.SimplifiedAccount;
-import com.equinix.openapi.fabric.v4.model.SimplifiedLocation;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.equinix.openapi.fabric.JSON;
+import com.google.gson.*;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+
+import java.io.IOException;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import java.util.*;
 
 /**
  * Port specification
  */
-@JsonPropertyOrder({
-  Port.JSON_PROPERTY_TYPE,
-  Port.JSON_PROPERTY_ID,
-  Port.JSON_PROPERTY_HREF,
-  Port.JSON_PROPERTY_UUID,
-  Port.JSON_PROPERTY_NAME,
-  Port.JSON_PROPERTY_DESCRIPTION,
-  Port.JSON_PROPERTY_PHYSICAL_PORTS_SPEED,
-  Port.JSON_PROPERTY_CONNECTIONS_COUNT,
-  Port.JSON_PROPERTY_PHYSICAL_PORTS_TYPE,
-  Port.JSON_PROPERTY_PHYSICAL_PORTS_COUNT,
-  Port.JSON_PROPERTY_CONNECTIVITY_SOURCE_TYPE,
-  Port.JSON_PROPERTY_BMMR_TYPE,
-  Port.JSON_PROPERTY_PROJECT,
-  Port.JSON_PROPERTY_STATE,
-  Port.JSON_PROPERTY_ORDER,
-  Port.JSON_PROPERTY_CVP_ID,
-  Port.JSON_PROPERTY_OPERATION,
-  Port.JSON_PROPERTY_ACCOUNT,
-  Port.JSON_PROPERTY_CHANGELOG,
-  Port.JSON_PROPERTY_SERVICE_TYPE,
-  Port.JSON_PROPERTY_BANDWIDTH,
-  Port.JSON_PROPERTY_AVAILABLE_BANDWIDTH,
-  Port.JSON_PROPERTY_USED_BANDWIDTH,
-  Port.JSON_PROPERTY_LOCATION,
-  Port.JSON_PROPERTY_DEVICE,
-  Port.JSON_PROPERTY_INTERFACE,
-  Port.JSON_PROPERTY_DEMARCATION_POINT_IBX,
-  Port.JSON_PROPERTY_TETHER_IBX,
-  Port.JSON_PROPERTY_DEMARCATION_POINT,
-  Port.JSON_PROPERTY_REDUNDANCY,
-  Port.JSON_PROPERTY_ENCAPSULATION,
-  Port.JSON_PROPERTY_LAG_ENABLED,
-  Port.JSON_PROPERTY_LAG,
-  Port.JSON_PROPERTY_ASN,
-  Port.JSON_PROPERTY_SETTINGS,
-  Port.JSON_PROPERTY_PHYSICAL_PORT_QUANTITY,
-  Port.JSON_PROPERTY_NOTIFICATIONS,
-  Port.JSON_PROPERTY_ADDITIONAL_INFO,
-  Port.JSON_PROPERTY_PHYSICAL_PORTS,
-  Port.JSON_PROPERTY_LOAS
-})
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Port {
-  public static final String JSON_PROPERTY_TYPE = "type";
+  public static final String SERIALIZED_NAME_TYPE = "type";
+  @SerializedName(SERIALIZED_NAME_TYPE)
   private PortType type;
 
-  public static final String JSON_PROPERTY_ID = "id";
+  public static final String SERIALIZED_NAME_ID = "id";
+  @SerializedName(SERIALIZED_NAME_ID)
   private Integer id;
 
-  public static final String JSON_PROPERTY_HREF = "href";
+  public static final String SERIALIZED_NAME_HREF = "href";
+  @SerializedName(SERIALIZED_NAME_HREF)
   private URI href;
 
-  public static final String JSON_PROPERTY_UUID = "uuid";
+  public static final String SERIALIZED_NAME_UUID = "uuid";
+  @SerializedName(SERIALIZED_NAME_UUID)
   private UUID uuid;
 
-  public static final String JSON_PROPERTY_NAME = "name";
+  public static final String SERIALIZED_NAME_NAME = "name";
+  @SerializedName(SERIALIZED_NAME_NAME)
   private String name;
 
-  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  public static final String SERIALIZED_NAME_DESCRIPTION = "description";
+  @SerializedName(SERIALIZED_NAME_DESCRIPTION)
   private String description;
 
-  public static final String JSON_PROPERTY_PHYSICAL_PORTS_SPEED = "physicalPortsSpeed";
+  public static final String SERIALIZED_NAME_PHYSICAL_PORTS_SPEED = "physicalPortsSpeed";
+  @SerializedName(SERIALIZED_NAME_PHYSICAL_PORTS_SPEED)
   private Integer physicalPortsSpeed;
 
-  public static final String JSON_PROPERTY_CONNECTIONS_COUNT = "connectionsCount";
+  public static final String SERIALIZED_NAME_CONNECTIONS_COUNT = "connectionsCount";
+  @SerializedName(SERIALIZED_NAME_CONNECTIONS_COUNT)
   private Integer connectionsCount;
 
   /**
    * Physical Ports Type
    */
+  @JsonAdapter(PhysicalPortsTypeEnum.Adapter.class)
   public enum PhysicalPortsTypeEnum {
     _1000BASE_LX("1000BASE_LX"),
     
@@ -135,7 +81,6 @@ public class Port {
       this.value = value;
     }
 
-    @JsonValue
     public String getValue() {
       return value;
     }
@@ -145,7 +90,6 @@ public class Port {
       return String.valueOf(value);
     }
 
-    @JsonCreator
     public static PhysicalPortsTypeEnum fromValue(String value) {
       for (PhysicalPortsTypeEnum b : PhysicalPortsTypeEnum.values()) {
         if (b.value.equals(value)) {
@@ -154,17 +98,33 @@ public class Port {
       }
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
+
+    public static class Adapter extends TypeAdapter<PhysicalPortsTypeEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final PhysicalPortsTypeEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public PhysicalPortsTypeEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return PhysicalPortsTypeEnum.fromValue(value);
+      }
+    }
   }
 
-  public static final String JSON_PROPERTY_PHYSICAL_PORTS_TYPE = "physicalPortsType";
+  public static final String SERIALIZED_NAME_PHYSICAL_PORTS_TYPE = "physicalPortsType";
+  @SerializedName(SERIALIZED_NAME_PHYSICAL_PORTS_TYPE)
   private PhysicalPortsTypeEnum physicalPortsType;
 
-  public static final String JSON_PROPERTY_PHYSICAL_PORTS_COUNT = "physicalPortsCount";
+  public static final String SERIALIZED_NAME_PHYSICAL_PORTS_COUNT = "physicalPortsCount";
+  @SerializedName(SERIALIZED_NAME_PHYSICAL_PORTS_COUNT)
   private Integer physicalPortsCount;
 
   /**
    * Port connectivity type
    */
+  @JsonAdapter(ConnectivitySourceTypeEnum.Adapter.class)
   public enum ConnectivitySourceTypeEnum {
     COLO("COLO"),
     
@@ -178,7 +138,6 @@ public class Port {
       this.value = value;
     }
 
-    @JsonValue
     public String getValue() {
       return value;
     }
@@ -188,7 +147,6 @@ public class Port {
       return String.valueOf(value);
     }
 
-    @JsonCreator
     public static ConnectivitySourceTypeEnum fromValue(String value) {
       for (ConnectivitySourceTypeEnum b : ConnectivitySourceTypeEnum.values()) {
         if (b.value.equals(value)) {
@@ -197,14 +155,29 @@ public class Port {
       }
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
+
+    public static class Adapter extends TypeAdapter<ConnectivitySourceTypeEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final ConnectivitySourceTypeEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public ConnectivitySourceTypeEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return ConnectivitySourceTypeEnum.fromValue(value);
+      }
+    }
   }
 
-  public static final String JSON_PROPERTY_CONNECTIVITY_SOURCE_TYPE = "connectivitySourceType";
+  public static final String SERIALIZED_NAME_CONNECTIVITY_SOURCE_TYPE = "connectivitySourceType";
+  @SerializedName(SERIALIZED_NAME_CONNECTIVITY_SOURCE_TYPE)
   private ConnectivitySourceTypeEnum connectivitySourceType;
 
   /**
    * Gets or Sets bmmrType
    */
+  @JsonAdapter(BmmrTypeEnum.Adapter.class)
   public enum BmmrTypeEnum {
     SELF("SELF"),
     
@@ -216,7 +189,6 @@ public class Port {
       this.value = value;
     }
 
-    @JsonValue
     public String getValue() {
       return value;
     }
@@ -226,7 +198,6 @@ public class Port {
       return String.valueOf(value);
     }
 
-    @JsonCreator
     public static BmmrTypeEnum fromValue(String value) {
       for (BmmrTypeEnum b : BmmrTypeEnum.values()) {
         if (b.value.equals(value)) {
@@ -235,35 +206,57 @@ public class Port {
       }
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
+
+    public static class Adapter extends TypeAdapter<BmmrTypeEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final BmmrTypeEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public BmmrTypeEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return BmmrTypeEnum.fromValue(value);
+      }
+    }
   }
 
-  public static final String JSON_PROPERTY_BMMR_TYPE = "bmmrType";
+  public static final String SERIALIZED_NAME_BMMR_TYPE = "bmmrType";
+  @SerializedName(SERIALIZED_NAME_BMMR_TYPE)
   private BmmrTypeEnum bmmrType;
 
-  public static final String JSON_PROPERTY_PROJECT = "project";
+  public static final String SERIALIZED_NAME_PROJECT = "project";
+  @SerializedName(SERIALIZED_NAME_PROJECT)
   private Project project;
 
-  public static final String JSON_PROPERTY_STATE = "state";
+  public static final String SERIALIZED_NAME_STATE = "state";
+  @SerializedName(SERIALIZED_NAME_STATE)
   private PortState state;
 
-  public static final String JSON_PROPERTY_ORDER = "order";
+  public static final String SERIALIZED_NAME_ORDER = "order";
+  @SerializedName(SERIALIZED_NAME_ORDER)
   private PortOrder order;
 
-  public static final String JSON_PROPERTY_CVP_ID = "cvpId";
+  public static final String SERIALIZED_NAME_CVP_ID = "cvpId";
+  @SerializedName(SERIALIZED_NAME_CVP_ID)
   private String cvpId;
 
-  public static final String JSON_PROPERTY_OPERATION = "operation";
+  public static final String SERIALIZED_NAME_OPERATION = "operation";
+  @SerializedName(SERIALIZED_NAME_OPERATION)
   private PortOperation operation;
 
-  public static final String JSON_PROPERTY_ACCOUNT = "account";
+  public static final String SERIALIZED_NAME_ACCOUNT = "account";
+  @SerializedName(SERIALIZED_NAME_ACCOUNT)
   private SimplifiedAccount account;
 
-  public static final String JSON_PROPERTY_CHANGELOG = "changelog";
+  public static final String SERIALIZED_NAME_CHANGELOG = "changelog";
+  @SerializedName(SERIALIZED_NAME_CHANGELOG)
   private Changelog changelog;
 
   /**
    * Port service Type
    */
+  @JsonAdapter(ServiceTypeEnum.Adapter.class)
   public enum ServiceTypeEnum {
     EPL("EPL"),
     
@@ -275,7 +268,6 @@ public class Port {
       this.value = value;
     }
 
-    @JsonValue
     public String getValue() {
       return value;
     }
@@ -285,7 +277,6 @@ public class Port {
       return String.valueOf(value);
     }
 
-    @JsonCreator
     public static ServiceTypeEnum fromValue(String value) {
       for (ServiceTypeEnum b : ServiceTypeEnum.values()) {
         if (b.value.equals(value)) {
@@ -294,77 +285,111 @@ public class Port {
       }
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
+
+    public static class Adapter extends TypeAdapter<ServiceTypeEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final ServiceTypeEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public ServiceTypeEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return ServiceTypeEnum.fromValue(value);
+      }
+    }
   }
 
-  public static final String JSON_PROPERTY_SERVICE_TYPE = "serviceType";
+  public static final String SERIALIZED_NAME_SERVICE_TYPE = "serviceType";
+  @SerializedName(SERIALIZED_NAME_SERVICE_TYPE)
   private ServiceTypeEnum serviceType;
 
-  public static final String JSON_PROPERTY_BANDWIDTH = "bandwidth";
+  public static final String SERIALIZED_NAME_BANDWIDTH = "bandwidth";
+  @SerializedName(SERIALIZED_NAME_BANDWIDTH)
   private Integer bandwidth;
 
-  public static final String JSON_PROPERTY_AVAILABLE_BANDWIDTH = "availableBandwidth";
+  public static final String SERIALIZED_NAME_AVAILABLE_BANDWIDTH = "availableBandwidth";
+  @SerializedName(SERIALIZED_NAME_AVAILABLE_BANDWIDTH)
   private Integer availableBandwidth;
 
-  public static final String JSON_PROPERTY_USED_BANDWIDTH = "usedBandwidth";
+  public static final String SERIALIZED_NAME_USED_BANDWIDTH = "usedBandwidth";
+  @SerializedName(SERIALIZED_NAME_USED_BANDWIDTH)
   private Integer usedBandwidth;
 
-  public static final String JSON_PROPERTY_LOCATION = "location";
+  public static final String SERIALIZED_NAME_LOCATION = "location";
+  @SerializedName(SERIALIZED_NAME_LOCATION)
   private SimplifiedLocation location;
 
-  public static final String JSON_PROPERTY_DEVICE = "device";
+  public static final String SERIALIZED_NAME_DEVICE = "device";
+  @SerializedName(SERIALIZED_NAME_DEVICE)
   private PortDevice device;
 
-  public static final String JSON_PROPERTY_INTERFACE = "interface";
+  public static final String SERIALIZED_NAME_INTERFACE = "interface";
+  @SerializedName(SERIALIZED_NAME_INTERFACE)
   private PortInterface _interface;
 
-  public static final String JSON_PROPERTY_DEMARCATION_POINT_IBX = "demarcationPointIbx";
+  public static final String SERIALIZED_NAME_DEMARCATION_POINT_IBX = "demarcationPointIbx";
+  @SerializedName(SERIALIZED_NAME_DEMARCATION_POINT_IBX)
   private String demarcationPointIbx;
 
-  public static final String JSON_PROPERTY_TETHER_IBX = "tetherIbx";
+  public static final String SERIALIZED_NAME_TETHER_IBX = "tetherIbx";
+  @SerializedName(SERIALIZED_NAME_TETHER_IBX)
   private String tetherIbx;
 
-  public static final String JSON_PROPERTY_DEMARCATION_POINT = "demarcationPoint";
+  public static final String SERIALIZED_NAME_DEMARCATION_POINT = "demarcationPoint";
+  @SerializedName(SERIALIZED_NAME_DEMARCATION_POINT)
   private PortDemarcationPoint demarcationPoint;
 
-  public static final String JSON_PROPERTY_REDUNDANCY = "redundancy";
+  public static final String SERIALIZED_NAME_REDUNDANCY = "redundancy";
+  @SerializedName(SERIALIZED_NAME_REDUNDANCY)
   private PortRedundancy redundancy;
 
-  public static final String JSON_PROPERTY_ENCAPSULATION = "encapsulation";
+  public static final String SERIALIZED_NAME_ENCAPSULATION = "encapsulation";
+  @SerializedName(SERIALIZED_NAME_ENCAPSULATION)
   private PortEncapsulation encapsulation;
 
-  public static final String JSON_PROPERTY_LAG_ENABLED = "lagEnabled";
+  public static final String SERIALIZED_NAME_LAG_ENABLED = "lagEnabled";
+  @SerializedName(SERIALIZED_NAME_LAG_ENABLED)
   private Boolean lagEnabled;
 
-  public static final String JSON_PROPERTY_LAG = "lag";
+  public static final String SERIALIZED_NAME_LAG = "lag";
+  @SerializedName(SERIALIZED_NAME_LAG)
   private PortLag lag;
 
-  public static final String JSON_PROPERTY_ASN = "asn";
+  public static final String SERIALIZED_NAME_ASN = "asn";
+  @SerializedName(SERIALIZED_NAME_ASN)
   private Integer asn;
 
-  public static final String JSON_PROPERTY_SETTINGS = "settings";
+  public static final String SERIALIZED_NAME_SETTINGS = "settings";
+  @SerializedName(SERIALIZED_NAME_SETTINGS)
   private PortSettings settings;
 
-  public static final String JSON_PROPERTY_PHYSICAL_PORT_QUANTITY = "physicalPortQuantity";
+  public static final String SERIALIZED_NAME_PHYSICAL_PORT_QUANTITY = "physicalPortQuantity";
+  @SerializedName(SERIALIZED_NAME_PHYSICAL_PORT_QUANTITY)
   private Integer physicalPortQuantity;
 
-  public static final String JSON_PROPERTY_NOTIFICATIONS = "notifications";
+  public static final String SERIALIZED_NAME_NOTIFICATIONS = "notifications";
+  @SerializedName(SERIALIZED_NAME_NOTIFICATIONS)
   private List<PortNotification> notifications = new ArrayList<>();
 
-  public static final String JSON_PROPERTY_ADDITIONAL_INFO = "additionalInfo";
+  public static final String SERIALIZED_NAME_ADDITIONAL_INFO = "additionalInfo";
+  @SerializedName(SERIALIZED_NAME_ADDITIONAL_INFO)
   private List<PortAdditionalInfo> additionalInfo = new ArrayList<>();
 
-  public static final String JSON_PROPERTY_PHYSICAL_PORTS = "physicalPorts";
+  public static final String SERIALIZED_NAME_PHYSICAL_PORTS = "physicalPorts";
+  @SerializedName(SERIALIZED_NAME_PHYSICAL_PORTS)
   private List<PhysicalPort> physicalPorts = new ArrayList<>();
 
-  public static final String JSON_PROPERTY_LOAS = "loas";
+  public static final String SERIALIZED_NAME_LOAS = "loas";
+  @SerializedName(SERIALIZED_NAME_LOAS)
   private List<PortLoa> loas = new ArrayList<>();
 
   public Port() {
   }
 
-  @JsonCreator
+  
   public Port(
-    @JsonProperty(JSON_PROPERTY_HREF) URI href
+     URI href
   ) {
     this();
     this.href = href;
@@ -381,16 +406,12 @@ public class Port {
    * @return type
   **/
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public PortType getType() {
     return type;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setType(PortType type) {
     this.type = type;
   }
@@ -407,16 +428,12 @@ public class Port {
    * @return id
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getId() {
     return id;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setId(Integer id) {
     this.id = id;
   }
@@ -427,8 +444,6 @@ public class Port {
    * @return href
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_HREF)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public URI getHref() {
     return href;
@@ -448,16 +463,12 @@ public class Port {
    * @return uuid
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_UUID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public UUID getUuid() {
     return uuid;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_UUID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUuid(UUID uuid) {
     this.uuid = uuid;
   }
@@ -474,16 +485,12 @@ public class Port {
    * @return name
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
     return name;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setName(String name) {
     this.name = name;
   }
@@ -500,16 +507,12 @@ public class Port {
    * @return description
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
     return description;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDescription(String description) {
     this.description = description;
   }
@@ -527,16 +530,12 @@ public class Port {
    * @return physicalPortsSpeed
   **/
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_PHYSICAL_PORTS_SPEED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public Integer getPhysicalPortsSpeed() {
     return physicalPortsSpeed;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PHYSICAL_PORTS_SPEED)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setPhysicalPortsSpeed(Integer physicalPortsSpeed) {
     this.physicalPortsSpeed = physicalPortsSpeed;
   }
@@ -554,16 +553,12 @@ public class Port {
    * @return connectionsCount
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CONNECTIONS_COUNT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getConnectionsCount() {
     return connectionsCount;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONNECTIONS_COUNT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setConnectionsCount(Integer connectionsCount) {
     this.connectionsCount = connectionsCount;
   }
@@ -580,16 +575,12 @@ public class Port {
    * @return physicalPortsType
   **/
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_PHYSICAL_PORTS_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public PhysicalPortsTypeEnum getPhysicalPortsType() {
     return physicalPortsType;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PHYSICAL_PORTS_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setPhysicalPortsType(PhysicalPortsTypeEnum physicalPortsType) {
     this.physicalPortsType = physicalPortsType;
   }
@@ -606,16 +597,12 @@ public class Port {
    * @return physicalPortsCount
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PHYSICAL_PORTS_COUNT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getPhysicalPortsCount() {
     return physicalPortsCount;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PHYSICAL_PORTS_COUNT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPhysicalPortsCount(Integer physicalPortsCount) {
     this.physicalPortsCount = physicalPortsCount;
   }
@@ -632,16 +619,12 @@ public class Port {
    * @return connectivitySourceType
   **/
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_CONNECTIVITY_SOURCE_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public ConnectivitySourceTypeEnum getConnectivitySourceType() {
     return connectivitySourceType;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CONNECTIVITY_SOURCE_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setConnectivitySourceType(ConnectivitySourceTypeEnum connectivitySourceType) {
     this.connectivitySourceType = connectivitySourceType;
   }
@@ -658,16 +641,12 @@ public class Port {
    * @return bmmrType
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_BMMR_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public BmmrTypeEnum getBmmrType() {
     return bmmrType;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_BMMR_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBmmrType(BmmrTypeEnum bmmrType) {
     this.bmmrType = bmmrType;
   }
@@ -684,16 +663,12 @@ public class Port {
    * @return project
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PROJECT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Project getProject() {
     return project;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PROJECT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setProject(Project project) {
     this.project = project;
   }
@@ -710,16 +685,12 @@ public class Port {
    * @return state
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public PortState getState() {
     return state;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setState(PortState state) {
     this.state = state;
   }
@@ -736,16 +707,12 @@ public class Port {
    * @return order
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ORDER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public PortOrder getOrder() {
     return order;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ORDER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOrder(PortOrder order) {
     this.order = order;
   }
@@ -762,16 +729,12 @@ public class Port {
    * @return cvpId
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CVP_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCvpId() {
     return cvpId;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CVP_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCvpId(String cvpId) {
     this.cvpId = cvpId;
   }
@@ -788,16 +751,12 @@ public class Port {
    * @return operation
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_OPERATION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public PortOperation getOperation() {
     return operation;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_OPERATION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOperation(PortOperation operation) {
     this.operation = operation;
   }
@@ -814,16 +773,12 @@ public class Port {
    * @return account
   **/
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ACCOUNT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public SimplifiedAccount getAccount() {
     return account;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ACCOUNT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setAccount(SimplifiedAccount account) {
     this.account = account;
   }
@@ -840,16 +795,12 @@ public class Port {
    * @return changelog
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CHANGELOG)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Changelog getChangelog() {
     return changelog;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CHANGELOG)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setChangelog(Changelog changelog) {
     this.changelog = changelog;
   }
@@ -866,16 +817,12 @@ public class Port {
    * @return serviceType
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SERVICE_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public ServiceTypeEnum getServiceType() {
     return serviceType;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SERVICE_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setServiceType(ServiceTypeEnum serviceType) {
     this.serviceType = serviceType;
   }
@@ -893,16 +840,12 @@ public class Port {
    * @return bandwidth
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_BANDWIDTH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getBandwidth() {
     return bandwidth;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_BANDWIDTH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setBandwidth(Integer bandwidth) {
     this.bandwidth = bandwidth;
   }
@@ -920,16 +863,12 @@ public class Port {
    * @return availableBandwidth
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_AVAILABLE_BANDWIDTH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getAvailableBandwidth() {
     return availableBandwidth;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_AVAILABLE_BANDWIDTH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAvailableBandwidth(Integer availableBandwidth) {
     this.availableBandwidth = availableBandwidth;
   }
@@ -947,16 +886,12 @@ public class Port {
    * @return usedBandwidth
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_USED_BANDWIDTH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getUsedBandwidth() {
     return usedBandwidth;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_USED_BANDWIDTH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUsedBandwidth(Integer usedBandwidth) {
     this.usedBandwidth = usedBandwidth;
   }
@@ -973,16 +908,12 @@ public class Port {
    * @return location
   **/
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_LOCATION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public SimplifiedLocation getLocation() {
     return location;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LOCATION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setLocation(SimplifiedLocation location) {
     this.location = location;
   }
@@ -999,16 +930,12 @@ public class Port {
    * @return device
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DEVICE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public PortDevice getDevice() {
     return device;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DEVICE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDevice(PortDevice device) {
     this.device = device;
   }
@@ -1025,16 +952,12 @@ public class Port {
    * @return _interface
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_INTERFACE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public PortInterface getInterface() {
     return _interface;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_INTERFACE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setInterface(PortInterface _interface) {
     this._interface = _interface;
   }
@@ -1051,16 +974,12 @@ public class Port {
    * @return demarcationPointIbx
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DEMARCATION_POINT_IBX)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDemarcationPointIbx() {
     return demarcationPointIbx;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DEMARCATION_POINT_IBX)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDemarcationPointIbx(String demarcationPointIbx) {
     this.demarcationPointIbx = demarcationPointIbx;
   }
@@ -1077,16 +996,12 @@ public class Port {
    * @return tetherIbx
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TETHER_IBX)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTetherIbx() {
     return tetherIbx;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TETHER_IBX)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTetherIbx(String tetherIbx) {
     this.tetherIbx = tetherIbx;
   }
@@ -1103,16 +1018,12 @@ public class Port {
    * @return demarcationPoint
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DEMARCATION_POINT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public PortDemarcationPoint getDemarcationPoint() {
     return demarcationPoint;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DEMARCATION_POINT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDemarcationPoint(PortDemarcationPoint demarcationPoint) {
     this.demarcationPoint = demarcationPoint;
   }
@@ -1129,16 +1040,12 @@ public class Port {
    * @return redundancy
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_REDUNDANCY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public PortRedundancy getRedundancy() {
     return redundancy;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_REDUNDANCY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRedundancy(PortRedundancy redundancy) {
     this.redundancy = redundancy;
   }
@@ -1155,16 +1062,12 @@ public class Port {
    * @return encapsulation
   **/
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ENCAPSULATION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public PortEncapsulation getEncapsulation() {
     return encapsulation;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ENCAPSULATION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setEncapsulation(PortEncapsulation encapsulation) {
     this.encapsulation = encapsulation;
   }
@@ -1181,16 +1084,12 @@ public class Port {
    * @return lagEnabled
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LAG_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getLagEnabled() {
     return lagEnabled;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LAG_ENABLED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLagEnabled(Boolean lagEnabled) {
     this.lagEnabled = lagEnabled;
   }
@@ -1207,16 +1106,12 @@ public class Port {
    * @return lag
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LAG)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public PortLag getLag() {
     return lag;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LAG)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLag(PortLag lag) {
     this.lag = lag;
   }
@@ -1233,16 +1128,12 @@ public class Port {
    * @return asn
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ASN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getAsn() {
     return asn;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ASN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAsn(Integer asn) {
     this.asn = asn;
   }
@@ -1259,16 +1150,12 @@ public class Port {
    * @return settings
   **/
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_SETTINGS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public PortSettings getSettings() {
     return settings;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_SETTINGS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setSettings(PortSettings settings) {
     this.settings = settings;
   }
@@ -1285,16 +1172,12 @@ public class Port {
    * @return physicalPortQuantity
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PHYSICAL_PORT_QUANTITY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getPhysicalPortQuantity() {
     return physicalPortQuantity;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PHYSICAL_PORT_QUANTITY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPhysicalPortQuantity(Integer physicalPortQuantity) {
     this.physicalPortQuantity = physicalPortQuantity;
   }
@@ -1319,16 +1202,12 @@ public class Port {
    * @return notifications
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NOTIFICATIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PortNotification> getNotifications() {
     return notifications;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NOTIFICATIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNotifications(List<PortNotification> notifications) {
     this.notifications = notifications;
   }
@@ -1353,16 +1232,12 @@ public class Port {
    * @return additionalInfo
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ADDITIONAL_INFO)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PortAdditionalInfo> getAdditionalInfo() {
     return additionalInfo;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ADDITIONAL_INFO)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAdditionalInfo(List<PortAdditionalInfo> additionalInfo) {
     this.additionalInfo = additionalInfo;
   }
@@ -1387,16 +1262,12 @@ public class Port {
    * @return physicalPorts
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PHYSICAL_PORTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PhysicalPort> getPhysicalPorts() {
     return physicalPorts;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PHYSICAL_PORTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPhysicalPorts(List<PhysicalPort> physicalPorts) {
     this.physicalPorts = physicalPorts;
   }
@@ -1421,18 +1292,59 @@ public class Port {
    * @return loas
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LOAS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<PortLoa> getLoas() {
     return loas;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LOAS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLoas(List<PortLoa> loas) {
     this.loas = loas;
+  }
+
+  /**
+   * A container for additional, undeclared properties.
+   * This is a holder for any undeclared properties as specified with
+   * the 'additionalProperties' keyword in the OAS document.
+   */
+  private Map<String, Object> additionalProperties;
+
+  /**
+   * Set the additional (undeclared) property with the specified name and value.
+   * If the property does not already exist, create it otherwise replace it.
+   *
+   * @param key name of the property
+   * @param value value of the property
+   * @return the Port instance itself
+   */
+  public Port putAdditionalProperty(String key, Object value) {
+    if (this.additionalProperties == null) {
+        this.additionalProperties = new HashMap<String, Object>();
+    }
+    this.additionalProperties.put(key, value);
+    return this;
+  }
+
+  /**
+   * Return the additional (undeclared) property.
+   *
+   * @return a map of objects
+   */
+  public Map<String, Object> getAdditionalProperties() {
+    return additionalProperties;
+  }
+
+  /**
+   * Return the additional (undeclared) property with the specified name.
+   *
+   * @param key name of the property
+   * @return an object
+   */
+  public Object getAdditionalProperty(String key) {
+    if (this.additionalProperties == null) {
+        return null;
+    }
+    return this.additionalProperties.get(key);
   }
 
 
@@ -1484,12 +1396,13 @@ public class Port {
         Objects.equals(this.notifications, port.notifications) &&
         Objects.equals(this.additionalInfo, port.additionalInfo) &&
         Objects.equals(this.physicalPorts, port.physicalPorts) &&
-        Objects.equals(this.loas, port.loas);
+        Objects.equals(this.loas, port.loas)&&
+        Objects.equals(this.additionalProperties, port.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, id, href, uuid, name, description, physicalPortsSpeed, connectionsCount, physicalPortsType, physicalPortsCount, connectivitySourceType, bmmrType, project, state, order, cvpId, operation, account, changelog, serviceType, bandwidth, availableBandwidth, usedBandwidth, location, device, _interface, demarcationPointIbx, tetherIbx, demarcationPoint, redundancy, encapsulation, lagEnabled, lag, asn, settings, physicalPortQuantity, notifications, additionalInfo, physicalPorts, loas);
+    return Objects.hash(type, id, href, uuid, name, description, physicalPortsSpeed, connectionsCount, physicalPortsType, physicalPortsCount, connectivitySourceType, bmmrType, project, state, order, cvpId, operation, account, changelog, serviceType, bandwidth, availableBandwidth, usedBandwidth, location, device, _interface, demarcationPointIbx, tetherIbx, demarcationPoint, redundancy, encapsulation, lagEnabled, lag, asn, settings, physicalPortQuantity, notifications, additionalInfo, physicalPorts, loas, additionalProperties);
   }
 
   @Override
@@ -1536,6 +1449,7 @@ public class Port {
     sb.append("    additionalInfo: ").append(toIndentedString(additionalInfo)).append("\n");
     sb.append("    physicalPorts: ").append(toIndentedString(physicalPorts)).append("\n");
     sb.append("    loas: ").append(toIndentedString(loas)).append("\n");
+    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -1551,5 +1465,304 @@ public class Port {
     return o.toString().replace("\n", "\n    ");
   }
 
+
+  public static HashSet<String> openapiFields;
+  public static HashSet<String> openapiRequiredFields;
+
+  static {
+    // a set of all properties/fields (JSON key names)
+    openapiFields = new HashSet<String>();
+    openapiFields.add("type");
+    openapiFields.add("id");
+    openapiFields.add("href");
+    openapiFields.add("uuid");
+    openapiFields.add("name");
+    openapiFields.add("description");
+    openapiFields.add("physicalPortsSpeed");
+    openapiFields.add("connectionsCount");
+    openapiFields.add("physicalPortsType");
+    openapiFields.add("physicalPortsCount");
+    openapiFields.add("connectivitySourceType");
+    openapiFields.add("bmmrType");
+    openapiFields.add("project");
+    openapiFields.add("state");
+    openapiFields.add("order");
+    openapiFields.add("cvpId");
+    openapiFields.add("operation");
+    openapiFields.add("account");
+    openapiFields.add("changelog");
+    openapiFields.add("serviceType");
+    openapiFields.add("bandwidth");
+    openapiFields.add("availableBandwidth");
+    openapiFields.add("usedBandwidth");
+    openapiFields.add("location");
+    openapiFields.add("device");
+    openapiFields.add("interface");
+    openapiFields.add("demarcationPointIbx");
+    openapiFields.add("tetherIbx");
+    openapiFields.add("demarcationPoint");
+    openapiFields.add("redundancy");
+    openapiFields.add("encapsulation");
+    openapiFields.add("lagEnabled");
+    openapiFields.add("lag");
+    openapiFields.add("asn");
+    openapiFields.add("settings");
+    openapiFields.add("physicalPortQuantity");
+    openapiFields.add("notifications");
+    openapiFields.add("additionalInfo");
+    openapiFields.add("physicalPorts");
+    openapiFields.add("loas");
+
+    // a set of required properties/fields (JSON key names)
+    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("type");
+    openapiRequiredFields.add("physicalPortsSpeed");
+    openapiRequiredFields.add("physicalPortsType");
+    openapiRequiredFields.add("connectivitySourceType");
+    openapiRequiredFields.add("account");
+    openapiRequiredFields.add("location");
+    openapiRequiredFields.add("encapsulation");
+    openapiRequiredFields.add("settings");
+  }
+
+ /**
+  * Validates the JSON Object and throws an exception if issues found
+  *
+  * @param jsonObj JSON Object
+  * @throws IOException if the JSON Object is invalid with respect to Port
+  */
+  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
+      if (jsonObj == null) {
+        if (!Port.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in Port is not found in the empty JSON string", Port.openapiRequiredFields.toString()));
+        }
+      }
+
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : Port.openapiRequiredFields) {
+        if (jsonObj.get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
+        }
+      }
+      if ((jsonObj.get("href") != null && !jsonObj.get("href").isJsonNull()) && !jsonObj.get("href").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `href` to be a primitive type in the JSON string but got `%s`", jsonObj.get("href").toString()));
+      }
+      if ((jsonObj.get("uuid") != null && !jsonObj.get("uuid").isJsonNull()) && !jsonObj.get("uuid").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `uuid` to be a primitive type in the JSON string but got `%s`", jsonObj.get("uuid").toString()));
+      }
+      if ((jsonObj.get("name") != null && !jsonObj.get("name").isJsonNull()) && !jsonObj.get("name").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
+      }
+      if ((jsonObj.get("description") != null && !jsonObj.get("description").isJsonNull()) && !jsonObj.get("description").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `description` to be a primitive type in the JSON string but got `%s`", jsonObj.get("description").toString()));
+      }
+      if (!jsonObj.get("physicalPortsType").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `physicalPortsType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("physicalPortsType").toString()));
+      }
+      if (!jsonObj.get("connectivitySourceType").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `connectivitySourceType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("connectivitySourceType").toString()));
+      }
+      if ((jsonObj.get("bmmrType") != null && !jsonObj.get("bmmrType").isJsonNull()) && !jsonObj.get("bmmrType").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `bmmrType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("bmmrType").toString()));
+      }
+      // validate the optional field `project`
+      if (jsonObj.get("project") != null && !jsonObj.get("project").isJsonNull()) {
+        Project.validateJsonObject(jsonObj.getAsJsonObject("project"));
+      }
+      // validate the optional field `order`
+      if (jsonObj.get("order") != null && !jsonObj.get("order").isJsonNull()) {
+        PortOrder.validateJsonObject(jsonObj.getAsJsonObject("order"));
+      }
+      if ((jsonObj.get("cvpId") != null && !jsonObj.get("cvpId").isJsonNull()) && !jsonObj.get("cvpId").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `cvpId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("cvpId").toString()));
+      }
+      // validate the optional field `operation`
+      if (jsonObj.get("operation") != null && !jsonObj.get("operation").isJsonNull()) {
+        PortOperation.validateJsonObject(jsonObj.getAsJsonObject("operation"));
+      }
+      // validate the required field `account`
+      SimplifiedAccount.validateJsonObject(jsonObj.getAsJsonObject("account"));
+      // validate the optional field `changelog`
+      if (jsonObj.get("changelog") != null && !jsonObj.get("changelog").isJsonNull()) {
+        Changelog.validateJsonObject(jsonObj.getAsJsonObject("changelog"));
+      }
+      if ((jsonObj.get("serviceType") != null && !jsonObj.get("serviceType").isJsonNull()) && !jsonObj.get("serviceType").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `serviceType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("serviceType").toString()));
+      }
+      // validate the required field `location`
+      SimplifiedLocation.validateJsonObject(jsonObj.getAsJsonObject("location"));
+      // validate the optional field `device`
+      if (jsonObj.get("device") != null && !jsonObj.get("device").isJsonNull()) {
+        PortDevice.validateJsonObject(jsonObj.getAsJsonObject("device"));
+      }
+      // validate the optional field `interface`
+      if (jsonObj.get("interface") != null && !jsonObj.get("interface").isJsonNull()) {
+        PortInterface.validateJsonObject(jsonObj.getAsJsonObject("interface"));
+      }
+      if ((jsonObj.get("demarcationPointIbx") != null && !jsonObj.get("demarcationPointIbx").isJsonNull()) && !jsonObj.get("demarcationPointIbx").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `demarcationPointIbx` to be a primitive type in the JSON string but got `%s`", jsonObj.get("demarcationPointIbx").toString()));
+      }
+      if ((jsonObj.get("tetherIbx") != null && !jsonObj.get("tetherIbx").isJsonNull()) && !jsonObj.get("tetherIbx").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `tetherIbx` to be a primitive type in the JSON string but got `%s`", jsonObj.get("tetherIbx").toString()));
+      }
+      // validate the optional field `demarcationPoint`
+      if (jsonObj.get("demarcationPoint") != null && !jsonObj.get("demarcationPoint").isJsonNull()) {
+        PortDemarcationPoint.validateJsonObject(jsonObj.getAsJsonObject("demarcationPoint"));
+      }
+      // validate the optional field `redundancy`
+      if (jsonObj.get("redundancy") != null && !jsonObj.get("redundancy").isJsonNull()) {
+        PortRedundancy.validateJsonObject(jsonObj.getAsJsonObject("redundancy"));
+      }
+      // validate the required field `encapsulation`
+      PortEncapsulation.validateJsonObject(jsonObj.getAsJsonObject("encapsulation"));
+      // validate the optional field `lag`
+      if (jsonObj.get("lag") != null && !jsonObj.get("lag").isJsonNull()) {
+        PortLag.validateJsonObject(jsonObj.getAsJsonObject("lag"));
+      }
+      // validate the required field `settings`
+      PortSettings.validateJsonObject(jsonObj.getAsJsonObject("settings"));
+      if (jsonObj.get("notifications") != null && !jsonObj.get("notifications").isJsonNull()) {
+        JsonArray jsonArraynotifications = jsonObj.getAsJsonArray("notifications");
+        if (jsonArraynotifications != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("notifications").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `notifications` to be an array in the JSON string but got `%s`", jsonObj.get("notifications").toString()));
+          }
+
+          // validate the optional field `notifications` (array)
+          for (int i = 0; i < jsonArraynotifications.size(); i++) {
+            PortNotification.validateJsonObject(jsonArraynotifications.get(i).getAsJsonObject());
+          };
+        }
+      }
+      if (jsonObj.get("additionalInfo") != null && !jsonObj.get("additionalInfo").isJsonNull()) {
+        JsonArray jsonArrayadditionalInfo = jsonObj.getAsJsonArray("additionalInfo");
+        if (jsonArrayadditionalInfo != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("additionalInfo").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `additionalInfo` to be an array in the JSON string but got `%s`", jsonObj.get("additionalInfo").toString()));
+          }
+
+          // validate the optional field `additionalInfo` (array)
+          for (int i = 0; i < jsonArrayadditionalInfo.size(); i++) {
+            PortAdditionalInfo.validateJsonObject(jsonArrayadditionalInfo.get(i).getAsJsonObject());
+          };
+        }
+      }
+      if (jsonObj.get("physicalPorts") != null && !jsonObj.get("physicalPorts").isJsonNull()) {
+        JsonArray jsonArrayphysicalPorts = jsonObj.getAsJsonArray("physicalPorts");
+        if (jsonArrayphysicalPorts != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("physicalPorts").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `physicalPorts` to be an array in the JSON string but got `%s`", jsonObj.get("physicalPorts").toString()));
+          }
+
+          // validate the optional field `physicalPorts` (array)
+          for (int i = 0; i < jsonArrayphysicalPorts.size(); i++) {
+            PhysicalPort.validateJsonObject(jsonArrayphysicalPorts.get(i).getAsJsonObject());
+          };
+        }
+      }
+      if (jsonObj.get("loas") != null && !jsonObj.get("loas").isJsonNull()) {
+        JsonArray jsonArrayloas = jsonObj.getAsJsonArray("loas");
+        if (jsonArrayloas != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("loas").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `loas` to be an array in the JSON string but got `%s`", jsonObj.get("loas").toString()));
+          }
+
+          // validate the optional field `loas` (array)
+          for (int i = 0; i < jsonArrayloas.size(); i++) {
+            PortLoa.validateJsonObject(jsonArrayloas.get(i).getAsJsonObject());
+          };
+        }
+      }
+  }
+
+  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+       if (!Port.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'Port' and its subtypes
+       }
+       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+       final TypeAdapter<Port> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(Port.class));
+
+       return (TypeAdapter<T>) new TypeAdapter<Port>() {
+           @Override
+           public void write(JsonWriter out, Port value) throws IOException {
+             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
+             obj.remove("additionalProperties");
+             // serialize additional properties
+             if (value.getAdditionalProperties() != null) {
+               for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
+                 if (entry.getValue() instanceof String)
+                   obj.addProperty(entry.getKey(), (String) entry.getValue());
+                 else if (entry.getValue() instanceof Number)
+                   obj.addProperty(entry.getKey(), (Number) entry.getValue());
+                 else if (entry.getValue() instanceof Boolean)
+                   obj.addProperty(entry.getKey(), (Boolean) entry.getValue());
+                 else if (entry.getValue() instanceof Character)
+                   obj.addProperty(entry.getKey(), (Character) entry.getValue());
+                 else {
+                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
+                 }
+               }
+             }
+             elementAdapter.write(out, obj);
+           }
+
+           @Override
+           public Port read(JsonReader in) throws IOException {
+             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
+             validateJsonObject(jsonObj);
+             // store additional fields in the deserialized instance
+             Port instance = thisAdapter.fromJsonTree(jsonObj);
+             for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
+               if (!openapiFields.contains(entry.getKey())) {
+                 if (entry.getValue().isJsonPrimitive()) { // primitive type
+                   if (entry.getValue().getAsJsonPrimitive().isString())
+                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsString());
+                   else if (entry.getValue().getAsJsonPrimitive().isNumber())
+                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsNumber());
+                   else if (entry.getValue().getAsJsonPrimitive().isBoolean())
+                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
+                   else
+                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
+                 } else if (entry.getValue().isJsonArray()) {
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
+                 } else { // JSON object
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
+                 }
+               }
+             }
+             return instance;
+           }
+
+       }.nullSafe();
+    }
+  }
+
+ /**
+  * Create an instance of Port given an JSON string
+  *
+  * @param jsonString JSON string
+  * @return An instance of Port
+  * @throws IOException if the JSON string is invalid with respect to Port
+  */
+  public static Port fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, Port.class);
+  }
+
+ /**
+  * Convert an instance of Port to an JSON string
+  *
+  * @return JSON string
+  */
+  public String toJson() {
+    return JSON.getGson().toJson(this);
+  }
 }
 

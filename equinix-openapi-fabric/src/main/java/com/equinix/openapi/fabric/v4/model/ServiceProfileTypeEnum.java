@@ -11,17 +11,17 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.io.IOException;
 
 /**
  * Service profile type
  */
+@JsonAdapter(ServiceProfileTypeEnum.Adapter.class)
 public enum ServiceProfileTypeEnum {
   
   L2_PROFILE("L2_PROFILE"),
@@ -36,7 +36,6 @@ public enum ServiceProfileTypeEnum {
     this.value = value;
   }
 
-  @JsonValue
   public String getValue() {
     return value;
   }
@@ -46,7 +45,6 @@ public enum ServiceProfileTypeEnum {
     return String.valueOf(value);
   }
 
-  @JsonCreator
   public static ServiceProfileTypeEnum fromValue(String value) {
     for (ServiceProfileTypeEnum b : ServiceProfileTypeEnum.values()) {
       if (b.value.equals(value)) {
@@ -54,6 +52,19 @@ public enum ServiceProfileTypeEnum {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
+  }
+
+  public static class Adapter extends TypeAdapter<ServiceProfileTypeEnum> {
+    @Override
+    public void write(final JsonWriter jsonWriter, final ServiceProfileTypeEnum enumeration) throws IOException {
+      jsonWriter.value(enumeration.getValue());
+    }
+
+    @Override
+    public ServiceProfileTypeEnum read(final JsonReader jsonReader) throws IOException {
+      String value = jsonReader.nextString();
+      return ServiceProfileTypeEnum.fromValue(value);
+    }
   }
 }
 

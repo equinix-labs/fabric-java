@@ -11,17 +11,17 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.io.IOException;
 
 /**
  * Gets or Sets ServiceProfileVisibilityEnum
  */
+@JsonAdapter(ServiceProfileVisibilityEnum.Adapter.class)
 public enum ServiceProfileVisibilityEnum {
   
   PRIVATE("PRIVATE"),
@@ -34,7 +34,6 @@ public enum ServiceProfileVisibilityEnum {
     this.value = value;
   }
 
-  @JsonValue
   public String getValue() {
     return value;
   }
@@ -44,7 +43,6 @@ public enum ServiceProfileVisibilityEnum {
     return String.valueOf(value);
   }
 
-  @JsonCreator
   public static ServiceProfileVisibilityEnum fromValue(String value) {
     for (ServiceProfileVisibilityEnum b : ServiceProfileVisibilityEnum.values()) {
       if (b.value.equals(value)) {
@@ -52,6 +50,19 @@ public enum ServiceProfileVisibilityEnum {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
+  }
+
+  public static class Adapter extends TypeAdapter<ServiceProfileVisibilityEnum> {
+    @Override
+    public void write(final JsonWriter jsonWriter, final ServiceProfileVisibilityEnum enumeration) throws IOException {
+      jsonWriter.value(enumeration.getValue());
+    }
+
+    @Override
+    public ServiceProfileVisibilityEnum read(final JsonReader jsonReader) throws IOException {
+      String value = jsonReader.nextString();
+      return ServiceProfileVisibilityEnum.fromValue(value);
+    }
   }
 }
 

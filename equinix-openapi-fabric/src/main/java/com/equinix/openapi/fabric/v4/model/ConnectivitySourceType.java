@@ -11,17 +11,17 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.io.IOException;
 
 /**
  * Type of connectivity. COLO, colocation; BMMR, building meet-me room. The default is COLO. &lt;br&gt; A building meet-me room (BMMR) is a room within the same building where an Equinix IBX customer can connect with a non-Equinix IBX customer.
  */
+@JsonAdapter(ConnectivitySourceType.Adapter.class)
 public enum ConnectivitySourceType {
   
   COLO("COLO"),
@@ -36,7 +36,6 @@ public enum ConnectivitySourceType {
     this.value = value;
   }
 
-  @JsonValue
   public String getValue() {
     return value;
   }
@@ -46,7 +45,6 @@ public enum ConnectivitySourceType {
     return String.valueOf(value);
   }
 
-  @JsonCreator
   public static ConnectivitySourceType fromValue(String value) {
     for (ConnectivitySourceType b : ConnectivitySourceType.values()) {
       if (b.value.equals(value)) {
@@ -54,6 +52,19 @@ public enum ConnectivitySourceType {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
+  }
+
+  public static class Adapter extends TypeAdapter<ConnectivitySourceType> {
+    @Override
+    public void write(final JsonWriter jsonWriter, final ConnectivitySourceType enumeration) throws IOException {
+      jsonWriter.value(enumeration.getValue());
+    }
+
+    @Override
+    public ConnectivitySourceType read(final JsonReader jsonReader) throws IOException {
+      String value = jsonReader.nextString();
+      return ConnectivitySourceType.fromValue(value);
+    }
   }
 }
 

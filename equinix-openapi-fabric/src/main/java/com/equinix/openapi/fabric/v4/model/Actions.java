@@ -11,17 +11,17 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.io.IOException;
 
 /**
  * Connection action type
  */
+@JsonAdapter(Actions.Adapter.class)
 public enum Actions {
   
   CONNECTION_CREATION_ACCEPTANCE("CONNECTION_CREATION_ACCEPTANCE"),
@@ -52,7 +52,6 @@ public enum Actions {
     this.value = value;
   }
 
-  @JsonValue
   public String getValue() {
     return value;
   }
@@ -62,7 +61,6 @@ public enum Actions {
     return String.valueOf(value);
   }
 
-  @JsonCreator
   public static Actions fromValue(String value) {
     for (Actions b : Actions.values()) {
       if (b.value.equals(value)) {
@@ -70,6 +68,19 @@ public enum Actions {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
+  }
+
+  public static class Adapter extends TypeAdapter<Actions> {
+    @Override
+    public void write(final JsonWriter jsonWriter, final Actions enumeration) throws IOException {
+      jsonWriter.value(enumeration.getValue());
+    }
+
+    @Override
+    public Actions read(final JsonReader jsonReader) throws IOException {
+      String value = jsonReader.nextString();
+      return Actions.fromValue(value);
+    }
   }
 }
 

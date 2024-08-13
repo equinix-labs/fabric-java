@@ -11,17 +11,17 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.io.IOException;
 
 /**
  * Type of Service Token
  */
+@JsonAdapter(ServiceTokenType.Adapter.class)
 public enum ServiceTokenType {
   
   VC_TOKEN("VC_TOKEN");
@@ -32,7 +32,6 @@ public enum ServiceTokenType {
     this.value = value;
   }
 
-  @JsonValue
   public String getValue() {
     return value;
   }
@@ -42,7 +41,6 @@ public enum ServiceTokenType {
     return String.valueOf(value);
   }
 
-  @JsonCreator
   public static ServiceTokenType fromValue(String value) {
     for (ServiceTokenType b : ServiceTokenType.values()) {
       if (b.value.equals(value)) {
@@ -50,6 +48,19 @@ public enum ServiceTokenType {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
+  }
+
+  public static class Adapter extends TypeAdapter<ServiceTokenType> {
+    @Override
+    public void write(final JsonWriter jsonWriter, final ServiceTokenType enumeration) throws IOException {
+      jsonWriter.value(enumeration.getValue());
+    }
+
+    @Override
+    public ServiceTokenType read(final JsonReader jsonReader) throws IOException {
+      String value = jsonReader.nextString();
+      return ServiceTokenType.fromValue(value);
+    }
   }
 }
 

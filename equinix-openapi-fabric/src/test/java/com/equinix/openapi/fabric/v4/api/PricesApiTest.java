@@ -10,28 +10,28 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.v4.api.dto.users.UsersItem;
 import com.equinix.openapi.fabric.v4.model.FilterBody;
 import com.equinix.openapi.fabric.v4.model.PriceSearchResponse;
 import com.equinix.openapi.fabric.v4.model.SearchExpression;
-import io.restassured.response.Response;
-import org.apache.http.HttpStatus;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Collections;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 /**
  * API tests for PricesApi
  */
 public class PricesApiTest {
 
-    private PricesApi api = TokenGenerator.getApiClient().prices();
+    private static final PricesApi api = new PricesApi(TokenGenerator.getApiClient(UsersItem.UserName.PANTHERS_FCR));
 
     @Test
-    public void searchPrices() {
+    public void searchPrices() throws ApiException {
         SearchExpression itemProperty1 = new SearchExpression()
                 .property("/type")
                 .operator(SearchExpression.OperatorEnum.EQUAL)
@@ -54,12 +54,8 @@ public class PricesApiTest {
         FilterBody filterBody = new FilterBody();
         filterBody.setFilter(item);
 
-        Response response = api.searchPrices()
-                .body(filterBody)
-                .execute(r -> r);
-
-        PriceSearchResponse priceSearchResponse = response.as(PriceSearchResponse.class);
-        assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+        PriceSearchResponse priceSearchResponse = api.searchPrices(filterBody);
+        assertEquals(200, api.getApiClient().getStatusCode());
         assertNotEquals(null, priceSearchResponse.getData().get(0).getType());
     }
 }

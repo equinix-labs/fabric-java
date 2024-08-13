@@ -11,17 +11,17 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.io.IOException;
 
 /**
  * Route table entry protocol type
  */
+@JsonAdapter(RouteTableEntryProtocolType.Adapter.class)
 public enum RouteTableEntryProtocolType {
   
   BGP("BGP"),
@@ -36,7 +36,6 @@ public enum RouteTableEntryProtocolType {
     this.value = value;
   }
 
-  @JsonValue
   public String getValue() {
     return value;
   }
@@ -46,7 +45,6 @@ public enum RouteTableEntryProtocolType {
     return String.valueOf(value);
   }
 
-  @JsonCreator
   public static RouteTableEntryProtocolType fromValue(String value) {
     for (RouteTableEntryProtocolType b : RouteTableEntryProtocolType.values()) {
       if (b.value.equals(value)) {
@@ -54,6 +52,19 @@ public enum RouteTableEntryProtocolType {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
+  }
+
+  public static class Adapter extends TypeAdapter<RouteTableEntryProtocolType> {
+    @Override
+    public void write(final JsonWriter jsonWriter, final RouteTableEntryProtocolType enumeration) throws IOException {
+      jsonWriter.value(enumeration.getValue());
+    }
+
+    @Override
+    public RouteTableEntryProtocolType read(final JsonReader jsonReader) throws IOException {
+      String value = jsonReader.nextString();
+      return RouteTableEntryProtocolType.fromValue(value);
+    }
   }
 }
 

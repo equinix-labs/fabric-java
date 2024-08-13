@@ -1,0 +1,8 @@
+properties:
+  meta:
+    $ref: './Meta.yaml'
+  vrfs:
+    items:
+      $ref: './Vrf.yaml'
+    type: array
+type: object

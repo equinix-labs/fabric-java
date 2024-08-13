@@ -11,208 +11,231 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.equinix.openapi.fabric.v4.model.ServiceProfileAndFilter;
-import com.equinix.openapi.fabric.v4.model.ServiceProfileSimpleExpression;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.ArrayList;
-import java.util.List;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.equinix.openapi.fabric.JSON;
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
-/**
- * ServiceProfileFilter
- */
-@JsonPropertyOrder({
-  ServiceProfileFilter.JSON_PROPERTY_PROPERTY,
-  ServiceProfileFilter.JSON_PROPERTY_OPERATOR,
-  ServiceProfileFilter.JSON_PROPERTY_VALUES,
-  ServiceProfileFilter.JSON_PROPERTY_AND
-})
+import javax.ws.rs.core.GenericType;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class ServiceProfileFilter {
-  public static final String JSON_PROPERTY_PROPERTY = "property";
-  private String property;
+public class ServiceProfileFilter extends AbstractOpenApiSchema {
+    private static final Logger log = Logger.getLogger(ServiceProfileFilter.class.getName());
 
-  public static final String JSON_PROPERTY_OPERATOR = "operator";
-  private String operator;
+    public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+        @SuppressWarnings("unchecked")
+        @Override
+        public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+            if (!ServiceProfileFilter.class.isAssignableFrom(type.getRawType())) {
+                return null; // this class only serializes 'ServiceProfileFilter' and its subtypes
+            }
+            final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+            final TypeAdapter<ServiceProfileAndFilter> adapterServiceProfileAndFilter = gson.getDelegateAdapter(this, TypeToken.get(ServiceProfileAndFilter.class));
+            final TypeAdapter<ServiceProfileSimpleExpression> adapterServiceProfileSimpleExpression = gson.getDelegateAdapter(this, TypeToken.get(ServiceProfileSimpleExpression.class));
 
-  public static final String JSON_PROPERTY_VALUES = "values";
-  private List<String> values = new ArrayList<>();
+            return (TypeAdapter<T>) new TypeAdapter<ServiceProfileFilter>() {
+                @Override
+                public void write(JsonWriter out, ServiceProfileFilter value) throws IOException {
+                    if (value == null || value.getActualInstance() == null) {
+                        elementAdapter.write(out, null);
+                        return;
+                    }
 
-  public static final String JSON_PROPERTY_AND = "and";
-  private List<ServiceProfileSimpleExpression> and = new ArrayList<>();
+                    // check if the actual instance is of the type `ServiceProfileAndFilter`
+                    if (value.getActualInstance() instanceof ServiceProfileAndFilter) {
+                        JsonObject obj = adapterServiceProfileAndFilter.toJsonTree((ServiceProfileAndFilter)value.getActualInstance()).getAsJsonObject();
+                        elementAdapter.write(out, obj);
+                        return;
+                    }
 
-  public ServiceProfileFilter() {
-  }
+                    // check if the actual instance is of the type `ServiceProfileSimpleExpression`
+                    if (value.getActualInstance() instanceof ServiceProfileSimpleExpression) {
+                        JsonObject obj = adapterServiceProfileSimpleExpression.toJsonTree((ServiceProfileSimpleExpression)value.getActualInstance()).getAsJsonObject();
+                        elementAdapter.write(out, obj);
+                        return;
+                    }
 
-  public ServiceProfileFilter property(String property) {
-    
-    this.property = property;
-    return this;
-  }
+                    throw new IOException("Failed to serialize as the type doesn't match anyOf schemas: ServiceProfileAndFilter, ServiceProfileSimpleExpression");
+                }
 
-   /**
-   * Possible field names to use on filters:  * &#x60;/name&#x60; - Service Profile name  * &#x60;/uuid&#x60; - Service Profile uuid  * &#x60;/state&#x60; - Service Profile status  * &#x60;/metros/code&#x60; - Service Profile metro code  * &#x60;/visibility&#x60; - Service Profile package  * &#x60;/type&#x60; - Service Profile package  * &#x60;/project/projectId&#x60; - Service Profile project id 
-   * @return property
-  **/
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PROPERTY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+                @Override
+                public ServiceProfileFilter read(JsonReader in) throws IOException {
+                    Object deserialized = null;
+                    JsonObject jsonObject = elementAdapter.read(in).getAsJsonObject();
 
-  public String getProperty() {
-    return property;
-  }
+                    // deserialize ServiceProfileAndFilter
+                    try {
+                        // validate the JSON object to see if any exception is thrown
+                        ServiceProfileAndFilter.validateJsonObject(jsonObject);
+                        log.log(Level.FINER, "Input data matches schema 'ServiceProfileAndFilter'");
+                        ServiceProfileFilter ret = new ServiceProfileFilter();
+                        ret.setActualInstance(adapterServiceProfileAndFilter.fromJsonTree(jsonObject));
+                        return ret;
+                    } catch (Exception e) {
+                        // deserialization failed, continue
+                        log.log(Level.FINER, "Input data does not match schema 'ServiceProfileAndFilter'", e);
+                    }
 
-
-  @JsonProperty(JSON_PROPERTY_PROPERTY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setProperty(String property) {
-    this.property = property;
-  }
-
-
-  public ServiceProfileFilter operator(String operator) {
-    
-    this.operator = operator;
-    return this;
-  }
-
-   /**
-   * Possible operators to use on filters:  * &#x60;&#x3D;&#x60; - equal 
-   * @return operator
-  **/
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_OPERATOR)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getOperator() {
-    return operator;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_OPERATOR)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOperator(String operator) {
-    this.operator = operator;
-  }
+                    // deserialize ServiceProfileSimpleExpression
+                    try {
+                        // validate the JSON object to see if any exception is thrown
+                        ServiceProfileSimpleExpression.validateJsonObject(jsonObject);
+                        log.log(Level.FINER, "Input data matches schema 'ServiceProfileSimpleExpression'");
+                        ServiceProfileFilter ret = new ServiceProfileFilter();
+                        ret.setActualInstance(adapterServiceProfileSimpleExpression.fromJsonTree(jsonObject));
+                        return ret;
+                    } catch (Exception e) {
+                        // deserialization failed, continue
+                        log.log(Level.FINER, "Input data does not match schema 'ServiceProfileSimpleExpression'", e);
+                    }
 
 
-  public ServiceProfileFilter values(List<String> values) {
-    
-    this.values = values;
-    return this;
-  }
-
-  public ServiceProfileFilter addValuesItem(String valuesItem) {
-    if (this.values == null) {
-      this.values = new ArrayList<>();
+                    throw new IOException(String.format("Failed deserialization for ServiceProfileFilter: no class matched. JSON: %s", jsonObject.toString()));
+                }
+            }.nullSafe();
+        }
     }
-    this.values.add(valuesItem);
-    return this;
-  }
 
-   /**
-   * Get values
-   * @return values
-  **/
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_VALUES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    // store a list of schema names defined in anyOf
+    public static final Map<String, GenericType> schemas = new HashMap<String, GenericType>();
 
-  public List<String> getValues() {
-    return values;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_VALUES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setValues(List<String> values) {
-    this.values = values;
-  }
-
-
-  public ServiceProfileFilter and(List<ServiceProfileSimpleExpression> and) {
-    
-    this.and = and;
-    return this;
-  }
-
-  public ServiceProfileFilter addAndItem(ServiceProfileSimpleExpression andItem) {
-    if (this.and == null) {
-      this.and = new ArrayList<>();
+    public ServiceProfileFilter() {
+        super("anyOf", Boolean.FALSE);
     }
-    this.and.add(andItem);
-    return this;
-  }
 
-   /**
-   * Get and
-   * @return and
-  **/
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_AND)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<ServiceProfileSimpleExpression> getAnd() {
-    return and;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_AND)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAnd(List<ServiceProfileSimpleExpression> and) {
-    this.and = and;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public ServiceProfileFilter(ServiceProfileAndFilter o) {
+        super("anyOf", Boolean.FALSE);
+        setActualInstance(o);
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    public ServiceProfileFilter(ServiceProfileSimpleExpression o) {
+        super("anyOf", Boolean.FALSE);
+        setActualInstance(o);
     }
-    ServiceProfileFilter serviceProfileFilter = (ServiceProfileFilter) o;
-    return Objects.equals(this.property, serviceProfileFilter.property) &&
-        Objects.equals(this.operator, serviceProfileFilter.operator) &&
-        Objects.equals(this.values, serviceProfileFilter.values) &&
-        Objects.equals(this.and, serviceProfileFilter.and);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(property, operator, values, and);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ServiceProfileFilter {\n");
-    sb.append("    property: ").append(toIndentedString(property)).append("\n");
-    sb.append("    operator: ").append(toIndentedString(operator)).append("\n");
-    sb.append("    values: ").append(toIndentedString(values)).append("\n");
-    sb.append("    and: ").append(toIndentedString(and)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    static {
+        schemas.put("ServiceProfileAndFilter", new GenericType<ServiceProfileAndFilter>() {
+        });
+        schemas.put("ServiceProfileSimpleExpression", new GenericType<ServiceProfileSimpleExpression>() {
+        });
     }
-    return o.toString().replace("\n", "\n    ");
+
+    @Override
+    public Map<String, GenericType> getSchemas() {
+        return ServiceProfileFilter.schemas;
+    }
+
+    /**
+     * Set the instance that matches the anyOf child schema, check
+     * the instance parameter is valid against the anyOf child schemas:
+     * ServiceProfileAndFilter, ServiceProfileSimpleExpression
+     *
+     * It could be an instance of the 'anyOf' schemas.
+     * The anyOf child schemas may themselves be a composed schema (allOf, anyOf, anyOf).
+     */
+    @Override
+    public void setActualInstance(Object instance) {
+        if (instance instanceof ServiceProfileAndFilter) {
+            super.setActualInstance(instance);
+            return;
+        }
+
+        if (instance instanceof ServiceProfileSimpleExpression) {
+            super.setActualInstance(instance);
+            return;
+        }
+
+        throw new RuntimeException("Invalid instance type. Must be ServiceProfileAndFilter, ServiceProfileSimpleExpression");
+    }
+
+    /**
+     * Get the actual instance, which can be the following:
+     * ServiceProfileAndFilter, ServiceProfileSimpleExpression
+     *
+     * @return The actual instance (ServiceProfileAndFilter, ServiceProfileSimpleExpression)
+     */
+    @Override
+    public Object getActualInstance() {
+        return super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `ServiceProfileAndFilter`. If the actual instance is not `ServiceProfileAndFilter`,
+     * the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `ServiceProfileAndFilter`
+     * @throws ClassCastException if the instance is not `ServiceProfileAndFilter`
+     */
+    public ServiceProfileAndFilter getServiceProfileAndFilter() throws ClassCastException {
+        return (ServiceProfileAndFilter)super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `ServiceProfileSimpleExpression`. If the actual instance is not `ServiceProfileSimpleExpression`,
+     * the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `ServiceProfileSimpleExpression`
+     * @throws ClassCastException if the instance is not `ServiceProfileSimpleExpression`
+     */
+    public ServiceProfileSimpleExpression getServiceProfileSimpleExpression() throws ClassCastException {
+        return (ServiceProfileSimpleExpression)super.getActualInstance();
+    }
+
+
+ /**
+  * Validates the JSON Object and throws an exception if issues found
+  *
+  * @param jsonObj JSON Object
+  * @throws IOException if the JSON Object is invalid with respect to ServiceProfileFilter
+  */
+  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
+    // validate anyOf schemas one by one
+    int validCount = 0;
+    // validate the json string with ServiceProfileAndFilter
+    try {
+      ServiceProfileAndFilter.validateJsonObject(jsonObj);
+      return; // return earlier as at least one schema is valid with respect to the Json object
+      //validCount++;
+    } catch (Exception e) {
+      // continue to the next one
+    }
+    // validate the json string with ServiceProfileSimpleExpression
+    try {
+      ServiceProfileSimpleExpression.validateJsonObject(jsonObj);
+      return; // return earlier as at least one schema is valid with respect to the Json object
+      //validCount++;
+    } catch (Exception e) {
+      // continue to the next one
+    }
+    if (validCount == 0) {
+      throw new IOException(String.format("The JSON string is invalid for ServiceProfileFilter with anyOf schemas: ServiceProfileAndFilter, ServiceProfileSimpleExpression. JSON: %s", jsonObj.toString()));
+    }
   }
 
+ /**
+  * Create an instance of ServiceProfileFilter given an JSON string
+  *
+  * @param jsonString JSON string
+  * @return An instance of ServiceProfileFilter
+  * @throws IOException if the JSON string is invalid with respect to ServiceProfileFilter
+  */
+  public static ServiceProfileFilter fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, ServiceProfileFilter.class);
+  }
+
+ /**
+  * Convert an instance of ServiceProfileFilter to an JSON string
+  *
+  * @return JSON string
+  */
+  public String toJson() {
+    return JSON.getGson().toJson(this);
+  }
 }
 

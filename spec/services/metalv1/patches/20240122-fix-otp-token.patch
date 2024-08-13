@@ -1,0 +1,122 @@
+diff --git a/spec/services/metalv1/oas3.patched/components/parameters/XOtpToken.yaml b/spec/services/metalv1/oas3.patched/components/parameters/XOtpToken.yaml
+new file mode 100644
+index 0000000..6f52cd6
+--- /dev/null
++++ b/spec/services/metalv1/oas3.patched/components/parameters/XOtpToken.yaml
+@@ -0,0 +1,5 @@
++in: header
++name: x-otp-token
++schema:
++  type: string
++required: true
+diff --git a/spec/services/metalv1/oas3.patched/paths/user/otp/app.yaml b/spec/services/metalv1/oas3.patched/paths/user/otp/app.yaml
+index ac3f4be..8d636d0 100644
+--- a/spec/services/metalv1/oas3.patched/paths/user/otp/app.yaml
++++ b/spec/services/metalv1/oas3.patched/paths/user/otp/app.yaml
+@@ -1,6 +1,8 @@
+ delete:
+   description: Disables two factor authentication.
+   operationId: disableTfaApp
++  parameters:
++  - $ref: '../../../components/parameters/XOtpToken.yaml'
+   responses:
+     "204":
+       description: no content
+@@ -22,6 +24,8 @@ delete:
+ post:
+   description: Enables two factor authentication using authenticator app.
+   operationId: enableTfaApp
++  parameters:
++  - $ref: '../../../components/parameters/XOtpToken.yaml'
+   responses:
+     "200":
+       description: ok
+diff --git a/spec/services/metalv1/oas3.patched/paths/user/otp/sms.yaml b/spec/services/metalv1/oas3.patched/paths/user/otp/sms.yaml
+index d7b17f7..6bb6bb3 100644
+--- a/spec/services/metalv1/oas3.patched/paths/user/otp/sms.yaml
++++ b/spec/services/metalv1/oas3.patched/paths/user/otp/sms.yaml
+@@ -1,6 +1,8 @@
+ delete:
+   description: Disables two factor authentication.
+   operationId: disableTfaSms
++  parameters:
++  - $ref: '../../../components/parameters/XOtpToken.yaml'
+   responses:
+     "204":
+       description: no content
+@@ -22,6 +24,8 @@ delete:
+ post:
+   description: Enables two factor authentication with sms.
+   operationId: enableTfaSms
++  parameters:
++  - $ref: '../../../components/parameters/XOtpToken.yaml'
+   responses:
+     "200":
+       description: ok
+diff --git a/spec/services/metalv1/oas3.patched/components/schemas/OtpSeed.yaml b/spec/services/metalv1/oas3.patched/components/schemas/OtpSeed.yaml
+new file mode 100644
+index 0000000..f558bde
+--- /dev/null
++++ b/spec/services/metalv1/oas3.patched/components/schemas/OtpSeed.yaml
+@@ -0,0 +1,6 @@
++description: Details for configuring your MFA app
++properties:
++  otp_uri:
++    description: The URI to use in your MFA app
++    type: string
++type: object
+diff --git a/spec/services/metalv1/oas3.patched/openapi3.yaml b/spec/services/metalv1/oas3.patched/openapi3.yaml
+index 9822cd3..036e2ef 100644
+--- a/spec/services/metalv1/oas3.patched/openapi3.yaml
++++ b/spec/services/metalv1/oas3.patched/openapi3.yaml
+@@ -776,6 +776,8 @@ paths:
+     $ref: ./paths/user/api-keys/id.yaml
+   /user/otp/app:
+     $ref: ./paths/user/otp/app.yaml
++  /user/otp/app/receive:
++    $ref: ./paths/user/otp/app/receive.yaml
+   /user/otp/recovery-codes:
+     $ref: ./paths/user/otp/recovery-codes.yaml
+   /user/otp/sms:
+diff --git a/spec/services/metalv1/oas3.patched/paths/user/otp/app/receive.yaml b/spec/services/metalv1/oas3.patched/paths/user/otp/app/receive.yaml
+new file mode 100644
+index 0000000..b5ae8b7
+--- /dev/null
++++ b/spec/services/metalv1/oas3.patched/paths/user/otp/app/receive.yaml
+@@ -0,0 +1,36 @@
++post:
++  description: Issues OTP seeds for the user to upload to their 2FA app
++  operationId: seedApp
++  responses:
++    "204":
++      content:
++        application/json:
++          schema:
++            $ref: '../../../../components/schemas/OtpSeed.yaml'
++    "400":
++      content:
++        application/json:
++          schema:
++            $ref: '../../../../components/schemas/Error.yaml'
++      description: bad request
++    "401":
++      content:
++        application/json:
++          schema:
++            $ref: '../../../../components/schemas/Error.yaml'
++      description: unauthorized
++    "422":
++      content:
++        application/json:
++          schema:
++            $ref: '../../../../components/schemas/Error.yaml'
++      description: unprocessable entity
++    "500":
++      content:
++        application/json:
++          schema:
++            $ref: '../../../../components/schemas/Error.yaml'
++      description: internal server error
++  summary: Issue OTP seeds
++  tags:
++  - OTPs

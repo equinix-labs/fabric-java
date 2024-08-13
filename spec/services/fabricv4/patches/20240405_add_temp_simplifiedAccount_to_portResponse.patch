@@ -1,0 +1,48 @@
+diff --git a/spec/services/fabricv4/oas3.patched/swagger.yaml b/spec/services/fabricv4/oas3.patched/swagger.yaml
+index 4608d7b..920b724 100644
+--- a/spec/services/fabricv4/oas3.patched/swagger.yaml
++++ b/spec/services/fabricv4/oas3.patched/swagger.yaml
+@@ -8868,7 +8868,7 @@ components:
+         operation:
+           $ref: "#/components/schemas/PortOperation"
+         account:
+-          $ref: "#/components/schemas/SimplifiedAccount"
++          $ref: "#/components/schemas/SimplifiedAccountPortResponse"
+         changelog:
+           $ref: "#/components/schemas/Changelog"
+         serviceType:
+@@ -8955,6 +8955,9 @@ components:
+       description: Port is the Request Object for Creating Fabric Ports
+       allOf:
+         - $ref: "#/components/schemas/PortResponse"
++      properties:
++        account:
++          $ref: "#/components/schemas/SimplifiedAccount"
+     PhysicalPort:
+       type: object
+       properties:
+@@ -10635,6 +10638,24 @@ components:
+           type: integer
+           description: Reseller customer organization identifier
+           format: int64
++    SimplifiedAccountPortResponse:
++      type: object
++      description: Temporary SimplifiedAccount for PortResponse data mismatch of all strings in account
++      allOf:
++        - $ref: "#/components/schemas/SimplifiedAccount"
++      properties:
++        accountNumber:
++          type: string
++          description: Account number
++        orgId:
++          type: string
++          description: Customer organization identifier
++        resellerAccountNumber:
++          type: string
++          description: Reseller account number
++        resellerOrgId:
++          type: string
++          description: Reseller customer organization identifier
+     Changelog:
+       type: object
+       properties:

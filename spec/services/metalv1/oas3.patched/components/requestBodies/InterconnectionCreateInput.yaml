@@ -1,0 +1,19 @@
+content:
+  application/json:
+    schema:
+      oneOf:
+      - $ref: '../schemas/DedicatedPortCreateInput.yaml'
+      - $ref: '../schemas/VlanFabricVcCreateInput.yaml'
+      - $ref: '../schemas/VrfFabricVcCreateInput.yaml'
+      - $ref: '../schemas/SharedPortVCVlanCreateInput.yaml'
+      - $ref: '../schemas/VlanCSPConnectionCreateInput.yaml'
+description: |-
+  Dedicated port or shared interconnection (also known as Fabric VC) creation request.
+
+  Shared interconnections can be created with the following request types:
+  * `VlanCSPConnectionCreateInput` creates a layer 2 interconnection directly to your Cloud Service Provider.
+  * `SharedPortVCVlanCreateInput` creates a layer 2 interconnection that you can finish configuration in Fabric. For new connections, this type is preferred to `VlanFabricVCCreateInput`.
+  * `VlanFabricVCCreateInput` creates a layer 2 interconnection that you can connect through Fabric with a service token.
+  * `VrfFabricVCCreateInput` creates a layer 3 interconnection that you can connect through Fabric with a service token. 
+
+required: true

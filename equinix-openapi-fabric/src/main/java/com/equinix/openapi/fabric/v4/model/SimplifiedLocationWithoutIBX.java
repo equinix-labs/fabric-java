@@ -11,37 +11,35 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.equinix.openapi.fabric.JSON;
+import com.google.gson.*;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+
+import java.io.IOException;
+import java.util.*;
 
 /**
  * SimplifiedLocationWithoutIBX
  */
-@JsonPropertyOrder({
-  SimplifiedLocationWithoutIBX.JSON_PROPERTY_HREF,
-  SimplifiedLocationWithoutIBX.JSON_PROPERTY_REGION,
-  SimplifiedLocationWithoutIBX.JSON_PROPERTY_METRO_NAME,
-  SimplifiedLocationWithoutIBX.JSON_PROPERTY_METRO_CODE
-})
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SimplifiedLocationWithoutIBX {
-  public static final String JSON_PROPERTY_HREF = "href";
+  public static final String SERIALIZED_NAME_HREF = "href";
+  @SerializedName(SERIALIZED_NAME_HREF)
   private String href;
 
-  public static final String JSON_PROPERTY_REGION = "region";
+  public static final String SERIALIZED_NAME_REGION = "region";
+  @SerializedName(SERIALIZED_NAME_REGION)
   private String region;
 
-  public static final String JSON_PROPERTY_METRO_NAME = "metroName";
+  public static final String SERIALIZED_NAME_METRO_NAME = "metroName";
+  @SerializedName(SERIALIZED_NAME_METRO_NAME)
   private String metroName;
 
-  public static final String JSON_PROPERTY_METRO_CODE = "metroCode";
+  public static final String SERIALIZED_NAME_METRO_CODE = "metroCode";
+  @SerializedName(SERIALIZED_NAME_METRO_CODE)
   private String metroCode;
 
   public SimplifiedLocationWithoutIBX() {
@@ -58,16 +56,12 @@ public class SimplifiedLocationWithoutIBX {
    * @return href
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_HREF)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getHref() {
     return href;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_HREF)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setHref(String href) {
     this.href = href;
   }
@@ -84,16 +78,12 @@ public class SimplifiedLocationWithoutIBX {
    * @return region
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_REGION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getRegion() {
     return region;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_REGION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRegion(String region) {
     this.region = region;
   }
@@ -110,16 +100,12 @@ public class SimplifiedLocationWithoutIBX {
    * @return metroName
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_METRO_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getMetroName() {
     return metroName;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_METRO_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMetroName(String metroName) {
     this.metroName = metroName;
   }
@@ -136,18 +122,59 @@ public class SimplifiedLocationWithoutIBX {
    * @return metroCode
   **/
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_METRO_CODE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getMetroCode() {
     return metroCode;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_METRO_CODE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setMetroCode(String metroCode) {
     this.metroCode = metroCode;
+  }
+
+  /**
+   * A container for additional, undeclared properties.
+   * This is a holder for any undeclared properties as specified with
+   * the 'additionalProperties' keyword in the OAS document.
+   */
+  private Map<String, Object> additionalProperties;
+
+  /**
+   * Set the additional (undeclared) property with the specified name and value.
+   * If the property does not already exist, create it otherwise replace it.
+   *
+   * @param key name of the property
+   * @param value value of the property
+   * @return the SimplifiedLocationWithoutIBX instance itself
+   */
+  public SimplifiedLocationWithoutIBX putAdditionalProperty(String key, Object value) {
+    if (this.additionalProperties == null) {
+        this.additionalProperties = new HashMap<String, Object>();
+    }
+    this.additionalProperties.put(key, value);
+    return this;
+  }
+
+  /**
+   * Return the additional (undeclared) property.
+   *
+   * @return a map of objects
+   */
+  public Map<String, Object> getAdditionalProperties() {
+    return additionalProperties;
+  }
+
+  /**
+   * Return the additional (undeclared) property with the specified name.
+   *
+   * @param key name of the property
+   * @return an object
+   */
+  public Object getAdditionalProperty(String key) {
+    if (this.additionalProperties == null) {
+        return null;
+    }
+    return this.additionalProperties.get(key);
   }
 
 
@@ -163,12 +190,13 @@ public class SimplifiedLocationWithoutIBX {
     return Objects.equals(this.href, simplifiedLocationWithoutIBX.href) &&
         Objects.equals(this.region, simplifiedLocationWithoutIBX.region) &&
         Objects.equals(this.metroName, simplifiedLocationWithoutIBX.metroName) &&
-        Objects.equals(this.metroCode, simplifiedLocationWithoutIBX.metroCode);
+        Objects.equals(this.metroCode, simplifiedLocationWithoutIBX.metroCode)&&
+        Objects.equals(this.additionalProperties, simplifiedLocationWithoutIBX.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(href, region, metroName, metroCode);
+    return Objects.hash(href, region, metroName, metroCode, additionalProperties);
   }
 
   @Override
@@ -179,6 +207,7 @@ public class SimplifiedLocationWithoutIBX {
     sb.append("    region: ").append(toIndentedString(region)).append("\n");
     sb.append("    metroName: ").append(toIndentedString(metroName)).append("\n");
     sb.append("    metroCode: ").append(toIndentedString(metroCode)).append("\n");
+    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -194,5 +223,140 @@ public class SimplifiedLocationWithoutIBX {
     return o.toString().replace("\n", "\n    ");
   }
 
+
+  public static HashSet<String> openapiFields;
+  public static HashSet<String> openapiRequiredFields;
+
+  static {
+    // a set of all properties/fields (JSON key names)
+    openapiFields = new HashSet<String>();
+    openapiFields.add("href");
+    openapiFields.add("region");
+    openapiFields.add("metroName");
+    openapiFields.add("metroCode");
+
+    // a set of required properties/fields (JSON key names)
+    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("metroCode");
+  }
+
+ /**
+  * Validates the JSON Object and throws an exception if issues found
+  *
+  * @param jsonObj JSON Object
+  * @throws IOException if the JSON Object is invalid with respect to SimplifiedLocationWithoutIBX
+  */
+  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
+      if (jsonObj == null) {
+        if (!SimplifiedLocationWithoutIBX.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in SimplifiedLocationWithoutIBX is not found in the empty JSON string", SimplifiedLocationWithoutIBX.openapiRequiredFields.toString()));
+        }
+      }
+
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : SimplifiedLocationWithoutIBX.openapiRequiredFields) {
+        if (jsonObj.get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
+        }
+      }
+      if ((jsonObj.get("href") != null && !jsonObj.get("href").isJsonNull()) && !jsonObj.get("href").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `href` to be a primitive type in the JSON string but got `%s`", jsonObj.get("href").toString()));
+      }
+      if ((jsonObj.get("region") != null && !jsonObj.get("region").isJsonNull()) && !jsonObj.get("region").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `region` to be a primitive type in the JSON string but got `%s`", jsonObj.get("region").toString()));
+      }
+      if ((jsonObj.get("metroName") != null && !jsonObj.get("metroName").isJsonNull()) && !jsonObj.get("metroName").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `metroName` to be a primitive type in the JSON string but got `%s`", jsonObj.get("metroName").toString()));
+      }
+      if (!jsonObj.get("metroCode").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `metroCode` to be a primitive type in the JSON string but got `%s`", jsonObj.get("metroCode").toString()));
+      }
+  }
+
+  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+       if (!SimplifiedLocationWithoutIBX.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'SimplifiedLocationWithoutIBX' and its subtypes
+       }
+       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+       final TypeAdapter<SimplifiedLocationWithoutIBX> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(SimplifiedLocationWithoutIBX.class));
+
+       return (TypeAdapter<T>) new TypeAdapter<SimplifiedLocationWithoutIBX>() {
+           @Override
+           public void write(JsonWriter out, SimplifiedLocationWithoutIBX value) throws IOException {
+             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
+             obj.remove("additionalProperties");
+             // serialize additional properties
+             if (value.getAdditionalProperties() != null) {
+               for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
+                 if (entry.getValue() instanceof String)
+                   obj.addProperty(entry.getKey(), (String) entry.getValue());
+                 else if (entry.getValue() instanceof Number)
+                   obj.addProperty(entry.getKey(), (Number) entry.getValue());
+                 else if (entry.getValue() instanceof Boolean)
+                   obj.addProperty(entry.getKey(), (Boolean) entry.getValue());
+                 else if (entry.getValue() instanceof Character)
+                   obj.addProperty(entry.getKey(), (Character) entry.getValue());
+                 else {
+                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
+                 }
+               }
+             }
+             elementAdapter.write(out, obj);
+           }
+
+           @Override
+           public SimplifiedLocationWithoutIBX read(JsonReader in) throws IOException {
+             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
+             validateJsonObject(jsonObj);
+             // store additional fields in the deserialized instance
+             SimplifiedLocationWithoutIBX instance = thisAdapter.fromJsonTree(jsonObj);
+             for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
+               if (!openapiFields.contains(entry.getKey())) {
+                 if (entry.getValue().isJsonPrimitive()) { // primitive type
+                   if (entry.getValue().getAsJsonPrimitive().isString())
+                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsString());
+                   else if (entry.getValue().getAsJsonPrimitive().isNumber())
+                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsNumber());
+                   else if (entry.getValue().getAsJsonPrimitive().isBoolean())
+                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
+                   else
+                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
+                 } else if (entry.getValue().isJsonArray()) {
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
+                 } else { // JSON object
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
+                 }
+               }
+             }
+             return instance;
+           }
+
+       }.nullSafe();
+    }
+  }
+
+ /**
+  * Create an instance of SimplifiedLocationWithoutIBX given an JSON string
+  *
+  * @param jsonString JSON string
+  * @return An instance of SimplifiedLocationWithoutIBX
+  * @throws IOException if the JSON string is invalid with respect to SimplifiedLocationWithoutIBX
+  */
+  public static SimplifiedLocationWithoutIBX fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, SimplifiedLocationWithoutIBX.class);
+  }
+
+ /**
+  * Convert an instance of SimplifiedLocationWithoutIBX to an JSON string
+  *
+  * @return JSON string
+  */
+  public String toJson() {
+    return JSON.getGson().toJson(this);
+  }
 }
 

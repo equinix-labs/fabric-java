@@ -1,0 +1,13 @@
+diff --git a/spec/services/metalv1/oas3.patched/components/schemas/IPAssignment.yaml b/spec/services/metalv1/oas3.patched/components/schemas/IPAssignment.yaml
+index efce269..46f9abc 100644
+--- a/spec/services/metalv1/oas3.patched/components/schemas/IPAssignment.yaml
++++ b/spec/services/metalv1/oas3.patched/components/schemas/IPAssignment.yaml
+@@ -54,4 +54,8 @@ properties:
+       Only set when this is a Metal Gateway Elastic IP Assignment.
+ 
+       The IP address within the Metal Gateway to which requests to the Elastic IP are forwarded.
++  type:
++    type: string
++    enum:
++    - IPAssignment
+ type: object

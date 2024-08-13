@@ -11,807 +11,1272 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.v4.model.Error;
-import com.equinix.openapi.fabric.v4.model.JsonPatchOperation;
-import com.equinix.openapi.fabric.v4.model.ServiceMetros;
-import com.equinix.openapi.fabric.v4.model.ServiceProfile;
-import com.equinix.openapi.fabric.v4.model.ServiceProfileRequest;
-import com.equinix.openapi.fabric.v4.model.ServiceProfileSearchRequest;
-import com.equinix.openapi.fabric.v4.model.ServiceProfiles;
-import java.util.UUID;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import io.restassured.RestAssured;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.builder.ResponseSpecBuilder;
-import io.restassured.common.mapper.TypeRef;
-import io.restassured.http.Method;
-import io.restassured.response.Response;
+import com.equinix.openapi.fabric.*;
+import com.equinix.openapi.fabric.v4.model.*;
+import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
-import static io.restassured.http.Method.*;
+import java.util.*;
 
 public class ServiceProfilesApi {
+    private ApiClient localVarApiClient;
+    private int localHostIndex;
+    private String localCustomBaseUrl;
 
-    private Supplier<RequestSpecBuilder> reqSpecSupplier;
-    private Consumer<RequestSpecBuilder> reqSpecCustomizer;
-
-    private ServiceProfilesApi(Supplier<RequestSpecBuilder> reqSpecSupplier) {
-        this.reqSpecSupplier = reqSpecSupplier;
+    public ServiceProfilesApi() {
+        this(Configuration.getDefaultApiClient());
     }
 
-    public static ServiceProfilesApi serviceProfiles(Supplier<RequestSpecBuilder> reqSpecSupplier) {
-        return new ServiceProfilesApi(reqSpecSupplier);
+    public ServiceProfilesApi(ApiClient apiClient) {
+        this.localVarApiClient = apiClient;
     }
 
-    private RequestSpecBuilder createReqSpec() {
-        RequestSpecBuilder reqSpec = reqSpecSupplier.get();
-        if(reqSpecCustomizer != null) {
-            reqSpecCustomizer.accept(reqSpec);
-        }
-        return reqSpec;
+    public ApiClient getApiClient() {
+        return localVarApiClient;
     }
 
-    public List<Oper> getAllOperations() {
-        return Arrays.asList(
-                createServiceProfile(),
-                deleteServiceProfileByUuid(),
-                getServiceProfileByUuid(),
-                getServiceProfileMetrosByUuid(),
-                getServiceProfiles(),
-                putServiceProfileByUuid(),
-                searchServiceProfiles(),
-                updateServiceProfileByUuid()
-        );
+    public void setApiClient(ApiClient apiClient) {
+        this.localVarApiClient = apiClient;
     }
 
-    public CreateServiceProfileOper createServiceProfile() {
-        return new CreateServiceProfileOper(createReqSpec());
+    public int getHostIndex() {
+        return localHostIndex;
     }
 
-    public DeleteServiceProfileByUuidOper deleteServiceProfileByUuid() {
-        return new DeleteServiceProfileByUuidOper(createReqSpec());
+    public void setHostIndex(int hostIndex) {
+        this.localHostIndex = hostIndex;
     }
 
-    public GetServiceProfileByUuidOper getServiceProfileByUuid() {
-        return new GetServiceProfileByUuidOper(createReqSpec());
+    public String getCustomBaseUrl() {
+        return localCustomBaseUrl;
     }
 
-    public GetServiceProfileMetrosByUuidOper getServiceProfileMetrosByUuid() {
-        return new GetServiceProfileMetrosByUuidOper(createReqSpec());
-    }
-
-    public GetServiceProfilesOper getServiceProfiles() {
-        return new GetServiceProfilesOper(createReqSpec());
-    }
-
-    public PutServiceProfileByUuidOper putServiceProfileByUuid() {
-        return new PutServiceProfileByUuidOper(createReqSpec());
-    }
-
-    public SearchServiceProfilesOper searchServiceProfiles() {
-        return new SearchServiceProfilesOper(createReqSpec());
-    }
-
-    public UpdateServiceProfileByUuidOper updateServiceProfileByUuid() {
-        return new UpdateServiceProfileByUuidOper(createReqSpec());
+    public void setCustomBaseUrl(String customBaseUrl) {
+        this.localCustomBaseUrl = customBaseUrl;
     }
 
     /**
-     * Customize request specification
-     * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-     * @return api
+     * Build call for createServiceProfile
+     * @param serviceProfileRequest  (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 201 </td><td> Successful Create operation </td><td>  * ETag -  <br>  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
      */
-    public ServiceProfilesApi reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-        this.reqSpecCustomizer = reqSpecCustomizer;
-        return this;
+    public okhttp3.Call createServiceProfileCall(ServiceProfileRequest serviceProfileRequest, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = serviceProfileRequest;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/serviceProfiles";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json; charset=UTF-8",
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call createServiceProfileValidateBeforeCall(ServiceProfileRequest serviceProfileRequest, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'serviceProfileRequest' is set
+        if (serviceProfileRequest == null) {
+            throw new ApiException("Missing the required parameter 'serviceProfileRequest' when calling createServiceProfile(Async)");
+        }
+
+        return createServiceProfileCall(serviceProfileRequest, _callback);
+
     }
 
     /**
      * Create Profile
      * Create Service Profile creates Equinix Fabric? Service Profile.
-     *
-     * @see #body  (required)
-     * return ServiceProfile
+     * @param serviceProfileRequest  (required)
+     * @return ServiceProfile
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 201 </td><td> Successful Create operation </td><td>  * ETag -  <br>  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
      */
-    public static class CreateServiceProfileOper implements Oper {
-
-        public static final Method REQ_METHOD = POST;
-        public static final String REQ_URI = "/fabric/v4/serviceProfiles";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public CreateServiceProfileOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setContentType("application/json");
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * POST /fabric/v4/serviceProfiles
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * POST /fabric/v4/serviceProfiles
-         * @param handler handler
-         * @return ServiceProfile
-         */
-        public ServiceProfile executeAs(Function<Response, Response> handler) {
-            TypeRef<ServiceProfile> type = new TypeRef<ServiceProfile>(){};
-            return execute(handler).as(type);
-        }
-
-         /**
-         * @param serviceProfileRequest (ServiceProfileRequest)  (required)
-         * @return operation
-         */
-        public CreateServiceProfileOper body(ServiceProfileRequest serviceProfileRequest) {
-            reqSpec.setBody(serviceProfileRequest);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public CreateServiceProfileOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public CreateServiceProfileOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public ServiceProfile createServiceProfile(ServiceProfileRequest serviceProfileRequest) throws ApiException {
+        ApiResponse<ServiceProfile> localVarResp = createServiceProfileWithHttpInfo(serviceProfileRequest);
+        return localVarResp.getData();
     }
+
+    /**
+     * Create Profile
+     * Create Service Profile creates Equinix Fabric? Service Profile.
+     * @param serviceProfileRequest  (required)
+     * @return ApiResponse&lt;ServiceProfile&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 201 </td><td> Successful Create operation </td><td>  * ETag -  <br>  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<ServiceProfile> createServiceProfileWithHttpInfo(ServiceProfileRequest serviceProfileRequest) throws ApiException {
+        okhttp3.Call localVarCall = createServiceProfileValidateBeforeCall(serviceProfileRequest, null);
+        Type localVarReturnType = new TypeToken<ServiceProfile>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Create Profile (asynchronously)
+     * Create Service Profile creates Equinix Fabric? Service Profile.
+     * @param serviceProfileRequest  (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 201 </td><td> Successful Create operation </td><td>  * ETag -  <br>  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call createServiceProfileAsync(ServiceProfileRequest serviceProfileRequest, final ApiCallback<ServiceProfile> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = createServiceProfileValidateBeforeCall(serviceProfileRequest, _callback);
+        Type localVarReturnType = new TypeToken<ServiceProfile>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for deleteServiceProfileByUuid
+     * @param serviceProfileId Service Profile UUID (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful Delete operation </td><td>  * ETag -  <br>  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call deleteServiceProfileByUuidCall(UUID serviceProfileId, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/serviceProfiles/{serviceProfileId}"
+            .replace("{" + "serviceProfileId" + "}", localVarApiClient.escapeString(serviceProfileId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json; charset=UTF-8",
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call deleteServiceProfileByUuidValidateBeforeCall(UUID serviceProfileId, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'serviceProfileId' is set
+        if (serviceProfileId == null) {
+            throw new ApiException("Missing the required parameter 'serviceProfileId' when calling deleteServiceProfileByUuid(Async)");
+        }
+
+        return deleteServiceProfileByUuidCall(serviceProfileId, _callback);
+
+    }
+
     /**
      * Delete Profile
      * delete Service Profile by UUID
-     *
-     * @see #serviceProfileIdPath Service Profile UUID (required)
-     * return ServiceProfile
+     * @param serviceProfileId Service Profile UUID (required)
+     * @return ServiceProfile
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful Delete operation </td><td>  * ETag -  <br>  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
      */
-    public static class DeleteServiceProfileByUuidOper implements Oper {
-
-        public static final Method REQ_METHOD = DELETE;
-        public static final String REQ_URI = "/fabric/v4/serviceProfiles/{serviceProfileId}";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public DeleteServiceProfileByUuidOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * DELETE /fabric/v4/serviceProfiles/{serviceProfileId}
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * DELETE /fabric/v4/serviceProfiles/{serviceProfileId}
-         * @param handler handler
-         * @return ServiceProfile
-         */
-        public ServiceProfile executeAs(Function<Response, Response> handler) {
-            TypeRef<ServiceProfile> type = new TypeRef<ServiceProfile>(){};
-            return execute(handler).as(type);
-        }
-
-        public static final String SERVICE_PROFILE_ID_PATH = "serviceProfileId";
-
-        /**
-         * @param serviceProfileId (UUID) Service Profile UUID (required)
-         * @return operation
-         */
-        public DeleteServiceProfileByUuidOper serviceProfileIdPath(Object serviceProfileId) {
-            reqSpec.addPathParam(SERVICE_PROFILE_ID_PATH, serviceProfileId);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public DeleteServiceProfileByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public DeleteServiceProfileByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public ServiceProfile deleteServiceProfileByUuid(UUID serviceProfileId) throws ApiException {
+        ApiResponse<ServiceProfile> localVarResp = deleteServiceProfileByUuidWithHttpInfo(serviceProfileId);
+        return localVarResp.getData();
     }
+
+    /**
+     * Delete Profile
+     * delete Service Profile by UUID
+     * @param serviceProfileId Service Profile UUID (required)
+     * @return ApiResponse&lt;ServiceProfile&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful Delete operation </td><td>  * ETag -  <br>  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<ServiceProfile> deleteServiceProfileByUuidWithHttpInfo(UUID serviceProfileId) throws ApiException {
+        okhttp3.Call localVarCall = deleteServiceProfileByUuidValidateBeforeCall(serviceProfileId, null);
+        Type localVarReturnType = new TypeToken<ServiceProfile>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Delete Profile (asynchronously)
+     * delete Service Profile by UUID
+     * @param serviceProfileId Service Profile UUID (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful Delete operation </td><td>  * ETag -  <br>  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call deleteServiceProfileByUuidAsync(UUID serviceProfileId, final ApiCallback<ServiceProfile> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = deleteServiceProfileByUuidValidateBeforeCall(serviceProfileId, _callback);
+        Type localVarReturnType = new TypeToken<ServiceProfile>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for getServiceProfileByUuid
+     * @param serviceProfileId Service Profile UUID (required)
+     * @param viewPoint flips view between buyer and seller representation (optional, default to aSide)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  * ETag -  <br>  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getServiceProfileByUuidCall(UUID serviceProfileId, String viewPoint, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/serviceProfiles/{serviceProfileId}"
+            .replace("{" + "serviceProfileId" + "}", localVarApiClient.escapeString(serviceProfileId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        if (viewPoint != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("viewPoint", viewPoint));
+        }
+
+        final String[] localVarAccepts = {
+            "application/json; charset=UTF-8",
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getServiceProfileByUuidValidateBeforeCall(UUID serviceProfileId, String viewPoint, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'serviceProfileId' is set
+        if (serviceProfileId == null) {
+            throw new ApiException("Missing the required parameter 'serviceProfileId' when calling getServiceProfileByUuid(Async)");
+        }
+
+        return getServiceProfileByUuidCall(serviceProfileId, viewPoint, _callback);
+
+    }
+
     /**
      * Get Profile
      * Get service profile by UUID. View Point parameter if set to zSide will give seller&#39;s view of the profile otherwise buyer&#39;s view.
-     *
-     * @see #serviceProfileIdPath Service Profile UUID (required)
-     * @see #viewPointQuery flips view between buyer and seller representation (optional, default to aSide)
-     * return ServiceProfile
+     * @param serviceProfileId Service Profile UUID (required)
+     * @param viewPoint flips view between buyer and seller representation (optional, default to aSide)
+     * @return ServiceProfile
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  * ETag -  <br>  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
      */
-    public static class GetServiceProfileByUuidOper implements Oper {
-
-        public static final Method REQ_METHOD = GET;
-        public static final String REQ_URI = "/fabric/v4/serviceProfiles/{serviceProfileId}";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public GetServiceProfileByUuidOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * GET /fabric/v4/serviceProfiles/{serviceProfileId}
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * GET /fabric/v4/serviceProfiles/{serviceProfileId}
-         * @param handler handler
-         * @return ServiceProfile
-         */
-        public ServiceProfile executeAs(Function<Response, Response> handler) {
-            TypeRef<ServiceProfile> type = new TypeRef<ServiceProfile>(){};
-            return execute(handler).as(type);
-        }
-
-        public static final String SERVICE_PROFILE_ID_PATH = "serviceProfileId";
-
-        /**
-         * @param serviceProfileId (UUID) Service Profile UUID (required)
-         * @return operation
-         */
-        public GetServiceProfileByUuidOper serviceProfileIdPath(Object serviceProfileId) {
-            reqSpec.addPathParam(SERVICE_PROFILE_ID_PATH, serviceProfileId);
-            return this;
-        }
-
-        public static final String VIEW_POINT_QUERY = "viewPoint";
-
-        /**
-         * @param viewPoint (String) flips view between buyer and seller representation (optional, default to aSide)
-         * @return operation
-         */
-        public GetServiceProfileByUuidOper viewPointQuery(Object... viewPoint) {
-            reqSpec.addQueryParam(VIEW_POINT_QUERY, viewPoint);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public GetServiceProfileByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public GetServiceProfileByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public ServiceProfile getServiceProfileByUuid(UUID serviceProfileId, String viewPoint) throws ApiException {
+        ApiResponse<ServiceProfile> localVarResp = getServiceProfileByUuidWithHttpInfo(serviceProfileId, viewPoint);
+        return localVarResp.getData();
     }
+
+    /**
+     * Get Profile
+     * Get service profile by UUID. View Point parameter if set to zSide will give seller&#39;s view of the profile otherwise buyer&#39;s view.
+     * @param serviceProfileId Service Profile UUID (required)
+     * @param viewPoint flips view between buyer and seller representation (optional, default to aSide)
+     * @return ApiResponse&lt;ServiceProfile&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  * ETag -  <br>  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<ServiceProfile> getServiceProfileByUuidWithHttpInfo(UUID serviceProfileId, String viewPoint) throws ApiException {
+        okhttp3.Call localVarCall = getServiceProfileByUuidValidateBeforeCall(serviceProfileId, viewPoint, null);
+        Type localVarReturnType = new TypeToken<ServiceProfile>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Get Profile (asynchronously)
+     * Get service profile by UUID. View Point parameter if set to zSide will give seller&#39;s view of the profile otherwise buyer&#39;s view.
+     * @param serviceProfileId Service Profile UUID (required)
+     * @param viewPoint flips view between buyer and seller representation (optional, default to aSide)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  * ETag -  <br>  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getServiceProfileByUuidAsync(UUID serviceProfileId, String viewPoint, final ApiCallback<ServiceProfile> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getServiceProfileByUuidValidateBeforeCall(serviceProfileId, viewPoint, _callback);
+        Type localVarReturnType = new TypeToken<ServiceProfile>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for getServiceProfileMetrosByUuid
+     * @param serviceProfileId Service Profile UUID (required)
+     * @param offset offset (optional)
+     * @param limit number of records to fetch (optional)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getServiceProfileMetrosByUuidCall(UUID serviceProfileId, Integer offset, Integer limit, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/serviceProfiles/{serviceProfileId}/metros"
+            .replace("{" + "serviceProfileId" + "}", localVarApiClient.escapeString(serviceProfileId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        if (offset != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("offset", offset));
+        }
+
+        if (limit != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
+        }
+
+        final String[] localVarAccepts = {
+            "application/json; charset=UTF-8",
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getServiceProfileMetrosByUuidValidateBeforeCall(UUID serviceProfileId, Integer offset, Integer limit, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'serviceProfileId' is set
+        if (serviceProfileId == null) {
+            throw new ApiException("Missing the required parameter 'serviceProfileId' when calling getServiceProfileMetrosByUuid(Async)");
+        }
+
+        return getServiceProfileMetrosByUuidCall(serviceProfileId, offset, limit, _callback);
+
+    }
+
     /**
      * Get Profile Metros
      * Get service profile metros by UUID.
-     *
-     * @see #serviceProfileIdPath Service Profile UUID (required)
-     * @see #offsetQuery offset (optional)
-     * @see #limitQuery number of records to fetch (optional)
-     * return ServiceMetros
+     * @param serviceProfileId Service Profile UUID (required)
+     * @param offset offset (optional)
+     * @param limit number of records to fetch (optional)
+     * @return ServiceMetros
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
      */
-    public static class GetServiceProfileMetrosByUuidOper implements Oper {
-
-        public static final Method REQ_METHOD = GET;
-        public static final String REQ_URI = "/fabric/v4/serviceProfiles/{serviceProfileId}/metros";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public GetServiceProfileMetrosByUuidOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * GET /fabric/v4/serviceProfiles/{serviceProfileId}/metros
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * GET /fabric/v4/serviceProfiles/{serviceProfileId}/metros
-         * @param handler handler
-         * @return ServiceMetros
-         */
-        public ServiceMetros executeAs(Function<Response, Response> handler) {
-            TypeRef<ServiceMetros> type = new TypeRef<ServiceMetros>(){};
-            return execute(handler).as(type);
-        }
-
-        public static final String SERVICE_PROFILE_ID_PATH = "serviceProfileId";
-
-        /**
-         * @param serviceProfileId (UUID) Service Profile UUID (required)
-         * @return operation
-         */
-        public GetServiceProfileMetrosByUuidOper serviceProfileIdPath(Object serviceProfileId) {
-            reqSpec.addPathParam(SERVICE_PROFILE_ID_PATH, serviceProfileId);
-            return this;
-        }
-
-        public static final String OFFSET_QUERY = "offset";
-
-        /**
-         * @param offset (Integer) offset (optional)
-         * @return operation
-         */
-        public GetServiceProfileMetrosByUuidOper offsetQuery(Object... offset) {
-            reqSpec.addQueryParam(OFFSET_QUERY, offset);
-            return this;
-        }
-
-        public static final String LIMIT_QUERY = "limit";
-
-        /**
-         * @param limit (Integer) number of records to fetch (optional)
-         * @return operation
-         */
-        public GetServiceProfileMetrosByUuidOper limitQuery(Object... limit) {
-            reqSpec.addQueryParam(LIMIT_QUERY, limit);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public GetServiceProfileMetrosByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public GetServiceProfileMetrosByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public ServiceMetros getServiceProfileMetrosByUuid(UUID serviceProfileId, Integer offset, Integer limit) throws ApiException {
+        ApiResponse<ServiceMetros> localVarResp = getServiceProfileMetrosByUuidWithHttpInfo(serviceProfileId, offset, limit);
+        return localVarResp.getData();
     }
+
+    /**
+     * Get Profile Metros
+     * Get service profile metros by UUID.
+     * @param serviceProfileId Service Profile UUID (required)
+     * @param offset offset (optional)
+     * @param limit number of records to fetch (optional)
+     * @return ApiResponse&lt;ServiceMetros&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<ServiceMetros> getServiceProfileMetrosByUuidWithHttpInfo(UUID serviceProfileId, Integer offset, Integer limit) throws ApiException {
+        okhttp3.Call localVarCall = getServiceProfileMetrosByUuidValidateBeforeCall(serviceProfileId, offset, limit, null);
+        Type localVarReturnType = new TypeToken<ServiceMetros>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Get Profile Metros (asynchronously)
+     * Get service profile metros by UUID.
+     * @param serviceProfileId Service Profile UUID (required)
+     * @param offset offset (optional)
+     * @param limit number of records to fetch (optional)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getServiceProfileMetrosByUuidAsync(UUID serviceProfileId, Integer offset, Integer limit, final ApiCallback<ServiceMetros> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getServiceProfileMetrosByUuidValidateBeforeCall(serviceProfileId, offset, limit, _callback);
+        Type localVarReturnType = new TypeToken<ServiceMetros>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for getServiceProfiles
+     * @param offset offset (optional)
+     * @param limit number of records to fetch (optional)
+     * @param viewPoint flips view between buyer and seller representation (optional, default to aSide)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getServiceProfilesCall(Integer offset, Integer limit, String viewPoint, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/serviceProfiles";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        if (offset != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("offset", offset));
+        }
+
+        if (limit != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("limit", limit));
+        }
+
+        if (viewPoint != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("viewPoint", viewPoint));
+        }
+
+        final String[] localVarAccepts = {
+            "application/json; charset=UTF-8",
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getServiceProfilesValidateBeforeCall(Integer offset, Integer limit, String viewPoint, final ApiCallback _callback) throws ApiException {
+        return getServiceProfilesCall(offset, limit, viewPoint, _callback);
+
+    }
+
     /**
      * Get all Profiles
      * The API request returns all Equinix Fabric Service Profiles in accordance with the view point requested.
-     *
-     * @see #offsetQuery offset (optional)
-     * @see #limitQuery number of records to fetch (optional)
-     * @see #viewPointQuery flips view between buyer and seller representation (optional, default to aSide)
-     * return ServiceProfiles
+     * @param offset offset (optional)
+     * @param limit number of records to fetch (optional)
+     * @param viewPoint flips view between buyer and seller representation (optional, default to aSide)
+     * @return ServiceProfiles
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
      */
-    public static class GetServiceProfilesOper implements Oper {
-
-        public static final Method REQ_METHOD = GET;
-        public static final String REQ_URI = "/fabric/v4/serviceProfiles";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public GetServiceProfilesOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * GET /fabric/v4/serviceProfiles
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * GET /fabric/v4/serviceProfiles
-         * @param handler handler
-         * @return ServiceProfiles
-         */
-        public ServiceProfiles executeAs(Function<Response, Response> handler) {
-            TypeRef<ServiceProfiles> type = new TypeRef<ServiceProfiles>(){};
-            return execute(handler).as(type);
-        }
-
-        public static final String OFFSET_QUERY = "offset";
-
-        /**
-         * @param offset (Integer) offset (optional)
-         * @return operation
-         */
-        public GetServiceProfilesOper offsetQuery(Object... offset) {
-            reqSpec.addQueryParam(OFFSET_QUERY, offset);
-            return this;
-        }
-
-        public static final String LIMIT_QUERY = "limit";
-
-        /**
-         * @param limit (Integer) number of records to fetch (optional)
-         * @return operation
-         */
-        public GetServiceProfilesOper limitQuery(Object... limit) {
-            reqSpec.addQueryParam(LIMIT_QUERY, limit);
-            return this;
-        }
-
-        public static final String VIEW_POINT_QUERY = "viewPoint";
-
-        /**
-         * @param viewPoint (String) flips view between buyer and seller representation (optional, default to aSide)
-         * @return operation
-         */
-        public GetServiceProfilesOper viewPointQuery(Object... viewPoint) {
-            reqSpec.addQueryParam(VIEW_POINT_QUERY, viewPoint);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public GetServiceProfilesOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public GetServiceProfilesOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public ServiceProfiles getServiceProfiles(Integer offset, Integer limit, String viewPoint) throws ApiException {
+        ApiResponse<ServiceProfiles> localVarResp = getServiceProfilesWithHttpInfo(offset, limit, viewPoint);
+        return localVarResp.getData();
     }
+
+    /**
+     * Get all Profiles
+     * The API request returns all Equinix Fabric Service Profiles in accordance with the view point requested.
+     * @param offset offset (optional)
+     * @param limit number of records to fetch (optional)
+     * @param viewPoint flips view between buyer and seller representation (optional, default to aSide)
+     * @return ApiResponse&lt;ServiceProfiles&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<ServiceProfiles> getServiceProfilesWithHttpInfo(Integer offset, Integer limit, String viewPoint) throws ApiException {
+        okhttp3.Call localVarCall = getServiceProfilesValidateBeforeCall(offset, limit, viewPoint, null);
+        Type localVarReturnType = new TypeToken<ServiceProfiles>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Get all Profiles (asynchronously)
+     * The API request returns all Equinix Fabric Service Profiles in accordance with the view point requested.
+     * @param offset offset (optional)
+     * @param limit number of records to fetch (optional)
+     * @param viewPoint flips view between buyer and seller representation (optional, default to aSide)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getServiceProfilesAsync(Integer offset, Integer limit, String viewPoint, final ApiCallback<ServiceProfiles> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getServiceProfilesValidateBeforeCall(offset, limit, viewPoint, _callback);
+        Type localVarReturnType = new TypeToken<ServiceProfiles>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for putServiceProfileByUuid
+     * @param serviceProfileId Service Profile UUID (required)
+     * @param ifMatch conditional request (required)
+     * @param serviceProfileRequest  (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful Put operation </td><td>  * ETag -  <br>  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call putServiceProfileByUuidCall(UUID serviceProfileId, String ifMatch, ServiceProfileRequest serviceProfileRequest, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = serviceProfileRequest;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/serviceProfiles/{serviceProfileId}"
+            .replace("{" + "serviceProfileId" + "}", localVarApiClient.escapeString(serviceProfileId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        if (ifMatch != null) {
+            localVarHeaderParams.put("If-Match", localVarApiClient.parameterToString(ifMatch));
+        }
+
+        final String[] localVarAccepts = {
+            "application/json; charset=UTF-8",
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "PUT", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call putServiceProfileByUuidValidateBeforeCall(UUID serviceProfileId, String ifMatch, ServiceProfileRequest serviceProfileRequest, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'serviceProfileId' is set
+        if (serviceProfileId == null) {
+            throw new ApiException("Missing the required parameter 'serviceProfileId' when calling putServiceProfileByUuid(Async)");
+        }
+
+        // verify the required parameter 'ifMatch' is set
+        if (ifMatch == null) {
+            throw new ApiException("Missing the required parameter 'ifMatch' when calling putServiceProfileByUuid(Async)");
+        }
+
+        // verify the required parameter 'serviceProfileRequest' is set
+        if (serviceProfileRequest == null) {
+            throw new ApiException("Missing the required parameter 'serviceProfileRequest' when calling putServiceProfileByUuid(Async)");
+        }
+
+        return putServiceProfileByUuidCall(serviceProfileId, ifMatch, serviceProfileRequest, _callback);
+
+    }
+
     /**
      * Replace Profile
      * This API request replaces a service profile definition
-     *
-     * @see #serviceProfileIdPath Service Profile UUID (required)
-     * @see #ifMatchHeader conditional request (required)
-     * @see #body  (required)
-     * return ServiceProfile
+     * @param serviceProfileId Service Profile UUID (required)
+     * @param ifMatch conditional request (required)
+     * @param serviceProfileRequest  (required)
+     * @return ServiceProfile
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful Put operation </td><td>  * ETag -  <br>  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
      */
-    public static class PutServiceProfileByUuidOper implements Oper {
-
-        public static final Method REQ_METHOD = PUT;
-        public static final String REQ_URI = "/fabric/v4/serviceProfiles/{serviceProfileId}";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public PutServiceProfileByUuidOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setContentType("application/json");
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * PUT /fabric/v4/serviceProfiles/{serviceProfileId}
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * PUT /fabric/v4/serviceProfiles/{serviceProfileId}
-         * @param handler handler
-         * @return ServiceProfile
-         */
-        public ServiceProfile executeAs(Function<Response, Response> handler) {
-            TypeRef<ServiceProfile> type = new TypeRef<ServiceProfile>(){};
-            return execute(handler).as(type);
-        }
-
-         /**
-         * @param serviceProfileRequest (ServiceProfileRequest)  (required)
-         * @return operation
-         */
-        public PutServiceProfileByUuidOper body(ServiceProfileRequest serviceProfileRequest) {
-            reqSpec.setBody(serviceProfileRequest);
-            return this;
-        }
-
-        public static final String IF_MATCH_HEADER = "If-Match";
-
-        /**
-         * @param ifMatch (String) conditional request (required)
-         * @return operation
-         */
-        public PutServiceProfileByUuidOper ifMatchHeader(String ifMatch) {
-            reqSpec.addHeader(IF_MATCH_HEADER, ifMatch);
-            return this;
-        }
-
-        public static final String SERVICE_PROFILE_ID_PATH = "serviceProfileId";
-
-        /**
-         * @param serviceProfileId (UUID) Service Profile UUID (required)
-         * @return operation
-         */
-        public PutServiceProfileByUuidOper serviceProfileIdPath(Object serviceProfileId) {
-            reqSpec.addPathParam(SERVICE_PROFILE_ID_PATH, serviceProfileId);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public PutServiceProfileByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public PutServiceProfileByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public ServiceProfile putServiceProfileByUuid(UUID serviceProfileId, String ifMatch, ServiceProfileRequest serviceProfileRequest) throws ApiException {
+        ApiResponse<ServiceProfile> localVarResp = putServiceProfileByUuidWithHttpInfo(serviceProfileId, ifMatch, serviceProfileRequest);
+        return localVarResp.getData();
     }
+
+    /**
+     * Replace Profile
+     * This API request replaces a service profile definition
+     * @param serviceProfileId Service Profile UUID (required)
+     * @param ifMatch conditional request (required)
+     * @param serviceProfileRequest  (required)
+     * @return ApiResponse&lt;ServiceProfile&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful Put operation </td><td>  * ETag -  <br>  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<ServiceProfile> putServiceProfileByUuidWithHttpInfo(UUID serviceProfileId, String ifMatch, ServiceProfileRequest serviceProfileRequest) throws ApiException {
+        okhttp3.Call localVarCall = putServiceProfileByUuidValidateBeforeCall(serviceProfileId, ifMatch, serviceProfileRequest, null);
+        Type localVarReturnType = new TypeToken<ServiceProfile>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Replace Profile (asynchronously)
+     * This API request replaces a service profile definition
+     * @param serviceProfileId Service Profile UUID (required)
+     * @param ifMatch conditional request (required)
+     * @param serviceProfileRequest  (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful Put operation </td><td>  * ETag -  <br>  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call putServiceProfileByUuidAsync(UUID serviceProfileId, String ifMatch, ServiceProfileRequest serviceProfileRequest, final ApiCallback<ServiceProfile> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = putServiceProfileByUuidValidateBeforeCall(serviceProfileId, ifMatch, serviceProfileRequest, _callback);
+        Type localVarReturnType = new TypeToken<ServiceProfile>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for searchServiceProfiles
+     * @param serviceProfileSearchRequest  (required)
+     * @param viewPoint flips view between buyer and seller representation (optional, default to aSide)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call searchServiceProfilesCall(ServiceProfileSearchRequest serviceProfileSearchRequest, String viewPoint, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = serviceProfileSearchRequest;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/serviceProfiles/search";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        if (viewPoint != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("viewPoint", viewPoint));
+        }
+
+        final String[] localVarAccepts = {
+            "application/json; charset=UTF-8",
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call searchServiceProfilesValidateBeforeCall(ServiceProfileSearchRequest serviceProfileSearchRequest, String viewPoint, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'serviceProfileSearchRequest' is set
+        if (serviceProfileSearchRequest == null) {
+            throw new ApiException("Missing the required parameter 'serviceProfileSearchRequest' when calling searchServiceProfiles(Async)");
+        }
+
+        return searchServiceProfilesCall(serviceProfileSearchRequest, viewPoint, _callback);
+
+    }
+
     /**
      * Profile Search
      * Search service profiles by search criteria
-     *
-     * @see #body  (required)
-     * @see #viewPointQuery flips view between buyer and seller representation (optional, default to aSide)
-     * return ServiceProfiles
+     * @param serviceProfileSearchRequest  (required)
+     * @param viewPoint flips view between buyer and seller representation (optional, default to aSide)
+     * @return ServiceProfiles
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
      */
-    public static class SearchServiceProfilesOper implements Oper {
-
-        public static final Method REQ_METHOD = POST;
-        public static final String REQ_URI = "/fabric/v4/serviceProfiles/search";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public SearchServiceProfilesOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setContentType("application/json");
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * POST /fabric/v4/serviceProfiles/search
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * POST /fabric/v4/serviceProfiles/search
-         * @param handler handler
-         * @return ServiceProfiles
-         */
-        public ServiceProfiles executeAs(Function<Response, Response> handler) {
-            TypeRef<ServiceProfiles> type = new TypeRef<ServiceProfiles>(){};
-            return execute(handler).as(type);
-        }
-
-         /**
-         * @param serviceProfileSearchRequest (ServiceProfileSearchRequest)  (required)
-         * @return operation
-         */
-        public SearchServiceProfilesOper body(ServiceProfileSearchRequest serviceProfileSearchRequest) {
-            reqSpec.setBody(serviceProfileSearchRequest);
-            return this;
-        }
-
-        public static final String VIEW_POINT_QUERY = "viewPoint";
-
-        /**
-         * @param viewPoint (String) flips view between buyer and seller representation (optional, default to aSide)
-         * @return operation
-         */
-        public SearchServiceProfilesOper viewPointQuery(Object... viewPoint) {
-            reqSpec.addQueryParam(VIEW_POINT_QUERY, viewPoint);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public SearchServiceProfilesOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public SearchServiceProfilesOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public ServiceProfiles searchServiceProfiles(ServiceProfileSearchRequest serviceProfileSearchRequest, String viewPoint) throws ApiException {
+        ApiResponse<ServiceProfiles> localVarResp = searchServiceProfilesWithHttpInfo(serviceProfileSearchRequest, viewPoint);
+        return localVarResp.getData();
     }
+
+    /**
+     * Profile Search
+     * Search service profiles by search criteria
+     * @param serviceProfileSearchRequest  (required)
+     * @param viewPoint flips view between buyer and seller representation (optional, default to aSide)
+     * @return ApiResponse&lt;ServiceProfiles&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<ServiceProfiles> searchServiceProfilesWithHttpInfo(ServiceProfileSearchRequest serviceProfileSearchRequest, String viewPoint) throws ApiException {
+        okhttp3.Call localVarCall = searchServiceProfilesValidateBeforeCall(serviceProfileSearchRequest, viewPoint, null);
+        Type localVarReturnType = new TypeToken<ServiceProfiles>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Profile Search (asynchronously)
+     * Search service profiles by search criteria
+     * @param serviceProfileSearchRequest  (required)
+     * @param viewPoint flips view between buyer and seller representation (optional, default to aSide)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call searchServiceProfilesAsync(ServiceProfileSearchRequest serviceProfileSearchRequest, String viewPoint, final ApiCallback<ServiceProfiles> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = searchServiceProfilesValidateBeforeCall(serviceProfileSearchRequest, viewPoint, _callback);
+        Type localVarReturnType = new TypeToken<ServiceProfiles>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for updateServiceProfileByUuid
+     * @param serviceProfileId Service Profile UUID (required)
+     * @param ifMatch conditional request (required)
+     * @param jsonPatchOperation  (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful Patch operation </td><td>  * ETag -  <br>  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 412 </td><td> Precondition Failed </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call updateServiceProfileByUuidCall(UUID serviceProfileId, String ifMatch, List<JsonPatchOperation> jsonPatchOperation, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = jsonPatchOperation;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/serviceProfiles/{serviceProfileId}"
+            .replace("{" + "serviceProfileId" + "}", localVarApiClient.escapeString(serviceProfileId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        if (ifMatch != null) {
+            localVarHeaderParams.put("If-Match", localVarApiClient.parameterToString(ifMatch));
+        }
+
+        final String[] localVarAccepts = {
+            "application/json; charset=UTF-8",
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json-patch+json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call updateServiceProfileByUuidValidateBeforeCall(UUID serviceProfileId, String ifMatch, List<JsonPatchOperation> jsonPatchOperation, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'serviceProfileId' is set
+        if (serviceProfileId == null) {
+            throw new ApiException("Missing the required parameter 'serviceProfileId' when calling updateServiceProfileByUuid(Async)");
+        }
+
+        // verify the required parameter 'ifMatch' is set
+        if (ifMatch == null) {
+            throw new ApiException("Missing the required parameter 'ifMatch' when calling updateServiceProfileByUuid(Async)");
+        }
+
+        // verify the required parameter 'jsonPatchOperation' is set
+        if (jsonPatchOperation == null) {
+            throw new ApiException("Missing the required parameter 'jsonPatchOperation' when calling updateServiceProfileByUuid(Async)");
+        }
+
+        return updateServiceProfileByUuidCall(serviceProfileId, ifMatch, jsonPatchOperation, _callback);
+
+    }
+
     /**
      * Update Profile
      * Update Service Profile by UUID
-     *
-     * @see #serviceProfileIdPath Service Profile UUID (required)
-     * @see #ifMatchHeader conditional request (required)
-     * @see #body  (required)
-     * return ServiceProfile
+     * @param serviceProfileId Service Profile UUID (required)
+     * @param ifMatch conditional request (required)
+     * @param jsonPatchOperation  (required)
+     * @return ServiceProfile
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful Patch operation </td><td>  * ETag -  <br>  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 412 </td><td> Precondition Failed </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
      */
-    public static class UpdateServiceProfileByUuidOper implements Oper {
+    public ServiceProfile updateServiceProfileByUuid(UUID serviceProfileId, String ifMatch, List<JsonPatchOperation> jsonPatchOperation) throws ApiException {
+        ApiResponse<ServiceProfile> localVarResp = updateServiceProfileByUuidWithHttpInfo(serviceProfileId, ifMatch, jsonPatchOperation);
+        return localVarResp.getData();
+    }
 
-        public static final Method REQ_METHOD = PATCH;
-        public static final String REQ_URI = "/fabric/v4/serviceProfiles/{serviceProfileId}";
+    /**
+     * Update Profile
+     * Update Service Profile by UUID
+     * @param serviceProfileId Service Profile UUID (required)
+     * @param ifMatch conditional request (required)
+     * @param jsonPatchOperation  (required)
+     * @return ApiResponse&lt;ServiceProfile&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful Patch operation </td><td>  * ETag -  <br>  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 412 </td><td> Precondition Failed </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<ServiceProfile> updateServiceProfileByUuidWithHttpInfo(UUID serviceProfileId, String ifMatch, List<JsonPatchOperation> jsonPatchOperation) throws ApiException {
+        okhttp3.Call localVarCall = updateServiceProfileByUuidValidateBeforeCall(serviceProfileId, ifMatch, jsonPatchOperation, null);
+        Type localVarReturnType = new TypeToken<ServiceProfile>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
 
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
+    /**
+     * Update Profile (asynchronously)
+     * Update Service Profile by UUID
+     * @param serviceProfileId Service Profile UUID (required)
+     * @param ifMatch conditional request (required)
+     * @param jsonPatchOperation  (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful Patch operation </td><td>  * ETag -  <br>  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 412 </td><td> Precondition Failed </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call updateServiceProfileByUuidAsync(UUID serviceProfileId, String ifMatch, List<JsonPatchOperation> jsonPatchOperation, final ApiCallback<ServiceProfile> _callback) throws ApiException {
 
-        public UpdateServiceProfileByUuidOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setContentType("application/json-patch+json");
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * PATCH /fabric/v4/serviceProfiles/{serviceProfileId}
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * PATCH /fabric/v4/serviceProfiles/{serviceProfileId}
-         * @param handler handler
-         * @return ServiceProfile
-         */
-        public ServiceProfile executeAs(Function<Response, Response> handler) {
-            TypeRef<ServiceProfile> type = new TypeRef<ServiceProfile>(){};
-            return execute(handler).as(type);
-        }
-
-         /**
-         * @param jsonPatchOperation (List&lt;JsonPatchOperation&gt;)  (required)
-         * @return operation
-         */
-        public UpdateServiceProfileByUuidOper body(List<JsonPatchOperation> jsonPatchOperation) {
-            reqSpec.setBody(jsonPatchOperation);
-            return this;
-        }
-
-        public static final String IF_MATCH_HEADER = "If-Match";
-
-        /**
-         * @param ifMatch (String) conditional request (required)
-         * @return operation
-         */
-        public UpdateServiceProfileByUuidOper ifMatchHeader(String ifMatch) {
-            reqSpec.addHeader(IF_MATCH_HEADER, ifMatch);
-            return this;
-        }
-
-        public static final String SERVICE_PROFILE_ID_PATH = "serviceProfileId";
-
-        /**
-         * @param serviceProfileId (UUID) Service Profile UUID (required)
-         * @return operation
-         */
-        public UpdateServiceProfileByUuidOper serviceProfileIdPath(Object serviceProfileId) {
-            reqSpec.addPathParam(SERVICE_PROFILE_ID_PATH, serviceProfileId);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public UpdateServiceProfileByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public UpdateServiceProfileByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+        okhttp3.Call localVarCall = updateServiceProfileByUuidValidateBeforeCall(serviceProfileId, ifMatch, jsonPatchOperation, _callback);
+        Type localVarReturnType = new TypeToken<ServiceProfile>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
     }
 }

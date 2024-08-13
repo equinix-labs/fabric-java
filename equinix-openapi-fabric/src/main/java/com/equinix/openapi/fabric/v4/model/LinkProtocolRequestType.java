@@ -11,17 +11,17 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.io.IOException;
 
 /**
  * Type of Link Protocol
  */
+@JsonAdapter(LinkProtocolRequestType.Adapter.class)
 public enum LinkProtocolRequestType {
   
   UNTAGGED("UNTAGGED"),
@@ -38,7 +38,6 @@ public enum LinkProtocolRequestType {
     this.value = value;
   }
 
-  @JsonValue
   public String getValue() {
     return value;
   }
@@ -48,7 +47,6 @@ public enum LinkProtocolRequestType {
     return String.valueOf(value);
   }
 
-  @JsonCreator
   public static LinkProtocolRequestType fromValue(String value) {
     for (LinkProtocolRequestType b : LinkProtocolRequestType.values()) {
       if (b.value.equals(value)) {
@@ -56,6 +54,19 @@ public enum LinkProtocolRequestType {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
+  }
+
+  public static class Adapter extends TypeAdapter<LinkProtocolRequestType> {
+    @Override
+    public void write(final JsonWriter jsonWriter, final LinkProtocolRequestType enumeration) throws IOException {
+      jsonWriter.value(enumeration.getValue());
+    }
+
+    @Override
+    public LinkProtocolRequestType read(final JsonReader jsonReader) throws IOException {
+      String value = jsonReader.nextString();
+      return LinkProtocolRequestType.fromValue(value);
+    }
   }
 }
 

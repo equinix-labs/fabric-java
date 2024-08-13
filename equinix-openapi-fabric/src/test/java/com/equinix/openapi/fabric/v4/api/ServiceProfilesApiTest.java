@@ -10,126 +10,136 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.v4.model.JsonPatchOperation;
-import com.equinix.openapi.fabric.v4.model.ServiceProfileRequest;
-import com.equinix.openapi.fabric.v4.model.ServiceProfileSearchRequest;
-import io.restassured.response.Response;
-import org.junit.Ignore;
-import org.junit.Test;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.v4.api.dto.users.UsersItem;
+import com.equinix.openapi.fabric.v4.model.*;
+import org.junit.jupiter.api.Test;
 
-import java.util.List;
-import java.util.UUID;
+import static com.equinix.openapi.fabric.v4.model.Expression.OperatorEnum.EQUAL;
+import static java.util.Collections.singletonList;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * API tests for ServiceProfilesApi
  */
-@Ignore
 public class ServiceProfilesApiTest {
+    private static final UsersItem.UserName userName = UsersItem.UserName.PANTHERS_FCR;
+    private static final ServiceProfilesApi api = new ServiceProfilesApi(TokenGenerator.getApiClient(userName));
 
-    private ServiceProfilesApi api = TokenGenerator.getApiClient().serviceProfiles();
+//    /**
+//     * Successful Create operation
+//     */
+//    @Test
+//    public void shouldSee201AfterCreateServiceProfile() {
+//        ServiceProfileRequest serviceProfileRequest = null;
+//        api.createServiceProfile()
+//                .body(serviceProfileRequest).execute(r -> r);
+//        // TODO: test validations
+//    }
+//
+//    /**
+//     * Successful Delete operation
+//     */
+//    @Test
+//    public void shouldSee200AfterDeleteServiceProfileByUuid() {
+//        UUID serviceProfileId = null;
+//        api.deleteServiceProfileByUuid()
+//                .serviceProfileIdPath(serviceProfileId).execute(r -> r);
+//        // TODO: test validations
+//    }
+//
 
     /**
-     * Successful Create operation
+     * Successful operation
      */
     @Test
-    public void shouldSee201AfterCreateServiceProfile() {
-        ServiceProfileRequest serviceProfileRequest = null;
-        api.createServiceProfile()
-                .body(serviceProfileRequest).execute(r -> r);
-        // TODO: test validations
-    }
-
-    /**
-     * Successful Delete operation
-     */
-    @Test
-    public void shouldSee200AfterDeleteServiceProfileByUuid() {
-        UUID serviceProfileId = null;
-        api.deleteServiceProfileByUuid()
-                .serviceProfileIdPath(serviceProfileId).execute(r -> r);
-        // TODO: test validations
+    public void getServiceProfileMetrosByUuid() throws ApiException {
+        ServiceProfiles serviceProfiles = getServiceProfilesByQueryResponse("aSide");
+        ServiceProfile serviceProfileToCheck = serviceProfiles.getData().get(0);
+        ServiceMetros serviceMetros = api.getServiceProfileMetrosByUuid(serviceProfileToCheck.getUuid(), 0, 10);
+        assertEquals(200, api.getApiClient().getStatusCode());
+        assertFalse(serviceMetros.getData().isEmpty());
+        boolean isFound = serviceMetros.getData().stream().anyMatch(metro -> metro.getCode().equals(serviceProfileToCheck.getMetros().get(0).getCode()));
+        assertTrue(isFound);
     }
 
     /**
      * Successful operation
      */
     @Test
-    public void shouldSee200AfterGetServiceProfileByUuid() {
-        UUID serviceProfileId = null;
-        String viewPoint = null;
-        api.getServiceProfileByUuid()
-                .serviceProfileIdPath(serviceProfileId).execute(r -> r);
-        // TODO: test validations
+    public void getServiceProfiles() throws ApiException {
+        ServiceProfiles serviceProfiles = getServiceProfilesByQueryResponse("zSide");
+        assertEquals(200, api.getApiClient().getStatusCode());
+        assertFalse(serviceProfiles.getData().isEmpty());
     }
 
     /**
      * Successful operation
      */
     @Test
-    public void shouldSee200AfterGetServiceProfileMetrosByUuid() {
-        UUID serviceProfileId = null;
-        Integer offset = null;
-        Integer limit = null;
-        api.getServiceProfileMetrosByUuid()
-                .serviceProfileIdPath(serviceProfileId).execute(r -> r);
-        // TODO: test validations
+    public void getServiceProfile() throws ApiException {
+        ServiceProfiles serviceProfiles = getServiceProfilesByQueryResponse("aSide");
+        ServiceProfile serviceProfileToCheck = serviceProfiles.getData().get(0);
+        ServiceProfile serviceProfile = api.getServiceProfileByUuid(serviceProfileToCheck.getUuid(), "aSide");
+        assertEquals(200, api.getApiClient().getStatusCode());
+        assertEquals(serviceProfileToCheck.getUuid(), serviceProfile.getUuid());
+        assertEquals(serviceProfileToCheck.getName(), serviceProfile.getName());
     }
+
+//    /**
+//     * Successful Patch operation
+//     */
+//    @Test
+//    public void shouldSee200AfterUpdateServiceProfileByUuid() throws ApiException {
+//        ServiceProfiles serviceProfiles = getServiceProfilesByQueryResponse("aSide");
+//
+//      api.updateServiceProfileByUuid()
+//                .serviceProfileIdPath(serviceProfileId)
+//                .ifMatchHeader(ifMatch)
+//                .body(jsonPatchOperation).execute(r -> r);
+//        // TODO: test validations
+//    }
+//
+//    /**
+//     * Successful Put operation
+//     */
+//    @Test
+//    public void shouldSee202AfterPutServiceProfileByUuid() {
+//        UUID serviceProfileId = null;
+//        String ifMatch = null;
+//        ServiceProfileRequest serviceProfileRequest = null;
+//        api.putServiceProfileByUuid()
+//                .serviceProfileIdPath(serviceProfileId)
+//                .ifMatchHeader(ifMatch)
+//                .body(serviceProfileRequest).execute(r -> r);
+//        // TODO: test validations
+//    }
+//
 
     /**
      * Successful operation
      */
     @Test
-    public void shouldSee200AfterGetServiceProfiles() {
-        Integer offset = null;
-        Integer limit = null;
-        String viewPoint = null;
-        api.getServiceProfiles().execute(r -> r);
-        // TODO: test validations
+    public void searchServiceProfiles() throws ApiException {
+        ServiceProfileSearchRequest serviceProfileSearchRequest = new ServiceProfileSearchRequest();
+        ServiceProfileSimpleExpression serviceProfileSimpleExpression = new ServiceProfileSimpleExpression();
+        serviceProfileSimpleExpression.setProperty(ServiceProfileSortBy.STATE.getValue());
+        serviceProfileSimpleExpression.setOperator(EQUAL.getValue());
+        serviceProfileSimpleExpression.setValues(singletonList("ACTIVE"));
+        serviceProfileSearchRequest
+                .filter(new ServiceProfileFilter(serviceProfileSimpleExpression))
+                .sort(singletonList(new ServiceProfileSortCriteria()
+                        .direction(ServiceProfileSortDirection.DESC)
+                        .property(ServiceProfileSortBy.CHANGELOG_UPDATEDDATETIME)))
+                .pagination(new PaginationRequest().
+                        limit(20).offset(00));
+        ServiceProfiles serviceProfiles = api.searchServiceProfiles(serviceProfileSearchRequest, "aSide");
+        assertEquals(200, api.getApiClient().getStatusCode());
+        assertFalse(serviceProfiles.getData().isEmpty());
     }
 
-    /**
-     * Successful Put operation
-     */
-    @Test
-    public void shouldSee202AfterPutServiceProfileByUuid() {
-        UUID serviceProfileId = null;
-        String ifMatch = null;
-        ServiceProfileRequest serviceProfileRequest = null;
-        api.putServiceProfileByUuid()
-                .serviceProfileIdPath(serviceProfileId)
-                .ifMatchHeader(ifMatch)
-                .body(serviceProfileRequest).execute(r -> r);
-        // TODO: test validations
-    }
-
-    /**
-     * Successful operation
-     */
-    @Test
-    public void shouldSee200AfterSearchServiceProfiles() {
-        ServiceProfileSearchRequest serviceProfileSearchRequest = null;
-        String viewPoint = null;
-        api.searchServiceProfiles()
-                .body(serviceProfileSearchRequest).execute(r -> r);
-        // TODO: test validations
-    }
-
-    /**
-     * Successful Patch operation
-     */
-    @Test
-    public void shouldSee200AfterUpdateServiceProfileByUuid() {
-        UUID serviceProfileId = null;
-        String ifMatch = null;
-        List<JsonPatchOperation> jsonPatchOperation = null;
-        api.updateServiceProfileByUuid()
-                .serviceProfileIdPath(serviceProfileId)
-                .ifMatchHeader(ifMatch)
-                .body(jsonPatchOperation).execute(r -> r);
-        // TODO: test validations
-    }
-
-    public Response getServiceProfilesByQueryResponse(String viewPointQuery) {
-        return api.getServiceProfiles().offsetQuery(1).limitQuery(10).viewPointQuery(viewPointQuery).execute(r -> r);
+    public ServiceProfiles getServiceProfilesByQueryResponse(String viewPointQuery) throws ApiException {
+        ServiceProfilesApi apiLocal = new ServiceProfilesApi(TokenGenerator.getApiClient(userName));
+        return apiLocal.getServiceProfiles(1, 10, viewPointQuery);
     }
 }

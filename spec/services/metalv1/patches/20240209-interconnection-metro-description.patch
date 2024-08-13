@@ -1,0 +1,19 @@
+diff --git a/spec/services/metalv1/oas3.patched/components/schemas/Interconnection.yaml b/spec/services/metalv1/oas3.patched/components/schemas/Interconnection.yaml
+index a663290..1ba1e9b 100644
+--- a/spec/services/metalv1/oas3.patched/components/schemas/Interconnection.yaml
++++ b/spec/services/metalv1/oas3.patched/components/schemas/Interconnection.yaml
+@@ -9,13 +9,7 @@ properties:
+     format: uuid
+     type: string
+   metro:
+-    allOf:
+-    - $ref: './Metro.yaml'
+-    description: |-
+-      The location of where the shared or Dedicated Port is located. For interconnections with Dedicated Ports,
+-        this will be the location of the Dedicated Ports. For Fabric VCs (Metal Billed), this is where interconnection will be originating from, as we pre-authorize the use of one of our shared ports
+-        as the origin of the interconnection using A-Side service tokens. We only allow local connections for Fabric VCs (Metal Billed), so the destination location must be the same as the origin. For Fabric VCs (Fabric Billed), 
+-        this will be the destination of the interconnection. We allow remote connections for Fabric VCs (Fabric Billed), so the origin of the interconnection can be a different metro set here.
++    $ref: './Metro.yaml'
+   mode:
+     description: |-
+       The mode of the interconnection (only relevant to Dedicated Ports). Shared connections won't have this field. Can be either 'standard' or 'tunnel'.

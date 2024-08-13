@@ -25,17 +25,37 @@ Add Physical Ports to Virtual Port.&lt;font color&#x3D;\&quot;red\&quot;&gt; &lt
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.PortsApi;
 
-PortsApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).ports();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.addToLag()
-    .portIdPath(portId)
-    .body(bulkPhysicalPort).execute(r -> r.prettyPeek());
+    PortsApi apiInstance = new PortsApi(defaultClient);
+    UUID portId = UUID.randomUUID(); // UUID | Port UUID
+    BulkPhysicalPort bulkPhysicalPort = new BulkPhysicalPort(); // BulkPhysicalPort | 
+    try {
+      AllPhysicalPortsResponse result = apiInstance.addToLag(portId, bulkPhysicalPort);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling PortsApi#addToLag");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -58,6 +78,14 @@ api.addToLag()
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful operation |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal server error |  -  |
+
 <a name="createBulkPort"></a>
 # **createBulkPort**
 > AllPortsResponse createBulkPort(bulkPort)
@@ -69,16 +97,36 @@ Create Port creates Equinix Fabric? Port.&lt;font color&#x3D;\&quot;red\&quot;&g
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.PortsApi;
 
-PortsApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).ports();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.createBulkPort()
-    .body(bulkPort).execute(r -> r.prettyPeek());
+    PortsApi apiInstance = new PortsApi(defaultClient);
+    BulkPort bulkPort = new BulkPort(); // BulkPort | 
+    try {
+      AllPortsResponse result = apiInstance.createBulkPort(bulkPort);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling PortsApi#createBulkPort");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -100,6 +148,11 @@ api.createBulkPort()
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Successful operation for COLO Bulk Port |  -  |
+
 <a name="createPort"></a>
 # **createPort**
 > Port createPort(port)
@@ -111,16 +164,36 @@ Creates Equinix Fabric? Port.
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.PortsApi;
 
-PortsApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).ports();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.createPort()
-    .body(port).execute(r -> r.prettyPeek());
+    PortsApi apiInstance = new PortsApi(defaultClient);
+    Port port = new Port(); // Port | 
+    try {
+      Port result = apiInstance.createPort(port);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling PortsApi#createPort");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -142,6 +215,13 @@ api.createPort()
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Successful operation for COLO Single Port Non Lag |  -  |
+| **400** | Bad request |  -  |
+| **500** | Internal Server Error |  -  |
+
 <a name="deletePort"></a>
 # **deletePort**
 > Port deletePort(portId)
@@ -153,16 +233,36 @@ The API provides capability to delete a single port
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.PortsApi;
 
-PortsApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).ports();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.deletePort()
-    .portIdPath(portId).execute(r -> r.prettyPeek());
+    PortsApi apiInstance = new PortsApi(defaultClient);
+    UUID portId = UUID.randomUUID(); // UUID | Port UUID
+    try {
+      Port result = apiInstance.deletePort(portId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling PortsApi#deletePort");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -183,6 +283,14 @@ api.deletePort()
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **202** | Accepted |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
 
 <a name="getPortByUuid"></a>
 # **getPortByUuid**
@@ -195,16 +303,36 @@ Get Port By uuid returns details of assigned and available Equinix Fabric port f
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.PortsApi;
 
-PortsApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).ports();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.getPortByUuid()
-    .portIdPath(portId).execute(r -> r.prettyPeek());
+    PortsApi apiInstance = new PortsApi(defaultClient);
+    UUID portId = UUID.randomUUID(); // UUID | Port UUID
+    try {
+      Port result = apiInstance.getPortByUuid(portId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling PortsApi#getPortByUuid");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -226,6 +354,14 @@ api.getPortByUuid()
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful operation |  -  |
+| **400** | Bad request |  -  |
+| **403** | Forbidden |  -  |
+| **500** | Internal server error |  -  |
+
 <a name="getPorts"></a>
 # **getPorts**
 > AllPortsResponse getPorts(name)
@@ -237,15 +373,36 @@ Get All Ports returns details of all assigned and available ports for the specif
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.PortsApi;
 
-PortsApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).ports();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.getPorts().execute(r -> r.prettyPeek());
+    PortsApi apiInstance = new PortsApi(defaultClient);
+    String name = "name_example"; // String | port name to be provided if specific port(s) to be retrieved
+    try {
+      AllPortsResponse result = apiInstance.getPorts(name);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling PortsApi#getPorts");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -267,6 +424,12 @@ api.getPorts().execute(r -> r.prettyPeek());
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful operation |  -  |
+| **403** | Forbidden |  -  |
+
 <a name="getVlans"></a>
 # **getVlans**
 > LinkProtocolGetResponse getVlans(portUuid)
@@ -278,16 +441,36 @@ The API provides capability to retrieve Vlans for a Port.
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.PortsApi;
 
-PortsApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).ports();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.getVlans()
-    .portUuidPath(portUuid).execute(r -> r.prettyPeek());
+    PortsApi apiInstance = new PortsApi(defaultClient);
+    UUID portUuid = UUID.randomUUID(); // UUID | Port UUID
+    try {
+      LinkProtocolGetResponse result = apiInstance.getVlans(portUuid);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling PortsApi#getVlans");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -309,6 +492,13 @@ api.getVlans()
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Get Vlans |  -  |
+| **400** | Bad request |  -  |
+| **403** | Forbidden |  -  |
+
 <a name="searchPorts"></a>
 # **searchPorts**
 > AllPortsResponse searchPorts(portV4SearchRequest)
@@ -320,16 +510,36 @@ The API provides capability to get list of user&#39;s virtual ports using search
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.PortsApi;
 
-PortsApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).ports();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.searchPorts()
-    .body(portV4SearchRequest).execute(r -> r.prettyPeek());
+    PortsApi apiInstance = new PortsApi(defaultClient);
+    PortV4SearchRequest portV4SearchRequest = new PortV4SearchRequest(); // PortV4SearchRequest | 
+    try {
+      AllPortsResponse result = apiInstance.searchPorts(portV4SearchRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling PortsApi#searchPorts");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -350,4 +560,12 @@ api.searchPorts()
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful operation |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Not Found |  -  |
 

@@ -11,43 +11,38 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.ArrayList;
-import java.util.List;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.equinix.openapi.fabric.JSON;
+import com.google.gson.*;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+
+import java.io.IOException;
+import java.util.*;
 
 /**
  * Define Custom Attributes
  */
-@JsonPropertyOrder({
-  CustomField.JSON_PROPERTY_LABEL,
-  CustomField.JSON_PROPERTY_DESCRIPTION,
-  CustomField.JSON_PROPERTY_REQUIRED,
-  CustomField.JSON_PROPERTY_DATA_TYPE,
-  CustomField.JSON_PROPERTY_OPTIONS,
-  CustomField.JSON_PROPERTY_CAPTURE_IN_EMAIL
-})
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CustomField {
-  public static final String JSON_PROPERTY_LABEL = "label";
+  public static final String SERIALIZED_NAME_LABEL = "label";
+  @SerializedName(SERIALIZED_NAME_LABEL)
   private String label;
 
-  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  public static final String SERIALIZED_NAME_DESCRIPTION = "description";
+  @SerializedName(SERIALIZED_NAME_DESCRIPTION)
   private String description;
 
-  public static final String JSON_PROPERTY_REQUIRED = "required";
+  public static final String SERIALIZED_NAME_REQUIRED = "required";
+  @SerializedName(SERIALIZED_NAME_REQUIRED)
   private Boolean required;
 
   /**
    * Gets or Sets dataType
    */
+  @JsonAdapter(DataTypeEnum.Adapter.class)
   public enum DataTypeEnum {
     STRING("STRING"),
     
@@ -61,7 +56,6 @@ public class CustomField {
       this.value = value;
     }
 
-    @JsonValue
     public String getValue() {
       return value;
     }
@@ -71,7 +65,6 @@ public class CustomField {
       return String.valueOf(value);
     }
 
-    @JsonCreator
     public static DataTypeEnum fromValue(String value) {
       for (DataTypeEnum b : DataTypeEnum.values()) {
         if (b.value.equals(value)) {
@@ -80,15 +73,31 @@ public class CustomField {
       }
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
+
+    public static class Adapter extends TypeAdapter<DataTypeEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final DataTypeEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public DataTypeEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return DataTypeEnum.fromValue(value);
+      }
+    }
   }
 
-  public static final String JSON_PROPERTY_DATA_TYPE = "dataType";
+  public static final String SERIALIZED_NAME_DATA_TYPE = "dataType";
+  @SerializedName(SERIALIZED_NAME_DATA_TYPE)
   private DataTypeEnum dataType;
 
-  public static final String JSON_PROPERTY_OPTIONS = "options";
+  public static final String SERIALIZED_NAME_OPTIONS = "options";
+  @SerializedName(SERIALIZED_NAME_OPTIONS)
   private List<String> options = new ArrayList<>();
 
-  public static final String JSON_PROPERTY_CAPTURE_IN_EMAIL = "captureInEmail";
+  public static final String SERIALIZED_NAME_CAPTURE_IN_EMAIL = "captureInEmail";
+  @SerializedName(SERIALIZED_NAME_CAPTURE_IN_EMAIL)
   private Boolean captureInEmail;
 
   public CustomField() {
@@ -105,16 +114,12 @@ public class CustomField {
    * @return label
   **/
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_LABEL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getLabel() {
     return label;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LABEL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setLabel(String label) {
     this.label = label;
   }
@@ -131,16 +136,12 @@ public class CustomField {
    * @return description
   **/
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getDescription() {
     return description;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDescription(String description) {
     this.description = description;
   }
@@ -157,16 +158,12 @@ public class CustomField {
    * @return required
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_REQUIRED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getRequired() {
     return required;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_REQUIRED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRequired(Boolean required) {
     this.required = required;
   }
@@ -183,16 +180,12 @@ public class CustomField {
    * @return dataType
   **/
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DATA_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public DataTypeEnum getDataType() {
     return dataType;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATA_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setDataType(DataTypeEnum dataType) {
     this.dataType = dataType;
   }
@@ -217,16 +210,12 @@ public class CustomField {
    * @return options
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_OPTIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getOptions() {
     return options;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_OPTIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setOptions(List<String> options) {
     this.options = options;
   }
@@ -243,18 +232,59 @@ public class CustomField {
    * @return captureInEmail
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CAPTURE_IN_EMAIL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getCaptureInEmail() {
     return captureInEmail;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CAPTURE_IN_EMAIL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCaptureInEmail(Boolean captureInEmail) {
     this.captureInEmail = captureInEmail;
+  }
+
+  /**
+   * A container for additional, undeclared properties.
+   * This is a holder for any undeclared properties as specified with
+   * the 'additionalProperties' keyword in the OAS document.
+   */
+  private Map<String, Object> additionalProperties;
+
+  /**
+   * Set the additional (undeclared) property with the specified name and value.
+   * If the property does not already exist, create it otherwise replace it.
+   *
+   * @param key name of the property
+   * @param value value of the property
+   * @return the CustomField instance itself
+   */
+  public CustomField putAdditionalProperty(String key, Object value) {
+    if (this.additionalProperties == null) {
+        this.additionalProperties = new HashMap<String, Object>();
+    }
+    this.additionalProperties.put(key, value);
+    return this;
+  }
+
+  /**
+   * Return the additional (undeclared) property.
+   *
+   * @return a map of objects
+   */
+  public Map<String, Object> getAdditionalProperties() {
+    return additionalProperties;
+  }
+
+  /**
+   * Return the additional (undeclared) property with the specified name.
+   *
+   * @param key name of the property
+   * @return an object
+   */
+  public Object getAdditionalProperty(String key) {
+    if (this.additionalProperties == null) {
+        return null;
+    }
+    return this.additionalProperties.get(key);
   }
 
 
@@ -272,12 +302,13 @@ public class CustomField {
         Objects.equals(this.required, customField.required) &&
         Objects.equals(this.dataType, customField.dataType) &&
         Objects.equals(this.options, customField.options) &&
-        Objects.equals(this.captureInEmail, customField.captureInEmail);
+        Objects.equals(this.captureInEmail, customField.captureInEmail)&&
+        Objects.equals(this.additionalProperties, customField.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(label, description, required, dataType, options, captureInEmail);
+    return Objects.hash(label, description, required, dataType, options, captureInEmail, additionalProperties);
   }
 
   @Override
@@ -290,6 +321,7 @@ public class CustomField {
     sb.append("    dataType: ").append(toIndentedString(dataType)).append("\n");
     sb.append("    options: ").append(toIndentedString(options)).append("\n");
     sb.append("    captureInEmail: ").append(toIndentedString(captureInEmail)).append("\n");
+    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -305,5 +337,145 @@ public class CustomField {
     return o.toString().replace("\n", "\n    ");
   }
 
+
+  public static HashSet<String> openapiFields;
+  public static HashSet<String> openapiRequiredFields;
+
+  static {
+    // a set of all properties/fields (JSON key names)
+    openapiFields = new HashSet<String>();
+    openapiFields.add("label");
+    openapiFields.add("description");
+    openapiFields.add("required");
+    openapiFields.add("dataType");
+    openapiFields.add("options");
+    openapiFields.add("captureInEmail");
+
+    // a set of required properties/fields (JSON key names)
+    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("label");
+    openapiRequiredFields.add("description");
+    openapiRequiredFields.add("dataType");
+  }
+
+ /**
+  * Validates the JSON Object and throws an exception if issues found
+  *
+  * @param jsonObj JSON Object
+  * @throws IOException if the JSON Object is invalid with respect to CustomField
+  */
+  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
+      if (jsonObj == null) {
+        if (!CustomField.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in CustomField is not found in the empty JSON string", CustomField.openapiRequiredFields.toString()));
+        }
+      }
+
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : CustomField.openapiRequiredFields) {
+        if (jsonObj.get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
+        }
+      }
+      if (!jsonObj.get("label").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `label` to be a primitive type in the JSON string but got `%s`", jsonObj.get("label").toString()));
+      }
+      if (!jsonObj.get("description").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `description` to be a primitive type in the JSON string but got `%s`", jsonObj.get("description").toString()));
+      }
+      if (!jsonObj.get("dataType").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `dataType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("dataType").toString()));
+      }
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("options") != null && !jsonObj.get("options").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `options` to be an array in the JSON string but got `%s`", jsonObj.get("options").toString()));
+      }
+  }
+
+  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+       if (!CustomField.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'CustomField' and its subtypes
+       }
+       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+       final TypeAdapter<CustomField> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(CustomField.class));
+
+       return (TypeAdapter<T>) new TypeAdapter<CustomField>() {
+           @Override
+           public void write(JsonWriter out, CustomField value) throws IOException {
+             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
+             obj.remove("additionalProperties");
+             // serialize additional properties
+             if (value.getAdditionalProperties() != null) {
+               for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
+                 if (entry.getValue() instanceof String)
+                   obj.addProperty(entry.getKey(), (String) entry.getValue());
+                 else if (entry.getValue() instanceof Number)
+                   obj.addProperty(entry.getKey(), (Number) entry.getValue());
+                 else if (entry.getValue() instanceof Boolean)
+                   obj.addProperty(entry.getKey(), (Boolean) entry.getValue());
+                 else if (entry.getValue() instanceof Character)
+                   obj.addProperty(entry.getKey(), (Character) entry.getValue());
+                 else {
+                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
+                 }
+               }
+             }
+             elementAdapter.write(out, obj);
+           }
+
+           @Override
+           public CustomField read(JsonReader in) throws IOException {
+             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
+             validateJsonObject(jsonObj);
+             // store additional fields in the deserialized instance
+             CustomField instance = thisAdapter.fromJsonTree(jsonObj);
+             for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
+               if (!openapiFields.contains(entry.getKey())) {
+                 if (entry.getValue().isJsonPrimitive()) { // primitive type
+                   if (entry.getValue().getAsJsonPrimitive().isString())
+                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsString());
+                   else if (entry.getValue().getAsJsonPrimitive().isNumber())
+                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsNumber());
+                   else if (entry.getValue().getAsJsonPrimitive().isBoolean())
+                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
+                   else
+                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
+                 } else if (entry.getValue().isJsonArray()) {
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
+                 } else { // JSON object
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
+                 }
+               }
+             }
+             return instance;
+           }
+
+       }.nullSafe();
+    }
+  }
+
+ /**
+  * Create an instance of CustomField given an JSON string
+  *
+  * @param jsonString JSON string
+  * @return An instance of CustomField
+  * @throws IOException if the JSON string is invalid with respect to CustomField
+  */
+  public static CustomField fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, CustomField.class);
+  }
+
+ /**
+  * Convert an instance of CustomField to an JSON string
+  *
+  * @return JSON string
+  */
+  public String toJson() {
+    return JSON.getGson().toJson(this);
+  }
 }
 

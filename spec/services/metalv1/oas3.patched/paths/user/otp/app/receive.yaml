@@ -1,0 +1,36 @@
+post:
+  description: Issues OTP seeds for the user to upload to their 2FA app
+  operationId: seedApp
+  responses:
+    "204":
+      content:
+        application/json:
+          schema:
+            $ref: '../../../../components/schemas/OtpSeed.yaml'
+    "400":
+      content:
+        application/json:
+          schema:
+            $ref: '../../../../components/schemas/Error.yaml'
+      description: bad request
+    "401":
+      content:
+        application/json:
+          schema:
+            $ref: '../../../../components/schemas/Error.yaml'
+      description: unauthorized
+    "422":
+      content:
+        application/json:
+          schema:
+            $ref: '../../../../components/schemas/Error.yaml'
+      description: unprocessable entity
+    "500":
+      content:
+        application/json:
+          schema:
+            $ref: '../../../../components/schemas/Error.yaml'
+      description: internal server error
+  summary: Issue OTP seeds
+  tags:
+  - OTPs

@@ -44,31 +44,37 @@ mvn clean package
 Create a sample file with the following code:
 ```java
 // Import classes:
-public class RouteFiltersApiTest {
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.v4.model.*;
+import com.equinix.openapi.fabric.v4.api.PortsApi;
+import java.util.UUID;
 
-    private RouteFiltersApi api;
-
-    @Before
-    public void createApi() {
-        api = ApiClient.api(ApiClient.Config.apiConfig().reqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .addHeader("Authorization", "<<TOKEN>>")
-                        .setConfig(config().objectMapperConfig(objectMapperConfig().defaultObjectMapper(jackson())))
-                        .addFilter(new ErrorLoggingFilter())
-                        .setBaseUri("https://api.equinix.com"))).routeFilters();
-    }
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
     
-    @Test
-    public void shouldSee202AfterAttachConnectionRouteFilter() {
-        String routeFilterId = null;
-        String connectionId = null;
-        ConnectionRouteFiltersBase connectionRouteFiltersBase = null;
-        api.attachConnectionRouteFilter()
-                .routeFilterIdPath(routeFilterId)
-                .connectionIdPath(connectionId)
-                .body(connectionRouteFiltersBase).execute(r -> r.prettyPeek());
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("<GetBearerTokenFromDeveloperPortal>");
+
+    PortsApi apiInstance = new PortsApi(defaultClient);
+    try {
+      Port result = apiInstance.getPortByUuid(UUID.fromString("<RetrievePortUUIDFromFabricPortal>"));
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling ConnectionsApi#createConnection");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
     }
+  }
 }
+```
 
 Sample can be run by consuming local jars produced after building generated fabric-java client 
 (Notice that the version numbers in the jar path will change over time, input correct path into

@@ -1,0 +1,42 @@
+diff --git a/spec/services/eiav2/oas3.patched/swagger.yaml b/spec/services/eiav2/oas3.patched/swagger.yaml
+index 8afc364..e16fb7f 100644
+--- a/spec/services/eiav2/oas3.patched/swagger.yaml
++++ b/spec/services/eiav2/oas3.patched/swagger.yaml
+@@ -479,7 +479,16 @@ components:
+                 type: string
+                 format: uuid
+             routingProtocol:
+-              $ref: '#/components/schemas/RoutingProtocolRequest'
++              oneOf:
++                - $ref: '#/components/schemas/DirectRoutingProtocolRequest'
++                - $ref: '#/components/schemas/StaticRoutingProtocolRequest'
++                - $ref: '#/components/schemas/BgpRoutingProtocolRequest'
++              discriminator:
++                propertyName: type
++                mapping:
++                  DIRECT: '#/components/schemas/DirectRoutingProtocolRequest'
++                  STATIC: '#/components/schemas/StaticRoutingProtocolRequest'
++                  BGP: '#/components/schemas/BgpRoutingProtocolRequest'
+             order:
+               $ref: '#/components/schemas/ServiceOrderRequest'
+     Service:
+@@ -656,12 +665,6 @@ components:
+                 Description of the routing protocol instance
+               example: |
+                 Routes to customer facing web servers
+-          discriminator:
+-            propertyName: type
+-            mapping:
+-              DIRECT: '#/components/schemas/DirectRoutingProtocolRequest'
+-              STATIC: '#/components/schemas/StaticRoutingProtocolRequest'
+-              BGP: '#/components/schemas/BgpRoutingProtocolRequest'
+     DirectRoutingProtocolRequest:
+       allOf:
+         - $ref: '#/components/schemas/RoutingProtocolRequest'
+@@ -1531,4 +1534,4 @@ components:
+           minimum: 8
+           type: integer
+           format: int32
+-          example: 64
+\ No newline at end of file
++          example: 64

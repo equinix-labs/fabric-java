@@ -11,17 +11,17 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.io.IOException;
 
 /**
  * Possible field names to use on sorting
  */
+@JsonAdapter(PortSortBy.Adapter.class)
 public enum PortSortBy {
   
   _DEVICE_NAME("/device/name");
@@ -32,7 +32,6 @@ public enum PortSortBy {
     this.value = value;
   }
 
-  @JsonValue
   public String getValue() {
     return value;
   }
@@ -42,7 +41,6 @@ public enum PortSortBy {
     return String.valueOf(value);
   }
 
-  @JsonCreator
   public static PortSortBy fromValue(String value) {
     for (PortSortBy b : PortSortBy.values()) {
       if (b.value.equals(value)) {
@@ -50,6 +48,19 @@ public enum PortSortBy {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
+  }
+
+  public static class Adapter extends TypeAdapter<PortSortBy> {
+    @Override
+    public void write(final JsonWriter jsonWriter, final PortSortBy enumeration) throws IOException {
+      jsonWriter.value(enumeration.getValue());
+    }
+
+    @Override
+    public PortSortBy read(final JsonReader jsonReader) throws IOException {
+      String value = jsonReader.nextString();
+      return PortSortBy.fromValue(value);
+    }
   }
 }
 

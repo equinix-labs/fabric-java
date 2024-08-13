@@ -11,17 +11,17 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.io.IOException;
 
 /**
  * Port priority in redundancy group
  */
+@JsonAdapter(PortPriority.Adapter.class)
 public enum PortPriority {
   
   PRIMARY("PRIMARY"),
@@ -34,7 +34,6 @@ public enum PortPriority {
     this.value = value;
   }
 
-  @JsonValue
   public String getValue() {
     return value;
   }
@@ -44,7 +43,6 @@ public enum PortPriority {
     return String.valueOf(value);
   }
 
-  @JsonCreator
   public static PortPriority fromValue(String value) {
     for (PortPriority b : PortPriority.values()) {
       if (b.value.equals(value)) {
@@ -52,6 +50,19 @@ public enum PortPriority {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
+  }
+
+  public static class Adapter extends TypeAdapter<PortPriority> {
+    @Override
+    public void write(final JsonWriter jsonWriter, final PortPriority enumeration) throws IOException {
+      jsonWriter.value(enumeration.getValue());
+    }
+
+    @Override
+    public PortPriority read(final JsonReader jsonReader) throws IOException {
+      String value = jsonReader.nextString();
+      return PortPriority.fromValue(value);
+    }
   }
 }
 

@@ -10,30 +10,28 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.v4.api.dto.UserDto;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.v4.api.dto.users.UsersItem;
 import com.equinix.openapi.fabric.v4.model.*;
-import io.restassured.response.Response;
-import org.apache.http.HttpStatus;
 import org.junit.AfterClass;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
+import static com.equinix.openapi.fabric.v4.api.TokenGenerator.users;
 import static java.util.Collections.singletonList;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * API tests for CloudRoutersApi
  */
 public class CloudRoutersApiTest {
 
-    private static final List<UUID> cloudRouterToDelete = new ArrayList<>();
-    private static CloudRoutersApi api = TokenGenerator.getApiClient().cloudRouters();
+    private static final UsersItem.UserName userName = UsersItem.UserName.PANTHERS_FNV;
+    private static final CloudRoutersApi api = new CloudRoutersApi(TokenGenerator.getApiClient(userName));
 
-    public static void removeCloudRouters() {
-        cloudRouterToDelete.forEach(uuid -> {
+    public static void removeCloudRouters(UsersItem.UserName userName) {
+        users.get(userName).getUserResources().getCloudRoutersUuid().forEach(uuid -> {
             if (getCloudRouterStatus(uuid) == CloudRouterAccessPointState.PROVISIONED) {
                 deleteCloudRouter(uuid);
             }
@@ -42,11 +40,13 @@ public class CloudRoutersApiTest {
 
     @AfterClass
     public static void removeResources() {
-        removeCloudRouters();
+        removeCloudRouters(userName);
     }
 
-    public CloudRouter createRouter() {
-        UserDto userDto = (UserDto) Utils.getEnvData(Utils.EnvVariable.TEST_DATA_UAT_FCR_USER);
+    public static CloudRouter createRouter(UsersItem.UserName userNameType) throws ApiException {
+        UsersItem user = Utils.getUserData(userNameType);
+        CloudRoutersApi apiLocal = new CloudRoutersApi(TokenGenerator.getApiClient(userNameType));
+
         String cloudRouterName = "panthers-test-java-sdk";
         CloudRouterPostRequest cloudRouterPostRequest = new CloudRouterPostRequest();
         cloudRouterPostRequest.type(CloudRouterPostRequest.TypeEnum.XF_ROUTER)
@@ -54,24 +54,18 @@ public class CloudRoutersApiTest {
                 .location(new SimplifiedLocationWithoutIBX().metroCode("SV"))
                 ._package(new CloudRouterPostRequestPackage().code(CloudRouterPostRequestPackage.CodeEnum.STANDARD))
                 .notifications(singletonList(new SimplifiedNotification().type(SimplifiedNotification.TypeEnum.ALL).emails(singletonList("test@test.com"))))
-                .project(new Project().projectId(userDto.getProjectId()))
-                .account(new SimplifiedAccount().accountNumber(Long.valueOf(userDto.getAccountNumber()))
-                );
+                .project(new Project().projectId(user.getProjectId()))
+                .account(new SimplifiedAccount().accountNumber(Long.valueOf(user.getAccountNumber())));
 
-        Response response = api.createCloudRouter()
-                .body(cloudRouterPostRequest)
-                .execute(r -> r);
+        CloudRouter cloudRouter = apiLocal.createCloudRouter(cloudRouterPostRequest);
 
-        CloudRouter cloudRouter = response.as(CloudRouter.class);
-        cloudRouterToDelete.add(cloudRouter.getUuid());
-        assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+        users.get(userNameType).getUserResources().addCloudRouterUuid(cloudRouter.getUuid());
+        assertEquals(200, apiLocal.getApiClient().getStatusCode());
 
         UUID cloudRouterUuid = cloudRouter.getUuid();
 
         for (int i = 0; i < 5; i++) {
-            cloudRouter = api.getCloudRouterByUuid()
-                    .routerIdPath(cloudRouterUuid)
-                    .execute(re -> re).as(CloudRouter.class);
+            cloudRouter = apiLocal.getCloudRouterByUuid(cloudRouterUuid);
 
             if (cloudRouter.getState().equals(CloudRouterAccessPointState.PROVISIONED)) {
                 break;
@@ -89,47 +83,37 @@ public class CloudRoutersApiTest {
      * Fabric Cloud Router object
      */
     @Test
-    public void createCloudRouter() {
-        createRouter();
+    public void createCloudRouter() throws ApiException {
+        createRouter(userName);
     }
 
     /**
      * Successful operation
      */
     @Test
-    public void createCloudRouterAction() {
-        Response response = api.createCloudRouterAction()
-                .routerIdPath(createRouter().getUuid())
-                .body(new CloudRouterActionRequest().type(CloudRouterActionType.ROUTE_TABLE_ENTRY_UPDATE))
-                .execute(r -> r);
-        assertEquals(HttpStatus.SC_ACCEPTED, response.getStatusCode());
+    public void createCloudRouterAction() throws ApiException {
+        api.createCloudRouterAction(createRouter(userName).getUuid(),
+                new CloudRouterActionRequest().type(CloudRouterActionType.ROUTE_TABLE_ENTRY_UPDATE));
+        assertEquals(202, api.getApiClient().getStatusCode());
     }
 
     /**
      * Deleted Cloud Router Successfully
      */
     @Test
-    public void deleteCloudRouterByUuid() {
-        deleteCloudRouter(createRouter().getUuid());
+    public void deleteCloudRouterByUuid() throws ApiException {
+        deleteCloudRouter(createRouter(userName).getUuid());
     }
 
     /**
      * Successful operation
      */
     @Test
-    public void getCloudRouterActions() {
-        CloudRouter cloudRouter = createRouter();
-        api.createCloudRouterAction()
-                .routerIdPath(cloudRouter.getUuid())
-                .body(new CloudRouterActionRequest().type(CloudRouterActionType.ROUTE_TABLE_ENTRY_UPDATE))
-                .execute(r -> r);
-
-        Response response = api.getCloudRouterActions()
-                .routerIdPath(cloudRouter.getUuid())
-                .stateQuery(CloudRouterActionState.DONE, CloudRouterActionState.PENDING)
-                .execute(r -> r);
-        CloudRouterActionResponse cloudRouterActionResponse = response.as(CloudRouterActionResponse.class);
-        assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+    public void getCloudRouterActions() throws ApiException {
+        CloudRouter cloudRouter = createRouter(userName);
+        api.createCloudRouterAction(cloudRouter.getUuid(), new CloudRouterActionRequest().type(CloudRouterActionType.ROUTE_TABLE_ENTRY_UPDATE));
+        CloudRouterActionResponse cloudRouterActionResponse = api.getCloudRouterActions(cloudRouter.getUuid(), CloudRouterActionState.DONE);
+        assertEquals(200, api.getApiClient().getStatusCode());
         assertEquals(cloudRouterActionResponse.getType(), CloudRouterActionType.ROUTE_TABLE_ENTRY_UPDATE);
     }
 
@@ -137,15 +121,11 @@ public class CloudRoutersApiTest {
      * Fabric Cloud Router object
      */
     @Test
-    public void getCloudRouterByUuid() {
-        CloudRouter cloudRouter = createRouter();
+    public void getCloudRouterByUuid() throws ApiException {
+        CloudRouter cloudRouter = createRouter(userName);
+        CloudRouter cloudRouterRead = api.getCloudRouterByUuid(cloudRouter.getUuid());
 
-        Response response = api.getCloudRouterByUuid()
-                .routerIdPath(cloudRouter.getUuid())
-                .execute(r -> r);
-
-        CloudRouter cloudRouterRead = response.as(CloudRouter.class);
-        assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+        assertEquals(200, api.getApiClient().getStatusCode());
         assertEquals(cloudRouter.getUuid(), cloudRouterRead.getUuid());
         assertEquals(cloudRouter.getName(), cloudRouterRead.getName());
         assertEquals(cloudRouter.getState(), cloudRouterRead.getState());
@@ -155,13 +135,10 @@ public class CloudRoutersApiTest {
      * Fabric Cloud Router Package details
      */
     @Test
-    public void getCloudRouterPackageByCode() {
+    public void getCloudRouterPackageByCode() throws ApiException {
         Code routerPackageCode = Code.STANDARD;
-        Response response = api.getCloudRouterPackageByCode()
-                .routerPackageCodePath(routerPackageCode)
-                .execute(r -> r);
-        CloudRouterPackage cloudRouterPackage = response.as(CloudRouterPackage.class);
-        assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+        CloudRouterPackage cloudRouterPackage = api.getCloudRouterPackageByCode(RouterPackageCode.STANDARD);
+        assertEquals(200, api.getApiClient().getStatusCode());
         assertEquals(cloudRouterPackage.getCode(), routerPackageCode);
     }
 
@@ -169,13 +146,9 @@ public class CloudRoutersApiTest {
      * Fabric Cloud Router Packages
      */
     @Test
-    public void getCloudRouterPackages() {
-        Response response = api.getCloudRouterPackages()
-                .offsetQuery(10)
-                .limitQuery(10)
-                .execute(r -> r);
-        PackageResponse packageResponse = response.as(PackageResponse.class);
-        assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+    public void getCloudRouterPackages() throws ApiException {
+        PackageResponse packageResponse = api.getCloudRouterPackages(10, 10);
+        assertEquals(200, api.getApiClient().getStatusCode());
         assertNotNull(packageResponse.getData());
     }
 
@@ -183,51 +156,60 @@ public class CloudRoutersApiTest {
      * Successful operation
      */
     @Test
-    public void searchCloudRouterRoutes() {
+    public void searchCloudRouterRoutes() throws ApiException {
+        RouteTableEntrySimpleExpression routeTableEntrySimpleExpression = new RouteTableEntrySimpleExpression();
+        routeTableEntrySimpleExpression.setProperty(SortItem.PropertyEnum.STATE.getValue());
+        routeTableEntrySimpleExpression.setOperator(SearchExpression.OperatorEnum.NOT_EQUAL.getValue());
+        routeTableEntrySimpleExpression.setValues(singletonList("ACTIVE"));
+
+        RouteTableEntryFilter routeTableEntryFilter = new RouteTableEntryFilter(routeTableEntrySimpleExpression);
+
+        RouteTableEntryFilters routeTableEntryFilters = new RouteTableEntryFilters();
+        routeTableEntryFilters.addAndItem(routeTableEntryFilter);
+
         RouteTableEntrySearchRequest routeTableEntrySearchRequest = new RouteTableEntrySearchRequest()
-                .filter(new RouteTableEntryFilters()
-                        .addAndItem(new RouteTableEntryFilter()
-                                .property(SortItem.PropertyEnum.STATE.getValue())
-                                .operator(SearchExpression.OperatorEnum.NOT_EQUAL.getValue())
-                                .values(singletonList("ACTIVE"))))
+                .filter(routeTableEntryFilters)
                 .pagination(new PaginationRequest().offset(10).limit(20))
                 .sort(singletonList(new RouteTableEntrySortCriteria()
                         .direction(RouteTableEntrySortDirection.DESC)
                         .property(RouteTableEntrySortBy.CHANGELOG_CREATEDDATETIME)));
 
-        Response response = api.searchCloudRouterRoutes()
-                .routerIdPath(createRouter().getUuid())
-                .body(routeTableEntrySearchRequest).execute(r -> r);
-        assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+        api.searchCloudRouterRoutes(createRouter(userName).getUuid(), routeTableEntrySearchRequest);
+        assertEquals(200, api.getApiClient().getStatusCode());
     }
 
     /**
      * Successful operation
      */
     @Test
-    public void searchCloudRouters() {
-        CloudRouter cloudRouter = createRouter();
+    public void searchCloudRouters() throws ApiException {
+        CloudRouter cloudRouter = createRouter(userName);
+
+        CloudRouterSimpleExpression cloudRouterSimpleExpression = new CloudRouterSimpleExpression();
+        cloudRouterSimpleExpression.setOperator(SearchExpression.OperatorEnum.EQUAL.getValue());
+        cloudRouterSimpleExpression.setProperty(SortItem.PropertyEnum.NAME.getValue());
+        cloudRouterSimpleExpression.values(singletonList(cloudRouter.getName()));
+
+        CloudRouterSimpleExpression cloudRouterSimpleExpression2 = new CloudRouterSimpleExpression();
+        cloudRouterSimpleExpression2.setOperator(SearchExpression.OperatorEnum.EQUAL.getValue());
+        cloudRouterSimpleExpression2.setProperty(SortItem.PropertyEnum.STATE.getValue());
+        cloudRouterSimpleExpression2.values(singletonList(cloudRouter.getState().getValue()));
+
+        CloudRouterFilters cloudRouterFilters = new CloudRouterFilters();
+        CloudRouterFilter cloudRouterFilter = new CloudRouterFilter(cloudRouterSimpleExpression);
+        CloudRouterFilter cloudRouterFilter2 = new CloudRouterFilter(cloudRouterSimpleExpression2);
+        cloudRouterFilters.addAndItem(cloudRouterFilter);
+        cloudRouterFilters.addAndItem(cloudRouterFilter2);
 
         CloudRouterSearchRequest cloudRouterSearchRequest = new CloudRouterSearchRequest()
-                .filter(new CloudRouterFilters()
-                        .addAndItem(new CloudRouterFilter()
-                                .property(SortItem.PropertyEnum.NAME.getValue())
-                                .operator(SearchExpression.OperatorEnum.EQUAL.getValue())
-                                .values(singletonList(cloudRouter.getName())))
-                        .addAndItem(new CloudRouterFilter()
-                                .property(SortItem.PropertyEnum.STATE.getValue())
-                                .operator(SearchExpression.OperatorEnum.EQUAL.getValue())
-                                .values(singletonList(cloudRouter.getState().getValue()))))
+                .filter(cloudRouterFilters)
                 .pagination(new PaginationRequest().offset(10).limit(20))
                 .sort(singletonList(new CloudRouterSortCriteria()
                         .direction(CloudRouterSortDirection.DESC)
                         .property(CloudRouterSortBy.CHANGELOG_CREATEDDATETIME)));
 
-        Response response = api.searchCloudRouters()
-                .body(cloudRouterSearchRequest).execute(r -> r);
-        assertEquals(HttpStatus.SC_OK, response.getStatusCode());
-
-        SearchResponse searchResponse = response.as(SearchResponse.class);
+        SearchResponse searchResponse = api.searchCloudRouters(cloudRouterSearchRequest);
+        assertEquals(200, api.getApiClient().getStatusCode());
 
         boolean found = searchResponse.getData().stream().anyMatch(router -> router.getName().equals(cloudRouter.getName()));
         assertTrue(found);
@@ -237,34 +219,34 @@ public class CloudRoutersApiTest {
      * Fabric Cloud Router object
      */
     @Test
-    public void updateCloudRouterByUuid() {
-        CloudRouter cloudRouter = createRouter();
-        String updatedName = "panthers_newfcr_name";
+    public void updateCloudRouterByUuid() throws ApiException {
+        CloudRouter cloudRouter = createRouter(userName);
+        String updatedName = "panthers_new_fcr_name";
 
         CloudRouterChangeOperation cloudRouterChangeOperation = new CloudRouterChangeOperation()
                 .op(CloudRouterChangeOperation.OpEnum.REPLACE)
                 .path(CloudRouterSortBy.NAME.getValue())
                 .value(updatedName);
 
-        Response response = api.updateCloudRouterByUuid()
-                .routerIdPath(cloudRouter.getUuid())
-                .body(singletonList(cloudRouterChangeOperation)).execute(r -> r);
-
-        CloudRouter updatedCloudRouter = response.as(CloudRouter.class);
-        assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+        CloudRouter updatedCloudRouter = api.updateCloudRouterByUuid(cloudRouter.getUuid(), singletonList(cloudRouterChangeOperation));
+        assertEquals(200, api.getApiClient().getStatusCode());
         assertEquals(updatedName, updatedCloudRouter.getName());
     }
 
     private static void deleteCloudRouter(UUID uuid) {
-        Response response = api.deleteCloudRouterByUuid()
-                .routerIdPath(uuid)
-                .execute(r -> r);
-        assertEquals(HttpStatus.SC_NO_CONTENT, response.getStatusCode());
+        try {
+            api.deleteCloudRouterByUuid(uuid);
+        } catch (ApiException e) {
+            throw new RuntimeException(e);
+        }
+        assertEquals(204, api.getApiClient().getStatusCode());
     }
 
     private static CloudRouterAccessPointState getCloudRouterStatus(UUID cloudRouterUuid) {
-        return api.getCloudRouterByUuid()
-                .routerIdPath(cloudRouterUuid)
-                .execute(re -> re).as(CloudRouter.class).getState();
+        try {
+            return api.getCloudRouterByUuid(cloudRouterUuid).getState();
+        } catch (ApiException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

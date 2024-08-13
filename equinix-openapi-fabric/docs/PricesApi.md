@@ -18,16 +18,36 @@ Search prices by search criteria
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.PricesApi;
 
-PricesApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).prices();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.searchPrices()
-    .body(filterBody).execute(r -> r.prettyPeek());
+    PricesApi apiInstance = new PricesApi(defaultClient);
+    FilterBody filterBody = new FilterBody(); // FilterBody | 
+    try {
+      PriceSearchResponse result = apiInstance.searchPrices(filterBody);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling PricesApi#searchPrices");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -48,4 +68,11 @@ api.searchPrices()
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful operation |  -  |
+| **400** | Bad Request |  -  |
+| **500** | Internal server error |  -  |
 

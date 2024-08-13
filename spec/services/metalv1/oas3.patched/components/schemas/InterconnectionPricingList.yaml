@@ -1,0 +1,26 @@
+properties:
+  provider_pricing:
+    type: array
+    description: "Pricing information per connection provider."
+    items:
+      type: object
+      properties:
+        provider:
+          type: string
+          example: "CSP_AWS"
+        tiers:
+          type: array
+          items:
+            type: object
+            properties:
+              bandwidth:
+                type: integer
+                example: 500
+                description: "Bandwidth tier in Mbps"
+              price:
+                type: number
+                format: float
+                example: 10.04
+              billing_cycle:
+                type: string
+                example: "monthly"

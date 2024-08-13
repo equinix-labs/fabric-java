@@ -11,17 +11,17 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.io.IOException;
 
 /**
  * Connection directionality from the requester point of view
  */
+@JsonAdapter(ConnectionDirection.Adapter.class)
 public enum ConnectionDirection {
   
   INTERNAL("INTERNAL"),
@@ -36,7 +36,6 @@ public enum ConnectionDirection {
     this.value = value;
   }
 
-  @JsonValue
   public String getValue() {
     return value;
   }
@@ -46,7 +45,6 @@ public enum ConnectionDirection {
     return String.valueOf(value);
   }
 
-  @JsonCreator
   public static ConnectionDirection fromValue(String value) {
     for (ConnectionDirection b : ConnectionDirection.values()) {
       if (b.value.equals(value)) {
@@ -54,6 +52,19 @@ public enum ConnectionDirection {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
+  }
+
+  public static class Adapter extends TypeAdapter<ConnectionDirection> {
+    @Override
+    public void write(final JsonWriter jsonWriter, final ConnectionDirection enumeration) throws IOException {
+      jsonWriter.value(enumeration.getValue());
+    }
+
+    @Override
+    public ConnectionDirection read(final JsonReader jsonReader) throws IOException {
+      String value = jsonReader.nextString();
+      return ConnectionDirection.fromValue(value);
+    }
   }
 }
 

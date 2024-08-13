@@ -1,0 +1,38 @@
+properties:
+  metros:
+    type: array
+    items:
+      allOf:
+        - $ref: './Metro.yaml'
+        - properties:
+            providers:
+              type: array
+              description: "A list of providers and their equivalent regions available for connecting to the provider network."
+              items:
+                properties:
+                  type:
+                    type: string
+                    example: "CSP_AWS"
+                  name:
+                    type: string
+                    example: "AWS Direct Connect"
+                  locations:
+                    type: array
+                    items:
+                      type: string
+                      example: "us-east-1"
+                      description: "The provider's network region name that is equivalent to the Equinix Metro."
+                  bandwidths:
+                    type: array
+                    items:
+                      type: integer
+                      example: 50
+                      description: "Supported bandwidths in Mbps"
+                  features:
+                    type: array
+                    items:
+                      type: string
+                      example: "high capacity"
+                      description: "Additional features available in this profile."
+  meta:
+    $ref: '../../components/schemas/Meta.yaml'

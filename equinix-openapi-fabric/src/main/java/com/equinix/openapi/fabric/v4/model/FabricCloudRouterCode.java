@@ -11,17 +11,17 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.io.IOException;
 
 /**
  * Cloud Router code
  */
+@JsonAdapter(FabricCloudRouterCode.Adapter.class)
 public enum FabricCloudRouterCode {
   
   LAB("LAB"),
@@ -38,7 +38,6 @@ public enum FabricCloudRouterCode {
     this.value = value;
   }
 
-  @JsonValue
   public String getValue() {
     return value;
   }
@@ -48,7 +47,6 @@ public enum FabricCloudRouterCode {
     return String.valueOf(value);
   }
 
-  @JsonCreator
   public static FabricCloudRouterCode fromValue(String value) {
     for (FabricCloudRouterCode b : FabricCloudRouterCode.values()) {
       if (b.value.equals(value)) {
@@ -56,6 +54,19 @@ public enum FabricCloudRouterCode {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
+  }
+
+  public static class Adapter extends TypeAdapter<FabricCloudRouterCode> {
+    @Override
+    public void write(final JsonWriter jsonWriter, final FabricCloudRouterCode enumeration) throws IOException {
+      jsonWriter.value(enumeration.getValue());
+    }
+
+    @Override
+    public FabricCloudRouterCode read(final JsonReader jsonReader) throws IOException {
+      String value = jsonReader.nextString();
+      return FabricCloudRouterCode.fromValue(value);
+    }
   }
 }
 

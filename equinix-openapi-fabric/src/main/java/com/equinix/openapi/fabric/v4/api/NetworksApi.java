@@ -11,714 +11,1184 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.v4.model.Error;
-import com.equinix.openapi.fabric.v4.model.Network;
-import com.equinix.openapi.fabric.v4.model.NetworkChange;
-import com.equinix.openapi.fabric.v4.model.NetworkChangeOperation;
-import com.equinix.openapi.fabric.v4.model.NetworkChangeResponse;
-import com.equinix.openapi.fabric.v4.model.NetworkConnections;
-import com.equinix.openapi.fabric.v4.model.NetworkPostRequest;
-import com.equinix.openapi.fabric.v4.model.NetworkSearchRequest;
-import com.equinix.openapi.fabric.v4.model.NetworkSearchResponse;
-import java.util.UUID;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import io.restassured.RestAssured;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.builder.ResponseSpecBuilder;
-import io.restassured.common.mapper.TypeRef;
-import io.restassured.http.Method;
-import io.restassured.response.Response;
+import com.equinix.openapi.fabric.*;
+import com.equinix.openapi.fabric.v4.model.*;
+import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
-import static io.restassured.http.Method.*;
+import java.util.*;
 
 public class NetworksApi {
+    private ApiClient localVarApiClient;
+    private int localHostIndex;
+    private String localCustomBaseUrl;
 
-    private Supplier<RequestSpecBuilder> reqSpecSupplier;
-    private Consumer<RequestSpecBuilder> reqSpecCustomizer;
-
-    private NetworksApi(Supplier<RequestSpecBuilder> reqSpecSupplier) {
-        this.reqSpecSupplier = reqSpecSupplier;
+    public NetworksApi() {
+        this(Configuration.getDefaultApiClient());
     }
 
-    public static NetworksApi networks(Supplier<RequestSpecBuilder> reqSpecSupplier) {
-        return new NetworksApi(reqSpecSupplier);
+    public NetworksApi(ApiClient apiClient) {
+        this.localVarApiClient = apiClient;
     }
 
-    private RequestSpecBuilder createReqSpec() {
-        RequestSpecBuilder reqSpec = reqSpecSupplier.get();
-        if(reqSpecCustomizer != null) {
-            reqSpecCustomizer.accept(reqSpec);
-        }
-        return reqSpec;
+    public ApiClient getApiClient() {
+        return localVarApiClient;
     }
 
-    public List<Oper> getAllOperations() {
-        return Arrays.asList(
-                createNetwork(),
-                deleteNetworkByUuid(),
-                getConnectionsByNetworkUuid(),
-                getNetworkByUuid(),
-                getNetworkChangeByUuid(),
-                getNetworkChanges(),
-                searchNetworks(),
-                updateNetworkByUuid()
-        );
+    public void setApiClient(ApiClient apiClient) {
+        this.localVarApiClient = apiClient;
     }
 
-    public CreateNetworkOper createNetwork() {
-        return new CreateNetworkOper(createReqSpec());
+    public int getHostIndex() {
+        return localHostIndex;
     }
 
-    public DeleteNetworkByUuidOper deleteNetworkByUuid() {
-        return new DeleteNetworkByUuidOper(createReqSpec());
+    public void setHostIndex(int hostIndex) {
+        this.localHostIndex = hostIndex;
     }
 
-    public GetConnectionsByNetworkUuidOper getConnectionsByNetworkUuid() {
-        return new GetConnectionsByNetworkUuidOper(createReqSpec());
+    public String getCustomBaseUrl() {
+        return localCustomBaseUrl;
     }
 
-    public GetNetworkByUuidOper getNetworkByUuid() {
-        return new GetNetworkByUuidOper(createReqSpec());
-    }
-
-    public GetNetworkChangeByUuidOper getNetworkChangeByUuid() {
-        return new GetNetworkChangeByUuidOper(createReqSpec());
-    }
-
-    public GetNetworkChangesOper getNetworkChanges() {
-        return new GetNetworkChangesOper(createReqSpec());
-    }
-
-    public SearchNetworksOper searchNetworks() {
-        return new SearchNetworksOper(createReqSpec());
-    }
-
-    public UpdateNetworkByUuidOper updateNetworkByUuid() {
-        return new UpdateNetworkByUuidOper(createReqSpec());
+    public void setCustomBaseUrl(String customBaseUrl) {
+        this.localCustomBaseUrl = customBaseUrl;
     }
 
     /**
-     * Customize request specification
-     * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-     * @return api
+     * Build call for createNetwork
+     * @param networkPostRequest  (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
      */
-    public NetworksApi reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-        this.reqSpecCustomizer = reqSpecCustomizer;
-        return this;
+    public okhttp3.Call createNetworkCall(NetworkPostRequest networkPostRequest, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = networkPostRequest;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/networks";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call createNetworkValidateBeforeCall(NetworkPostRequest networkPostRequest, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'networkPostRequest' is set
+        if (networkPostRequest == null) {
+            throw new ApiException("Missing the required parameter 'networkPostRequest' when calling createNetwork(Async)");
+        }
+
+        return createNetworkCall(networkPostRequest, _callback);
+
     }
 
     /**
      * Create Network
      * This API provides capability to create user&#39;s Fabric Network
-     *
-     * @see #body  (required)
-     * return Network
+     * @param networkPostRequest  (required)
+     * @return Network
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
      */
-    public static class CreateNetworkOper implements Oper {
-
-        public static final Method REQ_METHOD = POST;
-        public static final String REQ_URI = "/fabric/v4/networks";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public CreateNetworkOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setContentType("application/json");
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * POST /fabric/v4/networks
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * POST /fabric/v4/networks
-         * @param handler handler
-         * @return Network
-         */
-        public Network executeAs(Function<Response, Response> handler) {
-            TypeRef<Network> type = new TypeRef<Network>(){};
-            return execute(handler).as(type);
-        }
-
-         /**
-         * @param networkPostRequest (NetworkPostRequest)  (required)
-         * @return operation
-         */
-        public CreateNetworkOper body(NetworkPostRequest networkPostRequest) {
-            reqSpec.setBody(networkPostRequest);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public CreateNetworkOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public CreateNetworkOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public Network createNetwork(NetworkPostRequest networkPostRequest) throws ApiException {
+        ApiResponse<Network> localVarResp = createNetworkWithHttpInfo(networkPostRequest);
+        return localVarResp.getData();
     }
+
+    /**
+     * Create Network
+     * This API provides capability to create user&#39;s Fabric Network
+     * @param networkPostRequest  (required)
+     * @return ApiResponse&lt;Network&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<Network> createNetworkWithHttpInfo(NetworkPostRequest networkPostRequest) throws ApiException {
+        okhttp3.Call localVarCall = createNetworkValidateBeforeCall(networkPostRequest, null);
+        Type localVarReturnType = new TypeToken<Network>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Create Network (asynchronously)
+     * This API provides capability to create user&#39;s Fabric Network
+     * @param networkPostRequest  (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call createNetworkAsync(NetworkPostRequest networkPostRequest, final ApiCallback<Network> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = createNetworkValidateBeforeCall(networkPostRequest, _callback);
+        Type localVarReturnType = new TypeToken<Network>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for deleteNetworkByUuid
+     * @param networkId Network UUID (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call deleteNetworkByUuidCall(UUID networkId, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/networks/{networkId}"
+            .replace("{" + "networkId" + "}", localVarApiClient.escapeString(networkId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call deleteNetworkByUuidValidateBeforeCall(UUID networkId, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'networkId' is set
+        if (networkId == null) {
+            throw new ApiException("Missing the required parameter 'networkId' when calling deleteNetworkByUuid(Async)");
+        }
+
+        return deleteNetworkByUuidCall(networkId, _callback);
+
+    }
+
     /**
      * Delete Network By ID
      * This API provides capability to delete user&#39;s Fabric Network
-     *
-     * @see #networkIdPath Network UUID (required)
-     * return Network
+     * @param networkId Network UUID (required)
+     * @return Network
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+     </table>
      */
-    public static class DeleteNetworkByUuidOper implements Oper {
-
-        public static final Method REQ_METHOD = DELETE;
-        public static final String REQ_URI = "/fabric/v4/networks/{networkId}";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public DeleteNetworkByUuidOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * DELETE /fabric/v4/networks/{networkId}
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * DELETE /fabric/v4/networks/{networkId}
-         * @param handler handler
-         * @return Network
-         */
-        public Network executeAs(Function<Response, Response> handler) {
-            TypeRef<Network> type = new TypeRef<Network>(){};
-            return execute(handler).as(type);
-        }
-
-        public static final String NETWORK_ID_PATH = "networkId";
-
-        /**
-         * @param networkId (UUID) Network UUID (required)
-         * @return operation
-         */
-        public DeleteNetworkByUuidOper networkIdPath(Object networkId) {
-            reqSpec.addPathParam(NETWORK_ID_PATH, networkId);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public DeleteNetworkByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public DeleteNetworkByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public Network deleteNetworkByUuid(UUID networkId) throws ApiException {
+        ApiResponse<Network> localVarResp = deleteNetworkByUuidWithHttpInfo(networkId);
+        return localVarResp.getData();
     }
+
+    /**
+     * Delete Network By ID
+     * This API provides capability to delete user&#39;s Fabric Network
+     * @param networkId Network UUID (required)
+     * @return ApiResponse&lt;Network&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<Network> deleteNetworkByUuidWithHttpInfo(UUID networkId) throws ApiException {
+        okhttp3.Call localVarCall = deleteNetworkByUuidValidateBeforeCall(networkId, null);
+        Type localVarReturnType = new TypeToken<Network>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Delete Network By ID (asynchronously)
+     * This API provides capability to delete user&#39;s Fabric Network
+     * @param networkId Network UUID (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call deleteNetworkByUuidAsync(UUID networkId, final ApiCallback<Network> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = deleteNetworkByUuidValidateBeforeCall(networkId, _callback);
+        Type localVarReturnType = new TypeToken<Network>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for getConnectionsByNetworkUuid
+     * @param networkId Network UUID (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getConnectionsByNetworkUuidCall(UUID networkId, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/networks/{networkId}/connections"
+            .replace("{" + "networkId" + "}", localVarApiClient.escapeString(networkId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getConnectionsByNetworkUuidValidateBeforeCall(UUID networkId, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'networkId' is set
+        if (networkId == null) {
+            throw new ApiException("Missing the required parameter 'networkId' when calling getConnectionsByNetworkUuid(Async)");
+        }
+
+        return getConnectionsByNetworkUuidCall(networkId, _callback);
+
+    }
+
     /**
      * Get Connections
      * The API provides capability to get list of user&#39;s Fabric Network connections
-     *
-     * @see #networkIdPath Network UUID (required)
-     * return NetworkConnections
+     * @param networkId Network UUID (required)
+     * @return NetworkConnections
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+     </table>
      */
-    public static class GetConnectionsByNetworkUuidOper implements Oper {
-
-        public static final Method REQ_METHOD = GET;
-        public static final String REQ_URI = "/fabric/v4/networks/{networkId}/connections";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public GetConnectionsByNetworkUuidOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * GET /fabric/v4/networks/{networkId}/connections
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * GET /fabric/v4/networks/{networkId}/connections
-         * @param handler handler
-         * @return NetworkConnections
-         */
-        public NetworkConnections executeAs(Function<Response, Response> handler) {
-            TypeRef<NetworkConnections> type = new TypeRef<NetworkConnections>(){};
-            return execute(handler).as(type);
-        }
-
-        public static final String NETWORK_ID_PATH = "networkId";
-
-        /**
-         * @param networkId (UUID) Network UUID (required)
-         * @return operation
-         */
-        public GetConnectionsByNetworkUuidOper networkIdPath(Object networkId) {
-            reqSpec.addPathParam(NETWORK_ID_PATH, networkId);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public GetConnectionsByNetworkUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public GetConnectionsByNetworkUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public NetworkConnections getConnectionsByNetworkUuid(UUID networkId) throws ApiException {
+        ApiResponse<NetworkConnections> localVarResp = getConnectionsByNetworkUuidWithHttpInfo(networkId);
+        return localVarResp.getData();
     }
+
+    /**
+     * Get Connections
+     * The API provides capability to get list of user&#39;s Fabric Network connections
+     * @param networkId Network UUID (required)
+     * @return ApiResponse&lt;NetworkConnections&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<NetworkConnections> getConnectionsByNetworkUuidWithHttpInfo(UUID networkId) throws ApiException {
+        okhttp3.Call localVarCall = getConnectionsByNetworkUuidValidateBeforeCall(networkId, null);
+        Type localVarReturnType = new TypeToken<NetworkConnections>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Get Connections (asynchronously)
+     * The API provides capability to get list of user&#39;s Fabric Network connections
+     * @param networkId Network UUID (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getConnectionsByNetworkUuidAsync(UUID networkId, final ApiCallback<NetworkConnections> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getConnectionsByNetworkUuidValidateBeforeCall(networkId, _callback);
+        Type localVarReturnType = new TypeToken<NetworkConnections>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for getNetworkByUuid
+     * @param networkId Network UUID (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getNetworkByUuidCall(UUID networkId, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/networks/{networkId}"
+            .replace("{" + "networkId" + "}", localVarApiClient.escapeString(networkId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getNetworkByUuidValidateBeforeCall(UUID networkId, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'networkId' is set
+        if (networkId == null) {
+            throw new ApiException("Missing the required parameter 'networkId' when calling getNetworkByUuid(Async)");
+        }
+
+        return getNetworkByUuidCall(networkId, _callback);
+
+    }
+
     /**
      * Get Network By ID
      * This API provides capability to retrieve user&#39;s Fabric Network
-     *
-     * @see #networkIdPath Network UUID (required)
-     * return Network
+     * @param networkId Network UUID (required)
+     * @return Network
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+     </table>
      */
-    public static class GetNetworkByUuidOper implements Oper {
-
-        public static final Method REQ_METHOD = GET;
-        public static final String REQ_URI = "/fabric/v4/networks/{networkId}";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public GetNetworkByUuidOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * GET /fabric/v4/networks/{networkId}
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * GET /fabric/v4/networks/{networkId}
-         * @param handler handler
-         * @return Network
-         */
-        public Network executeAs(Function<Response, Response> handler) {
-            TypeRef<Network> type = new TypeRef<Network>(){};
-            return execute(handler).as(type);
-        }
-
-        public static final String NETWORK_ID_PATH = "networkId";
-
-        /**
-         * @param networkId (UUID) Network UUID (required)
-         * @return operation
-         */
-        public GetNetworkByUuidOper networkIdPath(Object networkId) {
-            reqSpec.addPathParam(NETWORK_ID_PATH, networkId);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public GetNetworkByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public GetNetworkByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public Network getNetworkByUuid(UUID networkId) throws ApiException {
+        ApiResponse<Network> localVarResp = getNetworkByUuidWithHttpInfo(networkId);
+        return localVarResp.getData();
     }
+
+    /**
+     * Get Network By ID
+     * This API provides capability to retrieve user&#39;s Fabric Network
+     * @param networkId Network UUID (required)
+     * @return ApiResponse&lt;Network&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<Network> getNetworkByUuidWithHttpInfo(UUID networkId) throws ApiException {
+        okhttp3.Call localVarCall = getNetworkByUuidValidateBeforeCall(networkId, null);
+        Type localVarReturnType = new TypeToken<Network>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Get Network By ID (asynchronously)
+     * This API provides capability to retrieve user&#39;s Fabric Network
+     * @param networkId Network UUID (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getNetworkByUuidAsync(UUID networkId, final ApiCallback<Network> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getNetworkByUuidValidateBeforeCall(networkId, _callback);
+        Type localVarReturnType = new TypeToken<Network>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for getNetworkChangeByUuid
+     * @param networkId Network UUID (required)
+     * @param changeId Network Change UUID (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getNetworkChangeByUuidCall(UUID networkId, UUID changeId, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/networks/{networkId}/changes/{changeId}"
+            .replace("{" + "networkId" + "}", localVarApiClient.escapeString(networkId.toString()))
+            .replace("{" + "changeId" + "}", localVarApiClient.escapeString(changeId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getNetworkChangeByUuidValidateBeforeCall(UUID networkId, UUID changeId, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'networkId' is set
+        if (networkId == null) {
+            throw new ApiException("Missing the required parameter 'networkId' when calling getNetworkChangeByUuid(Async)");
+        }
+
+        // verify the required parameter 'changeId' is set
+        if (changeId == null) {
+            throw new ApiException("Missing the required parameter 'changeId' when calling getNetworkChangeByUuid(Async)");
+        }
+
+        return getNetworkChangeByUuidCall(networkId, changeId, _callback);
+
+    }
+
     /**
      * Get Change By ID
      * This API provides capability to retrieve user&#39;s Fabric Network Change
-     *
-     * @see #networkIdPath Network UUID (required)
-     * @see #changeIdPath Network Change UUID (required)
-     * return NetworkChange
+     * @param networkId Network UUID (required)
+     * @param changeId Network Change UUID (required)
+     * @return NetworkChange
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+     </table>
      */
-    public static class GetNetworkChangeByUuidOper implements Oper {
-
-        public static final Method REQ_METHOD = GET;
-        public static final String REQ_URI = "/fabric/v4/networks/{networkId}/changes/{changeId}";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public GetNetworkChangeByUuidOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * GET /fabric/v4/networks/{networkId}/changes/{changeId}
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * GET /fabric/v4/networks/{networkId}/changes/{changeId}
-         * @param handler handler
-         * @return NetworkChange
-         */
-        public NetworkChange executeAs(Function<Response, Response> handler) {
-            TypeRef<NetworkChange> type = new TypeRef<NetworkChange>(){};
-            return execute(handler).as(type);
-        }
-
-        public static final String NETWORK_ID_PATH = "networkId";
-
-        /**
-         * @param networkId (UUID) Network UUID (required)
-         * @return operation
-         */
-        public GetNetworkChangeByUuidOper networkIdPath(Object networkId) {
-            reqSpec.addPathParam(NETWORK_ID_PATH, networkId);
-            return this;
-        }
-
-        public static final String CHANGE_ID_PATH = "changeId";
-
-        /**
-         * @param changeId (UUID) Network Change UUID (required)
-         * @return operation
-         */
-        public GetNetworkChangeByUuidOper changeIdPath(Object changeId) {
-            reqSpec.addPathParam(CHANGE_ID_PATH, changeId);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public GetNetworkChangeByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public GetNetworkChangeByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public NetworkChange getNetworkChangeByUuid(UUID networkId, UUID changeId) throws ApiException {
+        ApiResponse<NetworkChange> localVarResp = getNetworkChangeByUuidWithHttpInfo(networkId, changeId);
+        return localVarResp.getData();
     }
+
+    /**
+     * Get Change By ID
+     * This API provides capability to retrieve user&#39;s Fabric Network Change
+     * @param networkId Network UUID (required)
+     * @param changeId Network Change UUID (required)
+     * @return ApiResponse&lt;NetworkChange&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<NetworkChange> getNetworkChangeByUuidWithHttpInfo(UUID networkId, UUID changeId) throws ApiException {
+        okhttp3.Call localVarCall = getNetworkChangeByUuidValidateBeforeCall(networkId, changeId, null);
+        Type localVarReturnType = new TypeToken<NetworkChange>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Get Change By ID (asynchronously)
+     * This API provides capability to retrieve user&#39;s Fabric Network Change
+     * @param networkId Network UUID (required)
+     * @param changeId Network Change UUID (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getNetworkChangeByUuidAsync(UUID networkId, UUID changeId, final ApiCallback<NetworkChange> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getNetworkChangeByUuidValidateBeforeCall(networkId, changeId, _callback);
+        Type localVarReturnType = new TypeToken<NetworkChange>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for getNetworkChanges
+     * @param networkId Network UUID (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getNetworkChangesCall(UUID networkId, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/networks/{networkId}/changes"
+            .replace("{" + "networkId" + "}", localVarApiClient.escapeString(networkId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getNetworkChangesValidateBeforeCall(UUID networkId, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'networkId' is set
+        if (networkId == null) {
+            throw new ApiException("Missing the required parameter 'networkId' when calling getNetworkChanges(Async)");
+        }
+
+        return getNetworkChangesCall(networkId, _callback);
+
+    }
+
     /**
      * Get Network Changes
      * The API provides capability to get list of user&#39;s Fabric Network changes
-     *
-     * @see #networkIdPath Network UUID (required)
-     * return NetworkChangeResponse
+     * @param networkId Network UUID (required)
+     * @return NetworkChangeResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+     </table>
      */
-    public static class GetNetworkChangesOper implements Oper {
-
-        public static final Method REQ_METHOD = GET;
-        public static final String REQ_URI = "/fabric/v4/networks/{networkId}/changes";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public GetNetworkChangesOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * GET /fabric/v4/networks/{networkId}/changes
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * GET /fabric/v4/networks/{networkId}/changes
-         * @param handler handler
-         * @return NetworkChangeResponse
-         */
-        public NetworkChangeResponse executeAs(Function<Response, Response> handler) {
-            TypeRef<NetworkChangeResponse> type = new TypeRef<NetworkChangeResponse>(){};
-            return execute(handler).as(type);
-        }
-
-        public static final String NETWORK_ID_PATH = "networkId";
-
-        /**
-         * @param networkId (UUID) Network UUID (required)
-         * @return operation
-         */
-        public GetNetworkChangesOper networkIdPath(Object networkId) {
-            reqSpec.addPathParam(NETWORK_ID_PATH, networkId);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public GetNetworkChangesOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public GetNetworkChangesOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public NetworkChangeResponse getNetworkChanges(UUID networkId) throws ApiException {
+        ApiResponse<NetworkChangeResponse> localVarResp = getNetworkChangesWithHttpInfo(networkId);
+        return localVarResp.getData();
     }
+
+    /**
+     * Get Network Changes
+     * The API provides capability to get list of user&#39;s Fabric Network changes
+     * @param networkId Network UUID (required)
+     * @return ApiResponse&lt;NetworkChangeResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<NetworkChangeResponse> getNetworkChangesWithHttpInfo(UUID networkId) throws ApiException {
+        okhttp3.Call localVarCall = getNetworkChangesValidateBeforeCall(networkId, null);
+        Type localVarReturnType = new TypeToken<NetworkChangeResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Get Network Changes (asynchronously)
+     * The API provides capability to get list of user&#39;s Fabric Network changes
+     * @param networkId Network UUID (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getNetworkChangesAsync(UUID networkId, final ApiCallback<NetworkChangeResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getNetworkChangesValidateBeforeCall(networkId, _callback);
+        Type localVarReturnType = new TypeToken<NetworkChangeResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for searchNetworks
+     * @param networkSearchRequest  (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call searchNetworksCall(NetworkSearchRequest networkSearchRequest, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = networkSearchRequest;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/networks/search";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call searchNetworksValidateBeforeCall(NetworkSearchRequest networkSearchRequest, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'networkSearchRequest' is set
+        if (networkSearchRequest == null) {
+            throw new ApiException("Missing the required parameter 'networkSearchRequest' when calling searchNetworks(Async)");
+        }
+
+        return searchNetworksCall(networkSearchRequest, _callback);
+
+    }
+
     /**
      * Search Network
      * The API provides capability to get list of user&#39;s Fabric Network using search criteria, including optional filtering, pagination and sorting
-     *
-     * @see #body  (required)
-     * return NetworkSearchResponse
+     * @param networkSearchRequest  (required)
+     * @return NetworkSearchResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+     </table>
      */
-    public static class SearchNetworksOper implements Oper {
-
-        public static final Method REQ_METHOD = POST;
-        public static final String REQ_URI = "/fabric/v4/networks/search";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public SearchNetworksOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setContentType("application/json");
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * POST /fabric/v4/networks/search
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * POST /fabric/v4/networks/search
-         * @param handler handler
-         * @return NetworkSearchResponse
-         */
-        public NetworkSearchResponse executeAs(Function<Response, Response> handler) {
-            TypeRef<NetworkSearchResponse> type = new TypeRef<NetworkSearchResponse>(){};
-            return execute(handler).as(type);
-        }
-
-         /**
-         * @param networkSearchRequest (NetworkSearchRequest)  (required)
-         * @return operation
-         */
-        public SearchNetworksOper body(NetworkSearchRequest networkSearchRequest) {
-            reqSpec.setBody(networkSearchRequest);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public SearchNetworksOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public SearchNetworksOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public NetworkSearchResponse searchNetworks(NetworkSearchRequest networkSearchRequest) throws ApiException {
+        ApiResponse<NetworkSearchResponse> localVarResp = searchNetworksWithHttpInfo(networkSearchRequest);
+        return localVarResp.getData();
     }
+
+    /**
+     * Search Network
+     * The API provides capability to get list of user&#39;s Fabric Network using search criteria, including optional filtering, pagination and sorting
+     * @param networkSearchRequest  (required)
+     * @return ApiResponse&lt;NetworkSearchResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<NetworkSearchResponse> searchNetworksWithHttpInfo(NetworkSearchRequest networkSearchRequest) throws ApiException {
+        okhttp3.Call localVarCall = searchNetworksValidateBeforeCall(networkSearchRequest, null);
+        Type localVarReturnType = new TypeToken<NetworkSearchResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Search Network (asynchronously)
+     * The API provides capability to get list of user&#39;s Fabric Network using search criteria, including optional filtering, pagination and sorting
+     * @param networkSearchRequest  (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call searchNetworksAsync(NetworkSearchRequest networkSearchRequest, final ApiCallback<NetworkSearchResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = searchNetworksValidateBeforeCall(networkSearchRequest, _callback);
+        Type localVarReturnType = new TypeToken<NetworkSearchResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for updateNetworkByUuid
+     * @param networkId Network UUID (required)
+     * @param networkChangeOperation  (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call updateNetworkByUuidCall(UUID networkId, List<NetworkChangeOperation> networkChangeOperation, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = networkChangeOperation;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/networks/{networkId}"
+            .replace("{" + "networkId" + "}", localVarApiClient.escapeString(networkId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json-patch+json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call updateNetworkByUuidValidateBeforeCall(UUID networkId, List<NetworkChangeOperation> networkChangeOperation, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'networkId' is set
+        if (networkId == null) {
+            throw new ApiException("Missing the required parameter 'networkId' when calling updateNetworkByUuid(Async)");
+        }
+
+        // verify the required parameter 'networkChangeOperation' is set
+        if (networkChangeOperation == null) {
+            throw new ApiException("Missing the required parameter 'networkChangeOperation' when calling updateNetworkByUuid(Async)");
+        }
+
+        return updateNetworkByUuidCall(networkId, networkChangeOperation, _callback);
+
+    }
+
     /**
      * Update Network By ID
      * This API provides capability to update user&#39;s Fabric Network
-     *
-     * @see #networkIdPath Network UUID (required)
-     * @see #body  (required)
-     * return Network
+     * @param networkId Network UUID (required)
+     * @param networkChangeOperation  (required)
+     * @return Network
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+     </table>
      */
-    public static class UpdateNetworkByUuidOper implements Oper {
+    public Network updateNetworkByUuid(UUID networkId, List<NetworkChangeOperation> networkChangeOperation) throws ApiException {
+        ApiResponse<Network> localVarResp = updateNetworkByUuidWithHttpInfo(networkId, networkChangeOperation);
+        return localVarResp.getData();
+    }
 
-        public static final Method REQ_METHOD = PATCH;
-        public static final String REQ_URI = "/fabric/v4/networks/{networkId}";
+    /**
+     * Update Network By ID
+     * This API provides capability to update user&#39;s Fabric Network
+     * @param networkId Network UUID (required)
+     * @param networkChangeOperation  (required)
+     * @return ApiResponse&lt;Network&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<Network> updateNetworkByUuidWithHttpInfo(UUID networkId, List<NetworkChangeOperation> networkChangeOperation) throws ApiException {
+        okhttp3.Call localVarCall = updateNetworkByUuidValidateBeforeCall(networkId, networkChangeOperation, null);
+        Type localVarReturnType = new TypeToken<Network>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
 
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
+    /**
+     * Update Network By ID (asynchronously)
+     * This API provides capability to update user&#39;s Fabric Network
+     * @param networkId Network UUID (required)
+     * @param networkChangeOperation  (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Unsupported Media Type </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call updateNetworkByUuidAsync(UUID networkId, List<NetworkChangeOperation> networkChangeOperation, final ApiCallback<Network> _callback) throws ApiException {
 
-        public UpdateNetworkByUuidOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setContentType("application/json-patch+json");
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * PATCH /fabric/v4/networks/{networkId}
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * PATCH /fabric/v4/networks/{networkId}
-         * @param handler handler
-         * @return Network
-         */
-        public Network executeAs(Function<Response, Response> handler) {
-            TypeRef<Network> type = new TypeRef<Network>(){};
-            return execute(handler).as(type);
-        }
-
-         /**
-         * @param networkChangeOperation (List&lt;NetworkChangeOperation&gt;)  (required)
-         * @return operation
-         */
-        public UpdateNetworkByUuidOper body(List<NetworkChangeOperation> networkChangeOperation) {
-            reqSpec.setBody(networkChangeOperation);
-            return this;
-        }
-
-        public static final String NETWORK_ID_PATH = "networkId";
-
-        /**
-         * @param networkId (UUID) Network UUID (required)
-         * @return operation
-         */
-        public UpdateNetworkByUuidOper networkIdPath(Object networkId) {
-            reqSpec.addPathParam(NETWORK_ID_PATH, networkId);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public UpdateNetworkByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public UpdateNetworkByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+        okhttp3.Call localVarCall = updateNetworkByUuidValidateBeforeCall(networkId, networkChangeOperation, _callback);
+        Type localVarReturnType = new TypeToken<Network>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
     }
 }

@@ -11,17 +11,17 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.io.IOException;
 
 /**
  * IP Block type
  */
+@JsonAdapter(IpBlockType.Adapter.class)
 public enum IpBlockType {
   
   IPV4("IPv4"),
@@ -34,7 +34,6 @@ public enum IpBlockType {
     this.value = value;
   }
 
-  @JsonValue
   public String getValue() {
     return value;
   }
@@ -44,7 +43,6 @@ public enum IpBlockType {
     return String.valueOf(value);
   }
 
-  @JsonCreator
   public static IpBlockType fromValue(String value) {
     for (IpBlockType b : IpBlockType.values()) {
       if (b.value.equals(value)) {
@@ -52,6 +50,19 @@ public enum IpBlockType {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
+  }
+
+  public static class Adapter extends TypeAdapter<IpBlockType> {
+    @Override
+    public void write(final JsonWriter jsonWriter, final IpBlockType enumeration) throws IOException {
+      jsonWriter.value(enumeration.getValue());
+    }
+
+    @Override
+    public IpBlockType read(final JsonReader jsonReader) throws IOException {
+      String value = jsonReader.nextString();
+      return IpBlockType.fromValue(value);
+    }
   }
 }
 

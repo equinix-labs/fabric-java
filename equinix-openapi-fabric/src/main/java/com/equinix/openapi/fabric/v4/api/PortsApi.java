@@ -11,700 +11,1108 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
-import com.equinix.openapi.fabric.v4.model.AllPhysicalPortsResponse;
-import com.equinix.openapi.fabric.v4.model.AllPortsResponse;
-import com.equinix.openapi.fabric.v4.model.BulkPhysicalPort;
-import com.equinix.openapi.fabric.v4.model.BulkPort;
-import com.equinix.openapi.fabric.v4.model.Error;
-import com.equinix.openapi.fabric.v4.model.LinkProtocolGetResponse;
-import com.equinix.openapi.fabric.v4.model.Port;
-import com.equinix.openapi.fabric.v4.model.PortV4SearchRequest;
-import java.util.UUID;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import io.restassured.RestAssured;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.builder.ResponseSpecBuilder;
-import io.restassured.common.mapper.TypeRef;
-import io.restassured.http.Method;
-import io.restassured.response.Response;
+import com.equinix.openapi.fabric.*;
+import com.equinix.openapi.fabric.v4.model.*;
+import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
-import static io.restassured.http.Method.*;
+import java.util.*;
 
 public class PortsApi {
+    private ApiClient localVarApiClient;
+    private int localHostIndex;
+    private String localCustomBaseUrl;
 
-    private Supplier<RequestSpecBuilder> reqSpecSupplier;
-    private Consumer<RequestSpecBuilder> reqSpecCustomizer;
-
-    private PortsApi(Supplier<RequestSpecBuilder> reqSpecSupplier) {
-        this.reqSpecSupplier = reqSpecSupplier;
+    public PortsApi() {
+        this(Configuration.getDefaultApiClient());
     }
 
-    public static PortsApi ports(Supplier<RequestSpecBuilder> reqSpecSupplier) {
-        return new PortsApi(reqSpecSupplier);
+    public PortsApi(ApiClient apiClient) {
+        this.localVarApiClient = apiClient;
     }
 
-    private RequestSpecBuilder createReqSpec() {
-        RequestSpecBuilder reqSpec = reqSpecSupplier.get();
-        if(reqSpecCustomizer != null) {
-            reqSpecCustomizer.accept(reqSpec);
-        }
-        return reqSpec;
+    public ApiClient getApiClient() {
+        return localVarApiClient;
     }
 
-    public List<Oper> getAllOperations() {
-        return Arrays.asList(
-                addToLag(),
-                createBulkPort(),
-                createPort(),
-                deletePort(),
-                getPortByUuid(),
-                getPorts(),
-                getVlans(),
-                searchPorts()
-        );
+    public void setApiClient(ApiClient apiClient) {
+        this.localVarApiClient = apiClient;
     }
 
-    public AddToLagOper addToLag() {
-        return new AddToLagOper(createReqSpec());
+    public int getHostIndex() {
+        return localHostIndex;
     }
 
-    public CreateBulkPortOper createBulkPort() {
-        return new CreateBulkPortOper(createReqSpec());
+    public void setHostIndex(int hostIndex) {
+        this.localHostIndex = hostIndex;
     }
 
-    public CreatePortOper createPort() {
-        return new CreatePortOper(createReqSpec());
+    public String getCustomBaseUrl() {
+        return localCustomBaseUrl;
     }
 
-    public DeletePortOper deletePort() {
-        return new DeletePortOper(createReqSpec());
-    }
-
-    public GetPortByUuidOper getPortByUuid() {
-        return new GetPortByUuidOper(createReqSpec());
-    }
-
-    public GetPortsOper getPorts() {
-        return new GetPortsOper(createReqSpec());
-    }
-
-    public GetVlansOper getVlans() {
-        return new GetVlansOper(createReqSpec());
-    }
-
-    public SearchPortsOper searchPorts() {
-        return new SearchPortsOper(createReqSpec());
+    public void setCustomBaseUrl(String customBaseUrl) {
+        this.localCustomBaseUrl = customBaseUrl;
     }
 
     /**
-     * Customize request specification
-     * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-     * @return api
+     * Build call for addToLag
+     * @param portId Port UUID (required)
+     * @param bulkPhysicalPort  (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
      */
-    public PortsApi reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-        this.reqSpecCustomizer = reqSpecCustomizer;
-        return this;
+    public okhttp3.Call addToLagCall(UUID portId, BulkPhysicalPort bulkPhysicalPort, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = bulkPhysicalPort;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/ports/{portId}/physicalPorts/bulk"
+            .replace("{" + "portId" + "}", localVarApiClient.escapeString(portId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call addToLagValidateBeforeCall(UUID portId, BulkPhysicalPort bulkPhysicalPort, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'portId' is set
+        if (portId == null) {
+            throw new ApiException("Missing the required parameter 'portId' when calling addToLag(Async)");
+        }
+
+        // verify the required parameter 'bulkPhysicalPort' is set
+        if (bulkPhysicalPort == null) {
+            throw new ApiException("Missing the required parameter 'bulkPhysicalPort' when calling addToLag(Async)");
+        }
+
+        return addToLagCall(portId, bulkPhysicalPort, _callback);
+
     }
 
     /**
      * Add to Lag
      * Add Physical Ports to Virtual Port.&lt;font color&#x3D;\&quot;red\&quot;&gt; &lt;sup color&#x3D;&#39;red&#39;&gt;Preview&lt;/sup&gt;&lt;/font&gt;
-     *
-     * @see #portIdPath Port UUID (required)
-     * @see #body  (required)
-     * return AllPhysicalPortsResponse
+     * @param portId Port UUID (required)
+     * @param bulkPhysicalPort  (required)
+     * @return AllPhysicalPortsResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
      */
-    public static class AddToLagOper implements Oper {
-
-        public static final Method REQ_METHOD = POST;
-        public static final String REQ_URI = "/fabric/v4/ports/{portId}/physicalPorts/bulk";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public AddToLagOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setContentType("application/json");
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * POST /fabric/v4/ports/{portId}/physicalPorts/bulk
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * POST /fabric/v4/ports/{portId}/physicalPorts/bulk
-         * @param handler handler
-         * @return AllPhysicalPortsResponse
-         */
-        public AllPhysicalPortsResponse executeAs(Function<Response, Response> handler) {
-            TypeRef<AllPhysicalPortsResponse> type = new TypeRef<AllPhysicalPortsResponse>(){};
-            return execute(handler).as(type);
-        }
-
-         /**
-         * @param bulkPhysicalPort (BulkPhysicalPort)  (required)
-         * @return operation
-         */
-        public AddToLagOper body(BulkPhysicalPort bulkPhysicalPort) {
-            reqSpec.setBody(bulkPhysicalPort);
-            return this;
-        }
-
-        public static final String PORT_ID_PATH = "portId";
-
-        /**
-         * @param portId (UUID) Port UUID (required)
-         * @return operation
-         */
-        public AddToLagOper portIdPath(Object portId) {
-            reqSpec.addPathParam(PORT_ID_PATH, portId);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public AddToLagOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public AddToLagOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public AllPhysicalPortsResponse addToLag(UUID portId, BulkPhysicalPort bulkPhysicalPort) throws ApiException {
+        ApiResponse<AllPhysicalPortsResponse> localVarResp = addToLagWithHttpInfo(portId, bulkPhysicalPort);
+        return localVarResp.getData();
     }
+
+    /**
+     * Add to Lag
+     * Add Physical Ports to Virtual Port.&lt;font color&#x3D;\&quot;red\&quot;&gt; &lt;sup color&#x3D;&#39;red&#39;&gt;Preview&lt;/sup&gt;&lt;/font&gt;
+     * @param portId Port UUID (required)
+     * @param bulkPhysicalPort  (required)
+     * @return ApiResponse&lt;AllPhysicalPortsResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<AllPhysicalPortsResponse> addToLagWithHttpInfo(UUID portId, BulkPhysicalPort bulkPhysicalPort) throws ApiException {
+        okhttp3.Call localVarCall = addToLagValidateBeforeCall(portId, bulkPhysicalPort, null);
+        Type localVarReturnType = new TypeToken<AllPhysicalPortsResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Add to Lag (asynchronously)
+     * Add Physical Ports to Virtual Port.&lt;font color&#x3D;\&quot;red\&quot;&gt; &lt;sup color&#x3D;&#39;red&#39;&gt;Preview&lt;/sup&gt;&lt;/font&gt;
+     * @param portId Port UUID (required)
+     * @param bulkPhysicalPort  (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call addToLagAsync(UUID portId, BulkPhysicalPort bulkPhysicalPort, final ApiCallback<AllPhysicalPortsResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = addToLagValidateBeforeCall(portId, bulkPhysicalPort, _callback);
+        Type localVarReturnType = new TypeToken<AllPhysicalPortsResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for createBulkPort
+     * @param bulkPort  (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 201 </td><td> Successful operation for COLO Bulk Port </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call createBulkPortCall(BulkPort bulkPort, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = bulkPort;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/ports/bulk";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call createBulkPortValidateBeforeCall(BulkPort bulkPort, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'bulkPort' is set
+        if (bulkPort == null) {
+            throw new ApiException("Missing the required parameter 'bulkPort' when calling createBulkPort(Async)");
+        }
+
+        return createBulkPortCall(bulkPort, _callback);
+
+    }
+
     /**
      * Create Port
      * Create Port creates Equinix Fabric? Port.&lt;font color&#x3D;\&quot;red\&quot;&gt; &lt;sup color&#x3D;&#39;red&#39;&gt;Preview&lt;/sup&gt;&lt;/font&gt;
-     *
-     * @see #body  (required)
-     * return AllPortsResponse
+     * @param bulkPort  (required)
+     * @return AllPortsResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 201 </td><td> Successful operation for COLO Bulk Port </td><td>  -  </td></tr>
+     </table>
      */
-    public static class CreateBulkPortOper implements Oper {
-
-        public static final Method REQ_METHOD = POST;
-        public static final String REQ_URI = "/fabric/v4/ports/bulk";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public CreateBulkPortOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setContentType("application/json");
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * POST /fabric/v4/ports/bulk
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * POST /fabric/v4/ports/bulk
-         * @param handler handler
-         * @return AllPortsResponse
-         */
-        public AllPortsResponse executeAs(Function<Response, Response> handler) {
-            TypeRef<AllPortsResponse> type = new TypeRef<AllPortsResponse>(){};
-            return execute(handler).as(type);
-        }
-
-         /**
-         * @param bulkPort (BulkPort)  (required)
-         * @return operation
-         */
-        public CreateBulkPortOper body(BulkPort bulkPort) {
-            reqSpec.setBody(bulkPort);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public CreateBulkPortOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public CreateBulkPortOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public AllPortsResponse createBulkPort(BulkPort bulkPort) throws ApiException {
+        ApiResponse<AllPortsResponse> localVarResp = createBulkPortWithHttpInfo(bulkPort);
+        return localVarResp.getData();
     }
+
+    /**
+     * Create Port
+     * Create Port creates Equinix Fabric? Port.&lt;font color&#x3D;\&quot;red\&quot;&gt; &lt;sup color&#x3D;&#39;red&#39;&gt;Preview&lt;/sup&gt;&lt;/font&gt;
+     * @param bulkPort  (required)
+     * @return ApiResponse&lt;AllPortsResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 201 </td><td> Successful operation for COLO Bulk Port </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<AllPortsResponse> createBulkPortWithHttpInfo(BulkPort bulkPort) throws ApiException {
+        okhttp3.Call localVarCall = createBulkPortValidateBeforeCall(bulkPort, null);
+        Type localVarReturnType = new TypeToken<AllPortsResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Create Port (asynchronously)
+     * Create Port creates Equinix Fabric? Port.&lt;font color&#x3D;\&quot;red\&quot;&gt; &lt;sup color&#x3D;&#39;red&#39;&gt;Preview&lt;/sup&gt;&lt;/font&gt;
+     * @param bulkPort  (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 201 </td><td> Successful operation for COLO Bulk Port </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call createBulkPortAsync(BulkPort bulkPort, final ApiCallback<AllPortsResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = createBulkPortValidateBeforeCall(bulkPort, _callback);
+        Type localVarReturnType = new TypeToken<AllPortsResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for createPort
+     * @param port  (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 201 </td><td> Successful operation for COLO Single Port Non Lag </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call createPortCall(Port port, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = port;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/ports";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call createPortValidateBeforeCall(Port port, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'port' is set
+        if (port == null) {
+            throw new ApiException("Missing the required parameter 'port' when calling createPort(Async)");
+        }
+
+        return createPortCall(port, _callback);
+
+    }
+
     /**
      * Create Port
      * Creates Equinix Fabric? Port.
-     *
-     * @see #body  (required)
-     * return Port
+     * @param port  (required)
+     * @return Port
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 201 </td><td> Successful operation for COLO Single Port Non Lag </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
      */
-    public static class CreatePortOper implements Oper {
-
-        public static final Method REQ_METHOD = POST;
-        public static final String REQ_URI = "/fabric/v4/ports";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public CreatePortOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setContentType("application/json");
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * POST /fabric/v4/ports
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * POST /fabric/v4/ports
-         * @param handler handler
-         * @return Port
-         */
-        public Port executeAs(Function<Response, Response> handler) {
-            TypeRef<Port> type = new TypeRef<Port>(){};
-            return execute(handler).as(type);
-        }
-
-         /**
-         * @param port (Port)  (required)
-         * @return operation
-         */
-        public CreatePortOper body(Port port) {
-            reqSpec.setBody(port);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public CreatePortOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public CreatePortOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public Port createPort(Port port) throws ApiException {
+        ApiResponse<Port> localVarResp = createPortWithHttpInfo(port);
+        return localVarResp.getData();
     }
+
+    /**
+     * Create Port
+     * Creates Equinix Fabric? Port.
+     * @param port  (required)
+     * @return ApiResponse&lt;Port&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 201 </td><td> Successful operation for COLO Single Port Non Lag </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<Port> createPortWithHttpInfo(Port port) throws ApiException {
+        okhttp3.Call localVarCall = createPortValidateBeforeCall(port, null);
+        Type localVarReturnType = new TypeToken<Port>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Create Port (asynchronously)
+     * Creates Equinix Fabric? Port.
+     * @param port  (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 201 </td><td> Successful operation for COLO Single Port Non Lag </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call createPortAsync(Port port, final ApiCallback<Port> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = createPortValidateBeforeCall(port, _callback);
+        Type localVarReturnType = new TypeToken<Port>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for deletePort
+     * @param portId Port UUID (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Accepted </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call deletePortCall(UUID portId, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/ports/{portId}"
+            .replace("{" + "portId" + "}", localVarApiClient.escapeString(portId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call deletePortValidateBeforeCall(UUID portId, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'portId' is set
+        if (portId == null) {
+            throw new ApiException("Missing the required parameter 'portId' when calling deletePort(Async)");
+        }
+
+        return deletePortCall(portId, _callback);
+
+    }
+
     /**
      * Delete a single port
      * The API provides capability to delete a single port
-     *
-     * @see #portIdPath Port UUID (required)
-     * return Port
+     * @param portId Port UUID (required)
+     * @return Port
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Accepted </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+     </table>
      */
-    public static class DeletePortOper implements Oper {
-
-        public static final Method REQ_METHOD = DELETE;
-        public static final String REQ_URI = "/fabric/v4/ports/{portId}";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public DeletePortOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * DELETE /fabric/v4/ports/{portId}
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * DELETE /fabric/v4/ports/{portId}
-         * @param handler handler
-         * @return Port
-         */
-        public Port executeAs(Function<Response, Response> handler) {
-            TypeRef<Port> type = new TypeRef<Port>(){};
-            return execute(handler).as(type);
-        }
-
-        public static final String PORT_ID_PATH = "portId";
-
-        /**
-         * @param portId (UUID) Port UUID (required)
-         * @return operation
-         */
-        public DeletePortOper portIdPath(Object portId) {
-            reqSpec.addPathParam(PORT_ID_PATH, portId);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public DeletePortOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public DeletePortOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public Port deletePort(UUID portId) throws ApiException {
+        ApiResponse<Port> localVarResp = deletePortWithHttpInfo(portId);
+        return localVarResp.getData();
     }
+
+    /**
+     * Delete a single port
+     * The API provides capability to delete a single port
+     * @param portId Port UUID (required)
+     * @return ApiResponse&lt;Port&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Accepted </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<Port> deletePortWithHttpInfo(UUID portId) throws ApiException {
+        okhttp3.Call localVarCall = deletePortValidateBeforeCall(portId, null);
+        Type localVarReturnType = new TypeToken<Port>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Delete a single port (asynchronously)
+     * The API provides capability to delete a single port
+     * @param portId Port UUID (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Accepted </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call deletePortAsync(UUID portId, final ApiCallback<Port> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = deletePortValidateBeforeCall(portId, _callback);
+        Type localVarReturnType = new TypeToken<Port>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for getPortByUuid
+     * @param portId Port UUID (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getPortByUuidCall(UUID portId, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/ports/{portId}"
+            .replace("{" + "portId" + "}", localVarApiClient.escapeString(portId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getPortByUuidValidateBeforeCall(UUID portId, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'portId' is set
+        if (portId == null) {
+            throw new ApiException("Missing the required parameter 'portId' when calling getPortByUuid(Async)");
+        }
+
+        return getPortByUuidCall(portId, _callback);
+
+    }
+
     /**
      * Get Port by uuid
      * Get Port By uuid returns details of assigned and available Equinix Fabric port for the specified user credentials. The metro code attribute in the response shows the origin of the proposed connection.
-     *
-     * @see #portIdPath Port UUID (required)
-     * return Port
+     * @param portId Port UUID (required)
+     * @return Port
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
      */
-    public static class GetPortByUuidOper implements Oper {
-
-        public static final Method REQ_METHOD = GET;
-        public static final String REQ_URI = "/fabric/v4/ports/{portId}";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public GetPortByUuidOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * GET /fabric/v4/ports/{portId}
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * GET /fabric/v4/ports/{portId}
-         * @param handler handler
-         * @return Port
-         */
-        public Port executeAs(Function<Response, Response> handler) {
-            TypeRef<Port> type = new TypeRef<Port>(){};
-            return execute(handler).as(type);
-        }
-
-        public static final String PORT_ID_PATH = "portId";
-
-        /**
-         * @param portId (UUID) Port UUID (required)
-         * @return operation
-         */
-        public GetPortByUuidOper portIdPath(Object portId) {
-            reqSpec.addPathParam(PORT_ID_PATH, portId);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public GetPortByUuidOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public GetPortByUuidOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public Port getPortByUuid(UUID portId) throws ApiException {
+        ApiResponse<Port> localVarResp = getPortByUuidWithHttpInfo(portId);
+        return localVarResp.getData();
     }
+
+    /**
+     * Get Port by uuid
+     * Get Port By uuid returns details of assigned and available Equinix Fabric port for the specified user credentials. The metro code attribute in the response shows the origin of the proposed connection.
+     * @param portId Port UUID (required)
+     * @return ApiResponse&lt;Port&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<Port> getPortByUuidWithHttpInfo(UUID portId) throws ApiException {
+        okhttp3.Call localVarCall = getPortByUuidValidateBeforeCall(portId, null);
+        Type localVarReturnType = new TypeToken<Port>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Get Port by uuid (asynchronously)
+     * Get Port By uuid returns details of assigned and available Equinix Fabric port for the specified user credentials. The metro code attribute in the response shows the origin of the proposed connection.
+     * @param portId Port UUID (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getPortByUuidAsync(UUID portId, final ApiCallback<Port> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getPortByUuidValidateBeforeCall(portId, _callback);
+        Type localVarReturnType = new TypeToken<Port>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for getPorts
+     * @param name port name to be provided if specific port(s) to be retrieved (optional)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getPortsCall(String name, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/ports";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        if (name != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("name", name));
+        }
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getPortsValidateBeforeCall(String name, final ApiCallback _callback) throws ApiException {
+        return getPortsCall(name, _callback);
+
+    }
+
     /**
      * Get All Ports
      * Get All Ports returns details of all assigned and available ports for the specified user credentials. The metro attribute in the response shows the origin of the proposed connection.
-     *
-     * @see #nameQuery port name to be provided if specific port(s) to be retrieved (optional)
-     * return AllPortsResponse
+     * @param name port name to be provided if specific port(s) to be retrieved (optional)
+     * @return AllPortsResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+     </table>
      */
-    public static class GetPortsOper implements Oper {
-
-        public static final Method REQ_METHOD = GET;
-        public static final String REQ_URI = "/fabric/v4/ports";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public GetPortsOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * GET /fabric/v4/ports
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * GET /fabric/v4/ports
-         * @param handler handler
-         * @return AllPortsResponse
-         */
-        public AllPortsResponse executeAs(Function<Response, Response> handler) {
-            TypeRef<AllPortsResponse> type = new TypeRef<AllPortsResponse>(){};
-            return execute(handler).as(type);
-        }
-
-        public static final String NAME_QUERY = "name";
-
-        /**
-         * @param name (String) port name to be provided if specific port(s) to be retrieved (optional)
-         * @return operation
-         */
-        public GetPortsOper nameQuery(Object... name) {
-            reqSpec.addQueryParam(NAME_QUERY, name);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public GetPortsOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public GetPortsOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public AllPortsResponse getPorts(String name) throws ApiException {
+        ApiResponse<AllPortsResponse> localVarResp = getPortsWithHttpInfo(name);
+        return localVarResp.getData();
     }
+
+    /**
+     * Get All Ports
+     * Get All Ports returns details of all assigned and available ports for the specified user credentials. The metro attribute in the response shows the origin of the proposed connection.
+     * @param name port name to be provided if specific port(s) to be retrieved (optional)
+     * @return ApiResponse&lt;AllPortsResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<AllPortsResponse> getPortsWithHttpInfo(String name) throws ApiException {
+        okhttp3.Call localVarCall = getPortsValidateBeforeCall(name, null);
+        Type localVarReturnType = new TypeToken<AllPortsResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Get All Ports (asynchronously)
+     * Get All Ports returns details of all assigned and available ports for the specified user credentials. The metro attribute in the response shows the origin of the proposed connection.
+     * @param name port name to be provided if specific port(s) to be retrieved (optional)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getPortsAsync(String name, final ApiCallback<AllPortsResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getPortsValidateBeforeCall(name, _callback);
+        Type localVarReturnType = new TypeToken<AllPortsResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for getVlans
+     * @param portUuid Port UUID (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Get Vlans </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getVlansCall(UUID portUuid, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/ports/{portUuid}/linkProtocols"
+            .replace("{" + "portUuid" + "}", localVarApiClient.escapeString(portUuid.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getVlansValidateBeforeCall(UUID portUuid, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'portUuid' is set
+        if (portUuid == null) {
+            throw new ApiException("Missing the required parameter 'portUuid' when calling getVlans(Async)");
+        }
+
+        return getVlansCall(portUuid, _callback);
+
+    }
+
     /**
      * Get Vlans
      * The API provides capability to retrieve Vlans for a Port.
-     *
-     * @see #portUuidPath Port UUID (required)
-     * return LinkProtocolGetResponse
+     * @param portUuid Port UUID (required)
+     * @return LinkProtocolGetResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Get Vlans </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+     </table>
      */
-    public static class GetVlansOper implements Oper {
-
-        public static final Method REQ_METHOD = GET;
-        public static final String REQ_URI = "/fabric/v4/ports/{portUuid}/linkProtocols";
-
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
-
-        public GetVlansOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * GET /fabric/v4/ports/{portUuid}/linkProtocols
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * GET /fabric/v4/ports/{portUuid}/linkProtocols
-         * @param handler handler
-         * @return LinkProtocolGetResponse
-         */
-        public LinkProtocolGetResponse executeAs(Function<Response, Response> handler) {
-            TypeRef<LinkProtocolGetResponse> type = new TypeRef<LinkProtocolGetResponse>(){};
-            return execute(handler).as(type);
-        }
-
-        public static final String PORT_UUID_PATH = "portUuid";
-
-        /**
-         * @param portUuid (UUID) Port UUID (required)
-         * @return operation
-         */
-        public GetVlansOper portUuidPath(Object portUuid) {
-            reqSpec.addPathParam(PORT_UUID_PATH, portUuid);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public GetVlansOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public GetVlansOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+    public LinkProtocolGetResponse getVlans(UUID portUuid) throws ApiException {
+        ApiResponse<LinkProtocolGetResponse> localVarResp = getVlansWithHttpInfo(portUuid);
+        return localVarResp.getData();
     }
+
+    /**
+     * Get Vlans
+     * The API provides capability to retrieve Vlans for a Port.
+     * @param portUuid Port UUID (required)
+     * @return ApiResponse&lt;LinkProtocolGetResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Get Vlans </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<LinkProtocolGetResponse> getVlansWithHttpInfo(UUID portUuid) throws ApiException {
+        okhttp3.Call localVarCall = getVlansValidateBeforeCall(portUuid, null);
+        Type localVarReturnType = new TypeToken<LinkProtocolGetResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Get Vlans (asynchronously)
+     * The API provides capability to retrieve Vlans for a Port.
+     * @param portUuid Port UUID (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Get Vlans </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getVlansAsync(UUID portUuid, final ApiCallback<LinkProtocolGetResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getVlansValidateBeforeCall(portUuid, _callback);
+        Type localVarReturnType = new TypeToken<LinkProtocolGetResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for searchPorts
+     * @param portV4SearchRequest  (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call searchPortsCall(PortV4SearchRequest portV4SearchRequest, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = portV4SearchRequest;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/ports/search";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call searchPortsValidateBeforeCall(PortV4SearchRequest portV4SearchRequest, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'portV4SearchRequest' is set
+        if (portV4SearchRequest == null) {
+            throw new ApiException("Missing the required parameter 'portV4SearchRequest' when calling searchPorts(Async)");
+        }
+
+        return searchPortsCall(portV4SearchRequest, _callback);
+
+    }
+
     /**
      * Search ports
      * The API provides capability to get list of user&#39;s virtual ports using search criteria, including optional filtering, pagination and sorting
-     *
-     * @see #body  (required)
-     * return AllPortsResponse
+     * @param portV4SearchRequest  (required)
+     * @return AllPortsResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+     </table>
      */
-    public static class SearchPortsOper implements Oper {
+    public AllPortsResponse searchPorts(PortV4SearchRequest portV4SearchRequest) throws ApiException {
+        ApiResponse<AllPortsResponse> localVarResp = searchPortsWithHttpInfo(portV4SearchRequest);
+        return localVarResp.getData();
+    }
 
-        public static final Method REQ_METHOD = POST;
-        public static final String REQ_URI = "/fabric/v4/ports/search";
+    /**
+     * Search ports
+     * The API provides capability to get list of user&#39;s virtual ports using search criteria, including optional filtering, pagination and sorting
+     * @param portV4SearchRequest  (required)
+     * @return ApiResponse&lt;AllPortsResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<AllPortsResponse> searchPortsWithHttpInfo(PortV4SearchRequest portV4SearchRequest) throws ApiException {
+        okhttp3.Call localVarCall = searchPortsValidateBeforeCall(portV4SearchRequest, null);
+        Type localVarReturnType = new TypeToken<AllPortsResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
 
-        private RequestSpecBuilder reqSpec;
-        private ResponseSpecBuilder respSpec;
+    /**
+     * Search ports (asynchronously)
+     * The API provides capability to get list of user&#39;s virtual ports using search criteria, including optional filtering, pagination and sorting
+     * @param portV4SearchRequest  (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call searchPortsAsync(PortV4SearchRequest portV4SearchRequest, final ApiCallback<AllPortsResponse> _callback) throws ApiException {
 
-        public SearchPortsOper(RequestSpecBuilder reqSpec) {
-            this.reqSpec = reqSpec;
-            reqSpec.setContentType("application/json");
-            reqSpec.setAccept("application/json");
-            this.respSpec = new ResponseSpecBuilder();
-        }
-
-        /**
-         * POST /fabric/v4/ports/search
-         * @param handler handler
-         * @param <T> type
-         * @return type
-         */
-        @Override
-        public <T> T execute(Function<Response, T> handler) {
-            return handler.apply(RestAssured.given().spec(reqSpec.build()).expect().spec(respSpec.build()).when().request(REQ_METHOD, REQ_URI));
-        }
-
-        /**
-         * POST /fabric/v4/ports/search
-         * @param handler handler
-         * @return AllPortsResponse
-         */
-        public AllPortsResponse executeAs(Function<Response, Response> handler) {
-            TypeRef<AllPortsResponse> type = new TypeRef<AllPortsResponse>(){};
-            return execute(handler).as(type);
-        }
-
-         /**
-         * @param portV4SearchRequest (PortV4SearchRequest)  (required)
-         * @return operation
-         */
-        public SearchPortsOper body(PortV4SearchRequest portV4SearchRequest) {
-            reqSpec.setBody(portV4SearchRequest);
-            return this;
-        }
-
-        /**
-         * Customize request specification
-         * @param reqSpecCustomizer consumer to modify the RequestSpecBuilder
-         * @return operation
-         */
-        public SearchPortsOper reqSpec(Consumer<RequestSpecBuilder> reqSpecCustomizer) {
-            reqSpecCustomizer.accept(reqSpec);
-            return this;
-        }
-
-        /**
-         * Customize response specification
-         * @param respSpecCustomizer consumer to modify the ResponseSpecBuilder
-         * @return operation
-         */
-        public SearchPortsOper respSpec(Consumer<ResponseSpecBuilder> respSpecCustomizer) {
-            respSpecCustomizer.accept(respSpec);
-            return this;
-        }
+        okhttp3.Call localVarCall = searchPortsValidateBeforeCall(portV4SearchRequest, _callback);
+        Type localVarReturnType = new TypeToken<AllPortsResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
     }
 }

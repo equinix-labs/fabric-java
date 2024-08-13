@@ -27,16 +27,36 @@ This API provides capability to create user&#39;s Cloud Routers
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.CloudRoutersApi;
 
-CloudRoutersApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).cloudRouters();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.createCloudRouter()
-    .body(cloudRouterPostRequest).execute(r -> r.prettyPeek());
+    CloudRoutersApi apiInstance = new CloudRoutersApi(defaultClient);
+    CloudRouterPostRequest cloudRouterPostRequest = new CloudRouterPostRequest(); // CloudRouterPostRequest | 
+    try {
+      CloudRouter result = apiInstance.createCloudRouter(cloudRouterPostRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling CloudRoutersApi#createCloudRouter");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -58,6 +78,16 @@ api.createCloudRouter()
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Fabric Cloud Router object |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **415** | Unsupported Media Type |  -  |
+| **500** | Internal server error |  -  |
+
 <a name="createCloudRouterAction"></a>
 # **createCloudRouterAction**
 > CloudRouterActionResponse createCloudRouterAction(routerId, cloudRouterActionRequest)
@@ -69,17 +99,37 @@ This API provides capability to refresh route table and bgp session summary info
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.CloudRoutersApi;
 
-CloudRoutersApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).cloudRouters();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.createCloudRouterAction()
-    .routerIdPath(routerId)
-    .body(cloudRouterActionRequest).execute(r -> r.prettyPeek());
+    CloudRoutersApi apiInstance = new CloudRoutersApi(defaultClient);
+    UUID routerId = UUID.randomUUID(); // UUID | Router UUID
+    CloudRouterActionRequest cloudRouterActionRequest = new CloudRouterActionRequest(); // CloudRouterActionRequest | 
+    try {
+      CloudRouterActionResponse result = apiInstance.createCloudRouterAction(routerId, cloudRouterActionRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling CloudRoutersApi#createCloudRouterAction");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -102,6 +152,17 @@ api.createCloudRouterAction()
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **202** | Successful operation |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **415** | Internal server error |  -  |
+| **500** | Internal server error |  -  |
+
 <a name="deleteCloudRouterByUuid"></a>
 # **deleteCloudRouterByUuid**
 > deleteCloudRouterByUuid(routerId)
@@ -113,16 +174,35 @@ This API provides capability to delete user&#39;s Cloud Routers
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.CloudRoutersApi;
 
-CloudRoutersApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).cloudRouters();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.deleteCloudRouterByUuid()
-    .routerIdPath(routerId).execute(r -> r.prettyPeek());
+    CloudRoutersApi apiInstance = new CloudRoutersApi(defaultClient);
+    UUID routerId = UUID.randomUUID(); // UUID | Cloud Router UUID
+    try {
+      apiInstance.deleteCloudRouterByUuid(routerId);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling CloudRoutersApi#deleteCloudRouterByUuid");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -144,6 +224,16 @@ null (empty response body)
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | Deleted Cloud Router Successfully |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal server error |  -  |
+
 <a name="getCloudRouterActions"></a>
 # **getCloudRouterActions**
 > CloudRouterActionResponse getCloudRouterActions(routerId, state)
@@ -155,16 +245,37 @@ This API provides capability to fetch action status
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.CloudRoutersApi;
 
-CloudRoutersApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).cloudRouters();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.getCloudRouterActions()
-    .routerIdPath(routerId).execute(r -> r.prettyPeek());
+    CloudRoutersApi apiInstance = new CloudRoutersApi(defaultClient);
+    UUID routerId = UUID.randomUUID(); // UUID | Router UUID
+    CloudRouterActionState state = CloudRouterActionState.fromValue("DONE"); // CloudRouterActionState | Action state
+    try {
+      CloudRouterActionResponse result = apiInstance.getCloudRouterActions(routerId, state);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling CloudRoutersApi#getCloudRouterActions");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -187,6 +298,17 @@ api.getCloudRouterActions()
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful operation |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **415** | Internal server error |  -  |
+| **500** | Internal server error |  -  |
+
 <a name="getCloudRouterByUuid"></a>
 # **getCloudRouterByUuid**
 > CloudRouter getCloudRouterByUuid(routerId)
@@ -198,16 +320,36 @@ This API provides capability to retrieve user&#39;s Cloud Routers
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.CloudRoutersApi;
 
-CloudRoutersApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).cloudRouters();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.getCloudRouterByUuid()
-    .routerIdPath(routerId).execute(r -> r.prettyPeek());
+    CloudRoutersApi apiInstance = new CloudRoutersApi(defaultClient);
+    UUID routerId = UUID.randomUUID(); // UUID | Cloud Router UUID
+    try {
+      CloudRouter result = apiInstance.getCloudRouterByUuid(routerId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling CloudRoutersApi#getCloudRouterByUuid");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -229,6 +371,15 @@ api.getCloudRouterByUuid()
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Fabric Cloud Router object |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal server error |  -  |
+
 <a name="getCloudRouterPackageByCode"></a>
 # **getCloudRouterPackageByCode**
 > CloudRouterPackage getCloudRouterPackageByCode(routerPackageCode)
@@ -240,16 +391,36 @@ This API provides capability to retrieve user&#39;s Cloud Routers Package Detail
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.CloudRoutersApi;
 
-CloudRoutersApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).cloudRouters();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.getCloudRouterPackageByCode()
-    .routerPackageCodePath(routerPackageCode).execute(r -> r.prettyPeek());
+    CloudRoutersApi apiInstance = new CloudRoutersApi(defaultClient);
+    RouterPackageCode routerPackageCode = RouterPackageCode.fromValue("LAB"); // RouterPackageCode | Equinix-assigned Cloud Router package identifier
+    try {
+      CloudRouterPackage result = apiInstance.getCloudRouterPackageByCode(routerPackageCode);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling CloudRoutersApi#getCloudRouterPackageByCode");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -271,6 +442,16 @@ api.getCloudRouterPackageByCode()
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Fabric Cloud Router Package details |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **415** | Unsupported Media Type |  -  |
+| **500** | Internal server error |  -  |
+
 <a name="getCloudRouterPackages"></a>
 # **getCloudRouterPackages**
 > PackageResponse getCloudRouterPackages(offset, limit)
@@ -282,15 +463,37 @@ This API provides capability to retrieve user&#39;s Cloud Routers Packages
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.CloudRoutersApi;
 
-CloudRoutersApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).cloudRouters();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.getCloudRouterPackages().execute(r -> r.prettyPeek());
+    CloudRoutersApi apiInstance = new CloudRoutersApi(defaultClient);
+    Integer offset = 1; // Integer | offset
+    Integer limit = 10; // Integer | number of records to fetch
+    try {
+      PackageResponse result = apiInstance.getCloudRouterPackages(offset, limit);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling CloudRoutersApi#getCloudRouterPackages");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -313,6 +516,15 @@ api.getCloudRouterPackages().execute(r -> r.prettyPeek());
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Fabric Cloud Router Packages |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **415** | Unsupported Media Type |  -  |
+| **500** | Internal server error |  -  |
+
 <a name="searchCloudRouterRoutes"></a>
 # **searchCloudRouterRoutes**
 > RouteTableEntrySearchResponse searchCloudRouterRoutes(routerId, routeTableEntrySearchRequest)
@@ -324,17 +536,37 @@ The API provides capability to get list of user&#39;s Fabric Cloud Router route 
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.CloudRoutersApi;
 
-CloudRoutersApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).cloudRouters();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.searchCloudRouterRoutes()
-    .routerIdPath(routerId)
-    .body(routeTableEntrySearchRequest).execute(r -> r.prettyPeek());
+    CloudRoutersApi apiInstance = new CloudRoutersApi(defaultClient);
+    UUID routerId = UUID.randomUUID(); // UUID | Router UUID
+    RouteTableEntrySearchRequest routeTableEntrySearchRequest = new RouteTableEntrySearchRequest(); // RouteTableEntrySearchRequest | 
+    try {
+      RouteTableEntrySearchResponse result = apiInstance.searchCloudRouterRoutes(routerId, routeTableEntrySearchRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling CloudRoutersApi#searchCloudRouterRoutes");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -357,6 +589,17 @@ api.searchCloudRouterRoutes()
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful operation |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **415** | Internal server error |  -  |
+| **500** | Internal server error |  -  |
+
 <a name="searchCloudRouters"></a>
 # **searchCloudRouters**
 > SearchResponse searchCloudRouters(cloudRouterSearchRequest)
@@ -368,16 +611,36 @@ The API provides capability to get list of user&#39;s Cloud Routers using search
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.CloudRoutersApi;
 
-CloudRoutersApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).cloudRouters();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.searchCloudRouters()
-    .body(cloudRouterSearchRequest).execute(r -> r.prettyPeek());
+    CloudRoutersApi apiInstance = new CloudRoutersApi(defaultClient);
+    CloudRouterSearchRequest cloudRouterSearchRequest = new CloudRouterSearchRequest(); // CloudRouterSearchRequest | 
+    try {
+      SearchResponse result = apiInstance.searchCloudRouters(cloudRouterSearchRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling CloudRoutersApi#searchCloudRouters");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -399,6 +662,16 @@ api.searchCloudRouters()
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful operation |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **415** | Unsupported Media Type |  -  |
+| **500** | Internal server error |  -  |
+
 <a name="updateCloudRouterByUuid"></a>
 # **updateCloudRouterByUuid**
 > CloudRouter updateCloudRouterByUuid(routerId, cloudRouterChangeOperation)
@@ -410,17 +683,37 @@ This API provides capability to update user&#39;s Cloud Routers
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.CloudRoutersApi;
 
-CloudRoutersApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).cloudRouters();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.updateCloudRouterByUuid()
-    .routerIdPath(routerId)
-    .body(cloudRouterChangeOperation).execute(r -> r.prettyPeek());
+    CloudRoutersApi apiInstance = new CloudRoutersApi(defaultClient);
+    UUID routerId = UUID.randomUUID(); // UUID | Cloud Router UUID
+    List<CloudRouterChangeOperation> cloudRouterChangeOperation = Arrays.asList(); // List<CloudRouterChangeOperation> | 
+    try {
+      CloudRouter result = apiInstance.updateCloudRouterByUuid(routerId, cloudRouterChangeOperation);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling CloudRoutersApi#updateCloudRouterByUuid");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -442,4 +735,15 @@ api.updateCloudRouterByUuid()
 
  - **Content-Type**: application/json-patch+json
  - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Fabric Cloud Router object |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **415** | Unsupported Media Type |  -  |
+| **500** | Internal server error |  -  |
 

@@ -25,16 +25,36 @@ Create Service Profile creates Equinix Fabric? Service Profile.
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.ServiceProfilesApi;
 
-ServiceProfilesApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).serviceProfiles();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.createServiceProfile()
-    .body(serviceProfileRequest).execute(r -> r.prettyPeek());
+    ServiceProfilesApi apiInstance = new ServiceProfilesApi(defaultClient);
+    ServiceProfileRequest serviceProfileRequest = new ServiceProfileRequest(); // ServiceProfileRequest | 
+    try {
+      ServiceProfile result = apiInstance.createServiceProfile(serviceProfileRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling ServiceProfilesApi#createServiceProfile");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -56,6 +76,15 @@ api.createServiceProfile()
  - **Content-Type**: application/json
  - **Accept**: application/json; charset=UTF-8, application/json
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Successful Create operation |  * ETag -  <br>  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **500** | Internal Server Error |  -  |
+
 <a name="deleteServiceProfileByUuid"></a>
 # **deleteServiceProfileByUuid**
 > ServiceProfile deleteServiceProfileByUuid(serviceProfileId)
@@ -67,16 +96,36 @@ delete Service Profile by UUID
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.ServiceProfilesApi;
 
-ServiceProfilesApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).serviceProfiles();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.deleteServiceProfileByUuid()
-    .serviceProfileIdPath(serviceProfileId).execute(r -> r.prettyPeek());
+    ServiceProfilesApi apiInstance = new ServiceProfilesApi(defaultClient);
+    UUID serviceProfileId = UUID.randomUUID(); // UUID | Service Profile UUID
+    try {
+      ServiceProfile result = apiInstance.deleteServiceProfileByUuid(serviceProfileId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling ServiceProfilesApi#deleteServiceProfileByUuid");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -98,6 +147,16 @@ api.deleteServiceProfileByUuid()
  - **Content-Type**: Not defined
  - **Accept**: application/json; charset=UTF-8, application/json
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful Delete operation |  * ETag -  <br>  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
+
 <a name="getServiceProfileByUuid"></a>
 # **getServiceProfileByUuid**
 > ServiceProfile getServiceProfileByUuid(serviceProfileId, viewPoint)
@@ -109,16 +168,37 @@ Get service profile by UUID. View Point parameter if set to zSide will give sell
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.ServiceProfilesApi;
 
-ServiceProfilesApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).serviceProfiles();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.getServiceProfileByUuid()
-    .serviceProfileIdPath(serviceProfileId).execute(r -> r.prettyPeek());
+    ServiceProfilesApi apiInstance = new ServiceProfilesApi(defaultClient);
+    UUID serviceProfileId = UUID.randomUUID(); // UUID | Service Profile UUID
+    String viewPoint = "aSide"; // String | flips view between buyer and seller representation
+    try {
+      ServiceProfile result = apiInstance.getServiceProfileByUuid(serviceProfileId, viewPoint);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling ServiceProfilesApi#getServiceProfileByUuid");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -141,6 +221,15 @@ api.getServiceProfileByUuid()
  - **Content-Type**: Not defined
  - **Accept**: application/json; charset=UTF-8, application/json
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful operation |  * ETag -  <br>  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **500** | Internal Server Error |  -  |
+
 <a name="getServiceProfileMetrosByUuid"></a>
 # **getServiceProfileMetrosByUuid**
 > ServiceMetros getServiceProfileMetrosByUuid(serviceProfileId, offset, limit)
@@ -152,16 +241,38 @@ Get service profile metros by UUID.
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.ServiceProfilesApi;
 
-ServiceProfilesApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).serviceProfiles();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.getServiceProfileMetrosByUuid()
-    .serviceProfileIdPath(serviceProfileId).execute(r -> r.prettyPeek());
+    ServiceProfilesApi apiInstance = new ServiceProfilesApi(defaultClient);
+    UUID serviceProfileId = UUID.randomUUID(); // UUID | Service Profile UUID
+    Integer offset = 1; // Integer | offset
+    Integer limit = 10; // Integer | number of records to fetch
+    try {
+      ServiceMetros result = apiInstance.getServiceProfileMetrosByUuid(serviceProfileId, offset, limit);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling ServiceProfilesApi#getServiceProfileMetrosByUuid");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -185,6 +296,15 @@ api.getServiceProfileMetrosByUuid()
  - **Content-Type**: Not defined
  - **Accept**: application/json; charset=UTF-8, application/json
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful operation |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **500** | Internal Server Error |  -  |
+
 <a name="getServiceProfiles"></a>
 # **getServiceProfiles**
 > ServiceProfiles getServiceProfiles(offset, limit, viewPoint)
@@ -196,15 +316,38 @@ The API request returns all Equinix Fabric Service Profiles in accordance with t
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.ServiceProfilesApi;
 
-ServiceProfilesApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).serviceProfiles();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.getServiceProfiles().execute(r -> r.prettyPeek());
+    ServiceProfilesApi apiInstance = new ServiceProfilesApi(defaultClient);
+    Integer offset = 1; // Integer | offset
+    Integer limit = 10; // Integer | number of records to fetch
+    String viewPoint = "aSide"; // String | flips view between buyer and seller representation
+    try {
+      ServiceProfiles result = apiInstance.getServiceProfiles(offset, limit, viewPoint);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling ServiceProfilesApi#getServiceProfiles");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -228,6 +371,15 @@ api.getServiceProfiles().execute(r -> r.prettyPeek());
  - **Content-Type**: Not defined
  - **Accept**: application/json; charset=UTF-8, application/json
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful operation |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **500** | Internal Server Error |  -  |
+
 <a name="putServiceProfileByUuid"></a>
 # **putServiceProfileByUuid**
 > ServiceProfile putServiceProfileByUuid(serviceProfileId, ifMatch, serviceProfileRequest)
@@ -239,18 +391,38 @@ This API request replaces a service profile definition
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.ServiceProfilesApi;
 
-ServiceProfilesApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).serviceProfiles();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.putServiceProfileByUuid()
-    .serviceProfileIdPath(serviceProfileId)
-    .ifMatchHeader(ifMatch)
-    .body(serviceProfileRequest).execute(r -> r.prettyPeek());
+    ServiceProfilesApi apiInstance = new ServiceProfilesApi(defaultClient);
+    UUID serviceProfileId = UUID.randomUUID(); // UUID | Service Profile UUID
+    String ifMatch = "ifMatch_example"; // String | conditional request
+    ServiceProfileRequest serviceProfileRequest = new ServiceProfileRequest(); // ServiceProfileRequest | 
+    try {
+      ServiceProfile result = apiInstance.putServiceProfileByUuid(serviceProfileId, ifMatch, serviceProfileRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling ServiceProfilesApi#putServiceProfileByUuid");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -274,6 +446,16 @@ api.putServiceProfileByUuid()
  - **Content-Type**: application/json
  - **Accept**: application/json; charset=UTF-8, application/json
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **202** | Successful Put operation |  * ETag -  <br>  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **500** | Internal Server Error |  -  |
+
 <a name="searchServiceProfiles"></a>
 # **searchServiceProfiles**
 > ServiceProfiles searchServiceProfiles(serviceProfileSearchRequest, viewPoint)
@@ -285,16 +467,37 @@ Search service profiles by search criteria
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.ServiceProfilesApi;
 
-ServiceProfilesApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).serviceProfiles();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.searchServiceProfiles()
-    .body(serviceProfileSearchRequest).execute(r -> r.prettyPeek());
+    ServiceProfilesApi apiInstance = new ServiceProfilesApi(defaultClient);
+    ServiceProfileSearchRequest serviceProfileSearchRequest = new ServiceProfileSearchRequest(); // ServiceProfileSearchRequest | 
+    String viewPoint = "aSide"; // String | flips view between buyer and seller representation
+    try {
+      ServiceProfiles result = apiInstance.searchServiceProfiles(serviceProfileSearchRequest, viewPoint);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling ServiceProfilesApi#searchServiceProfiles");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -317,6 +520,14 @@ api.searchServiceProfiles()
  - **Content-Type**: application/json
  - **Accept**: application/json; charset=UTF-8, application/json
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful operation |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **500** | Internal Server Error |  -  |
+
 <a name="updateServiceProfileByUuid"></a>
 # **updateServiceProfileByUuid**
 > ServiceProfile updateServiceProfileByUuid(serviceProfileId, ifMatch, jsonPatchOperation)
@@ -328,18 +539,38 @@ Update Service Profile by UUID
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.ServiceProfilesApi;
 
-ServiceProfilesApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).serviceProfiles();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.updateServiceProfileByUuid()
-    .serviceProfileIdPath(serviceProfileId)
-    .ifMatchHeader(ifMatch)
-    .body(jsonPatchOperation).execute(r -> r.prettyPeek());
+    ServiceProfilesApi apiInstance = new ServiceProfilesApi(defaultClient);
+    UUID serviceProfileId = UUID.randomUUID(); // UUID | Service Profile UUID
+    String ifMatch = "ifMatch_example"; // String | conditional request
+    List<JsonPatchOperation> jsonPatchOperation = Arrays.asList(); // List<JsonPatchOperation> | 
+    try {
+      ServiceProfile result = apiInstance.updateServiceProfileByUuid(serviceProfileId, ifMatch, jsonPatchOperation);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling ServiceProfilesApi#updateServiceProfileByUuid");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -362,4 +593,15 @@ api.updateServiceProfileByUuid()
 
  - **Content-Type**: application/json-patch+json
  - **Accept**: application/json; charset=UTF-8, application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful Patch operation |  * ETag -  <br>  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **412** | Precondition Failed |  -  |
+| **500** | Internal Server Error |  -  |
 

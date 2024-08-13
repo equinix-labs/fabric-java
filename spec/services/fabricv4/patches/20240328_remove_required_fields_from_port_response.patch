@@ -1,0 +1,66 @@
+diff --git a/spec/services/fabricv4/oas3.patched/swagger.yaml b/spec/services/fabricv4/oas3.patched/swagger.yaml
+index e8b0692..4608d7b 100644
+--- a/spec/services/fabricv4/oas3.patched/swagger.yaml
++++ b/spec/services/fabricv4/oas3.patched/swagger.yaml
+@@ -3228,7 +3228,7 @@ paths:
+           content:
+             application/json:
+               schema:
+-                $ref: "#/components/schemas/Port"
++                $ref: "#/components/schemas/PortResponse"
+               examples:
+                 portExample:
+                   $ref: "#/components/examples/COLOSinglePortNonLagResponse"
+@@ -3355,7 +3355,7 @@ paths:
+           content:
+             application/json:
+               schema:
+-                $ref: "#/components/schemas/Port"
++                $ref: "#/components/schemas/PortResponse"
+               examples:
+                 portExample:
+                   $ref: "#/components/examples/portByUUID"
+@@ -8800,18 +8800,9 @@ components:
+           type: array
+           description: GET All User Port Across Fabric Metros
+           items:
+-            $ref: "#/components/schemas/Port"
++            $ref: "#/components/schemas/PortResponse"
+       description: GET All User Port Across Fabric Metros
+-    Port:
+-      required:
+-        - account
+-        - connectivitySourceType
+-        - encapsulation
+-        - location
+-        - physicalPortsSpeed
+-        - physicalPortsType
+-        - settings
+-        - type
++    PortResponse:
+       type: object
+       properties:
+         type:
+@@ -8949,7 +8940,21 @@ components:
+           description: Port Loas
+           items:
+             $ref: "#/components/schemas/PortLoa"
+-      description: Port specification
++      description: Port response specification
++    Port:
++      required:
++        - account
++        - connectivitySourceType
++        - encapsulation
++        - location
++        - physicalPortsSpeed
++        - physicalPortsType
++        - settings
++        - type
++      type: object
++      description: Port is the Request Object for Creating Fabric Ports
++      allOf:
++        - $ref: "#/components/schemas/PortResponse"
+     PhysicalPort:
+       type: object
+       properties:

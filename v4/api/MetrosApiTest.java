@@ -10,48 +10,36 @@
 
 package com.equinix.openapi.fabric.v4.api;
 
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.v4.api.dto.users.UsersItem;
 import com.equinix.openapi.fabric.v4.model.Metro;
 import com.equinix.openapi.fabric.v4.model.MetroResponse;
 import com.equinix.openapi.fabric.v4.model.Presence;
-import io.restassured.response.Response;
-import org.apache.http.HttpStatus;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * API tests for MetrosApi
  */
 public class MetrosApiTest {
 
+    private static final MetrosApi api = new MetrosApi(TokenGenerator.getApiClient(UsersItem.UserName.PANTHERS_FCR));
     private final String metroCode = "DC";
-    private MetrosApi api = TokenGenerator.getApiClient().metros();
 
     @Test
-    public void getMetroByCode() {
-        Response response = api.getMetroByCode()
-                .metroCodePath(metroCode)
-                .execute(r -> r);
-
-        Metro metro = response.as(Metro.class);
-        assertEquals(HttpStatus.SC_OK, response.getStatusCode());
+    public void getMetroByCode() throws ApiException {
+        Metro metro = api.getMetroByCode(metroCode);
+        assertEquals(200, api.getApiClient().getStatusCode());
         assertEquals(metroCode, metro.getCode());
     }
 
     @Test
-    public void getMetros() {
-        Response response = api.getMetros()
-                .limitQuery(10)
-                .offsetQuery(1)
-                .presenceQuery(Presence.MY_PORTS)
-                .execute(r -> r);
-
-        MetroResponse metroResponse = response.as(MetroResponse.class);
-        assertEquals(HttpStatus.SC_OK, response.getStatusCode());
-        boolean metroFound = metroResponse.getData()
-                .stream().anyMatch(metro -> metro.getCode().equals(metroCode));
-
+    public void getMetros() throws ApiException {
+        MetroResponse metroResponse = api.getMetros(Presence.MY_PORTS, 1, 10);
+        assertEquals(200, api.getApiClient().getStatusCode());
+        boolean metroFound = metroResponse.getData().stream().anyMatch(metro -> metro.getCode().equals(metroCode));
         assertTrue(metroFound);
     }
 }

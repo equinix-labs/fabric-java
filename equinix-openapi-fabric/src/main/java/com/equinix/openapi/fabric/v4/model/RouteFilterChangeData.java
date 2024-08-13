@@ -11,39 +11,28 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.equinix.openapi.fabric.v4.model.RouteFiltersChangeOperation;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.equinix.openapi.fabric.JSON;
+import com.google.gson.*;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+
+import java.io.IOException;
 import java.net.URI;
 import java.time.OffsetDateTime;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import java.util.*;
 
 /**
  * Current state of latest Route Filter change
  */
-@JsonPropertyOrder({
-  RouteFilterChangeData.JSON_PROPERTY_STATUS,
-  RouteFilterChangeData.JSON_PROPERTY_CREATED_BY,
-  RouteFilterChangeData.JSON_PROPERTY_CREATED_DATE_TIME,
-  RouteFilterChangeData.JSON_PROPERTY_UPDATED_BY,
-  RouteFilterChangeData.JSON_PROPERTY_UPDATED_DATE_TIME,
-  RouteFilterChangeData.JSON_PROPERTY_INFORMATION,
-  RouteFilterChangeData.JSON_PROPERTY_DATA,
-  RouteFilterChangeData.JSON_PROPERTY_UUID,
-  RouteFilterChangeData.JSON_PROPERTY_TYPE,
-  RouteFilterChangeData.JSON_PROPERTY_HREF
-})
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class RouteFilterChangeData {
   /**
    * Current outcome of the change flow
    */
+  @JsonAdapter(StatusEnum.Adapter.class)
   public enum StatusEnum {
     COMPLETED("COMPLETED"),
     
@@ -57,7 +46,6 @@ public class RouteFilterChangeData {
       this.value = value;
     }
 
-    @JsonValue
     public String getValue() {
       return value;
     }
@@ -67,7 +55,6 @@ public class RouteFilterChangeData {
       return String.valueOf(value);
     }
 
-    @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
         if (b.value.equals(value)) {
@@ -76,35 +63,57 @@ public class RouteFilterChangeData {
       }
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
+
+    public static class Adapter extends TypeAdapter<StatusEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final StatusEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public StatusEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return StatusEnum.fromValue(value);
+      }
+    }
   }
 
-  public static final String JSON_PROPERTY_STATUS = "status";
+  public static final String SERIALIZED_NAME_STATUS = "status";
+  @SerializedName(SERIALIZED_NAME_STATUS)
   private StatusEnum status;
 
-  public static final String JSON_PROPERTY_CREATED_BY = "createdBy";
+  public static final String SERIALIZED_NAME_CREATED_BY = "createdBy";
+  @SerializedName(SERIALIZED_NAME_CREATED_BY)
   private String createdBy;
 
-  public static final String JSON_PROPERTY_CREATED_DATE_TIME = "createdDateTime";
+  public static final String SERIALIZED_NAME_CREATED_DATE_TIME = "createdDateTime";
+  @SerializedName(SERIALIZED_NAME_CREATED_DATE_TIME)
   private OffsetDateTime createdDateTime;
 
-  public static final String JSON_PROPERTY_UPDATED_BY = "updatedBy";
+  public static final String SERIALIZED_NAME_UPDATED_BY = "updatedBy";
+  @SerializedName(SERIALIZED_NAME_UPDATED_BY)
   private String updatedBy;
 
-  public static final String JSON_PROPERTY_UPDATED_DATE_TIME = "updatedDateTime";
+  public static final String SERIALIZED_NAME_UPDATED_DATE_TIME = "updatedDateTime";
+  @SerializedName(SERIALIZED_NAME_UPDATED_DATE_TIME)
   private OffsetDateTime updatedDateTime;
 
-  public static final String JSON_PROPERTY_INFORMATION = "information";
+  public static final String SERIALIZED_NAME_INFORMATION = "information";
+  @SerializedName(SERIALIZED_NAME_INFORMATION)
   private String information;
 
-  public static final String JSON_PROPERTY_DATA = "data";
+  public static final String SERIALIZED_NAME_DATA = "data";
+  @SerializedName(SERIALIZED_NAME_DATA)
   private RouteFiltersChangeOperation data;
 
-  public static final String JSON_PROPERTY_UUID = "uuid";
+  public static final String SERIALIZED_NAME_UUID = "uuid";
+  @SerializedName(SERIALIZED_NAME_UUID)
   private String uuid;
 
   /**
    * Type of change
    */
+  @JsonAdapter(TypeEnum.Adapter.class)
   public enum TypeEnum {
     IPV4_PREFIX_FILTER_UPDATE("BGP_IPv4_PREFIX_FILTER_UPDATE"),
     
@@ -124,7 +133,6 @@ public class RouteFilterChangeData {
       this.value = value;
     }
 
-    @JsonValue
     public String getValue() {
       return value;
     }
@@ -134,7 +142,6 @@ public class RouteFilterChangeData {
       return String.valueOf(value);
     }
 
-    @JsonCreator
     public static TypeEnum fromValue(String value) {
       for (TypeEnum b : TypeEnum.values()) {
         if (b.value.equals(value)) {
@@ -143,12 +150,27 @@ public class RouteFilterChangeData {
       }
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
+
+    public static class Adapter extends TypeAdapter<TypeEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final TypeEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public TypeEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return TypeEnum.fromValue(value);
+      }
+    }
   }
 
-  public static final String JSON_PROPERTY_TYPE = "type";
+  public static final String SERIALIZED_NAME_TYPE = "type";
+  @SerializedName(SERIALIZED_NAME_TYPE)
   private TypeEnum type;
 
-  public static final String JSON_PROPERTY_HREF = "href";
+  public static final String SERIALIZED_NAME_HREF = "href";
+  @SerializedName(SERIALIZED_NAME_HREF)
   private URI href;
 
   public RouteFilterChangeData() {
@@ -165,16 +187,12 @@ public class RouteFilterChangeData {
    * @return status
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public StatusEnum getStatus() {
     return status;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
@@ -191,16 +209,12 @@ public class RouteFilterChangeData {
    * @return createdBy
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CREATED_BY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCreatedBy() {
     return createdBy;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CREATED_BY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCreatedBy(String createdBy) {
     this.createdBy = createdBy;
   }
@@ -217,16 +231,12 @@ public class RouteFilterChangeData {
    * @return createdDateTime
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CREATED_DATE_TIME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getCreatedDateTime() {
     return createdDateTime;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CREATED_DATE_TIME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCreatedDateTime(OffsetDateTime createdDateTime) {
     this.createdDateTime = createdDateTime;
   }
@@ -243,16 +253,12 @@ public class RouteFilterChangeData {
    * @return updatedBy
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_UPDATED_BY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getUpdatedBy() {
     return updatedBy;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_UPDATED_BY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUpdatedBy(String updatedBy) {
     this.updatedBy = updatedBy;
   }
@@ -269,16 +275,12 @@ public class RouteFilterChangeData {
    * @return updatedDateTime
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_UPDATED_DATE_TIME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public OffsetDateTime getUpdatedDateTime() {
     return updatedDateTime;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_UPDATED_DATE_TIME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setUpdatedDateTime(OffsetDateTime updatedDateTime) {
     this.updatedDateTime = updatedDateTime;
   }
@@ -295,16 +297,12 @@ public class RouteFilterChangeData {
    * @return information
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_INFORMATION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getInformation() {
     return information;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_INFORMATION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setInformation(String information) {
     this.information = information;
   }
@@ -321,16 +319,12 @@ public class RouteFilterChangeData {
    * @return data
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public RouteFiltersChangeOperation getData() {
     return data;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DATA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setData(RouteFiltersChangeOperation data) {
     this.data = data;
   }
@@ -347,16 +341,12 @@ public class RouteFilterChangeData {
    * @return uuid
   **/
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_UUID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public String getUuid() {
     return uuid;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_UUID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setUuid(String uuid) {
     this.uuid = uuid;
   }
@@ -373,16 +363,12 @@ public class RouteFilterChangeData {
    * @return type
   **/
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
   public TypeEnum getType() {
     return type;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public void setType(TypeEnum type) {
     this.type = type;
   }
@@ -399,18 +385,59 @@ public class RouteFilterChangeData {
    * @return href
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_HREF)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public URI getHref() {
     return href;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_HREF)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setHref(URI href) {
     this.href = href;
+  }
+
+  /**
+   * A container for additional, undeclared properties.
+   * This is a holder for any undeclared properties as specified with
+   * the 'additionalProperties' keyword in the OAS document.
+   */
+  private Map<String, Object> additionalProperties;
+
+  /**
+   * Set the additional (undeclared) property with the specified name and value.
+   * If the property does not already exist, create it otherwise replace it.
+   *
+   * @param key name of the property
+   * @param value value of the property
+   * @return the RouteFilterChangeData instance itself
+   */
+  public RouteFilterChangeData putAdditionalProperty(String key, Object value) {
+    if (this.additionalProperties == null) {
+        this.additionalProperties = new HashMap<String, Object>();
+    }
+    this.additionalProperties.put(key, value);
+    return this;
+  }
+
+  /**
+   * Return the additional (undeclared) property.
+   *
+   * @return a map of objects
+   */
+  public Map<String, Object> getAdditionalProperties() {
+    return additionalProperties;
+  }
+
+  /**
+   * Return the additional (undeclared) property with the specified name.
+   *
+   * @param key name of the property
+   * @return an object
+   */
+  public Object getAdditionalProperty(String key) {
+    if (this.additionalProperties == null) {
+        return null;
+    }
+    return this.additionalProperties.get(key);
   }
 
 
@@ -432,12 +459,13 @@ public class RouteFilterChangeData {
         Objects.equals(this.data, routeFilterChangeData.data) &&
         Objects.equals(this.uuid, routeFilterChangeData.uuid) &&
         Objects.equals(this.type, routeFilterChangeData.type) &&
-        Objects.equals(this.href, routeFilterChangeData.href);
+        Objects.equals(this.href, routeFilterChangeData.href)&&
+        Objects.equals(this.additionalProperties, routeFilterChangeData.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, createdBy, createdDateTime, updatedBy, updatedDateTime, information, data, uuid, type, href);
+    return Objects.hash(status, createdBy, createdDateTime, updatedBy, updatedDateTime, information, data, uuid, type, href, additionalProperties);
   }
 
   @Override
@@ -454,6 +482,7 @@ public class RouteFilterChangeData {
     sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    href: ").append(toIndentedString(href)).append("\n");
+    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -469,5 +498,153 @@ public class RouteFilterChangeData {
     return o.toString().replace("\n", "\n    ");
   }
 
+
+  public static HashSet<String> openapiFields;
+  public static HashSet<String> openapiRequiredFields;
+
+  static {
+    // a set of all properties/fields (JSON key names)
+    openapiFields = new HashSet<String>();
+    openapiFields.add("uuid");
+    openapiFields.add("type");
+    openapiFields.add("href");
+
+    // a set of required properties/fields (JSON key names)
+    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("uuid");
+    openapiRequiredFields.add("type");
+  }
+
+ /**
+  * Validates the JSON Object and throws an exception if issues found
+  *
+  * @param jsonObj JSON Object
+  * @throws IOException if the JSON Object is invalid with respect to RouteFilterChangeData
+  */
+  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
+      if (jsonObj == null) {
+        if (!RouteFilterChangeData.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in RouteFilterChangeData is not found in the empty JSON string", RouteFilterChangeData.openapiRequiredFields.toString()));
+        }
+      }
+
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : RouteFilterChangeData.openapiRequiredFields) {
+        if (jsonObj.get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
+        }
+      }
+      if ((jsonObj.get("status") != null && !jsonObj.get("status").isJsonNull()) && !jsonObj.get("status").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `status` to be a primitive type in the JSON string but got `%s`", jsonObj.get("status").toString()));
+      }
+      if ((jsonObj.get("createdBy") != null && !jsonObj.get("createdBy").isJsonNull()) && !jsonObj.get("createdBy").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `createdBy` to be a primitive type in the JSON string but got `%s`", jsonObj.get("createdBy").toString()));
+      }
+      if ((jsonObj.get("updatedBy") != null && !jsonObj.get("updatedBy").isJsonNull()) && !jsonObj.get("updatedBy").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `updatedBy` to be a primitive type in the JSON string but got `%s`", jsonObj.get("updatedBy").toString()));
+      }
+      if ((jsonObj.get("information") != null && !jsonObj.get("information").isJsonNull()) && !jsonObj.get("information").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `information` to be a primitive type in the JSON string but got `%s`", jsonObj.get("information").toString()));
+      }
+      // validate the optional field `data`
+      if (jsonObj.get("data") != null && !jsonObj.get("data").isJsonNull()) {
+        RouteFiltersChangeOperation.validateJsonObject(jsonObj.getAsJsonObject("data"));
+      }
+      if (!jsonObj.get("uuid").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `uuid` to be a primitive type in the JSON string but got `%s`", jsonObj.get("uuid").toString()));
+      }
+      if (!jsonObj.get("type").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("type").toString()));
+      }
+      if ((jsonObj.get("href") != null && !jsonObj.get("href").isJsonNull()) && !jsonObj.get("href").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `href` to be a primitive type in the JSON string but got `%s`", jsonObj.get("href").toString()));
+      }
+  }
+
+  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+       if (!RouteFilterChangeData.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'RouteFilterChangeData' and its subtypes
+       }
+       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+       final TypeAdapter<RouteFilterChangeData> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(RouteFilterChangeData.class));
+
+       return (TypeAdapter<T>) new TypeAdapter<RouteFilterChangeData>() {
+           @Override
+           public void write(JsonWriter out, RouteFilterChangeData value) throws IOException {
+             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
+             obj.remove("additionalProperties");
+             // serialize additional properties
+             if (value.getAdditionalProperties() != null) {
+               for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
+                 if (entry.getValue() instanceof String)
+                   obj.addProperty(entry.getKey(), (String) entry.getValue());
+                 else if (entry.getValue() instanceof Number)
+                   obj.addProperty(entry.getKey(), (Number) entry.getValue());
+                 else if (entry.getValue() instanceof Boolean)
+                   obj.addProperty(entry.getKey(), (Boolean) entry.getValue());
+                 else if (entry.getValue() instanceof Character)
+                   obj.addProperty(entry.getKey(), (Character) entry.getValue());
+                 else {
+                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
+                 }
+               }
+             }
+             elementAdapter.write(out, obj);
+           }
+
+           @Override
+           public RouteFilterChangeData read(JsonReader in) throws IOException {
+             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
+             validateJsonObject(jsonObj);
+             // store additional fields in the deserialized instance
+             RouteFilterChangeData instance = thisAdapter.fromJsonTree(jsonObj);
+             for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
+               if (!openapiFields.contains(entry.getKey())) {
+                 if (entry.getValue().isJsonPrimitive()) { // primitive type
+                   if (entry.getValue().getAsJsonPrimitive().isString())
+                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsString());
+                   else if (entry.getValue().getAsJsonPrimitive().isNumber())
+                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsNumber());
+                   else if (entry.getValue().getAsJsonPrimitive().isBoolean())
+                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
+                   else
+                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
+                 } else if (entry.getValue().isJsonArray()) {
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
+                 } else { // JSON object
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
+                 }
+               }
+             }
+             return instance;
+           }
+
+       }.nullSafe();
+    }
+  }
+
+ /**
+  * Create an instance of RouteFilterChangeData given an JSON string
+  *
+  * @param jsonString JSON string
+  * @return An instance of RouteFilterChangeData
+  * @throws IOException if the JSON string is invalid with respect to RouteFilterChangeData
+  */
+  public static RouteFilterChangeData fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, RouteFilterChangeData.class);
+  }
+
+ /**
+  * Convert an instance of RouteFilterChangeData to an JSON string
+  *
+  * @return JSON string
+  */
+  public String toJson() {
+    return JSON.getGson().toJson(this);
+  }
 }
 

@@ -1,0 +1,25 @@
+get:
+  summary: Get Interconnection Pricing
+  description: "Displays pricing information for connecting to networks outside of Equinix."
+  operationId: getInterconnectionPricing
+  tags:
+    - Interconnections
+  responses:
+    "200":
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/InterconnectionPricingList.yaml'
+      description: ok
+    "403":
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/Error.yaml'
+      description: forbidden
+    "404":
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/Error.yaml'
+      description: not found

@@ -11,17 +11,17 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.io.IOException;
 
 /**
  * Access point lifecycle state
  */
+@JsonAdapter(CloudRouterAccessPointState.Adapter.class)
 public enum CloudRouterAccessPointState {
   
   PROVISIONED("PROVISIONED"),
@@ -44,7 +44,6 @@ public enum CloudRouterAccessPointState {
     this.value = value;
   }
 
-  @JsonValue
   public String getValue() {
     return value;
   }
@@ -54,7 +53,6 @@ public enum CloudRouterAccessPointState {
     return String.valueOf(value);
   }
 
-  @JsonCreator
   public static CloudRouterAccessPointState fromValue(String value) {
     for (CloudRouterAccessPointState b : CloudRouterAccessPointState.values()) {
       if (b.value.equals(value)) {
@@ -62,6 +60,19 @@ public enum CloudRouterAccessPointState {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
+  }
+
+  public static class Adapter extends TypeAdapter<CloudRouterAccessPointState> {
+    @Override
+    public void write(final JsonWriter jsonWriter, final CloudRouterAccessPointState enumeration) throws IOException {
+      jsonWriter.value(enumeration.getValue());
+    }
+
+    @Override
+    public CloudRouterAccessPointState read(final JsonReader jsonReader) throws IOException {
+      String value = jsonReader.nextString();
+      return CloudRouterAccessPointState.fromValue(value);
+    }
   }
 }
 

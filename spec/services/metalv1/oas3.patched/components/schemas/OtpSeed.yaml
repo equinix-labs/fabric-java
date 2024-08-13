@@ -1,0 +1,6 @@
+description: Details for configuring your MFA app
+properties:
+  otp_uri:
+    description: The URI to use in your MFA app
+    type: string
+type: object

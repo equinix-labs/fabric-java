@@ -11,49 +11,31 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.equinix.openapi.fabric.v4.model.Code;
-import com.equinix.openapi.fabric.v4.model.PackageChangeLog;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.equinix.openapi.fabric.JSON;
+import com.google.gson.*;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+
+import java.io.IOException;
 import java.net.URI;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import java.util.*;
 
 /**
  * Fabric Cloud Router Package
  */
-@JsonPropertyOrder({
-  CloudRouterPackage.JSON_PROPERTY_HREF,
-  CloudRouterPackage.JSON_PROPERTY_TYPE,
-  CloudRouterPackage.JSON_PROPERTY_CODE,
-  CloudRouterPackage.JSON_PROPERTY_DESCRIPTION,
-  CloudRouterPackage.JSON_PROPERTY_TOTAL_I_PV4_ROUTES_MAX,
-  CloudRouterPackage.JSON_PROPERTY_TOTAL_I_PV6_ROUTES_MAX,
-  CloudRouterPackage.JSON_PROPERTY_STATIC_I_PV4_ROUTES_MAX,
-  CloudRouterPackage.JSON_PROPERTY_STATIC_I_PV6_ROUTES_MAX,
-  CloudRouterPackage.JSON_PROPERTY_NACLS_MAX,
-  CloudRouterPackage.JSON_PROPERTY_NACL_RULES_MAX,
-  CloudRouterPackage.JSON_PROPERTY_HA_SUPPORTED,
-  CloudRouterPackage.JSON_PROPERTY_ROUTE_FILTER_SUPPORTED,
-  CloudRouterPackage.JSON_PROPERTY_NAT_TYPE,
-  CloudRouterPackage.JSON_PROPERTY_VC_COUNT_MAX,
-  CloudRouterPackage.JSON_PROPERTY_CR_COUNT_MAX,
-  CloudRouterPackage.JSON_PROPERTY_VC_BANDWIDTH_MAX,
-  CloudRouterPackage.JSON_PROPERTY_CHANGE_LOG
-})
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CloudRouterPackage {
-  public static final String JSON_PROPERTY_HREF = "href";
+  public static final String SERIALIZED_NAME_HREF = "href";
+  @SerializedName(SERIALIZED_NAME_HREF)
   private URI href;
 
   /**
    * Type of Router package
    */
+  @JsonAdapter(TypeEnum.Adapter.class)
   public enum TypeEnum {
     ROUTER_PACKAGE("ROUTER_PACKAGE");
 
@@ -63,7 +45,6 @@ public class CloudRouterPackage {
       this.value = value;
     }
 
-    @JsonValue
     public String getValue() {
       return value;
     }
@@ -73,7 +54,6 @@ public class CloudRouterPackage {
       return String.valueOf(value);
     }
 
-    @JsonCreator
     public static TypeEnum fromValue(String value) {
       for (TypeEnum b : TypeEnum.values()) {
         if (b.value.equals(value)) {
@@ -82,44 +62,69 @@ public class CloudRouterPackage {
       }
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
+
+    public static class Adapter extends TypeAdapter<TypeEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final TypeEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public TypeEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return TypeEnum.fromValue(value);
+      }
+    }
   }
 
-  public static final String JSON_PROPERTY_TYPE = "type";
+  public static final String SERIALIZED_NAME_TYPE = "type";
+  @SerializedName(SERIALIZED_NAME_TYPE)
   private TypeEnum type;
 
-  public static final String JSON_PROPERTY_CODE = "code";
+  public static final String SERIALIZED_NAME_CODE = "code";
+  @SerializedName(SERIALIZED_NAME_CODE)
   private Code code;
 
-  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  public static final String SERIALIZED_NAME_DESCRIPTION = "description";
+  @SerializedName(SERIALIZED_NAME_DESCRIPTION)
   private String description;
 
-  public static final String JSON_PROPERTY_TOTAL_I_PV4_ROUTES_MAX = "totalIPv4RoutesMax";
+  public static final String SERIALIZED_NAME_TOTAL_I_PV4_ROUTES_MAX = "totalIPv4RoutesMax";
+  @SerializedName(SERIALIZED_NAME_TOTAL_I_PV4_ROUTES_MAX)
   private Integer totalIPv4RoutesMax;
 
-  public static final String JSON_PROPERTY_TOTAL_I_PV6_ROUTES_MAX = "totalIPv6RoutesMax";
+  public static final String SERIALIZED_NAME_TOTAL_I_PV6_ROUTES_MAX = "totalIPv6RoutesMax";
+  @SerializedName(SERIALIZED_NAME_TOTAL_I_PV6_ROUTES_MAX)
   private Integer totalIPv6RoutesMax;
 
-  public static final String JSON_PROPERTY_STATIC_I_PV4_ROUTES_MAX = "staticIPv4RoutesMax";
+  public static final String SERIALIZED_NAME_STATIC_I_PV4_ROUTES_MAX = "staticIPv4RoutesMax";
+  @SerializedName(SERIALIZED_NAME_STATIC_I_PV4_ROUTES_MAX)
   private Integer staticIPv4RoutesMax;
 
-  public static final String JSON_PROPERTY_STATIC_I_PV6_ROUTES_MAX = "staticIPv6RoutesMax";
+  public static final String SERIALIZED_NAME_STATIC_I_PV6_ROUTES_MAX = "staticIPv6RoutesMax";
+  @SerializedName(SERIALIZED_NAME_STATIC_I_PV6_ROUTES_MAX)
   private Integer staticIPv6RoutesMax;
 
-  public static final String JSON_PROPERTY_NACLS_MAX = "naclsMax";
+  public static final String SERIALIZED_NAME_NACLS_MAX = "naclsMax";
+  @SerializedName(SERIALIZED_NAME_NACLS_MAX)
   private Integer naclsMax;
 
-  public static final String JSON_PROPERTY_NACL_RULES_MAX = "naclRulesMax";
+  public static final String SERIALIZED_NAME_NACL_RULES_MAX = "naclRulesMax";
+  @SerializedName(SERIALIZED_NAME_NACL_RULES_MAX)
   private Integer naclRulesMax;
 
-  public static final String JSON_PROPERTY_HA_SUPPORTED = "haSupported";
+  public static final String SERIALIZED_NAME_HA_SUPPORTED = "haSupported";
+  @SerializedName(SERIALIZED_NAME_HA_SUPPORTED)
   private Boolean haSupported;
 
-  public static final String JSON_PROPERTY_ROUTE_FILTER_SUPPORTED = "routeFilterSupported";
+  public static final String SERIALIZED_NAME_ROUTE_FILTER_SUPPORTED = "routeFilterSupported";
+  @SerializedName(SERIALIZED_NAME_ROUTE_FILTER_SUPPORTED)
   private Boolean routeFilterSupported;
 
   /**
    * CloudRouter package NAT supported type
    */
+  @JsonAdapter(NatTypeEnum.Adapter.class)
   public enum NatTypeEnum {
     STATIC_NAT("STATIC_NAT");
 
@@ -129,7 +134,6 @@ public class CloudRouterPackage {
       this.value = value;
     }
 
-    @JsonValue
     public String getValue() {
       return value;
     }
@@ -139,7 +143,6 @@ public class CloudRouterPackage {
       return String.valueOf(value);
     }
 
-    @JsonCreator
     public static NatTypeEnum fromValue(String value) {
       for (NatTypeEnum b : NatTypeEnum.values()) {
         if (b.value.equals(value)) {
@@ -148,29 +151,47 @@ public class CloudRouterPackage {
       }
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
+
+    public static class Adapter extends TypeAdapter<NatTypeEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final NatTypeEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public NatTypeEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return NatTypeEnum.fromValue(value);
+      }
+    }
   }
 
-  public static final String JSON_PROPERTY_NAT_TYPE = "natType";
+  public static final String SERIALIZED_NAME_NAT_TYPE = "natType";
+  @SerializedName(SERIALIZED_NAME_NAT_TYPE)
   private NatTypeEnum natType;
 
-  public static final String JSON_PROPERTY_VC_COUNT_MAX = "vcCountMax";
+  public static final String SERIALIZED_NAME_VC_COUNT_MAX = "vcCountMax";
+  @SerializedName(SERIALIZED_NAME_VC_COUNT_MAX)
   private Integer vcCountMax;
 
-  public static final String JSON_PROPERTY_CR_COUNT_MAX = "crCountMax";
+  public static final String SERIALIZED_NAME_CR_COUNT_MAX = "crCountMax";
+  @SerializedName(SERIALIZED_NAME_CR_COUNT_MAX)
   private Integer crCountMax;
 
-  public static final String JSON_PROPERTY_VC_BANDWIDTH_MAX = "vcBandwidthMax";
+  public static final String SERIALIZED_NAME_VC_BANDWIDTH_MAX = "vcBandwidthMax";
+  @SerializedName(SERIALIZED_NAME_VC_BANDWIDTH_MAX)
   private Integer vcBandwidthMax;
 
-  public static final String JSON_PROPERTY_CHANGE_LOG = "changeLog";
+  public static final String SERIALIZED_NAME_CHANGE_LOG = "changeLog";
+  @SerializedName(SERIALIZED_NAME_CHANGE_LOG)
   private PackageChangeLog changeLog;
 
   public CloudRouterPackage() {
   }
 
-  @JsonCreator
+  
   public CloudRouterPackage(
-    @JsonProperty(JSON_PROPERTY_HREF) URI href
+     URI href
   ) {
     this();
     this.href = href;
@@ -181,8 +202,6 @@ public class CloudRouterPackage {
    * @return href
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_HREF)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public URI getHref() {
     return href;
@@ -202,16 +221,12 @@ public class CloudRouterPackage {
    * @return type
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public TypeEnum getType() {
     return type;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setType(TypeEnum type) {
     this.type = type;
   }
@@ -228,16 +243,12 @@ public class CloudRouterPackage {
    * @return code
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CODE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Code getCode() {
     return code;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CODE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCode(Code code) {
     this.code = code;
   }
@@ -254,16 +265,12 @@ public class CloudRouterPackage {
    * @return description
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDescription() {
     return description;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDescription(String description) {
     this.description = description;
   }
@@ -281,16 +288,12 @@ public class CloudRouterPackage {
    * @return totalIPv4RoutesMax
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TOTAL_I_PV4_ROUTES_MAX)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getTotalIPv4RoutesMax() {
     return totalIPv4RoutesMax;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TOTAL_I_PV4_ROUTES_MAX)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTotalIPv4RoutesMax(Integer totalIPv4RoutesMax) {
     this.totalIPv4RoutesMax = totalIPv4RoutesMax;
   }
@@ -308,16 +311,12 @@ public class CloudRouterPackage {
    * @return totalIPv6RoutesMax
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TOTAL_I_PV6_ROUTES_MAX)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getTotalIPv6RoutesMax() {
     return totalIPv6RoutesMax;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TOTAL_I_PV6_ROUTES_MAX)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTotalIPv6RoutesMax(Integer totalIPv6RoutesMax) {
     this.totalIPv6RoutesMax = totalIPv6RoutesMax;
   }
@@ -335,16 +334,12 @@ public class CloudRouterPackage {
    * @return staticIPv4RoutesMax
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_STATIC_I_PV4_ROUTES_MAX)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getStaticIPv4RoutesMax() {
     return staticIPv4RoutesMax;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_STATIC_I_PV4_ROUTES_MAX)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStaticIPv4RoutesMax(Integer staticIPv4RoutesMax) {
     this.staticIPv4RoutesMax = staticIPv4RoutesMax;
   }
@@ -362,16 +357,12 @@ public class CloudRouterPackage {
    * @return staticIPv6RoutesMax
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_STATIC_I_PV6_ROUTES_MAX)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getStaticIPv6RoutesMax() {
     return staticIPv6RoutesMax;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_STATIC_I_PV6_ROUTES_MAX)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStaticIPv6RoutesMax(Integer staticIPv6RoutesMax) {
     this.staticIPv6RoutesMax = staticIPv6RoutesMax;
   }
@@ -389,16 +380,12 @@ public class CloudRouterPackage {
    * @return naclsMax
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NACLS_MAX)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getNaclsMax() {
     return naclsMax;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NACLS_MAX)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNaclsMax(Integer naclsMax) {
     this.naclsMax = naclsMax;
   }
@@ -416,16 +403,12 @@ public class CloudRouterPackage {
    * @return naclRulesMax
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NACL_RULES_MAX)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getNaclRulesMax() {
     return naclRulesMax;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NACL_RULES_MAX)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNaclRulesMax(Integer naclRulesMax) {
     this.naclRulesMax = naclRulesMax;
   }
@@ -442,16 +425,12 @@ public class CloudRouterPackage {
    * @return haSupported
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_HA_SUPPORTED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getHaSupported() {
     return haSupported;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_HA_SUPPORTED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setHaSupported(Boolean haSupported) {
     this.haSupported = haSupported;
   }
@@ -468,16 +447,12 @@ public class CloudRouterPackage {
    * @return routeFilterSupported
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ROUTE_FILTER_SUPPORTED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Boolean getRouteFilterSupported() {
     return routeFilterSupported;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ROUTE_FILTER_SUPPORTED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setRouteFilterSupported(Boolean routeFilterSupported) {
     this.routeFilterSupported = routeFilterSupported;
   }
@@ -494,16 +469,12 @@ public class CloudRouterPackage {
    * @return natType
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NAT_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public NatTypeEnum getNatType() {
     return natType;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_NAT_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNatType(NatTypeEnum natType) {
     this.natType = natType;
   }
@@ -521,16 +492,12 @@ public class CloudRouterPackage {
    * @return vcCountMax
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_VC_COUNT_MAX)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getVcCountMax() {
     return vcCountMax;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_VC_COUNT_MAX)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVcCountMax(Integer vcCountMax) {
     this.vcCountMax = vcCountMax;
   }
@@ -548,16 +515,12 @@ public class CloudRouterPackage {
    * @return crCountMax
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CR_COUNT_MAX)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getCrCountMax() {
     return crCountMax;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CR_COUNT_MAX)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCrCountMax(Integer crCountMax) {
     this.crCountMax = crCountMax;
   }
@@ -575,16 +538,12 @@ public class CloudRouterPackage {
    * @return vcBandwidthMax
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_VC_BANDWIDTH_MAX)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public Integer getVcBandwidthMax() {
     return vcBandwidthMax;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_VC_BANDWIDTH_MAX)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setVcBandwidthMax(Integer vcBandwidthMax) {
     this.vcBandwidthMax = vcBandwidthMax;
   }
@@ -601,18 +560,59 @@ public class CloudRouterPackage {
    * @return changeLog
   **/
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CHANGE_LOG)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public PackageChangeLog getChangeLog() {
     return changeLog;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_CHANGE_LOG)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setChangeLog(PackageChangeLog changeLog) {
     this.changeLog = changeLog;
+  }
+
+  /**
+   * A container for additional, undeclared properties.
+   * This is a holder for any undeclared properties as specified with
+   * the 'additionalProperties' keyword in the OAS document.
+   */
+  private Map<String, Object> additionalProperties;
+
+  /**
+   * Set the additional (undeclared) property with the specified name and value.
+   * If the property does not already exist, create it otherwise replace it.
+   *
+   * @param key name of the property
+   * @param value value of the property
+   * @return the CloudRouterPackage instance itself
+   */
+  public CloudRouterPackage putAdditionalProperty(String key, Object value) {
+    if (this.additionalProperties == null) {
+        this.additionalProperties = new HashMap<String, Object>();
+    }
+    this.additionalProperties.put(key, value);
+    return this;
+  }
+
+  /**
+   * Return the additional (undeclared) property.
+   *
+   * @return a map of objects
+   */
+  public Map<String, Object> getAdditionalProperties() {
+    return additionalProperties;
+  }
+
+  /**
+   * Return the additional (undeclared) property with the specified name.
+   *
+   * @param key name of the property
+   * @return an object
+   */
+  public Object getAdditionalProperty(String key) {
+    if (this.additionalProperties == null) {
+        return null;
+    }
+    return this.additionalProperties.get(key);
   }
 
 
@@ -641,12 +641,13 @@ public class CloudRouterPackage {
         Objects.equals(this.vcCountMax, cloudRouterPackage.vcCountMax) &&
         Objects.equals(this.crCountMax, cloudRouterPackage.crCountMax) &&
         Objects.equals(this.vcBandwidthMax, cloudRouterPackage.vcBandwidthMax) &&
-        Objects.equals(this.changeLog, cloudRouterPackage.changeLog);
+        Objects.equals(this.changeLog, cloudRouterPackage.changeLog)&&
+        Objects.equals(this.additionalProperties, cloudRouterPackage.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(href, type, code, description, totalIPv4RoutesMax, totalIPv6RoutesMax, staticIPv4RoutesMax, staticIPv6RoutesMax, naclsMax, naclRulesMax, haSupported, routeFilterSupported, natType, vcCountMax, crCountMax, vcBandwidthMax, changeLog);
+    return Objects.hash(href, type, code, description, totalIPv4RoutesMax, totalIPv6RoutesMax, staticIPv4RoutesMax, staticIPv6RoutesMax, naclsMax, naclRulesMax, haSupported, routeFilterSupported, natType, vcCountMax, crCountMax, vcBandwidthMax, changeLog, additionalProperties);
   }
 
   @Override
@@ -670,6 +671,7 @@ public class CloudRouterPackage {
     sb.append("    crCountMax: ").append(toIndentedString(crCountMax)).append("\n");
     sb.append("    vcBandwidthMax: ").append(toIndentedString(vcBandwidthMax)).append("\n");
     sb.append("    changeLog: ").append(toIndentedString(changeLog)).append("\n");
+    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -685,5 +687,149 @@ public class CloudRouterPackage {
     return o.toString().replace("\n", "\n    ");
   }
 
+
+  public static HashSet<String> openapiFields;
+  public static HashSet<String> openapiRequiredFields;
+
+  static {
+    // a set of all properties/fields (JSON key names)
+    openapiFields = new HashSet<String>();
+    openapiFields.add("href");
+    openapiFields.add("type");
+    openapiFields.add("code");
+    openapiFields.add("description");
+    openapiFields.add("totalIPv4RoutesMax");
+    openapiFields.add("totalIPv6RoutesMax");
+    openapiFields.add("staticIPv4RoutesMax");
+    openapiFields.add("staticIPv6RoutesMax");
+    openapiFields.add("naclsMax");
+    openapiFields.add("naclRulesMax");
+    openapiFields.add("haSupported");
+    openapiFields.add("routeFilterSupported");
+    openapiFields.add("natType");
+    openapiFields.add("vcCountMax");
+    openapiFields.add("crCountMax");
+    openapiFields.add("vcBandwidthMax");
+    openapiFields.add("changeLog");
+
+    // a set of required properties/fields (JSON key names)
+    openapiRequiredFields = new HashSet<String>();
+  }
+
+ /**
+  * Validates the JSON Object and throws an exception if issues found
+  *
+  * @param jsonObj JSON Object
+  * @throws IOException if the JSON Object is invalid with respect to CloudRouterPackage
+  */
+  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
+      if (jsonObj == null) {
+        if (!CloudRouterPackage.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in CloudRouterPackage is not found in the empty JSON string", CloudRouterPackage.openapiRequiredFields.toString()));
+        }
+      }
+      if ((jsonObj.get("href") != null && !jsonObj.get("href").isJsonNull()) && !jsonObj.get("href").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `href` to be a primitive type in the JSON string but got `%s`", jsonObj.get("href").toString()));
+      }
+      if ((jsonObj.get("type") != null && !jsonObj.get("type").isJsonNull()) && !jsonObj.get("type").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("type").toString()));
+      }
+      if ((jsonObj.get("description") != null && !jsonObj.get("description").isJsonNull()) && !jsonObj.get("description").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `description` to be a primitive type in the JSON string but got `%s`", jsonObj.get("description").toString()));
+      }
+      if ((jsonObj.get("natType") != null && !jsonObj.get("natType").isJsonNull()) && !jsonObj.get("natType").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `natType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("natType").toString()));
+      }
+      // validate the optional field `changeLog`
+      if (jsonObj.get("changeLog") != null && !jsonObj.get("changeLog").isJsonNull()) {
+        PackageChangeLog.validateJsonObject(jsonObj.getAsJsonObject("changeLog"));
+      }
+  }
+
+  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+       if (!CloudRouterPackage.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'CloudRouterPackage' and its subtypes
+       }
+       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+       final TypeAdapter<CloudRouterPackage> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(CloudRouterPackage.class));
+
+       return (TypeAdapter<T>) new TypeAdapter<CloudRouterPackage>() {
+           @Override
+           public void write(JsonWriter out, CloudRouterPackage value) throws IOException {
+             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
+             obj.remove("additionalProperties");
+             // serialize additional properties
+             if (value.getAdditionalProperties() != null) {
+               for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
+                 if (entry.getValue() instanceof String)
+                   obj.addProperty(entry.getKey(), (String) entry.getValue());
+                 else if (entry.getValue() instanceof Number)
+                   obj.addProperty(entry.getKey(), (Number) entry.getValue());
+                 else if (entry.getValue() instanceof Boolean)
+                   obj.addProperty(entry.getKey(), (Boolean) entry.getValue());
+                 else if (entry.getValue() instanceof Character)
+                   obj.addProperty(entry.getKey(), (Character) entry.getValue());
+                 else {
+                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
+                 }
+               }
+             }
+             elementAdapter.write(out, obj);
+           }
+
+           @Override
+           public CloudRouterPackage read(JsonReader in) throws IOException {
+             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
+             validateJsonObject(jsonObj);
+             // store additional fields in the deserialized instance
+             CloudRouterPackage instance = thisAdapter.fromJsonTree(jsonObj);
+             for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
+               if (!openapiFields.contains(entry.getKey())) {
+                 if (entry.getValue().isJsonPrimitive()) { // primitive type
+                   if (entry.getValue().getAsJsonPrimitive().isString())
+                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsString());
+                   else if (entry.getValue().getAsJsonPrimitive().isNumber())
+                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsNumber());
+                   else if (entry.getValue().getAsJsonPrimitive().isBoolean())
+                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
+                   else
+                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
+                 } else if (entry.getValue().isJsonArray()) {
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
+                 } else { // JSON object
+                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
+                 }
+               }
+             }
+             return instance;
+           }
+
+       }.nullSafe();
+    }
+  }
+
+ /**
+  * Create an instance of CloudRouterPackage given an JSON string
+  *
+  * @param jsonString JSON string
+  * @return An instance of CloudRouterPackage
+  * @throws IOException if the JSON string is invalid with respect to CloudRouterPackage
+  */
+  public static CloudRouterPackage fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, CloudRouterPackage.class);
+  }
+
+ /**
+  * Convert an instance of CloudRouterPackage to an JSON string
+  *
+  * @return JSON string
+  */
+  public String toJson() {
+    return JSON.getGson().toJson(this);
+  }
 }
 

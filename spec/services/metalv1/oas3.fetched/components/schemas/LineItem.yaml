@@ -1,0 +1,46 @@
+properties:
+  amount:
+    format: float
+    type: number
+  currency:
+    type: string
+  description:
+    type: string
+  details:
+    type: string
+  plan:
+    $ref: './PlanIdName.yaml'
+  unit:
+    type: string
+  unit_price:
+    format: float
+    type: number
+  hostname:
+    type: string
+  location:
+    type: string
+  item_type:
+    type: string
+  service_id:
+    format: uuid
+    type: string
+  start_date:
+    format: date
+    type: string
+  end_date:
+    format: date
+    type: string
+  project_id:
+    format: uuid
+    type: string
+  plan_id:
+    format: uuid
+    type: string
+  project:
+    $ref: './ProjectIdName.yaml'
+  adjustments:
+    description: Adjustments for the line item
+    items:
+      $ref: './LineItemAdjustment.yaml'
+    type: array
+type: object

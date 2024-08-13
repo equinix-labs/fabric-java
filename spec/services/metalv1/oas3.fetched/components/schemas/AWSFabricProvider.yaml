@@ -1,0 +1,16 @@
+properties:
+  type:
+    type: string
+    enum:
+      - "CSP_AWS"
+  account_id:
+    type: string
+    description: "AWS Account ID"
+    example: "123412341234"
+    pattern: '^\d{12}$'
+  location:
+    type: string
+    example: "us-west-1"
+required:
+- type
+- account_id

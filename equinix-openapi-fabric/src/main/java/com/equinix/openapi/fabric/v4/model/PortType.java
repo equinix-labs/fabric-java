@@ -11,17 +11,17 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.io.IOException;
 
 /**
  * Type of Port
  */
+@JsonAdapter(PortType.Adapter.class)
 public enum PortType {
   
   XF_PORT("XF_PORT"),
@@ -34,7 +34,6 @@ public enum PortType {
     this.value = value;
   }
 
-  @JsonValue
   public String getValue() {
     return value;
   }
@@ -44,7 +43,6 @@ public enum PortType {
     return String.valueOf(value);
   }
 
-  @JsonCreator
   public static PortType fromValue(String value) {
     for (PortType b : PortType.values()) {
       if (b.value.equals(value)) {
@@ -52,6 +50,19 @@ public enum PortType {
       }
     }
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
+  }
+
+  public static class Adapter extends TypeAdapter<PortType> {
+    @Override
+    public void write(final JsonWriter jsonWriter, final PortType enumeration) throws IOException {
+      jsonWriter.value(enumeration.getValue());
+    }
+
+    @Override
+    public PortType read(final JsonReader jsonReader) throws IOException {
+      String value = jsonReader.nextString();
+      return PortType.fromValue(value);
+    }
   }
 }
 

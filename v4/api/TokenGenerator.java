@@ -11,61 +11,71 @@
 package com.equinix.openapi.fabric.v4.api;
 
 import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.Pair;
 import com.equinix.openapi.fabric.v4.api.dto.TokenRequestDto;
 import com.equinix.openapi.fabric.v4.api.dto.TokenResponseDto;
-import io.restassured.RestAssured;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.filter.log.ErrorLoggingFilter;
-import io.restassured.filter.log.RequestLoggingFilter;
-import io.restassured.filter.log.ResponseLoggingFilter;
-import io.restassured.http.Method;
+import com.equinix.openapi.fabric.v4.api.dto.users.UserUsedDto;
+import com.equinix.openapi.fabric.v4.api.dto.users.UsersItem;
+import com.google.gson.reflect.TypeToken;
 
-import java.util.function.Supplier;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import static com.equinix.openapi.fabric.JacksonObjectMapper.jackson;
-import static io.restassured.config.ObjectMapperConfig.objectMapperConfig;
-import static io.restassured.config.RestAssuredConfig.config;
-import static java.util.Objects.isNull;
-
-/**
- * API tests for RouteFiltersApi
- */
 public class TokenGenerator {
 
-    public static ApiClient getApiClient() {
-        return isNull(apiClient) ? generate() : apiClient;
+    public static Map<UsersItem.UserName, UserUsedDto> users = new HashMap<>();
+
+    public static ApiClient getApiClient(UsersItem.UserName userName) {
+        if (users.containsKey(userName)) {
+            return users.get(userName).getApiClient();
+        } else {
+            return generate(userName);
+        }
     }
 
-    private static ApiClient generate() {
+    private static ApiClient generate(UsersItem.UserName userName) {
         String baseUrl = System.getProperty("envUrl");
+        UsersItem user = Utils.getUserData(userName);
 
-        TokenRequestDto tokenRequestDto = new TokenRequestDto()
-                .setClientId(System.getProperty("clientId"))
-                .setClientSecret(System.getProperty("clientSecret"))
-                .setUserPassword(System.getProperty("userPassword"))
-                .setUserName(System.getProperty("userName"));
+        ApiClient apiTokeClient = Configuration.getDefaultApiClient();
+        TokenRequestDto tokenRequestDto = new TokenRequestDto();
+        tokenRequestDto.setClientId(user.getClientId());
+        tokenRequestDto.setClientSecret(user.getClientSecret());
+        tokenRequestDto.setGrantType("client_credentials");
 
-        Supplier<RequestSpecBuilder> reqSpecSupplier = () -> new RequestSpecBuilder()
-                .setConfig(config().objectMapperConfig(objectMapperConfig().defaultObjectMapper(jackson())))
-                .addFilter(new ErrorLoggingFilter())
-                .setBaseUri(baseUrl)
-                .setBasePath("/oauth2/v1/token");
+        String localVarPath = "/oauth2/v1/token";
 
-        RequestSpecBuilder reqSpec = reqSpecSupplier.get();
-        reqSpec.setBody(tokenRequestDto);
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-        TokenResponseDto tokenResponseDto =
-                RestAssured.given().spec(reqSpec.build()).expect().when().request(Method.POST).as(TokenResponseDto.class);
+        localVarHeaderParams.put("Content-Type", "application/json");
+        String[] localVarAuthNames = new String[]{"BearerAuth"};
 
-        return ApiClient.api(ApiClient.Config.apiConfig().reqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setConfig(config().objectMapperConfig(objectMapperConfig().defaultObjectMapper(jackson())))
-                        .addHeader("Authorization", "Bearer " + tokenResponseDto.getAccessToken())
-                        .addFilter(new RequestLoggingFilter())
-                        .addFilter(new ResponseLoggingFilter())
-                        .addFilter(new ErrorLoggingFilter())
-                        .setBaseUri(baseUrl)));
-    }    public static ApiClient apiClient = getApiClient();
+        okhttp3.Call call;
+        TokenResponseDto tokenResponseDto = null;
 
+        try {
+            call = apiTokeClient.buildCall(baseUrl, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, tokenRequestDto, localVarHeaderParams
+                    , localVarCookieParams, localVarFormParams, localVarAuthNames, null);
 
+            Type localVarReturnType = new TypeToken<TokenResponseDto>() {
+            }.getType();
+            tokenResponseDto = (TokenResponseDto) apiTokeClient.execute(call, localVarReturnType).getData();
+        } catch (ApiException e) {
+            throw new RuntimeException(e);
+        }
+
+        ApiClient apiClient = Configuration.getDefaultApiClient();
+        apiClient.addDefaultHeader("Authorization", String.format("Bearer %s",tokenResponseDto.getAccessToken()));
+        users.put(userName, new UserUsedDto(userName,apiClient));
+        return users.get(userName).getApiClient();
+    }
 }

@@ -24,16 +24,36 @@ The API provides capability to create timing service
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.PrecisionTimeApi;
 
-PrecisionTimeApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).precisionTime();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.createTimeServices()
-    .body(precisionTimeServiceRequest).execute(r -> r.prettyPeek());
+    PrecisionTimeApi apiInstance = new PrecisionTimeApi(defaultClient);
+    PrecisionTimeServiceRequest precisionTimeServiceRequest = new PrecisionTimeServiceRequest(); // PrecisionTimeServiceRequest | 
+    try {
+      PrecisionTimeServiceCreateResponse result = apiInstance.createTimeServices(precisionTimeServiceRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling PrecisionTimeApi#createTimeServices");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -55,6 +75,16 @@ api.createTimeServices()
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **202** | Successful operation |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **415** | Unsupported Media Type |  -  |
+| **500** | Internal server error |  -  |
+
 <a name="deleteTimeServiceById"></a>
 # **deleteTimeServiceById**
 > PrecisionTimeServiceCreateResponse deleteTimeServiceById(serviceId)
@@ -66,16 +96,36 @@ Delete EPT service by it&#39;s uuid
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.PrecisionTimeApi;
 
-PrecisionTimeApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).precisionTime();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.deleteTimeServiceById()
-    .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
+    PrecisionTimeApi apiInstance = new PrecisionTimeApi(defaultClient);
+    UUID serviceId = UUID.randomUUID(); // UUID | Service UUID
+    try {
+      PrecisionTimeServiceCreateResponse result = apiInstance.deleteTimeServiceById(serviceId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling PrecisionTimeApi#deleteTimeServiceById");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -96,6 +146,15 @@ api.deleteTimeServiceById()
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **202** | Successful operation |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **415** | Unsupported Media Type |  -  |
+| **500** | Internal server error |  -  |
 
 <a name="getTimeServicesById"></a>
 # **getTimeServicesById**
@@ -108,16 +167,36 @@ The API provides capability to get precision timing service&#39;s details
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.PrecisionTimeApi;
 
-PrecisionTimeApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).precisionTime();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.getTimeServicesById()
-    .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
+    PrecisionTimeApi apiInstance = new PrecisionTimeApi(defaultClient);
+    UUID serviceId = UUID.randomUUID(); // UUID | Service UUID
+    try {
+      PrecisionTimeServiceCreateResponse result = apiInstance.getTimeServicesById(serviceId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling PrecisionTimeApi#getTimeServicesById");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -139,6 +218,16 @@ api.getTimeServicesById()
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful operation |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **415** | Unsupported Media Type |  -  |
+| **500** | Internal server error |  -  |
+
 <a name="getTimeServicesConnectionsByServiceId"></a>
 # **getTimeServicesConnectionsByServiceId**
 > PrecisionTimeServiceConnectionsResponse getTimeServicesConnectionsByServiceId(serviceId)
@@ -150,16 +239,36 @@ The API provides capability to get prevision timing service&#39;s details
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.PrecisionTimeApi;
 
-PrecisionTimeApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).precisionTime();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.getTimeServicesConnectionsByServiceId()
-    .serviceIdPath(serviceId).execute(r -> r.prettyPeek());
+    PrecisionTimeApi apiInstance = new PrecisionTimeApi(defaultClient);
+    UUID serviceId = UUID.randomUUID(); // UUID | Service UUID
+    try {
+      PrecisionTimeServiceConnectionsResponse result = apiInstance.getTimeServicesConnectionsByServiceId(serviceId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling PrecisionTimeApi#getTimeServicesConnectionsByServiceId");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -181,6 +290,15 @@ api.getTimeServicesConnectionsByServiceId()
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Return Time Service Connection |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **415** | Unsupported Media Type |  -  |
+| **500** | Internal server error |  -  |
+
 <a name="getTimeServicesPackageByCode"></a>
 # **getTimeServicesPackageByCode**
 > PrecisionTimePackageResponse getTimeServicesPackageByCode(packageCode)
@@ -192,16 +310,36 @@ The API provides capability to get timing service&#39;s package by code
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.PrecisionTimeApi;
 
-PrecisionTimeApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).precisionTime();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.getTimeServicesPackageByCode()
-    .packageCodePath(packageCode).execute(r -> r.prettyPeek());
+    PrecisionTimeApi apiInstance = new PrecisionTimeApi(defaultClient);
+    String packageCode = "NTP_STANDARD"; // String | Package Code
+    try {
+      PrecisionTimePackageResponse result = apiInstance.getTimeServicesPackageByCode(packageCode);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling PrecisionTimeApi#getTimeServicesPackageByCode");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -223,6 +361,13 @@ api.getTimeServicesPackageByCode()
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful operation |  -  |
+| **415** | Unsupported Media Type |  -  |
+| **500** | Internal server error |  -  |
+
 <a name="getTimeServicesPackages"></a>
 # **getTimeServicesPackages**
 > PrecisionTimeServicePackagesResponse getTimeServicesPackages()
@@ -234,15 +379,35 @@ The API provides capability to get timing service&#39;s packages
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.PrecisionTimeApi;
 
-PrecisionTimeApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).precisionTime();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.getTimeServicesPackages().execute(r -> r.prettyPeek());
+    PrecisionTimeApi apiInstance = new PrecisionTimeApi(defaultClient);
+    try {
+      PrecisionTimeServicePackagesResponse result = apiInstance.getTimeServicesPackages();
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling PrecisionTimeApi#getTimeServicesPackages");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -261,6 +426,13 @@ This endpoint does not need any parameter.
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful operation |  -  |
+| **415** | Unsupported Media Type |  -  |
+| **500** | Internal server error |  -  |
+
 <a name="updateTimeServicesById"></a>
 # **updateTimeServicesById**
 > PrecisionTimeServiceCreateResponse updateTimeServicesById(serviceId, precisionTimeChangeOperation)
@@ -272,17 +444,37 @@ The API provides capability to update timing service
 ### Example
 ```java
 // Import classes:
-//import com.equinix.openapi.fabric.ApiClient;
-//import io.restassured.builder.RequestSpecBuilder;
-//import io.restassured.filter.log.ErrorLoggingFilter;
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.PrecisionTimeApi;
 
-PrecisionTimeApi api = ApiClient.api(ApiClient.Config.apiConfig().withReqSpecSupplier(
-                () -> new RequestSpecBuilder()
-                        .setBaseUri("https://api.equinix.com"))).precisionTime();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
 
-api.updateTimeServicesById()
-    .serviceIdPath(serviceId)
-    .body(precisionTimeChangeOperation).execute(r -> r.prettyPeek());
+    PrecisionTimeApi apiInstance = new PrecisionTimeApi(defaultClient);
+    UUID serviceId = UUID.randomUUID(); // UUID | Service UUID
+    List<PrecisionTimeChangeOperation> precisionTimeChangeOperation = Arrays.asList(); // List<PrecisionTimeChangeOperation> | 
+    try {
+      PrecisionTimeServiceCreateResponse result = apiInstance.updateTimeServicesById(serviceId, precisionTimeChangeOperation);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling PrecisionTimeApi#updateTimeServicesById");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
 ```
 
 ### Parameters
@@ -304,4 +496,14 @@ api.updateTimeServicesById()
 
  - **Content-Type**: application/json-patch+json
  - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **202** | Successful operation |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **415** | Unsupported Media Type |  -  |
+| **500** | Internal server error |  -  |
 

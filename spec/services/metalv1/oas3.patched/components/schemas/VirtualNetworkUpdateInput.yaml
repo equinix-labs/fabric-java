@@ -1,0 +1,8 @@
+properties:
+  description:
+    type: string
+  tags:
+    items:
+      type: string
+    type: array
+type: object

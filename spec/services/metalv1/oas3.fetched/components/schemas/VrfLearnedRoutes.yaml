@@ -1,0 +1,12 @@
+properties:
+  prefix:
+    type: string
+    example: "8.8.8.0/24"
+  origin_as:
+    description: The ASN of the peer that advertised the prefix.
+    type: integer
+    format: int64
+    minimum: 0
+    maximum: 4294967295
+    example: 65000
+type: object
