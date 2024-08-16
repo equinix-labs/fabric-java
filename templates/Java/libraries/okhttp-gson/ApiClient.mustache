@@ -112,11 +112,11 @@ protected List<ServerConfiguration> servers = new ArrayList<ServerConfiguration>
 
     {{/dynamicOperations}}
     /**
-    * Basic constructor for ApiClient
-    */
+     * Basic constructor for ApiClient
+     */
     public ApiClient() {
-    init();
-    initHttpClient();
+        init();
+        initHttpClient();
 
     // Setup authentications (key: authentication name, value: authentication).{{#authMethods}}{{#isBasic}}{{#isBasicBasic}}
         authentications.put("{{name}}", new HttpBasicAuth());{{/isBasicBasic}}{{#isBasicBearer}}

@@ -28,6 +28,7 @@ import static com.equinix.openapi.fabric.v4.api.CloudRoutersApiTest.createRouter
 import static com.equinix.openapi.fabric.v4.api.PortsApiTest.getPorts;
 import static com.equinix.openapi.fabric.v4.api.helpers.Apis.*;
 import static com.equinix.openapi.fabric.v4.api.helpers.TokenGenerator.users;
+import static com.equinix.openapi.fabric.v4.api.helpers.Utils.getRandomVlanNumber;
 import static java.util.Collections.singletonList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -59,12 +60,10 @@ public class ConnectionsApiTest {
     @Test
     public void createConnectionVdColo() throws ApiException {
         UsersItem usersItem = Utils.getUserData(getCurrentUser());
-        Random r = new Random();
-        List<Port> portList = getPorts(userName).getData().stream()
-                .filter(p -> p.getName().contains("Dot1q"))
-                .collect(Collectors.toList());
 
-        Port port = portList.get(r.nextInt(portList.size()));
+        UUID portUuid = UUID.fromString(usersItem.getPorts().stream()
+                .filter(port -> port.getEncapsulation().equals(LinkProtocolType.DOT1Q.getValue()))
+                .findFirst().get().getUuid());
 
         ConnectionPostRequest connectionPostRequest = getDefaultConnectionRequest("panthers-con-vd-2-colo")
                 .type(ConnectionType.EVPL_VC)
@@ -78,12 +77,13 @@ public class ConnectionsApiTest {
         Connection connection = null;
 
         for (int i = 0; i < 3; i++) {
-            int vlanTag = new Random().nextInt(4000);
+            int vlanTag = getRandomVlanNumber();
             connectionPostRequest.zSide(new ConnectionSide().accessPoint(
                     new AccessPoint()
                             .type(AccessPointType.COLO)
                             .port(new SimplifiedPort()
-                                    .uuid(port.getUuid()))
+//                                    .uuid(port.getUuid()))
+                                    .uuid(portUuid))
                             .linkProtocol(new SimplifiedLinkProtocol()
                                     .type(LinkProtocolType.DOT1Q)
                                     .vlanTag(vlanTag))));
@@ -98,6 +98,11 @@ public class ConnectionsApiTest {
         assertEquals(201, connectionsApi.getApiClient().getStatusCode());
         users.get(userName).getUserResources().addConnectionUuid(connection.getUuid());
         waitForConnectionIsInState(connection.getUuid(), EquinixStatus.PROVISIONED);
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
@@ -177,7 +182,7 @@ public class ConnectionsApiTest {
 
         Connection connection = null;
         for (int i = 0; i < 3; i++) {
-            int tag = new Random().nextInt(4000);
+            int tag = getRandomVlanNumber();
             connectionPostRequest.zSide(new ConnectionSide().accessPoint(
                     new AccessPoint()
                             .type(AccessPointType.COLO)
@@ -232,8 +237,8 @@ public class ConnectionsApiTest {
         Connection connection = null;
 
         for (int i = 0; i < 3; i++) {
-            int sTag = new Random().nextInt(4000);
-            int cTag = new Random().nextInt(4000);
+            int sTag = getRandomVlanNumber();
+            int cTag = getRandomVlanNumber();
             connectionPostRequest.aSide(new ConnectionSide().accessPoint(
                     new AccessPoint()
                             .type(AccessPointType.COLO)
@@ -279,7 +284,7 @@ public class ConnectionsApiTest {
                 break;
             }
             try {
-                Thread.sleep(3000);
+                Thread.sleep(8000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -295,8 +300,8 @@ public class ConnectionsApiTest {
         Connection connection = null;
 
         for (int i = 0; i < 3; i++) {
-            int tagAside = new Random().nextInt(4000);
-            int tagZside = new Random().nextInt(4000);
+            int tagAside = getRandomVlanNumber();
+            int tagZside = getRandomVlanNumber();
 
             ConnectionPostRequest connectionPostRequest = getDefaultConnectionRequest("panthers-con-port-2-port")
                     .type(ConnectionType.EVPL_VC)
@@ -356,7 +361,7 @@ public class ConnectionsApiTest {
                 }
             }
             try {
-                Thread.sleep(8000);
+                Thread.sleep(15000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
