@@ -14,6 +14,7 @@ import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.v4.api.dto.users.UsersItem;
 import com.equinix.openapi.fabric.v4.api.helpers.Utils;
 import com.equinix.openapi.fabric.v4.model.*;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -24,9 +25,9 @@ import java.util.List;
 import java.util.UUID;
 
 import static com.equinix.openapi.fabric.v4.api.PortsApiTest.getPorts;
-import static com.equinix.openapi.fabric.v4.api.helpers.TokenGenerator.users;
 import static com.equinix.openapi.fabric.v4.api.helpers.Apis.serviceProfilesApi;
 import static com.equinix.openapi.fabric.v4.api.helpers.Apis.setUserName;
+import static com.equinix.openapi.fabric.v4.api.helpers.TokenGenerator.users;
 import static com.equinix.openapi.fabric.v4.model.Expression.OperatorEnum.EQUAL;
 import static java.util.Collections.singletonList;
 import static org.junit.jupiter.api.Assertions.*;
@@ -49,7 +50,6 @@ class ServiceProfilesApiTest {
         });
     }
 
-
     @BeforeAll
     public static void setUp() {
         setUserName(userName);
@@ -58,6 +58,11 @@ class ServiceProfilesApiTest {
     @AfterAll
     public static void removeResources() {
         removeServiceProfiles(userName);
+        try {
+            Thread.sleep(30000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -88,7 +93,7 @@ class ServiceProfilesApiTest {
      */
     @Test
     public void getServiceProfiles() throws ApiException {
-        ServiceProfiles serviceProfiles = getServiceProfilesByQueryResponse("zSide");
+        ServiceProfiles serviceProfiles = getServiceProfilesByQueryResponse("aSide");
         assertEquals(200, serviceProfilesApi.getApiClient().getStatusCode());
         assertFalse(serviceProfiles.getData().isEmpty());
     }
@@ -149,7 +154,7 @@ class ServiceProfilesApiTest {
     public void updateServiceProfileByUuid() throws ApiException {
         ServiceProfile serviceProfile = createServiceProfile();
 
-        String updatedServiceName = "panthers updated sp2";
+        String updatedServiceName = "panthers updated sp2" + RandomStringUtils.randomAlphabetic(5);
         String updatedDescription = "updated description";
 
         ServiceProfileRequest serviceProfileRequest = getServiceProfileRequest()
@@ -186,8 +191,7 @@ class ServiceProfilesApiTest {
             }
         }
 
-        assertTrue(result, "Connection ha not reached the expected state: " + state + " current state: " + currentState.getValue())
-        ;
+        assertTrue(result, "Service profile has not reached the expected state: " + state + " current state: " + currentState.getValue());
     }
 
     private ServiceProfile createServiceProfile() throws ApiException {
@@ -204,7 +208,7 @@ class ServiceProfilesApiTest {
                 .filter(p -> p.getName().contains("Dot1q"))
                 .findFirst().get();
         return new ServiceProfileRequest()
-                .name("panthers-sp2-test")
+                .name("panthers-sp2-test" + RandomStringUtils.randomAlphabetic(5))
                 .description("desc")
                 .type(ServiceProfileTypeEnum.L2_PROFILE)
                 .notifications(

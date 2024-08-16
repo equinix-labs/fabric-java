@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.NoSuchElementException;
+import java.util.Random;
 
 public class Utils {
 
@@ -28,6 +29,11 @@ public class Utils {
 
     public static void printJson(Object object) {
         System.out.println(JSON.getGson().toJson(object));
+    }
+
+    public static int getRandomVlanNumber() {
+        Random r = new Random();
+        return r.ints(1, 4000).findFirst().getAsInt();
     }
 
     public enum EnvVariable {

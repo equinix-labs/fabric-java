@@ -38,7 +38,11 @@ public class TokenGenerator {
         }
     }
 
-    private static ApiClient generate(UsersItem.UserName userName) {
+    public static ApiClient generate(UsersItem.UserName userName) {
+        if (users.containsKey(userName)) {
+            users.remove(userName);
+        }
+
         String baseUrl = System.getProperty("envUrl");
         UsersItem user = Utils.getUserData(userName);
 
@@ -74,8 +78,8 @@ public class TokenGenerator {
         }
 
         ApiClient apiClient = Configuration.getDefaultApiClient().setBasePath(baseUrl);
-        apiClient.addDefaultHeader("Authorization", String.format("Bearer %s",tokenResponseDto.getAccessToken()));
-        users.put(userName, new UserUsedDto(userName,apiClient));
+        apiClient.addDefaultHeader("Authorization", String.format("Bearer %s", tokenResponseDto.getAccessToken()));
+        users.put(userName, new UserUsedDto(userName, apiClient));
         return users.get(userName).getApiClient();
     }
 }

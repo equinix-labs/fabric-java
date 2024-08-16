@@ -131,6 +131,21 @@ gsonBuilder.registerTypeAdapter(PortDeviceRedundancy.PriorityEnum.class,new Uppe
 gson = gsonBuilder.setPrettyPrinting().create();
 }
 
+public static class UppercaseEnumAdapter implements JsonDeserializer<Enum> {
+    @Override
+    public Enum deserialize(JsonElement json, java.lang.reflect.Type type, JsonDeserializationContext context)
+    throws JsonParseException {
+    try {
+    if(type instanceof Class && ((Class<?>) type).isEnum())
+    return Enum.valueOf((Class<Enum>) type, json.getAsString().toUpperCase());
+        return null;
+        } catch (Exception e) {
+        e.printStackTrace();
+        return null;
+        }
+        }
+        }
+
 /**
 * Get Gson.
 *

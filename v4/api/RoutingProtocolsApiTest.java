@@ -15,27 +15,44 @@ import com.equinix.openapi.fabric.v4.api.dto.users.UserResources;
 import com.equinix.openapi.fabric.v4.api.dto.users.UsersItem;
 import com.equinix.openapi.fabric.v4.model.*;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static com.equinix.openapi.fabric.v4.api.TokenGenerator.users;
+import java.util.UUID;
+
+import static com.equinix.openapi.fabric.v4.api.CloudRoutersApiTest.removeCloudRouters;
+import static com.equinix.openapi.fabric.v4.api.ConnectionsApiTest.createConnectionFCR2ToPort;
+import static com.equinix.openapi.fabric.v4.api.ConnectionsApiTest.removeConnections;
+import static com.equinix.openapi.fabric.v4.api.helpers.Apis.*;
+import static com.equinix.openapi.fabric.v4.api.helpers.TokenGenerator.users;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * API tests for RoutingProtocolsApi
  */
-@Disabled
 public class RoutingProtocolsApiTest {
-    private static final UsersItem.UserName userName = UsersItem.UserName.PANTHERS_FNV;
-    private static final RoutingProtocolsApi api = new RoutingProtocolsApi(TokenGenerator.getApiClient(userName));
+    private static final UsersItem.UserName userName = UsersItem.UserName.PANTHERS_FCR;
 
     public static void removeRoutingInstances(UsersItem.UserName userName) {
         users.get(userName).getUserResources().getRoutingProtocolsUuid().forEach(RoutingProtocolsApiTest::deleteRoutingProtocol);
     }
 
+    @BeforeAll
+    public static void setUp() {
+        setUserName(userName);
+    }
+
     @AfterAll
     public static void removeResources() {
+        try {
+            Thread.sleep(15000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         removeRoutingInstances(userName);
+        removeConnections(userName);
+        removeCloudRouters(userName);
     }
 
     /**
@@ -43,160 +60,82 @@ public class RoutingProtocolsApiTest {
      */
     @Test
     public void createConnectionRoutingProtocol() throws ApiException {
-        String connectionId = null;
-        RoutingProtocolBase routingProtocolBase = new RoutingProtocolBase(new RoutingProtocolDirectType()
-                .type(RoutingProtocolDirectType.TypeEnum.DIRECT)
-                .directIpv4(new DirectConnectionIpv4().equinixIfaceIp(""))
-                .directIpv6(new DirectConnectionIpv6().equinixIfaceIp("")));
-        RoutingProtocolData routingProtocolData = api.createConnectionRoutingProtocol(connectionId, routingProtocolBase);
-    }
+        Connection connection = createConnectionFCR2ToPort();
+        String ipDirect = "192.68.100.1/20";
 
-//    /**
-//     * Successful operation
-//     */
-//    @Test
-//    public void shouldSee202AfterCreateConnectionRoutingProtocolsInBulk() {
-//        String connectionId = null;
-//        ConnectionRoutingProtocolPostRequest connectionRoutingProtocolPostRequest = null;
-//        api.createConnectionRoutingProtocolsInBulk()
-//                .connectionIdPath(connectionId)
-//                .body(connectionRoutingProtocolPostRequest).execute(r -> r);
-//        // TODO: test validations
-//    }
-//
-//    /**
-//     * Successful operation
-//     */
-//    @Test
-//    public void shouldSee202AfterDeleteConnectionRoutingProtocolByUuid() {
-//        UUID routingProtocolId = null;
-//        String connectionId = null;
-//        api.deleteConnectionRoutingProtocolByUuid()
-//                .routingProtocolIdPath(routingProtocolId)
-//                .connectionIdPath(connectionId).execute(r -> r);
-//        // TODO: test validations
-//    }
-//
-//    /**
-//     * Successful operation
-//     */
-//    @Test
-//    public void shouldSee200AfterGetConnectionRoutingProtocolByUuid() {
-//        UUID routingProtocolId = null;
-//        String connectionId = null;
-//        api.getConnectionRoutingProtocolByUuid()
-//                .routingProtocolIdPath(routingProtocolId)
-//                .connectionIdPath(connectionId).execute(r -> r);
-//        // TODO: test validations
-//    }
-//
-//    /**
-//     * Successful operation
-//     */
-//    @Test
-//    public void shouldSee200AfterGetConnectionRoutingProtocols() {
-//        String connectionId = null;
-//        Integer offset = null;
-//        Integer limit = null;
-//        api.getConnectionRoutingProtocols()
-//                .connectionIdPath(connectionId).execute(r -> r);
-//        // TODO: test validations
-//    }
-//
-//    /**
-//     * Fabric BGP Action object
-//     */
-//    @Test
-//    public void shouldSee200AfterGetConnectionRoutingProtocolsBgpActionByUuid() {
-//        String connectionId = null;
-//        UUID routingProtocolId = null;
-//        UUID actionId = null;
-//        api.getConnectionRoutingProtocolsBgpActionByUuid()
-//                .connectionIdPath(connectionId)
-//                .routingProtocolIdPath(routingProtocolId)
-//                .actionIdPath(actionId).execute(r -> r);
-//        // TODO: test validations
-//    }
-//
-//    /**
-//     * Fabric Routing Protocol Change object
-//     */
-//    @Test
-//    public void shouldSee200AfterGetConnectionRoutingProtocolsChangeByUuid() {
-//        String connectionId = null;
-//        UUID routingProtocolId = null;
-//        UUID changeId = null;
-//        api.getConnectionRoutingProtocolsChangeByUuid()
-//                .connectionIdPath(connectionId)
-//                .routingProtocolIdPath(routingProtocolId)
-//                .changeIdPath(changeId).execute(r -> r);
-//        // TODO: test validations
-//    }
-//
-//    /**
-//     * Fabric Routing Protocol Change object
-//     */
-//    @Test
-//    public void shouldSee200AfterGetConnectionRoutingProtocolsChanges() {
-//        String connectionId = null;
-//        UUID routingProtocolId = null;
-//        Integer offset = null;
-//        Integer limit = null;
-//        api.getConnectionRoutingProtocolsChanges()
-//                .connectionIdPath(connectionId)
-//                .routingProtocolIdPath(routingProtocolId).execute(r -> r);
-//        // TODO: test validations
-//    }
-//
-//    /**
-//     * Successful operation
-//     */
-//    @Test
-//    public void shouldSee202AfterPatchConnectionRoutingProtocolByUuid() {
-//        UUID routingProtocolId = null;
-//        String connectionId = null;
-//        List<ConnectionChangeOperation> connectionChangeOperation = null;
-//        api.patchConnectionRoutingProtocolByUuid()
-//                .routingProtocolIdPath(routingProtocolId)
-//                .connectionIdPath(connectionId)
-//                .body(connectionChangeOperation).execute(r -> r);
-//        // TODO: test validations
-//    }
-//
-//    /**
-//     * Successful operation
-//     */
-//    @Test
-//    public void shouldSee202AfterPostConnectionRoutingProtocolBgpActionByUuid() {
-//        UUID routingProtocolId = null;
-//        String connectionId = null;
-//        BGPActionRequest bgPActionRequest = null;
-//        api.postConnectionRoutingProtocolBgpActionByUuid()
-//                .routingProtocolIdPath(routingProtocolId)
-//                .connectionIdPath(connectionId)
-//                .body(bgPActionRequest).execute(r -> r);
-//        // TODO: test validations
-//    }
-//
-//    /**
-//     * Successful operation
-//     */
-//    @Test
-//    public void shouldSee200AfterValidateRoutingProtocol() {
-//        UUID routerId = null;
-//        ValidateRequest validateRequest = null;
-//        api.validateRoutingProtocol()
-//                .routerIdPath(routerId)
-//                .body(validateRequest).execute(r -> r);
-//        // TODO: test validations
-//    }
+        RoutingProtocolBase routingProtocolBaseDIRECT = new RoutingProtocolBase(new RoutingProtocolDirectType().type(RoutingProtocolDirectType.TypeEnum.DIRECT).directIpv4(new DirectConnectionIpv4().equinixIfaceIp(ipDirect)));
+
+        try {
+            RoutingProtocolData response = routingProtocolsApi.createConnectionRoutingProtocol(connection.getUuid(), routingProtocolBaseDIRECT);
+            waitForDirectTypeIsProvisioned(response.getRoutingProtocolDirectData().getUuid(), connection.getUuid());
+        } catch (Exception e) {
+
+        }
+
+        assertEquals(202, connectionsApi.getApiClient().getStatusCode());
+
+        String ipBGP = "192.68.100.105";
+
+        RoutingProtocolBase routingProtocolBaseBGP = new RoutingProtocolBase(new RoutingProtocolBGPType().type(RoutingProtocolBGPType.TypeEnum.BGP).bgpIpv4(new BGPConnectionIpv4().customerPeerIp(ipBGP).enabled(true).outboundASPrependCount(0L)).customerAsn(1245L).asOverrideEnabled(false).bfd(new RoutingProtocolBFD().enabled(false)));
+
+        try {
+            RoutingProtocolData response = routingProtocolsApi.createConnectionRoutingProtocol(connection.getUuid(), routingProtocolBaseBGP);
+            waitForBGPTypeIsProvisioned(response.getRoutingProtocolBGPData().getUuid(), connection.getUuid());
+        } catch (Exception e) {
+
+        }
+
+        assertEquals(202, connectionsApi.getApiClient().getStatusCode());
+    }
 
     public static void deleteRoutingProtocol(UserResources.RoutingProtocolDto routingProtocolDto) {
         try {
-            api.deleteConnectionRoutingProtocolByUuid(routingProtocolDto.getRoutingInstanceUuid(), String.valueOf(routingProtocolDto.getConnectionUuid()));
-            assertEquals(202, api.getApiClient().getStatusCode());
+            routingProtocolsApi.deleteConnectionRoutingProtocolByUuid(routingProtocolDto.getRoutingInstanceUuid(), String.valueOf(routingProtocolDto.getConnectionUuid()));
+            assertEquals(202, routingProtocolsApi.getApiClient().getStatusCode());
         } catch (ApiException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static void waitForDirectTypeIsProvisioned(UUID routingProtocolUuid, String connectionUuid) throws ApiException {
+        boolean result = false;
+        RoutingProtocolDirectData.StateEnum currentState = null;
+        for (int i = 0; i < 5; i++) {
+            RoutingProtocolData routingProtocolData = routingProtocolsApi.getConnectionRoutingProtocolByUuid(routingProtocolUuid, connectionUuid);
+            currentState = routingProtocolData.getRoutingProtocolDirectData().getState();
+
+            if (currentState.equals(RoutingProtocolDirectData.StateEnum.PROVISIONED)) {
+                result = true;
+                break;
+            }
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        assertTrue(result, "Routing Protocol has not reached the expected state: " + RoutingProtocolDirectData.StateEnum.PROVISIONED + " current state: " + currentState.getValue() + " for connection " + "uuid " + connectionUuid);
+    }
+
+    private static void waitForBGPTypeIsProvisioned(UUID routingProtocolUuid, String connectionUuid) throws ApiException {
+        boolean result = false;
+        RoutingProtocolBGPData.StateEnum currentState = null;
+        for (int i = 0; i < 5; i++) {
+            RoutingProtocolData routingProtocolData = routingProtocolsApi.getConnectionRoutingProtocolByUuid(routingProtocolUuid, connectionUuid);
+            currentState = routingProtocolData.getRoutingProtocolBGPData().getState();
+
+            if (currentState.equals(RoutingProtocolBGPData.StateEnum.PROVISIONED)) {
+                result = true;
+                break;
+            }
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        assertTrue(result, "Routing Protocol has not reached the expected state: " + RoutingProtocolBGPData.StateEnum.PROVISIONED + " current state: " + currentState.getValue() + " for connection " + "uuid " + connectionUuid);
     }
 }

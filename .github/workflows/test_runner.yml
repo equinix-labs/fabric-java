@@ -27,11 +27,14 @@ jobs:
         shell: bash
         run: |-
           cd equinix-openapi-fabric
-          mvn clean test surefire-report:report -DenvUrl=${{ env.TEST_HOST_URL }}
+          mvn clean test -DenvUrl=${{ env.TEST_HOST_URL }}
 
-      - name: Print
+      - name: Generate report
+        if: always()
         shell: bash
         run: |-
+          cd equinix-openapi-fabric
+          mvn surefire-report:report -DskipTests
           ls
           find .
           
@@ -40,4 +43,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: test report
-          path: target/site
+          path: ./equinix-openapi-fabric/target/reports
