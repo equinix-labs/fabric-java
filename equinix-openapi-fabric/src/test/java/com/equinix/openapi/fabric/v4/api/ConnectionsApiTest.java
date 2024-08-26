@@ -308,6 +308,7 @@ public class ConnectionsApiTest {
             int tagZside = getRandomVlanNumber();
 
             ConnectionPostRequest connectionPostRequest = getDefaultConnectionRequest("panthers-con-port-2-port")
+                    .bandwidth(1000)
                     .type(ConnectionType.EVPL_VC)
                     .redundancy(new ConnectionRedundancy().priority(ConnectionPriority.PRIMARY))
                     .aSide(new ConnectionSide().accessPoint(
