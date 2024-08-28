@@ -58,7 +58,6 @@ import com.equinix.openapi.fabric.auth.ApiKeyAuth;
  * <p>ApiClient class.</p>
  */
 public class ApiClient {
-
     private String basePath = "https://api.equinix.com";
     protected List<ServerConfiguration> servers = new ArrayList<ServerConfiguration>(Arrays.asList(
             new ServerConfiguration(

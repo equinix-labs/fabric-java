@@ -5,52 +5,52 @@ import com.google.gson.annotations.SerializedName;
 
 public class UsersItem {
 
-    @SerializedName("virtualDevices")
-    private List<VirtualDevicesItem> virtualDevices;
+	@SerializedName("virtualDevices")
+	private List<VirtualDevicesItem> virtualDevices;
 
-    @SerializedName("name")
-    private String name;
+	@SerializedName("name")
+	private String name;
 
-    @SerializedName("client_secret")
-    private String clientSecret;
+	@SerializedName("client_secret")
+	private String clientSecret;
 
-    @SerializedName("accountNumber")
-    private String accountNumber;
+	@SerializedName("accountNumber")
+	private String accountNumber;
 
-    @SerializedName("ports")
-    private List<PortDto> ports;
+	@SerializedName("ports")
+	private List<PortDto> ports;
 
-    @SerializedName("projectId")
-    private String projectId;
+	@SerializedName("projectId")
+	private String projectId;
 
-    @SerializedName("client_id")
-    private String clientId;
+	@SerializedName("client_id")
+	private String clientId;
 
-    public List<VirtualDevicesItem> getVirtualDevices() {
-        return virtualDevices;
-    }
+	public List<VirtualDevicesItem> getVirtualDevices() {
+		return virtualDevices;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getClientSecret() {
-        return clientSecret;
-    }
+	public String getClientSecret() {
+		return clientSecret;
+	}
 
-    public String getAccountNumber() {
-        return accountNumber;
-    }
+	public String getAccountNumber() {
+		return accountNumber;
+	}
 
-    public List<PortDto> getPorts() {
-        return ports;
-    }
+	public List<PortDto> getPorts() {
+		return ports;
+	}
 
-    public String getProjectId() {
-        return projectId;
-    }
+	public String getProjectId() {
+		return projectId;
+	}
 
-    public String getClientId() {
-        return clientId;
-    }
+	public String getClientId() {
+		return clientId;
+	}
 }

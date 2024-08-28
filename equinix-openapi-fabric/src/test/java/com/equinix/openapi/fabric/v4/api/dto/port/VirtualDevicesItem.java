@@ -4,24 +4,24 @@ import com.google.gson.annotations.SerializedName;
 
 public class VirtualDevicesItem {
 
-    @SerializedName("orderNumber")
-    private String orderNumber;
+	@SerializedName("orderNumber")
+	private String orderNumber;
 
-    @SerializedName("name")
-    private String name;
+	@SerializedName("name")
+	private String name;
 
-    @SerializedName("uuid")
-    private String uuid;
+	@SerializedName("uuid")
+	private String uuid;
 
-    public String getOrderNumber() {
-        return orderNumber;
-    }
+	public String getOrderNumber() {
+		return orderNumber;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getUuid() {
-        return uuid;
-    }
+	public String getUuid() {
+		return uuid;
+	}
 }

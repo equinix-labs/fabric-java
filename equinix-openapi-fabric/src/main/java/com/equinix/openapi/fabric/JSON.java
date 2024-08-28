@@ -449,7 +449,7 @@ public class JSON {
      *
      * @param <T>        Type
      * @param body       The JSON string
-     * @param returnType The type to deserialize into
+    * @param returnType The type to deserialize into
     * @return The deserialized Java object
     */
     @SuppressWarnings("unchecked")
@@ -459,7 +459,7 @@ public class JSON {
                 JsonReader jsonReader = new JsonReader(new StringReader(body));
                 // see https://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/com/google/gson/stream/JsonReader.html#setLenient(boolean)
                 jsonReader.setLenient(true);
-                return gson.fromJson(jsonReader, returnType);
+        return gson.fromJson(jsonReader, returnType);
         } else {
         return gson.fromJson(body, returnType);
             }
@@ -474,44 +474,44 @@ public class JSON {
         }
     }
 
-    /**
-     * Gson TypeAdapter for Byte Array type
-     */
+        /**
+        * Gson TypeAdapter for Byte Array type
+        */
         public static class ByteArrayAdapter extends TypeAdapter<byte[]> {
 
         @Override
         public void write(JsonWriter out, byte[] value) throws IOException {
-            if (value == null) {
-                out.nullValue();
+        if (value == null) {
+        out.nullValue();
         } else {
         out.value(ByteString.of(value).base64());
         }
         }
 
-        @Override
-        public byte[] read(JsonReader in) throws IOException {
-            switch (in.peek()) {
-                case NULL:
-                    in.nextNull();
-                    return null;
-                default:
-                    String bytesAsBase64 = in.nextString();
-                    ByteString byteString = ByteString.decodeBase64(bytesAsBase64);
-                    return byteString.toByteArray();
+            @Override
+            public byte[] read(JsonReader in) throws IOException {
+                switch (in.peek()) {
+                    case NULL:
+                        in.nextNull();
+                        return null;
+                    default:
+                        String bytesAsBase64 = in.nextString();
+                        ByteString byteString = ByteString.decodeBase64(bytesAsBase64);
+                        return byteString.toByteArray();
+                }
             }
         }
-    }
 
     /**
      * Gson TypeAdapter for JSR310 OffsetDateTime type
      */
     public static class OffsetDateTimeTypeAdapter extends TypeAdapter<OffsetDateTime> {
 
-        private DateTimeFormatter formatter;
+            private DateTimeFormatter formatter;
 
-            public OffsetDateTimeTypeAdapter() {
-                this(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
-            }
+        public OffsetDateTimeTypeAdapter() {
+            this(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+        }
 
         public OffsetDateTimeTypeAdapter(DateTimeFormatter formatter) {
             this.formatter = formatter;
@@ -553,9 +553,9 @@ public class JSON {
 
         private DateTimeFormatter formatter;
 
-            public LocalDateTypeAdapter() {
-                this(DateTimeFormatter.ISO_LOCAL_DATE);
-            }
+        public LocalDateTypeAdapter() {
+            this(DateTimeFormatter.ISO_LOCAL_DATE);
+        }
 
         public LocalDateTypeAdapter(DateTimeFormatter formatter) {
             this.formatter = formatter;

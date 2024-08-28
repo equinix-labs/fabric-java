@@ -74,15 +74,32 @@ import {{invokerPackage}}.auth.AWS4Auth;
  * <p>ApiClient class.</p>
  */
 public class ApiClient {
-
-private String basePath = "{{{basePath}}}";
-protected List<ServerConfiguration> servers = new ArrayList<ServerConfiguration>(Arrays.asList(
-    new ServerConfiguration(
-    basePath,
-    "Equinix Inc",
-    new HashMap<String, ServerVariable>()
-    )
-    ));
+    private String basePath = "{{{basePath}}}";
+    protected List<ServerConfiguration> servers = new ArrayList<ServerConfiguration>({{#servers}}{{#-first}}Arrays.asList(
+{{/-first}}    new ServerConfiguration(
+      basePath,
+      "{{{description}}}{{^description}}No description provided{{/description}}",
+      new HashMap<String, ServerVariable>(){{#variables}}{{#-first}} {{
+{{/-first}}        put("{{{name}}}", new ServerVariable(
+          "{{{description}}}{{^description}}No description provided{{/description}}",
+          "{{{defaultValue}}}",
+          new HashSet<String>(
+          {{#enumValues}}
+          {{#-first}}
+            Arrays.asList(
+          {{/-first}}
+              "{{{.}}}"{{^-last}},{{/-last}}
+          {{#-last}}
+            )
+          {{/-last}}
+          {{/enumValues}}
+          )
+        ));
+      {{#-last}}
+      }}{{/-last}}{{/variables}}
+    ){{^-last}},{{/-last}}
+  {{#-last}}
+  ){{/-last}}{{/servers}});
     protected Integer serverIndex = 0;
     protected Map<String, String> serverVariables = null;
     private boolean debugging = false;
