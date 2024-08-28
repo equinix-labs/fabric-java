@@ -43,4 +43,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: test report
-          path: ./target/site/
+          path: ./equinix-openapi-fabric/target/reports
