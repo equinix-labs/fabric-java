@@ -20,8 +20,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
 
-import static com.equinix.openapi.fabric.v4.api.helpers.TokenGenerator.users;
 import static com.equinix.openapi.fabric.v4.api.helpers.Apis.*;
+import static com.equinix.openapi.fabric.v4.api.helpers.TokenGenerator.users;
 import static java.util.Collections.singletonList;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -204,16 +204,9 @@ public class CloudRoutersApiTest {
         assertEquals(updatedName, updatedCloudRouter.getName());
     }
 
-    public static void removeCloudRouter(UsersItem.UserName userName) {
-        users.get(userName).getUserResources().getCloudRoutersUuid().forEach(uuid -> {
-            if (getCloudRouterStatus(uuid) == CloudRouterAccessPointState.PROVISIONED) {
-                deleteCloudRouter(uuid);
-            }
-        });
-    }
-
     public static void deleteCloudRouter(UUID uuid) {
         try {
+            waitForCloudRouterIsProvisioned(uuid);
             cloudRoutersApi.deleteCloudRouterByUuid(uuid);
         } catch (ApiException e) {
             throw new RuntimeException(e);
@@ -256,11 +249,31 @@ public class CloudRoutersApiTest {
                 break;
             }
             try {
-                Thread.sleep(3000);
+                Thread.sleep(5000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
         return cloudRouter;
+    }
+
+    private static void waitForCloudRouterIsProvisioned(UUID cloudRouterUuid) {
+        boolean result = false;
+        CloudRouterAccessPointState currentState = null;
+        for (int i = 0; i < 5; i++) {
+            currentState = getCloudRouterStatus(cloudRouterUuid);
+            if (currentState.equals(CloudRouterAccessPointState.PROVISIONED)) {
+                result = true;
+                break;
+            }
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        assertTrue(result,
+                "Cloud Router has not reached the expected state: " + CloudRouterAccessPointState.PROVISIONED + " current state: " + currentState.getValue());
     }
 }

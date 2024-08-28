@@ -191,8 +191,7 @@ class ServiceProfilesApiTest {
             }
         }
 
-        assertTrue(result, "Connection ha not reached the expected state: " + state + " current state: " + currentState.getValue())
-        ;
+        assertTrue(result, "Service profile has not reached the expected state: " + state + " current state: " + currentState.getValue());
     }
 
     private ServiceProfile createServiceProfile() throws ApiException {
