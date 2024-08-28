@@ -1,7 +1,6 @@
 package com.equinix.openapi.fabric.v4.api.dto.port;
 
 import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 
 public class UsersItem {

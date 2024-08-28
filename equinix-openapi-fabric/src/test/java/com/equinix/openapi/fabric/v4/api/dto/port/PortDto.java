@@ -19,7 +19,7 @@ public class PortDto {
 	@SerializedName("uuid")
 	private String uuid;
 
-	public String getEncapsulation() {
+    public String getEncapsulation() {
 		return encapsulation;
 	}
 
@@ -31,11 +31,11 @@ public class PortDto {
 		return location;
 	}
 
-	public String getType() {
+    public String getType() {
 		return type;
 	}
 
-	public String getUuid() {
+    public String getUuid() {
 		return uuid;
 	}
 }
