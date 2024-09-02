@@ -87,7 +87,6 @@ public class ConnectionsApiTest {
                     new AccessPoint()
                             .type(AccessPointType.COLO)
                             .port(new SimplifiedPort()
-//                                    .uuid(port.getUuid()))
                                     .uuid(portUuid))
                             .linkProtocol(new SimplifiedLinkProtocol()
                                     .type(LinkProtocolType.DOT1Q)
@@ -213,6 +212,7 @@ public class ConnectionsApiTest {
     public static ConnectionPostRequest getDefaultConnectionRequest(String name) {
         return new ConnectionPostRequest()
                 .name(name)
+                .bandwidth(1000)
                 .notifications(singletonList(new SimplifiedNotification()
                         .type(SimplifiedNotification.TypeEnum.ALL)
                         .emails(singletonList("test@test.com"))));
@@ -230,7 +230,6 @@ public class ConnectionsApiTest {
         PortDto portDto = usersItem.getPorts().get(0);
 
         ConnectionPostRequest connectionPostRequest = getDefaultConnectionRequest("panthers-con-port-2-sp")
-                .bandwidth(serviceProfile.getAccessPointTypeConfigs().get(0).getServiceProfileAccessPointTypeCOLO().getSupportedBandwidths().get(0))
                 .type(ConnectionType.EVPL_VC)
                 .redundancy(new ConnectionRedundancy().priority(ConnectionPriority.PRIMARY))
                 .order(new Order().purchaseOrderNumber("pol123"))
