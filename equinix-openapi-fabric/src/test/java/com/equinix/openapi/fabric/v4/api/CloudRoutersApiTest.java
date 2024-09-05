@@ -35,7 +35,12 @@ public class CloudRoutersApiTest {
     public static void removeCloudRouters(UsersItem.UserName userName) {
         users.get(userName).getUserResources().getCloudRoutersUuid().forEach(uuid -> {
             if (getCloudRouterStatus(uuid) == CloudRouterAccessPointState.PROVISIONED) {
-                deleteCloudRouter(uuid);
+                try {
+                    deleteCloudRouter(uuid);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+
             }
         });
     }
@@ -216,8 +221,9 @@ public class CloudRoutersApiTest {
 
     public static CloudRouterAccessPointState getCloudRouterStatus(UUID cloudRouterUuid) {
         try {
+            Thread.sleep(10000);
             return cloudRoutersApi.getCloudRouterByUuid(cloudRouterUuid).getState();
-        } catch (ApiException e) {
+        } catch (ApiException | InterruptedException e) {
             throw new RuntimeException(e);
         }
     }

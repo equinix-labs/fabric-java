@@ -42,10 +42,27 @@ public class ConnectionsApiTest {
             throw new RuntimeException(e);
         }
         users.get(userName).getUserResources().getConnectionsUuid().forEach(uuid -> {
+            Connection connection = null;
             try {
-                deleteConnection(uuid);
+                connection = connectionsApi.getConnectionByUuid(uuid, null);
+                if (connection.getOperation().getEquinixStatus().equals(EquinixStatus.PROVISIONED)) {
+                    deleteConnection(uuid);
+                } else if (connection.getOperation().getEquinixStatus().equals(EquinixStatus.PENDING_APPROVAL)) {
+                    ConnectionActionRequest connectionActionRequest = new ConnectionActionRequest()
+                            .type(Actions.CONNECTION_CREATION_REJECTION).description("connection to remove");
+
+                    try {
+                        connectionsApi.createConnectionAction(uuid, connectionActionRequest);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+
+                    waitForConnectionIsInState(connection.getUuid(), EquinixStatus.REJECTED);
+                    deleteConnection(uuid);
+                }
+                waitForConnectionIsInState(uuid, EquinixStatus.DEPROVISIONED, EquinixStatus.DELETED);
             } catch (ApiException e) {
-                throw new RuntimeException(e);
+                System.out.println(e.getMessage());
             }
         });
     }
