@@ -31,11 +31,11 @@ public class VirtualDevicesItem{
 		return name;
 	}
 
-	public void setUuid(UUID uuid) {
+	public void setUuid(UUID uuid){
 		this.uuid = uuid;
 	}
 
-	public UUID getUuid() {
+	public UUID getUuid(){
 		return uuid;
 	}
 }

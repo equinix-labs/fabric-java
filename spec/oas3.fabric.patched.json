@@ -14541,6 +14541,7 @@
           "encapsulation",
           "location",
           "physicalPortsSpeed",
+          "physicalPortsType",
           "settings",
           "type"
         ],
@@ -20046,6 +20047,7 @@
             "description": "Equinix assigned response attribute for Port description"
           },
           "physicalPortsSpeed": {
+            "minimum": 0,
             "type": "integer",
             "description": "Physical Ports Speed in Mbps"
           },

@@ -11,17 +11,58 @@
 
 package com.equinix.openapi.fabric.v4.model;
 
-import com.equinix.openapi.fabric.JSON;
-import com.google.gson.*;
+import java.util.Objects;
+import java.util.Arrays;
+import com.equinix.openapi.fabric.v4.model.Changelog;
+import com.equinix.openapi.fabric.v4.model.PhysicalPort;
+import com.equinix.openapi.fabric.v4.model.PortAdditionalInfo;
+import com.equinix.openapi.fabric.v4.model.PortDemarcationPoint;
+import com.equinix.openapi.fabric.v4.model.PortDevice;
+import com.equinix.openapi.fabric.v4.model.PortEncapsulation;
+import com.equinix.openapi.fabric.v4.model.PortInterface;
+import com.equinix.openapi.fabric.v4.model.PortLag;
+import com.equinix.openapi.fabric.v4.model.PortLoa;
+import com.equinix.openapi.fabric.v4.model.PortNotification;
+import com.equinix.openapi.fabric.v4.model.PortOperation;
+import com.equinix.openapi.fabric.v4.model.PortOrder;
+import com.equinix.openapi.fabric.v4.model.PortRedundancy;
+import com.equinix.openapi.fabric.v4.model.PortSettings;
+import com.equinix.openapi.fabric.v4.model.PortState;
+import com.equinix.openapi.fabric.v4.model.PortType;
+import com.equinix.openapi.fabric.v4.model.Project;
+import com.equinix.openapi.fabric.v4.model.SimplifiedAccount;
+import com.equinix.openapi.fabric.v4.model.SimplifiedLocation;
+import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-
 import java.io.IOException;
 import java.net.URI;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.TypeAdapterFactory;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import com.equinix.openapi.fabric.JSON;
 
 /**
  * Port specification
@@ -529,6 +570,7 @@ public class Port {
    * minimum: 0
    * @return physicalPortsSpeed
   **/
+  @javax.annotation.Nonnull
 
   public Integer getPhysicalPortsSpeed() {
     return physicalPortsSpeed;
@@ -1514,6 +1556,10 @@ public class Port {
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("type");
+    openapiRequiredFields.add("physicalPortsSpeed");
+    openapiRequiredFields.add("physicalPortsType");
+    openapiRequiredFields.add("connectivitySourceType");
     openapiRequiredFields.add("account");
     openapiRequiredFields.add("location");
     openapiRequiredFields.add("encapsulation");
@@ -1550,6 +1596,12 @@ public class Port {
       }
       if ((jsonObj.get("description") != null && !jsonObj.get("description").isJsonNull()) && !jsonObj.get("description").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `description` to be a primitive type in the JSON string but got `%s`", jsonObj.get("description").toString()));
+      }
+      if (!jsonObj.get("physicalPortsType").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `physicalPortsType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("physicalPortsType").toString()));
+      }
+      if (!jsonObj.get("connectivitySourceType").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `connectivitySourceType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("connectivitySourceType").toString()));
       }
       if ((jsonObj.get("bmmrType") != null && !jsonObj.get("bmmrType").isJsonNull()) && !jsonObj.get("bmmrType").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `bmmrType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("bmmrType").toString()));

@@ -319,7 +319,7 @@ public class ConnectionAction {
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
     openapiRequiredFields.add("type");
-//    openapiRequiredFields.add("href");
+    openapiRequiredFields.add("href");
     openapiRequiredFields.add("uuid");
     openapiRequiredFields.add("data");
   }
