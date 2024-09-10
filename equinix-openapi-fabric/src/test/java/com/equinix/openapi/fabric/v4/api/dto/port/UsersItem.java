@@ -3,7 +3,7 @@ package com.equinix.openapi.fabric.v4.api.dto.port;
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class UsersItem {
+public class UsersItem{
 
 	@SerializedName("virtualDevices")
 	private List<VirtualDevicesItem> virtualDevices;
@@ -26,31 +26,31 @@ public class UsersItem {
 	@SerializedName("client_id")
 	private String clientId;
 
-	public List<VirtualDevicesItem> getVirtualDevices() {
+	public List<VirtualDevicesItem> getVirtualDevices(){
 		return virtualDevices;
 	}
 
-	public String getName() {
+	public String getName(){
 		return name;
 	}
 
-	public String getClientSecret() {
+	public String getClientSecret(){
 		return clientSecret;
 	}
 
-	public String getAccountNumber() {
+	public String getAccountNumber(){
 		return accountNumber;
 	}
 
-	public List<PortDto> getPorts() {
+	public List<PortDto> getPorts(){
 		return ports;
 	}
 
-	public String getProjectId() {
+	public String getProjectId(){
 		return projectId;
 	}
 
-	public String getClientId() {
+	public String getClientId(){
 		return clientId;
 	}
 }

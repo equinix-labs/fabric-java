@@ -2,7 +2,7 @@ package com.equinix.openapi.fabric.v4.api.dto.port;
 
 import com.google.gson.annotations.SerializedName;
 
-public class VirtualDevicesItem {
+public class VirtualDevicesItem{
 
 	@SerializedName("orderNumber")
 	private String orderNumber;
@@ -13,15 +13,15 @@ public class VirtualDevicesItem {
 	@SerializedName("uuid")
 	private String uuid;
 
-	public String getOrderNumber() {
+	public String getOrderNumber(){
 		return orderNumber;
 	}
 
-	public String getName() {
+	public String getName(){
 		return name;
 	}
 
-	public String getUuid() {
+	public String getUuid(){
 		return uuid;
 	}
 }

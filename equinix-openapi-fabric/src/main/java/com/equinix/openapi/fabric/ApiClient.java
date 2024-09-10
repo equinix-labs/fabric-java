@@ -60,12 +60,12 @@ import com.equinix.openapi.fabric.auth.ApiKeyAuth;
 public class ApiClient {
     private String basePath = "https://api.equinix.com";
     protected List<ServerConfiguration> servers = new ArrayList<ServerConfiguration>(Arrays.asList(
-            new ServerConfiguration(
-                    basePath,
-                    "Equinix Inc",
-                    new HashMap<String, ServerVariable>()
-            )
-    ));
+    new ServerConfiguration(
+      basePath,
+      "Equinix Inc",
+      new HashMap<String, ServerVariable>()
+    )
+  ));
     protected Integer serverIndex = 0;
     protected Map<String, String> serverVariables = null;
     private boolean debugging = false;
@@ -129,7 +129,7 @@ public class ApiClient {
         builder.writeTimeout(0, TimeUnit.SECONDS);
         builder.callTimeout(60, TimeUnit.SECONDS);
         builder.addNetworkInterceptor(getProgressInterceptor());
-        for (Interceptor interceptor : interceptors) {
+        for (Interceptor interceptor: interceptors) {
             builder.addInterceptor(interceptor);
         }
         builder.addInterceptor(new HttpLoggingInterceptor().setLevel(Level.BODY));
@@ -147,8 +147,8 @@ public class ApiClient {
         authentications = new HashMap<String, Authentication>();
     }
 
-    public int getStatusCode() {
-        return response.code();
+    public int getStatusCode(){
+       return response.code();
     }
 
     /**
@@ -390,11 +390,10 @@ public class ApiClient {
         return authentications.get(authName);
     }
 
-    /**
-     * Helper method to set access token for the first Bearer authentication.
-     *
-     * @param bearerToken Bearer token
-     */
+        /**
+        * Helper method to set access token for the first Bearer authentication.
+        * @param bearerToken Bearer token
+        */
     public void setBearerToken(String bearerToken) {
         for (Authentication auth : authentications.values()) {
             if (auth instanceof HttpBearerAuth) {
@@ -766,7 +765,7 @@ public class ApiClient {
             delimiter = "|";
         }
 
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder() ;
         for (Object item : value) {
             sb.append(delimiter);
             sb.append(parameterToString(item));
@@ -1248,7 +1247,7 @@ public class ApiClient {
             if (serverIndex != null) {
                 if (serverIndex < 0 || serverIndex >= servers.size()) {
                     throw new ArrayIndexOutOfBoundsException(String.format(
-                            "Invalid index %d when selecting the host settings. Must be less than %d", serverIndex, servers.size()
+                    "Invalid index %d when selecting the host settings. Must be less than %d", serverIndex, servers.size()
                     ));
                 }
                 baseURL = servers.get(serverIndex).URL(serverVariables);
@@ -1381,7 +1380,7 @@ public class ApiClient {
                 addPartToMultiPartBuilder(mpBuilder, param.getKey(), file);
             } else if (param.getValue() instanceof List) {
                 List list = (List) param.getValue();
-                for (Object item : list) {
+                for (Object item: list) {
                     if (item instanceof File) {
                         addPartToMultiPartBuilder(mpBuilder, param.getKey(), (File) item);
                     } else {
@@ -1461,8 +1460,8 @@ public class ApiClient {
                 if (request.tag() instanceof ApiCallback) {
                     final ApiCallback callback = (ApiCallback) request.tag();
                     return originalResponse.newBuilder()
-                            .body(new ProgressResponseBody(originalResponse.body(), callback))
-                            .build();
+                        .body(new ProgressResponseBody(originalResponse.body(), callback))
+                        .build();
                 }
                 return originalResponse;
             }
@@ -1527,9 +1526,9 @@ public class ApiClient {
             SSLContext sslContext = SSLContext.getInstance("TLS");
             sslContext.init(keyManagers, trustManagers, new SecureRandom());
             httpClient = httpClient.newBuilder()
-                    .sslSocketFactory(sslContext.getSocketFactory(), (X509TrustManager) trustManagers[0])
-                    .hostnameVerifier(hostnameVerifier)
-                    .build();
+                            .sslSocketFactory(sslContext.getSocketFactory(), (X509TrustManager) trustManagers[0])
+                            .hostnameVerifier(hostnameVerifier)
+                            .build();
         } catch (GeneralSecurityException e) {
             throw new RuntimeException(e);
         }

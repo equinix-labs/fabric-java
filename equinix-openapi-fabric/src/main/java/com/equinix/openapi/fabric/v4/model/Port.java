@@ -13,7 +13,6 @@ package com.equinix.openapi.fabric.v4.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-
 import com.equinix.openapi.fabric.v4.model.Changelog;
 import com.equinix.openapi.fabric.v4.model.PhysicalPort;
 import com.equinix.openapi.fabric.v4.model.PortAdditionalInfo;
@@ -571,7 +570,7 @@ public class Port {
    * minimum: 0
    * @return physicalPortsSpeed
   **/
-   @javax.annotation.Nonnull
+  @javax.annotation.Nonnull
 
   public Integer getPhysicalPortsSpeed() {
     return physicalPortsSpeed;
@@ -1557,14 +1556,14 @@ public class Port {
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("type");
-    openapiRequiredFields.add("physicalPortsSpeed");
-    openapiRequiredFields.add("physicalPortsType");
-    openapiRequiredFields.add("connectivitySourceType");
-    openapiRequiredFields.add("account");
-    openapiRequiredFields.add("location");
-    openapiRequiredFields.add("encapsulation");
-    openapiRequiredFields.add("settings");
+      openapiRequiredFields.add("type");
+      openapiRequiredFields.add("physicalPortsSpeed");
+      openapiRequiredFields.add("physicalPortsType");
+      openapiRequiredFields.add("connectivitySourceType");
+      openapiRequiredFields.add("account");
+      openapiRequiredFields.add("location");
+      openapiRequiredFields.add("encapsulation");
+      openapiRequiredFields.add("settings");
   }
 
  /**
@@ -1598,12 +1597,12 @@ public class Port {
       if ((jsonObj.get("description") != null && !jsonObj.get("description").isJsonNull()) && !jsonObj.get("description").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `description` to be a primitive type in the JSON string but got `%s`", jsonObj.get("description").toString()));
       }
-    if (!jsonObj.get("physicalPortsType").isJsonPrimitive()) {
-      throw new IllegalArgumentException(String.format("Expected the field `physicalPortsType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("physicalPortsType").toString()));
-    }
-    if (!jsonObj.get("connectivitySourceType").isJsonPrimitive()) {
-      throw new IllegalArgumentException(String.format("Expected the field `connectivitySourceType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("connectivitySourceType").toString()));
-    }
+      if (!jsonObj.get("physicalPortsType").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `physicalPortsType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("physicalPortsType").toString()));
+      }
+      if (!jsonObj.get("connectivitySourceType").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `connectivitySourceType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("connectivitySourceType").toString()));
+      }
       if ((jsonObj.get("bmmrType") != null && !jsonObj.get("bmmrType").isJsonNull()) && !jsonObj.get("bmmrType").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `bmmrType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("bmmrType").toString()));
       }
