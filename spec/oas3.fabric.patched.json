@@ -12565,7 +12565,6 @@
       "ConnectionAction": {
         "required": [
           "data",
-          "href",
           "type",
           "uuid"
         ],
@@ -13768,7 +13767,6 @@
       "CustomField": {
         "required": [
           "dataType",
-          "description",
           "isRequired",
           "label"
         ],
@@ -14537,11 +14535,8 @@
       "Port": {
         "required": [
           "account",
-          "connectivitySourceType",
           "encapsulation",
           "location",
-          "physicalPortsSpeed",
-          "physicalPortsType",
           "settings",
           "type"
         ],

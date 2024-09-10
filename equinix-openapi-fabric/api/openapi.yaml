@@ -26148,7 +26148,6 @@ components:
           $ref: '#/components/schemas/Changelog'
       required:
       - data
-      - href
       - type
       - uuid
       type: object
@@ -30508,7 +30507,6 @@ components:
           type: boolean
       required:
       - dataType
-      - description
       - isRequired
       - label
     MarketingInfo:
@@ -32585,11 +32583,8 @@ components:
           type: array
       required:
       - account
-      - connectivitySourceType
       - encapsulation
       - location
-      - physicalPortsSpeed
-      - physicalPortsType
       - settings
       - type
       type: object

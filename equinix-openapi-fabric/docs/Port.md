@@ -14,11 +14,11 @@ Port specification
 |**uuid** | **UUID** | Equinix assigned response attribute for  port identifier |  [optional] |
 |**name** | **String** | Equinix assigned response attribute for Port name |  [optional] |
 |**description** | **String** | Equinix assigned response attribute for Port description |  [optional] |
-|**physicalPortsSpeed** | **Integer** | Physical Ports Speed in Mbps |  |
+|**physicalPortsSpeed** | **Integer** | Physical Ports Speed in Mbps |  [optional] |
 |**connectionsCount** | **Integer** | Equinix assigned response attribute for Connection count |  [optional] |
-|**physicalPortsType** | [**PhysicalPortsTypeEnum**](#PhysicalPortsTypeEnum) | Physical Ports Type |  |
+|**physicalPortsType** | [**PhysicalPortsTypeEnum**](#PhysicalPortsTypeEnum) | Physical Ports Type |  [optional] |
 |**physicalPortsCount** | **Integer** |  |  [optional] |
-|**connectivitySourceType** | [**ConnectivitySourceTypeEnum**](#ConnectivitySourceTypeEnum) | Port connectivity type |  |
+|**connectivitySourceType** | [**ConnectivitySourceTypeEnum**](#ConnectivitySourceTypeEnum) | Port connectivity type |  [optional] |
 |**bmmrType** | [**BmmrTypeEnum**](#BmmrTypeEnum) |  |  [optional] |
 |**project** | [**Project**](Project.md) |  |  [optional] |
 |**state** | **PortState** |  |  [optional] |

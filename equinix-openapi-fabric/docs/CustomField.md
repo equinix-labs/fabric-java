@@ -9,7 +9,7 @@ Define Custom Attributes
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**label** | **String** |  |  |
-|**description** | **String** |  |  |
+|**description** | **String** |  |  [optional] |
 |**required** | **Boolean** |  |  [optional] |
 |**dataType** | [**DataTypeEnum**](#DataTypeEnum) |  |  |
 |**options** | **List&lt;String&gt;** |  |  [optional] |
