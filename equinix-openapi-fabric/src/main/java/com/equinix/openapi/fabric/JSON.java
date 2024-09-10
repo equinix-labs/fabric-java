@@ -446,9 +446,9 @@ public class JSON {
 
     /**
      * Deserialize the given JSON string to Java object.
-     *
-     * @param <T>        Type
-     * @param body       The JSON string
+*
+* @param <T>        Type
+    * @param body       The JSON string
     * @param returnType The type to deserialize into
     * @return The deserialized Java object
     */
@@ -458,7 +458,7 @@ public class JSON {
             if (isLenientOnJson) {
                 JsonReader jsonReader = new JsonReader(new StringReader(body));
                 // see https://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/com/google/gson/stream/JsonReader.html#setLenient(boolean)
-                jsonReader.setLenient(true);
+        jsonReader.setLenient(true);
         return gson.fromJson(jsonReader, returnType);
         } else {
         return gson.fromJson(body, returnType);
@@ -468,11 +468,11 @@ public class JSON {
             // return the response body string directly for the String return type;
             if (returnType.equals(String.class)) {
                 return (T) body;
-            } else {
-                throw (e);
-            }
+        } else {
+        throw (e);
         }
-    }
+        }
+        }
 
         /**
         * Gson TypeAdapter for Byte Array type
@@ -484,7 +484,7 @@ public class JSON {
         if (value == null) {
         out.nullValue();
         } else {
-        out.value(ByteString.of(value).base64());
+            out.value(ByteString.of(value).base64());
         }
         }
 
@@ -507,11 +507,11 @@ public class JSON {
      */
     public static class OffsetDateTimeTypeAdapter extends TypeAdapter<OffsetDateTime> {
 
-            private DateTimeFormatter formatter;
+        private DateTimeFormatter formatter;
 
-        public OffsetDateTimeTypeAdapter() {
-            this(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
-        }
+            public OffsetDateTimeTypeAdapter() {
+                this(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+            }
 
         public OffsetDateTimeTypeAdapter(DateTimeFormatter formatter) {
             this.formatter = formatter;
@@ -553,9 +553,9 @@ public class JSON {
 
         private DateTimeFormatter formatter;
 
-        public LocalDateTypeAdapter() {
-            this(DateTimeFormatter.ISO_LOCAL_DATE);
-        }
+            public LocalDateTypeAdapter() {
+                this(DateTimeFormatter.ISO_LOCAL_DATE);
+            }
 
         public LocalDateTypeAdapter(DateTimeFormatter formatter) {
             this.formatter = formatter;
