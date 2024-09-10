@@ -375,6 +375,7 @@ public class CustomField {
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
     openapiRequiredFields.add("label");
+    openapiRequiredFields.add("description");
     openapiRequiredFields.add("dataType");
   }
 
@@ -400,6 +401,9 @@ public class CustomField {
       if (!jsonObj.get("label").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `label` to be a primitive type in the JSON string but got `%s`", jsonObj.get("label").toString()));
       }
+    if (!jsonObj.get("description").isJsonPrimitive()) {
+      throw new IllegalArgumentException(String.format("Expected the field `description` to be a primitive type in the JSON string but got `%s`", jsonObj.get("description").toString()));
+    }
       if (!jsonObj.get("dataType").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `dataType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("dataType").toString()));
       }
