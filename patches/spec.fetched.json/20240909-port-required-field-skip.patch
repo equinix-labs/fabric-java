@@ -1,0 +1,16 @@
+diff --git a/spec/oas3.fabric.fetched.json b/spec/oas3.fabric.fetched.json
+index 36eeef9..2f694fe 100644
+--- a/spec/oas3.fabric.fetched.json
++++ b/spec/oas3.fabric.fetched.json
+@@ -14537,11 +14537,8 @@
+       "Port": {
+         "required": [
+           "account",
+-          "connectivitySourceType",
+           "encapsulation",
+           "location",
+-          "physicalPortsSpeed",
+-          "physicalPortsType",
+           "settings",
+           "type"
+         ],
