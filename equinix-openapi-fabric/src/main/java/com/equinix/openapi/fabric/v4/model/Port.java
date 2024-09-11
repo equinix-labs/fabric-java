@@ -446,7 +446,7 @@ public class Port {
    * Get type
    * @return type
   **/
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
 
   public PortType getType() {
     return type;
@@ -1556,7 +1556,6 @@ public class Port {
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("type");
     openapiRequiredFields.add("account");
     openapiRequiredFields.add("location");
     openapiRequiredFields.add("encapsulation");

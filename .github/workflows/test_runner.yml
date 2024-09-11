@@ -24,21 +24,18 @@ jobs:
       - name: Tests
         shell: bash
         run: |-
-          cd equinix-openapi-fabric
           mvn clean test -DenvUrl=${{ env.TEST_HOST_URL }}
 
       - name: Generate report
         if: always()
         shell: bash
         run: |-
-          cd equinix-openapi-fabric
+          cd equinix-openapi-fabric-tests
           mvn surefire-report:report -DskipTests
-          ls
-          find .
           
       - name: attach report as attachment
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: test report
-          path: ./equinix-openapi-fabric/target/reports
+          path: ./equinix-openapi-fabric-tests/target/reports

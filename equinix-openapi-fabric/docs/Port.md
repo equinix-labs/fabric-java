@@ -8,7 +8,7 @@ Port specification
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**type** | **PortType** |  |  |
+|**type** | **PortType** |  |  [optional] |
 |**id** | **Integer** | Equinix assigned response attribute for Port Id |  [optional] |
 |**href** | **URI** | Equinix assigned response attribute for an absolute URL that is the subject of the link&#39;s context. |  [optional] [readonly] |
 |**uuid** | **UUID** | Equinix assigned response attribute for  port identifier |  [optional] |

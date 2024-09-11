@@ -14537,8 +14537,7 @@
           "account",
           "encapsulation",
           "location",
-          "settings",
-          "type"
+          "settings"
         ],
         "type": "object",
         "properties": {

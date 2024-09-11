@@ -32586,7 +32586,6 @@ components:
       - encapsulation
       - location
       - settings
-      - type
       type: object
     PhysicalPort:
       description: Physical Port specification

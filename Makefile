@@ -66,4 +66,4 @@ docker_generate:
 		--git-user-id ${GIT_ORG}
 
 build_client:
-	rm -rf ${OPENAPI_GENERATED_CLIENT}${TESTS_PATH}v4; cp -r v4 ${OPENAPI_GENERATED_CLIENT}${TESTS_PATH}
+	rm -rf ${OPENAPI_GENERATED_CLIENT}${TESTS_PATH}v4;
