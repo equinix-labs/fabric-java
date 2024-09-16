@@ -21,11 +21,16 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      - name: Install modules
+        shell: bash
+        run: |-
+          mvn clean install -DskipTests 
+
       - name: Tests
         shell: bash
         working-directory: ./equinix-openapi-fabric-tests
         run: |-
-          mvn clean test -DenvUrl=${{ env.TEST_HOST_URL }}
+          mvn test -DenvUrl=${{ env.TEST_HOST_URL }}
 
       - name: Generate report
         if: always()
