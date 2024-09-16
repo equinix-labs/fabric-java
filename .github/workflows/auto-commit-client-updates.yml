@@ -12,9 +12,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    env:
-      TEST_DATA_UAT_QINQ_PORT: ${{ secrets.TEST_DATA_UAT_QINQ_PORT }}
-
     steps:
       - uses: actions/checkout@v3
 
@@ -24,7 +21,7 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           cache: maven
-      
+
       - name: Set git user and generate files
         run: |
           git config --global user.name 'equinix-labs@auto-commit-workflow'
@@ -34,19 +31,6 @@ jobs:
           echo -e "\nThis is executing for branch: ${GITHUB_REF##*/}."
           git checkout ${GITHUB_REF##*/}          
           make generate
-
-      - name: Tests
-        env:
-          TEST_HOST_URL: https://uatapi.equinix.com
-          CLIENT_ID: ${{ secrets.TEST_USER_CLIENT_ID }}
-          CLIENT_SECRET: ${{ secrets.TEST_USER_CLIENT_SECRET }}
-          TEST_USER_NAME: ${{ secrets.TEST_USER_NAME }}
-          TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
-        shell: bash
-        working-directory: ./equinix-openapi-fabric
-        run: |-
-          mvn clean package -DskipTests -DenvUrl=${{ env.TEST_HOST_URL }} -DuserName=${{ env.TEST_USER_NAME }} \
-          -DuserPassword=${{ env.TEST_USER_PASSWORD }} -DclientId=${{ env.CLIENT_ID }} -DclientSecret=${{ env.CLIENT_SECRET }}
 
       - name: Commit to branch.
         run: |
@@ -58,4 +42,4 @@ jobs:
           echo -e "\nCommit message created : $cmsg"
           echo -e "\nCommitting if there are files to update in client dir:"
           echo `git commit -m "$cmsg"`
-          echo `git push`     
+          echo `git push`

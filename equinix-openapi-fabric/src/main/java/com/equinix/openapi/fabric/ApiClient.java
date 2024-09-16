@@ -57,7 +57,7 @@ import com.equinix.openapi.fabric.auth.ApiKeyAuth;
  * <p>ApiClient class.</p>
  */
 public class ApiClient {
-    private String basePath = System.getProperty("envUrl");
+    private String basePath = "https://api.equinix.com";
     protected List<ServerConfiguration> servers = new ArrayList<ServerConfiguration>(Arrays.asList(
     new ServerConfiguration(
       basePath,
@@ -131,7 +131,7 @@ public class ApiClient {
         for (Interceptor interceptor: interceptors) {
             builder.addInterceptor(interceptor);
         }
-
+        builder.addInterceptor(new HttpLoggingInterceptor().setLevel(Level.BODY));
         httpClient = builder.build();
     }
 
@@ -1411,10 +1411,10 @@ public class ApiClient {
     /**
      * Add a Content-Disposition Header for the given key and file to the MultipartBody Builder.
      *
-     * @param mpBuilder MultipartBody.Builder 
+     * @param mpBuilder MultipartBody.Builder
      * @param key The key of the Header element
      * @param file The file to add to the Header
-     */ 
+     */
     private void addPartToMultiPartBuilder(MultipartBody.Builder mpBuilder, String key, File file) {
         Headers partHeaders = Headers.of("Content-Disposition", "form-data; name=\"" + key + "\"; filename=\"" + file.getName() + "\"");
         MediaType mediaType = MediaType.parse(guessContentTypeFromFile(file));

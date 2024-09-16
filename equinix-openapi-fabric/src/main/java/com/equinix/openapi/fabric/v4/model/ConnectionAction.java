@@ -111,7 +111,7 @@ public class ConnectionAction {
    * Connection action URI
    * @return href
   **/
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
 
   public URI getHref() {
     return href;
@@ -319,7 +319,6 @@ public class ConnectionAction {
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
     openapiRequiredFields.add("type");
-    openapiRequiredFields.add("href");
     openapiRequiredFields.add("uuid");
     openapiRequiredFields.add("data");
   }
@@ -343,7 +342,7 @@ public class ConnectionAction {
           throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
         }
       }
-      if (!jsonObj.get("href").isJsonPrimitive()) {
+      if ((jsonObj.get("href") != null && !jsonObj.get("href").isJsonNull()) && !jsonObj.get("href").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `href` to be a primitive type in the JSON string but got `%s`", jsonObj.get("href").toString()));
       }
       if (!jsonObj.get("uuid").isJsonPrimitive()) {

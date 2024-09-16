@@ -1,0 +1,12 @@
+diff --git a/spec/oas3.fabric.fetched.json b/spec/oas3.fabric.fetched.json
+index 36eeef9..fb66257 100644
+--- a/spec/oas3.fabric.fetched.json
++++ b/spec/oas3.fabric.fetched.json
+@@ -13768,7 +13768,6 @@
+       "CustomField": {
+         "required": [
+           "dataType",
+-          "description",
+           "isRequired",
+           "label"
+         ],

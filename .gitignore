@@ -28,3 +28,5 @@ hs_err_pid*
 # JetBrains project directory files
 *.idea
 *.idea/
+equinix-openapi-fabric/target
+equinix-openapi-fabric-tests/target

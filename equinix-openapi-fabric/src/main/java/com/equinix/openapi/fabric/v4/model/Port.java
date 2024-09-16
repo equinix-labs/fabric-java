@@ -446,7 +446,7 @@ public class Port {
    * Get type
    * @return type
   **/
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
 
   public PortType getType() {
     return type;
@@ -570,7 +570,7 @@ public class Port {
    * minimum: 0
    * @return physicalPortsSpeed
   **/
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
 
   public Integer getPhysicalPortsSpeed() {
     return physicalPortsSpeed;
@@ -615,7 +615,7 @@ public class Port {
    * Physical Ports Type
    * @return physicalPortsType
   **/
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
 
   public PhysicalPortsTypeEnum getPhysicalPortsType() {
     return physicalPortsType;
@@ -659,7 +659,7 @@ public class Port {
    * Port connectivity type
    * @return connectivitySourceType
   **/
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
 
   public ConnectivitySourceTypeEnum getConnectivitySourceType() {
     return connectivitySourceType;
@@ -1556,10 +1556,6 @@ public class Port {
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("type");
-    openapiRequiredFields.add("physicalPortsSpeed");
-    openapiRequiredFields.add("physicalPortsType");
-    openapiRequiredFields.add("connectivitySourceType");
     openapiRequiredFields.add("account");
     openapiRequiredFields.add("location");
     openapiRequiredFields.add("encapsulation");
@@ -1597,10 +1593,10 @@ public class Port {
       if ((jsonObj.get("description") != null && !jsonObj.get("description").isJsonNull()) && !jsonObj.get("description").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `description` to be a primitive type in the JSON string but got `%s`", jsonObj.get("description").toString()));
       }
-      if (!jsonObj.get("physicalPortsType").isJsonPrimitive()) {
+      if ((jsonObj.get("physicalPortsType") != null && !jsonObj.get("physicalPortsType").isJsonNull()) && !jsonObj.get("physicalPortsType").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `physicalPortsType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("physicalPortsType").toString()));
       }
-      if (!jsonObj.get("connectivitySourceType").isJsonPrimitive()) {
+      if ((jsonObj.get("connectivitySourceType") != null && !jsonObj.get("connectivitySourceType").isJsonNull()) && !jsonObj.get("connectivitySourceType").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `connectivitySourceType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("connectivitySourceType").toString()));
       }
       if ((jsonObj.get("bmmrType") != null && !jsonObj.get("bmmrType").isJsonNull()) && !jsonObj.get("bmmrType").isJsonPrimitive()) {

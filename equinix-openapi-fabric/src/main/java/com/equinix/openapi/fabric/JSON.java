@@ -11,14 +11,21 @@
 
 package com.equinix.openapi.fabric;
 
+import com.equinix.openapi.fabric.v4.model.PortDeviceRedundancy;
+import com.equinix.openapi.fabric.v4.model.PortEncapsulation;
+import com.fasterxml.jackson.databind.util.StdDateFormat;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapter;
-import com.google.gson.internal.bind.util.ISO8601Utils;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonSerializer;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonArray;
 import io.gsonfire.GsonFireBuilder;
 import io.gsonfire.TypeSelector;
 
@@ -29,14 +36,17 @@ import java.io.StringReader;
 import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.ParsePosition;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.TimeZone;
 
 /*
  * A JSON utility class
@@ -52,6 +62,11 @@ public class JSON {
     private static OffsetDateTimeTypeAdapter offsetDateTimeTypeAdapter = new OffsetDateTimeTypeAdapter();
     private static LocalDateTypeAdapter localDateTypeAdapter = new LocalDateTypeAdapter();
     private static ByteArrayAdapter byteArrayAdapter = new ByteArrayAdapter();
+
+    private static final StdDateFormat sdf = new StdDateFormat()
+        .withTimeZone(TimeZone.getTimeZone(ZoneId.systemDefault()))
+        .withColonInTimeZone(true);
+    private static final DateTimeFormatter dtf = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
 
     @SuppressWarnings("unchecked")
     public static GsonBuilder createGson() {
@@ -116,8 +131,24 @@ public class JSON {
         return clazz;
     }
 
-    {
+    public static class UppercaseEnumAdapter implements JsonDeserializer<Enum> {
+        @Override
+        public Enum deserialize(JsonElement json, java.lang.reflect.Type type, JsonDeserializationContext context)
+                throws JsonParseException {
+            try {
+                if (type instanceof Class && ((Class<?>) type).isEnum())
+                    return Enum.valueOf((Class<Enum>) type, json.getAsString().toUpperCase());
+                return null;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+    }
+
+    static {
         GsonBuilder gsonBuilder = createGson();
+        gsonBuilder.registerTypeHierarchyAdapter(Collection.class, new CollectionAdapter());
         gsonBuilder.registerTypeAdapter(Date.class, dateTypeAdapter);
         gsonBuilder.registerTypeAdapter(java.sql.Date.class, sqlDateTypeAdapter);
         gsonBuilder.registerTypeAdapter(OffsetDateTime.class, offsetDateTimeTypeAdapter);
@@ -398,7 +429,9 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(new com.equinix.openapi.fabric.v4.model.VirtualPortPrice.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.equinix.openapi.fabric.v4.model.VirtualPortRedundancy.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new com.equinix.openapi.fabric.v4.model.VpicInterface.CustomTypeAdapterFactory());
-        gson = gsonBuilder.create();
+        gsonBuilder.registerTypeAdapter(PortEncapsulation.TypeEnum.class,new UppercaseEnumAdapter());
+        gsonBuilder.registerTypeAdapter(PortDeviceRedundancy.PriorityEnum.class,new UppercaseEnumAdapter());
+        gson = gsonBuilder.setPrettyPrinting().create();
     }
 
     /**
@@ -630,7 +663,7 @@ public class JSON {
                         if (dateFormat != null) {
                             return new java.sql.Date(dateFormat.parse(date).getTime());
                         }
-                        return new java.sql.Date(ISO8601Utils.parse(date, new ParsePosition(0)).getTime());
+                        return new java.sql.Date(sdf.parse(date).getTime());
                     } catch (ParseException e) {
                         throw new JsonParseException(e);
                     }
@@ -640,7 +673,7 @@ public class JSON {
 
     /**
      * Gson TypeAdapter for java.util.Date type
-     * If the dateFormat is null, ISO8601Utils will be used.
+     * If the dateFormat is null, DateTimeFormatter will be used.
      */
     public static class DateTypeAdapter extends TypeAdapter<Date> {
 
@@ -665,7 +698,7 @@ public class JSON {
                 if (dateFormat != null) {
                     value = dateFormat.format(date);
                 } else {
-                    value = ISO8601Utils.format(date, true);
+                    value = date.toInstant().atOffset(ZoneOffset.UTC).format(dtf);
                 }
                 out.value(value);
             }
@@ -684,7 +717,7 @@ public class JSON {
                             if (dateFormat != null) {
                                 return dateFormat.parse(date);
                             }
-                            return ISO8601Utils.parse(date, new ParsePosition(0));
+                            return sdf.parse(date);
                         } catch (ParseException e) {
                             throw new JsonParseException(e);
                         }
@@ -701,5 +734,23 @@ public class JSON {
 
     public static void setSqlDateFormat(DateFormat dateFormat) {
         sqlDateTypeAdapter.setFormat(dateFormat);
+    }
+}
+
+class CollectionAdapter implements JsonSerializer<Collection<?>> {
+
+    @Override
+    public JsonElement serialize(Collection<?> src, Type typeOfSrc, JsonSerializationContext context) {
+        if (src == null || src.isEmpty()) // exclusion is made here
+            return null;
+
+        JsonArray array = new JsonArray();
+
+        for (Object child : src) {
+            JsonElement element = context.serialize(child);
+            array.add(element);
+        }
+
+        return array;
     }
 }
