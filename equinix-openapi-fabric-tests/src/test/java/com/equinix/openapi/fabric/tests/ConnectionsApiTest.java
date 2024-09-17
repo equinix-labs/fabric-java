@@ -223,6 +223,7 @@ public class ConnectionsApiTest {
                 .getData().stream()
                 .filter(sp -> sp.getState().equals(ServiceProfileStateEnum.ACTIVE))
                 .filter(sp -> sp.getVisibility().equals(ServiceProfileVisibilityEnum.PUBLIC))
+                .filter(sp -> !sp.getAccessPointTypeConfigs().get(0).getServiceProfileAccessPointTypeCOLO().getSupportedBandwidths().isEmpty())
                 .findAny().get();
 
         UsersItem usersItem = Utils.getUserData(getCurrentUser());
