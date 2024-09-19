@@ -9,7 +9,9 @@ CURRENT_GID := $(shell id -g)
 
 # git repo : equinix fabric-java sdk
 GIT_ORG=equinix-labs
-GIT_REPO=fabric-java
+GIT_REPO=fabric-sdk-java
+
+PACKAGE_VERSION=$(shell cat spec/oas3.fabric.config.json | jq -r '.artifactVersion')
 
 # Equinix fabric OAS 3.0.0
 SPEC_FETCHED_FILE:=spec/oas3.fabric.fetched.json
@@ -57,6 +59,8 @@ pull:
 
 docker_generate:
 	${DOCKER_OPENAPI} generate \
+		--http-user-agent "${GIT_REPO}/${PACKAGE_VERSION}" \
+        -p artifactVersion=${PACKAGE_VERSION} \
 		-i /local/${SPEC_PATCHED_FILE} \
 		-t /local/templates/Java \
 		-g java \

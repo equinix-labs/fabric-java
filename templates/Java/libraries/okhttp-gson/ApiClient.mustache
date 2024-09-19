@@ -267,7 +267,7 @@ public class ApiClient {
         json = new JSON();
 
         // Set default User-Agent.
-        setUserAgent("fabric-sdk-java-{{{artifactVersion}}}");
+        setUserAgent("{{{httpUserAgent}}}{{^httpUserAgent}}OpenAPI-Generator/{{{artifactVersion}}}/java{{/httpUserAgent}}");
 
         authentications = new HashMap<String, Authentication>();
         {{#dynamicOperations}}
