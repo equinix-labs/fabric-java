@@ -377,7 +377,7 @@ public class ConnectionsApiTest {
     }
 
     private static void deleteConnection(String uuid) throws ApiException {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 5; i++) {
             connectionsApi.deleteConnectionByUuid(uuid);
             boolean isDeleted = waitForConnectionIsInState(uuid, EquinixStatus.DELETED, EquinixStatus.DEPROVISIONED);
             if (isDeleted) {
