@@ -13,6 +13,7 @@ package com.equinix.openapi.fabric;
 
 import com.equinix.openapi.fabric.v4.model.PortDeviceRedundancy;
 import com.equinix.openapi.fabric.v4.model.PortEncapsulation;
+import com.equinix.openapi.fabric.v4.model.PortPriority;
 import com.fasterxml.jackson.databind.util.StdDateFormat;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -431,6 +432,7 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(new com.equinix.openapi.fabric.v4.model.VpicInterface.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapter(PortEncapsulation.TypeEnum.class,new UppercaseEnumAdapter());
         gsonBuilder.registerTypeAdapter(PortDeviceRedundancy.PriorityEnum.class,new UppercaseEnumAdapter());
+        gsonBuilder.registerTypeAdapter(PortPriority.class, new UppercaseEnumAdapter());
         gson = gsonBuilder.setPrettyPrinting().create();
     }
 
