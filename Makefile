@@ -11,7 +11,7 @@ CURRENT_GID := $(shell id -g)
 GIT_ORG=equinix-labs
 GIT_REPO=fabric-sdk-java
 
-PACKAGE_VERSION=$(shell cat spec/oas3.fabric.config.json | jq -r '.artifactVersion')
+PACKAGE_VERSION=$(shell cat version)
 
 # Equinix fabric OAS 3.0.0
 SPEC_FETCHED_FILE:=spec/oas3.fabric.fetched.json
