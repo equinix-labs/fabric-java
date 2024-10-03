@@ -364,7 +364,7 @@ public class ConnectionsApiTest {
                 }
             }
             try {
-                Thread.sleep(15000);
+                Thread.sleep(30000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
