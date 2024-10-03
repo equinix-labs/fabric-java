@@ -1,0 +1,50 @@
+{
+  "branches": [
+    "main"
+  ],
+  "ci": false,
+  "plugins": [
+    [
+      "@semantic-release/commit-analyzer",
+      {
+        "preset": "conventionalcommits"
+      }
+    ],
+    [
+      "@semantic-release/release-notes-generator",
+      {
+        "preset": "conventionalcommits"
+      }
+    ],
+    [
+      "@semantic-release/github",
+      {
+        "successComment": "This ${issue.pull_request ? 'PR is included' : 'issue has been resolved'} in version ${nextRelease.version} :tada:",
+        "labels": false,
+        "releasedLabels": false
+      }
+    ],
+    [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "echo -n '${nextRelease.version}' > version && make generate",
+        "publishCmd": "export GITHUB_TOKEN='${process.env.GITHUB_TOKEN}'; cd equinix-openapi-fabric && mvn -B package --file pom.xml && mvn deploy -s ${process.env.SETTINGS_PATH} -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/equinix-labs/fabric-java"
+      }
+    ],
+    [
+      "@semantic-release/git",
+      {
+        "message": "ci: regenerate code for version ${nextRelease.version}",
+        "assets": [
+          "version",
+          "equinix-openapi-fabric/src",
+          "equinix-openapi-fabric/README.md",
+          "equinix-openapi-fabric/build.gradle",
+          "equinix-openapi-fabric/build.sbt",
+          "equinix-openapi-fabric/pom.xml",
+          "equinix-openapi-fabric-tests/pom.xml"
+        ]
+      }
+    ]
+  ]
+}
