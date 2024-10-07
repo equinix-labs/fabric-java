@@ -38,16 +38,16 @@ public class ConnectionsApiTest {
     public static void removeConnections(UsersItem.UserName userName) {
         try {
             Thread.sleep(20000);
+            users.get(userName).getUserResources().getConnectionsUuid().forEach(uuid -> {
+                try {
+                    deleteConnection(uuid);
+                } catch (ApiException e) {
+                    throw new RuntimeException(e);
+                }
+            });
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        users.get(userName).getUserResources().getConnectionsUuid().forEach(uuid -> {
-            try {
-                deleteConnection(uuid);
-            } catch (ApiException e) {
-                throw new RuntimeException(e);
-            }
-        });
     }
 
     @BeforeClass
@@ -177,7 +177,7 @@ public class ConnectionsApiTest {
 
         Port port = portList.get(r.nextInt(portList.size()));
 
-        ConnectionPostRequest connectionPostRequest = getDefaultConnectionRequest("panthers-con-fcr-2-port")
+        ConnectionPostRequest connectionPostRequest = getDefaultConnectionRequest("panthers-con-fc2p")
                 .type(ConnectionType.IP_VC)
                 .bandwidth(1000)
                 .project(new Project().projectId(userDto.getProjectId()))
@@ -229,7 +229,7 @@ public class ConnectionsApiTest {
         UsersItem usersItem = Utils.getUserData(getCurrentUser());
         PortDto portDto = usersItem.getPorts().get(0);
 
-        ConnectionPostRequest connectionPostRequest = getDefaultConnectionRequest("panthers-con-port-2-sp")
+        ConnectionPostRequest connectionPostRequest = getDefaultConnectionRequest("panthers-con-p2sp")
                 .bandwidth(serviceProfile.getAccessPointTypeConfigs().get(0).getServiceProfileAccessPointTypeCOLO().getSupportedBandwidths().get(0))
                 .type(ConnectionType.EVPL_VC)
                 .redundancy(new ConnectionRedundancy().priority(ConnectionPriority.PRIMARY))
@@ -275,6 +275,7 @@ public class ConnectionsApiTest {
     @Test
     public void updateConnectionByUuid() throws ApiException {
         Connection connection = createPort2Port();
+        waitForConnectionIsInState(connection.getUuid(), EquinixStatus.PROVISIONED);
         String updatedName = "updated_p2p_connection";
 
         ConnectionChangeOperation connectionChangeOperation = new ConnectionChangeOperation()
@@ -312,7 +313,7 @@ public class ConnectionsApiTest {
             int tagAside = getRandomVlanNumber();
             int tagZside = getRandomVlanNumber();
 
-            ConnectionPostRequest connectionPostRequest = getDefaultConnectionRequest("panthers-con-port-2-port")
+            ConnectionPostRequest connectionPostRequest = getDefaultConnectionRequest("panthers-con-p2p")
                     .bandwidth(1000)
                     .type(ConnectionType.EVPL_VC)
                     .redundancy(new ConnectionRedundancy().priority(ConnectionPriority.PRIMARY))
