@@ -45,6 +45,7 @@ public class ConnectionsApiTest {
             try {
                 deleteConnection(uuid);
             } catch (ApiException e) {
+                throw new RuntimeException(e);
             }
         });
     }
@@ -211,7 +212,7 @@ public class ConnectionsApiTest {
 
     public static ConnectionPostRequest getDefaultConnectionRequest(String name) {
         return new ConnectionPostRequest()
-                .name(name + getCurrentUser().getValue())
+                .name(name)
                 .notifications(singletonList(new SimplifiedNotification()
                         .type(SimplifiedNotification.TypeEnum.ALL)
                         .emails(singletonList("test@test.com"))));
@@ -274,7 +275,7 @@ public class ConnectionsApiTest {
     @Test
     public void updateConnectionByUuid() throws ApiException {
         Connection connection = createPort2Port();
-        String updatedName = "updated_p2p_connection" + getCurrentUser().getValue();
+        String updatedName = "updated_p2p_connection";
 
         ConnectionChangeOperation connectionChangeOperation = new ConnectionChangeOperation()
                 .op(OpEnum.REPLACE.getValue())
@@ -377,14 +378,10 @@ public class ConnectionsApiTest {
 
     private static void deleteConnection(String uuid) throws ApiException {
         for (int i = 0; i < 3; i++) {
-            try {
-                connectionsApi.deleteConnectionByUuid(uuid);
-                boolean isDeleted = waitForConnectionIsInState(uuid, EquinixStatus.DELETED, EquinixStatus.DEPROVISIONED);
-                if (isDeleted) {
-                    break;
-                }
-            } catch (Exception e) {
-                System.out.println("Connection has not been removed for " + uuid);
+            connectionsApi.deleteConnectionByUuid(uuid);
+            boolean isDeleted = waitForConnectionIsInState(uuid, EquinixStatus.DELETED, EquinixStatus.DEPROVISIONED);
+            if (isDeleted) {
+                break;
             }
         }
     }

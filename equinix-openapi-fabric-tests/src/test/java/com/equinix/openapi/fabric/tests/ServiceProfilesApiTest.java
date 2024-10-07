@@ -25,7 +25,8 @@ import java.util.List;
 import java.util.UUID;
 
 import static com.equinix.openapi.fabric.tests.PortsApiTest.getPorts;
-import static com.equinix.openapi.fabric.tests.helpers.Apis.*;
+import static com.equinix.openapi.fabric.tests.helpers.Apis.serviceProfilesApi;
+import static com.equinix.openapi.fabric.tests.helpers.Apis.setUserName;
 import static com.equinix.openapi.fabric.tests.helpers.TokenGenerator.users;
 import static com.equinix.openapi.fabric.v4.model.Expression.OperatorEnum.EQUAL;
 import static java.util.Collections.singletonList;
@@ -168,13 +169,9 @@ public class ServiceProfilesApiTest {
     }
 
     private static void deleteServiceProfile(UUID uuid) throws ApiException {
-        try {
-            serviceProfilesApi.deleteServiceProfileByUuid(uuid);
-            assertEquals(200, serviceProfilesApi.getApiClient().getStatusCode());
-            waitForSpIsInState(uuid, ServiceProfileStateEnum.DELETED);
-        } catch (Exception e) {
-            System.out.println("Service profile has not been removed for " + uuid);
-        }
+        serviceProfilesApi.deleteServiceProfileByUuid(uuid);
+        assertEquals(200, serviceProfilesApi.getApiClient().getStatusCode());
+        waitForSpIsInState(uuid, ServiceProfileStateEnum.DELETED);
     }
 
     private static void waitForSpIsInState(UUID uuid, ServiceProfileStateEnum state) throws ApiException {
@@ -211,7 +208,7 @@ public class ServiceProfilesApiTest {
                 .filter(p -> p.getName().contains("Dot1q"))
                 .findFirst().get();
         return new ServiceProfileRequest()
-                .name("panthers-sp2-test" + RandomStringUtils.randomAlphabetic(5) + getCurrentUser().getValue())
+                .name("panthers-sp2-test" + RandomStringUtils.randomAlphabetic(5))
                 .description("desc")
                 .type(ServiceProfileTypeEnum.L2_PROFILE)
                 .notifications(
