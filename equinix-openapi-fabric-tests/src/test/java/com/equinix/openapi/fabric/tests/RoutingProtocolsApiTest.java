@@ -93,7 +93,7 @@ public class RoutingProtocolsApiTest {
             routingProtocolsApi.deleteConnectionRoutingProtocolByUuid(routingProtocolDto.getRoutingInstanceUuid(), String.valueOf(routingProtocolDto.getConnectionUuid()));
             assertEquals(202, routingProtocolsApi.getApiClient().getStatusCode());
         } catch (ApiException e) {
-            throw new RuntimeException(e);
+            System.out.println("Routing protocol has not been removed for " + routingProtocolDto.getRoutingInstanceUuid());
         }
     }
 

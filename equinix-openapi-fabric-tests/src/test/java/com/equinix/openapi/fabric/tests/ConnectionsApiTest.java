@@ -45,7 +45,6 @@ public class ConnectionsApiTest {
             try {
                 deleteConnection(uuid);
             } catch (ApiException e) {
-                throw new RuntimeException(e);
             }
         });
     }
@@ -212,7 +211,7 @@ public class ConnectionsApiTest {
 
     public static ConnectionPostRequest getDefaultConnectionRequest(String name) {
         return new ConnectionPostRequest()
-                .name(name)
+                .name(name + getCurrentUser().getValue())
                 .notifications(singletonList(new SimplifiedNotification()
                         .type(SimplifiedNotification.TypeEnum.ALL)
                         .emails(singletonList("test@test.com"))));
@@ -275,7 +274,7 @@ public class ConnectionsApiTest {
     @Test
     public void updateConnectionByUuid() throws ApiException {
         Connection connection = createPort2Port();
-        String updatedName = "updated_p2p_connection";
+        String updatedName = "updated_p2p_connection" + getCurrentUser().getValue();
 
         ConnectionChangeOperation connectionChangeOperation = new ConnectionChangeOperation()
                 .op(OpEnum.REPLACE.getValue())
@@ -364,7 +363,7 @@ public class ConnectionsApiTest {
                 }
             }
             try {
-                Thread.sleep(30000);
+                Thread.sleep(15000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -378,10 +377,14 @@ public class ConnectionsApiTest {
 
     private static void deleteConnection(String uuid) throws ApiException {
         for (int i = 0; i < 3; i++) {
-            connectionsApi.deleteConnectionByUuid(uuid);
-            boolean isDeleted = waitForConnectionIsInState(uuid, EquinixStatus.DELETED, EquinixStatus.DEPROVISIONED);
-            if (isDeleted) {
-                break;
+            try {
+                connectionsApi.deleteConnectionByUuid(uuid);
+                boolean isDeleted = waitForConnectionIsInState(uuid, EquinixStatus.DELETED, EquinixStatus.DEPROVISIONED);
+                if (isDeleted) {
+                    break;
+                }
+            } catch (Exception e) {
+                System.out.println("Connection has not been removed for " + uuid);
             }
         }
     }

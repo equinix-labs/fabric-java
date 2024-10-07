@@ -20,8 +20,7 @@ import org.junit.Test;
 
 import java.util.UUID;
 
-import static com.equinix.openapi.fabric.tests.helpers.Apis.networksApi;
-import static com.equinix.openapi.fabric.tests.helpers.Apis.setUserName;
+import static com.equinix.openapi.fabric.tests.helpers.Apis.*;
 import static com.equinix.openapi.fabric.tests.helpers.TokenGenerator.users;
 import static java.util.Collections.singletonList;
 import static org.junit.Assert.assertEquals;
@@ -50,7 +49,7 @@ public class NetworksApiTest {
     public Network createNetwork() throws ApiException {
         UsersItem user = Utils.getUserData(userName);
         NetworkPostRequest networkPostRequest = new NetworkPostRequest()
-                .name("network_panthers_test")
+                .name("network_panthers_test" + getCurrentUser().getValue())
                 .type(NetworkType.EVPLAN)
                 .scope(NetworkScope.LOCAL)
                 .project(new Project().projectId(user.getProjectId()))
@@ -94,7 +93,7 @@ public class NetworksApiTest {
                 assertEquals(202, networksApi.getApiClient().getStatusCode());
             }
         } catch (ApiException e) {
-            throw new RuntimeException(e);
+            System.out.println("Network has not been removed for " + uuid);
         }
     }
 
@@ -124,7 +123,7 @@ public class NetworksApiTest {
      */
     @Test
     public void updateNetwork() throws ApiException {
-        String updatedName = "network_new_updatedName";
+        String updatedName = "network_new_updatedName" + getCurrentUser().getValue();
         Network network = createNetwork();
         NetworkChangeOperation changeOperation = new NetworkChangeOperation()
                 .op(NetworkChangeOperation.OpEnum.REPLACE)

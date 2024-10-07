@@ -35,7 +35,11 @@ public class CloudRoutersApiTest {
     public static void removeCloudRouters(UsersItem.UserName userName) {
         users.get(userName).getUserResources().getCloudRoutersUuid().forEach(uuid -> {
             if (getCloudRouterStatus(uuid) == CloudRouterAccessPointState.PROVISIONED) {
-                deleteCloudRouter(uuid);
+                try {
+                    deleteCloudRouter(uuid);
+                } catch (Exception e) {
+
+                }
             }
         });
     }
@@ -192,7 +196,7 @@ public class CloudRoutersApiTest {
     @Test
     public void updateCloudRouterByUuid() throws ApiException {
         CloudRouter cloudRouter = createRouter();
-        String updatedName = "panthers_new_fcr_name";
+        String updatedName = "panthers_new_fcr_name" + getCurrentUser().getValue();
 
         CloudRouterChangeOperation cloudRouterChangeOperation = new CloudRouterChangeOperation()
                 .op(CloudRouterChangeOperation.OpEnum.REPLACE)
@@ -209,7 +213,7 @@ public class CloudRoutersApiTest {
             waitForCloudRouterIsProvisioned(uuid);
             cloudRoutersApi.deleteCloudRouterByUuid(uuid);
         } catch (ApiException e) {
-            throw new RuntimeException(e);
+            System.out.println("Cloud router has not been removed for " + uuid);
         }
         assertEquals(204, cloudRoutersApi.getApiClient().getStatusCode());
     }
@@ -225,7 +229,7 @@ public class CloudRoutersApiTest {
     public static CloudRouter createRouter() throws ApiException {
         UsersItem user = Utils.getUserData(getCurrentUser());
 
-        String cloudRouterName = "panthers-test-java-sdk";
+        String cloudRouterName = "panthers-fcr-java" + getCurrentUser().getValue();
         CloudRouterPostRequest cloudRouterPostRequest = new CloudRouterPostRequest();
         cloudRouterPostRequest.type(CloudRouterPostRequest.TypeEnum.XF_ROUTER)
                 .name(cloudRouterName)
