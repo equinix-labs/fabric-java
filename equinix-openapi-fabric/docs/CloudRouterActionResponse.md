@@ -13,6 +13,9 @@ Cloud Router actions response object
 |**description** | **String** |  |  [optional] |
 |**state** | **CloudRouterActionState** |  |  |
 |**changeLog** | [**Changelog**](Changelog.md) |  |  |
+|**href** | **String** |  |  [optional] |
+|**connection** | [**RouterActionsConnection**](RouterActionsConnection.md) |  |  [optional] |
+|**operation** | [**Operation**](Operation.md) |  |  [optional] |
 
 
 

@@ -8,8 +8,8 @@ Connection specification
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**type** | **ConnectionType** |  |  |
 |**href** | **URI** | Connection URI |  [optional] [readonly] |
+|**type** | **ConnectionType** |  |  |
 |**uuid** | **String** | Equinix-assigned connection identifier |  [optional] |
 |**name** | **String** | Customer-provided connection name |  |
 |**description** | **String** | Customer-provided connection description |  [optional] |

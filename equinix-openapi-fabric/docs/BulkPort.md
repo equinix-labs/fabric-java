@@ -2,13 +2,13 @@
 
 # BulkPort
 
-Create bulk port request
+Bulk Port specification
 
 ## Properties
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**data** | [**List&lt;Port&gt;**](Port.md) |  |  [optional] |
+|**data** | [**List&lt;Port&gt;**](Port.md) | Ports that are part of BulkPort |  [optional] |
 
 
 
