@@ -2,14 +2,13 @@
 
 # PrecisionTimePackageRequest
 
-EPT Package Request
+Precision Time Service Level Request
 
 ## Properties
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**href** | **URI** |  |  [optional] |
-|**code** | [**CodeEnum**](#CodeEnum) |  |  |
+|**code** | [**CodeEnum**](#CodeEnum) | Precision Time Service Level |  |
 
 
 

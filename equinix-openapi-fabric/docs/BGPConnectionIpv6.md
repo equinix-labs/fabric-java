@@ -11,8 +11,9 @@
 |**equinixPeerIp** | **String** | Equinix side peering ip |  [optional] |
 |**enabled** | **Boolean** | Admin status for the BGP session |  |
 |**outboundASPrependCount** | **Long** | AS path prepend count |  [optional] |
-|**inboundMED** | **Long** | inbound Multi Exit Discriminator attribute |  [optional] |
-|**outboundMED** | **Long** | inbound Multi Exit Discriminator attribute |  [optional] |
+|**inboundMED** | **Long** | Inbound Multi Exit Discriminator attribute |  [optional] |
+|**outboundMED** | **Long** | Outbound Multi Exit Discriminator attribute |  [optional] |
+|**routesMax** | **Long** | Maximum learnt prefixes limit |  [optional] |
 |**operation** | [**BGPConnectionOperation**](BGPConnectionOperation.md) |  |  [optional] |
 
 

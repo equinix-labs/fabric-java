@@ -12,6 +12,7 @@ Service Token Connection Type Information
 |**href** | **URI** | An absolute URL that is the subject of the link&#39;s context. |  [optional] [readonly] |
 |**uuid** | **UUID** | Equinix-assigned connection identifier |  [optional] |
 |**allowRemoteConnection** | **Boolean** | Authorization to connect remotely |  [optional] |
+|**allowCustomBandwidth** | **Boolean** | Allow custom bandwidth value |  [optional] |
 |**bandwidthLimit** | **Integer** | Connection bandwidth limit in Mbps |  [optional] |
 |**supportedBandwidths** | **List&lt;Integer&gt;** | List of permitted bandwidths. |  [optional] |
 |**aSide** | [**ServiceTokenSide**](ServiceTokenSide.md) |  |  [optional] |
@@ -24,6 +25,9 @@ Service Token Connection Type Information
 | Name | Value |
 |---- | -----|
 | EVPL_VC | &quot;EVPL_VC&quot; |
+| EVPLAN_VC | &quot;EVPLAN_VC&quot; |
+| EPLAN_VC | &quot;EPLAN_VC&quot; |
+| IPWAN_VC | &quot;IPWAN_VC&quot; |
 
 
 

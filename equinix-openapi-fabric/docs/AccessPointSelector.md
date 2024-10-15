@@ -10,7 +10,10 @@ List of criteria for selecting network access points with optimal efficiency, se
 |------------ | ------------- | ------------- | -------------|
 |**type** | [**TypeEnum**](#TypeEnum) | Type of Access point |  [optional] |
 |**port** | [**SimplifiedMetadataEntity**](SimplifiedMetadataEntity.md) |  |  [optional] |
-|**linkProtocol** | [**LinkProtocol**](LinkProtocol.md) |  |  [optional] |
+|**linkProtocol** | [**SimplifiedLinkProtocol**](SimplifiedLinkProtocol.md) |  |  [optional] |
+|**virtualDevice** | [**SimplifiedVirtualDevice**](SimplifiedVirtualDevice.md) |  |  [optional] |
+|**_interface** | [**VirtualDeviceInterface**](VirtualDeviceInterface.md) |  |  [optional] |
+|**network** | [**SimplifiedTokenNetwork**](SimplifiedTokenNetwork.md) |  |  [optional] |
 
 
 
@@ -19,6 +22,8 @@ List of criteria for selecting network access points with optimal efficiency, se
 | Name | Value |
 |---- | -----|
 | COLO | &quot;COLO&quot; |
+| VD | &quot;VD&quot; |
+| NETWORK | &quot;NETWORK&quot; |
 
 
 

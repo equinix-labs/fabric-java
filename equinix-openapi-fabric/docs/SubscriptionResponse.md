@@ -2,22 +2,22 @@
 
 # SubscriptionResponse
 
-Subscription
+Subscription Response
 
 ## Properties
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**href** | **URI** |  |  [optional] |
-|**uuid** | **UUID** |  |  [optional] |
-|**status** | **SubscriptionStatus** |  |  [optional] |
-|**marketplace** | [**MarketplaceEnum**](#MarketplaceEnum) |  |  [optional] |
-|**offerType** | [**OfferTypeEnum**](#OfferTypeEnum) |  |  [optional] |
-|**isAutoRenew** | **Boolean** |  |  [optional] |
-|**offerId** | **String** |  |  [optional] |
+|**href** | **URI** | Subscription URL |  [optional] |
+|**uuid** | **UUID** | Unique identifier of the Subscription |  [optional] |
+|**state** | **SubscriptionState** |  |  |
+|**marketplace** | [**MarketplaceEnum**](#MarketplaceEnum) | Marketplace Type |  |
+|**offerType** | [**OfferTypeEnum**](#OfferTypeEnum) | Marketplace Offer Type |  [optional] |
+|**isAutoRenew** | **Boolean** | Is Auto Renewal Enabled |  [optional] |
+|**offerId** | **String** | Marketplace Offer Id |  [optional] |
 |**trial** | [**SubscriptionTrial**](SubscriptionTrial.md) |  |  [optional] |
-|**subscriptionKey** | **String** |  |  [optional] |
-|**entitlements** | [**List&lt;SubscriptionEntitlementResponse&gt;**](SubscriptionEntitlementResponse.md) |  |  [optional] |
+|**subscriptionKey** | **String** | Subscription Key |  [optional] |
+|**entitlements** | [**List&lt;SubscriptionEntitlementResponse&gt;**](SubscriptionEntitlementResponse.md) | List of entitlements associated with the subscription |  |
 |**changelog** | [**Changelog**](Changelog.md) |  |  [optional] |
 
 

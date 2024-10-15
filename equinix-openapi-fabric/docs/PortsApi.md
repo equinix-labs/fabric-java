@@ -88,7 +88,7 @@ public class Example {
 
 <a name="createBulkPort"></a>
 # **createBulkPort**
-> AllPortsResponse createBulkPort(bulkPort)
+> BulkPort createBulkPort(bulkPortRequest)
 
 Create Port
 
@@ -114,9 +114,9 @@ public class Example {
     BearerAuth.setBearerToken("BEARER TOKEN");
 
     PortsApi apiInstance = new PortsApi(defaultClient);
-    BulkPort bulkPort = new BulkPort(); // BulkPort | 
+    BulkPortRequest bulkPortRequest = new BulkPortRequest(); // BulkPortRequest | 
     try {
-      AllPortsResponse result = apiInstance.createBulkPort(bulkPort);
+      BulkPort result = apiInstance.createBulkPort(bulkPortRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling PortsApi#createBulkPort");
@@ -133,11 +133,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **bulkPort** | [**BulkPort**](BulkPort.md)|  | |
+| **bulkPortRequest** | [**BulkPortRequest**](BulkPortRequest.md)|  | |
 
 ### Return type
 
-[**AllPortsResponse**](AllPortsResponse.md)
+[**BulkPort**](BulkPort.md)
 
 ### Authorization
 
@@ -155,7 +155,7 @@ public class Example {
 
 <a name="createPort"></a>
 # **createPort**
-> Port createPort(port)
+> Port createPort(portRequest)
 
 Create Port
 
@@ -181,9 +181,9 @@ public class Example {
     BearerAuth.setBearerToken("BEARER TOKEN");
 
     PortsApi apiInstance = new PortsApi(defaultClient);
-    Port port = new Port(); // Port | 
+    PortRequest portRequest = new PortRequest(); // PortRequest | 
     try {
-      Port result = apiInstance.createPort(port);
+      Port result = apiInstance.createPort(portRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling PortsApi#createPort");
@@ -200,7 +200,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **port** | [**Port**](Port.md)|  | |
+| **portRequest** | [**PortRequest**](PortRequest.md)|  | |
 
 ### Return type
 

@@ -8,11 +8,15 @@ All URIs are relative to *https://api.equinix.com*
 | [**createCloudRouterAction**](CloudRoutersApi.md#createCloudRouterAction) | **POST** /fabric/v4/routers/{routerId}/actions | Route table actions |
 | [**deleteCloudRouterByUuid**](CloudRoutersApi.md#deleteCloudRouterByUuid) | **DELETE** /fabric/v4/routers/{routerId} | Delete Routers |
 | [**getCloudRouterActions**](CloudRoutersApi.md#getCloudRouterActions) | **GET** /fabric/v4/routers/{routerId}/actions | Get actions |
+| [**getCloudRouterActionsByUuid**](CloudRoutersApi.md#getCloudRouterActionsByUuid) | **GET** /fabric/v4/routers/{routerId}/actions/{actionId} | Get actions |
 | [**getCloudRouterByUuid**](CloudRoutersApi.md#getCloudRouterByUuid) | **GET** /fabric/v4/routers/{routerId} | Get Routers |
 | [**getCloudRouterPackageByCode**](CloudRoutersApi.md#getCloudRouterPackageByCode) | **GET** /fabric/v4/routerPackages/{routerPackageCode} | Get Package Details |
 | [**getCloudRouterPackages**](CloudRoutersApi.md#getCloudRouterPackages) | **GET** /fabric/v4/routerPackages | List Packages |
 | [**searchCloudRouterRoutes**](CloudRoutersApi.md#searchCloudRouterRoutes) | **POST** /fabric/v4/routers/{routerId}/routes/search | Search Route Table |
 | [**searchCloudRouters**](CloudRoutersApi.md#searchCloudRouters) | **POST** /fabric/v4/routers/search | Search Routers |
+| [**searchConnectionAdvertisedRoutes**](CloudRoutersApi.md#searchConnectionAdvertisedRoutes) | **POST** /fabric/v4/connections/{connectionId}/advertisedRoutes/search | search advertised |
+| [**searchConnectionReceivedRoutes**](CloudRoutersApi.md#searchConnectionReceivedRoutes) | **POST** /fabric/v4/connections/{connectionId}/receivedRoutes/search | Search received |
+| [**searchRouterActions**](CloudRoutersApi.md#searchRouterActions) | **POST** /fabric/v4/routers/{routerId}/actions/search | Search actions |
 | [**updateCloudRouterByUuid**](CloudRoutersApi.md#updateCloudRouterByUuid) | **PATCH** /fabric/v4/routers/{routerId} | Update Routers |
 
 
@@ -263,7 +267,7 @@ public class Example {
 
     CloudRoutersApi apiInstance = new CloudRoutersApi(defaultClient);
     UUID routerId = UUID.randomUUID(); // UUID | Router UUID
-    CloudRouterActionState state = CloudRouterActionState.fromValue("DONE"); // CloudRouterActionState | Action state
+    CloudRouterActionState state = CloudRouterActionState.fromValue("SUCCEEDED"); // CloudRouterActionState | Action state
     try {
       CloudRouterActionResponse result = apiInstance.getCloudRouterActions(routerId, state);
       System.out.println(result);
@@ -283,7 +287,84 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **routerId** | **UUID**| Router UUID | |
-| **state** | [**CloudRouterActionState**](.md)| Action state | [optional] [enum: DONE, FAILED, PENDING] |
+| **state** | [**CloudRouterActionState**](.md)| Action state | [optional] [enum: SUCCEEDED, FAILED, PENDING] |
+
+### Return type
+
+[**CloudRouterActionResponse**](CloudRouterActionResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful operation |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **415** | Internal server error |  -  |
+| **500** | Internal server error |  -  |
+
+<a name="getCloudRouterActionsByUuid"></a>
+# **getCloudRouterActionsByUuid**
+> CloudRouterActionResponse getCloudRouterActionsByUuid(routerId, actionId, state)
+
+Get actions
+
+This API provides capability to fetch action status
+
+### Example
+```java
+// Import classes:
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.CloudRoutersApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
+
+    CloudRoutersApi apiInstance = new CloudRoutersApi(defaultClient);
+    UUID routerId = UUID.randomUUID(); // UUID | Router UUID
+    UUID actionId = UUID.randomUUID(); // UUID | Action UUID
+    CloudRouterActionState state = CloudRouterActionState.fromValue("SUCCEEDED"); // CloudRouterActionState | Action state
+    try {
+      CloudRouterActionResponse result = apiInstance.getCloudRouterActionsByUuid(routerId, actionId, state);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling CloudRoutersApi#getCloudRouterActionsByUuid");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **routerId** | **UUID**| Router UUID | |
+| **actionId** | **UUID**| Action UUID | |
+| **state** | [**CloudRouterActionState**](.md)| Action state | [optional] [enum: SUCCEEDED, FAILED, PENDING] |
 
 ### Return type
 
@@ -670,6 +751,227 @@ public class Example {
 | **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
 | **415** | Unsupported Media Type |  -  |
+| **500** | Internal server error |  -  |
+
+<a name="searchConnectionAdvertisedRoutes"></a>
+# **searchConnectionAdvertisedRoutes**
+> ConnectionRouteTableEntrySearchResponse searchConnectionAdvertisedRoutes(connectionId, connectionRouteSearchRequest)
+
+search advertised
+
+The API provides capability to get list of user&#39;s advertised routes using search criteria, including optional filtering, pagination and sorting
+
+### Example
+```java
+// Import classes:
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.CloudRoutersApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
+
+    CloudRoutersApi apiInstance = new CloudRoutersApi(defaultClient);
+    String connectionId = "connectionId_example"; // String | Connection Id
+    ConnectionRouteSearchRequest connectionRouteSearchRequest = new ConnectionRouteSearchRequest(); // ConnectionRouteSearchRequest | 
+    try {
+      ConnectionRouteTableEntrySearchResponse result = apiInstance.searchConnectionAdvertisedRoutes(connectionId, connectionRouteSearchRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling CloudRoutersApi#searchConnectionAdvertisedRoutes");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **connectionId** | **String**| Connection Id | |
+| **connectionRouteSearchRequest** | [**ConnectionRouteSearchRequest**](ConnectionRouteSearchRequest.md)|  | |
+
+### Return type
+
+[**ConnectionRouteTableEntrySearchResponse**](ConnectionRouteTableEntrySearchResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful operation |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+
+<a name="searchConnectionReceivedRoutes"></a>
+# **searchConnectionReceivedRoutes**
+> ConnectionRouteTableEntrySearchResponse searchConnectionReceivedRoutes(connectionId, connectionRouteSearchRequest)
+
+Search received
+
+The API provides capability to get list of received routes using search criteria, including optional filtering, pagination and sorting
+
+### Example
+```java
+// Import classes:
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.CloudRoutersApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
+
+    CloudRoutersApi apiInstance = new CloudRoutersApi(defaultClient);
+    String connectionId = "connectionId_example"; // String | Connection Id
+    ConnectionRouteSearchRequest connectionRouteSearchRequest = new ConnectionRouteSearchRequest(); // ConnectionRouteSearchRequest | 
+    try {
+      ConnectionRouteTableEntrySearchResponse result = apiInstance.searchConnectionReceivedRoutes(connectionId, connectionRouteSearchRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling CloudRoutersApi#searchConnectionReceivedRoutes");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **connectionId** | **String**| Connection Id | |
+| **connectionRouteSearchRequest** | [**ConnectionRouteSearchRequest**](ConnectionRouteSearchRequest.md)|  | |
+
+### Return type
+
+[**ConnectionRouteTableEntrySearchResponse**](ConnectionRouteTableEntrySearchResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful operation |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+
+<a name="searchRouterActions"></a>
+# **searchRouterActions**
+> CloudRouterActionsSearchResponse searchRouterActions(routerId, cloudRouterActionsSearchRequest)
+
+Search actions
+
+This API provides capability to refresh route table and bgp session summary information
+
+### Example
+```java
+// Import classes:
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.CloudRoutersApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
+
+    CloudRoutersApi apiInstance = new CloudRoutersApi(defaultClient);
+    UUID routerId = UUID.randomUUID(); // UUID | Router UUID
+    CloudRouterActionsSearchRequest cloudRouterActionsSearchRequest = new CloudRouterActionsSearchRequest(); // CloudRouterActionsSearchRequest | 
+    try {
+      CloudRouterActionsSearchResponse result = apiInstance.searchRouterActions(routerId, cloudRouterActionsSearchRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling CloudRoutersApi#searchRouterActions");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **routerId** | **UUID**| Router UUID | |
+| **cloudRouterActionsSearchRequest** | [**CloudRouterActionsSearchRequest**](CloudRouterActionsSearchRequest.md)|  | |
+
+### Return type
+
+[**CloudRouterActionsSearchResponse**](CloudRouterActionsSearchResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful operation |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **415** | Internal server error |  -  |
 | **500** | Internal server error |  -  |
 
 <a name="updateCloudRouterByUuid"></a>

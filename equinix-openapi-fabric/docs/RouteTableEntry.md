@@ -14,10 +14,10 @@ Route table entry object
 |**age** | **String** |  |  [optional] |
 |**prefix** | **String** |  |  [optional] |
 |**nextHop** | **String** |  |  [optional] |
-|**metric** | **Integer** |  |  [optional] |
+|**MED** | **Integer** |  |  [optional] |
 |**localPreference** | **Integer** |  |  [optional] |
-|**asPath** | **List&lt;Integer&gt;** |  |  [optional] |
-|**connection** | [**RouteTableEntryConnection**](RouteTableEntryConnection.md) |  |  [optional] |
+|**asPath** | **List&lt;String&gt;** |  |  [optional] |
+|**connection** | [**ConnectionRouteTableEntryConnection**](ConnectionRouteTableEntryConnection.md) |  |  [optional] |
 |**changeLog** | [**Changelog**](Changelog.md) |  |  |
 
 

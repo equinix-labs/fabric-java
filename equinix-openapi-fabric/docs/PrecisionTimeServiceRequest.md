@@ -2,20 +2,21 @@
 
 # PrecisionTimeServiceRequest
 
-EPT service instance
+Create Precision Time Service Request Schema.
 
 ## Properties
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**type** | [**TypeEnum**](#TypeEnum) | Indicate the entity is EPT service |  |
-|**name** | **String** |  |  |
-|**description** | **String** |  |  [optional] |
+|**type** | [**TypeEnum**](#TypeEnum) | Precision Time Service Type refers to the corresponding Protocol. |  |
+|**name** | **String** | Precision Time Service name. |  |
 |**_package** | [**PrecisionTimePackageRequest**](PrecisionTimePackageRequest.md) |  |  |
-|**connections** | [**List&lt;FabricConnectionUuid&gt;**](FabricConnectionUuid.md) |  |  |
+|**connections** | [**List&lt;VirtualConnectionUuid&gt;**](VirtualConnectionUuid.md) |  |  |
 |**ipv4** | [**Ipv4**](Ipv4.md) |  |  |
-|**advanceConfiguration** | [**AdvanceConfiguration**](AdvanceConfiguration.md) |  |  [optional] |
+|**ntpAdvancedConfiguration** | [**List&lt;Md5&gt;**](Md5.md) | NTP Advanced configuration - MD5 Authentication. |  [optional] |
+|**ptpAdvancedConfiguration** | [**PtpAdvanceConfiguration**](PtpAdvanceConfiguration.md) |  |  [optional] |
 |**project** | [**Project**](Project.md) |  |  [optional] |
+|**order** | [**PrecisionTimeOrder**](PrecisionTimeOrder.md) |  |  [optional] |
 
 
 
