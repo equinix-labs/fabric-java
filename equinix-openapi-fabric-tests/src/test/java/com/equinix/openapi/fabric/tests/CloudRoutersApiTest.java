@@ -83,7 +83,7 @@ public class CloudRoutersApiTest {
     public void getCloudRouterActions() throws ApiException {
         CloudRouter cloudRouter = createRouter();
         cloudRoutersApi.createCloudRouterAction(cloudRouter.getUuid(), new CloudRouterActionRequest().type(CloudRouterActionType.ROUTE_TABLE_ENTRY_UPDATE));
-        CloudRouterActionResponse cloudRouterActionResponse = cloudRoutersApi.getCloudRouterActions(cloudRouter.getUuid(), CloudRouterActionState.DONE);
+        CloudRouterActionResponse cloudRouterActionResponse = cloudRoutersApi.getCloudRouterActions(cloudRouter.getUuid(), CloudRouterActionState.SUCCEEDED);
         assertEquals(200, cloudRoutersApi.getApiClient().getStatusCode());
         assertEquals(cloudRouterActionResponse.getType(), CloudRouterActionType.ROUTE_TABLE_ENTRY_UPDATE);
     }
