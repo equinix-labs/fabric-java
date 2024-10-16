@@ -2,7 +2,7 @@
 
 # ServiceTokenSide
 
-Connection link protocol configuration
+Connection link protocol,virtual device or network configuration
 
 ## Properties
 

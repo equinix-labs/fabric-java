@@ -5,22 +5,23 @@ All URIs are relative to *https://api.equinix.com*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**createTimeServices**](PrecisionTimeApi.md#createTimeServices) | **POST** /fabric/v4/timeServices | Create Time Service |
-| [**deleteTimeServiceById**](PrecisionTimeApi.md#deleteTimeServiceById) | **DELETE** /fabric/v4/timeServices/{serviceId} | Delete time service |
-| [**getTimeServicesById**](PrecisionTimeApi.md#getTimeServicesById) | **GET** /fabric/v4/timeServices/{serviceId} | Get Time Service |
+| [**deleteTimeServiceById**](PrecisionTimeApi.md#deleteTimeServiceById) | **DELETE** /fabric/v4/timeServices/{serviceId} | Delete by ID. |
+| [**fulfillTimeServices**](PrecisionTimeApi.md#fulfillTimeServices) | **PUT** /fabric/v4/timeServices/{serviceId} | Configure Service. |
+| [**getTimeServicesById**](PrecisionTimeApi.md#getTimeServicesById) | **GET** /fabric/v4/timeServices/{serviceId} | Get Service By ID. |
 | [**getTimeServicesConnectionsByServiceId**](PrecisionTimeApi.md#getTimeServicesConnectionsByServiceId) | **GET** /fabric/v4/timeServices/{serviceId}/connections | Get Connection Links |
 | [**getTimeServicesPackageByCode**](PrecisionTimeApi.md#getTimeServicesPackageByCode) | **GET** /fabric/v4/timeServicePackages/{packageCode} | Get Package By Code |
 | [**getTimeServicesPackages**](PrecisionTimeApi.md#getTimeServicesPackages) | **GET** /fabric/v4/timeServicePackages | Get Packages |
 | [**searchTimeServices**](PrecisionTimeApi.md#searchTimeServices) | **POST** /fabric/v4/timeServices/search | Search Time Services |
-| [**updateTimeServicesById**](PrecisionTimeApi.md#updateTimeServicesById) | **PATCH** /fabric/v4/timeServices/{serviceId} | Patch time service |
+| [**updateTimeServicesById**](PrecisionTimeApi.md#updateTimeServicesById) | **PATCH** /fabric/v4/timeServices/{serviceId} | Update By ID. |
 
 
 <a name="createTimeServices"></a>
 # **createTimeServices**
-> PrecisionTimeServiceCreateResponse createTimeServices(precisionTimeServiceRequest)
+> PrecisionTimeServiceResponse createTimeServices(precisionTimeServiceRequest)
 
 Create Time Service
 
-The API provides capability to create timing service
+The API provides capability to create Precision Time service
 
 ### Example
 ```java
@@ -44,7 +45,7 @@ public class Example {
     PrecisionTimeApi apiInstance = new PrecisionTimeApi(defaultClient);
     PrecisionTimeServiceRequest precisionTimeServiceRequest = new PrecisionTimeServiceRequest(); // PrecisionTimeServiceRequest | 
     try {
-      PrecisionTimeServiceCreateResponse result = apiInstance.createTimeServices(precisionTimeServiceRequest);
+      PrecisionTimeServiceResponse result = apiInstance.createTimeServices(precisionTimeServiceRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling PrecisionTimeApi#createTimeServices");
@@ -65,7 +66,7 @@ public class Example {
 
 ### Return type
 
-[**PrecisionTimeServiceCreateResponse**](PrecisionTimeServiceCreateResponse.md)
+[**PrecisionTimeServiceResponse**](PrecisionTimeServiceResponse.md)
 
 ### Authorization
 
@@ -79,7 +80,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **202** | Successful operation |  -  |
+| **202** | Successful Accepted operation |  -  |
 | **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
@@ -88,11 +89,11 @@ public class Example {
 
 <a name="deleteTimeServiceById"></a>
 # **deleteTimeServiceById**
-> PrecisionTimeServiceCreateResponse deleteTimeServiceById(serviceId)
+> PrecisionTimeServiceResponse deleteTimeServiceById(serviceId)
 
-Delete time service
+Delete by ID.
 
-Delete EPT service by it&#39;s uuid
+The API provides capability to delete Precision Time Service by service id.
 
 ### Example
 ```java
@@ -116,7 +117,7 @@ public class Example {
     PrecisionTimeApi apiInstance = new PrecisionTimeApi(defaultClient);
     UUID serviceId = UUID.randomUUID(); // UUID | Service UUID
     try {
-      PrecisionTimeServiceCreateResponse result = apiInstance.deleteTimeServiceById(serviceId);
+      PrecisionTimeServiceResponse result = apiInstance.deleteTimeServiceById(serviceId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling PrecisionTimeApi#deleteTimeServiceById");
@@ -137,7 +138,7 @@ public class Example {
 
 ### Return type
 
-[**PrecisionTimeServiceCreateResponse**](PrecisionTimeServiceCreateResponse.md)
+[**PrecisionTimeServiceResponse**](PrecisionTimeServiceResponse.md)
 
 ### Authorization
 
@@ -151,19 +152,95 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **202** | Successful operation |  -  |
+| **202** | Successful Delete |  -  |
 | **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **415** | Unsupported Media Type |  -  |
+| **500** | Internal server error |  -  |
+
+<a name="fulfillTimeServices"></a>
+# **fulfillTimeServices**
+> PrecisionTimeServiceResponse fulfillTimeServices(serviceId, precisionTimeServiceRequest)
+
+Configure Service.
+
+The API provides capability to Configure/Fulfill the Precision Time Service.
+
+### Example
+```java
+// Import classes:
+import com.equinix.openapi.fabric.ApiClient;
+import com.equinix.openapi.fabric.ApiException;
+import com.equinix.openapi.fabric.Configuration;
+import com.equinix.openapi.fabric.auth.*;
+import com.equinix.openapi.fabric.models.*;
+import com.equinix.openapi.fabric.v4.api.PrecisionTimeApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://api.equinix.com");
+    
+    // Configure HTTP bearer authorization: BearerAuth
+    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
+    BearerAuth.setBearerToken("BEARER TOKEN");
+
+    PrecisionTimeApi apiInstance = new PrecisionTimeApi(defaultClient);
+    UUID serviceId = UUID.randomUUID(); // UUID | Service UUID
+    PrecisionTimeServiceRequest precisionTimeServiceRequest = new PrecisionTimeServiceRequest(); // PrecisionTimeServiceRequest | 
+    try {
+      PrecisionTimeServiceResponse result = apiInstance.fulfillTimeServices(serviceId, precisionTimeServiceRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling PrecisionTimeApi#fulfillTimeServices");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **serviceId** | **UUID**| Service UUID | |
+| **precisionTimeServiceRequest** | [**PrecisionTimeServiceRequest**](PrecisionTimeServiceRequest.md)|  | |
+
+### Return type
+
+[**PrecisionTimeServiceResponse**](PrecisionTimeServiceResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **202** | Successful Accepted operation |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
 
 <a name="getTimeServicesById"></a>
 # **getTimeServicesById**
-> PrecisionTimeServiceCreateResponse getTimeServicesById(serviceId)
+> PrecisionTimeServiceResponse getTimeServicesById(serviceId)
 
-Get Time Service
+Get Service By ID.
 
-The API provides capability to get precision timing service&#39;s details
+The API provides capability to get Precision Time Service details
 
 ### Example
 ```java
@@ -187,7 +264,7 @@ public class Example {
     PrecisionTimeApi apiInstance = new PrecisionTimeApi(defaultClient);
     UUID serviceId = UUID.randomUUID(); // UUID | Service UUID
     try {
-      PrecisionTimeServiceCreateResponse result = apiInstance.getTimeServicesById(serviceId);
+      PrecisionTimeServiceResponse result = apiInstance.getTimeServicesById(serviceId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling PrecisionTimeApi#getTimeServicesById");
@@ -208,7 +285,7 @@ public class Example {
 
 ### Return type
 
-[**PrecisionTimeServiceCreateResponse**](PrecisionTimeServiceCreateResponse.md)
+[**PrecisionTimeServiceResponse**](PrecisionTimeServiceResponse.md)
 
 ### Authorization
 
@@ -226,6 +303,7 @@ public class Example {
 | **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
 
@@ -508,11 +586,11 @@ public class Example {
 
 <a name="updateTimeServicesById"></a>
 # **updateTimeServicesById**
-> PrecisionTimeServiceCreateResponse updateTimeServicesById(serviceId, precisionTimeChangeOperation)
+> PrecisionTimeServiceResponse updateTimeServicesById(serviceId, precisionTimeChangeOperation)
 
-Patch time service
+Update By ID.
 
-The API provides capability to update timing service
+The API provides capability to update Precision Time Service by service id.
 
 ### Example
 ```java
@@ -537,7 +615,7 @@ public class Example {
     UUID serviceId = UUID.randomUUID(); // UUID | Service UUID
     List<PrecisionTimeChangeOperation> precisionTimeChangeOperation = Arrays.asList(); // List<PrecisionTimeChangeOperation> | 
     try {
-      PrecisionTimeServiceCreateResponse result = apiInstance.updateTimeServicesById(serviceId, precisionTimeChangeOperation);
+      PrecisionTimeServiceResponse result = apiInstance.updateTimeServicesById(serviceId, precisionTimeChangeOperation);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling PrecisionTimeApi#updateTimeServicesById");
@@ -559,7 +637,7 @@ public class Example {
 
 ### Return type
 
-[**PrecisionTimeServiceCreateResponse**](PrecisionTimeServiceCreateResponse.md)
+[**PrecisionTimeServiceResponse**](PrecisionTimeServiceResponse.md)
 
 ### Authorization
 
@@ -573,10 +651,11 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **202** | Successful operation |  -  |
+| **202** | Successful Accepted operation |  -  |
 | **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
 

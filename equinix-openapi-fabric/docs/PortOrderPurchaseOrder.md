@@ -14,10 +14,22 @@ purchase order
 |**endDate** | **String** |  |  [optional] |
 |**attachmentId** | **UUID** |  |  [optional] |
 |**selectionType** | [**SelectionTypeEnum**](#SelectionTypeEnum) |  |  [optional] |
+|**type** | [**TypeEnum**](#TypeEnum) |  |  [optional] |
 
 
 
 ## Enum: SelectionTypeEnum
+
+| Name | Value |
+|---- | -----|
+| EXEMPTION | &quot;EXEMPTION&quot; |
+| EXISTING | &quot;EXISTING&quot; |
+| NEW | &quot;NEW&quot; |
+| BLANKET | &quot;BLANKET&quot; |
+
+
+
+## Enum: TypeEnum
 
 | Name | Value |
 |---- | -----|

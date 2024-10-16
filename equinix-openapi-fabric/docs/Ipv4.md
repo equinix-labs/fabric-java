@@ -8,10 +8,10 @@ EPT service network information
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**primary** | **String** |  |  [optional] |
-|**secondary** | **String** |  |  [optional] |
-|**networkMask** | **String** |  |  [optional] |
-|**defaultGateway** | **String** |  |  [optional] |
+|**primary** | **String** | Primary Timing Server IP Address |  |
+|**secondary** | **String** | Secondary Timing Server IP Address |  |
+|**networkMask** | **String** | Network Mask |  |
+|**defaultGateway** | **String** | Gateway Interface IP address |  [optional] |
 
 
 

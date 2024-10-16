@@ -8,9 +8,9 @@ Port specification
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
+|**href** | **URI** | Equinix assigned response attribute for an absolute URL that is the subject of the link&#39;s context. |  [optional] [readonly] |
 |**type** | **PortType** |  |  [optional] |
 |**id** | **Integer** | Equinix assigned response attribute for Port Id |  [optional] |
-|**href** | **URI** | Equinix assigned response attribute for an absolute URL that is the subject of the link&#39;s context. |  [optional] [readonly] |
 |**uuid** | **UUID** | Equinix assigned response attribute for  port identifier |  [optional] |
 |**name** | **String** | Equinix assigned response attribute for Port name |  [optional] |
 |**description** | **String** | Equinix assigned response attribute for Port description |  [optional] |
@@ -23,26 +23,26 @@ Port specification
 |**project** | [**Project**](Project.md) |  |  [optional] |
 |**state** | **PortState** |  |  [optional] |
 |**order** | [**PortOrder**](PortOrder.md) |  |  [optional] |
-|**cvpId** | **String** | Equinix assigned response attribute for Unique ID for a virtual port. |  [optional] |
 |**operation** | [**PortOperation**](PortOperation.md) |  |  [optional] |
-|**account** | [**SimplifiedAccount**](SimplifiedAccount.md) |  |  |
-|**changelog** | [**Changelog**](Changelog.md) |  |  [optional] |
+|**account** | [**SimplifiedAccount**](SimplifiedAccount.md) |  |  [optional] |
+|**changeLog** | [**Changelog**](Changelog.md) |  |  [optional] |
 |**serviceType** | [**ServiceTypeEnum**](#ServiceTypeEnum) | Port service Type |  [optional] |
 |**bandwidth** | **Integer** | Equinix assigned response attribute for Port bandwidth in Mbps |  [optional] |
 |**availableBandwidth** | **Integer** | Equinix assigned response attribute for Port available bandwidth in Mbps |  [optional] |
 |**usedBandwidth** | **Integer** | Equinix assigned response attribute for Port used bandwidth in Mbps |  [optional] |
-|**location** | [**SimplifiedLocation**](SimplifiedLocation.md) |  |  |
+|**location** | [**SimplifiedLocation**](SimplifiedLocation.md) |  |  [optional] |
 |**device** | [**PortDevice**](PortDevice.md) |  |  [optional] |
 |**_interface** | [**PortInterface**](PortInterface.md) |  |  [optional] |
 |**demarcationPointIbx** | **String** | A-side/Equinix ibx |  [optional] |
 |**tetherIbx** | **String** | z-side/Equinix ibx |  [optional] |
 |**demarcationPoint** | [**PortDemarcationPoint**](PortDemarcationPoint.md) |  |  [optional] |
 |**redundancy** | [**PortRedundancy**](PortRedundancy.md) |  |  [optional] |
-|**encapsulation** | [**PortEncapsulation**](PortEncapsulation.md) |  |  |
+|**encapsulation** | [**PortEncapsulation**](PortEncapsulation.md) |  |  [optional] |
 |**lagEnabled** | **Boolean** | If LAG enabled |  [optional] |
 |**lag** | [**PortLag**](PortLag.md) |  |  [optional] |
 |**asn** | **Integer** | Port ASN |  [optional] |
-|**settings** | [**PortSettings**](PortSettings.md) |  |  |
+|**_package** | [**ModelPackage**](ModelPackage.md) |  |  [optional] |
+|**settings** | [**PortSettings**](PortSettings.md) |  |  [optional] |
 |**physicalPortQuantity** | **Integer** | Number of physical ports |  [optional] |
 |**notifications** | [**List&lt;PortNotification&gt;**](PortNotification.md) | Notification preferences |  [optional] |
 |**additionalInfo** | [**List&lt;PortAdditionalInfo&gt;**](PortAdditionalInfo.md) | Port additional information |  [optional] |

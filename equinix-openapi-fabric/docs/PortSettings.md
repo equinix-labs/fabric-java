@@ -8,12 +8,10 @@ Port configuration settings
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**product** | **String** | Product name |  [optional] |
 |**buyout** | **Boolean** |  |  [optional] |
 |**viewPortPermission** | **Boolean** |  |  [optional] |
 |**placeVcOrderPermission** | **Boolean** |  |  [optional] |
 |**layer3Enabled** | **Boolean** |  |  [optional] |
-|**productCode** | **String** |  |  [optional] |
 |**sharedPortType** | **Boolean** |  |  [optional] |
 |**sharedPortProduct** | [**SharedPortProductEnum**](#SharedPortProductEnum) |  |  [optional] |
 |**packageType** | [**PackageTypeEnum**](#PackageTypeEnum) | Type of Port Package |  [optional] |
@@ -36,9 +34,8 @@ Port configuration settings
 | Name | Value |
 |---- | -----|
 | STANDARD | &quot;STANDARD&quot; |
-| UNTAGGED | &quot;UNTAGGED&quot; |
 | UNLIMITED | &quot;UNLIMITED&quot; |
-| UNLIMITED_PLUS | &quot;UNLIMITED PLUS&quot; |
+| UNLIMITED_PLUS | &quot;UNLIMITED_PLUS&quot; |
 
 
 

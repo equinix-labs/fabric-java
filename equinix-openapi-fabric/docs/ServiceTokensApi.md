@@ -158,7 +158,7 @@ public class Example {
 
 <a name="deleteServiceTokenByUuid"></a>
 # **deleteServiceTokenByUuid**
-> deleteServiceTokenByUuid(serviceTokenId)
+> ServiceToken deleteServiceTokenByUuid(serviceTokenId)
 
 Delete Token by uuid
 
@@ -186,7 +186,8 @@ public class Example {
     ServiceTokensApi apiInstance = new ServiceTokensApi(defaultClient);
     UUID serviceTokenId = UUID.randomUUID(); // UUID | Service Token UUID
     try {
-      apiInstance.deleteServiceTokenByUuid(serviceTokenId);
+      ServiceToken result = apiInstance.deleteServiceTokenByUuid(serviceTokenId);
+      System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ServiceTokensApi#deleteServiceTokenByUuid");
       System.err.println("Status code: " + e.getCode());
@@ -206,7 +207,7 @@ public class Example {
 
 ### Return type
 
-null (empty response body)
+[**ServiceToken**](ServiceToken.md)
 
 ### Authorization
 
@@ -220,9 +221,10 @@ null (empty response body)
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **204** | Deleted Service Token Successfully |  -  |
+| **200** | Successful operation |  -  |
 | **400** | Bad request |  -  |
-| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **500** | Internal server error |  -  |
 
 <a name="getServiceTokenByUuid"></a>
 # **getServiceTokenByUuid**
@@ -366,7 +368,7 @@ public class Example {
 
 <a name="searchServiceTokens"></a>
 # **searchServiceTokens**
-> ServiceTokens searchServiceTokens(serviceTokenSearchRequest)
+> ServiceTokens searchServiceTokens(serviceTokenSearchRequest, offset, limit)
 
 Search servicetokens
 
@@ -393,8 +395,10 @@ public class Example {
 
     ServiceTokensApi apiInstance = new ServiceTokensApi(defaultClient);
     ServiceTokenSearchRequest serviceTokenSearchRequest = new ServiceTokenSearchRequest(); // ServiceTokenSearchRequest | 
+    BigDecimal offset = new BigDecimal(78); // BigDecimal | offset
+    BigDecimal limit = new BigDecimal(78); // BigDecimal | number of records to fetch
     try {
-      ServiceTokens result = apiInstance.searchServiceTokens(serviceTokenSearchRequest);
+      ServiceTokens result = apiInstance.searchServiceTokens(serviceTokenSearchRequest, offset, limit);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ServiceTokensApi#searchServiceTokens");
@@ -412,6 +416,8 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **serviceTokenSearchRequest** | [**ServiceTokenSearchRequest**](ServiceTokenSearchRequest.md)|  | |
+| **offset** | **BigDecimal**| offset | [optional] |
+| **limit** | **BigDecimal**| number of records to fetch | [optional] |
 
 ### Return type
 
@@ -505,4 +511,5 @@ public class Example {
 | **200** | Successful operation |  -  |
 | **400** | Bad request |  -  |
 | **403** | Forbidden |  -  |
+| **500** | Internal server error |  -  |
 

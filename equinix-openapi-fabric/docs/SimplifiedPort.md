@@ -18,13 +18,12 @@ Port specification
 |**connectionsCount** | **Integer** | Equinix assigned response attribute for Connection count |  [optional] |
 |**project** | [**Project**](Project.md) |  |  [optional] |
 |**state** | **PortState** |  |  [optional] |
-|**cvpId** | **String** | Equinix assigned response attribute for Unique ID for a virtual port. |  [optional] |
 |**operation** | [**PortOperation**](PortOperation.md) |  |  [optional] |
 |**account** | [**SimplifiedAccount**](SimplifiedAccount.md) |  |  [optional] |
 |**serviceType** | [**ServiceTypeEnum**](#ServiceTypeEnum) | Port service Type |  [optional] |
-|**bandwidth** | **Integer** | Equinix assigned response attribute for Port bandwidth in Mbps |  [optional] |
-|**availableBandwidth** | **Integer** | Equinix assigned response attribute for Port available bandwidth in Mbps |  [optional] |
-|**usedBandwidth** | **Integer** | Equinix assigned response attribute for Port used bandwidth in Mbps |  [optional] |
+|**bandwidth** | **Long** | Equinix assigned response attribute for Port bandwidth in Mbps |  [optional] |
+|**availableBandwidth** | **Long** | Equinix assigned response attribute for Port available bandwidth in Mbps |  [optional] |
+|**usedBandwidth** | **Long** | Equinix assigned response attribute for Port used bandwidth in Mbps |  [optional] |
 |**location** | [**SimplifiedLocation**](SimplifiedLocation.md) |  |  [optional] |
 |**device** | [**PortDevice**](PortDevice.md) |  |  [optional] |
 |**_interface** | [**PortInterface**](PortInterface.md) |  |  [optional] |
@@ -33,6 +32,7 @@ Port specification
 |**redundancy** | [**PortRedundancy**](PortRedundancy.md) |  |  [optional] |
 |**encapsulation** | [**PortEncapsulation**](PortEncapsulation.md) |  |  [optional] |
 |**lagEnabled** | **Boolean** | If LAG enabled |  [optional] |
+|**_package** | [**ModelPackage**](ModelPackage.md) |  |  [optional] |
 |**settings** | [**PortSettings**](PortSettings.md) |  |  [optional] |
 |**physicalPortQuantity** | **Integer** | Number of physical ports |  [optional] |
 |**additionalInfo** | [**List&lt;PortAdditionalInfo&gt;**](PortAdditionalInfo.md) | Port additional information |  [optional] |
