@@ -5,9 +5,9 @@
     <artifactId>equinix-openapi-fabric</artifactId>
     <packaging>jar</packaging>
     <name>equinix-openapi-fabric</name>
-    <version>0.5.0</version>
+    <version>0.10.0</version>
     <url>https://github.com/openapitools/openapi-generator</url>
-    <description>Equinix Fabric API Specification 4.11 generated SDK</description>
+    <description>OpenAPI Java</description>
     <scm>
         <connection>scm:git:git@github.com:openapitools/openapi-generator.git</connection>
         <developerConnection>scm:git:git@github.com:openapitools/openapi-generator.git</developerConnection>
