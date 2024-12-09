@@ -93,7 +93,7 @@ public class ConnectionsApiTest {
                                     .type(LinkProtocolType.DOT1Q)
                                     .vlanTag(vlanTag))));
 
-            connection = connectionsApi.createConnection(connectionPostRequest, true);
+            connection = connectionsApi.createConnection(connectionPostRequest, false);
 
             if (connectionsApi.getApiClient().getStatusCode() == 201) {
                 break;
@@ -197,7 +197,7 @@ public class ConnectionsApiTest {
                                     .type(LinkProtocolType.DOT1Q)
                                     .vlanTag(tag))));
 
-            connection = connectionsApi.createConnection(connectionPostRequest, true);
+            connection = connectionsApi.createConnection(connectionPostRequest, false);
 
             if (connectionsApi.getApiClient().getStatusCode() == 201) {
                 break;
@@ -257,7 +257,7 @@ public class ConnectionsApiTest {
                                     .vlanSTag(sTag)
                                     .vlanCTag(cTag))));
 
-            connection = connectionsApi.createConnection(connectionPostRequest, true);
+            connection = connectionsApi.createConnection(connectionPostRequest, false);
 
             if (connectionsApi.getApiClient().getStatusCode() == 201) {
                 break;
@@ -333,7 +333,7 @@ public class ConnectionsApiTest {
                                             .type(LinkProtocolType.DOT1Q)
                                             .vlanTag(tagZside))));
 
-            connection = connectionsApi.createConnection(connectionPostRequest, true);
+            connection = connectionsApi.createConnection(connectionPostRequest, false);
 
             if (connectionsApi.getApiClient().getStatusCode() == 201) {
                 break;
