@@ -43,6 +43,12 @@
         <dependency>
             <groupId>com.equinix</groupId>
             <artifactId>equinix-openapi-fabric</artifactId>
+            <version>0.10.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.equinix</groupId>
+            <artifactId>equinix-openapi-fabric</artifactId>
+            <version>0.10.0</version>
         </dependency>
     </dependencies>
 </project>

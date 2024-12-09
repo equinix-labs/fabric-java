@@ -56,7 +56,7 @@ public class NetworksApiTest {
                 .notifications(singletonList(new SimplifiedNotification()
                         .type(SimplifiedNotification.TypeEnum.ALL).emails(singletonList("test@equinix.com"))));
 
-        Network network = networksApi.createNetwork(networkPostRequest);
+        Network network = networksApi.createNetwork(networkPostRequest, true);
         assertEquals(201, networksApi.getApiClient().getStatusCode());
 
         for (int i = 0; i < 5; i++) {
