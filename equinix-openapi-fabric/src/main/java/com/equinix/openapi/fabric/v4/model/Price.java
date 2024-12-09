@@ -19,6 +19,7 @@ import com.equinix.openapi.fabric.v4.model.PriceCategory;
 import com.equinix.openapi.fabric.v4.model.PriceCharge;
 import com.equinix.openapi.fabric.v4.model.ProductType;
 import com.equinix.openapi.fabric.v4.model.SimplifiedAccount;
+import com.equinix.openapi.fabric.v4.model.TimeServicePrice;
 import com.equinix.openapi.fabric.v4.model.VirtualConnectionPrice;
 import com.equinix.openapi.fabric.v4.model.VirtualPortPrice;
 import com.google.gson.TypeAdapter;
@@ -160,6 +161,10 @@ public class Price {
   public static final String SERIALIZED_NAME_PORT = "port";
   @SerializedName(SERIALIZED_NAME_PORT)
   private VirtualPortPrice port;
+
+  public static final String SERIALIZED_NAME_TIME_SERVICE = "timeService";
+  @SerializedName(SERIALIZED_NAME_TIME_SERVICE)
+  private TimeServicePrice timeService;
 
   public Price() {
   }
@@ -479,6 +484,28 @@ public class Price {
     this.port = port;
   }
 
+
+  public Price timeService(TimeServicePrice timeService) {
+    
+    this.timeService = timeService;
+    return this;
+  }
+
+   /**
+   * Get timeService
+   * @return timeService
+  **/
+  @javax.annotation.Nullable
+
+  public TimeServicePrice getTimeService() {
+    return timeService;
+  }
+
+
+  public void setTimeService(TimeServicePrice timeService) {
+    this.timeService = timeService;
+  }
+
   /**
    * A container for additional, undeclared properties.
    * This is a holder for any undeclared properties as specified with
@@ -547,13 +574,14 @@ public class Price {
         Objects.equals(this.connection, price.connection) &&
         Objects.equals(this.ipBlock, price.ipBlock) &&
         Objects.equals(this.router, price.router) &&
-        Objects.equals(this.port, price.port)&&
+        Objects.equals(this.port, price.port) &&
+        Objects.equals(this.timeService, price.timeService)&&
         Objects.equals(this.additionalProperties, price.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(href, type, code, name, description, account, charges, currency, termLength, catgory, connection, ipBlock, router, port, additionalProperties);
+    return Objects.hash(href, type, code, name, description, account, charges, currency, termLength, catgory, connection, ipBlock, router, port, timeService, additionalProperties);
   }
 
   @Override
@@ -574,6 +602,7 @@ public class Price {
     sb.append("    ipBlock: ").append(toIndentedString(ipBlock)).append("\n");
     sb.append("    router: ").append(toIndentedString(router)).append("\n");
     sb.append("    port: ").append(toIndentedString(port)).append("\n");
+    sb.append("    timeService: ").append(toIndentedString(timeService)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -611,6 +640,7 @@ public class Price {
     openapiFields.add("ipBlock");
     openapiFields.add("router");
     openapiFields.add("port");
+    openapiFields.add("timeService");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -676,6 +706,10 @@ public class Price {
       // validate the optional field `port`
       if (jsonObj.get("port") != null && !jsonObj.get("port").isJsonNull()) {
         VirtualPortPrice.validateJsonObject(jsonObj.getAsJsonObject("port"));
+      }
+      // validate the optional field `timeService`
+      if (jsonObj.get("timeService") != null && !jsonObj.get("timeService").isJsonNull()) {
+        TimeServicePrice.validateJsonObject(jsonObj.getAsJsonObject("timeService"));
       }
   }
 

@@ -48,7 +48,7 @@ import java.util.Set;
 import com.equinix.openapi.fabric.JSON;
 
 /**
- * Cloud Router actions response object
+ * Cloud router actions response object
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CloudRouterActionResponse {

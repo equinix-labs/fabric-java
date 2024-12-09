@@ -92,6 +92,7 @@ public class CloudRoutersApi {
     /**
      * Build call for createCloudRouter
      * @param cloudRouterPostRequest  (required)
+     * @param dryRun option to verify that API calls will succeed (optional, default to false)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -106,7 +107,7 @@ public class CloudRoutersApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createCloudRouterCall(CloudRouterPostRequest cloudRouterPostRequest, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call createCloudRouterCall(CloudRouterPostRequest cloudRouterPostRequest, Boolean dryRun, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -131,6 +132,10 @@ public class CloudRoutersApi {
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+        if (dryRun != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("dryRun", dryRun));
+        }
+
         final String[] localVarAccepts = {
             "application/json"
         };
@@ -152,13 +157,13 @@ public class CloudRoutersApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createCloudRouterValidateBeforeCall(CloudRouterPostRequest cloudRouterPostRequest, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createCloudRouterValidateBeforeCall(CloudRouterPostRequest cloudRouterPostRequest, Boolean dryRun, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'cloudRouterPostRequest' is set
         if (cloudRouterPostRequest == null) {
             throw new ApiException("Missing the required parameter 'cloudRouterPostRequest' when calling createCloudRouter(Async)");
         }
 
-        return createCloudRouterCall(cloudRouterPostRequest, _callback);
+        return createCloudRouterCall(cloudRouterPostRequest, dryRun, _callback);
 
     }
 
@@ -166,6 +171,7 @@ public class CloudRoutersApi {
      * Create Routers
      * This API provides capability to create user&#39;s Cloud Routers
      * @param cloudRouterPostRequest  (required)
+     * @param dryRun option to verify that API calls will succeed (optional, default to false)
      * @return CloudRouter
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -179,8 +185,8 @@ public class CloudRoutersApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public CloudRouter createCloudRouter(CloudRouterPostRequest cloudRouterPostRequest) throws ApiException {
-        ApiResponse<CloudRouter> localVarResp = createCloudRouterWithHttpInfo(cloudRouterPostRequest);
+    public CloudRouter createCloudRouter(CloudRouterPostRequest cloudRouterPostRequest, Boolean dryRun) throws ApiException {
+        ApiResponse<CloudRouter> localVarResp = createCloudRouterWithHttpInfo(cloudRouterPostRequest, dryRun);
         return localVarResp.getData();
     }
 
@@ -188,6 +194,7 @@ public class CloudRoutersApi {
      * Create Routers
      * This API provides capability to create user&#39;s Cloud Routers
      * @param cloudRouterPostRequest  (required)
+     * @param dryRun option to verify that API calls will succeed (optional, default to false)
      * @return ApiResponse&lt;CloudRouter&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -201,8 +208,8 @@ public class CloudRoutersApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<CloudRouter> createCloudRouterWithHttpInfo(CloudRouterPostRequest cloudRouterPostRequest) throws ApiException {
-        okhttp3.Call localVarCall = createCloudRouterValidateBeforeCall(cloudRouterPostRequest, null);
+    public ApiResponse<CloudRouter> createCloudRouterWithHttpInfo(CloudRouterPostRequest cloudRouterPostRequest, Boolean dryRun) throws ApiException {
+        okhttp3.Call localVarCall = createCloudRouterValidateBeforeCall(cloudRouterPostRequest, dryRun, null);
         Type localVarReturnType = new TypeToken<CloudRouter>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -211,6 +218,7 @@ public class CloudRoutersApi {
      * Create Routers (asynchronously)
      * This API provides capability to create user&#39;s Cloud Routers
      * @param cloudRouterPostRequest  (required)
+     * @param dryRun option to verify that API calls will succeed (optional, default to false)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -225,9 +233,9 @@ public class CloudRoutersApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createCloudRouterAsync(CloudRouterPostRequest cloudRouterPostRequest, final ApiCallback<CloudRouter> _callback) throws ApiException {
+    public okhttp3.Call createCloudRouterAsync(CloudRouterPostRequest cloudRouterPostRequest, Boolean dryRun, final ApiCallback<CloudRouter> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = createCloudRouterValidateBeforeCall(cloudRouterPostRequest, _callback);
+        okhttp3.Call localVarCall = createCloudRouterValidateBeforeCall(cloudRouterPostRequest, dryRun, _callback);
         Type localVarReturnType = new TypeToken<CloudRouter>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -314,7 +322,7 @@ public class CloudRoutersApi {
     }
 
     /**
-     * Route table actions
+     * Create Route Table Action
      * This API provides capability to refresh route table and bgp session summary information
      * @param routerId Router UUID (required)
      * @param cloudRouterActionRequest  (required)
@@ -338,7 +346,7 @@ public class CloudRoutersApi {
     }
 
     /**
-     * Route table actions
+     * Create Route Table Action
      * This API provides capability to refresh route table and bgp session summary information
      * @param routerId Router UUID (required)
      * @param cloudRouterActionRequest  (required)
@@ -363,7 +371,7 @@ public class CloudRoutersApi {
     }
 
     /**
-     * Route table actions (asynchronously)
+     * Create Route Table Action (asynchronously)
      * This API provides capability to refresh route table and bgp session summary information
      * @param routerId Router UUID (required)
      * @param cloudRouterActionRequest  (required)
@@ -608,7 +616,7 @@ public class CloudRoutersApi {
     }
 
     /**
-     * Get actions
+     * Get Route Table Actions
      * This API provides capability to fetch action status
      * @param routerId Router UUID (required)
      * @param state Action state (optional)
@@ -632,7 +640,7 @@ public class CloudRoutersApi {
     }
 
     /**
-     * Get actions
+     * Get Route Table Actions
      * This API provides capability to fetch action status
      * @param routerId Router UUID (required)
      * @param state Action state (optional)
@@ -657,7 +665,7 @@ public class CloudRoutersApi {
     }
 
     /**
-     * Get actions (asynchronously)
+     * Get Route Table Actions (asynchronously)
      * This API provides capability to fetch action status
      * @param routerId Router UUID (required)
      * @param state Action state (optional)
@@ -770,7 +778,7 @@ public class CloudRoutersApi {
     }
 
     /**
-     * Get actions
+     * Get Route Table Action by ID
      * This API provides capability to fetch action status
      * @param routerId Router UUID (required)
      * @param actionId Action UUID (required)
@@ -795,7 +803,7 @@ public class CloudRoutersApi {
     }
 
     /**
-     * Get actions
+     * Get Route Table Action by ID
      * This API provides capability to fetch action status
      * @param routerId Router UUID (required)
      * @param actionId Action UUID (required)
@@ -821,7 +829,7 @@ public class CloudRoutersApi {
     }
 
     /**
-     * Get actions (asynchronously)
+     * Get Route Table Action by ID (asynchronously)
      * This API provides capability to fetch action status
      * @param routerId Router UUID (required)
      * @param actionId Action UUID (required)
@@ -1655,7 +1663,7 @@ public class CloudRoutersApi {
     }
 
     /**
-     * search advertised
+     * Search Advertised Routes
      * The API provides capability to get list of user&#39;s advertised routes using search criteria, including optional filtering, pagination and sorting
      * @param connectionId Connection Id (required)
      * @param connectionRouteSearchRequest  (required)
@@ -1677,7 +1685,7 @@ public class CloudRoutersApi {
     }
 
     /**
-     * search advertised
+     * Search Advertised Routes
      * The API provides capability to get list of user&#39;s advertised routes using search criteria, including optional filtering, pagination and sorting
      * @param connectionId Connection Id (required)
      * @param connectionRouteSearchRequest  (required)
@@ -1700,7 +1708,7 @@ public class CloudRoutersApi {
     }
 
     /**
-     * search advertised (asynchronously)
+     * Search Advertised Routes (asynchronously)
      * The API provides capability to get list of user&#39;s advertised routes using search criteria, including optional filtering, pagination and sorting
      * @param connectionId Connection Id (required)
      * @param connectionRouteSearchRequest  (required)
@@ -1804,7 +1812,7 @@ public class CloudRoutersApi {
     }
 
     /**
-     * Search received
+     * Search Received Routes
      * The API provides capability to get list of received routes using search criteria, including optional filtering, pagination and sorting
      * @param connectionId Connection Id (required)
      * @param connectionRouteSearchRequest  (required)
@@ -1826,7 +1834,7 @@ public class CloudRoutersApi {
     }
 
     /**
-     * Search received
+     * Search Received Routes
      * The API provides capability to get list of received routes using search criteria, including optional filtering, pagination and sorting
      * @param connectionId Connection Id (required)
      * @param connectionRouteSearchRequest  (required)
@@ -1849,7 +1857,7 @@ public class CloudRoutersApi {
     }
 
     /**
-     * Search received (asynchronously)
+     * Search Received Routes (asynchronously)
      * The API provides capability to get list of received routes using search criteria, including optional filtering, pagination and sorting
      * @param connectionId Connection Id (required)
      * @param connectionRouteSearchRequest  (required)
@@ -1955,7 +1963,7 @@ public class CloudRoutersApi {
     }
 
     /**
-     * Search actions
+     * Search Route Table Actions
      * This API provides capability to refresh route table and bgp session summary information
      * @param routerId Router UUID (required)
      * @param cloudRouterActionsSearchRequest  (required)
@@ -1979,7 +1987,7 @@ public class CloudRoutersApi {
     }
 
     /**
-     * Search actions
+     * Search Route Table Actions
      * This API provides capability to refresh route table and bgp session summary information
      * @param routerId Router UUID (required)
      * @param cloudRouterActionsSearchRequest  (required)
@@ -2004,7 +2012,7 @@ public class CloudRoutersApi {
     }
 
     /**
-     * Search actions (asynchronously)
+     * Search Route Table Actions (asynchronously)
      * This API provides capability to refresh route table and bgp session summary information
      * @param routerId Router UUID (required)
      * @param cloudRouterActionsSearchRequest  (required)

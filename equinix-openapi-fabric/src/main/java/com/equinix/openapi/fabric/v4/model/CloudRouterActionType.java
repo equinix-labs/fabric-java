@@ -22,7 +22,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
 /**
- * Cloud Router action type
+ * Cloud router action type
  */
 @JsonAdapter(CloudRouterActionType.Adapter.class)
 public enum CloudRouterActionType {

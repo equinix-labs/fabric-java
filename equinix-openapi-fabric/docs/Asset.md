@@ -13,5 +13,9 @@
 
 * `METROS` (value: `"metros"`)
 
+* `ORGANIZATIONS` (value: `"organizations"`)
+
+* `PROJECTS` (value: `"projects"`)
+
 
 

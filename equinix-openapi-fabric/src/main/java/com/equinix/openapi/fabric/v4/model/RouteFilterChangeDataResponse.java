@@ -46,7 +46,7 @@ import java.util.Set;
 import com.equinix.openapi.fabric.JSON;
 
 /**
- * List of Route Filter changes
+ * List of route filter changes
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class RouteFilterChangeDataResponse {

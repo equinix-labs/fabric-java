@@ -46,9 +46,9 @@ import com.equinix.openapi.fabric.JSON;
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SimplifiedLocationWithoutIBX {
-  public static final String SERIALIZED_NAME_HREF = "href";
-  @SerializedName(SERIALIZED_NAME_HREF)
-  private String href;
+  public static final String SERIALIZED_NAME_METRO_HREF = "metroHref";
+  @SerializedName(SERIALIZED_NAME_METRO_HREF)
+  private String metroHref;
 
   public static final String SERIALIZED_NAME_REGION = "region";
   @SerializedName(SERIALIZED_NAME_REGION)
@@ -65,25 +65,25 @@ public class SimplifiedLocationWithoutIBX {
   public SimplifiedLocationWithoutIBX() {
   }
 
-  public SimplifiedLocationWithoutIBX href(String href) {
+  public SimplifiedLocationWithoutIBX metroHref(String metroHref) {
     
-    this.href = href;
+    this.metroHref = metroHref;
     return this;
   }
 
    /**
    * The Canonical URL at which the resource resides.
-   * @return href
+   * @return metroHref
   **/
   @javax.annotation.Nullable
 
-  public String getHref() {
-    return href;
+  public String getMetroHref() {
+    return metroHref;
   }
 
 
-  public void setHref(String href) {
-    this.href = href;
+  public void setMetroHref(String metroHref) {
+    this.metroHref = metroHref;
   }
 
 
@@ -207,7 +207,7 @@ public class SimplifiedLocationWithoutIBX {
       return false;
     }
     SimplifiedLocationWithoutIBX simplifiedLocationWithoutIBX = (SimplifiedLocationWithoutIBX) o;
-    return Objects.equals(this.href, simplifiedLocationWithoutIBX.href) &&
+    return Objects.equals(this.metroHref, simplifiedLocationWithoutIBX.metroHref) &&
         Objects.equals(this.region, simplifiedLocationWithoutIBX.region) &&
         Objects.equals(this.metroName, simplifiedLocationWithoutIBX.metroName) &&
         Objects.equals(this.metroCode, simplifiedLocationWithoutIBX.metroCode)&&
@@ -216,14 +216,14 @@ public class SimplifiedLocationWithoutIBX {
 
   @Override
   public int hashCode() {
-    return Objects.hash(href, region, metroName, metroCode, additionalProperties);
+    return Objects.hash(metroHref, region, metroName, metroCode, additionalProperties);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class SimplifiedLocationWithoutIBX {\n");
-    sb.append("    href: ").append(toIndentedString(href)).append("\n");
+    sb.append("    metroHref: ").append(toIndentedString(metroHref)).append("\n");
     sb.append("    region: ").append(toIndentedString(region)).append("\n");
     sb.append("    metroName: ").append(toIndentedString(metroName)).append("\n");
     sb.append("    metroCode: ").append(toIndentedString(metroCode)).append("\n");
@@ -250,7 +250,7 @@ public class SimplifiedLocationWithoutIBX {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("href");
+    openapiFields.add("metroHref");
     openapiFields.add("region");
     openapiFields.add("metroName");
     openapiFields.add("metroCode");
@@ -279,8 +279,8 @@ public class SimplifiedLocationWithoutIBX {
           throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
         }
       }
-      if ((jsonObj.get("href") != null && !jsonObj.get("href").isJsonNull()) && !jsonObj.get("href").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `href` to be a primitive type in the JSON string but got `%s`", jsonObj.get("href").toString()));
+      if ((jsonObj.get("metroHref") != null && !jsonObj.get("metroHref").isJsonNull()) && !jsonObj.get("metroHref").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `metroHref` to be a primitive type in the JSON string but got `%s`", jsonObj.get("metroHref").toString()));
       }
       if ((jsonObj.get("region") != null && !jsonObj.get("region").isJsonNull()) && !jsonObj.get("region").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `region` to be a primitive type in the JSON string but got `%s`", jsonObj.get("region").toString()));

@@ -204,7 +204,7 @@ public class RouteFiltersData {
   }
 
    /**
-   * Route Filter URI
+   * Route filter URI
    * @return href
   **/
   @javax.annotation.Nullable
@@ -248,7 +248,7 @@ public class RouteFiltersData {
   }
 
    /**
-   * Route Filter identifier
+   * Route filter identifier
    * @return uuid
   **/
   @javax.annotation.Nullable

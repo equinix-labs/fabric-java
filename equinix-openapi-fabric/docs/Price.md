@@ -21,6 +21,7 @@
 |**ipBlock** | [**IpBlockPrice**](IpBlockPrice.md) |  |  [optional] |
 |**router** | [**FabricCloudRouterPrice**](FabricCloudRouterPrice.md) |  |  [optional] |
 |**port** | [**VirtualPortPrice**](VirtualPortPrice.md) |  |  [optional] |
+|**timeService** | [**TimeServicePrice**](TimeServicePrice.md) |  |  [optional] |
 
 
 

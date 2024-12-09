@@ -7,10 +7,10 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
+|**metroHref** | **String** |  |  [optional] |
 |**region** | **String** |  |  [optional] |
 |**metroName** | **String** |  |  [optional] |
 |**metroCode** | **String** |  |  [optional] |
-|**metroHref** | **String** |  |  [optional] |
 |**ibx** | **String** |  |  [optional] |
 
 

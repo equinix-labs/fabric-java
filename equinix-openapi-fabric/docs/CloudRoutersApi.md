@@ -5,24 +5,24 @@ All URIs are relative to *https://api.equinix.com*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**createCloudRouter**](CloudRoutersApi.md#createCloudRouter) | **POST** /fabric/v4/routers | Create Routers |
-| [**createCloudRouterAction**](CloudRoutersApi.md#createCloudRouterAction) | **POST** /fabric/v4/routers/{routerId}/actions | Route table actions |
+| [**createCloudRouterAction**](CloudRoutersApi.md#createCloudRouterAction) | **POST** /fabric/v4/routers/{routerId}/actions | Create Route Table Action |
 | [**deleteCloudRouterByUuid**](CloudRoutersApi.md#deleteCloudRouterByUuid) | **DELETE** /fabric/v4/routers/{routerId} | Delete Routers |
-| [**getCloudRouterActions**](CloudRoutersApi.md#getCloudRouterActions) | **GET** /fabric/v4/routers/{routerId}/actions | Get actions |
-| [**getCloudRouterActionsByUuid**](CloudRoutersApi.md#getCloudRouterActionsByUuid) | **GET** /fabric/v4/routers/{routerId}/actions/{actionId} | Get actions |
+| [**getCloudRouterActions**](CloudRoutersApi.md#getCloudRouterActions) | **GET** /fabric/v4/routers/{routerId}/actions | Get Route Table Actions |
+| [**getCloudRouterActionsByUuid**](CloudRoutersApi.md#getCloudRouterActionsByUuid) | **GET** /fabric/v4/routers/{routerId}/actions/{actionId} | Get Route Table Action by ID |
 | [**getCloudRouterByUuid**](CloudRoutersApi.md#getCloudRouterByUuid) | **GET** /fabric/v4/routers/{routerId} | Get Routers |
 | [**getCloudRouterPackageByCode**](CloudRoutersApi.md#getCloudRouterPackageByCode) | **GET** /fabric/v4/routerPackages/{routerPackageCode} | Get Package Details |
 | [**getCloudRouterPackages**](CloudRoutersApi.md#getCloudRouterPackages) | **GET** /fabric/v4/routerPackages | List Packages |
 | [**searchCloudRouterRoutes**](CloudRoutersApi.md#searchCloudRouterRoutes) | **POST** /fabric/v4/routers/{routerId}/routes/search | Search Route Table |
 | [**searchCloudRouters**](CloudRoutersApi.md#searchCloudRouters) | **POST** /fabric/v4/routers/search | Search Routers |
-| [**searchConnectionAdvertisedRoutes**](CloudRoutersApi.md#searchConnectionAdvertisedRoutes) | **POST** /fabric/v4/connections/{connectionId}/advertisedRoutes/search | search advertised |
-| [**searchConnectionReceivedRoutes**](CloudRoutersApi.md#searchConnectionReceivedRoutes) | **POST** /fabric/v4/connections/{connectionId}/receivedRoutes/search | Search received |
-| [**searchRouterActions**](CloudRoutersApi.md#searchRouterActions) | **POST** /fabric/v4/routers/{routerId}/actions/search | Search actions |
+| [**searchConnectionAdvertisedRoutes**](CloudRoutersApi.md#searchConnectionAdvertisedRoutes) | **POST** /fabric/v4/connections/{connectionId}/advertisedRoutes/search | Search Advertised Routes |
+| [**searchConnectionReceivedRoutes**](CloudRoutersApi.md#searchConnectionReceivedRoutes) | **POST** /fabric/v4/connections/{connectionId}/receivedRoutes/search | Search Received Routes |
+| [**searchRouterActions**](CloudRoutersApi.md#searchRouterActions) | **POST** /fabric/v4/routers/{routerId}/actions/search | Search Route Table Actions |
 | [**updateCloudRouterByUuid**](CloudRoutersApi.md#updateCloudRouterByUuid) | **PATCH** /fabric/v4/routers/{routerId} | Update Routers |
 
 
 <a name="createCloudRouter"></a>
 # **createCloudRouter**
-> CloudRouter createCloudRouter(cloudRouterPostRequest)
+> CloudRouter createCloudRouter(cloudRouterPostRequest, dryRun)
 
 Create Routers
 
@@ -49,8 +49,9 @@ public class Example {
 
     CloudRoutersApi apiInstance = new CloudRoutersApi(defaultClient);
     CloudRouterPostRequest cloudRouterPostRequest = new CloudRouterPostRequest(); // CloudRouterPostRequest | 
+    Boolean dryRun = false; // Boolean | option to verify that API calls will succeed
     try {
-      CloudRouter result = apiInstance.createCloudRouter(cloudRouterPostRequest);
+      CloudRouter result = apiInstance.createCloudRouter(cloudRouterPostRequest, dryRun);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CloudRoutersApi#createCloudRouter");
@@ -68,6 +69,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **cloudRouterPostRequest** | [**CloudRouterPostRequest**](CloudRouterPostRequest.md)|  | |
+| **dryRun** | **Boolean**| option to verify that API calls will succeed | [optional] [default to false] |
 
 ### Return type
 
@@ -96,7 +98,7 @@ public class Example {
 # **createCloudRouterAction**
 > CloudRouterActionResponse createCloudRouterAction(routerId, cloudRouterActionRequest)
 
-Route table actions
+Create Route Table Action
 
 This API provides capability to refresh route table and bgp session summary information
 
@@ -242,7 +244,7 @@ null (empty response body)
 # **getCloudRouterActions**
 > CloudRouterActionResponse getCloudRouterActions(routerId, state)
 
-Get actions
+Get Route Table Actions
 
 This API provides capability to fetch action status
 
@@ -317,7 +319,7 @@ public class Example {
 # **getCloudRouterActionsByUuid**
 > CloudRouterActionResponse getCloudRouterActionsByUuid(routerId, actionId, state)
 
-Get actions
+Get Route Table Action by ID
 
 This API provides capability to fetch action status
 
@@ -757,7 +759,7 @@ public class Example {
 # **searchConnectionAdvertisedRoutes**
 > ConnectionRouteTableEntrySearchResponse searchConnectionAdvertisedRoutes(connectionId, connectionRouteSearchRequest)
 
-search advertised
+Search Advertised Routes
 
 The API provides capability to get list of user&#39;s advertised routes using search criteria, including optional filtering, pagination and sorting
 
@@ -830,7 +832,7 @@ public class Example {
 # **searchConnectionReceivedRoutes**
 > ConnectionRouteTableEntrySearchResponse searchConnectionReceivedRoutes(connectionId, connectionRouteSearchRequest)
 
-Search received
+Search Received Routes
 
 The API provides capability to get list of received routes using search criteria, including optional filtering, pagination and sorting
 
@@ -903,7 +905,7 @@ public class Example {
 # **searchRouterActions**
 > CloudRouterActionsSearchResponse searchRouterActions(routerId, cloudRouterActionsSearchRequest)
 
-Search actions
+Search Route Table Actions
 
 This API provides capability to refresh route table and bgp session summary information
 

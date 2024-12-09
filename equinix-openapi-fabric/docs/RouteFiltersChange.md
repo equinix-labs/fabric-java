@@ -2,7 +2,7 @@
 
 # RouteFiltersChange
 
-Current state of latest Route Filter change
+Current state of latest route filter change
 
 ## Properties
 
@@ -10,7 +10,7 @@ Current state of latest Route Filter change
 |------------ | ------------- | ------------- | -------------|
 |**uuid** | **String** | Uniquely identifies a change |  |
 |**type** | [**TypeEnum**](#TypeEnum) | Type of change |  |
-|**href** | **URI** | Route Filter Change URI |  [optional] |
+|**href** | **URI** | Route filter change URI |  [optional] |
 
 
 

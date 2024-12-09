@@ -9,6 +9,7 @@ List of criteria for selecting network access points with optimal efficiency, se
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**type** | [**TypeEnum**](#TypeEnum) | Type of Access point |  [optional] |
+|**hideAssetInfo** | **Boolean** |  |  [optional] |
 |**port** | [**SimplifiedMetadataEntity**](SimplifiedMetadataEntity.md) |  |  [optional] |
 |**linkProtocol** | [**SimplifiedLinkProtocol**](SimplifiedLinkProtocol.md) |  |  [optional] |
 |**virtualDevice** | [**SimplifiedVirtualDevice**](SimplifiedVirtualDevice.md) |  |  [optional] |

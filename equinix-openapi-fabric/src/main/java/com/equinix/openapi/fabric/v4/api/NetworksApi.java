@@ -83,12 +83,14 @@ public class NetworksApi {
     /**
      * Build call for createNetwork
      * @param networkPostRequest  (required)
+     * @param dryRun option to verify that API calls will succeed (optional, default to false)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 202 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
@@ -97,7 +99,7 @@ public class NetworksApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createNetworkCall(NetworkPostRequest networkPostRequest, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call createNetworkCall(NetworkPostRequest networkPostRequest, Boolean dryRun, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -122,6 +124,10 @@ public class NetworksApi {
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+        if (dryRun != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("dryRun", dryRun));
+        }
+
         final String[] localVarAccepts = {
             "application/json"
         };
@@ -143,13 +149,13 @@ public class NetworksApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createNetworkValidateBeforeCall(NetworkPostRequest networkPostRequest, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createNetworkValidateBeforeCall(NetworkPostRequest networkPostRequest, Boolean dryRun, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'networkPostRequest' is set
         if (networkPostRequest == null) {
             throw new ApiException("Missing the required parameter 'networkPostRequest' when calling createNetwork(Async)");
         }
 
-        return createNetworkCall(networkPostRequest, _callback);
+        return createNetworkCall(networkPostRequest, dryRun, _callback);
 
     }
 
@@ -157,11 +163,13 @@ public class NetworksApi {
      * Create Network
      * This API provides capability to create user&#39;s Fabric Network
      * @param networkPostRequest  (required)
+     * @param dryRun option to verify that API calls will succeed (optional, default to false)
      * @return Network
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 202 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
@@ -170,8 +178,8 @@ public class NetworksApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public Network createNetwork(NetworkPostRequest networkPostRequest) throws ApiException {
-        ApiResponse<Network> localVarResp = createNetworkWithHttpInfo(networkPostRequest);
+    public Network createNetwork(NetworkPostRequest networkPostRequest, Boolean dryRun) throws ApiException {
+        ApiResponse<Network> localVarResp = createNetworkWithHttpInfo(networkPostRequest, dryRun);
         return localVarResp.getData();
     }
 
@@ -179,11 +187,13 @@ public class NetworksApi {
      * Create Network
      * This API provides capability to create user&#39;s Fabric Network
      * @param networkPostRequest  (required)
+     * @param dryRun option to verify that API calls will succeed (optional, default to false)
      * @return ApiResponse&lt;Network&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 202 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
@@ -192,8 +202,8 @@ public class NetworksApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Network> createNetworkWithHttpInfo(NetworkPostRequest networkPostRequest) throws ApiException {
-        okhttp3.Call localVarCall = createNetworkValidateBeforeCall(networkPostRequest, null);
+    public ApiResponse<Network> createNetworkWithHttpInfo(NetworkPostRequest networkPostRequest, Boolean dryRun) throws ApiException {
+        okhttp3.Call localVarCall = createNetworkValidateBeforeCall(networkPostRequest, dryRun, null);
         Type localVarReturnType = new TypeToken<Network>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -202,12 +212,14 @@ public class NetworksApi {
      * Create Network (asynchronously)
      * This API provides capability to create user&#39;s Fabric Network
      * @param networkPostRequest  (required)
+     * @param dryRun option to verify that API calls will succeed (optional, default to false)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 202 </td><td> Fabric Network Access point object </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
@@ -216,9 +228,9 @@ public class NetworksApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createNetworkAsync(NetworkPostRequest networkPostRequest, final ApiCallback<Network> _callback) throws ApiException {
+    public okhttp3.Call createNetworkAsync(NetworkPostRequest networkPostRequest, Boolean dryRun, final ApiCallback<Network> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = createNetworkValidateBeforeCall(networkPostRequest, _callback);
+        okhttp3.Call localVarCall = createNetworkValidateBeforeCall(networkPostRequest, dryRun, _callback);
         Type localVarReturnType = new TypeToken<Network>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;

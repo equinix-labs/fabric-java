@@ -80,25 +80,9 @@ public class CloudRouter {
   @SerializedName(SERIALIZED_NAME_EQUINIX_ASN)
   private Long equinixAsn;
 
-  public static final String SERIALIZED_NAME_BGP_IPV4_ROUTES_COUNT = "bgpIpv4RoutesCount";
-  @SerializedName(SERIALIZED_NAME_BGP_IPV4_ROUTES_COUNT)
-  private Integer bgpIpv4RoutesCount;
-
-  public static final String SERIALIZED_NAME_BGP_IPV6_ROUTES_COUNT = "bgpIpv6RoutesCount";
-  @SerializedName(SERIALIZED_NAME_BGP_IPV6_ROUTES_COUNT)
-  private Integer bgpIpv6RoutesCount;
-
   public static final String SERIALIZED_NAME_CONNECTIONS_COUNT = "connectionsCount";
   @SerializedName(SERIALIZED_NAME_CONNECTIONS_COUNT)
   private Integer connectionsCount;
-
-  public static final String SERIALIZED_NAME_DISTINCT_IPV4_PREFIXES_COUNT = "distinctIpv4PrefixesCount";
-  @SerializedName(SERIALIZED_NAME_DISTINCT_IPV4_PREFIXES_COUNT)
-  private Integer distinctIpv4PrefixesCount;
-
-  public static final String SERIALIZED_NAME_DISTINCT_IPV6_PREFIXES_COUNT = "distinctIpv6PrefixesCount";
-  @SerializedName(SERIALIZED_NAME_DISTINCT_IPV6_PREFIXES_COUNT)
-  private Integer distinctIpv6PrefixesCount;
 
   public static final String SERIALIZED_NAME_MARKETPLACE_SUBSCRIPTION = "marketplaceSubscription";
   @SerializedName(SERIALIZED_NAME_MARKETPLACE_SUBSCRIPTION)
@@ -297,52 +281,6 @@ public class CloudRouter {
   }
 
 
-  public CloudRouter bgpIpv4RoutesCount(Integer bgpIpv4RoutesCount) {
-    
-    this.bgpIpv4RoutesCount = bgpIpv4RoutesCount;
-    return this;
-  }
-
-   /**
-   * Access point used and maximum number of IPv4 BGP routes
-   * minimum: 0
-   * @return bgpIpv4RoutesCount
-  **/
-  @javax.annotation.Nullable
-
-  public Integer getBgpIpv4RoutesCount() {
-    return bgpIpv4RoutesCount;
-  }
-
-
-  public void setBgpIpv4RoutesCount(Integer bgpIpv4RoutesCount) {
-    this.bgpIpv4RoutesCount = bgpIpv4RoutesCount;
-  }
-
-
-  public CloudRouter bgpIpv6RoutesCount(Integer bgpIpv6RoutesCount) {
-    
-    this.bgpIpv6RoutesCount = bgpIpv6RoutesCount;
-    return this;
-  }
-
-   /**
-   * Access point used and maximum number of IPv6 BGP routes
-   * minimum: 0
-   * @return bgpIpv6RoutesCount
-  **/
-  @javax.annotation.Nullable
-
-  public Integer getBgpIpv6RoutesCount() {
-    return bgpIpv6RoutesCount;
-  }
-
-
-  public void setBgpIpv6RoutesCount(Integer bgpIpv6RoutesCount) {
-    this.bgpIpv6RoutesCount = bgpIpv6RoutesCount;
-  }
-
-
   public CloudRouter connectionsCount(Integer connectionsCount) {
     
     this.connectionsCount = connectionsCount;
@@ -363,52 +301,6 @@ public class CloudRouter {
 
   public void setConnectionsCount(Integer connectionsCount) {
     this.connectionsCount = connectionsCount;
-  }
-
-
-  public CloudRouter distinctIpv4PrefixesCount(Integer distinctIpv4PrefixesCount) {
-    
-    this.distinctIpv4PrefixesCount = distinctIpv4PrefixesCount;
-    return this;
-  }
-
-   /**
-   * Number of distinct ipv4 routes
-   * minimum: 0
-   * @return distinctIpv4PrefixesCount
-  **/
-  @javax.annotation.Nullable
-
-  public Integer getDistinctIpv4PrefixesCount() {
-    return distinctIpv4PrefixesCount;
-  }
-
-
-  public void setDistinctIpv4PrefixesCount(Integer distinctIpv4PrefixesCount) {
-    this.distinctIpv4PrefixesCount = distinctIpv4PrefixesCount;
-  }
-
-
-  public CloudRouter distinctIpv6PrefixesCount(Integer distinctIpv6PrefixesCount) {
-    
-    this.distinctIpv6PrefixesCount = distinctIpv6PrefixesCount;
-    return this;
-  }
-
-   /**
-   * Number of distinct ipv6 routes
-   * minimum: 0
-   * @return distinctIpv6PrefixesCount
-  **/
-  @javax.annotation.Nullable
-
-  public Integer getDistinctIpv6PrefixesCount() {
-    return distinctIpv6PrefixesCount;
-  }
-
-
-  public void setDistinctIpv6PrefixesCount(Integer distinctIpv6PrefixesCount) {
-    this.distinctIpv6PrefixesCount = distinctIpv6PrefixesCount;
   }
 
 
@@ -699,11 +591,7 @@ public class CloudRouter {
         Objects.equals(this.name, cloudRouter.name) &&
         Objects.equals(this.state, cloudRouter.state) &&
         Objects.equals(this.equinixAsn, cloudRouter.equinixAsn) &&
-        Objects.equals(this.bgpIpv4RoutesCount, cloudRouter.bgpIpv4RoutesCount) &&
-        Objects.equals(this.bgpIpv6RoutesCount, cloudRouter.bgpIpv6RoutesCount) &&
         Objects.equals(this.connectionsCount, cloudRouter.connectionsCount) &&
-        Objects.equals(this.distinctIpv4PrefixesCount, cloudRouter.distinctIpv4PrefixesCount) &&
-        Objects.equals(this.distinctIpv6PrefixesCount, cloudRouter.distinctIpv6PrefixesCount) &&
         Objects.equals(this.marketplaceSubscription, cloudRouter.marketplaceSubscription) &&
         Objects.equals(this.changeLog, cloudRouter.changeLog) &&
         Objects.equals(this.change, cloudRouter.change) &&
@@ -719,7 +607,7 @@ public class CloudRouter {
 
   @Override
   public int hashCode() {
-    return Objects.hash(href, uuid, name, state, equinixAsn, bgpIpv4RoutesCount, bgpIpv6RoutesCount, connectionsCount, distinctIpv4PrefixesCount, distinctIpv6PrefixesCount, marketplaceSubscription, changeLog, change, type, location, _package, order, project, account, notifications, additionalProperties);
+    return Objects.hash(href, uuid, name, state, equinixAsn, connectionsCount, marketplaceSubscription, changeLog, change, type, location, _package, order, project, account, notifications, additionalProperties);
   }
 
   @Override
@@ -731,11 +619,7 @@ public class CloudRouter {
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    equinixAsn: ").append(toIndentedString(equinixAsn)).append("\n");
-    sb.append("    bgpIpv4RoutesCount: ").append(toIndentedString(bgpIpv4RoutesCount)).append("\n");
-    sb.append("    bgpIpv6RoutesCount: ").append(toIndentedString(bgpIpv6RoutesCount)).append("\n");
     sb.append("    connectionsCount: ").append(toIndentedString(connectionsCount)).append("\n");
-    sb.append("    distinctIpv4PrefixesCount: ").append(toIndentedString(distinctIpv4PrefixesCount)).append("\n");
-    sb.append("    distinctIpv6PrefixesCount: ").append(toIndentedString(distinctIpv6PrefixesCount)).append("\n");
     sb.append("    marketplaceSubscription: ").append(toIndentedString(marketplaceSubscription)).append("\n");
     sb.append("    changeLog: ").append(toIndentedString(changeLog)).append("\n");
     sb.append("    change: ").append(toIndentedString(change)).append("\n");

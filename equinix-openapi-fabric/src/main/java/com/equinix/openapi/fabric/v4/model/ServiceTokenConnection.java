@@ -58,6 +58,8 @@ public class ServiceTokenConnection {
   public enum TypeEnum {
     EVPL_VC("EVPL_VC"),
     
+    EPL_VC("EPL_VC"),
+    
     EVPLAN_VC("EVPLAN_VC"),
     
     EPLAN_VC("EPLAN_VC"),

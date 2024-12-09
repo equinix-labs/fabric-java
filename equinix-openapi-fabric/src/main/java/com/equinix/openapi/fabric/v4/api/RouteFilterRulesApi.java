@@ -161,7 +161,7 @@ public class RouteFilterRulesApi {
     }
 
     /**
-     * Create RFRule
+     * Create Route Filter Rule
      * This API provides capability to create a Route Filter Rule
      * @param routeFilterId Route Filters Id (required)
      * @param routeFilterRulesBase  (required)
@@ -185,7 +185,7 @@ public class RouteFilterRulesApi {
     }
 
     /**
-     * Create RFRule
+     * Create Route Filter Rule
      * This API provides capability to create a Route Filter Rule
      * @param routeFilterId Route Filters Id (required)
      * @param routeFilterRulesBase  (required)
@@ -210,7 +210,7 @@ public class RouteFilterRulesApi {
     }
 
     /**
-     * Create RFRule (asynchronously)
+     * Create Route Filter Rule (asynchronously)
      * This API provides capability to create a Route Filter Rule
      * @param routeFilterId Route Filters Id (required)
      * @param routeFilterRulesBase  (required)
@@ -318,7 +318,7 @@ public class RouteFilterRulesApi {
     }
 
     /**
-     * Bulk RFRules
+     * Bulk Create Route Filter Rules
      * This API provides capability to create bulk route filter rules
      * @param routeFilterId Route Filters Id (required)
      * @param routeFilterRulesPostRequest  (required)
@@ -342,7 +342,7 @@ public class RouteFilterRulesApi {
     }
 
     /**
-     * Bulk RFRules
+     * Bulk Create Route Filter Rules
      * This API provides capability to create bulk route filter rules
      * @param routeFilterId Route Filters Id (required)
      * @param routeFilterRulesPostRequest  (required)
@@ -367,7 +367,7 @@ public class RouteFilterRulesApi {
     }
 
     /**
-     * Bulk RFRules (asynchronously)
+     * Bulk Create Route Filter Rules (asynchronously)
      * This API provides capability to create bulk route filter rules
      * @param routeFilterId Route Filters Id (required)
      * @param routeFilterRulesPostRequest  (required)
@@ -475,7 +475,7 @@ public class RouteFilterRulesApi {
     }
 
     /**
-     * DeleteRFRule
+     * Delete Route Filter Rule
      * This API provides capability to delete a Route Filter Rule
      * @param routeFilterId Route Filters Id (required)
      * @param routeFilterRuleId Route  Filter  Rules Id (required)
@@ -499,7 +499,7 @@ public class RouteFilterRulesApi {
     }
 
     /**
-     * DeleteRFRule
+     * Delete Route Filter Rule
      * This API provides capability to delete a Route Filter Rule
      * @param routeFilterId Route Filters Id (required)
      * @param routeFilterRuleId Route  Filter  Rules Id (required)
@@ -524,7 +524,7 @@ public class RouteFilterRulesApi {
     }
 
     /**
-     * DeleteRFRule (asynchronously)
+     * Delete Route Filter Rule (asynchronously)
      * This API provides capability to delete a Route Filter Rule
      * @param routeFilterId Route Filters Id (required)
      * @param routeFilterRuleId Route  Filter  Rules Id (required)
@@ -632,7 +632,7 @@ public class RouteFilterRulesApi {
     }
 
     /**
-     * GetRFRule By UUID
+     * Get Route Filter Rule By UUID
      * This API provides capability to view a Route Filter Rule by UUID
      * @param routeFilterId Route Filters Id (required)
      * @param routeFilterRuleId Route  Filter  Rules Id (required)
@@ -656,7 +656,7 @@ public class RouteFilterRulesApi {
     }
 
     /**
-     * GetRFRule By UUID
+     * Get Route Filter Rule By UUID
      * This API provides capability to view a Route Filter Rule by UUID
      * @param routeFilterId Route Filters Id (required)
      * @param routeFilterRuleId Route  Filter  Rules Id (required)
@@ -681,7 +681,7 @@ public class RouteFilterRulesApi {
     }
 
     /**
-     * GetRFRule By UUID (asynchronously)
+     * Get Route Filter Rule By UUID (asynchronously)
      * This API provides capability to view a Route Filter Rule by UUID
      * @param routeFilterId Route Filters Id (required)
      * @param routeFilterRuleId Route  Filter  Rules Id (required)
@@ -1123,7 +1123,7 @@ public class RouteFilterRulesApi {
     }
 
     /**
-     * GetRFRules
+     * Get Route Filter Rules
      * This API provides capability to get all Route Filters Rules for Fabric
      * @param routeFilterId Route Filters Id (required)
      * @param offset offset (optional)
@@ -1147,7 +1147,7 @@ public class RouteFilterRulesApi {
     }
 
     /**
-     * GetRFRules
+     * Get Route Filter Rules
      * This API provides capability to get all Route Filters Rules for Fabric
      * @param routeFilterId Route Filters Id (required)
      * @param offset offset (optional)
@@ -1172,7 +1172,7 @@ public class RouteFilterRulesApi {
     }
 
     /**
-     * GetRFRules (asynchronously)
+     * Get Route Filter Rules (asynchronously)
      * This API provides capability to get all Route Filters Rules for Fabric
      * @param routeFilterId Route Filters Id (required)
      * @param offset offset (optional)
@@ -1287,7 +1287,7 @@ public class RouteFilterRulesApi {
     }
 
     /**
-     * PatchRFilterRule
+     * Patch Route Filter Rule
      * This API provides capability to partially update a Route Filter Rule
      * @param routeFilterId Route Filters Id (required)
      * @param routeFilterRuleId Route  Filter  Rules Id (required)
@@ -1312,7 +1312,7 @@ public class RouteFilterRulesApi {
     }
 
     /**
-     * PatchRFilterRule
+     * Patch Route Filter Rule
      * This API provides capability to partially update a Route Filter Rule
      * @param routeFilterId Route Filters Id (required)
      * @param routeFilterRuleId Route  Filter  Rules Id (required)
@@ -1338,7 +1338,7 @@ public class RouteFilterRulesApi {
     }
 
     /**
-     * PatchRFilterRule (asynchronously)
+     * Patch Route Filter Rule (asynchronously)
      * This API provides capability to partially update a Route Filter Rule
      * @param routeFilterId Route Filters Id (required)
      * @param routeFilterRuleId Route  Filter  Rules Id (required)
@@ -1454,7 +1454,7 @@ public class RouteFilterRulesApi {
     }
 
     /**
-     * ReplaceRFRule
+     * Replace Route Filter Rule
      * This API provides capability to replace a Route Filter Rule completely
      * @param routeFilterId Route Filters Id (required)
      * @param routeFilterRuleId Route  Filter  Rules Id (required)
@@ -1479,7 +1479,7 @@ public class RouteFilterRulesApi {
     }
 
     /**
-     * ReplaceRFRule
+     * Replace Route Filter Rule
      * This API provides capability to replace a Route Filter Rule completely
      * @param routeFilterId Route Filters Id (required)
      * @param routeFilterRuleId Route  Filter  Rules Id (required)
@@ -1505,7 +1505,7 @@ public class RouteFilterRulesApi {
     }
 
     /**
-     * ReplaceRFRule (asynchronously)
+     * Replace Route Filter Rule (asynchronously)
      * This API provides capability to replace a Route Filter Rule completely
      * @param routeFilterId Route Filters Id (required)
      * @param routeFilterRuleId Route  Filter  Rules Id (required)

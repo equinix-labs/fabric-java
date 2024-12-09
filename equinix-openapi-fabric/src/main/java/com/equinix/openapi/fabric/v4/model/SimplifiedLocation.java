@@ -46,6 +46,10 @@ import com.equinix.openapi.fabric.JSON;
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SimplifiedLocation {
+  public static final String SERIALIZED_NAME_METRO_HREF = "metroHref";
+  @SerializedName(SERIALIZED_NAME_METRO_HREF)
+  private String metroHref;
+
   public static final String SERIALIZED_NAME_REGION = "region";
   @SerializedName(SERIALIZED_NAME_REGION)
   private String region;
@@ -58,16 +62,34 @@ public class SimplifiedLocation {
   @SerializedName(SERIALIZED_NAME_METRO_CODE)
   private String metroCode;
 
-  public static final String SERIALIZED_NAME_METRO_HREF = "metroHref";
-  @SerializedName(SERIALIZED_NAME_METRO_HREF)
-  private String metroHref;
-
   public static final String SERIALIZED_NAME_IBX = "ibx";
   @SerializedName(SERIALIZED_NAME_IBX)
   private String ibx;
 
   public SimplifiedLocation() {
   }
+
+  public SimplifiedLocation metroHref(String metroHref) {
+    
+    this.metroHref = metroHref;
+    return this;
+  }
+
+   /**
+   * Get metroHref
+   * @return metroHref
+  **/
+  @javax.annotation.Nullable
+
+  public String getMetroHref() {
+    return metroHref;
+  }
+
+
+  public void setMetroHref(String metroHref) {
+    this.metroHref = metroHref;
+  }
+
 
   public SimplifiedLocation region(String region) {
     
@@ -132,28 +154,6 @@ public class SimplifiedLocation {
 
   public void setMetroCode(String metroCode) {
     this.metroCode = metroCode;
-  }
-
-
-  public SimplifiedLocation metroHref(String metroHref) {
-    
-    this.metroHref = metroHref;
-    return this;
-  }
-
-   /**
-   * Get metroHref
-   * @return metroHref
-  **/
-  @javax.annotation.Nullable
-
-  public String getMetroHref() {
-    return metroHref;
-  }
-
-
-  public void setMetroHref(String metroHref) {
-    this.metroHref = metroHref;
   }
 
 
@@ -235,27 +235,27 @@ public class SimplifiedLocation {
       return false;
     }
     SimplifiedLocation simplifiedLocation = (SimplifiedLocation) o;
-    return Objects.equals(this.region, simplifiedLocation.region) &&
+    return Objects.equals(this.metroHref, simplifiedLocation.metroHref) &&
+        Objects.equals(this.region, simplifiedLocation.region) &&
         Objects.equals(this.metroName, simplifiedLocation.metroName) &&
         Objects.equals(this.metroCode, simplifiedLocation.metroCode) &&
-        Objects.equals(this.metroHref, simplifiedLocation.metroHref) &&
         Objects.equals(this.ibx, simplifiedLocation.ibx)&&
         Objects.equals(this.additionalProperties, simplifiedLocation.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(region, metroName, metroCode, metroHref, ibx, additionalProperties);
+    return Objects.hash(metroHref, region, metroName, metroCode, ibx, additionalProperties);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class SimplifiedLocation {\n");
+    sb.append("    metroHref: ").append(toIndentedString(metroHref)).append("\n");
     sb.append("    region: ").append(toIndentedString(region)).append("\n");
     sb.append("    metroName: ").append(toIndentedString(metroName)).append("\n");
     sb.append("    metroCode: ").append(toIndentedString(metroCode)).append("\n");
-    sb.append("    metroHref: ").append(toIndentedString(metroHref)).append("\n");
     sb.append("    ibx: ").append(toIndentedString(ibx)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
@@ -280,10 +280,10 @@ public class SimplifiedLocation {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
+    openapiFields.add("metroHref");
     openapiFields.add("region");
     openapiFields.add("metroName");
     openapiFields.add("metroCode");
-    openapiFields.add("metroHref");
     openapiFields.add("ibx");
 
     // a set of required properties/fields (JSON key names)
@@ -302,6 +302,9 @@ public class SimplifiedLocation {
           throw new IllegalArgumentException(String.format("The required field(s) %s in SimplifiedLocation is not found in the empty JSON string", SimplifiedLocation.openapiRequiredFields.toString()));
         }
       }
+      if ((jsonObj.get("metroHref") != null && !jsonObj.get("metroHref").isJsonNull()) && !jsonObj.get("metroHref").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `metroHref` to be a primitive type in the JSON string but got `%s`", jsonObj.get("metroHref").toString()));
+      }
       if ((jsonObj.get("region") != null && !jsonObj.get("region").isJsonNull()) && !jsonObj.get("region").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `region` to be a primitive type in the JSON string but got `%s`", jsonObj.get("region").toString()));
       }
@@ -310,9 +313,6 @@ public class SimplifiedLocation {
       }
       if ((jsonObj.get("metroCode") != null && !jsonObj.get("metroCode").isJsonNull()) && !jsonObj.get("metroCode").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `metroCode` to be a primitive type in the JSON string but got `%s`", jsonObj.get("metroCode").toString()));
-      }
-      if ((jsonObj.get("metroHref") != null && !jsonObj.get("metroHref").isJsonNull()) && !jsonObj.get("metroHref").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `metroHref` to be a primitive type in the JSON string but got `%s`", jsonObj.get("metroHref").toString()));
       }
       if ((jsonObj.get("ibx") != null && !jsonObj.get("ibx").isJsonNull()) && !jsonObj.get("ibx").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `ibx` to be a primitive type in the JSON string but got `%s`", jsonObj.get("ibx").toString()));

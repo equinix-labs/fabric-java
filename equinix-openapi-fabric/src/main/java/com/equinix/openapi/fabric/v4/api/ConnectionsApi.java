@@ -84,12 +84,14 @@ public class ConnectionsApi {
     /**
      * Build call for createConnection
      * @param connectionPostRequest  (required)
+     * @param dryRun option to verify that API calls will succeed (optional, default to false)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 201 </td><td> Accept Connection Request </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -97,7 +99,7 @@ public class ConnectionsApi {
         <tr><td> 405 </td><td> Method not allowed </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createConnectionCall(ConnectionPostRequest connectionPostRequest, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call createConnectionCall(ConnectionPostRequest connectionPostRequest, Boolean dryRun, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -122,6 +124,10 @@ public class ConnectionsApi {
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+        if (dryRun != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("dryRun", dryRun));
+        }
+
         final String[] localVarAccepts = {
             "application/json"
         };
@@ -143,13 +149,13 @@ public class ConnectionsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createConnectionValidateBeforeCall(ConnectionPostRequest connectionPostRequest, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createConnectionValidateBeforeCall(ConnectionPostRequest connectionPostRequest, Boolean dryRun, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'connectionPostRequest' is set
         if (connectionPostRequest == null) {
             throw new ApiException("Missing the required parameter 'connectionPostRequest' when calling createConnection(Async)");
         }
 
-        return createConnectionCall(connectionPostRequest, _callback);
+        return createConnectionCall(connectionPostRequest, dryRun, _callback);
 
     }
 
@@ -157,11 +163,13 @@ public class ConnectionsApi {
      * Create Connection
      * This API provides capability to create user&#39;s virtual connection
      * @param connectionPostRequest  (required)
+     * @param dryRun option to verify that API calls will succeed (optional, default to false)
      * @return Connection
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 201 </td><td> Accept Connection Request </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -169,8 +177,8 @@ public class ConnectionsApi {
         <tr><td> 405 </td><td> Method not allowed </td><td>  -  </td></tr>
      </table>
      */
-    public Connection createConnection(ConnectionPostRequest connectionPostRequest) throws ApiException {
-        ApiResponse<Connection> localVarResp = createConnectionWithHttpInfo(connectionPostRequest);
+    public Connection createConnection(ConnectionPostRequest connectionPostRequest, Boolean dryRun) throws ApiException {
+        ApiResponse<Connection> localVarResp = createConnectionWithHttpInfo(connectionPostRequest, dryRun);
         return localVarResp.getData();
     }
 
@@ -178,11 +186,13 @@ public class ConnectionsApi {
      * Create Connection
      * This API provides capability to create user&#39;s virtual connection
      * @param connectionPostRequest  (required)
+     * @param dryRun option to verify that API calls will succeed (optional, default to false)
      * @return ApiResponse&lt;Connection&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 201 </td><td> Accept Connection Request </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -190,8 +200,8 @@ public class ConnectionsApi {
         <tr><td> 405 </td><td> Method not allowed </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Connection> createConnectionWithHttpInfo(ConnectionPostRequest connectionPostRequest) throws ApiException {
-        okhttp3.Call localVarCall = createConnectionValidateBeforeCall(connectionPostRequest, null);
+    public ApiResponse<Connection> createConnectionWithHttpInfo(ConnectionPostRequest connectionPostRequest, Boolean dryRun) throws ApiException {
+        okhttp3.Call localVarCall = createConnectionValidateBeforeCall(connectionPostRequest, dryRun, null);
         Type localVarReturnType = new TypeToken<Connection>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -200,12 +210,14 @@ public class ConnectionsApi {
      * Create Connection (asynchronously)
      * This API provides capability to create user&#39;s virtual connection
      * @param connectionPostRequest  (required)
+     * @param dryRun option to verify that API calls will succeed (optional, default to false)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 201 </td><td> Accept Connection Request </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -213,9 +225,9 @@ public class ConnectionsApi {
         <tr><td> 405 </td><td> Method not allowed </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createConnectionAsync(ConnectionPostRequest connectionPostRequest, final ApiCallback<Connection> _callback) throws ApiException {
+    public okhttp3.Call createConnectionAsync(ConnectionPostRequest connectionPostRequest, Boolean dryRun, final ApiCallback<Connection> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = createConnectionValidateBeforeCall(connectionPostRequest, _callback);
+        okhttp3.Call localVarCall = createConnectionValidateBeforeCall(connectionPostRequest, dryRun, _callback);
         Type localVarReturnType = new TypeToken<Connection>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;

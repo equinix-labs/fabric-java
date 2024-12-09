@@ -118,78 +118,9 @@ public class CloudRouterPackage {
   @SerializedName(SERIALIZED_NAME_TOTAL_I_PV6_ROUTES_MAX)
   private Integer totalIPv6RoutesMax;
 
-  public static final String SERIALIZED_NAME_STATIC_I_PV4_ROUTES_MAX = "staticIPv4RoutesMax";
-  @SerializedName(SERIALIZED_NAME_STATIC_I_PV4_ROUTES_MAX)
-  private Integer staticIPv4RoutesMax;
-
-  public static final String SERIALIZED_NAME_STATIC_I_PV6_ROUTES_MAX = "staticIPv6RoutesMax";
-  @SerializedName(SERIALIZED_NAME_STATIC_I_PV6_ROUTES_MAX)
-  private Integer staticIPv6RoutesMax;
-
-  public static final String SERIALIZED_NAME_NACLS_MAX = "naclsMax";
-  @SerializedName(SERIALIZED_NAME_NACLS_MAX)
-  private Integer naclsMax;
-
-  public static final String SERIALIZED_NAME_NACL_RULES_MAX = "naclRulesMax";
-  @SerializedName(SERIALIZED_NAME_NACL_RULES_MAX)
-  private Integer naclRulesMax;
-
-  public static final String SERIALIZED_NAME_HA_SUPPORTED = "haSupported";
-  @SerializedName(SERIALIZED_NAME_HA_SUPPORTED)
-  private Boolean haSupported;
-
   public static final String SERIALIZED_NAME_ROUTE_FILTER_SUPPORTED = "routeFilterSupported";
   @SerializedName(SERIALIZED_NAME_ROUTE_FILTER_SUPPORTED)
   private Boolean routeFilterSupported;
-
-  /**
-   * CloudRouter package NAT supported type
-   */
-  @JsonAdapter(NatTypeEnum.Adapter.class)
-  public enum NatTypeEnum {
-    STATIC_NAT("STATIC_NAT");
-
-    private String value;
-
-    NatTypeEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static NatTypeEnum fromValue(String value) {
-      for (NatTypeEnum b : NatTypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-
-    public static class Adapter extends TypeAdapter<NatTypeEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final NatTypeEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public NatTypeEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return NatTypeEnum.fromValue(value);
-      }
-    }
-  }
-
-  public static final String SERIALIZED_NAME_NAT_TYPE = "natType";
-  @SerializedName(SERIALIZED_NAME_NAT_TYPE)
-  private NatTypeEnum natType;
 
   public static final String SERIALIZED_NAME_VC_COUNT_MAX = "vcCountMax";
   @SerializedName(SERIALIZED_NAME_VC_COUNT_MAX)
@@ -343,120 +274,6 @@ public class CloudRouterPackage {
   }
 
 
-  public CloudRouterPackage staticIPv4RoutesMax(Integer staticIPv4RoutesMax) {
-    
-    this.staticIPv4RoutesMax = staticIPv4RoutesMax;
-    return this;
-  }
-
-   /**
-   * CloudRouter package static IPv4 routes limit
-   * minimum: 0
-   * @return staticIPv4RoutesMax
-  **/
-  @javax.annotation.Nullable
-
-  public Integer getStaticIPv4RoutesMax() {
-    return staticIPv4RoutesMax;
-  }
-
-
-  public void setStaticIPv4RoutesMax(Integer staticIPv4RoutesMax) {
-    this.staticIPv4RoutesMax = staticIPv4RoutesMax;
-  }
-
-
-  public CloudRouterPackage staticIPv6RoutesMax(Integer staticIPv6RoutesMax) {
-    
-    this.staticIPv6RoutesMax = staticIPv6RoutesMax;
-    return this;
-  }
-
-   /**
-   * CloudRouter package static IPv6 routes limit
-   * minimum: 0
-   * @return staticIPv6RoutesMax
-  **/
-  @javax.annotation.Nullable
-
-  public Integer getStaticIPv6RoutesMax() {
-    return staticIPv6RoutesMax;
-  }
-
-
-  public void setStaticIPv6RoutesMax(Integer staticIPv6RoutesMax) {
-    this.staticIPv6RoutesMax = staticIPv6RoutesMax;
-  }
-
-
-  public CloudRouterPackage naclsMax(Integer naclsMax) {
-    
-    this.naclsMax = naclsMax;
-    return this;
-  }
-
-   /**
-   * CloudRouter package NACLs limit
-   * minimum: 0
-   * @return naclsMax
-  **/
-  @javax.annotation.Nullable
-
-  public Integer getNaclsMax() {
-    return naclsMax;
-  }
-
-
-  public void setNaclsMax(Integer naclsMax) {
-    this.naclsMax = naclsMax;
-  }
-
-
-  public CloudRouterPackage naclRulesMax(Integer naclRulesMax) {
-    
-    this.naclRulesMax = naclRulesMax;
-    return this;
-  }
-
-   /**
-   * CloudRouter package NACLs rules limit
-   * minimum: 0
-   * @return naclRulesMax
-  **/
-  @javax.annotation.Nullable
-
-  public Integer getNaclRulesMax() {
-    return naclRulesMax;
-  }
-
-
-  public void setNaclRulesMax(Integer naclRulesMax) {
-    this.naclRulesMax = naclRulesMax;
-  }
-
-
-  public CloudRouterPackage haSupported(Boolean haSupported) {
-    
-    this.haSupported = haSupported;
-    return this;
-  }
-
-   /**
-   * CloudRouter package high-available configuration support
-   * @return haSupported
-  **/
-  @javax.annotation.Nullable
-
-  public Boolean getHaSupported() {
-    return haSupported;
-  }
-
-
-  public void setHaSupported(Boolean haSupported) {
-    this.haSupported = haSupported;
-  }
-
-
   public CloudRouterPackage routeFilterSupported(Boolean routeFilterSupported) {
     
     this.routeFilterSupported = routeFilterSupported;
@@ -476,28 +293,6 @@ public class CloudRouterPackage {
 
   public void setRouteFilterSupported(Boolean routeFilterSupported) {
     this.routeFilterSupported = routeFilterSupported;
-  }
-
-
-  public CloudRouterPackage natType(NatTypeEnum natType) {
-    
-    this.natType = natType;
-    return this;
-  }
-
-   /**
-   * CloudRouter package NAT supported type
-   * @return natType
-  **/
-  @javax.annotation.Nullable
-
-  public NatTypeEnum getNatType() {
-    return natType;
-  }
-
-
-  public void setNatType(NatTypeEnum natType) {
-    this.natType = natType;
   }
 
 
@@ -652,13 +447,7 @@ public class CloudRouterPackage {
         Objects.equals(this.description, cloudRouterPackage.description) &&
         Objects.equals(this.totalIPv4RoutesMax, cloudRouterPackage.totalIPv4RoutesMax) &&
         Objects.equals(this.totalIPv6RoutesMax, cloudRouterPackage.totalIPv6RoutesMax) &&
-        Objects.equals(this.staticIPv4RoutesMax, cloudRouterPackage.staticIPv4RoutesMax) &&
-        Objects.equals(this.staticIPv6RoutesMax, cloudRouterPackage.staticIPv6RoutesMax) &&
-        Objects.equals(this.naclsMax, cloudRouterPackage.naclsMax) &&
-        Objects.equals(this.naclRulesMax, cloudRouterPackage.naclRulesMax) &&
-        Objects.equals(this.haSupported, cloudRouterPackage.haSupported) &&
         Objects.equals(this.routeFilterSupported, cloudRouterPackage.routeFilterSupported) &&
-        Objects.equals(this.natType, cloudRouterPackage.natType) &&
         Objects.equals(this.vcCountMax, cloudRouterPackage.vcCountMax) &&
         Objects.equals(this.crCountMax, cloudRouterPackage.crCountMax) &&
         Objects.equals(this.vcBandwidthMax, cloudRouterPackage.vcBandwidthMax) &&
@@ -668,7 +457,7 @@ public class CloudRouterPackage {
 
   @Override
   public int hashCode() {
-    return Objects.hash(href, type, code, description, totalIPv4RoutesMax, totalIPv6RoutesMax, staticIPv4RoutesMax, staticIPv6RoutesMax, naclsMax, naclRulesMax, haSupported, routeFilterSupported, natType, vcCountMax, crCountMax, vcBandwidthMax, changeLog, additionalProperties);
+    return Objects.hash(href, type, code, description, totalIPv4RoutesMax, totalIPv6RoutesMax, routeFilterSupported, vcCountMax, crCountMax, vcBandwidthMax, changeLog, additionalProperties);
   }
 
   @Override
@@ -681,13 +470,7 @@ public class CloudRouterPackage {
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    totalIPv4RoutesMax: ").append(toIndentedString(totalIPv4RoutesMax)).append("\n");
     sb.append("    totalIPv6RoutesMax: ").append(toIndentedString(totalIPv6RoutesMax)).append("\n");
-    sb.append("    staticIPv4RoutesMax: ").append(toIndentedString(staticIPv4RoutesMax)).append("\n");
-    sb.append("    staticIPv6RoutesMax: ").append(toIndentedString(staticIPv6RoutesMax)).append("\n");
-    sb.append("    naclsMax: ").append(toIndentedString(naclsMax)).append("\n");
-    sb.append("    naclRulesMax: ").append(toIndentedString(naclRulesMax)).append("\n");
-    sb.append("    haSupported: ").append(toIndentedString(haSupported)).append("\n");
     sb.append("    routeFilterSupported: ").append(toIndentedString(routeFilterSupported)).append("\n");
-    sb.append("    natType: ").append(toIndentedString(natType)).append("\n");
     sb.append("    vcCountMax: ").append(toIndentedString(vcCountMax)).append("\n");
     sb.append("    crCountMax: ").append(toIndentedString(crCountMax)).append("\n");
     sb.append("    vcBandwidthMax: ").append(toIndentedString(vcBandwidthMax)).append("\n");
@@ -721,13 +504,7 @@ public class CloudRouterPackage {
     openapiFields.add("description");
     openapiFields.add("totalIPv4RoutesMax");
     openapiFields.add("totalIPv6RoutesMax");
-    openapiFields.add("staticIPv4RoutesMax");
-    openapiFields.add("staticIPv6RoutesMax");
-    openapiFields.add("naclsMax");
-    openapiFields.add("naclRulesMax");
-    openapiFields.add("haSupported");
     openapiFields.add("routeFilterSupported");
-    openapiFields.add("natType");
     openapiFields.add("vcCountMax");
     openapiFields.add("crCountMax");
     openapiFields.add("vcBandwidthMax");
@@ -757,9 +534,6 @@ public class CloudRouterPackage {
       }
       if ((jsonObj.get("description") != null && !jsonObj.get("description").isJsonNull()) && !jsonObj.get("description").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `description` to be a primitive type in the JSON string but got `%s`", jsonObj.get("description").toString()));
-      }
-      if ((jsonObj.get("natType") != null && !jsonObj.get("natType").isJsonNull()) && !jsonObj.get("natType").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `natType` to be a primitive type in the JSON string but got `%s`", jsonObj.get("natType").toString()));
       }
       // validate the optional field `changeLog`
       if (jsonObj.get("changeLog") != null && !jsonObj.get("changeLog").isJsonNull()) {

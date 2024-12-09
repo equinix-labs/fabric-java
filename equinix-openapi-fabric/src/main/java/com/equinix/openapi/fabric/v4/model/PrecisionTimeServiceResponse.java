@@ -18,6 +18,7 @@ import com.equinix.openapi.fabric.v4.model.Ipv4;
 import com.equinix.openapi.fabric.v4.model.Md5;
 import com.equinix.openapi.fabric.v4.model.PrecisionTimeOrder;
 import com.equinix.openapi.fabric.v4.model.PrecisionTimePackageResponse;
+import com.equinix.openapi.fabric.v4.model.PrecisionTimePrice;
 import com.equinix.openapi.fabric.v4.model.Project;
 import com.equinix.openapi.fabric.v4.model.PtpAdvanceConfiguration;
 import com.equinix.openapi.fabric.v4.model.SimplifiedAccount;
@@ -131,6 +132,8 @@ public class PrecisionTimeServiceResponse {
   public enum StateEnum {
     CANCELLED("CANCELLED"),
     
+    CANCELLING("CANCELLING"),
+    
     CONFIGURING("CONFIGURING"),
     
     CONFIGURING_FAILED("CONFIGURING_FAILED"),
@@ -226,6 +229,10 @@ public class PrecisionTimeServiceResponse {
   public static final String SERIALIZED_NAME_ORDER = "order";
   @SerializedName(SERIALIZED_NAME_ORDER)
   private PrecisionTimeOrder order;
+
+  public static final String SERIALIZED_NAME_PRICING = "pricing";
+  @SerializedName(SERIALIZED_NAME_PRICING)
+  private PrecisionTimePrice pricing;
 
   public static final String SERIALIZED_NAME_CHANGE_LOG = "changeLog";
   @SerializedName(SERIALIZED_NAME_CHANGE_LOG)
@@ -536,6 +543,28 @@ public class PrecisionTimeServiceResponse {
   }
 
 
+  public PrecisionTimeServiceResponse pricing(PrecisionTimePrice pricing) {
+    
+    this.pricing = pricing;
+    return this;
+  }
+
+   /**
+   * Get pricing
+   * @return pricing
+  **/
+  @javax.annotation.Nullable
+
+  public PrecisionTimePrice getPricing() {
+    return pricing;
+  }
+
+
+  public void setPricing(PrecisionTimePrice pricing) {
+    this.pricing = pricing;
+  }
+
+
   public PrecisionTimeServiceResponse changeLog(Changelog changeLog) {
     
     this.changeLog = changeLog;
@@ -625,13 +654,14 @@ public class PrecisionTimeServiceResponse {
         Objects.equals(this.project, precisionTimeServiceResponse.project) &&
         Objects.equals(this.account, precisionTimeServiceResponse.account) &&
         Objects.equals(this.order, precisionTimeServiceResponse.order) &&
+        Objects.equals(this.pricing, precisionTimeServiceResponse.pricing) &&
         Objects.equals(this.changeLog, precisionTimeServiceResponse.changeLog)&&
         Objects.equals(this.additionalProperties, precisionTimeServiceResponse.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(href, type, name, uuid, state, _package, connections, ipv4, ntpAdvancedConfiguration, ptpAdvancedConfiguration, project, account, order, changeLog, additionalProperties);
+    return Objects.hash(href, type, name, uuid, state, _package, connections, ipv4, ntpAdvancedConfiguration, ptpAdvancedConfiguration, project, account, order, pricing, changeLog, additionalProperties);
   }
 
   @Override
@@ -651,6 +681,7 @@ public class PrecisionTimeServiceResponse {
     sb.append("    project: ").append(toIndentedString(project)).append("\n");
     sb.append("    account: ").append(toIndentedString(account)).append("\n");
     sb.append("    order: ").append(toIndentedString(order)).append("\n");
+    sb.append("    pricing: ").append(toIndentedString(pricing)).append("\n");
     sb.append("    changeLog: ").append(toIndentedString(changeLog)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
@@ -688,6 +719,7 @@ public class PrecisionTimeServiceResponse {
     openapiFields.add("project");
     openapiFields.add("account");
     openapiFields.add("order");
+    openapiFields.add("pricing");
     openapiFields.add("changeLog");
 
     // a set of required properties/fields (JSON key names)
@@ -782,6 +814,10 @@ public class PrecisionTimeServiceResponse {
       // validate the optional field `order`
       if (jsonObj.get("order") != null && !jsonObj.get("order").isJsonNull()) {
         PrecisionTimeOrder.validateJsonObject(jsonObj.getAsJsonObject("order"));
+      }
+      // validate the optional field `pricing`
+      if (jsonObj.get("pricing") != null && !jsonObj.get("pricing").isJsonNull()) {
+        PrecisionTimePrice.validateJsonObject(jsonObj.getAsJsonObject("pricing"));
       }
       // validate the optional field `changeLog`
       if (jsonObj.get("changeLog") != null && !jsonObj.get("changeLog").isJsonNull()) {

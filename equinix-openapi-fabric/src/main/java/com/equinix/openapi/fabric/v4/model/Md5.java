@@ -139,7 +139,7 @@ public class Md5 {
    /**
    * The authentication Key ID.
    * minimum: 1
-   * maximum: 65534
+   * maximum: 65535
    * @return keyNumber
   **/
   @javax.annotation.Nullable

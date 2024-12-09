@@ -13,7 +13,7 @@ Stream object
 |**state** | [**StateEnum**](#StateEnum) | Stream provision state |  [optional] |
 |**assetsCount** | **Integer** | Stream assets count |  [optional] |
 |**streamSubscriptionsCount** | **Integer** | Stream subscriptions count |  [optional] |
-|**changelog** | [**Changelog**](Changelog.md) |  |  [optional] |
+|**changeLog** | [**Changelog**](Changelog.md) |  |  [optional] |
 |**type** | [**TypeEnum**](#TypeEnum) |  |  [optional] |
 |**name** | **String** | Customer-provided stream name |  [optional] |
 |**description** | **String** | Customer-provided stream description |  [optional] |

@@ -66,6 +66,10 @@ import com.equinix.openapi.fabric.JSON;
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SimplifiedPort {
+  public static final String SERIALIZED_NAME_HREF = "href";
+  @SerializedName(SERIALIZED_NAME_HREF)
+  private URI href;
+
   public static final String SERIALIZED_NAME_TYPE = "type";
   @SerializedName(SERIALIZED_NAME_TYPE)
   private PortType type;
@@ -73,10 +77,6 @@ public class SimplifiedPort {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
   private Integer id;
-
-  public static final String SERIALIZED_NAME_HREF = "href";
-  @SerializedName(SERIALIZED_NAME_HREF)
-  private URI href;
 
   public static final String SERIALIZED_NAME_UUID = "uuid";
   @SerializedName(SERIALIZED_NAME_UUID)
@@ -240,6 +240,19 @@ public class SimplifiedPort {
     this.href = href;
   }
 
+   /**
+   * Equinix assigned response attribute for an absolute URL that is the subject of the link&#39;s context.
+   * @return href
+  **/
+  @javax.annotation.Nullable
+
+  public URI getHref() {
+    return href;
+  }
+
+
+
+
   public SimplifiedPort type(PortType type) {
     
     this.type = type;
@@ -282,19 +295,6 @@ public class SimplifiedPort {
   public void setId(Integer id) {
     this.id = id;
   }
-
-
-   /**
-   * Equinix assigned response attribute for an absolute URL that is the subject of the link&#39;s context.
-   * @return href
-  **/
-  @javax.annotation.Nullable
-
-  public URI getHref() {
-    return href;
-  }
-
-
 
 
   public SimplifiedPort uuid(UUID uuid) {
@@ -946,9 +946,9 @@ public class SimplifiedPort {
       return false;
     }
     SimplifiedPort simplifiedPort = (SimplifiedPort) o;
-    return Objects.equals(this.type, simplifiedPort.type) &&
+    return Objects.equals(this.href, simplifiedPort.href) &&
+        Objects.equals(this.type, simplifiedPort.type) &&
         Objects.equals(this.id, simplifiedPort.id) &&
-        Objects.equals(this.href, simplifiedPort.href) &&
         Objects.equals(this.uuid, simplifiedPort.uuid) &&
         Objects.equals(this.name, simplifiedPort.name) &&
         Objects.equals(this.description, simplifiedPort.description) &&
@@ -980,16 +980,16 @@ public class SimplifiedPort {
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, id, href, uuid, name, description, physicalPortsSpeed, connectionsCount, project, state, operation, account, serviceType, bandwidth, availableBandwidth, usedBandwidth, location, device, _interface, tether, demarcationPoint, redundancy, encapsulation, lagEnabled, _package, settings, physicalPortQuantity, additionalInfo, physicalPorts, additionalProperties);
+    return Objects.hash(href, type, id, uuid, name, description, physicalPortsSpeed, connectionsCount, project, state, operation, account, serviceType, bandwidth, availableBandwidth, usedBandwidth, location, device, _interface, tether, demarcationPoint, redundancy, encapsulation, lagEnabled, _package, settings, physicalPortQuantity, additionalInfo, physicalPorts, additionalProperties);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class SimplifiedPort {\n");
+    sb.append("    href: ").append(toIndentedString(href)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    href: ").append(toIndentedString(href)).append("\n");
     sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
@@ -1039,9 +1039,9 @@ public class SimplifiedPort {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
+    openapiFields.add("href");
     openapiFields.add("type");
     openapiFields.add("id");
-    openapiFields.add("href");
     openapiFields.add("uuid");
     openapiFields.add("name");
     openapiFields.add("description");

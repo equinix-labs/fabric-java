@@ -2,22 +2,22 @@
 
 # RouteFilterChangeData
 
-Current state of latest Route Filter change
+Current state of latest route filter change
 
 ## Properties
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**status** | [**StatusEnum**](#StatusEnum) | Current outcome of the change flow |  [optional] |
-|**createdBy** | **String** | Created by User Key |  [optional] |
+|**createdBy** | **String** | Created by user key |  [optional] |
 |**createdDateTime** | **OffsetDateTime** | Set when change flow starts |  [optional] |
-|**updatedBy** | **String** | Updated by User Key |  [optional] |
+|**updatedBy** | **String** | Updated by user key |  [optional] |
 |**updatedDateTime** | **OffsetDateTime** | Set when change object is updated |  [optional] |
 |**information** | **String** | Additional information |  [optional] |
 |**data** | [**RouteFiltersChangeOperation**](RouteFiltersChangeOperation.md) |  |  [optional] |
 |**uuid** | **String** | Uniquely identifies a change |  |
 |**type** | [**TypeEnum**](#TypeEnum) | Type of change |  |
-|**href** | **URI** | Route Filter Change URI |  [optional] |
+|**href** | **URI** | Route filter change URI |  [optional] |
 
 
 

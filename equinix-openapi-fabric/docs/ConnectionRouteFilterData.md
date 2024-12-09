@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**href** | **URI** | Route Filter URI |  [optional] |
-|**type** | [**TypeEnum**](#TypeEnum) | Route Filter type |  [optional] |
+|**href** | **URI** | Route filter URI |  [optional] |
+|**type** | [**TypeEnum**](#TypeEnum) | Route filter type |  [optional] |
 |**uuid** | **UUID** | Route Filter identifier |  [optional] |
 |**attachmentStatus** | [**AttachmentStatusEnum**](#AttachmentStatusEnum) |  |  [optional] |
 |**direction** | [**DirectionEnum**](#DirectionEnum) |  |  [optional] |
