@@ -46,6 +46,7 @@ Port specification
 |**physicalPortQuantity** | **Integer** | Number of physical ports |  [optional] |
 |**notifications** | [**List&lt;PortNotification&gt;**](PortNotification.md) | Notification preferences |  [optional] |
 |**additionalInfo** | [**List&lt;PortAdditionalInfo&gt;**](PortAdditionalInfo.md) | Port additional information |  [optional] |
+|**endCustomer** | [**EndCustomer**](EndCustomer.md) |  |  [optional] |
 |**physicalPorts** | [**List&lt;PhysicalPort&gt;**](PhysicalPort.md) | Physical ports that implement this port |  [optional] |
 |**loas** | [**List&lt;PortLoa&gt;**](PortLoa.md) | Port Loas |  [optional] |
 

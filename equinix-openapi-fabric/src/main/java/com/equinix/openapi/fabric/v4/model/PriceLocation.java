@@ -50,6 +50,10 @@ public class PriceLocation {
   @SerializedName(SERIALIZED_NAME_METRO_CODE)
   private String metroCode;
 
+  public static final String SERIALIZED_NAME_IBX = "ibx";
+  @SerializedName(SERIALIZED_NAME_IBX)
+  private String ibx;
+
   public PriceLocation() {
   }
 
@@ -72,6 +76,28 @@ public class PriceLocation {
 
   public void setMetroCode(String metroCode) {
     this.metroCode = metroCode;
+  }
+
+
+  public PriceLocation ibx(String ibx) {
+    
+    this.ibx = ibx;
+    return this;
+  }
+
+   /**
+   * Get ibx
+   * @return ibx
+  **/
+  @javax.annotation.Nullable
+
+  public String getIbx() {
+    return ibx;
+  }
+
+
+  public void setIbx(String ibx) {
+    this.ibx = ibx;
   }
 
   /**
@@ -129,13 +155,14 @@ public class PriceLocation {
       return false;
     }
     PriceLocation priceLocation = (PriceLocation) o;
-    return Objects.equals(this.metroCode, priceLocation.metroCode)&&
+    return Objects.equals(this.metroCode, priceLocation.metroCode) &&
+        Objects.equals(this.ibx, priceLocation.ibx)&&
         Objects.equals(this.additionalProperties, priceLocation.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(metroCode, additionalProperties);
+    return Objects.hash(metroCode, ibx, additionalProperties);
   }
 
   @Override
@@ -143,6 +170,7 @@ public class PriceLocation {
     StringBuilder sb = new StringBuilder();
     sb.append("class PriceLocation {\n");
     sb.append("    metroCode: ").append(toIndentedString(metroCode)).append("\n");
+    sb.append("    ibx: ").append(toIndentedString(ibx)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -167,6 +195,7 @@ public class PriceLocation {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("metroCode");
+    openapiFields.add("ibx");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -186,6 +215,9 @@ public class PriceLocation {
       }
       if ((jsonObj.get("metroCode") != null && !jsonObj.get("metroCode").isJsonNull()) && !jsonObj.get("metroCode").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `metroCode` to be a primitive type in the JSON string but got `%s`", jsonObj.get("metroCode").toString()));
+      }
+      if ((jsonObj.get("ibx") != null && !jsonObj.get("ibx").isJsonNull()) && !jsonObj.get("ibx").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `ibx` to be a primitive type in the JSON string but got `%s`", jsonObj.get("ibx").toString()));
       }
   }
 

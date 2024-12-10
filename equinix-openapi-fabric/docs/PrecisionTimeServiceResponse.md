@@ -21,6 +21,7 @@ Precision Time Service Response Schema.
 |**project** | [**Project**](Project.md) |  |  [optional] |
 |**account** | [**SimplifiedAccount**](SimplifiedAccount.md) |  |  [optional] |
 |**order** | [**PrecisionTimeOrder**](PrecisionTimeOrder.md) |  |  [optional] |
+|**pricing** | [**PrecisionTimePrice**](PrecisionTimePrice.md) |  |  [optional] |
 |**changeLog** | [**Changelog**](Changelog.md) |  |  [optional] |
 
 
@@ -39,6 +40,7 @@ Precision Time Service Response Schema.
 | Name | Value |
 |---- | -----|
 | CANCELLED | &quot;CANCELLED&quot; |
+| CANCELLING | &quot;CANCELLING&quot; |
 | CONFIGURING | &quot;CONFIGURING&quot; |
 | CONFIGURING_FAILED | &quot;CONFIGURING_FAILED&quot; |
 | DRAFT | &quot;DRAFT&quot; |

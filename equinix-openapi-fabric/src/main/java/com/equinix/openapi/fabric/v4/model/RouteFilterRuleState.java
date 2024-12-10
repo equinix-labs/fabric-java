@@ -22,7 +22,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
 /**
- * Route Filter Rule status
+ * Route filter rule status
  */
 @JsonAdapter(RouteFilterRuleState.Adapter.class)
 public enum RouteFilterRuleState {

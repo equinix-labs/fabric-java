@@ -48,7 +48,7 @@ import java.util.Set;
 import com.equinix.openapi.fabric.JSON;
 
 /**
- * Adv/Rec Route table entry object
+ * Advertised and received route table entry object
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ConnectionRouteTableEntry {

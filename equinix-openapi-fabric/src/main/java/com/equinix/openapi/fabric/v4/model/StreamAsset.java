@@ -56,6 +56,69 @@ public class StreamAsset {
   @SerializedName(SERIALIZED_NAME_UUID)
   private UUID uuid;
 
+  /**
+   * Asset types
+   */
+  @JsonAdapter(TypeEnum.Adapter.class)
+  public enum TypeEnum {
+    XF_PORT("XF_PORT"),
+    
+    IP_VC("IP_VC"),
+    
+    EVPLAN_VC("EVPLAN_VC"),
+    
+    EVPL_VC("EVPL_VC"),
+    
+    XF_METRO("XF_METRO"),
+    
+    XF_ROUTER("XF_ROUTER"),
+    
+    ORGANIZATION("ORGANIZATION"),
+    
+    PROJECT("PROJECT");
+
+    private String value;
+
+    TypeEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static TypeEnum fromValue(String value) {
+      for (TypeEnum b : TypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+
+    public static class Adapter extends TypeAdapter<TypeEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final TypeEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public TypeEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return TypeEnum.fromValue(value);
+      }
+    }
+  }
+
+  public static final String SERIALIZED_NAME_TYPE = "type";
+  @SerializedName(SERIALIZED_NAME_TYPE)
+  private TypeEnum type;
+
   public static final String SERIALIZED_NAME_METRICS_ENABLED = "metricsEnabled";
   @SerializedName(SERIALIZED_NAME_METRICS_ENABLED)
   private Boolean metricsEnabled;
@@ -163,6 +226,28 @@ public class StreamAsset {
   }
 
 
+  public StreamAsset type(TypeEnum type) {
+    
+    this.type = type;
+    return this;
+  }
+
+   /**
+   * Asset types
+   * @return type
+  **/
+  @javax.annotation.Nullable
+
+  public TypeEnum getType() {
+    return type;
+  }
+
+
+  public void setType(TypeEnum type) {
+    this.type = type;
+  }
+
+
   public StreamAsset metricsEnabled(Boolean metricsEnabled) {
     
     this.metricsEnabled = metricsEnabled;
@@ -263,6 +348,7 @@ public class StreamAsset {
     StreamAsset streamAsset = (StreamAsset) o;
     return Objects.equals(this.href, streamAsset.href) &&
         Objects.equals(this.uuid, streamAsset.uuid) &&
+        Objects.equals(this.type, streamAsset.type) &&
         Objects.equals(this.metricsEnabled, streamAsset.metricsEnabled) &&
         Objects.equals(this.attachmentStatus, streamAsset.attachmentStatus)&&
         Objects.equals(this.additionalProperties, streamAsset.additionalProperties);
@@ -270,7 +356,7 @@ public class StreamAsset {
 
   @Override
   public int hashCode() {
-    return Objects.hash(href, uuid, metricsEnabled, attachmentStatus, additionalProperties);
+    return Objects.hash(href, uuid, type, metricsEnabled, attachmentStatus, additionalProperties);
   }
 
   @Override
@@ -279,6 +365,7 @@ public class StreamAsset {
     sb.append("class StreamAsset {\n");
     sb.append("    href: ").append(toIndentedString(href)).append("\n");
     sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    metricsEnabled: ").append(toIndentedString(metricsEnabled)).append("\n");
     sb.append("    attachmentStatus: ").append(toIndentedString(attachmentStatus)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
@@ -306,6 +393,7 @@ public class StreamAsset {
     openapiFields = new HashSet<String>();
     openapiFields.add("href");
     openapiFields.add("uuid");
+    openapiFields.add("type");
     openapiFields.add("metricsEnabled");
     openapiFields.add("attachmentStatus");
 
@@ -330,6 +418,9 @@ public class StreamAsset {
       }
       if ((jsonObj.get("uuid") != null && !jsonObj.get("uuid").isJsonNull()) && !jsonObj.get("uuid").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `uuid` to be a primitive type in the JSON string but got `%s`", jsonObj.get("uuid").toString()));
+      }
+      if ((jsonObj.get("type") != null && !jsonObj.get("type").isJsonNull()) && !jsonObj.get("type").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("type").toString()));
       }
       if ((jsonObj.get("attachmentStatus") != null && !jsonObj.get("attachmentStatus").isJsonNull()) && !jsonObj.get("attachmentStatus").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `attachmentStatus` to be a primitive type in the JSON string but got `%s`", jsonObj.get("attachmentStatus").toString()));

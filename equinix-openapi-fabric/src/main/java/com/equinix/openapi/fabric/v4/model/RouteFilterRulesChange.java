@@ -43,7 +43,7 @@ import java.util.Set;
 import com.equinix.openapi.fabric.JSON;
 
 /**
- * Current state of latest Route Filter Rule change
+ * Current state of latest route filter rule change
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class RouteFilterRulesChange {

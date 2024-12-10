@@ -123,9 +123,9 @@ public class Stream {
   @SerializedName(SERIALIZED_NAME_STREAM_SUBSCRIPTIONS_COUNT)
   private Integer streamSubscriptionsCount;
 
-  public static final String SERIALIZED_NAME_CHANGELOG = "changelog";
-  @SerializedName(SERIALIZED_NAME_CHANGELOG)
-  private Changelog changelog;
+  public static final String SERIALIZED_NAME_CHANGE_LOG = "changeLog";
+  @SerializedName(SERIALIZED_NAME_CHANGE_LOG)
+  private Changelog changeLog;
 
   /**
    * Gets or Sets type
@@ -304,25 +304,25 @@ public class Stream {
   }
 
 
-  public Stream changelog(Changelog changelog) {
+  public Stream changeLog(Changelog changeLog) {
     
-    this.changelog = changelog;
+    this.changeLog = changeLog;
     return this;
   }
 
    /**
-   * Get changelog
-   * @return changelog
+   * Get changeLog
+   * @return changeLog
   **/
   @javax.annotation.Nullable
 
-  public Changelog getChangelog() {
-    return changelog;
+  public Changelog getChangeLog() {
+    return changeLog;
   }
 
 
-  public void setChangelog(Changelog changelog) {
-    this.changelog = changelog;
+  public void setChangeLog(Changelog changeLog) {
+    this.changeLog = changeLog;
   }
 
 
@@ -495,7 +495,7 @@ public class Stream {
         Objects.equals(this.state, stream.state) &&
         Objects.equals(this.assetsCount, stream.assetsCount) &&
         Objects.equals(this.streamSubscriptionsCount, stream.streamSubscriptionsCount) &&
-        Objects.equals(this.changelog, stream.changelog) &&
+        Objects.equals(this.changeLog, stream.changeLog) &&
         Objects.equals(this.type, stream.type) &&
         Objects.equals(this.name, stream.name) &&
         Objects.equals(this.description, stream.description) &&
@@ -506,7 +506,7 @@ public class Stream {
 
   @Override
   public int hashCode() {
-    return Objects.hash(href, uuid, state, assetsCount, streamSubscriptionsCount, changelog, type, name, description, project, enabled, additionalProperties);
+    return Objects.hash(href, uuid, state, assetsCount, streamSubscriptionsCount, changeLog, type, name, description, project, enabled, additionalProperties);
   }
 
   @Override
@@ -518,7 +518,7 @@ public class Stream {
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    assetsCount: ").append(toIndentedString(assetsCount)).append("\n");
     sb.append("    streamSubscriptionsCount: ").append(toIndentedString(streamSubscriptionsCount)).append("\n");
-    sb.append("    changelog: ").append(toIndentedString(changelog)).append("\n");
+    sb.append("    changeLog: ").append(toIndentedString(changeLog)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
@@ -578,9 +578,9 @@ public class Stream {
       if ((jsonObj.get("state") != null && !jsonObj.get("state").isJsonNull()) && !jsonObj.get("state").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `state` to be a primitive type in the JSON string but got `%s`", jsonObj.get("state").toString()));
       }
-      // validate the optional field `changelog`
-      if (jsonObj.get("changelog") != null && !jsonObj.get("changelog").isJsonNull()) {
-        Changelog.validateJsonObject(jsonObj.getAsJsonObject("changelog"));
+      // validate the optional field `changeLog`
+      if (jsonObj.get("changeLog") != null && !jsonObj.get("changeLog").isJsonNull()) {
+        Changelog.validateJsonObject(jsonObj.getAsJsonObject("changeLog"));
       }
       if ((jsonObj.get("type") != null && !jsonObj.get("type").isJsonNull()) && !jsonObj.get("type").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("type").toString()));

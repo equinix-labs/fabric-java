@@ -2,7 +2,7 @@
 
 # RouteFiltersChangeOperation
 
-Route Filter change operation data
+Route filter change operation data
 
 ## Properties
 

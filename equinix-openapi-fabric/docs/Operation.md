@@ -8,8 +8,8 @@ Operation object for router actions
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**bgpIpv4RoutesCount** | **Integer** | IPV4 Route Count |  [optional] |
-|**bgpIpv6RoutesCount** | **Integer** | IPV6 Route Count |  [optional] |
+|**bgpIpv4RoutesCount** | **Integer** | IPV4 route count |  [optional] |
+|**bgpIpv6RoutesCount** | **Integer** | IPV6 route count |  [optional] |
 
 
 

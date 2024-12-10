@@ -2,7 +2,7 @@
 
 # RouteFilterRulesChangeData
 
-Current state of latest Route Filter Rules change
+Current state of latest route filter rules change
 
 ## Properties
 

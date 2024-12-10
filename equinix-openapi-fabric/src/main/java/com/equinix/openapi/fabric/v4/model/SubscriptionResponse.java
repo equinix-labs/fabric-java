@@ -184,9 +184,9 @@ public class SubscriptionResponse {
   @SerializedName(SERIALIZED_NAME_TRIAL)
   private SubscriptionTrial trial;
 
-  public static final String SERIALIZED_NAME_SUBSCRIPTION_KEY = "subscriptionKey";
-  @SerializedName(SERIALIZED_NAME_SUBSCRIPTION_KEY)
-  private String subscriptionKey;
+  public static final String SERIALIZED_NAME_METRO_CODES = "metroCodes";
+  @SerializedName(SERIALIZED_NAME_METRO_CODES)
+  private List<String> metroCodes = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_ENTITLEMENTS = "entitlements";
   @SerializedName(SERIALIZED_NAME_ENTITLEMENTS)
@@ -375,25 +375,33 @@ public class SubscriptionResponse {
   }
 
 
-  public SubscriptionResponse subscriptionKey(String subscriptionKey) {
+  public SubscriptionResponse metroCodes(List<String> metroCodes) {
     
-    this.subscriptionKey = subscriptionKey;
+    this.metroCodes = metroCodes;
+    return this;
+  }
+
+  public SubscriptionResponse addMetroCodesItem(String metroCodesItem) {
+    if (this.metroCodes == null) {
+      this.metroCodes = new ArrayList<>();
+    }
+    this.metroCodes.add(metroCodesItem);
     return this;
   }
 
    /**
-   * Subscription Key
-   * @return subscriptionKey
+   * List of available metro
+   * @return metroCodes
   **/
   @javax.annotation.Nullable
 
-  public String getSubscriptionKey() {
-    return subscriptionKey;
+  public List<String> getMetroCodes() {
+    return metroCodes;
   }
 
 
-  public void setSubscriptionKey(String subscriptionKey) {
-    this.subscriptionKey = subscriptionKey;
+  public void setMetroCodes(List<String> metroCodes) {
+    this.metroCodes = metroCodes;
   }
 
 
@@ -508,7 +516,7 @@ public class SubscriptionResponse {
         Objects.equals(this.isAutoRenew, subscriptionResponse.isAutoRenew) &&
         Objects.equals(this.offerId, subscriptionResponse.offerId) &&
         Objects.equals(this.trial, subscriptionResponse.trial) &&
-        Objects.equals(this.subscriptionKey, subscriptionResponse.subscriptionKey) &&
+        Objects.equals(this.metroCodes, subscriptionResponse.metroCodes) &&
         Objects.equals(this.entitlements, subscriptionResponse.entitlements) &&
         Objects.equals(this.changelog, subscriptionResponse.changelog)&&
         Objects.equals(this.additionalProperties, subscriptionResponse.additionalProperties);
@@ -516,7 +524,7 @@ public class SubscriptionResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(href, uuid, state, marketplace, offerType, isAutoRenew, offerId, trial, subscriptionKey, entitlements, changelog, additionalProperties);
+    return Objects.hash(href, uuid, state, marketplace, offerType, isAutoRenew, offerId, trial, metroCodes, entitlements, changelog, additionalProperties);
   }
 
   @Override
@@ -531,7 +539,7 @@ public class SubscriptionResponse {
     sb.append("    isAutoRenew: ").append(toIndentedString(isAutoRenew)).append("\n");
     sb.append("    offerId: ").append(toIndentedString(offerId)).append("\n");
     sb.append("    trial: ").append(toIndentedString(trial)).append("\n");
-    sb.append("    subscriptionKey: ").append(toIndentedString(subscriptionKey)).append("\n");
+    sb.append("    metroCodes: ").append(toIndentedString(metroCodes)).append("\n");
     sb.append("    entitlements: ").append(toIndentedString(entitlements)).append("\n");
     sb.append("    changelog: ").append(toIndentedString(changelog)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
@@ -565,7 +573,7 @@ public class SubscriptionResponse {
     openapiFields.add("isAutoRenew");
     openapiFields.add("offerId");
     openapiFields.add("trial");
-    openapiFields.add("subscriptionKey");
+    openapiFields.add("metroCodes");
     openapiFields.add("entitlements");
     openapiFields.add("changelog");
 
@@ -614,8 +622,9 @@ public class SubscriptionResponse {
       if (jsonObj.get("trial") != null && !jsonObj.get("trial").isJsonNull()) {
         SubscriptionTrial.validateJsonObject(jsonObj.getAsJsonObject("trial"));
       }
-      if ((jsonObj.get("subscriptionKey") != null && !jsonObj.get("subscriptionKey").isJsonNull()) && !jsonObj.get("subscriptionKey").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `subscriptionKey` to be a primitive type in the JSON string but got `%s`", jsonObj.get("subscriptionKey").toString()));
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("metroCodes") != null && !jsonObj.get("metroCodes").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `metroCodes` to be an array in the JSON string but got `%s`", jsonObj.get("metroCodes").toString()));
       }
       // ensure the json data is an array
       if (!jsonObj.get("entitlements").isJsonArray()) {

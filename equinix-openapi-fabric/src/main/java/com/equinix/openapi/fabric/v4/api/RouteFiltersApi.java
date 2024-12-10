@@ -933,7 +933,7 @@ public class RouteFiltersApi {
     }
 
     /**
-     * Get All RouteFilters
+     * Get All Route Filters
      * This API provides capability to view all Route Filters attached to a Connection
      * @param connectionId Connection Id (required)
      * @return GetAllConnectionRouteFiltersResponse
@@ -956,7 +956,7 @@ public class RouteFiltersApi {
     }
 
     /**
-     * Get All RouteFilters
+     * Get All Route Filters
      * This API provides capability to view all Route Filters attached to a Connection
      * @param connectionId Connection Id (required)
      * @return ApiResponse&lt;GetAllConnectionRouteFiltersResponse&gt;
@@ -980,7 +980,7 @@ public class RouteFiltersApi {
     }
 
     /**
-     * Get All RouteFilters (asynchronously)
+     * Get All Route Filters (asynchronously)
      * This API provides capability to view all Route Filters attached to a Connection
      * @param connectionId Connection Id (required)
      * @param _callback The callback to be executed when the API call finishes
@@ -1080,7 +1080,7 @@ public class RouteFiltersApi {
     }
 
     /**
-     * Get Filter By UUID
+     * Get Route Filter By UUID
      * This API provides capability to view a Route Filter by UUID
      * @param routeFilterId Route Filters Id (required)
      * @return RouteFiltersData
@@ -1103,7 +1103,7 @@ public class RouteFiltersApi {
     }
 
     /**
-     * Get Filter By UUID
+     * Get Route Filter By UUID
      * This API provides capability to view a Route Filter by UUID
      * @param routeFilterId Route Filters Id (required)
      * @return ApiResponse&lt;RouteFiltersData&gt;
@@ -1127,7 +1127,7 @@ public class RouteFiltersApi {
     }
 
     /**
-     * Get Filter By UUID (asynchronously)
+     * Get Route Filter By UUID (asynchronously)
      * This API provides capability to view a Route Filter by UUID
      * @param routeFilterId Route Filters Id (required)
      * @param _callback The callback to be executed when the API call finishes
@@ -1539,7 +1539,7 @@ public class RouteFiltersApi {
     }
 
     /**
-     * Get Connections
+     * Get All Connections on Route Filter
      * This API provides capability to view all Connections using the Route Filter
      * @param routeFilterId Route Filters Id (required)
      * @return GetRouteFilterGetConnectionsResponse
@@ -1562,7 +1562,7 @@ public class RouteFiltersApi {
     }
 
     /**
-     * Get Connections
+     * Get All Connections on Route Filter
      * This API provides capability to view all Connections using the Route Filter
      * @param routeFilterId Route Filters Id (required)
      * @return ApiResponse&lt;GetRouteFilterGetConnectionsResponse&gt;
@@ -1586,7 +1586,7 @@ public class RouteFiltersApi {
     }
 
     /**
-     * Get Connections (asynchronously)
+     * Get All Connections on Route Filter (asynchronously)
      * This API provides capability to view all Connections using the Route Filter
      * @param routeFilterId Route Filters Id (required)
      * @param _callback The callback to be executed when the API call finishes

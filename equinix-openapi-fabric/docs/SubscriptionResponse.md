@@ -16,7 +16,7 @@ Subscription Response
 |**isAutoRenew** | **Boolean** | Is Auto Renewal Enabled |  [optional] |
 |**offerId** | **String** | Marketplace Offer Id |  [optional] |
 |**trial** | [**SubscriptionTrial**](SubscriptionTrial.md) |  |  [optional] |
-|**subscriptionKey** | **String** | Subscription Key |  [optional] |
+|**metroCodes** | **List&lt;String&gt;** | List of available metro |  [optional] |
 |**entitlements** | [**List&lt;SubscriptionEntitlementResponse&gt;**](SubscriptionEntitlementResponse.md) | List of entitlements associated with the subscription |  |
 |**changelog** | [**Changelog**](Changelog.md) |  |  [optional] |
 

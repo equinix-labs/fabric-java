@@ -81,19 +81,21 @@ public class ServiceTokensApi {
     /**
      * Build call for createServiceToken
      * @param serviceToken  (required)
+     * @param dryRun option to verify that API calls will succeed (optional, default to false)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 201 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createServiceTokenCall(ServiceToken serviceToken, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call createServiceTokenCall(ServiceToken serviceToken, Boolean dryRun, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -118,6 +120,10 @@ public class ServiceTokensApi {
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+        if (dryRun != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("dryRun", dryRun));
+        }
+
         final String[] localVarAccepts = {
             "application/json"
         };
@@ -139,13 +145,13 @@ public class ServiceTokensApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createServiceTokenValidateBeforeCall(ServiceToken serviceToken, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createServiceTokenValidateBeforeCall(ServiceToken serviceToken, Boolean dryRun, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'serviceToken' is set
         if (serviceToken == null) {
             throw new ApiException("Missing the required parameter 'serviceToken' when calling createServiceToken(Async)");
         }
 
-        return createServiceTokenCall(serviceToken, _callback);
+        return createServiceTokenCall(serviceToken, dryRun, _callback);
 
     }
 
@@ -153,19 +159,21 @@ public class ServiceTokensApi {
      * Create Service Token
      * Create Service Tokens generates Equinix Fabric? service tokens. These tokens authorize users to access protected resources and services.
      * @param serviceToken  (required)
+     * @param dryRun option to verify that API calls will succeed (optional, default to false)
      * @return ServiceToken
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 201 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
      */
-    public ServiceToken createServiceToken(ServiceToken serviceToken) throws ApiException {
-        ApiResponse<ServiceToken> localVarResp = createServiceTokenWithHttpInfo(serviceToken);
+    public ServiceToken createServiceToken(ServiceToken serviceToken, Boolean dryRun) throws ApiException {
+        ApiResponse<ServiceToken> localVarResp = createServiceTokenWithHttpInfo(serviceToken, dryRun);
         return localVarResp.getData();
     }
 
@@ -173,19 +181,21 @@ public class ServiceTokensApi {
      * Create Service Token
      * Create Service Tokens generates Equinix Fabric? service tokens. These tokens authorize users to access protected resources and services.
      * @param serviceToken  (required)
+     * @param dryRun option to verify that API calls will succeed (optional, default to false)
      * @return ApiResponse&lt;ServiceToken&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 201 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<ServiceToken> createServiceTokenWithHttpInfo(ServiceToken serviceToken) throws ApiException {
-        okhttp3.Call localVarCall = createServiceTokenValidateBeforeCall(serviceToken, null);
+    public ApiResponse<ServiceToken> createServiceTokenWithHttpInfo(ServiceToken serviceToken, Boolean dryRun) throws ApiException {
+        okhttp3.Call localVarCall = createServiceTokenValidateBeforeCall(serviceToken, dryRun, null);
         Type localVarReturnType = new TypeToken<ServiceToken>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -194,21 +204,23 @@ public class ServiceTokensApi {
      * Create Service Token (asynchronously)
      * Create Service Tokens generates Equinix Fabric? service tokens. These tokens authorize users to access protected resources and services.
      * @param serviceToken  (required)
+     * @param dryRun option to verify that API calls will succeed (optional, default to false)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 201 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createServiceTokenAsync(ServiceToken serviceToken, final ApiCallback<ServiceToken> _callback) throws ApiException {
+    public okhttp3.Call createServiceTokenAsync(ServiceToken serviceToken, Boolean dryRun, final ApiCallback<ServiceToken> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = createServiceTokenValidateBeforeCall(serviceToken, _callback);
+        okhttp3.Call localVarCall = createServiceTokenValidateBeforeCall(serviceToken, dryRun, _callback);
         Type localVarReturnType = new TypeToken<ServiceToken>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;

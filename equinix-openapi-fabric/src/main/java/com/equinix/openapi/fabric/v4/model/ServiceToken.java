@@ -66,60 +66,17 @@ public class ServiceToken {
   @SerializedName(SERIALIZED_NAME_HREF)
   private URI href;
 
+  public static final String SERIALIZED_NAME_EXPIRY = "expiry";
+  @SerializedName(SERIALIZED_NAME_EXPIRY)
+  private Integer expiry;
+
   public static final String SERIALIZED_NAME_UUID = "uuid";
   @SerializedName(SERIALIZED_NAME_UUID)
   private UUID uuid;
 
-  /**
-   * information about token side
-   */
-  @JsonAdapter(IssuerSideEnum.Adapter.class)
-  public enum IssuerSideEnum {
-    ASIDE("ASIDE"),
-    
-    ZSIDE("ZSIDE");
-
-    private String value;
-
-    IssuerSideEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static IssuerSideEnum fromValue(String value) {
-      for (IssuerSideEnum b : IssuerSideEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-
-    public static class Adapter extends TypeAdapter<IssuerSideEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final IssuerSideEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public IssuerSideEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return IssuerSideEnum.fromValue(value);
-      }
-    }
-  }
-
   public static final String SERIALIZED_NAME_ISSUER_SIDE = "issuerSide";
   @SerializedName(SERIALIZED_NAME_ISSUER_SIDE)
-  private IssuerSideEnum issuerSide;
+  private String issuerSide;
 
   public static final String SERIALIZED_NAME_NAME = "name";
   @SerializedName(SERIALIZED_NAME_NAME)
@@ -203,6 +160,30 @@ public class ServiceToken {
 
 
 
+  public ServiceToken expiry(Integer expiry) {
+    
+    this.expiry = expiry;
+    return this;
+  }
+
+   /**
+   * Get expiry
+   * @return expiry
+   * @deprecated
+  **/
+  @Deprecated
+  @javax.annotation.Nullable
+
+  public Integer getExpiry() {
+    return expiry;
+  }
+
+
+  public void setExpiry(Integer expiry) {
+    this.expiry = expiry;
+  }
+
+
   public ServiceToken uuid(UUID uuid) {
     
     this.uuid = uuid;
@@ -225,7 +206,7 @@ public class ServiceToken {
   }
 
 
-  public ServiceToken issuerSide(IssuerSideEnum issuerSide) {
+  public ServiceToken issuerSide(String issuerSide) {
     
     this.issuerSide = issuerSide;
     return this;
@@ -234,15 +215,17 @@ public class ServiceToken {
    /**
    * information about token side
    * @return issuerSide
+   * @deprecated
   **/
+  @Deprecated
   @javax.annotation.Nullable
 
-  public IssuerSideEnum getIssuerSide() {
+  public String getIssuerSide() {
     return issuerSide;
   }
 
 
-  public void setIssuerSide(IssuerSideEnum issuerSide) {
+  public void setIssuerSide(String issuerSide) {
     this.issuerSide = issuerSide;
   }
 
@@ -509,6 +492,7 @@ public class ServiceToken {
     ServiceToken serviceToken = (ServiceToken) o;
     return Objects.equals(this.type, serviceToken.type) &&
         Objects.equals(this.href, serviceToken.href) &&
+        Objects.equals(this.expiry, serviceToken.expiry) &&
         Objects.equals(this.uuid, serviceToken.uuid) &&
         Objects.equals(this.issuerSide, serviceToken.issuerSide) &&
         Objects.equals(this.name, serviceToken.name) &&
@@ -525,7 +509,7 @@ public class ServiceToken {
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, href, uuid, issuerSide, name, description, expirationDateTime, connection, state, notifications, account, changelog, project, additionalProperties);
+    return Objects.hash(type, href, expiry, uuid, issuerSide, name, description, expirationDateTime, connection, state, notifications, account, changelog, project, additionalProperties);
   }
 
   @Override
@@ -534,6 +518,7 @@ public class ServiceToken {
     sb.append("class ServiceToken {\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    href: ").append(toIndentedString(href)).append("\n");
+    sb.append("    expiry: ").append(toIndentedString(expiry)).append("\n");
     sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
     sb.append("    issuerSide: ").append(toIndentedString(issuerSide)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
@@ -570,6 +555,7 @@ public class ServiceToken {
     openapiFields = new HashSet<String>();
     openapiFields.add("type");
     openapiFields.add("href");
+    openapiFields.add("expiry");
     openapiFields.add("uuid");
     openapiFields.add("issuerSide");
     openapiFields.add("name");

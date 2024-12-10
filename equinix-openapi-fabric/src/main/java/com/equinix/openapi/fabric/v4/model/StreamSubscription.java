@@ -16,6 +16,7 @@ import java.util.Arrays;
 import com.equinix.openapi.fabric.v4.model.Changelog;
 import com.equinix.openapi.fabric.v4.model.Project;
 import com.equinix.openapi.fabric.v4.model.StreamSubscriptionFilter;
+import com.equinix.openapi.fabric.v4.model.StreamSubscriptionSelector;
 import com.equinix.openapi.fabric.v4.model.StreamSubscriptionSink;
 import com.equinix.openapi.fabric.v4.model.StreamTarget;
 import com.google.gson.TypeAdapter;
@@ -191,13 +192,21 @@ public class StreamSubscription {
   @SerializedName(SERIALIZED_NAME_FILTERS)
   private StreamSubscriptionFilter filters;
 
+  public static final String SERIALIZED_NAME_METRIC_SELECTOR = "metricSelector";
+  @SerializedName(SERIALIZED_NAME_METRIC_SELECTOR)
+  private StreamSubscriptionSelector metricSelector;
+
+  public static final String SERIALIZED_NAME_EVENT_SELECTOR = "eventSelector";
+  @SerializedName(SERIALIZED_NAME_EVENT_SELECTOR)
+  private StreamSubscriptionSelector eventSelector;
+
   public static final String SERIALIZED_NAME_SINK = "sink";
   @SerializedName(SERIALIZED_NAME_SINK)
   private StreamSubscriptionSink sink;
 
-  public static final String SERIALIZED_NAME_CHANGELOG = "changelog";
-  @SerializedName(SERIALIZED_NAME_CHANGELOG)
-  private Changelog changelog;
+  public static final String SERIALIZED_NAME_CHANGE_LOG = "changeLog";
+  @SerializedName(SERIALIZED_NAME_CHANGE_LOG)
+  private Changelog changeLog;
 
   public StreamSubscription() {
   }
@@ -421,6 +430,50 @@ public class StreamSubscription {
   }
 
 
+  public StreamSubscription metricSelector(StreamSubscriptionSelector metricSelector) {
+    
+    this.metricSelector = metricSelector;
+    return this;
+  }
+
+   /**
+   * Get metricSelector
+   * @return metricSelector
+  **/
+  @javax.annotation.Nullable
+
+  public StreamSubscriptionSelector getMetricSelector() {
+    return metricSelector;
+  }
+
+
+  public void setMetricSelector(StreamSubscriptionSelector metricSelector) {
+    this.metricSelector = metricSelector;
+  }
+
+
+  public StreamSubscription eventSelector(StreamSubscriptionSelector eventSelector) {
+    
+    this.eventSelector = eventSelector;
+    return this;
+  }
+
+   /**
+   * Get eventSelector
+   * @return eventSelector
+  **/
+  @javax.annotation.Nullable
+
+  public StreamSubscriptionSelector getEventSelector() {
+    return eventSelector;
+  }
+
+
+  public void setEventSelector(StreamSubscriptionSelector eventSelector) {
+    this.eventSelector = eventSelector;
+  }
+
+
   public StreamSubscription sink(StreamSubscriptionSink sink) {
     
     this.sink = sink;
@@ -443,25 +496,25 @@ public class StreamSubscription {
   }
 
 
-  public StreamSubscription changelog(Changelog changelog) {
+  public StreamSubscription changeLog(Changelog changeLog) {
     
-    this.changelog = changelog;
+    this.changeLog = changeLog;
     return this;
   }
 
    /**
-   * Get changelog
-   * @return changelog
+   * Get changeLog
+   * @return changeLog
   **/
   @javax.annotation.Nullable
 
-  public Changelog getChangelog() {
-    return changelog;
+  public Changelog getChangeLog() {
+    return changeLog;
   }
 
 
-  public void setChangelog(Changelog changelog) {
-    this.changelog = changelog;
+  public void setChangeLog(Changelog changeLog) {
+    this.changeLog = changeLog;
   }
 
   /**
@@ -529,14 +582,16 @@ public class StreamSubscription {
         Objects.equals(this.enabled, streamSubscription.enabled) &&
         Objects.equals(this.stream, streamSubscription.stream) &&
         Objects.equals(this.filters, streamSubscription.filters) &&
+        Objects.equals(this.metricSelector, streamSubscription.metricSelector) &&
+        Objects.equals(this.eventSelector, streamSubscription.eventSelector) &&
         Objects.equals(this.sink, streamSubscription.sink) &&
-        Objects.equals(this.changelog, streamSubscription.changelog)&&
+        Objects.equals(this.changeLog, streamSubscription.changeLog)&&
         Objects.equals(this.additionalProperties, streamSubscription.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(href, uuid, type, name, description, project, state, enabled, stream, filters, sink, changelog, additionalProperties);
+    return Objects.hash(href, uuid, type, name, description, project, state, enabled, stream, filters, metricSelector, eventSelector, sink, changeLog, additionalProperties);
   }
 
   @Override
@@ -553,8 +608,10 @@ public class StreamSubscription {
     sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
     sb.append("    stream: ").append(toIndentedString(stream)).append("\n");
     sb.append("    filters: ").append(toIndentedString(filters)).append("\n");
+    sb.append("    metricSelector: ").append(toIndentedString(metricSelector)).append("\n");
+    sb.append("    eventSelector: ").append(toIndentedString(eventSelector)).append("\n");
     sb.append("    sink: ").append(toIndentedString(sink)).append("\n");
-    sb.append("    changelog: ").append(toIndentedString(changelog)).append("\n");
+    sb.append("    changeLog: ").append(toIndentedString(changeLog)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -588,8 +645,10 @@ public class StreamSubscription {
     openapiFields.add("enabled");
     openapiFields.add("stream");
     openapiFields.add("filters");
+    openapiFields.add("metricSelector");
+    openapiFields.add("eventSelector");
     openapiFields.add("sink");
-    openapiFields.add("changelog");
+    openapiFields.add("changeLog");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -637,13 +696,21 @@ public class StreamSubscription {
       if (jsonObj.get("filters") != null && !jsonObj.get("filters").isJsonNull()) {
         StreamSubscriptionFilter.validateJsonObject(jsonObj.getAsJsonObject("filters"));
       }
+      // validate the optional field `metricSelector`
+      if (jsonObj.get("metricSelector") != null && !jsonObj.get("metricSelector").isJsonNull()) {
+        StreamSubscriptionSelector.validateJsonObject(jsonObj.getAsJsonObject("metricSelector"));
+      }
+      // validate the optional field `eventSelector`
+      if (jsonObj.get("eventSelector") != null && !jsonObj.get("eventSelector").isJsonNull()) {
+        StreamSubscriptionSelector.validateJsonObject(jsonObj.getAsJsonObject("eventSelector"));
+      }
       // validate the optional field `sink`
       if (jsonObj.get("sink") != null && !jsonObj.get("sink").isJsonNull()) {
         StreamSubscriptionSink.validateJsonObject(jsonObj.getAsJsonObject("sink"));
       }
-      // validate the optional field `changelog`
-      if (jsonObj.get("changelog") != null && !jsonObj.get("changelog").isJsonNull()) {
-        Changelog.validateJsonObject(jsonObj.getAsJsonObject("changelog"));
+      // validate the optional field `changeLog`
+      if (jsonObj.get("changeLog") != null && !jsonObj.get("changeLog").isJsonNull()) {
+        Changelog.validateJsonObject(jsonObj.getAsJsonObject("changeLog"));
       }
   }
 

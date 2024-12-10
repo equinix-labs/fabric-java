@@ -15,7 +15,7 @@ All URIs are relative to *https://api.equinix.com*
 
 <a name="createServiceToken"></a>
 # **createServiceToken**
-> ServiceToken createServiceToken(serviceToken)
+> ServiceToken createServiceToken(serviceToken, dryRun)
 
 Create Service Token
 
@@ -42,8 +42,9 @@ public class Example {
 
     ServiceTokensApi apiInstance = new ServiceTokensApi(defaultClient);
     ServiceToken serviceToken = new ServiceToken(); // ServiceToken | 
+    Boolean dryRun = false; // Boolean | option to verify that API calls will succeed
     try {
-      ServiceToken result = apiInstance.createServiceToken(serviceToken);
+      ServiceToken result = apiInstance.createServiceToken(serviceToken, dryRun);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ServiceTokensApi#createServiceToken");
@@ -61,6 +62,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **serviceToken** | [**ServiceToken**](ServiceToken.md)|  | |
+| **dryRun** | **Boolean**| option to verify that API calls will succeed | [optional] [default to false] |
 
 ### Return type
 
@@ -78,6 +80,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+| **200** | Successful operation |  -  |
 | **201** | Successful operation |  -  |
 | **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |

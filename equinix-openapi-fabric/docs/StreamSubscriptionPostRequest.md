@@ -15,6 +15,8 @@ Create Stream Subscription
 |**enabled** | **Boolean** | Stream subscription enabled status |  [optional] |
 |**stream** | [**StreamTarget**](StreamTarget.md) |  |  [optional] |
 |**filters** | [**StreamSubscriptionFilter**](StreamSubscriptionFilter.md) |  |  [optional] |
+|**metricSelector** | [**StreamSubscriptionSelector**](StreamSubscriptionSelector.md) |  |  [optional] |
+|**eventSelector** | [**StreamSubscriptionSelector**](StreamSubscriptionSelector.md) |  |  [optional] |
 |**sink** | [**StreamSubscriptionSink**](StreamSubscriptionSink.md) |  |  [optional] |
 
 

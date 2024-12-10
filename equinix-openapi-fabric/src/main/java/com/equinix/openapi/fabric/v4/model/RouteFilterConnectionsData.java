@@ -119,7 +119,7 @@ public class RouteFilterConnectionsData {
   }
 
    /**
-   * Route Filter identifier
+   * Route filter identifier
    * @return uuid
   **/
   @javax.annotation.Nullable

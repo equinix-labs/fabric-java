@@ -45,7 +45,7 @@ import java.util.Set;
 import com.equinix.openapi.fabric.JSON;
 
 /**
- * Current state of latest Route Filter change
+ * Current state of latest route filter change
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class RouteFilterChangeData {
@@ -225,7 +225,7 @@ public class RouteFilterChangeData {
   }
 
    /**
-   * Created by User Key
+   * Created by user key
    * @return createdBy
   **/
   @javax.annotation.Nullable
@@ -269,7 +269,7 @@ public class RouteFilterChangeData {
   }
 
    /**
-   * Updated by User Key
+   * Updated by user key
    * @return updatedBy
   **/
   @javax.annotation.Nullable
@@ -401,7 +401,7 @@ public class RouteFilterChangeData {
   }
 
    /**
-   * Route Filter Change URI
+   * Route filter change URI
    * @return href
   **/
   @javax.annotation.Nullable

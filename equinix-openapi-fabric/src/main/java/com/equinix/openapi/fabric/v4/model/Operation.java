@@ -64,7 +64,7 @@ public class Operation {
   }
 
    /**
-   * IPV4 Route Count
+   * IPV4 route count
    * @return bgpIpv4RoutesCount
   **/
   @javax.annotation.Nullable
@@ -86,7 +86,7 @@ public class Operation {
   }
 
    /**
-   * IPV6 Route Count
+   * IPV6 route count
    * @return bgpIpv6RoutesCount
   **/
   @javax.annotation.Nullable

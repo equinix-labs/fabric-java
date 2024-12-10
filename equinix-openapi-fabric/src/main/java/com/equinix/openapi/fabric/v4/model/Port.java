@@ -14,6 +14,7 @@ package com.equinix.openapi.fabric.v4.model;
 import java.util.Objects;
 import java.util.Arrays;
 import com.equinix.openapi.fabric.v4.model.Changelog;
+import com.equinix.openapi.fabric.v4.model.EndCustomer;
 import com.equinix.openapi.fabric.v4.model.ModelPackage;
 import com.equinix.openapi.fabric.v4.model.PhysicalPort;
 import com.equinix.openapi.fabric.v4.model.PortAdditionalInfo;
@@ -417,6 +418,10 @@ public class Port {
   public static final String SERIALIZED_NAME_ADDITIONAL_INFO = "additionalInfo";
   @SerializedName(SERIALIZED_NAME_ADDITIONAL_INFO)
   private List<PortAdditionalInfo> additionalInfo = new ArrayList<>();
+
+  public static final String SERIALIZED_NAME_END_CUSTOMER = "endCustomer";
+  @SerializedName(SERIALIZED_NAME_END_CUSTOMER)
+  private EndCustomer endCustomer;
 
   public static final String SERIALIZED_NAME_PHYSICAL_PORTS = "physicalPorts";
   @SerializedName(SERIALIZED_NAME_PHYSICAL_PORTS)
@@ -1289,6 +1294,28 @@ public class Port {
   }
 
 
+  public Port endCustomer(EndCustomer endCustomer) {
+    
+    this.endCustomer = endCustomer;
+    return this;
+  }
+
+   /**
+   * Get endCustomer
+   * @return endCustomer
+  **/
+  @javax.annotation.Nullable
+
+  public EndCustomer getEndCustomer() {
+    return endCustomer;
+  }
+
+
+  public void setEndCustomer(EndCustomer endCustomer) {
+    this.endCustomer = endCustomer;
+  }
+
+
   public Port physicalPorts(List<PhysicalPort> physicalPorts) {
     
     this.physicalPorts = physicalPorts;
@@ -1441,6 +1468,7 @@ public class Port {
         Objects.equals(this.physicalPortQuantity, port.physicalPortQuantity) &&
         Objects.equals(this.notifications, port.notifications) &&
         Objects.equals(this.additionalInfo, port.additionalInfo) &&
+        Objects.equals(this.endCustomer, port.endCustomer) &&
         Objects.equals(this.physicalPorts, port.physicalPorts) &&
         Objects.equals(this.loas, port.loas)&&
         Objects.equals(this.additionalProperties, port.additionalProperties);
@@ -1448,7 +1476,7 @@ public class Port {
 
   @Override
   public int hashCode() {
-    return Objects.hash(href, type, id, uuid, name, description, physicalPortsSpeed, connectionsCount, physicalPortsType, physicalPortsCount, connectivitySourceType, bmmrType, project, state, order, operation, account, changeLog, serviceType, bandwidth, availableBandwidth, usedBandwidth, location, device, _interface, demarcationPointIbx, tetherIbx, demarcationPoint, redundancy, encapsulation, lagEnabled, lag, asn, _package, settings, physicalPortQuantity, notifications, additionalInfo, physicalPorts, loas, additionalProperties);
+    return Objects.hash(href, type, id, uuid, name, description, physicalPortsSpeed, connectionsCount, physicalPortsType, physicalPortsCount, connectivitySourceType, bmmrType, project, state, order, operation, account, changeLog, serviceType, bandwidth, availableBandwidth, usedBandwidth, location, device, _interface, demarcationPointIbx, tetherIbx, demarcationPoint, redundancy, encapsulation, lagEnabled, lag, asn, _package, settings, physicalPortQuantity, notifications, additionalInfo, endCustomer, physicalPorts, loas, additionalProperties);
   }
 
   @Override
@@ -1493,6 +1521,7 @@ public class Port {
     sb.append("    physicalPortQuantity: ").append(toIndentedString(physicalPortQuantity)).append("\n");
     sb.append("    notifications: ").append(toIndentedString(notifications)).append("\n");
     sb.append("    additionalInfo: ").append(toIndentedString(additionalInfo)).append("\n");
+    sb.append("    endCustomer: ").append(toIndentedString(endCustomer)).append("\n");
     sb.append("    physicalPorts: ").append(toIndentedString(physicalPorts)).append("\n");
     sb.append("    loas: ").append(toIndentedString(loas)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
@@ -1556,6 +1585,7 @@ public class Port {
     openapiFields.add("physicalPortQuantity");
     openapiFields.add("notifications");
     openapiFields.add("additionalInfo");
+    openapiFields.add("endCustomer");
     openapiFields.add("physicalPorts");
     openapiFields.add("loas");
 
@@ -1688,6 +1718,10 @@ public class Port {
             PortAdditionalInfo.validateJsonObject(jsonArrayadditionalInfo.get(i).getAsJsonObject());
           };
         }
+      }
+      // validate the optional field `endCustomer`
+      if (jsonObj.get("endCustomer") != null && !jsonObj.get("endCustomer").isJsonNull()) {
+        EndCustomer.validateJsonObject(jsonObj.getAsJsonObject("endCustomer"));
       }
       if (jsonObj.get("physicalPorts") != null && !jsonObj.get("physicalPorts").isJsonNull()) {
         JsonArray jsonArrayphysicalPorts = jsonObj.getAsJsonArray("physicalPorts");

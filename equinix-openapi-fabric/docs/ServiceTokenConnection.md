@@ -25,6 +25,7 @@ Service Token Connection Type Information
 | Name | Value |
 |---- | -----|
 | EVPL_VC | &quot;EVPL_VC&quot; |
+| EPL_VC | &quot;EPL_VC&quot; |
 | EVPLAN_VC | &quot;EVPLAN_VC&quot; |
 | EPLAN_VC | &quot;EPLAN_VC&quot; |
 | IPWAN_VC | &quot;IPWAN_VC&quot; |

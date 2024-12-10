@@ -104,6 +104,10 @@ public class AccessPointSelector {
   @SerializedName(SERIALIZED_NAME_TYPE)
   private TypeEnum type;
 
+  public static final String SERIALIZED_NAME_HIDE_ASSET_INFO = "hideAssetInfo";
+  @SerializedName(SERIALIZED_NAME_HIDE_ASSET_INFO)
+  private Boolean hideAssetInfo;
+
   public static final String SERIALIZED_NAME_PORT = "port";
   @SerializedName(SERIALIZED_NAME_PORT)
   private SimplifiedMetadataEntity port;
@@ -146,6 +150,30 @@ public class AccessPointSelector {
 
   public void setType(TypeEnum type) {
     this.type = type;
+  }
+
+
+  public AccessPointSelector hideAssetInfo(Boolean hideAssetInfo) {
+    
+    this.hideAssetInfo = hideAssetInfo;
+    return this;
+  }
+
+   /**
+   * Get hideAssetInfo
+   * @return hideAssetInfo
+   * @deprecated
+  **/
+  @Deprecated
+  @javax.annotation.Nullable
+
+  public Boolean getHideAssetInfo() {
+    return hideAssetInfo;
+  }
+
+
+  public void setHideAssetInfo(Boolean hideAssetInfo) {
+    this.hideAssetInfo = hideAssetInfo;
   }
 
 
@@ -314,6 +342,7 @@ public class AccessPointSelector {
     }
     AccessPointSelector accessPointSelector = (AccessPointSelector) o;
     return Objects.equals(this.type, accessPointSelector.type) &&
+        Objects.equals(this.hideAssetInfo, accessPointSelector.hideAssetInfo) &&
         Objects.equals(this.port, accessPointSelector.port) &&
         Objects.equals(this.linkProtocol, accessPointSelector.linkProtocol) &&
         Objects.equals(this.virtualDevice, accessPointSelector.virtualDevice) &&
@@ -324,7 +353,7 @@ public class AccessPointSelector {
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, port, linkProtocol, virtualDevice, _interface, network, additionalProperties);
+    return Objects.hash(type, hideAssetInfo, port, linkProtocol, virtualDevice, _interface, network, additionalProperties);
   }
 
   @Override
@@ -332,6 +361,7 @@ public class AccessPointSelector {
     StringBuilder sb = new StringBuilder();
     sb.append("class AccessPointSelector {\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    hideAssetInfo: ").append(toIndentedString(hideAssetInfo)).append("\n");
     sb.append("    port: ").append(toIndentedString(port)).append("\n");
     sb.append("    linkProtocol: ").append(toIndentedString(linkProtocol)).append("\n");
     sb.append("    virtualDevice: ").append(toIndentedString(virtualDevice)).append("\n");
@@ -361,6 +391,7 @@ public class AccessPointSelector {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("type");
+    openapiFields.add("hideAssetInfo");
     openapiFields.add("port");
     openapiFields.add("linkProtocol");
     openapiFields.add("virtualDevice");

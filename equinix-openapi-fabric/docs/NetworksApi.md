@@ -16,7 +16,7 @@ All URIs are relative to *https://api.equinix.com*
 
 <a name="createNetwork"></a>
 # **createNetwork**
-> Network createNetwork(networkPostRequest)
+> Network createNetwork(networkPostRequest, dryRun)
 
 Create Network
 
@@ -43,8 +43,9 @@ public class Example {
 
     NetworksApi apiInstance = new NetworksApi(defaultClient);
     NetworkPostRequest networkPostRequest = new NetworkPostRequest(); // NetworkPostRequest | 
+    Boolean dryRun = false; // Boolean | option to verify that API calls will succeed
     try {
-      Network result = apiInstance.createNetwork(networkPostRequest);
+      Network result = apiInstance.createNetwork(networkPostRequest, dryRun);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling NetworksApi#createNetwork");
@@ -62,6 +63,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **networkPostRequest** | [**NetworkPostRequest**](NetworkPostRequest.md)|  | |
+| **dryRun** | **Boolean**| option to verify that API calls will succeed | [optional] [default to false] |
 
 ### Return type
 
@@ -79,6 +81,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+| **200** | Successful operation |  -  |
 | **202** | Fabric Network Access point object |  -  |
 | **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |

@@ -2,7 +2,7 @@
 
 # CloudRouterActionRequest
 
-Cloud Router action request
+Cloud router action request
 
 ## Properties
 

@@ -53,7 +53,7 @@ public class ConnectionRouteFilterData {
   private URI href;
 
   /**
-   * Route Filter type
+   * Route filter type
    */
   @JsonAdapter(TypeEnum.Adapter.class)
   public enum TypeEnum {
@@ -227,7 +227,7 @@ public class ConnectionRouteFilterData {
   }
 
    /**
-   * Route Filter URI
+   * Route filter URI
    * @return href
   **/
   @javax.annotation.Nullable
@@ -249,7 +249,7 @@ public class ConnectionRouteFilterData {
   }
 
    /**
-   * Route Filter type
+   * Route filter type
    * @return type
   **/
   @javax.annotation.Nullable

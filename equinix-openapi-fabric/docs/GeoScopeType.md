@@ -9,5 +9,7 @@
 
 * `CONUS` (value: `"CONUS"`)
 
+* `JAPAN` (value: `"JAPAN"`)
+
 
 

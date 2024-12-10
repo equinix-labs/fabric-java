@@ -147,7 +147,7 @@ public class MetrosApi {
 
     /**
      * Get Metro by Code
-     * GET Metros retrieves all Equinix Fabric metros, as well as latency data between each metro location. .
+     * GET Metros retrieves all Equinix Fabric metros, as well as latency data between each metro location.
      * @param metroCode Metro Code (required)
      * @return Metro
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -167,7 +167,7 @@ public class MetrosApi {
 
     /**
      * Get Metro by Code
-     * GET Metros retrieves all Equinix Fabric metros, as well as latency data between each metro location. .
+     * GET Metros retrieves all Equinix Fabric metros, as well as latency data between each metro location.
      * @param metroCode Metro Code (required)
      * @return ApiResponse&lt;Metro&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -188,7 +188,7 @@ public class MetrosApi {
 
     /**
      * Get Metro by Code (asynchronously)
-     * GET Metros retrieves all Equinix Fabric metros, as well as latency data between each metro location. .
+     * GET Metros retrieves all Equinix Fabric metros, as well as latency data between each metro location.
      * @param metroCode Metro Code (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call

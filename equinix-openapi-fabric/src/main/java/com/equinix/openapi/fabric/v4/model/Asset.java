@@ -33,7 +33,11 @@ public enum Asset {
   
   ROUTERS("routers"),
   
-  METROS("metros");
+  METROS("metros"),
+  
+  ORGANIZATIONS("organizations"),
+  
+  PROJECTS("projects");
 
   private String value;
 

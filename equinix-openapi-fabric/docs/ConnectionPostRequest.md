@@ -20,6 +20,7 @@ Create connection post request
 |**project** | [**Project**](Project.md) |  |  [optional] |
 |**additionalInfo** | [**List&lt;ConnectionSideAdditionalInfo&gt;**](ConnectionSideAdditionalInfo.md) | Connection additional information |  [optional] |
 |**marketplaceSubscription** | [**MarketplaceSubscription**](MarketplaceSubscription.md) |  |  [optional] |
+|**endCustomer** | [**EndCustomer**](EndCustomer.md) |  |  [optional] |
 
 
 

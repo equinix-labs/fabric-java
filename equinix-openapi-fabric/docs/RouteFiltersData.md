@@ -7,9 +7,9 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**href** | **URI** | Route Filter URI |  [optional] |
+|**href** | **URI** | Route filter URI |  [optional] |
 |**type** | [**TypeEnum**](#TypeEnum) | Route Filter type |  [optional] |
-|**uuid** | **UUID** | Route Filter identifier |  [optional] |
+|**uuid** | **UUID** | Route filter identifier |  [optional] |
 |**name** | **String** |  |  [optional] |
 |**description** | **String** | Customer-provided connection description |  [optional] |
 |**state** | **RouteFilterState** |  |  [optional] |

@@ -235,7 +235,7 @@ public class CloudRoutersApiTest {
                 .project(new Project().projectId(user.getProjectId()))
                 .account(new SimplifiedAccount().accountNumber(Long.valueOf(user.getAccountNumber())));
 
-        CloudRouter cloudRouter = cloudRoutersApi.createCloudRouter(cloudRouterPostRequest);
+        CloudRouter cloudRouter = cloudRoutersApi.createCloudRouter(cloudRouterPostRequest, false);
 
         users.get(getCurrentUser()).getUserResources().addCloudRouterUuid(cloudRouter.getUuid());
         assertEquals(200, cloudRoutersApi.getApiClient().getStatusCode());

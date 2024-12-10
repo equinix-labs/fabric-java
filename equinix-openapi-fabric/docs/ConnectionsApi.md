@@ -15,7 +15,7 @@ All URIs are relative to *https://api.equinix.com*
 
 <a name="createConnection"></a>
 # **createConnection**
-> Connection createConnection(connectionPostRequest)
+> Connection createConnection(connectionPostRequest, dryRun)
 
 Create Connection
 
@@ -42,8 +42,9 @@ public class Example {
 
     ConnectionsApi apiInstance = new ConnectionsApi(defaultClient);
     ConnectionPostRequest connectionPostRequest = new ConnectionPostRequest(); // ConnectionPostRequest | 
+    Boolean dryRun = false; // Boolean | option to verify that API calls will succeed
     try {
-      Connection result = apiInstance.createConnection(connectionPostRequest);
+      Connection result = apiInstance.createConnection(connectionPostRequest, dryRun);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ConnectionsApi#createConnection");
@@ -61,6 +62,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **connectionPostRequest** | [**ConnectionPostRequest**](ConnectionPostRequest.md)|  | |
+| **dryRun** | **Boolean**| option to verify that API calls will succeed | [optional] [default to false] |
 
 ### Return type
 
@@ -78,6 +80,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+| **200** | Successful operation |  -  |
 | **201** | Accept Connection Request |  -  |
 | **400** | Bad request |  -  |
 | **403** | Forbidden |  -  |

@@ -98,7 +98,7 @@ public class RouteFiltersSearchResponse {
   }
 
    /**
-   * List of Route Filters
+   * List of route filters
    * @return data
   **/
   @javax.annotation.Nullable

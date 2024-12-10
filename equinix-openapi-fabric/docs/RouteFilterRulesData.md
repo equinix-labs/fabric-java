@@ -8,7 +8,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**href** | **URI** | Route Filter Rules URI |  [optional] |
-|**type** | [**TypeEnum**](#TypeEnum) | Route Filter type |  [optional] |
+|**type** | [**TypeEnum**](#TypeEnum) | Route filter type |  [optional] |
 |**uuid** | **UUID** | Route Filter Rule identifier |  [optional] |
 |**name** | **String** |  |  [optional] |
 |**description** | **String** | Customer-provided Route Filter Rule description |  [optional] |

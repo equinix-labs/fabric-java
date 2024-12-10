@@ -10,8 +10,9 @@ Create Service Tokens (v4) generates Equinix Fabric service tokens. These tokens
 |------------ | ------------- | ------------- | -------------|
 |**type** | **ServiceTokenType** |  |  [optional] |
 |**href** | **URI** | An absolute URL that is the subject of the link&#39;s context. |  [optional] [readonly] |
+|**expiry** | **Integer** |  |  [optional] |
 |**uuid** | **UUID** | Equinix-assigned service token identifier |  [optional] |
-|**issuerSide** | [**IssuerSideEnum**](#IssuerSideEnum) | information about token side |  [optional] |
+|**issuerSide** | **String** | information about token side |  [optional] |
 |**name** | **String** | Customer-provided service token name |  [optional] |
 |**description** | **String** | Customer-provided service token description |  [optional] |
 |**expirationDateTime** | **OffsetDateTime** | Expiration date and time of the service token. |  [optional] |
@@ -21,15 +22,6 @@ Create Service Tokens (v4) generates Equinix Fabric service tokens. These tokens
 |**account** | [**SimplifiedAccount**](SimplifiedAccount.md) |  |  [optional] |
 |**changelog** | [**Changelog**](Changelog.md) |  |  [optional] |
 |**project** | [**Project**](Project.md) |  |  [optional] |
-
-
-
-## Enum: IssuerSideEnum
-
-| Name | Value |
-|---- | -----|
-| ASIDE | &quot;ASIDE&quot; |
-| ZSIDE | &quot;ZSIDE&quot; |
 
 
 

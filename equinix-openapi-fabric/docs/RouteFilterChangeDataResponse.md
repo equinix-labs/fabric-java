@@ -2,7 +2,7 @@
 
 # RouteFilterChangeDataResponse
 
-List of Route Filter changes
+List of route filter changes
 
 ## Properties
 
