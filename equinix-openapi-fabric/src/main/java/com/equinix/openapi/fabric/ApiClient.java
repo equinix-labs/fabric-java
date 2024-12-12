@@ -141,7 +141,7 @@ public class ApiClient {
         json = new JSON();
 
         // Set default User-Agent.
-        setUserAgent("fabric-sdk-java/0.10.0");
+        setUserAgent("fabric-sdk-java/0.11.0");
 
         authentications = new HashMap<String, Authentication>();
     }
