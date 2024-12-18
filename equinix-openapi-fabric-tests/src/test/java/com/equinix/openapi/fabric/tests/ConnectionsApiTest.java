@@ -87,7 +87,6 @@ public class ConnectionsApiTest {
                     new AccessPoint()
                             .type(AccessPointType.COLO)
                             .port(new SimplifiedPort()
-//                                    .uuid(port.getUuid()))
                                     .uuid(portUuid))
                             .linkProtocol(new SimplifiedLinkProtocol()
                                     .type(LinkProtocolType.DOT1Q)
@@ -372,7 +371,7 @@ public class ConnectionsApiTest {
         }
 
         if (!result) {
-            System.out.println(result + " Connection has not reached the expected state: " + connectionState[0].getValue() + " current state: " + currentState.getValue());
+            System.out.println("Connection has not reached the expected state: " + connectionState[0].getValue() + " current state: " + currentState.getValue());
         }
         return result;
     }
