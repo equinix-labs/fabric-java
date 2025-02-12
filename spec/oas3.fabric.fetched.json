@@ -12,7 +12,7 @@
       "name": "Equinix Inc",
       "url": "https://developer.equinix.com/agreement"
     },
-    "version": "4.18"
+    "version": "4.20"
   },
   "externalDocs": {
     "description": "Find more information on Equinix Developer Portal",
@@ -55,6 +55,14 @@
       "description": "Prices"
     },
     {
+      "name": "Route Aggregation Rules",
+      "description": "Route Aggregation Rules"
+    },
+    {
+      "name": "Route Aggregations",
+      "description": "Route Aggregations"
+    },
+    {
       "name": "Route Filter Rules",
       "description": "Route Filter Rules"
     },
@@ -77,6 +85,10 @@
     {
       "name": "Statistics",
       "description": "Statistics"
+    },
+    {
+      "name": "Stream Alert Rules",
+      "description": "Stream Subscriptions <font color=\"red\"> <sup color='red'>Beta</sup></font>"
     },
     {
       "name": "Stream Subscriptions",
@@ -118,6 +130,9 @@
                 "Colo2Colo-Dot1q2Dot1q": {
                   "$ref": "#/components/examples/COLO2COLOwithDot1q-Dot1q"
                 },
+                "Colo2Colo-Dot1q2Dot1q-WithTerms": {
+                  "$ref": "#/components/examples/COLO2COLOwithDot1qAndTerms-Dot1q"
+                },
                 "Colo2Colo-Dot1q2Dot1q-CRH": {
                   "$ref": "#/components/examples/COLO2COLOwithDot1q-Dot1q-CRH"
                 },
@@ -135,6 +150,9 @@
                 },
                 "Colo2Colo-Epl": {
                   "$ref": "#/components/examples/COLO2COLO-EPL"
+                },
+                "Colo2Colo-Epl-With-Terms": {
+                  "$ref": "#/components/examples/COLO2COLO-EPL-Terms"
                 },
                 "Colo2Colo-AccessEpl": {
                   "$ref": "#/components/examples/COLO2COLO-AccessEpl"
@@ -175,8 +193,14 @@
                 "Colo2Network-EVPLAN_VC": {
                   "$ref": "#/components/examples/COLO2NETWORKwithDot1q"
                 },
+                "Colo2Network-EVPLAN_VC-With-Terms": {
+                  "$ref": "#/components/examples/COLO2NETWORKwithDot1qAndTerms"
+                },
                 "Colo2Network-EPLAN_VC": {
                   "$ref": "#/components/examples/COLO2NETWORKwithEPL"
+                },
+                "Colo2Network-EPLAN_VC-With-Terms": {
+                  "$ref": "#/components/examples/COLO2NETWORKwithEPLAndTerms"
                 },
                 "Vd2Network": {
                   "$ref": "#/components/examples/Vd2NETWORK"
@@ -265,6 +289,9 @@
                 "Fcr2MetalNetwork": {
                   "$ref": "#/components/examples/Fcr2Metal-Network"
                 },
+                "Fcr2ServiceToken": {
+                  "$ref": "#/components/examples/Fcr2ServiceToken"
+                },
                 "AsideServiceToken2ColoWithDot1q": {
                   "$ref": "#/components/examples/AsideServiceToken2PortWithDot1q"
                 },
@@ -304,8 +331,23 @@
                 "Metal2Sp-Generic": {
                   "$ref": "#/components/examples/Metal2Sp-Generic"
                 },
+                "MultiCloudNetwork2Sp-Alibaba": {
+                  "$ref": "#/components/examples/MCNS2Sp-Alibaba"
+                },
                 "MultiCloudNetwork2Sp-Aws": {
                   "$ref": "#/components/examples/MCNS2Sp-Aws"
+                },
+                "MultiCloudNetwork2Sp-GCP": {
+                  "$ref": "#/components/examples/MCNS2Sp-GCP"
+                },
+                "MultiCloudNetwork2Sp-IBM2": {
+                  "$ref": "#/components/examples/MCNS2Sp-IBM2"
+                },
+                "MultiCloudNetwork2Sp-Azure": {
+                  "$ref": "#/components/examples/MCNS2Sp-Azure"
+                },
+                "MultiCloudNetwork2Sp-OCI": {
+                  "$ref": "#/components/examples/MCNS2Sp-OCI"
                 },
                 "Vd2IASp": {
                   "$ref": "#/components/examples/Vd2IAProfile-Request"
@@ -330,8 +372,38 @@
                   "$ref": "#/components/schemas/Connection"
                 },
                 "examples": {
+                  "ConnectionDryRun-Colo2AWS": {
+                    "$ref": "#/components/examples/CreateConnectionDryRunResponse-Colo2AWS"
+                  },
+                  "ConnectionDryRun-Colo2Azure": {
+                    "$ref": "#/components/examples/CreateConnectionDryRunResponse-Colo2Azure"
+                  },
+                  "ConnectionDryRun-Colo2Google": {
+                    "$ref": "#/components/examples/CreateConnectionDryRunResponse-Colo2Google"
+                  },
+                  "ConnectionDryRun-Colo2IBM": {
+                    "$ref": "#/components/examples/CreateConnectionDryRunResponse-Colo2IBM"
+                  },
+                  "ConnectionDryRun-Colo2Network-EPLAN_VC": {
+                    "$ref": "#/components/examples/CreateConnectionDryRunResponse-Colo2Network-EPLAN_VC"
+                  },
+                  "ConnectionDryRun-Colo2Network-EVPLAN_VC": {
+                    "$ref": "#/components/examples/CreateConnectionDryRunResponse-Colo2Network-EVPLAN_VC"
+                  },
                   "ConnectionDryRun-Colo2Sp-Generic": {
-                    "$ref": "#/components/examples/CreateConnectionDryRunResponse"
+                    "$ref": "#/components/examples/CreateConnectionDryRunResponse-Colo2Sp-Generic"
+                  },
+                  "ConnectionDryRun-Fcr2Colo": {
+                    "$ref": "#/components/examples/CreateConnectionDryRunResponse-Fcr2Colo"
+                  },
+                  "ConnectionDryRun-Fcr2Ipwan": {
+                    "$ref": "#/components/examples/CreateConnectionDryRunResponse-Fcr2Ipwan"
+                  },
+                  "ConnectionDryRun-Fcr2Sp-Generic": {
+                    "$ref": "#/components/examples/CreateConnectionDryRunResponse-Fcr2Sp-Generic"
+                  },
+                  "ConnectionDryRun-PortServiceToken2Port": {
+                    "$ref": "#/components/examples/CreateConnectionDryRunResponse-PortServiceToken2Port"
                   }
                 }
               }
@@ -423,14 +495,38 @@
                   "Metal2Sp-Generic": {
                     "$ref": "#/components/examples/Metal2Sp-Generic-Response"
                   },
+                  "MultiCloudNetwork2Sp-Alibaba": {
+                    "$ref": "#/components/examples/MCNS2Sp-Alibaba-Response"
+                  },
+                  "MultiCloudNetwork2Sp-Aws": {
+                    "$ref": "#/components/examples/MCNS2Sp-Aws-Response"
+                  },
+                  "MultiCloudNetwork2Sp-GCP": {
+                    "$ref": "#/components/examples/MCNS2Sp-GCP-Response"
+                  },
+                  "MultiCloudNetwork2Sp-IBM2": {
+                    "$ref": "#/components/examples/MCNS2Sp-IBM2-Response"
+                  },
+                  "MultiCloudNetwork2Sp-Azure": {
+                    "$ref": "#/components/examples/MCNS2Sp-Azure-Response"
+                  },
+                  "MultiCloudNetwork2Sp-OCI": {
+                    "$ref": "#/components/examples/MCNS2Sp-OCI-Response"
+                  },
                   "Fcr2Metal-Network": {
                     "$ref": "#/components/examples/Fcr2Metal-Network"
                   },
                   "Colo2Network-EVPLAN_VC": {
                     "$ref": "#/components/examples/COLO2NETWORKwithDot1q-Response"
                   },
+                  "Colo2Network-EVPLAN_VC-WithTerms": {
+                    "$ref": "#/components/examples/COLO2NETWORKwithDot1qAndTerms-Response"
+                  },
                   "Colo2Network-EPLAN_VC": {
                     "$ref": "#/components/examples/COLO2NETWORKwithEPL-Response"
+                  },
+                  "Colo2Network-EPLAN_VC-WithTerms": {
+                    "$ref": "#/components/examples/COLO2NETWORKwithEPLAndTerms-Response"
                   },
                   "Vd2IASp": {
                     "$ref": "#/components/examples/Vd2IAProfile-Response"
@@ -767,9 +863,6 @@
                 },
                 "ConnectionAddAccessAndSecretKeyAWSRequest": {
                   "$ref": "#/components/examples/ConnectionAddAccessAndSecretKeyAWSRequest"
-                },
-                "ConnectionAddRoutingRequest": {
-                  "$ref": "#/components/examples/ConnectionAddRoutingRequest"
                 },
                 "ConnectionMigrationAsideRequest": {
                   "$ref": "#/components/examples/ConnectionMigrationAsideRequest"
@@ -3518,128 +3611,6 @@
         }
       }
     },
-    "/fabric/v4/ports/stats": {
-      "get": {
-        "tags": [
-          "Statistics"
-        ],
-        "summary": "Top Port Statistics",
-        "description": "This API provides top utilized service-level traffic metrics so that you can view access and gather key information required to manage service subscription sizing and capacity.",
-        "operationId": "getPortStats",
-        "parameters": [
-          {
-            "name": "sort",
-            "in": "query",
-            "description": "Key or set of keys that organizes the search payload by property (such as createdDate or metroCode) or by direction. Ascending (ASC) is the default value. The \"?\" prefix indicates descending (DESC) order.",
-            "required": false,
-            "schema": {
-              "$ref": "#/components/schemas/sort"
-            }
-          },
-          {
-            "name": "top",
-            "in": "query",
-            "description": "Filter returning only the specified number of most heavily trafficked ports. The standard value is [1...10], and the default is 5.",
-            "required": false,
-            "schema": {
-              "$ref": "#/components/schemas/top"
-            }
-          },
-          {
-            "name": "duration",
-            "in": "query",
-            "description": "duration",
-            "required": false,
-            "schema": {
-              "$ref": "#/components/schemas/duration"
-            }
-          },
-          {
-            "name": "direction",
-            "in": "query",
-            "description": "Direction of traffic from the requester's viewpoint. The default is outbound.",
-            "required": false,
-            "schema": {
-              "$ref": "#/components/schemas/query_direction"
-            }
-          },
-          {
-            "name": "metricInterval",
-            "in": "query",
-            "description": "metricInterval",
-            "required": false,
-            "schema": {
-              "$ref": "#/components/schemas/metricInterval"
-            }
-          },
-          {
-            "name": "metros",
-            "in": "query",
-            "description": "Two-letter prefix indicating the metropolitan area in which a specified Equinix asset is located.",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/metros"
-            }
-          },
-          {
-            "name": "projectId",
-            "in": "query",
-            "description": "projectId",
-            "required": false,
-            "schema": {
-              "$ref": "#/components/schemas/projectId"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TopUtilizedStatistics"
-                },
-                "examples": {
-                  "statsExample": {
-                    "$ref": "#/components/examples/200_top"
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorList"
-                },
-                "examples": {
-                  "example": {
-                    "$ref": "#/components/examples/401"
-                  }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorList"
-                },
-                "examples": {
-                  "example": {
-                    "$ref": "#/components/examples/403"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/fabric/v4/connections/{connectionId}/stats": {
       "get": {
         "tags": [
@@ -5144,6 +5115,9 @@
                 },
                 "AsideTokenWithDot1QDryRunCreate": {
                   "$ref": "#/components/examples/createServiceTokenDryRunRequest"
+                },
+                "AsideFCRWithZsidePortBasedToken": {
+                  "$ref": "#/components/examples/createZsideServiceTokenWithAsideFCR"
                 }
               }
             }
@@ -6083,6 +6057,102 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Ports"
+        ],
+        "summary": "Update by UUID",
+        "description": "Update Port by UUID",
+        "operationId": "updatePortByUuid",
+        "parameters": [
+          {
+            "name": "portId",
+            "in": "path",
+            "description": "Port UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/PortUUID"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PortUpdateRequest"
+              },
+              "examples": {
+                "PortUpdateNameRequest": {
+                  "$ref": "#/components/examples/PortUpdateNameRequest"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllPortsResponse"
+                },
+                "examples": {
+                  "portExample": {
+                    "$ref": "#/components/examples/ports"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/400"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500"
+                  }
                 }
               }
             }
@@ -17324,14 +17394,14 @@
         }
       }
     },
-    "/fabric/v4/streams/{streamId}/streamSubscriptions": {
+    "/fabric/v4/streams/{streamId}/subscriptions": {
       "get": {
         "tags": [
-          "Streams"
+          "Stream Subscriptions"
         ],
-        "summary": "Get Stream's Subs",
-        "description": "This API provides capability to retrieve subscriptions in a stream",
-        "operationId": "getSubscriptionsInStream",
+        "summary": "Get Subscriptions",
+        "description": "This API provides capability to retrieve stream subscriptions",
+        "operationId": "getStreamSubscriptions",
         "parameters": [
           {
             "name": "streamId",
@@ -17342,115 +17412,6 @@
               "$ref": "#/components/schemas/StreamId"
             }
           },
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "offset",
-            "required": false,
-            "schema": {
-              "type": "integer"
-            },
-            "example": 1
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "number of records to fetch",
-            "required": false,
-            "schema": {
-              "type": "integer"
-            },
-            "example": 10
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetSubscriptionsInStreamResponse"
-                },
-                "examples": {
-                  "Example": {
-                    "$ref": "#/components/examples/stream-get-all-subscription-example"
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorList"
-                },
-                "examples": {
-                  "example": {
-                    "$ref": "#/components/examples/401"
-                  }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorList"
-                },
-                "examples": {
-                  "example": {
-                    "$ref": "#/components/examples/403"
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorList"
-                },
-                "examples": {
-                  "example": {
-                    "$ref": "#/components/examples/404"
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorList"
-                },
-                "examples": {
-                  "example": {
-                    "$ref": "#/components/examples/500"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/fabric/v4/streamSubscriptions": {
-      "get": {
-        "tags": [
-          "Stream Subscriptions"
-        ],
-        "summary": "Get Subscriptions",
-        "description": "This API provides capability to retrieve stream subscriptions",
-        "operationId": "getStreamSubscriptions",
-        "parameters": [
           {
             "name": "offset",
             "in": "query",
@@ -17557,7 +17518,17 @@
         "summary": "Create Subscription",
         "description": "This API provides capability to create user's Stream Subscriptions",
         "operationId": "createStreamSubscriptions",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "streamId",
+            "in": "path",
+            "description": "Stream UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/StreamId"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -17565,6 +17536,9 @@
                 "$ref": "#/components/schemas/StreamSubscriptionPostRequest"
               },
               "examples": {
+                "CreateStreamSubscription_Splunk_Simple": {
+                  "$ref": "#/components/examples/StreamSubscriptionPostRequestExampleSimpleDefaultSplunk"
+                },
                 "CreateStreamSubscription_Splunk": {
                   "$ref": "#/components/examples/StreamSubscriptionPostRequestExampleSplunk"
                 },
@@ -17576,6 +17550,12 @@
                 },
                 "CreateStreamSubscription_Datadog": {
                   "$ref": "#/components/examples/StreamSubscriptionPostRequestExampleDatadog"
+                },
+                "CreateStreamSubscription_Microsoft_Teams": {
+                  "$ref": "#/components/examples/StreamSubscriptionPostRequestExampleTeams"
+                },
+                "CreateStreamSubscription_Servicenow": {
+                  "$ref": "#/components/examples/StreamSubscriptionPostRequestExampleServicenow"
                 }
               }
             }
@@ -17671,7 +17651,7 @@
         }
       }
     },
-    "/fabric/v4/streamSubscriptions/{streamSubscriptionId}": {
+    "/fabric/v4/streams/{streamId}/subscriptions/{subscriptionId}": {
       "get": {
         "tags": [
           "Stream Subscriptions"
@@ -17681,7 +17661,16 @@
         "operationId": "getStreamSubscriptionByUuid",
         "parameters": [
           {
-            "name": "streamSubscriptionId",
+            "name": "streamId",
+            "in": "path",
+            "description": "Stream UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/StreamId"
+            }
+          },
+          {
+            "name": "subscriptionId",
             "in": "path",
             "description": "Stream Subscription UUID",
             "required": true,
@@ -17787,7 +17776,16 @@
         "operationId": "updateStreamSubscriptionByUuid",
         "parameters": [
           {
-            "name": "streamSubscriptionId",
+            "name": "streamId",
+            "in": "path",
+            "description": "Stream UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/StreamId"
+            }
+          },
+          {
+            "name": "subscriptionId",
             "in": "path",
             "description": "Stream Subscription UUID",
             "required": true,
@@ -17923,7 +17921,16 @@
         "operationId": "deleteStreamSubscriptionByUuid",
         "parameters": [
           {
-            "name": "streamSubscriptionId",
+            "name": "streamId",
+            "in": "path",
+            "description": "Stream UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/StreamId"
+            }
+          },
+          {
+            "name": "subscriptionId",
             "in": "path",
             "description": "Stream Subscription UUID",
             "required": true,
@@ -17943,6 +17950,622 @@
                 "examples": {
                   "StreamSubscriptionResponse": {
                     "$ref": "#/components/examples/StreamSubscriptionDeleteResponseExample"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/404"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fabric/v4/streams/{streamId}/alertRules": {
+      "get": {
+        "tags": [
+          "Stream Alert Rules"
+        ],
+        "summary": "Get Stream Alert Rules",
+        "description": "This API provides capability to retrieve stream alert rules",
+        "operationId": "getStreamAlertRules",
+        "parameters": [
+          {
+            "name": "streamId",
+            "in": "path",
+            "description": "Stream UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/StreamId"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "offset",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "example": 1
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "number of records to fetch",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "example": 10
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Stream Alert Rules object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StreamAlertRule"
+                },
+                "examples": {
+                  "GetAllStreamAlertRuleResponse": {
+                    "$ref": "#/components/examples/stream-alert-rules-get-all-example"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/404"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Stream Alert Rules"
+        ],
+        "summary": "Create Stream Alert Rules",
+        "description": "This API provides capability to create user's Stream Alert Rules",
+        "operationId": "createStreamAlertRules",
+        "parameters": [
+          {
+            "name": "streamId",
+            "in": "path",
+            "description": "Stream UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/StreamId"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlertRulePostRequest"
+              },
+              "examples": {
+                "CreateStreamAlertRules": {
+                  "$ref": "#/components/examples/StreamAlertRulePostRequestExample"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Stream Alert Rules object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StreamAlertRule"
+                },
+                "examples": {
+                  "StreamAlertRuleRequestResponse": {
+                    "$ref": "#/components/examples/StreamAlertRuleResponseExample"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fabric/v4/streams/{streamId}/alertRules/{alertRuleId}": {
+      "get": {
+        "tags": [
+          "Stream Alert Rules"
+        ],
+        "summary": "Get Stream Alert Rules",
+        "description": "This API provides capability to get user's stream alert rules",
+        "operationId": "getStreamAlertRuleByUuid",
+        "parameters": [
+          {
+            "name": "streamId",
+            "in": "path",
+            "description": "Stream UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/StreamId"
+            }
+          },
+          {
+            "name": "alertRuleId",
+            "in": "path",
+            "description": "alert rule UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/AlertRuleId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Stream Alert Rules object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StreamAlertRule"
+                },
+                "examples": {
+                  "StreamAlertRuleResponse": {
+                    "$ref": "#/components/examples/StreamAlertRuleResponseExample"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/404"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Stream Alert Rules"
+        ],
+        "summary": "Update Stream Alert Rules",
+        "description": "This API provides capability to update a user's stream alert rule",
+        "operationId": "updateStreamAlertRuleByUuid",
+        "parameters": [
+          {
+            "name": "streamId",
+            "in": "path",
+            "description": "Stream UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/StreamId"
+            }
+          },
+          {
+            "name": "alertRuleId",
+            "in": "path",
+            "description": "alert rule UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/AlertRuleId"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlertRulePutRequest"
+              },
+              "examples": {
+                "UpdateStreamAlertRules": {
+                  "$ref": "#/components/examples/StreamAlertRulePutRequestExample"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Stream Alert Rules object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StreamAlertRule"
+                },
+                "examples": {
+                  "StreamAlertRuleRequestResponse": {
+                    "$ref": "#/components/examples/StreamAlertRuleResponseExample"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/404"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Stream Alert Rules"
+        ],
+        "summary": "Update Stream Alert Rules",
+        "description": "This API provides capability to delete a user's stream alert rule",
+        "operationId": "deleteStreamAlertRuleByUuid",
+        "parameters": [
+          {
+            "name": "streamId",
+            "in": "path",
+            "description": "Stream UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/StreamId"
+            }
+          },
+          {
+            "name": "alertRuleId",
+            "in": "path",
+            "description": "alert rule UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/AlertRuleId"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Stream Alert Rules object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StreamAlertRule"
+                },
+                "examples": {
+                  "StreamAlertRuleDeleteResponse": {
+                    "$ref": "#/components/examples/StreamAlertRuleDeleteResponseExample"
                   }
                 }
               }
@@ -19060,74 +19683,6 @@
           }
         },
         "description": "Bandwidth utilization statistics for a specified interval."
-      },
-      "sort": {
-        "type": "string",
-        "description": "Key or set of keys that organizes the search payload by property (such as createdDate or metroCode) or by direction. Ascending (ASC) is the default value. The \"?\" prefix indicates descending (DESC) order.",
-        "default": "-bandwidthUtilization",
-        "enum": [
-          "-bandwidthUtilization"
-        ]
-      },
-      "top": {
-        "type": "integer",
-        "description": "Filter returning only the specified number of most heavily trafficked ports. The standard value is [1...10], and the default is 5.",
-        "default": 5
-      },
-      "duration": {
-        "type": "string",
-        "description": "Duration of the statistical analysis interval.",
-        "default": "P7D",
-        "enum": [
-          "P7D",
-          "P1M",
-          "P3M"
-        ]
-      },
-      "query_direction": {
-        "type": "string",
-        "description": "Direction of traffic from the requester's viewpoint.",
-        "default": "outbound",
-        "enum": [
-          "inbound",
-          "outbound"
-        ]
-      },
-      "metricInterval": {
-        "type": "string",
-        "description": "metric interval",
-        "default": "P7D",
-        "enum": [
-          "P7D"
-        ]
-      },
-      "metros": {
-        "type": "array",
-        "description": "Two-letter prefix indicating the metropolitan area in which a specified Equinix asset is located.",
-        "items": {
-          "type": "string"
-        }
-      },
-      "projectId": {
-        "type": "string",
-        "description": "projectId",
-        "example": "30ad25e2-53dc-11ed-bdc3-0242ac120002"
-      },
-      "TopUtilizedStatistics": {
-        "type": "object",
-        "properties": {
-          "pagination": {
-            "$ref": "#/components/schemas/Pagination"
-          },
-          "data": {
-            "type": "array",
-            "description": "Data returned from the API call.",
-            "items": {
-              "$ref": "#/components/schemas/Statistics"
-            }
-          }
-        },
-        "description": "This API provides service-level traffic metrics for the top utilized ports so that you can view access and gather key information required to manage service subscription sizing and capacity."
       },
       "viewPoint": {
         "type": "string",
@@ -20693,6 +21248,14 @@
           }
         },
         "description": "GET All Physical Ports"
+      },
+      "PortUpdateRequest": {
+        "minItems": 1,
+        "type": "array",
+        "description": "Port Update Request",
+        "items": {
+          "$ref": "#/components/schemas/PortChangeOperation"
+        }
       },
       "LinkProtocolGetResponse": {
         "type": "object",
@@ -23493,11 +24056,6 @@
           },
           "project": {
             "$ref": "#/components/schemas/Project"
-          },
-          "enabled": {
-            "type": "boolean",
-            "description": "Stream enabled status",
-            "example": true
           }
         },
         "description": "Create Stream"
@@ -23524,6 +24082,7 @@
             "enum": [
               "PROVISIONING",
               "PROVISIONED",
+              "REPROVISIONING",
               "DEPROVISIONING",
               "DEPROVISIONED",
               "FAILED"
@@ -23566,11 +24125,6 @@
           "description": {
             "type": "string",
             "description": "Customer-provided stream description"
-          },
-          "enabled": {
-            "type": "boolean",
-            "description": "stream state",
-            "example": true
           }
         },
         "description": "Update Stream"
@@ -23769,21 +24323,6 @@
         },
         "description": "Update Stream Asset"
       },
-      "GetSubscriptionsInStreamResponse": {
-        "type": "object",
-        "properties": {
-          "pagination": {
-            "$ref": "#/components/schemas/Pagination"
-          },
-          "data": {
-            "type": "array",
-            "description": "Data returned from the API call.",
-            "items": {
-              "$ref": "#/components/schemas/StreamGetSubscriptions"
-            }
-          }
-        }
-      },
       "GetAllStreamSubscriptionResponse": {
         "type": "object",
         "properties": {
@@ -23816,16 +24355,10 @@
             "type": "string",
             "description": "Customer-provided stream subscription description"
           },
-          "project": {
-            "$ref": "#/components/schemas/Project"
-          },
           "enabled": {
             "type": "boolean",
             "description": "Stream subscription enabled status",
             "example": true
-          },
-          "stream": {
-            "$ref": "#/components/schemas/StreamTarget"
           },
           "filters": {
             "$ref": "#/components/schemas/StreamSubscriptionFilter"
@@ -23871,7 +24404,7 @@
           "property": {
             "type": "string",
             "description": "Possible field names to use on filters:\n * `/subject` - subject\n * `/type` - type\n",
-            "example": "/equinixproject"
+            "example": "/type"
           },
           "operator": {
             "type": "string",
@@ -23880,6 +24413,7 @@
           },
           "values": {
             "type": "array",
+            "description": "### Supported event or metric names to use on filters with property /type:\n  * `*` - all events or metrics\n  * `equinix.fabric.port.*` - port events or metrics\n  * `equinix.fabric.connection.*` - connection events or metrics\n  * `equinix.fabric.router.*` - cloud router events\n  * `equinix.fabric.metro.*` - metro metrics\n  * `equinix.fabric.network.*` - network events\n  * `equinix.fabric.service_token.*` - service token events\n  * `equinix.network_edge.*` - network edge events\n  * `equinix.network_edge.acl.*` - network edge acl events\n  * `equinix.network_edge.device.*` - network edge device events\n  * `equinix.access_manager.*` - identity access manager events\n  * `equinix.access_manager.user.role.*` - identity access manager user role events\n### Supported event or metric names to use on filters with property /subject:\n  * `*` - all events or metrics\n  * `/fabric/v4/ports/<uuid>` - port events or metrics\n  * `/fabric/v4/connections/<uuid>` - connection events or metrics\n  * `/fabric/v4/routers/<uuid>` - cloud router events\n  * `/fabric/v4/metros/<metroCode>` - metro metrics\n  * `/fabric/v4/networks/<uuid>` - network events\n  * `/fabric/v4/tokens/<uuid>` - service token events\n  * `/ne/v1/acl/<uuid>` - network edge acl events\n  * `/ne/v1/devices/<uuid>` - network edge device events\n  * `/am/v2/users/<uuid>/roleAssignments/<uuid>` - identity access manager events\n",
             "items": {
               "type": "string"
             }
@@ -23905,21 +24439,21 @@
             "maxItems": 8,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/StreamSubscriptionExpression"
+              "$ref": "#/components/schemas/StreamSubscriptionSelectorExpression"
             }
           },
           "except": {
             "maxItems": 8,
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/StreamSubscriptionExpression"
+              "$ref": "#/components/schemas/StreamSubscriptionSelectorExpression"
             }
           }
         }
       },
-      "StreamSubscriptionExpression": {
+      "StreamSubscriptionSelectorExpression": {
         "type": "string",
-        "description": "Possible event or metric names to use on event and metric selectors:\n * `*` - all events or metrics\n * `equinix.fabric.port.*` - port events or metrics\n * `equinix.fabric.connection.*` - connection events or metrics\n * `equinix.fabric.cloudrouter.*` - cloud router events\n * `equinix.fabric.metro.*` - metro metrics\n * `equinix.fabric.network.*` - network events\n * `equinix.fabric.service_token.*` - service token events\n * `equinix.fabric.network_edge.*` - network edge events\n",
+        "description": "Supported event or metric types to use on event and metric selectors:\n * `*` - all events or metrics\n * `equinix.fabric.port.*` - port events or metrics\n * `equinix.fabric.connection.*` - connection events or metrics\n * `equinix.fabric.router.*` - cloud router events\n * `equinix.fabric.metro.*` - metro metrics\n * `equinix.fabric.network.*` - network events\n * `equinix.fabric.service_token.*` - service token events\n * `equinix.network_edge.*` - network edge events\n * `equinix.network_edge.acl.*` - network edge acl events\n * `equinix.network_edge.device.*` - network edge device events\n * `equinix.access_manager.*` - identity access manager events\n * `equinix.access_manager.user.role.*` - identity access manager user role events\n",
         "example": "equinix.fabric.connection.*"
       },
       "StreamSubscriptionSink": {
@@ -23959,6 +24493,10 @@
           },
           "settings": {
             "$ref": "#/components/schemas/StreamSubscriptionSinkSetting"
+          },
+          "host": {
+            "type": "string",
+            "description": "sink host"
           }
         },
         "description": "Create Stream destination"
@@ -23972,7 +24510,8 @@
             "enum": [
               "ACCESS_TOKEN",
               "INTEGRATION_KEY",
-              "API_KEY"
+              "API_KEY",
+              "USERNAME_PASSWORD"
             ]
           },
           "accessToken": {
@@ -23984,6 +24523,14 @@
             "description": "passed as Authorization header value"
           },
           "apiKey": {
+            "type": "string",
+            "description": "passed as Authorization header value"
+          },
+          "username": {
+            "type": "string",
+            "description": "passed as Authorization header value"
+          },
+          "password": {
             "type": "string",
             "description": "passed as Authorization header value"
           }
@@ -24008,6 +24555,19 @@
           "applicationKey": {
             "type": "string",
             "description": "Application key"
+          },
+          "eventUri": {
+            "type": "string",
+            "description": "event uri"
+          },
+          "metricUri": {
+            "type": "string",
+            "description": "metric uri"
+          },
+          "transformAlerts": {
+            "type": "boolean",
+            "description": "transform alerts",
+            "example": true
           }
         },
         "description": "Stream subscription sink settings"
@@ -24020,7 +24580,7 @@
             "description": "Stream Subscription URI",
             "format": "uri",
             "readOnly": true,
-            "example": "https://api.equinix.com/fabric/v4/streamSubscription/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170"
+            "example": "https://api.equinix.com/fabric/v4/streams/d684aa26-8276-48b7-bb42-a6d9def0a418/subscriptions/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170"
           },
           "uuid": {
             "type": "string",
@@ -24043,15 +24603,13 @@
             "type": "string",
             "description": "Customer-provided subscription description"
           },
-          "project": {
-            "$ref": "#/components/schemas/Project"
-          },
           "state": {
             "type": "string",
             "description": "Steam subscription provision state",
             "enum": [
               "PROVISIONING",
               "PROVISIONED",
+              "REPROVISIONING",
               "DEPROVISIONING",
               "DEPROVISIONED",
               "FAILED"
@@ -24060,9 +24618,6 @@
           "enabled": {
             "type": "boolean",
             "description": "Stream subscription enabled status"
-          },
-          "stream": {
-            "$ref": "#/components/schemas/StreamTarget"
           },
           "filters": {
             "$ref": "#/components/schemas/StreamSubscriptionFilter"
@@ -24099,9 +24654,6 @@
             "type": "string",
             "description": "Customer-provided stream subscription description"
           },
-          "stream": {
-            "$ref": "#/components/schemas/StreamTarget"
-          },
           "enabled": {
             "type": "boolean",
             "description": "Stream subscription enabled status",
@@ -24121,6 +24673,234 @@
           }
         },
         "description": "Update Stream Subscription"
+      },
+      "StreamAlertRule": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "description": "Stream Alert Rule URI",
+            "format": "uri",
+            "readOnly": true
+          },
+          "uuid": {
+            "type": "string",
+            "description": "Equinix-assigned access point identifier",
+            "format": "uuid",
+            "example": "c9b8e7a2-f3b1-4576-a4a9-1366a63df170"
+          },
+          "type": {
+            "type": "string",
+            "description": "Stream subscription type",
+            "enum": [
+              "METRIC_ALERT"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "Customer-provided stream alert rule name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Customer-provided stream alert rule description"
+          },
+          "state": {
+            "type": "string",
+            "description": "Steam subscription provision state",
+            "enum": [
+              "ACTIVE",
+              "INACTIVE"
+            ]
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "Stream alert rule enabled status",
+            "default": true
+          },
+          "metricName": {
+            "type": "string",
+            "description": "Stream alert rule metric name",
+            "enum": [
+              "equinix.fabric.connection.bandwidth_tx.usage",
+              "equinix.fabric.connection.bandwidth_rx.usage",
+              "equinix.fabric.port.bandwidth_tx.usage",
+              "equinix.fabric.port.bandwidth_rx.usage",
+              "equinix.fabric.port.packets_erred_tx.count",
+              "equinix.fabric.port.packets_erred_rx.count",
+              "equinix.fabric.port.packets_dropped_tx.count",
+              "equinix.fabric.port.packets_dropped_rx.count",
+              "equinix.fabric.metro.<source_metro_code>_<destination_metro_code>.latency"
+            ]
+          },
+          "resourceSelector": {
+            "$ref": "#/components/schemas/ResourceSelector"
+          },
+          "windowSize": {
+            "type": "string",
+            "description": "Stream alert rule metric window size",
+            "example": "PT15M"
+          },
+          "operand": {
+            "type": "string",
+            "description": "Stream alert rule metric operand",
+            "enum": [
+              "ABOVE",
+              "BELOW"
+            ]
+          },
+          "warningThreshold": {
+            "type": "string",
+            "description": "Stream alert rule metric warning threshold"
+          },
+          "criticalThreshold": {
+            "type": "string",
+            "description": "Stream alert rule metric critical threshold"
+          },
+          "changeLog": {
+            "$ref": "#/components/schemas/Changelog"
+          }
+        },
+        "description": "Stream object"
+      },
+      "AlertRulePostRequest": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "METRIC_ALERT"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "Customer-provided stream name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Customer-provided stream description"
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "Stream alert rule enabled status",
+            "default": true
+          },
+          "metricName": {
+            "type": "string",
+            "description": "Stream alert rule metric name",
+            "enum": [
+              "equinix.fabric.connection.bandwidth_tx.usage",
+              "equinix.fabric.connection.bandwidth_rx.usage",
+              "equinix.fabric.port.bandwidth_tx.usage",
+              "equinix.fabric.port.bandwidth_rx.usage",
+              "equinix.fabric.port.packets_erred_tx.count",
+              "equinix.fabric.port.packets_erred_rx.count",
+              "equinix.fabric.port.packets_dropped_tx.count",
+              "equinix.fabric.port.packets_dropped_rx.count",
+              "equinix.fabric.metro.<source_metro_code>_<destination_metro_code>.latency"
+            ]
+          },
+          "resourceSelector": {
+            "$ref": "#/components/schemas/ResourceSelector"
+          },
+          "windowSize": {
+            "type": "string",
+            "description": "Stream alert rule metric window size",
+            "example": "PT15M"
+          },
+          "operand": {
+            "type": "string",
+            "description": "Stream alert rule metric operand",
+            "enum": [
+              "ABOVE",
+              "BELOW"
+            ]
+          },
+          "warningThreshold": {
+            "type": "string",
+            "description": "Stream alert rule metric warning threshold"
+          },
+          "criticalThreshold": {
+            "type": "string",
+            "description": "Stream alert rule metric critical threshold"
+          }
+        },
+        "description": "Create Stream Alert Rules"
+      },
+      "ResourceSelector": {
+        "type": "object",
+        "properties": {
+          "include": {
+            "type": "array",
+            "description": "### Supported metric names to use on filters with property /subject:\n  * `*` - all events or metrics\n  * `*/ports/<uuid>` - port metrics\n  * `*/connections/<uuid>` - connection metrics\n  * `*/metros/<metroCode>` - metro latency metrics\n",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "AlertRuleId": {
+        "type": "string",
+        "description": "Stream Alert Rule UUID",
+        "format": "uuid",
+        "example": "0bbcea48-1333-4ad5-a7ea-e4d58a5fbd15"
+      },
+      "AlertRulePutRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Customer-provided stream name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Customer-provided stream description"
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "Stream alert rule enabled status",
+            "default": true
+          },
+          "metricName": {
+            "type": "string",
+            "description": "Stream alert rule metric name",
+            "enum": [
+              "equinix.fabric.connection.bandwidth_tx.usage",
+              "equinix.fabric.connection.bandwidth_rx.usage",
+              "equinix.fabric.port.bandwidth_tx.usage",
+              "equinix.fabric.port.bandwidth_rx.usage",
+              "equinix.fabric.port.packets_erred_tx.count",
+              "equinix.fabric.port.packets_erred_rx.count",
+              "equinix.fabric.port.packets_dropped_tx.count",
+              "equinix.fabric.port.packets_dropped_rx.count",
+              "equinix.fabric.metro.<source_metro_code>_<destination_metro_code>.latency"
+            ]
+          },
+          "resourceSelector": {
+            "$ref": "#/components/schemas/ResourceSelector"
+          },
+          "operand": {
+            "type": "string",
+            "description": "Stream alert rule metric operand",
+            "enum": [
+              "ABOVE",
+              "BELOW"
+            ]
+          },
+          "windowSize": {
+            "type": "string",
+            "description": "Stream alert rule metric window size",
+            "example": "PT15M"
+          },
+          "warningThreshold": {
+            "type": "string",
+            "description": "Stream alert rule metric warning threshold"
+          },
+          "criticalThreshold": {
+            "type": "string",
+            "description": "Stream alert rule metric critical threshold"
+          }
+        },
+        "description": "Create Stream Alert Rules"
       },
       "ConnectionType": {
         "type": "string",
@@ -24160,6 +24940,13 @@
           "orderNumber": {
             "type": "string",
             "description": "Order Reference Number"
+          },
+          "termLength": {
+            "maximum": 36,
+            "minimum": 1,
+            "type": "integer",
+            "description": "Term length in months, valid values are 1, 12, 24, 36 where 1 is the default value (for on-demand case).",
+            "default": 1
           }
         }
       },
@@ -25146,8 +25933,9 @@
           },
           "termLength": {
             "type": "integer",
-            "description": "In months. No value means unlimited",
+            "description": "In months. No value or value of 1 means on-demand",
             "enum": [
+              1,
               12,
               24,
               36
@@ -25236,9 +26024,6 @@
         ]
       },
       "ServiceTokenConnection": {
-        "required": [
-          "type"
-        ],
         "type": "object",
         "properties": {
           "type": {
@@ -25249,7 +26034,8 @@
               "EPL_VC",
               "EVPLAN_VC",
               "EPLAN_VC",
-              "IPWAN_VC"
+              "IPWAN_VC",
+              "IP_VC"
             ]
           },
           "href": {
@@ -25742,6 +26528,31 @@
           }
         },
         "description": "Physical Port configuration settings"
+      },
+      "PortChangeOperation": {
+        "required": [
+          "op",
+          "path",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string",
+            "description": "Handy shortcut for operation name",
+            "example": "replace"
+          },
+          "path": {
+            "type": "string",
+            "description": "path inside document leading to updated parameter",
+            "example": "/name"
+          },
+          "value": {
+            "type": "object",
+            "description": "new value for updated parameter"
+          }
+        },
+        "description": "Port change operation data"
       },
       "LinkProtocolResponse": {
         "type": "object",
@@ -26992,40 +27803,6 @@
             "format": "uuid"
           }
         }
-      },
-      "StreamGetSubscriptions": {
-        "type": "object",
-        "properties": {
-          "href": {
-            "type": "string",
-            "description": "Stream Get Stream Subscriptions URI",
-            "format": "uri",
-            "readOnly": true
-          },
-          "uuid": {
-            "type": "string",
-            "description": "Equinix-assigned access point identifier",
-            "format": "uuid",
-            "example": "c9b8e7a2-f3b1-4576-a4a9-1366a63df170"
-          },
-          "type": {
-            "type": "string",
-            "description": "Stream subscription type",
-            "enum": [
-              "STREAM_SUBSCRIPTION"
-            ]
-          }
-        },
-        "description": "Stream object"
-      },
-      "StreamTarget": {
-        "type": "object",
-        "properties": {
-          "uuid": {
-            "$ref": "#/components/schemas/StreamId"
-          }
-        },
-        "description": "Stream uuid"
       },
       "ConnectionPriority": {
         "type": "string",
@@ -29010,6 +29787,58 @@
           ]
         }
       },
+      "COLO2COLOwithDot1qAndTerms-Dot1q": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "My-Layer2-Connection-3",
+          "bandwidth": 1000,
+          "redundancy": {
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "type": "COLO",
+              "port": {
+                "uuid": "a8ba52de-faae-43b5-b0b1-6904d37ee063"
+              },
+              "location": {
+                "metroCode": "SV"
+              },
+              "linkProtocol": {
+                "type": "DOT1Q",
+                "vlanTag": 1001
+              }
+            }
+          },
+          "order": {
+            "purchaseOrderNumber": "po1234",
+            "termLength": 24
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "COLO",
+              "port": {
+                "uuid": "a00cef6f-8e35-4794-9ff9-665e084e4e6d"
+              },
+              "location": {
+                "metroCode": "DC"
+              },
+              "linkProtocol": {
+                "type": "DOT1Q",
+                "vlanTag": 1001
+              }
+            }
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@test.com"
+              ]
+            }
+          ]
+        }
+      },
       "COLO2COLOwithDot1q-Dot1q-CRH": {
         "value": {
           "type": "EVPL_VC",
@@ -29260,6 +30089,48 @@
               "type": "COLO",
               "port": {
                 "uuid": "20d32a80-0d61-4333-bc03-707b591ae2f4"
+              }
+            }
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com",
+                "test1@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
+      "COLO2COLO-EPL-Terms": {
+        "value": {
+          "type": "EPL_VC",
+          "name": "Conn-1",
+          "order": {
+            "purchaseOrderNumber": "1-129105284100",
+            "termLength": 12
+          },
+          "bandwidth": 100,
+          "aSide": {
+            "accessPoint": {
+              "type": "COLO",
+              "port": {
+                "uuid": "a00cef6f-8e35-4794-9ff9-665e084e4e6d"
+              },
+              "location": {
+                "metroCode": "SV"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "COLO",
+              "port": {
+                "uuid": "20d32a80-0d61-4333-bc03-707b591ae2f4"
+              },
+              "location": {
+                "metroCode": "DC"
               }
             }
           },
@@ -29851,6 +30722,48 @@
           ]
         }
       },
+      "COLO2NETWORKwithDot1qAndTerms": {
+        "value": {
+          "type": "EVPLAN_VC",
+          "name": "colo2network-evplan-vc",
+          "bandwidth": 50,
+          "aSide": {
+            "accessPoint": {
+              "type": "COLO",
+              "port": {
+                "uuid": "9127bb72-5f4f-4517-be74-3af7ce612687"
+              },
+              "linkProtocol": {
+                "type": "DOT1Q",
+                "vlanTag": 300
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "NETWORK",
+              "network": {
+                "uuid": "25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2"
+              }
+            }
+          },
+          "order": {
+            "purchaseOrderNumber": "1-129105284100",
+            "termLength": 24
+          },
+          "project": {
+            "projectId": "ae708bbb-d669-406a-845a-99b39ff65fd0"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
       "COLO2NETWORKwithEPL": {
         "value": {
           "type": "EPLAN_VC",
@@ -29874,6 +30787,44 @@
           },
           "order": {
             "purchaseOrderNumber": "1-129105284100"
+          },
+          "project": {
+            "projectId": "ae708bbb-d669-406a-845a-99b39ff65fd0"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
+      "COLO2NETWORKwithEPLAndTerms": {
+        "value": {
+          "type": "EPLAN_VC",
+          "name": "colo2network-eplan-vc",
+          "bandwidth": 50,
+          "aSide": {
+            "accessPoint": {
+              "type": "COLO",
+              "port": {
+                "uuid": "9127bb72-5f4f-4517-be74-3af7ce612687"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "NETWORK",
+              "network": {
+                "uuid": "25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2"
+              }
+            }
+          },
+          "order": {
+            "purchaseOrderNumber": "1-129105284100",
+            "termLength": 12
           },
           "project": {
             "projectId": "ae708bbb-d669-406a-845a-99b39ff65fd0"
@@ -31139,6 +32090,44 @@
           ]
         }
       },
+      "Fcr2ServiceToken": {
+        "value": {
+          "type": "IP_VC",
+          "name": "My-FCR-Connection",
+          "bandwidth": 1000,
+          "aSide": {
+            "accessPoint": {
+              "type": "CLOUD_ROUTER",
+              "router": {
+                "uuid": "66a21614-1c4a-11ec-9621-0242ac130002"
+              },
+              "location": {
+                "metroCode": "SV"
+              }
+            }
+          },
+          "zSide": {
+            "serviceToken": {
+              "uuid": "4cc30499-d472-4edb-9114-1381ed17e356"
+            }
+          },
+          "order": {
+            "purchaseOrderNumber": "1-129105284100"
+          },
+          "project": {
+            "projectId": "567"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com",
+                "test1@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
       "AsideServiceToken2PortWithDot1q": {
         "value": {
           "type": "EVPL_VC",
@@ -31632,10 +32621,49 @@
           ]
         }
       },
+      "MCNS2Sp-Alibaba": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "My-MCNS2Alibaba-Connection",
+          "bandwidth": 50,
+          "aSide": {
+            "accessPoint": {
+              "type": "VPIC_INTERFACE",
+              "authenticationKey": "xxxx-xxx-xxxx"
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "type": "L2_PROFILE",
+                "uuid": "4c4b8edf-873b-4c6c-805a-edb2c335bd6c"
+              },
+              "location": {
+                "metroCode": "DC"
+              },
+              "authenticationKey": "xxxx-xxx-xxxx",
+              "sellerRegion": "us-east-1"
+            }
+          },
+          "project": {
+            "projectId": "16799d66-ef43-445c-ba29-d17522d8a137"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@gmail.com",
+                "fabric1@gmail.com"
+              ]
+            }
+          ]
+        }
+      },
       "MCNS2Sp-Aws": {
         "value": {
           "type": "EVPL_VC",
-          "name": "My-MCNS2Aws-connection",
+          "name": "My-MCNS2Aws-Connection",
           "bandwidth": 50,
           "aSide": {
             "accessPoint": {
@@ -31657,18 +32685,192 @@
               "sellerRegion": "us-east-1"
             }
           },
+          "project": {
+            "projectId": "b543e64d-1e13-423a-9d81-4eae7b0e1959"
+          },
           "notifications": [
             {
               "type": "ALL",
               "emails": [
-                "test@equinix.com",
-                "test1@equinix.com"
+                "fabric@gmail.com",
+                "fabric1@gmail.com"
               ]
+            }
+          ]
+        }
+      },
+      "MCNS2Sp-GCP": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "My-MCNS2GCP-Connection",
+          "bandwidth": 50,
+          "aSide": {
+            "accessPoint": {
+              "type": "VPIC_INTERFACE",
+              "authenticationKey": "xxxx-xxx-xxxx"
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "type": "L2_PROFILE",
+                "uuid": "bd4570e2-d792-4a00-87f5-3bde040cdcd7"
+              },
+              "location": {
+                "metroCode": "DC"
+              },
+              "authenticationKey": "xxxx-xxx-xxxx",
+              "sellerRegion": "us-east1"
+            }
+          },
+          "project": {
+            "projectId": "16799d66-ef43-445c-ba29-d17522d8a137"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@gmail.com",
+                "fabric1@gmail.com"
+              ]
+            }
+          ]
+        }
+      },
+      "MCNS2Sp-IBM2": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "My-MCNS2IBM2-Connection",
+          "bandwidth": 50,
+          "aSide": {
+            "accessPoint": {
+              "type": "VPIC_INTERFACE",
+              "authenticationKey": "xxxx-xxx-xxxx"
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "type": "L2_PROFILE",
+                "uuid": "e092ed47-63d2-4f4a-87a0-82e3b08eefe5"
+              },
+              "location": {
+                "metroCode": "DC"
+              },
+              "authenticationKey": "xxxx-xxx-xxxx",
+              "sellerRegion": "Washington 2"
+            }
+          },
+          "additionalInfo": [
+            {
+              "key": "ASN",
+              "value": 12345
+            },
+            {
+              "key": "BGP_CER_CIDR",
+              "value": "172.16.0.17/30"
+            },
+            {
+              "key": "BGP_IBM_CIDR",
+              "value": "172.16.0.18/30"
+            },
+            {
+              "key": "Global",
+              "value": false
             }
           ],
           "project": {
-            "projectId": "b543e64d-1e13-423a-9d81-4eae7b0e1959"
-          }
+            "projectId": "16799d66-ef43-445c-ba29-d17522d8a137"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@gmail.com",
+                "fabric1@gmail.com"
+              ]
+            }
+          ]
+        }
+      },
+      "MCNS2Sp-Azure": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "My-MCNS2Azure-Connection",
+          "bandwidth": 50,
+          "aSide": {
+            "accessPoint": {
+              "type": "VPIC_INTERFACE",
+              "authenticationKey": "xxxx-xxx-xxxx"
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "type": "L2_PROFILE",
+                "uuid": "a1390b22-bbe0-4e93-ad37-85beef9d254d"
+              },
+              "location": {
+                "metroCode": "DC"
+              },
+              "authenticationKey": "xxxx-xxx-xxxx",
+              "peeringType": "PRIVATE"
+            }
+          },
+          "project": {
+            "projectId": "16799d66-ef43-445c-ba29-d17522d8a137"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@gmail.com",
+                "fabric1@gmail.com"
+              ]
+            }
+          ]
+        }
+      },
+      "MCNS2Sp-OCI": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "My-MCNS2OCI-Connection",
+          "bandwidth": 50,
+          "aSide": {
+            "accessPoint": {
+              "type": "VPIC_INTERFACE",
+              "authenticationKey": "xxxx-xxx-xxxx"
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "type": "L2_PROFILE",
+                "uuid": "60ef0382-cdaa-44e7-bd36-b803731816b8"
+              },
+              "location": {
+                "metroCode": "DC"
+              },
+              "authenticationKey": "xxxx-xxx-xxxx",
+              "sellerRegion": "us-ashburn-1"
+            }
+          },
+          "project": {
+            "projectId": "16799d66-ef43-445c-ba29-d17522d8a137"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@gmail.com",
+                "fabric1@gmail.com"
+              ]
+            }
+          ]
         }
       },
       "Vd2IAProfile-Request": {
@@ -31751,7 +32953,7 @@
             }
           },
           "project": {
-            "projectId": 41418
+            "projectId": "a347a370-39b5-427f-c330-7471a9abd9"
           },
           "order": {
             "purchaseOrderNumber": "1-129105284100"
@@ -31766,11 +32968,325 @@
           ]
         }
       },
-      "CreateConnectionDryRunResponse": {
+      "CreateConnectionDryRunResponse-Colo2AWS": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "Colo to AWS Connection",
+          "bandwidth": 50,
+          "redundancy": {
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "type": "COLO",
+              "port": {
+                "href": "https://api.equinix.com/fabric/v4/ports/2a4fb415-5a7f-436f-bae6-02f5e403deec",
+                "uuid": "2a4fb415-5a7f-436f-bae6-02f5e403deec"
+              },
+              "linkProtocol": {
+                "type": "DOT1Q",
+                "vlanTag": 1137
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "href": "https://api.equinix.com/fabric/v4/serviceProfiles/20d32a80-0d61-4333-bc03-707b591ae2f5",
+                "type": "L2_PROFILE",
+                "uuid": "20d32a80-0d61-4333-bc03-707b591ae2f5"
+              },
+              "location": {
+                "metroHref": "https://api.equinix.com/fabric/v4/metros/SV",
+                "metroCode": "SV"
+              },
+              "sellerRegion": "us-west-1",
+              "authenticationKey": "xxx-xxx-xxx"
+            }
+          },
+          "project": {
+            "projectId": "a347a370-39b5-427f-c330-7471a9abd9"
+          },
+          "order": {
+            "purchaseOrderNumber": "1-129105284100"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@test.com"
+              ]
+            }
+          ]
+        }
+      },
+      "CreateConnectionDryRunResponse-Colo2Azure": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "Colo to Azure Connection",
+          "bandwidth": 50,
+          "redundancy": {
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "type": "COLO",
+              "port": {
+                "href": "https://api.equinix.com/fabric/v4/ports/2a4fb415-5a7f-436f-bae6-02f5e403deec",
+                "uuid": "2a4fb415-5a7f-436f-bae6-02f5e403deec"
+              },
+              "linkProtocol": {
+                "type": "DOT1Q",
+                "vlanTag": 1137
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "href": "https://api.equinix.com/fabric/v4/serviceProfiles/20d32a80-0d61-4333-bc03-707b591ae2f5",
+                "type": "L2_PROFILE",
+                "uuid": "20d32a80-0d61-4333-bc03-707b591ae2f5"
+              },
+              "location": {
+                "metroHref": "https://api.equinix.com/fabric/v4/metros/SV",
+                "metroCode": "SV"
+              },
+              "authenticationKey": "xxx-xxx-xxx",
+              "peeringType": "PRIVATE"
+            }
+          },
+          "project": {
+            "projectId": "a347a370-39b5-427f-c330-7471a9abd9"
+          },
+          "order": {
+            "purchaseOrderNumber": "1-129105284100"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@test.com"
+              ]
+            }
+          ]
+        }
+      },
+      "CreateConnectionDryRunResponse-Colo2Google": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "Colo to Google Connection",
+          "bandwidth": 50,
+          "redundancy": {
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "type": "COLO",
+              "port": {
+                "href": "https://api.equinix.com/fabric/v4/ports/2a4fb415-5a7f-436f-bae6-02f5e403deec",
+                "uuid": "2a4fb415-5a7f-436f-bae6-02f5e403deec"
+              },
+              "linkProtocol": {
+                "type": "DOT1Q",
+                "vlanTag": 1137
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "href": "https://api.equinix.com/fabric/v4/serviceProfiles/bd4570e2-d792-4a00-87f5-3bde040cdcd7",
+                "type": "L2_PROFILE",
+                "uuid": "bd4570e2-d792-4a00-87f5-3bde040cdcd7"
+              },
+              "location": {
+                "metroHref": "https://api.equinix.com/fabric/v4/metros/SV",
+                "metroCode": "SV"
+              },
+              "sellerRegion": "us-west-1",
+              "authenticationKey": "xxx-xxx-xxx"
+            }
+          },
+          "project": {
+            "projectId": "a347a370-39b5-427f-c330-7471a9abd9"
+          },
+          "order": {
+            "purchaseOrderNumber": "1-129105284100"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@test.com"
+              ]
+            }
+          ]
+        }
+      },
+      "CreateConnectionDryRunResponse-Colo2IBM": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "Colo to IBM Connection",
+          "bandwidth": 50,
+          "redundancy": {
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "type": "COLO",
+              "port": {
+                "href": "https://api.equinix.com/fabric/v4/ports/2a4fb415-5a7f-436f-bae6-02f5e403deec",
+                "uuid": "2a4fb415-5a7f-436f-bae6-02f5e403deec"
+              },
+              "linkProtocol": {
+                "type": "DOT1Q",
+                "vlanTag": 1137
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "href": "https://api.equinix.com/fabric/v4/serviceProfiles/22d4e853-ef33-4ff0-b5b2-a2b1d5dfa50c",
+                "type": "L2_PROFILE",
+                "uuid": "22d4e853-ef33-4ff0-b5b2-a2b1d5dfa50c"
+              },
+              "location": {
+                "metroHref": "https://api.equinix.com/fabric/v4/metros/SV",
+                "metroCode": "SV"
+              },
+              "sellerRegion": "us-west-1",
+              "authenticationKey": "xxx-xxx-xxx"
+            }
+          },
+          "additionalInfo": [
+            {
+              "key": "ASN",
+              "value": 1234
+            },
+            {
+              "key": "Global",
+              "value": false
+            }
+          ],
+          "project": {
+            "projectId": "a347a370-39b5-427f-c330-7471a9abd9"
+          },
+          "order": {
+            "purchaseOrderNumber": "1-129105284100"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@test.com"
+              ]
+            }
+          ]
+        }
+      },
+      "CreateConnectionDryRunResponse-Colo2Network-EPLAN_VC": {
+        "value": {
+          "type": "EPLAN_VC",
+          "name": "My Colo to Network EPLAN_VC Connection",
+          "bandwidth": 50,
+          "redundancy": {
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "type": "COLO",
+              "port": {
+                "href": "https://api.equinix.com/fabric/v4/ports/2a4fb415-5a7f-436f-bae6-02f5e403deec",
+                "uuid": "2a4fb415-5a7f-436f-bae6-02f5e403deec"
+              },
+              "linkProtocol": {
+                "type": "DOT1Q",
+                "vlanTag": 1137
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "NETWORK",
+              "network": {
+                "href": "https://api.equinix.com/fabric/v4/networks/20d32a80-0d61-4333-bc03-707b591ae2f4",
+                "uuid": "20d32a80-0d61-4333-bc03-707b591ae2f4"
+              }
+            }
+          },
+          "project": {
+            "projectId": "a347a370-39b5-427f-c330-7471a9abd9"
+          },
+          "order": {
+            "purchaseOrderNumber": "1-129105284100"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@test.com"
+              ]
+            }
+          ]
+        }
+      },
+      "CreateConnectionDryRunResponse-Colo2Network-EVPLAN_VC": {
+        "value": {
+          "type": "EVPLAN_VC",
+          "name": "My Colo to Network EVPLAN_VC Connection",
+          "bandwidth": 50,
+          "redundancy": {
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "type": "COLO",
+              "port": {
+                "href": "https://api.equinix.com/fabric/v4/ports/2a4fb415-5a7f-436f-bae6-02f5e403deec",
+                "uuid": "2a4fb415-5a7f-436f-bae6-02f5e403deec"
+              },
+              "linkProtocol": {
+                "type": "DOT1Q",
+                "vlanTag": 1137
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "NETWORK",
+              "network": {
+                "href": "https://api.equinix.com/fabric/v4/networks/25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2",
+                "uuid": "25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2"
+              }
+            }
+          },
+          "project": {
+            "projectId": "a347a370-39b5-427f-c330-7471a9abd9"
+          },
+          "order": {
+            "purchaseOrderNumber": "1-129105284100"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@test.com"
+              ]
+            }
+          ]
+        }
+      },
+      "CreateConnectionDryRunResponse-Colo2Sp-Generic": {
         "value": {
           "type": "EVPL_VC",
           "name": "My-EVPL-Connection",
-          "bandwidth": 500,
+          "bandwidth": 50,
           "redundancy": {
             "priority": "PRIMARY"
           },
@@ -31802,7 +33318,194 @@
             }
           },
           "project": {
-            "projectId": 41418
+            "projectId": "a347a370-39b5-427f-c330-7471a9abd9"
+          },
+          "order": {
+            "purchaseOrderNumber": "1-129105284100"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@test.com"
+              ]
+            }
+          ]
+        }
+      },
+      "CreateConnectionDryRunResponse-Fcr2Colo": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "Fcr to Colo Connection",
+          "bandwidth": 50,
+          "redundancy": {
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "type": "CLOUD_ROUTER",
+              "router": {
+                "href": "https://api.equinix.com/fabric/v4/routers/66a21614-1c4a-11ec-9621-0242ac130002",
+                "uuid": "66a21614-1c4a-11ec-9621-0242ac130002"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "COLO",
+              "port": {
+                "href": "https://api.equinix.com/fabric/v4/ports/2a4fb415-5a7f-436f-bae6-02f5e403deec",
+                "uuid": "2a4fb415-5a7f-436f-bae6-02f5e403deec"
+              },
+              "linkProtocol": {
+                "type": "DOT1Q",
+                "vlanTag": 1137
+              }
+            }
+          },
+          "project": {
+            "projectId": "a347a370-39b5-427f-c330-7471a9abd9"
+          },
+          "order": {
+            "purchaseOrderNumber": "1-129105284100"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@test.com"
+              ]
+            }
+          ]
+        }
+      },
+      "CreateConnectionDryRunResponse-Fcr2Ipwan": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "Fcr to Ipwan Connection",
+          "bandwidth": 50,
+          "redundancy": {
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "type": "CLOUD_ROUTER",
+              "router": {
+                "href": "https://api.equinix.com/fabric/v4/routers/66a21614-1c4a-11ec-9621-0242ac130002",
+                "uuid": "66a21614-1c4a-11ec-9621-0242ac130002"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "network": {
+                "href": "https://api.equinix.com/fabric/v4/networks/20d32a80-0d61-4333-bc03-707b591ae2f4",
+                "uuid": "20d32a80-0d61-4333-bc03-707b591ae2f4"
+              }
+            }
+          },
+          "project": {
+            "projectId": "a347a370-39b5-427f-c330-7471a9abd9"
+          },
+          "order": {
+            "purchaseOrderNumber": "1-129105284100"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@test.com"
+              ]
+            }
+          ]
+        }
+      },
+      "CreateConnectionDryRunResponse-Fcr2Sp-Generic": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "Fcr to Sp-Generic Connection",
+          "bandwidth": 50,
+          "redundancy": {
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "type": "CLOUD_ROUTER",
+              "router": {
+                "href": "https://api.equinix.com/fabric/v4/routers/66a21614-1c4a-11ec-9621-0242ac130002",
+                "uuid": "66a21614-1c4a-11ec-9621-0242ac130002"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "href": "https://api.equinix.com/fabric/v4/serviceProfiles/92dc376a-a932-43aa-a6a2-c806dedbd784",
+                "type": "L2_PROFILE",
+                "uuid": "92dc376a-a932-43aa-a6a2-c806dedbd784"
+              },
+              "location": {
+                "metroHref": "https://api.equinix.com/fabric/v4/metros/DC",
+                "metroCode": "DC"
+              }
+            }
+          },
+          "project": {
+            "projectId": "a347a370-39b5-427f-c330-7471a9abd9"
+          },
+          "order": {
+            "purchaseOrderNumber": "1-129105284100"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@test.com"
+              ]
+            }
+          ]
+        }
+      },
+      "CreateConnectionDryRunResponse-PortServiceToken2Port": {
+        "value": {
+          "type": "EVPL_VC",
+          "name": "Port Service Token to Port Connection",
+          "bandwidth": 50,
+          "redundancy": {
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "serviceToken": {
+              "uuid": "20d32a80-0d61-4333-bc03-707b591ae2f5"
+            },
+            "accessPoint": {
+              "type": "COLO",
+              "port": {
+                "href": "https://api.equinix.com/fabric/v4/ports/20d32a80-0d61-4333-bc03-707b591ae2f5",
+                "uuid": "20d32a80-0d61-4333-bc03-707b591ae2f5"
+              },
+              "linkProtocol": {
+                "type": "DOT1Q",
+                "vlanTag": 1137
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "COLO",
+              "port": {
+                "href": "https://api.equinix.com/fabric/v4/ports/2a4fb415-5a7f-436f-bae6-02f5e403deec",
+                "uuid": "2a4fb415-5a7f-436f-bae6-02f5e403deec"
+              },
+              "linkProtocol": {
+                "type": "DOT1Q",
+                "vlanTag": 1137
+              }
+            }
+          },
+          "project": {
+            "projectId": "a347a370-39b5-427f-c330-7471a9abd9"
           },
           "order": {
             "purchaseOrderNumber": "1-129105284100"
@@ -32865,7 +34568,7 @@
           "href": "https://api.equinix.com/fabric/v4/connections/f37e40c5-2802-4df7-9732-839a8a5868ce",
           "type": "EVPL_VC",
           "uuid": "f37e40c5-2802-4df7-9732-839a8a5868ce",
-          "name": "My-Metal-sp-connection",
+          "name": "My-Metal2Aws-Connection",
           "bandwidth": 1000,
           "aSide": {
             "accessPoint": {
@@ -32886,7 +34589,7 @@
                 "type": "L2_PROFILE",
                 "uuid": "9127bb72-5f4f-4517-be74-3af7ce612687"
               },
-              "authenticationKey": "xxxxxxxxx",
+              "authenticationKey": "xxxx-xxx-xxxx",
               "sellerRegion": "us-west-1"
             }
           },
@@ -32907,15 +34610,16 @@
               {
                 "type": "ALL",
                 "emails": [
-                  "test@equinix.com"
+                  "fabric@gmail.com",
+                  "fabric1@gmail.com"
                 ]
               }
             ]
           },
           "changeLog": {
-            "createdBy": "testuser",
-            "createdByEmail": "testuser@equinix.com",
-            "createdByFullName": "testuser testuser",
+            "createdBy": "fabric",
+            "createdByEmail": "fabric@gmail.com",
+            "createdByFullName": "fabric",
             "createdDateTime": "2020-05-21T10:30:00Z"
           }
         }
@@ -32988,7 +34692,7 @@
           "type": "EVPL_VC",
           "href": "https://api.equinix.com/fabric/v4/connections/d3b69c6b-3b23-4ac0-a1bb-8db16460714d",
           "uuid": "d3b69c6b-3b23-4ac0-a1bb-8db16460714d",
-          "name": "Metal2GCP Connection",
+          "name": "My-Metal2GCP-Connection",
           "operation": {
             "providerStatus": "PROVISIONING",
             "equinixStatus": "PROVISIONING"
@@ -33000,7 +34704,7 @@
             {
               "type": "ALL",
               "emails": [
-                "eqxfabricamcrh@gmail.com"
+                "fabric@gmail.com"
               ]
             }
           ],
@@ -33041,7 +34745,7 @@
                 "name": "GCP Service Profile",
                 "uuid": "063f4b0f-2d5b-4db7-95da-d9eddfc92602"
               },
-              "authenticationKey": "xxxxxxxxx"
+              "authenticationKey": "xxxx-xxx-xxxx"
             }
           }
         }
@@ -33442,6 +35146,377 @@
           }
         }
       },
+      "MCNS2Sp-Alibaba-Response": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/connections/974cb1c6-5090-4796-9d38-f5c14432d2c4",
+          "type": "EVPL_VC",
+          "uuid": "974cb1c6-5090-4796-9d38-f5c14432d2c4",
+          "name": "My-MCNS2Alibaba-Connection",
+          "operation": {
+            "providerStatus": "PROVISIONING",
+            "equinixStatus": "PROVISIONING"
+          },
+          "order": {
+            "billingTier": "Up to 50 MB"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@gmail.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric",
+            "createdByEmail": "fabric@gmail.com",
+            "createdDateTime": "2024-09-07T05:35:23.750Z",
+            "updatedBy": "fabric",
+            "updatedByFullName": "fabric",
+            "updatedByEmail": "fabric@gmail.com",
+            "updatedDateTime": "2024-09-07T05:35:23.750Z"
+          },
+          "bandwidth": 50,
+          "redundancy": {
+            "group": "9d92f86f-2c2a-4b88-b9a1-a61ec83c28cf",
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "type": "VPIC_INTERFACE",
+              "vpicInterface": {
+                "uuid": "cd67f685-41b0-1b07-6de0-0320a5c00abe"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "location": {
+                "metroHref": "http://api.corp.equinix.com/fabric/v4/metros/DC",
+                "metroCode": "DC"
+              },
+              "profile": {
+                "href": "https://api.equinix.com/fabric/v4/serviceProfiles/4c4b8edf-873b-4c6c-805a-edb2c335bd6c",
+                "type": "L2_PROFILE",
+                "name": "Alibaba Cloud Express Connect",
+                "uuid": "4c4b8edf-873b-4c6c-805a-edb2c335bd6c"
+              },
+              "sellerRegion": "us-east-1",
+              "authenticationKey": "xxxx-xxx-xxxx"
+            }
+          }
+        }
+      },
+      "MCNS2Sp-Aws-Response": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/connections/729a1248-afa5-4dee-a4e7-5f24cab53287",
+          "type": "EVPL_VC",
+          "uuid": "729a1248-afa5-4dee-a4e7-5f24cab53287",
+          "name": "My-MCNS2AWS-Connection",
+          "operation": {
+            "providerStatus": "PROVISIONING",
+            "equinixStatus": "PROVISIONING"
+          },
+          "order": {
+            "billingTier": "Up to 50 MB"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@gmail.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric",
+            "createdByEmail": "fabric@gmail.com",
+            "createdDateTime": "2024-09-06T17:08:45.548Z",
+            "updatedBy": "fabric",
+            "updatedByFullName": "fabric",
+            "updatedByEmail": "fabric@gmail.com",
+            "updatedDateTime": "2024-09-06T17:08:45.548Z"
+          },
+          "bandwidth": 50,
+          "redundancy": {
+            "group": "75346f39-4193-466e-9a83-78c7e153f6e2",
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "type": "VPIC_INTERFACE",
+              "vpicInterface": {
+                "uuid": "cd67f685-41b0-1b07-6de0-0320a5c00abe"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "location": {
+                "metroHref": "http://api.corp.equinix.com/fabric/v4/metros/DC",
+                "metroCode": "DC"
+              },
+              "profile": {
+                "href": "https://api.equinix.com/fabric/v4/serviceProfiles/69ee618d-be52-468d-bc99-00566f2dd2b9",
+                "type": "L2_PROFILE",
+                "name": "AWS Direct Connect",
+                "uuid": "69ee618d-be52-468d-bc99-00566f2dd2b9"
+              },
+              "sellerRegion": "us-east-1",
+              "authenticationKey": "xxxx-xxx-xxxx"
+            }
+          }
+        }
+      },
+      "MCNS2Sp-GCP-Response": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/connections/4c2c8739-f476-47ae-a0fa-f924e1081e62",
+          "type": "EVPL_VC",
+          "uuid": "4c2c8739-f476-47ae-a0fa-f924e1081e62",
+          "name": "My-MCNS2GCP-Connection",
+          "operation": {
+            "providerStatus": "PROVISIONING",
+            "equinixStatus": "PROVISIONING"
+          },
+          "order": {
+            "billingTier": "Up to 50 MB"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@gmail.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric",
+            "createdByEmail": "fabric@gmail.com",
+            "createdDateTime": "2024-09-06T19:25:09.527Z",
+            "updatedBy": "fabric",
+            "updatedByFullName": "fabric",
+            "updatedByEmail": "fabric@gmail.com",
+            "updatedDateTime": "2024-09-06T19:25:09.527Z"
+          },
+          "bandwidth": 50,
+          "redundancy": {
+            "group": "33286a70-e0d5-466b-873e-f2c1836d1f0c",
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "type": "VPIC_INTERFACE",
+              "vpicInterface": {
+                "uuid": "cd67f685-41b0-1b07-6de0-0320a5c00abe"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "location": {
+                "metroHref": "http://api.corp.equinix.com/fabric/v4/metros/DC",
+                "metroCode": "DC"
+              },
+              "profile": {
+                "href": "https://api.equinix.com/fabric/v4/serviceProfiles/bd4570e2-d792-4a00-87f5-3bde040cdcd7",
+                "type": "L2_PROFILE",
+                "name": "Google Cloud Partner Interconnect Zone 1",
+                "uuid": "bd4570e2-d792-4a00-87f5-3bde040cdcd7"
+              },
+              "sellerRegion": "us-east1",
+              "authenticationKey": "xxxx-xxx-xxxx"
+            }
+          }
+        }
+      },
+      "MCNS2Sp-IBM2-Response": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/connections/d9e3f826-71e4-40a5-9e27-6030d1498e13",
+          "type": "EVPL_VC",
+          "uuid": "d9e3f826-71e4-40a5-9e27-6030d1498e13",
+          "name": "MY-MCNS2IBM2-Connection",
+          "operation": {
+            "providerStatus": "PROVISIONING",
+            "equinixStatus": "PROVISIONING"
+          },
+          "order": {
+            "billingTier": "Up to 50 MB"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@gmail.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric",
+            "createdByEmail": "fabric@gmail.com",
+            "createdDateTime": "2024-09-07T05:23:43.711Z",
+            "updatedBy": "fabric",
+            "updatedByFullName": "fabric",
+            "updatedByEmail": "fabric@gmail.com",
+            "updatedDateTime": "2024-09-07T05:23:43.711Z"
+          },
+          "bandwidth": 50,
+          "redundancy": {
+            "group": "f65c252c-ea74-4a12-87aa-7bc0236cb24a",
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "type": "VPIC_INTERFACE",
+              "vpicInterface": {
+                "uuid": "cd67f685-41b0-1b07-6de0-0320a5c00abe"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "location": {
+                "metroHref": "http://api.corp.equinix.com/fabric/v4/metros/DC",
+                "metroCode": "DC"
+              },
+              "profile": {
+                "href": "https://api.equinix.com/fabric/v4/serviceProfiles/e092ed47-63d2-4f4a-87a0-82e3b08eefe5",
+                "type": "L2_PROFILE",
+                "name": "IBM Cloud Direct Link 2",
+                "uuid": "e092ed47-63d2-4f4a-87a0-82e3b08eefe5"
+              },
+              "sellerRegion": "Washington 2",
+              "authenticationKey": "xxxx-xxx-xxxx"
+            }
+          }
+        }
+      },
+      "MCNS2Sp-Azure-Response": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/connections/43504d46-f5ce-4d47-99f6-d220df13f81d",
+          "type": "EVPL_VC",
+          "uuid": "43504d46-f5ce-4d47-99f6-d220df13f81d",
+          "name": "My-MCNS2Azure-Connection",
+          "operation": {
+            "providerStatus": "PROVISIONING",
+            "equinixStatus": "PROVISIONING"
+          },
+          "order": {
+            "billingTier": "Up to 50 MB"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@gmail.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric",
+            "createdByEmail": "fabric@gmail.com",
+            "createdDateTime": "2024-09-07T04:41:43.111Z",
+            "updatedBy": "fabric",
+            "updatedByFullName": "fabric",
+            "updatedByEmail": "fabric@gmail.com",
+            "updatedDateTime": "2024-09-07T04:41:43.111Z"
+          },
+          "bandwidth": 50,
+          "redundancy": {
+            "group": "d88b8fe3-23ac-42b6-8c28-33d33f0b9760",
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "type": "VPIC_INTERFACE",
+              "vpicInterface": {
+                "uuid": "cd67f685-41b0-1b07-6de0-0320a5c00abe"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "location": {
+                "metroHref": "http://api.corp.equinix.com/fabric/v4/metros/DC",
+                "metroCode": "DC"
+              },
+              "profile": {
+                "href": "https://api.equinix.com/fabric/v4/serviceProfiles/a1390b22-bbe0-4e93-ad37-85beef9d254d",
+                "type": "L2_PROFILE",
+                "name": "Azure ExpressRoute",
+                "uuid": "a1390b22-bbe0-4e93-ad37-85beef9d254d"
+              },
+              "authenticationKey": "xxxx-xxx-xxxx"
+            }
+          }
+        }
+      },
+      "MCNS2Sp-OCI-Response": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/connections/addae6f7-69c1-494e-905a-3d94b8cb8f1a",
+          "type": "EVPL_VC",
+          "uuid": "addae6f7-69c1-494e-905a-3d94b8cb8f1a",
+          "name": "My-MCNS2OCI-Connection",
+          "operation": {
+            "providerStatus": "PROVISIONING",
+            "equinixStatus": "PROVISIONING"
+          },
+          "order": {
+            "billingTier": "Up to 50 MB"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@gmail.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric",
+            "createdByEmail": "fabric@gmail.com",
+            "createdDateTime": "2024-09-07T05:09:26.587Z",
+            "updatedBy": "fabric",
+            "updatedByFullName": "fabric",
+            "updatedByEmail": "fabric@gmail.com",
+            "updatedDateTime": "2024-09-07T05:09:26.587Z"
+          },
+          "bandwidth": 50,
+          "redundancy": {
+            "group": "6620b2a3-d3d7-420b-a3a0-4b5ae8b0cd10",
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "type": "VPIC_INTERFACE",
+              "vpicInterface": {
+                "uuid": "cd67f685-41b0-1b07-6de0-0320a5c00abe"
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "location": {
+                "metroHref": "http://api.corp.equinix.com/fabric/v4/metros/DC",
+                "metroCode": "DC"
+              },
+              "profile": {
+                "href": "https://api.equinix.com/fabric/v4/serviceProfiles/60ef0382-cdaa-44e7-bd36-b803731816b8",
+                "type": "L2_PROFILE",
+                "name": "Oracle Cloud Infrastructure FastConnect",
+                "uuid": "60ef0382-cdaa-44e7-bd36-b803731816b8"
+              },
+              "sellerRegion": "us-ashburn-1",
+              "authenticationKey": "xxxx-xxx-xxxx"
+            }
+          }
+        }
+      },
       "COLO2NETWORKwithDot1q-Response": {
         "value": {
           "type": "EVPLAN_VC",
@@ -33512,6 +35587,77 @@
           }
         }
       },
+      "COLO2NETWORKwithDot1qAndTerms-Response": {
+        "value": {
+          "type": "EVPLAN_VC",
+          "href": "https://api.equinix.com/fabric/v4/connections/f3dd7395-7196-45f4-9b6f-54094aa75f53",
+          "uuid": "f3dd7395-7196-45f4-9b6f-54094aa75f53",
+          "name": "colo2network-evplan-vc",
+          "operation": {
+            "providerStatus": "NOT_AVAILABLE",
+            "equinixStatus": "PROVISIONING"
+          },
+          "order": {
+            "purchaseOrderNumber": "1-129105284100",
+            "billingTier": "Up to 50 MB",
+            "termLength": 24
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@equinix.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric",
+            "createdByEmail": "fabric@equinix.com",
+            "createdDateTime": "2024-04-23T02:51:07.675Z",
+            "updatedBy": "fabric",
+            "updatedByFullName": "fabric",
+            "updatedByEmail": "fabric@equinix.com",
+            "updatedDateTime": "2024-04-23T02:51:07.675Z"
+          },
+          "bandwidth": 50,
+          "redundancy": {
+            "group": "ecebee55-975b-4017-857c-74617f821b87",
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "location": {
+                "metroCode": "DA"
+              },
+              "port": {
+                "type": "XF_PORT",
+                "href": "https://api.equinix.com/fabric/v4/ports/9127bb72-5f4f-4517-be74-3af7ce612687",
+                "uuid": "9127bb72-5f4f-4517-be74-3af7ce612687",
+                "name": "1-DA1-port"
+              },
+              "linkProtocol": {
+                "type": "DOT1Q",
+                "vlanTag": 307
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "network": {
+                "href": "https://api.equinix.com/fabric/v4/networks/25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2",
+                "uuid": "25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2",
+                "name": "EVPLAN-GLOBAL",
+                "platformUuid": "afe28606-8021-4161-802c-b80d4bc22f20",
+                "state": "ACTIVE",
+                "type": "EVPLAN",
+                "scope": "GLOBAL",
+                "location": null
+              }
+            }
+          }
+        }
+      },
       "COLO2NETWORKwithEPL-Response": {
         "value": {
           "type": "EPLAN_VC",
@@ -33524,6 +35670,76 @@
             "order": {
               "purchaseOrderNumber": "1-129105284100",
               "billingTier": "Up to 50 MB"
+            },
+            "notifications": [
+              {
+                "type": "ALL",
+                "emails": [
+                  "fabric@test.com"
+                ]
+              }
+            ],
+            "changeLog": {
+              "createdBy": "fabric",
+              "createdByFullName": "fabric",
+              "createdByEmail": "fabric@equinix.com",
+              "createdDateTime": "2024-04-23T03:07:17.587Z",
+              "updatedBy": "fabric",
+              "updatedByFullName": "fabric",
+              "updatedByEmail": "fabric@equinix.com",
+              "updatedDateTime": "2024-04-23T03:07:17.587Z"
+            },
+            "bandwidth": 50,
+            "redundancy": {
+              "group": "dbab0e00-db97-4abf-aebe-76c7a40a371e",
+              "priority": "PRIMARY"
+            },
+            "aSide": {
+              "accessPoint": {
+                "location": {
+                  "metroCode": "SP"
+                },
+                "port": {
+                  "type": "XF_PORT",
+                  "href": "https://api.equinix.com/fabric/v4/ports/9127bb72-5f4f-4517-be74-3af7ce612687",
+                  "uuid": "9127bb72-5f4f-4517-be74-3af7ce612687",
+                  "name": "505783-port"
+                },
+                "linkProtocol": {
+                  "type": "UNTAGGED"
+                }
+              }
+            },
+            "zSide": {
+              "accessPoint": {
+                "network": {
+                  "href": "https://api.equinix.com/fabric/v4/networks/25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2",
+                  "uuid": "25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2",
+                  "name": "EPLAN-GLOBAL",
+                  "platformUuid": "8abb8305-258b-4690-9b49-714962591add",
+                  "state": "ACTIVE",
+                  "type": "EPLAN",
+                  "scope": "GLOBAL",
+                  "location": null
+                }
+              }
+            }
+          }
+        }
+      },
+      "COLO2NETWORKwithEPLAndTerms-Response": {
+        "value": {
+          "type": "EPLAN_VC",
+          "href": "https://api.equinix.com/fabric/v4/connections/cce170c5-a496-4928-8426-507e00818887",
+          "uuid": "cce170c5-a496-4928-8426-507e00818887",
+          "name": "colo2network-eplan-vc",
+          "operation": {
+            "providerStatus": "NOT_AVAILABLE",
+            "equinixStatus": "PROVISIONING",
+            "order": {
+              "purchaseOrderNumber": "1-129105284100",
+              "billingTier": "Up to 50 MB",
+              "termLength": 12
             },
             "notifications": [
               {
@@ -35922,17 +38138,6 @@
                   "value": "NwPcpbWgFEPofydsZEQGwjtHqJOYrUmBbrcxtOzP"
                 }
               ]
-            }
-          }
-        ]
-      },
-      "ConnectionAddRoutingRequest": {
-        "value": [
-          {
-            "op": "add",
-            "path": "/ipv6",
-            "value": {
-              "equinixIfaceIp": "1202:ABCD::/64"
             }
           }
         ]
@@ -39660,122 +41865,6 @@
           }
         }
       },
-      "200_top": {
-        "value": {
-          "pagination": {
-            "offset": 0,
-            "limit": 5,
-            "total": 5
-          },
-          "data": [
-            {
-              "href": "http://api.equinix.com/fabric/v4/ports/xxxxx191-xx70-xxxx-xx04-xxxxxxxa37xx",
-              "type": "XF_PORT",
-              "uuid": "xxxxx191-xx70-xxxx-xx04-xxxxxxxa37xx",
-              "name": "testUser-CX-SV2-NL-Dot1Q-BO-1G-PRI-JP-15",
-              "bandwidth": 10000,
-              "stats": {
-                "startDateTime": "2021-03-11T22:08:30.851Z",
-                "endDateTime": "2021-06-09T22:08:30.851Z",
-                "bandwidthUtilization": {
-                  "unit": "Mbps",
-                  "metricInterval": "PT5M",
-                  "inbound": {
-                    "max": 1913400000,
-                    "mean": 474960.24489120545,
-                    "lastPolled": 53.333333333333336,
-                    "metrics": [
-                      {
-                        "intervalEndDateTime": "2021-03-18T18:49:21Z",
-                        "max": 53.333333333333336,
-                        "mean": 53.333333333333336
-                      },
-                      {
-                        "intervalEndDateTime": "2021-03-18T18:54:21Z",
-                        "max": 53.333333333333336,
-                        "mean": 53.333333333333336
-                      },
-                      {
-                        "intervalEndDateTime": "2021-03-18T18:59:21Z",
-                        "max": 53.333333333333336,
-                        "mean": 53.333333333333336
-                      },
-                      {
-                        "intervalEndDateTime": "2021-03-18T19:04:21Z",
-                        "max": 53.333333333333336,
-                        "mean": 53.333333333333336
-                      }
-                    ]
-                  }
-                }
-              }
-            },
-            {
-              "href": "http://api.equinix.com/fabric/v4/ports/xxxxx191-xx70-xxxx-xx04-xxxxxxxa37xx",
-              "type": "XF_PORT",
-              "uuid": "xxxxx191-xx70-xxxx-xx04-xxxxxxxa37xx",
-              "name": "testUser-CX-SV2-NL-Dot1Q-BO-1G-PRI-JP-15",
-              "bandwidth": 10000,
-              "stats": {
-                "startDateTime": "2021-03-11T22:08:30.851Z",
-                "endDateTime": "2021-06-09T22:08:30.851Z",
-                "bandwidthUtilization": {
-                  "unit": "Mbps",
-                  "metricInterval": "PT5M",
-                  "inbound": {}
-                }
-              }
-            },
-            {
-              "href": "http://api.equinix.com/fabric/v4/ports/xxxxx191-xx70-xxxx-xx04-xxxxxxxa37xx",
-              "type": "XF_PORT",
-              "uuid": "xxxxx191-xx70-xxxx-xx04-xxxxxxxa37xx",
-              "name": "testUser-CX-SV2-NL-Dot1Q-BO-1G-PRI-JP-15",
-              "bandwidth": 10000,
-              "stats": {
-                "startDateTime": "2021-03-11T22:08:30.851Z",
-                "endDateTime": "2021-06-09T22:08:30.851Z",
-                "bandwidthUtilization": {
-                  "unit": "Mbps",
-                  "metricInterval": "PT5M",
-                  "inbound": {}
-                }
-              }
-            },
-            {
-              "href": "http://api.equinix.com/fabric/v4/ports/xxxxx191-xx70-xxxx-xx04-xxxxxxxa37xx",
-              "type": "XF_PORT",
-              "uuid": "xxxxx191-xx70-xxxx-xx04-xxxxxxxa37xx",
-              "name": "testUser-CX-SV2-NL-Dot1Q-BO-1G-PRI-JP-15",
-              "bandwidth": 10000,
-              "stats": {
-                "startDateTime": "2021-03-11T22:08:30.851Z",
-                "endDateTime": "2021-06-09T22:08:30.851Z",
-                "bandwidthUtilization": {
-                  "unit": "Mbps",
-                  "metricInterval": "PT5M",
-                  "inbound": {}
-                }
-              }
-            },
-            {
-              "type": "XF_PORT",
-              "uuid": "xxxxx191-xx70-xxxx-xx04-xxxxxxxa37xx",
-              "name": "testUser-CX-SV2-NL-Dot1Q-BO-1G-PRI-JP-15",
-              "bandwidth": 10000,
-              "stats": {
-                "startDateTime": "2021-03-11T22:08:30.851Z",
-                "endDateTime": "2021-06-09T22:08:30.851Z",
-                "bandwidthUtilization": {
-                  "unit": "Mbps",
-                  "metricInterval": "PT5M",
-                  "inbound": {}
-                }
-              }
-            }
-          ]
-        }
-      },
       "200_vc": {
         "value": {
           "href": "https://api.equinix.com/fabric/v4/connections/97d1850f-4df0-468c-9281-fa7b0dfa2096",
@@ -41966,6 +44055,52 @@
           ]
         }
       },
+      "createZsideServiceTokenWithAsideFCR": {
+        "value": {
+          "type": "VC_TOKEN",
+          "name": "FCRa_Zside_ServiceToken_SV",
+          "description": "FCRa_Zside_ServiceToken_SV_Description",
+          "connection": {
+            "allowRemoteConnection": true,
+            "allowCustomBandwidth": false,
+            "supportedBandwidths": [
+              10,
+              50
+            ],
+            "zSide": {
+              "accessPointSelectors": [
+                {
+                  "type": "COLO",
+                  "hideAssetInfo": false,
+                  "port": {
+                    "uuid": "b840a1db-5413-413f-97e0-328a5c00a874"
+                  },
+                  "linkProtocol": {
+                    "type": "QINQ",
+                    "vlanCTag": 1399,
+                    "vlanSTag": 1388
+                  }
+                }
+              ]
+            }
+          },
+          "account": {
+            "accountNumber": 272010
+          },
+          "project": {
+            "projectId": "30ad25e2-53dc-11ed-bdc3-0242ac120002"
+          },
+          "expirationDateTime": "2021-03-18T06:43:49.980Z",
+          "notifications": [
+            {
+              "type": "NOTIFICATION",
+              "emails": [
+                "abc@company.com"
+              ]
+            }
+          ]
+        }
+      },
       "createServiceTokenDryRunResponse": {
         "value": {
           "type": "VC_TOKEN",
@@ -43976,6 +46111,15 @@
           }
         }
       },
+      "PortUpdateNameRequest": {
+        "value": [
+          {
+            "op": "replace",
+            "path": "/name",
+            "value": "1234-ibx-port"
+          }
+        ]
+      },
       "LinkProtocolGetQinqResponseExample": {
         "value": {
           "pagination": {
@@ -44294,6 +46438,94 @@
             {
               "property": "/device/name",
               "direction": "DESC"
+            }
+          ]
+        }
+      },
+      "PortSearchByDemarcationIbx": {
+        "value": {
+          "filter": [
+            {
+              "and": [
+                {
+                  "operator": "=",
+                  "property": "/demarcationPointIbx",
+                  "values": [
+                    "FR4"
+                  ]
+                },
+                {
+                  "operator": "=",
+                  "property": "/physicalPortsSpeed",
+                  "values": [
+                    1000
+                  ]
+                }
+              ]
+            }
+          ],
+          "pagination": {
+            "limit": 5,
+            "offset": 0,
+            "total": 0
+          }
+        }
+      },
+      "checkCapacity": {
+        "value": {
+          "pagination": {
+            "offset": 0,
+            "limit": 5,
+            "total": 4
+          },
+          "data": [
+            {
+              "demarcationPointIbx": "AM2",
+              "tetherIbx": "AM2",
+              "metroConnectUsed": false,
+              "lagEnabled": true,
+              "physicalPortsType": "10GBASE_LR",
+              "physicalPortsSpeed": 10000,
+              "physicalPortsAvailable": 4,
+              "redundancy": {
+                "priority": "PRIMARY"
+              }
+            },
+            {
+              "demarcationPointIbx": "AM2",
+              "tetherIbx": "AM2",
+              "metroConnectUsed": false,
+              "lagEnabled": true,
+              "physicalPortsType": "10GBASE_LR",
+              "physicalPortsSpeed": 10000,
+              "physicalPortsAvailable": 8,
+              "redundancy": {
+                "priority": "SECONDARY"
+              }
+            },
+            {
+              "demarcationPointIbx": "AM2",
+              "tetherIbx": "AM1",
+              "metroConnectUsed": true,
+              "lagEnabled": true,
+              "physicalPortsType": "10GBASE_L",
+              "physicalPortsSpeed": 10000,
+              "physicalPortsAvailable": 8,
+              "redundancy": {
+                "priority": "PRIMARY"
+              }
+            },
+            {
+              "demarcationPointIbx": "AM2",
+              "tetherIbx": "AM1",
+              "metroConnectUsed": true,
+              "lagEnabled": true,
+              "physicalPortsType": "10GBASE_L",
+              "physicalPortsSpeed": 10000,
+              "physicalPortsAvailable": 8,
+              "redundancy": {
+                "priority": "SECONDARY"
+              }
             }
           ]
         }
@@ -50198,7 +52430,6 @@
               "project": {
                 "projectId": "dadd3ab6-c0af-430c-8216-43d44f08c1c5"
               },
-              "enabled": true,
               "state": "PROVISIONED",
               "assetsCount": 1,
               "streamSubscriptionsCount": 2,
@@ -50216,8 +52447,7 @@
           "description": "subscription-1",
           "project": {
             "projectId": "dadd3ab6-c0af-430c-8216-43d44f08c1c5"
-          },
-          "enabled": true
+          }
         }
       },
       "StreamResponseExample": {
@@ -50230,7 +52460,6 @@
           "project": {
             "projectId": "dadd3ab6-c0af-430c-8216-43d44f08c1c5"
           },
-          "enabled": true,
           "state": "PROVISIONED",
           "assetsCount": 1,
           "streamSubscriptionsCount": 2,
@@ -50242,8 +52471,7 @@
       "StreamPutRequestExample": {
         "value": {
           "name": "splunk1",
-          "description": "subscription 1",
-          "enabled": true
+          "description": "subscription 1"
         }
       },
       "StreamDeleteRequestExample": {
@@ -50256,7 +52484,6 @@
           "project": {
             "projectId": "dadd3ab6-c0af-430c-8216-43d44f08c1c5"
           },
-          "enabled": true,
           "state": "DEPROVISIONING",
           "assetsCount": 1,
           "streamSubscriptionsCount": 2,
@@ -50340,22 +52567,6 @@
           "attachmentStatus": "DETACHING"
         }
       },
-      "stream-get-all-subscription-example": {
-        "value": {
-          "pagination": {
-            "offset": 0,
-            "limit": 20,
-            "total": 1
-          },
-          "data": [
-            {
-              "href": "https://api.equinix.com/fabric/v4/streams/d684aa26-8276-48b7-bb42-a6d9def0a418/streamSubscriptions",
-              "uuid": "d684aa26-8276-48b7-bb42-a6d9def0a418",
-              "type": "STREAM_SUBSCRIPTION"
-            }
-          ]
-        }
-      },
       "stream-subscription-get-all-example": {
         "value": {
           "pagination": {
@@ -50365,35 +52576,26 @@
           },
           "data": [
             {
-              "href": "https://api.equinix.com/fabric/v4/streamSubscriptions/d684aa26-8276-48b7-bb42-a6d9def0a418",
+              "href": "https://api.equinix.com/fabric/v4/streams/d684aa26-8276-48b7-bb42-a6d9def0a418/subscriptions/d684aa26-8276-48b7-bb42-a6d9def0a418",
               "uuid": "d684aa26-8276-48b7-bb42-a6d9def0a418",
               "type": "STREAM_SUBSCRIPTION",
               "name": "splunk",
               "description": "subscription 1",
-              "project": {
-                "projectId": "dadd3ab6-c0af-430c-8216-43d44f08c1c5"
-              },
               "state": "PROVISIONED",
-              "enabled": true,
-              "stream": {
-                "href": "https://api.equinix.com/fabric/v4/streams/d684aa26-8276-48b7-bb42-a6d9def0a418",
-                "type": "TELEMETRY_STREAM",
-                "uuid": "d684aa26-8276-48b7-bb42-a6d9def0a418"
-              },
               "filters": {
                 "and": [
                   {
                     "property": "/subject",
                     "operator": "LIKE",
                     "values": [
-                      "%36276e58-b5a1-4864-ab5e-be10dff9eac1%"
+                      "%/fabric/v4/connections/36276e58-b5a1-4864-ab5e-be10dff9eac1%"
                     ]
                   },
                   {
-                    "property": "/equinixproject",
+                    "property": "/type",
                     "operator": "IN",
                     "values": [
-                      "197607000886247"
+                      "equinix.fabric.connection.state.provisioned"
                     ]
                   }
                 ]
@@ -50422,25 +52624,40 @@
           ]
         }
       },
+      "StreamSubscriptionPostRequestExampleSimpleDefaultSplunk": {
+        "value": {
+          "type": "STREAM_SUBSCRIPTION",
+          "name": "splunk1",
+          "description": "subscription-1",
+          "enabled": true,
+          "sink": {
+            "uri": "https://xxxxxx",
+            "type": "SPLUNK_HEC",
+            "credential": {
+              "type": "ACCESS_TOKEN",
+              "accessToken": "Splunk <my-access-token>"
+            },
+            "settings": {
+              "source": "Equinix",
+              "eventIndex": "idx-hec-event",
+              "metricIndex": "idx-hec-metric"
+            }
+          }
+        }
+      },
       "StreamSubscriptionPostRequestExampleSplunk": {
         "value": {
           "type": "STREAM_SUBSCRIPTION",
           "name": "splunk1",
           "description": "subscription-1",
           "enabled": true,
-          "stream": {
-            "uuid": "36276e58-b5a1-4864-ab5e-be10dff9eac1"
-          },
-          "project": {
-            "projectId": "dadd3ab6-c0af-430c-8216-43d44f08c1c5"
-          },
           "filters": {
             "and": [
               {
                 "property": "/type",
                 "operator": "LIKE",
                 "values": [
-                  "%com.equinix.fabric.connection%"
+                  "equinix.fabric.connection%"
                 ]
               }
             ]
@@ -50460,7 +52677,7 @@
             "type": "SPLUNK_HEC",
             "credential": {
               "type": "ACCESS_TOKEN",
-              "accessToken": "my-access-token"
+              "accessToken": "Splunk <my-access-token>"
             },
             "settings": {
               "source": "Equinix",
@@ -50476,19 +52693,13 @@
           "name": "slack1",
           "description": "subscription-1",
           "enabled": true,
-          "stream": {
-            "uuid": "36276e58-b5a1-4864-ab5e-be10dff9eac1"
-          },
-          "project": {
-            "projectId": "dadd3ab6-c0af-430c-8216-43d44f08c1c5"
-          },
           "filters": {
             "and": [
               {
                 "property": "/type",
                 "operator": "LIKE",
                 "values": [
-                  "%com.equinix.fabric.connection%"
+                  "equinix.fabric.connection%"
                 ]
               }
             ]
@@ -50515,21 +52726,20 @@
           "name": "pagerduty",
           "description": "subscription-1",
           "enabled": true,
-          "stream": {
-            "uuid": "36276e58-b5a1-4864-ab5e-be10dff9eac1"
-          },
-          "project": {
-            "projectId": "dadd3ab6-c0af-430c-8216-43d44f08c1c5"
-          },
           "filters": {
             "and": [
               {
                 "property": "/type",
                 "operator": "LIKE",
                 "values": [
-                  "%com.equinix.fabric.connection%"
+                  "equinix.fabric.connection%"
                 ]
               }
+            ]
+          },
+          "metricSelector": {
+            "include": [
+              "equinix.fabric.connection.*"
             ]
           },
           "eventSelector": {
@@ -50538,14 +52748,16 @@
             ]
           },
           "sink": {
-            "uri": "https://xxxxxx",
+            "host": "events.pagerduty.com",
             "type": "PAGERDUTY",
             "credential": {
               "type": "INTEGRATION_KEY",
               "integrationKey": "my-integration-key"
             },
             "settings": {
-              "source": "Equinix"
+              "transformAlerts": true,
+              "changeUri": "https://events.pagerduty.com/v2/change/enqueeue",
+              "alertUri": "https://events.pagerduty.com/v2/enqueeue"
             }
           }
         }
@@ -50556,19 +52768,13 @@
           "name": "datadog",
           "description": "subscription-1",
           "enabled": true,
-          "stream": {
-            "uuid": "36276e58-b5a1-4864-ab5e-be10dff9eac1"
-          },
-          "project": {
-            "projectId": "dadd3ab6-c0af-430c-8216-43d44f08c1c5"
-          },
           "filters": {
             "and": [
               {
                 "property": "/type",
                 "operator": "LIKE",
                 "values": [
-                  "%com.equinix.fabric.connection%"
+                  "equinix.fabric.connection%"
                 ]
               }
             ]
@@ -50579,7 +52785,7 @@
             ]
           },
           "sink": {
-            "uri": "https://xx.datadoghq.com",
+            "host": "us.datadoghq.com",
             "type": "DATADOG",
             "credential": {
               "type": "API_KEY",
@@ -50587,35 +52793,98 @@
             },
             "settings": {
               "source": "Equinix",
-              "applicationKey": "my-application-key"
+              "applicationKey": "my-application-key",
+              "eventUri": "https://us.datadoghq.com/api/v1/events",
+              "metricUri": "https://us.datadoghq.com/api/v2/series"
             }
           }
         }
       },
-      "StreamSubscriptionResponseExample": {
+      "StreamSubscriptionPostRequestExampleTeams": {
         "value": {
-          "href": "https://api.equinix.com/fabric/v4/streamSubscriptions/d684aa26-8276-48b7-bb42-a6d9def0a418",
-          "uuid": "d684aa26-8276-48b7-bb42-a6d9def0a418",
           "type": "STREAM_SUBSCRIPTION",
-          "name": "stream 1",
-          "description": "stream dec 1",
-          "project": {
-            "projectId": "dadd3ab6-c0af-430c-8216-43d44f08c1c5"
-          },
-          "state": "PROVISIONED",
+          "name": "teams1",
+          "description": "subscription-1",
           "enabled": true,
-          "stream": {
-            "href": "https://api.equinix.com/fabric/v4/streams/d684aa26-8276-48b7-bb42-a6d9def0a418",
-            "type": "TELEMETRY_STREAM",
-            "uuid": "d684aa26-8276-48b7-bb42-a6d9def0a418"
-          },
           "filters": {
             "and": [
               {
                 "property": "/type",
                 "operator": "LIKE",
                 "values": [
-                  "%com.equinix.fabric.connection%"
+                  "equinix.fabric.connection%"
+                ]
+              }
+            ]
+          },
+          "metricSelector": {
+            "include": [
+              "equinix.fabric.connection.*"
+            ]
+          },
+          "eventSelector": {
+            "include": [
+              "equinix.fabric.connection.*"
+            ]
+          },
+          "sink": {
+            "uri": "https://xxxxxx",
+            "type": "TEAMS"
+          }
+        }
+      },
+      "StreamSubscriptionPostRequestExampleServicenow": {
+        "value": {
+          "type": "STREAM_SUBSCRIPTION",
+          "name": "servicenow-1",
+          "description": "subscription-1",
+          "enabled": true,
+          "filters": {
+            "and": [
+              {
+                "property": "/type",
+                "operator": "LIKE",
+                "values": [
+                  "equinix.fabric.connection%"
+                ]
+              }
+            ]
+          },
+          "eventSelector": {
+            "include": [
+              "equinix.fabric.connection.*"
+            ]
+          },
+          "sink": {
+            "host": "https://<servicenow-host>.com",
+            "type": "SERVICENOW",
+            "credential": {
+              "type": "USERNAME_PASSWORD",
+              "username": "<servicenow-username>",
+              "password": "<servicenow-password>"
+            },
+            "settings": {
+              "source": "Equinix"
+            }
+          }
+        }
+      },
+      "StreamSubscriptionResponseExample": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/streams/d684aa26-8276-48b7-bb42-a6d9def0a418/subscriptions/d684aa26-8276-48b7-bb42-a6d9def0a418",
+          "uuid": "d684aa26-8276-48b7-bb42-a6d9def0a418",
+          "type": "STREAM_SUBSCRIPTION",
+          "name": "stream 1",
+          "description": "stream dec 1",
+          "state": "PROVISIONED",
+          "enabled": true,
+          "filters": {
+            "and": [
+              {
+                "property": "/type",
+                "operator": "LIKE",
+                "values": [
+                  "equinix.fabric.connection%"
                 ]
               }
             ]
@@ -50635,7 +52904,7 @@
             "type": "SPLUNK_HEC",
             "credential": {
               "type": "ACCESS_TOKEN",
-              "accessToken": "my-access-token"
+              "accessToken": "Splunk <my-access-token>"
             },
             "settings": {
               "source": "Equinix",
@@ -50656,16 +52925,13 @@
           "name": "splunk1",
           "description": "subscription 1",
           "enabled": true,
-          "stream": {
-            "uuid": "36276e58-b5a1-4864-ab5e-be10dff9eac1"
-          },
           "filters": {
             "and": [
               {
                 "property": "/type",
                 "operator": "LIKE",
                 "values": [
-                  "%equinix.event.fabric.connection%"
+                  "equinix.fabric.connection%"
                 ]
               }
             ]
@@ -50700,28 +52966,20 @@
       },
       "StreamSubscriptionDeleteResponseExample": {
         "value": {
-          "href": "https://api.equinix.com/fabric/v4/streamSubscriptions/d684aa26-8276-48b7-bb42-a6d9def0a418",
+          "href": "https://api.equinix.com/fabric/v4/streams/d684aa26-8276-48b7-bb42-a6d9def0a418/subscriptions/d684aa26-8276-48b7-bb42-a6d9def0a418",
           "uuid": "d684aa26-8276-48b7-bb42-a6d9def0a418",
           "type": "STREAM_SUBSCRIPTION",
           "name": "stream 1",
           "description": "stream dec 1",
-          "project": {
-            "projectId": "dadd3ab6-c0af-430c-8216-43d44f08c1c5"
-          },
           "state": "DEPROVISIONING",
           "enabled": true,
-          "stream": {
-            "href": "https://api.equinix.com/fabric/v4/streams/d684aa26-8276-48b7-bb42-a6d9def0a418",
-            "type": "TELEMETRY_STREAM",
-            "uuid": "d684aa26-8276-48b7-bb42-a6d9def0a418"
-          },
           "filters": {
             "and": [
               {
                 "property": "/type",
                 "operator": "LIKE",
                 "values": [
-                  "%com.equinix.fabric.connection%"
+                  "equinix.fabric.connection%"
                 ]
               }
             ]
@@ -50741,7 +52999,7 @@
             "type": "SPLUNK_HEC",
             "credential": {
               "type": "ACCESS_TOKEN",
-              "accessToken": "my-access-token"
+              "accessToken": "Splunk <my-access-token>"
             },
             "settings": {
               "source": "Equinix",
@@ -50754,6 +53012,129 @@
           },
           "changeLog": {
             "createdDateTime": "2024-05-06T16:21:18.545214Z"
+          }
+        }
+      },
+      "stream-alert-rules-get-all-example": {
+        "value": {
+          "pagination": {
+            "offset": 0,
+            "limit": 20,
+            "total": 1
+          },
+          "data": [
+            {
+              "href": "https://api.equinix.com/fabric/v4/streams/d684aa26-8276-48b7-bb42-a6d9def0a418/alertRules/0bbcea48-1333-4ad5-a7ea-e4d58a5fbd15",
+              "uuid": "0bbcea48-1333-4ad5-a7ea-e4d58a5fbd15",
+              "type": "METRIC_ALERT",
+              "name": "metric-alert-1",
+              "description": "metric-alert-1",
+              "state": "ACTIVE",
+              "enabled": true,
+              "metricName": "equinix.fabric.connection.bandwidth_tx.usage",
+              "resourceSelector": {
+                "include": [
+                  "*/connections/8b140c74-0331-46d1-9cb3-2981be84dd1b"
+                ]
+              },
+              "windowSize": "PT15M",
+              "operand": "ABOVE",
+              "warningThreshold": 35000000,
+              "criticalThreshold": 45000000,
+              "changeLog": {
+                "createdBy": "user",
+                "createdDateTime": "2024-05-06T16:21:18.545214Z"
+              }
+            }
+          ]
+        }
+      },
+      "StreamAlertRulePostRequestExample": {
+        "value": {
+          "type": "METRIC_ALERT",
+          "name": "metric-alert-1",
+          "description": "metric-alert-1",
+          "enabled": true,
+          "metricName": "equinix.fabric.connection.bandwidth_tx.usage",
+          "resourceSelector": {
+            "include": [
+              "*/connections/8b140c74-0331-46d1-9cb3-2981be84dd1b"
+            ]
+          },
+          "operand": "ABOVE",
+          "windowSize": "PT15M",
+          "warningThreshold": 35000000,
+          "criticalThreshold": 45000000
+        }
+      },
+      "StreamAlertRuleResponseExample": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/streams/d684aa26-8276-48b7-bb42-a6d9def0a418/alertRules/0bbcea48-1333-4ad5-a7ea-e4d58a5fbd15",
+          "uuid": "0bbcea48-1333-4ad5-a7ea-e4d58a5fbd15",
+          "type": "METRIC_ALERT",
+          "name": "metric-alert-1",
+          "description": "metric-alert-1",
+          "state": "ACTIVE",
+          "enabled": true,
+          "metricName": "equinix.fabric.connection.bandwidth_tx.usage",
+          "resourceSelector": {
+            "include": [
+              "*/connections/8b140c74-0331-46d1-9cb3-2981be84dd1b"
+            ]
+          },
+          "windowSize": "PT15M",
+          "operand": "ABOVE",
+          "warningThreshold": 35000000,
+          "criticalThreshold": 45000000,
+          "changeLog": {
+            "createdBy": "user",
+            "createdDateTime": "2024-05-06T16:21:18.545214Z",
+            "updatedBy": "user",
+            "updatedDateTime": "2025-02-04T00:20:54.511118575Z"
+          }
+        }
+      },
+      "StreamAlertRulePutRequestExample": {
+        "value": {
+          "name": "metric-alert-1",
+          "description": "metric-alert-1",
+          "enabled": true,
+          "metricName": "equinix.fabric.connection.bandwidth_tx.usage",
+          "resourceSelector": {
+            "include": [
+              "*/connections/8b140c74-0331-46d1-9cb3-2981be84dd1b"
+            ]
+          },
+          "operand": "ABOVE",
+          "windowSize": "PT15M",
+          "warningThreshold": 35000000,
+          "criticalThreshold": 45000000
+        }
+      },
+      "StreamAlertRuleDeleteResponseExample": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/streams/d684aa26-8276-48b7-bb42-a6d9def0a418/alertRules/0bbcea48-1333-4ad5-a7ea-e4d58a5fbd15",
+          "uuid": "0bbcea48-1333-4ad5-a7ea-e4d58a5fbd15",
+          "type": "METRIC_ALERT",
+          "name": "metric-alert-1",
+          "description": "metric-alert-1",
+          "state": "INACTIVE",
+          "enabled": true,
+          "metricName": "equinix.fabric.connection.bandwidth_tx.usage",
+          "resourceSelector": {
+            "include": [
+              "*/connections/8b140c74-0331-46d1-9cb3-2981be84dd1b"
+            ]
+          },
+          "windowSize": "PT15M",
+          "operand": "ABOVE",
+          "warningThreshold": 35000000,
+          "criticalThreshold": 45000000,
+          "changeLog": {
+            "createdBy": "user",
+            "createdDateTime": "2024-05-06T16:21:18.545214Z",
+            "updatedBy": "user",
+            "updatedDateTime": "2025-02-04T00:20:54.511118575Z"
           }
         }
       }
