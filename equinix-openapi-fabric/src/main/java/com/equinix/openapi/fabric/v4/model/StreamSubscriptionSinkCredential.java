@@ -55,7 +55,9 @@ public class StreamSubscriptionSinkCredential {
     
     INTEGRATION_KEY("INTEGRATION_KEY"),
     
-    API_KEY("API_KEY");
+    API_KEY("API_KEY"),
+    
+    USERNAME_PASSWORD("USERNAME_PASSWORD");
 
     private String value;
 
@@ -110,6 +112,14 @@ public class StreamSubscriptionSinkCredential {
   public static final String SERIALIZED_NAME_API_KEY = "apiKey";
   @SerializedName(SERIALIZED_NAME_API_KEY)
   private String apiKey;
+
+  public static final String SERIALIZED_NAME_USERNAME = "username";
+  @SerializedName(SERIALIZED_NAME_USERNAME)
+  private String username;
+
+  public static final String SERIALIZED_NAME_PASSWORD = "password";
+  @SerializedName(SERIALIZED_NAME_PASSWORD)
+  private String password;
 
   public StreamSubscriptionSinkCredential() {
   }
@@ -201,6 +211,50 @@ public class StreamSubscriptionSinkCredential {
     this.apiKey = apiKey;
   }
 
+
+  public StreamSubscriptionSinkCredential username(String username) {
+    
+    this.username = username;
+    return this;
+  }
+
+   /**
+   * passed as Authorization header value
+   * @return username
+  **/
+  @javax.annotation.Nullable
+
+  public String getUsername() {
+    return username;
+  }
+
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+
+  public StreamSubscriptionSinkCredential password(String password) {
+    
+    this.password = password;
+    return this;
+  }
+
+   /**
+   * passed as Authorization header value
+   * @return password
+  **/
+  @javax.annotation.Nullable
+
+  public String getPassword() {
+    return password;
+  }
+
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
   /**
    * A container for additional, undeclared properties.
    * This is a holder for any undeclared properties as specified with
@@ -259,13 +313,15 @@ public class StreamSubscriptionSinkCredential {
     return Objects.equals(this.type, streamSubscriptionSinkCredential.type) &&
         Objects.equals(this.accessToken, streamSubscriptionSinkCredential.accessToken) &&
         Objects.equals(this.integrationKey, streamSubscriptionSinkCredential.integrationKey) &&
-        Objects.equals(this.apiKey, streamSubscriptionSinkCredential.apiKey)&&
+        Objects.equals(this.apiKey, streamSubscriptionSinkCredential.apiKey) &&
+        Objects.equals(this.username, streamSubscriptionSinkCredential.username) &&
+        Objects.equals(this.password, streamSubscriptionSinkCredential.password)&&
         Objects.equals(this.additionalProperties, streamSubscriptionSinkCredential.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, accessToken, integrationKey, apiKey, additionalProperties);
+    return Objects.hash(type, accessToken, integrationKey, apiKey, username, password, additionalProperties);
   }
 
   @Override
@@ -276,6 +332,8 @@ public class StreamSubscriptionSinkCredential {
     sb.append("    accessToken: ").append(toIndentedString(accessToken)).append("\n");
     sb.append("    integrationKey: ").append(toIndentedString(integrationKey)).append("\n");
     sb.append("    apiKey: ").append(toIndentedString(apiKey)).append("\n");
+    sb.append("    username: ").append(toIndentedString(username)).append("\n");
+    sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -303,6 +361,8 @@ public class StreamSubscriptionSinkCredential {
     openapiFields.add("accessToken");
     openapiFields.add("integrationKey");
     openapiFields.add("apiKey");
+    openapiFields.add("username");
+    openapiFields.add("password");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -331,6 +391,12 @@ public class StreamSubscriptionSinkCredential {
       }
       if ((jsonObj.get("apiKey") != null && !jsonObj.get("apiKey").isJsonNull()) && !jsonObj.get("apiKey").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `apiKey` to be a primitive type in the JSON string but got `%s`", jsonObj.get("apiKey").toString()));
+      }
+      if ((jsonObj.get("username") != null && !jsonObj.get("username").isJsonNull()) && !jsonObj.get("username").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `username` to be a primitive type in the JSON string but got `%s`", jsonObj.get("username").toString()));
+      }
+      if ((jsonObj.get("password") != null && !jsonObj.get("password").isJsonNull()) && !jsonObj.get("password").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `password` to be a primitive type in the JSON string but got `%s`", jsonObj.get("password").toString()));
       }
   }
 

@@ -16,7 +16,6 @@ import java.util.Arrays;
 import com.equinix.openapi.fabric.v4.model.StreamSubscriptionFilter;
 import com.equinix.openapi.fabric.v4.model.StreamSubscriptionSelector;
 import com.equinix.openapi.fabric.v4.model.StreamSubscriptionSink;
-import com.equinix.openapi.fabric.v4.model.StreamTarget;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -57,10 +56,6 @@ public class StreamSubscriptionPutRequest {
   public static final String SERIALIZED_NAME_DESCRIPTION = "description";
   @SerializedName(SERIALIZED_NAME_DESCRIPTION)
   private String description;
-
-  public static final String SERIALIZED_NAME_STREAM = "stream";
-  @SerializedName(SERIALIZED_NAME_STREAM)
-  private StreamTarget stream;
 
   public static final String SERIALIZED_NAME_ENABLED = "enabled";
   @SerializedName(SERIALIZED_NAME_ENABLED)
@@ -126,28 +121,6 @@ public class StreamSubscriptionPutRequest {
 
   public void setDescription(String description) {
     this.description = description;
-  }
-
-
-  public StreamSubscriptionPutRequest stream(StreamTarget stream) {
-    
-    this.stream = stream;
-    return this;
-  }
-
-   /**
-   * Get stream
-   * @return stream
-  **/
-  @javax.annotation.Nullable
-
-  public StreamTarget getStream() {
-    return stream;
-  }
-
-
-  public void setStream(StreamTarget stream) {
-    this.stream = stream;
   }
 
 
@@ -317,7 +290,6 @@ public class StreamSubscriptionPutRequest {
     StreamSubscriptionPutRequest streamSubscriptionPutRequest = (StreamSubscriptionPutRequest) o;
     return Objects.equals(this.name, streamSubscriptionPutRequest.name) &&
         Objects.equals(this.description, streamSubscriptionPutRequest.description) &&
-        Objects.equals(this.stream, streamSubscriptionPutRequest.stream) &&
         Objects.equals(this.enabled, streamSubscriptionPutRequest.enabled) &&
         Objects.equals(this.filters, streamSubscriptionPutRequest.filters) &&
         Objects.equals(this.metricSelector, streamSubscriptionPutRequest.metricSelector) &&
@@ -328,7 +300,7 @@ public class StreamSubscriptionPutRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, description, stream, enabled, filters, metricSelector, eventSelector, sink, additionalProperties);
+    return Objects.hash(name, description, enabled, filters, metricSelector, eventSelector, sink, additionalProperties);
   }
 
   @Override
@@ -337,7 +309,6 @@ public class StreamSubscriptionPutRequest {
     sb.append("class StreamSubscriptionPutRequest {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    stream: ").append(toIndentedString(stream)).append("\n");
     sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
     sb.append("    filters: ").append(toIndentedString(filters)).append("\n");
     sb.append("    metricSelector: ").append(toIndentedString(metricSelector)).append("\n");
@@ -368,7 +339,6 @@ public class StreamSubscriptionPutRequest {
     openapiFields = new HashSet<String>();
     openapiFields.add("name");
     openapiFields.add("description");
-    openapiFields.add("stream");
     openapiFields.add("enabled");
     openapiFields.add("filters");
     openapiFields.add("metricSelector");
@@ -396,10 +366,6 @@ public class StreamSubscriptionPutRequest {
       }
       if ((jsonObj.get("description") != null && !jsonObj.get("description").isJsonNull()) && !jsonObj.get("description").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `description` to be a primitive type in the JSON string but got `%s`", jsonObj.get("description").toString()));
-      }
-      // validate the optional field `stream`
-      if (jsonObj.get("stream") != null && !jsonObj.get("stream").isJsonNull()) {
-        StreamTarget.validateJsonObject(jsonObj.getAsJsonObject("stream"));
       }
       // validate the optional field `filters`
       if (jsonObj.get("filters") != null && !jsonObj.get("filters").isJsonNull()) {

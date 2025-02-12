@@ -13,10 +13,8 @@ Stream Subscription object
 |**type** | [**TypeEnum**](#TypeEnum) | type |  [optional] |
 |**name** | **String** | Customer-provided subscription name |  [optional] |
 |**description** | **String** | Customer-provided subscription description |  [optional] |
-|**project** | [**Project**](Project.md) |  |  [optional] |
 |**state** | [**StateEnum**](#StateEnum) | Steam subscription provision state |  [optional] |
 |**enabled** | **Boolean** | Stream subscription enabled status |  [optional] |
-|**stream** | [**StreamTarget**](StreamTarget.md) |  |  [optional] |
 |**filters** | [**StreamSubscriptionFilter**](StreamSubscriptionFilter.md) |  |  [optional] |
 |**metricSelector** | [**StreamSubscriptionSelector**](StreamSubscriptionSelector.md) |  |  [optional] |
 |**eventSelector** | [**StreamSubscriptionSelector**](StreamSubscriptionSelector.md) |  |  [optional] |
@@ -39,6 +37,7 @@ Stream Subscription object
 |---- | -----|
 | PROVISIONING | &quot;PROVISIONING&quot; |
 | PROVISIONED | &quot;PROVISIONED&quot; |
+| REPROVISIONING | &quot;REPROVISIONING&quot; |
 | DEPROVISIONING | &quot;DEPROVISIONING&quot; |
 | DEPROVISIONED | &quot;DEPROVISIONED&quot; |
 | FAILED | &quot;FAILED&quot; |

@@ -19,8 +19,8 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
-import java.net.URI;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -44,132 +44,44 @@ import java.util.Set;
 import com.equinix.openapi.fabric.JSON;
 
 /**
- * Stream object
+ * ResourceSelector
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class StreamGetSubscriptions {
-  public static final String SERIALIZED_NAME_HREF = "href";
-  @SerializedName(SERIALIZED_NAME_HREF)
-  private URI href;
+public class ResourceSelector {
+  public static final String SERIALIZED_NAME_INCLUDE = "include";
+  @SerializedName(SERIALIZED_NAME_INCLUDE)
+  private List<String> include = new ArrayList<>();
 
-  public static final String SERIALIZED_NAME_UUID = "uuid";
-  @SerializedName(SERIALIZED_NAME_UUID)
-  private UUID uuid;
-
-  /**
-   * Stream subscription type
-   */
-  @JsonAdapter(TypeEnum.Adapter.class)
-  public enum TypeEnum {
-    STREAM_SUBSCRIPTION("STREAM_SUBSCRIPTION");
-
-    private String value;
-
-    TypeEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static TypeEnum fromValue(String value) {
-      for (TypeEnum b : TypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-
-    public static class Adapter extends TypeAdapter<TypeEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final TypeEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public TypeEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return TypeEnum.fromValue(value);
-      }
-    }
+  public ResourceSelector() {
   }
 
-  public static final String SERIALIZED_NAME_TYPE = "type";
-  @SerializedName(SERIALIZED_NAME_TYPE)
-  private TypeEnum type;
-
-  public StreamGetSubscriptions() {
-  }
-
-  
-  public StreamGetSubscriptions(
-     URI href
-  ) {
-    this();
-    this.href = href;
-  }
-
-   /**
-   * Stream Get Stream Subscriptions URI
-   * @return href
-  **/
-  @javax.annotation.Nullable
-
-  public URI getHref() {
-    return href;
-  }
-
-
-
-
-  public StreamGetSubscriptions uuid(UUID uuid) {
+  public ResourceSelector include(List<String> include) {
     
-    this.uuid = uuid;
+    this.include = include;
+    return this;
+  }
+
+  public ResourceSelector addIncludeItem(String includeItem) {
+    if (this.include == null) {
+      this.include = new ArrayList<>();
+    }
+    this.include.add(includeItem);
     return this;
   }
 
    /**
-   * Equinix-assigned access point identifier
-   * @return uuid
+   * ### Supported metric names to use on filters with property /subject:   * &#x60;*&#x60; - all events or metrics   * &#x60;*_/ports/&lt;uuid&gt;&#x60; - port metrics   * &#x60;*_/connections/&lt;uuid&gt;&#x60; - connection metrics   * &#x60;*_/metros/&lt;metroCode&gt;&#x60; - metro latency metrics 
+   * @return include
   **/
   @javax.annotation.Nullable
 
-  public UUID getUuid() {
-    return uuid;
+  public List<String> getInclude() {
+    return include;
   }
 
 
-  public void setUuid(UUID uuid) {
-    this.uuid = uuid;
-  }
-
-
-  public StreamGetSubscriptions type(TypeEnum type) {
-    
-    this.type = type;
-    return this;
-  }
-
-   /**
-   * Stream subscription type
-   * @return type
-  **/
-  @javax.annotation.Nullable
-
-  public TypeEnum getType() {
-    return type;
-  }
-
-
-  public void setType(TypeEnum type) {
-    this.type = type;
+  public void setInclude(List<String> include) {
+    this.include = include;
   }
 
   /**
@@ -185,9 +97,9 @@ public class StreamGetSubscriptions {
    *
    * @param key name of the property
    * @param value value of the property
-   * @return the StreamGetSubscriptions instance itself
+   * @return the ResourceSelector instance itself
    */
-  public StreamGetSubscriptions putAdditionalProperty(String key, Object value) {
+  public ResourceSelector putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
         this.additionalProperties = new HashMap<String, Object>();
     }
@@ -226,25 +138,21 @@ public class StreamGetSubscriptions {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    StreamGetSubscriptions streamGetSubscriptions = (StreamGetSubscriptions) o;
-    return Objects.equals(this.href, streamGetSubscriptions.href) &&
-        Objects.equals(this.uuid, streamGetSubscriptions.uuid) &&
-        Objects.equals(this.type, streamGetSubscriptions.type)&&
-        Objects.equals(this.additionalProperties, streamGetSubscriptions.additionalProperties);
+    ResourceSelector resourceSelector = (ResourceSelector) o;
+    return Objects.equals(this.include, resourceSelector.include)&&
+        Objects.equals(this.additionalProperties, resourceSelector.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(href, uuid, type, additionalProperties);
+    return Objects.hash(include, additionalProperties);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class StreamGetSubscriptions {\n");
-    sb.append("    href: ").append(toIndentedString(href)).append("\n");
-    sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("class ResourceSelector {\n");
+    sb.append("    include: ").append(toIndentedString(include)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -268,9 +176,7 @@ public class StreamGetSubscriptions {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("href");
-    openapiFields.add("uuid");
-    openapiFields.add("type");
+    openapiFields.add("include");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -280,22 +186,17 @@ public class StreamGetSubscriptions {
   * Validates the JSON Object and throws an exception if issues found
   *
   * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to StreamGetSubscriptions
+  * @throws IOException if the JSON Object is invalid with respect to ResourceSelector
   */
   public static void validateJsonObject(JsonObject jsonObj) throws IOException {
       if (jsonObj == null) {
-        if (!StreamGetSubscriptions.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in StreamGetSubscriptions is not found in the empty JSON string", StreamGetSubscriptions.openapiRequiredFields.toString()));
+        if (!ResourceSelector.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in ResourceSelector is not found in the empty JSON string", ResourceSelector.openapiRequiredFields.toString()));
         }
       }
-      if ((jsonObj.get("href") != null && !jsonObj.get("href").isJsonNull()) && !jsonObj.get("href").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `href` to be a primitive type in the JSON string but got `%s`", jsonObj.get("href").toString()));
-      }
-      if ((jsonObj.get("uuid") != null && !jsonObj.get("uuid").isJsonNull()) && !jsonObj.get("uuid").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `uuid` to be a primitive type in the JSON string but got `%s`", jsonObj.get("uuid").toString()));
-      }
-      if ((jsonObj.get("type") != null && !jsonObj.get("type").isJsonNull()) && !jsonObj.get("type").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("type").toString()));
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("include") != null && !jsonObj.get("include").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `include` to be an array in the JSON string but got `%s`", jsonObj.get("include").toString()));
       }
   }
 
@@ -303,16 +204,16 @@ public class StreamGetSubscriptions {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!StreamGetSubscriptions.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'StreamGetSubscriptions' and its subtypes
+       if (!ResourceSelector.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'ResourceSelector' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<StreamGetSubscriptions> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(StreamGetSubscriptions.class));
+       final TypeAdapter<ResourceSelector> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(ResourceSelector.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<StreamGetSubscriptions>() {
+       return (TypeAdapter<T>) new TypeAdapter<ResourceSelector>() {
            @Override
-           public void write(JsonWriter out, StreamGetSubscriptions value) throws IOException {
+           public void write(JsonWriter out, ResourceSelector value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
              // serialize additional properties
@@ -335,11 +236,11 @@ public class StreamGetSubscriptions {
            }
 
            @Override
-           public StreamGetSubscriptions read(JsonReader in) throws IOException {
+           public ResourceSelector read(JsonReader in) throws IOException {
              JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
              validateJsonObject(jsonObj);
              // store additional fields in the deserialized instance
-             StreamGetSubscriptions instance = thisAdapter.fromJsonTree(jsonObj);
+             ResourceSelector instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
                if (!openapiFields.contains(entry.getKey())) {
                  if (entry.getValue().isJsonPrimitive()) { // primitive type
@@ -366,18 +267,18 @@ public class StreamGetSubscriptions {
   }
 
  /**
-  * Create an instance of StreamGetSubscriptions given an JSON string
+  * Create an instance of ResourceSelector given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of StreamGetSubscriptions
-  * @throws IOException if the JSON string is invalid with respect to StreamGetSubscriptions
+  * @return An instance of ResourceSelector
+  * @throws IOException if the JSON string is invalid with respect to ResourceSelector
   */
-  public static StreamGetSubscriptions fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, StreamGetSubscriptions.class);
+  public static ResourceSelector fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, ResourceSelector.class);
   }
 
  /**
-  * Convert an instance of StreamGetSubscriptions to an JSON string
+  * Convert an instance of ResourceSelector to an JSON string
   *
   * @return JSON string
   */

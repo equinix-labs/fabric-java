@@ -90,10 +90,12 @@ public class Price {
   private String currency;
 
   /**
-   * In months. No value means unlimited
+   * In months. No value or value of 1 means on-demand
    */
   @JsonAdapter(TermLengthEnum.Adapter.class)
   public enum TermLengthEnum {
+    NUMBER_1(1),
+    
     NUMBER_12(12),
     
     NUMBER_24(24),
@@ -360,7 +362,7 @@ public class Price {
   }
 
    /**
-   * In months. No value means unlimited
+   * In months. No value or value of 1 means on-demand
    * @return termLength
   **/
   @javax.annotation.Nullable

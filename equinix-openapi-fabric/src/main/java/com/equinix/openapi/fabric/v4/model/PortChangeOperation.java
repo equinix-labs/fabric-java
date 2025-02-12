@@ -13,16 +13,12 @@ package com.equinix.openapi.fabric.v4.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.equinix.openapi.fabric.v4.model.Pagination;
-import com.equinix.openapi.fabric.v4.model.Statistics;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -46,70 +42,88 @@ import java.util.Set;
 import com.equinix.openapi.fabric.JSON;
 
 /**
- * This API provides service-level traffic metrics for the top utilized ports so that you can view access and gather key information required to manage service subscription sizing and capacity.
+ * Port change operation data
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class TopUtilizedStatistics {
-  public static final String SERIALIZED_NAME_PAGINATION = "pagination";
-  @SerializedName(SERIALIZED_NAME_PAGINATION)
-  private Pagination pagination;
+public class PortChangeOperation {
+  public static final String SERIALIZED_NAME_OP = "op";
+  @SerializedName(SERIALIZED_NAME_OP)
+  private String op;
 
-  public static final String SERIALIZED_NAME_DATA = "data";
-  @SerializedName(SERIALIZED_NAME_DATA)
-  private List<Statistics> data = new ArrayList<>();
+  public static final String SERIALIZED_NAME_PATH = "path";
+  @SerializedName(SERIALIZED_NAME_PATH)
+  private String path;
 
-  public TopUtilizedStatistics() {
+  public static final String SERIALIZED_NAME_VALUE = "value";
+  @SerializedName(SERIALIZED_NAME_VALUE)
+  private Object value;
+
+  public PortChangeOperation() {
   }
 
-  public TopUtilizedStatistics pagination(Pagination pagination) {
+  public PortChangeOperation op(String op) {
     
-    this.pagination = pagination;
+    this.op = op;
     return this;
   }
 
    /**
-   * Get pagination
-   * @return pagination
+   * Handy shortcut for operation name
+   * @return op
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
 
-  public Pagination getPagination() {
-    return pagination;
+  public String getOp() {
+    return op;
   }
 
 
-  public void setPagination(Pagination pagination) {
-    this.pagination = pagination;
+  public void setOp(String op) {
+    this.op = op;
   }
 
 
-  public TopUtilizedStatistics data(List<Statistics> data) {
+  public PortChangeOperation path(String path) {
     
-    this.data = data;
-    return this;
-  }
-
-  public TopUtilizedStatistics addDataItem(Statistics dataItem) {
-    if (this.data == null) {
-      this.data = new ArrayList<>();
-    }
-    this.data.add(dataItem);
+    this.path = path;
     return this;
   }
 
    /**
-   * Data returned from the API call.
-   * @return data
+   * path inside document leading to updated parameter
+   * @return path
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
 
-  public List<Statistics> getData() {
-    return data;
+  public String getPath() {
+    return path;
   }
 
 
-  public void setData(List<Statistics> data) {
-    this.data = data;
+  public void setPath(String path) {
+    this.path = path;
+  }
+
+
+  public PortChangeOperation value(Object value) {
+    
+    this.value = value;
+    return this;
+  }
+
+   /**
+   * new value for updated parameter
+   * @return value
+  **/
+  @javax.annotation.Nonnull
+
+  public Object getValue() {
+    return value;
+  }
+
+
+  public void setValue(Object value) {
+    this.value = value;
   }
 
   /**
@@ -125,9 +139,9 @@ public class TopUtilizedStatistics {
    *
    * @param key name of the property
    * @param value value of the property
-   * @return the TopUtilizedStatistics instance itself
+   * @return the PortChangeOperation instance itself
    */
-  public TopUtilizedStatistics putAdditionalProperty(String key, Object value) {
+  public PortChangeOperation putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
         this.additionalProperties = new HashMap<String, Object>();
     }
@@ -166,23 +180,25 @@ public class TopUtilizedStatistics {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    TopUtilizedStatistics topUtilizedStatistics = (TopUtilizedStatistics) o;
-    return Objects.equals(this.pagination, topUtilizedStatistics.pagination) &&
-        Objects.equals(this.data, topUtilizedStatistics.data)&&
-        Objects.equals(this.additionalProperties, topUtilizedStatistics.additionalProperties);
+    PortChangeOperation portChangeOperation = (PortChangeOperation) o;
+    return Objects.equals(this.op, portChangeOperation.op) &&
+        Objects.equals(this.path, portChangeOperation.path) &&
+        Objects.equals(this.value, portChangeOperation.value)&&
+        Objects.equals(this.additionalProperties, portChangeOperation.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pagination, data, additionalProperties);
+    return Objects.hash(op, path, value, additionalProperties);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class TopUtilizedStatistics {\n");
-    sb.append("    pagination: ").append(toIndentedString(pagination)).append("\n");
-    sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("class PortChangeOperation {\n");
+    sb.append("    op: ").append(toIndentedString(op)).append("\n");
+    sb.append("    path: ").append(toIndentedString(path)).append("\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -206,42 +222,41 @@ public class TopUtilizedStatistics {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("pagination");
-    openapiFields.add("data");
+    openapiFields.add("op");
+    openapiFields.add("path");
+    openapiFields.add("value");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("op");
+    openapiRequiredFields.add("path");
+    openapiRequiredFields.add("value");
   }
 
  /**
   * Validates the JSON Object and throws an exception if issues found
   *
   * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to TopUtilizedStatistics
+  * @throws IOException if the JSON Object is invalid with respect to PortChangeOperation
   */
   public static void validateJsonObject(JsonObject jsonObj) throws IOException {
       if (jsonObj == null) {
-        if (!TopUtilizedStatistics.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in TopUtilizedStatistics is not found in the empty JSON string", TopUtilizedStatistics.openapiRequiredFields.toString()));
+        if (!PortChangeOperation.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in PortChangeOperation is not found in the empty JSON string", PortChangeOperation.openapiRequiredFields.toString()));
         }
       }
-      // validate the optional field `pagination`
-      if (jsonObj.get("pagination") != null && !jsonObj.get("pagination").isJsonNull()) {
-        Pagination.validateJsonObject(jsonObj.getAsJsonObject("pagination"));
-      }
-      if (jsonObj.get("data") != null && !jsonObj.get("data").isJsonNull()) {
-        JsonArray jsonArraydata = jsonObj.getAsJsonArray("data");
-        if (jsonArraydata != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("data").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `data` to be an array in the JSON string but got `%s`", jsonObj.get("data").toString()));
-          }
 
-          // validate the optional field `data` (array)
-          for (int i = 0; i < jsonArraydata.size(); i++) {
-            Statistics.validateJsonObject(jsonArraydata.get(i).getAsJsonObject());
-          };
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : PortChangeOperation.openapiRequiredFields) {
+        if (jsonObj.get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
         }
+      }
+      if (!jsonObj.get("op").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `op` to be a primitive type in the JSON string but got `%s`", jsonObj.get("op").toString()));
+      }
+      if (!jsonObj.get("path").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `path` to be a primitive type in the JSON string but got `%s`", jsonObj.get("path").toString()));
       }
   }
 
@@ -249,16 +264,16 @@ public class TopUtilizedStatistics {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!TopUtilizedStatistics.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'TopUtilizedStatistics' and its subtypes
+       if (!PortChangeOperation.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'PortChangeOperation' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<TopUtilizedStatistics> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(TopUtilizedStatistics.class));
+       final TypeAdapter<PortChangeOperation> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(PortChangeOperation.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<TopUtilizedStatistics>() {
+       return (TypeAdapter<T>) new TypeAdapter<PortChangeOperation>() {
            @Override
-           public void write(JsonWriter out, TopUtilizedStatistics value) throws IOException {
+           public void write(JsonWriter out, PortChangeOperation value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
              // serialize additional properties
@@ -281,11 +296,11 @@ public class TopUtilizedStatistics {
            }
 
            @Override
-           public TopUtilizedStatistics read(JsonReader in) throws IOException {
+           public PortChangeOperation read(JsonReader in) throws IOException {
              JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
              validateJsonObject(jsonObj);
              // store additional fields in the deserialized instance
-             TopUtilizedStatistics instance = thisAdapter.fromJsonTree(jsonObj);
+             PortChangeOperation instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
                if (!openapiFields.contains(entry.getKey())) {
                  if (entry.getValue().isJsonPrimitive()) { // primitive type
@@ -312,18 +327,18 @@ public class TopUtilizedStatistics {
   }
 
  /**
-  * Create an instance of TopUtilizedStatistics given an JSON string
+  * Create an instance of PortChangeOperation given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of TopUtilizedStatistics
-  * @throws IOException if the JSON string is invalid with respect to TopUtilizedStatistics
+  * @return An instance of PortChangeOperation
+  * @throws IOException if the JSON string is invalid with respect to PortChangeOperation
   */
-  public static TopUtilizedStatistics fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, TopUtilizedStatistics.class);
+  public static PortChangeOperation fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, PortChangeOperation.class);
   }
 
  /**
-  * Convert an instance of TopUtilizedStatistics to an JSON string
+  * Convert an instance of PortChangeOperation to an JSON string
   *
   * @return JSON string
   */

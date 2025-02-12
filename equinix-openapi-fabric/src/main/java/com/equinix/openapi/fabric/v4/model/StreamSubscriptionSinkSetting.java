@@ -62,6 +62,18 @@ public class StreamSubscriptionSinkSetting {
   @SerializedName(SERIALIZED_NAME_APPLICATION_KEY)
   private String applicationKey;
 
+  public static final String SERIALIZED_NAME_EVENT_URI = "eventUri";
+  @SerializedName(SERIALIZED_NAME_EVENT_URI)
+  private String eventUri;
+
+  public static final String SERIALIZED_NAME_METRIC_URI = "metricUri";
+  @SerializedName(SERIALIZED_NAME_METRIC_URI)
+  private String metricUri;
+
+  public static final String SERIALIZED_NAME_TRANSFORM_ALERTS = "transformAlerts";
+  @SerializedName(SERIALIZED_NAME_TRANSFORM_ALERTS)
+  private Boolean transformAlerts;
+
   public StreamSubscriptionSinkSetting() {
   }
 
@@ -152,6 +164,72 @@ public class StreamSubscriptionSinkSetting {
     this.applicationKey = applicationKey;
   }
 
+
+  public StreamSubscriptionSinkSetting eventUri(String eventUri) {
+    
+    this.eventUri = eventUri;
+    return this;
+  }
+
+   /**
+   * event uri
+   * @return eventUri
+  **/
+  @javax.annotation.Nullable
+
+  public String getEventUri() {
+    return eventUri;
+  }
+
+
+  public void setEventUri(String eventUri) {
+    this.eventUri = eventUri;
+  }
+
+
+  public StreamSubscriptionSinkSetting metricUri(String metricUri) {
+    
+    this.metricUri = metricUri;
+    return this;
+  }
+
+   /**
+   * metric uri
+   * @return metricUri
+  **/
+  @javax.annotation.Nullable
+
+  public String getMetricUri() {
+    return metricUri;
+  }
+
+
+  public void setMetricUri(String metricUri) {
+    this.metricUri = metricUri;
+  }
+
+
+  public StreamSubscriptionSinkSetting transformAlerts(Boolean transformAlerts) {
+    
+    this.transformAlerts = transformAlerts;
+    return this;
+  }
+
+   /**
+   * transform alerts
+   * @return transformAlerts
+  **/
+  @javax.annotation.Nullable
+
+  public Boolean getTransformAlerts() {
+    return transformAlerts;
+  }
+
+
+  public void setTransformAlerts(Boolean transformAlerts) {
+    this.transformAlerts = transformAlerts;
+  }
+
   /**
    * A container for additional, undeclared properties.
    * This is a holder for any undeclared properties as specified with
@@ -210,13 +288,16 @@ public class StreamSubscriptionSinkSetting {
     return Objects.equals(this.eventIndex, streamSubscriptionSinkSetting.eventIndex) &&
         Objects.equals(this.metricIndex, streamSubscriptionSinkSetting.metricIndex) &&
         Objects.equals(this.source, streamSubscriptionSinkSetting.source) &&
-        Objects.equals(this.applicationKey, streamSubscriptionSinkSetting.applicationKey)&&
+        Objects.equals(this.applicationKey, streamSubscriptionSinkSetting.applicationKey) &&
+        Objects.equals(this.eventUri, streamSubscriptionSinkSetting.eventUri) &&
+        Objects.equals(this.metricUri, streamSubscriptionSinkSetting.metricUri) &&
+        Objects.equals(this.transformAlerts, streamSubscriptionSinkSetting.transformAlerts)&&
         Objects.equals(this.additionalProperties, streamSubscriptionSinkSetting.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(eventIndex, metricIndex, source, applicationKey, additionalProperties);
+    return Objects.hash(eventIndex, metricIndex, source, applicationKey, eventUri, metricUri, transformAlerts, additionalProperties);
   }
 
   @Override
@@ -227,6 +308,9 @@ public class StreamSubscriptionSinkSetting {
     sb.append("    metricIndex: ").append(toIndentedString(metricIndex)).append("\n");
     sb.append("    source: ").append(toIndentedString(source)).append("\n");
     sb.append("    applicationKey: ").append(toIndentedString(applicationKey)).append("\n");
+    sb.append("    eventUri: ").append(toIndentedString(eventUri)).append("\n");
+    sb.append("    metricUri: ").append(toIndentedString(metricUri)).append("\n");
+    sb.append("    transformAlerts: ").append(toIndentedString(transformAlerts)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -254,6 +338,9 @@ public class StreamSubscriptionSinkSetting {
     openapiFields.add("metricIndex");
     openapiFields.add("source");
     openapiFields.add("applicationKey");
+    openapiFields.add("eventUri");
+    openapiFields.add("metricUri");
+    openapiFields.add("transformAlerts");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -282,6 +369,12 @@ public class StreamSubscriptionSinkSetting {
       }
       if ((jsonObj.get("applicationKey") != null && !jsonObj.get("applicationKey").isJsonNull()) && !jsonObj.get("applicationKey").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `applicationKey` to be a primitive type in the JSON string but got `%s`", jsonObj.get("applicationKey").toString()));
+      }
+      if ((jsonObj.get("eventUri") != null && !jsonObj.get("eventUri").isJsonNull()) && !jsonObj.get("eventUri").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `eventUri` to be a primitive type in the JSON string but got `%s`", jsonObj.get("eventUri").toString()));
+      }
+      if ((jsonObj.get("metricUri") != null && !jsonObj.get("metricUri").isJsonNull()) && !jsonObj.get("metricUri").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `metricUri` to be a primitive type in the JSON string but got `%s`", jsonObj.get("metricUri").toString()));
       }
   }
 
