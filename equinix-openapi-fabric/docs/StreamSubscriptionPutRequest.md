@@ -10,7 +10,6 @@ Update Stream Subscription
 |------------ | ------------- | ------------- | -------------|
 |**name** | **String** | Customer-provided stream subscription name |  [optional] |
 |**description** | **String** | Customer-provided stream subscription description |  [optional] |
-|**stream** | [**StreamTarget**](StreamTarget.md) |  |  [optional] |
 |**enabled** | **Boolean** | Stream subscription enabled status |  [optional] |
 |**filters** | [**StreamSubscriptionFilter**](StreamSubscriptionFilter.md) |  |  [optional] |
 |**metricSelector** | [**StreamSubscriptionSelector**](StreamSubscriptionSelector.md) |  |  [optional] |

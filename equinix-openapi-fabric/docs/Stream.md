@@ -18,7 +18,6 @@ Stream object
 |**name** | **String** | Customer-provided stream name |  [optional] |
 |**description** | **String** | Customer-provided stream description |  [optional] |
 |**project** | [**Project**](Project.md) |  |  [optional] |
-|**enabled** | **Boolean** | Stream enabled status |  [optional] |
 
 
 
@@ -28,6 +27,7 @@ Stream object
 |---- | -----|
 | PROVISIONING | &quot;PROVISIONING&quot; |
 | PROVISIONED | &quot;PROVISIONED&quot; |
+| REPROVISIONING | &quot;REPROVISIONING&quot; |
 | DEPROVISIONING | &quot;DEPROVISIONING&quot; |
 | DEPROVISIONED | &quot;DEPROVISIONED&quot; |
 | FAILED | &quot;FAILED&quot; |

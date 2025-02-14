@@ -25,11 +25,10 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
+import com.equinix.openapi.fabric.v4.model.AlertRulePostRequest;
+import com.equinix.openapi.fabric.v4.model.AlertRulePutRequest;
 import com.equinix.openapi.fabric.v4.model.Error;
-import com.equinix.openapi.fabric.v4.model.GetAllStreamSubscriptionResponse;
-import com.equinix.openapi.fabric.v4.model.StreamSubscription;
-import com.equinix.openapi.fabric.v4.model.StreamSubscriptionPostRequest;
-import com.equinix.openapi.fabric.v4.model.StreamSubscriptionPutRequest;
+import com.equinix.openapi.fabric.v4.model.StreamAlertRule;
 import java.util.UUID;
 
 import java.lang.reflect.Type;
@@ -39,16 +38,16 @@ import java.util.List;
 import java.util.Map;
 import javax.ws.rs.core.GenericType;
 
-public class StreamSubscriptionsApi {
+public class StreamAlertRulesApi {
     private ApiClient localVarApiClient;
     private int localHostIndex;
     private String localCustomBaseUrl;
 
-    public StreamSubscriptionsApi() {
+    public StreamAlertRulesApi() {
         this(Configuration.getDefaultApiClient());
     }
 
-    public StreamSubscriptionsApi(ApiClient apiClient) {
+    public StreamAlertRulesApi(ApiClient apiClient) {
         this.localVarApiClient = apiClient;
     }
 
@@ -77,16 +76,16 @@ public class StreamSubscriptionsApi {
     }
 
     /**
-     * Build call for createStreamSubscriptions
+     * Build call for createStreamAlertRules
      * @param streamId Stream UUID (required)
-     * @param streamSubscriptionPostRequest  (required)
+     * @param alertRulePostRequest  (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Stream Subscription object </td><td>  -  </td></tr>
+        <tr><td> 202 </td><td> Stream Alert Rules object </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -94,7 +93,7 @@ public class StreamSubscriptionsApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createStreamSubscriptionsCall(UUID streamId, StreamSubscriptionPostRequest streamSubscriptionPostRequest, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call createStreamAlertRulesCall(UUID streamId, AlertRulePostRequest alertRulePostRequest, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -108,10 +107,10 @@ public class StreamSubscriptionsApi {
             basePath = null;
         }
 
-        Object localVarPostBody = streamSubscriptionPostRequest;
+        Object localVarPostBody = alertRulePostRequest;
 
         // create path and map variables
-        String localVarPath = "/fabric/v4/streams/{streamId}/subscriptions"
+        String localVarPath = "/fabric/v4/streams/{streamId}/alertRules"
             .replace("{" + "streamId" + "}", localVarApiClient.escapeString(streamId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -141,32 +140,32 @@ public class StreamSubscriptionsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call createStreamSubscriptionsValidateBeforeCall(UUID streamId, StreamSubscriptionPostRequest streamSubscriptionPostRequest, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createStreamAlertRulesValidateBeforeCall(UUID streamId, AlertRulePostRequest alertRulePostRequest, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'streamId' is set
         if (streamId == null) {
-            throw new ApiException("Missing the required parameter 'streamId' when calling createStreamSubscriptions(Async)");
+            throw new ApiException("Missing the required parameter 'streamId' when calling createStreamAlertRules(Async)");
         }
 
-        // verify the required parameter 'streamSubscriptionPostRequest' is set
-        if (streamSubscriptionPostRequest == null) {
-            throw new ApiException("Missing the required parameter 'streamSubscriptionPostRequest' when calling createStreamSubscriptions(Async)");
+        // verify the required parameter 'alertRulePostRequest' is set
+        if (alertRulePostRequest == null) {
+            throw new ApiException("Missing the required parameter 'alertRulePostRequest' when calling createStreamAlertRules(Async)");
         }
 
-        return createStreamSubscriptionsCall(streamId, streamSubscriptionPostRequest, _callback);
+        return createStreamAlertRulesCall(streamId, alertRulePostRequest, _callback);
 
     }
 
     /**
-     * Create Subscription
-     * This API provides capability to create user&#39;s Stream Subscriptions
+     * Create Stream Alert Rules
+     * This API provides capability to create user&#39;s Stream Alert Rules
      * @param streamId Stream UUID (required)
-     * @param streamSubscriptionPostRequest  (required)
-     * @return StreamSubscription
+     * @param alertRulePostRequest  (required)
+     * @return StreamAlertRule
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Stream Subscription object </td><td>  -  </td></tr>
+        <tr><td> 202 </td><td> Stream Alert Rules object </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -174,22 +173,22 @@ public class StreamSubscriptionsApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public StreamSubscription createStreamSubscriptions(UUID streamId, StreamSubscriptionPostRequest streamSubscriptionPostRequest) throws ApiException {
-        ApiResponse<StreamSubscription> localVarResp = createStreamSubscriptionsWithHttpInfo(streamId, streamSubscriptionPostRequest);
+    public StreamAlertRule createStreamAlertRules(UUID streamId, AlertRulePostRequest alertRulePostRequest) throws ApiException {
+        ApiResponse<StreamAlertRule> localVarResp = createStreamAlertRulesWithHttpInfo(streamId, alertRulePostRequest);
         return localVarResp.getData();
     }
 
     /**
-     * Create Subscription
-     * This API provides capability to create user&#39;s Stream Subscriptions
+     * Create Stream Alert Rules
+     * This API provides capability to create user&#39;s Stream Alert Rules
      * @param streamId Stream UUID (required)
-     * @param streamSubscriptionPostRequest  (required)
-     * @return ApiResponse&lt;StreamSubscription&gt;
+     * @param alertRulePostRequest  (required)
+     * @return ApiResponse&lt;StreamAlertRule&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Stream Subscription object </td><td>  -  </td></tr>
+        <tr><td> 202 </td><td> Stream Alert Rules object </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -197,24 +196,24 @@ public class StreamSubscriptionsApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<StreamSubscription> createStreamSubscriptionsWithHttpInfo(UUID streamId, StreamSubscriptionPostRequest streamSubscriptionPostRequest) throws ApiException {
-        okhttp3.Call localVarCall = createStreamSubscriptionsValidateBeforeCall(streamId, streamSubscriptionPostRequest, null);
-        Type localVarReturnType = new TypeToken<StreamSubscription>(){}.getType();
+    public ApiResponse<StreamAlertRule> createStreamAlertRulesWithHttpInfo(UUID streamId, AlertRulePostRequest alertRulePostRequest) throws ApiException {
+        okhttp3.Call localVarCall = createStreamAlertRulesValidateBeforeCall(streamId, alertRulePostRequest, null);
+        Type localVarReturnType = new TypeToken<StreamAlertRule>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
-     * Create Subscription (asynchronously)
-     * This API provides capability to create user&#39;s Stream Subscriptions
+     * Create Stream Alert Rules (asynchronously)
+     * This API provides capability to create user&#39;s Stream Alert Rules
      * @param streamId Stream UUID (required)
-     * @param streamSubscriptionPostRequest  (required)
+     * @param alertRulePostRequest  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Stream Subscription object </td><td>  -  </td></tr>
+        <tr><td> 202 </td><td> Stream Alert Rules object </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -222,24 +221,24 @@ public class StreamSubscriptionsApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createStreamSubscriptionsAsync(UUID streamId, StreamSubscriptionPostRequest streamSubscriptionPostRequest, final ApiCallback<StreamSubscription> _callback) throws ApiException {
+    public okhttp3.Call createStreamAlertRulesAsync(UUID streamId, AlertRulePostRequest alertRulePostRequest, final ApiCallback<StreamAlertRule> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = createStreamSubscriptionsValidateBeforeCall(streamId, streamSubscriptionPostRequest, _callback);
-        Type localVarReturnType = new TypeToken<StreamSubscription>(){}.getType();
+        okhttp3.Call localVarCall = createStreamAlertRulesValidateBeforeCall(streamId, alertRulePostRequest, _callback);
+        Type localVarReturnType = new TypeToken<StreamAlertRule>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
-     * Build call for deleteStreamSubscriptionByUuid
+     * Build call for deleteStreamAlertRuleByUuid
      * @param streamId Stream UUID (required)
-     * @param subscriptionId Stream Subscription UUID (required)
+     * @param alertRuleId alert rule UUID (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Stream Subscription object </td><td>  -  </td></tr>
+        <tr><td> 202 </td><td> Stream Alert Rules object </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -247,7 +246,7 @@ public class StreamSubscriptionsApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteStreamSubscriptionByUuidCall(UUID streamId, UUID subscriptionId, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call deleteStreamAlertRuleByUuidCall(UUID streamId, UUID alertRuleId, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -264,9 +263,9 @@ public class StreamSubscriptionsApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/fabric/v4/streams/{streamId}/subscriptions/{subscriptionId}"
+        String localVarPath = "/fabric/v4/streams/{streamId}/alertRules/{alertRuleId}"
             .replace("{" + "streamId" + "}", localVarApiClient.escapeString(streamId.toString()))
-            .replace("{" + "subscriptionId" + "}", localVarApiClient.escapeString(subscriptionId.toString()));
+            .replace("{" + "alertRuleId" + "}", localVarApiClient.escapeString(alertRuleId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -294,32 +293,32 @@ public class StreamSubscriptionsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteStreamSubscriptionByUuidValidateBeforeCall(UUID streamId, UUID subscriptionId, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call deleteStreamAlertRuleByUuidValidateBeforeCall(UUID streamId, UUID alertRuleId, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'streamId' is set
         if (streamId == null) {
-            throw new ApiException("Missing the required parameter 'streamId' when calling deleteStreamSubscriptionByUuid(Async)");
+            throw new ApiException("Missing the required parameter 'streamId' when calling deleteStreamAlertRuleByUuid(Async)");
         }
 
-        // verify the required parameter 'subscriptionId' is set
-        if (subscriptionId == null) {
-            throw new ApiException("Missing the required parameter 'subscriptionId' when calling deleteStreamSubscriptionByUuid(Async)");
+        // verify the required parameter 'alertRuleId' is set
+        if (alertRuleId == null) {
+            throw new ApiException("Missing the required parameter 'alertRuleId' when calling deleteStreamAlertRuleByUuid(Async)");
         }
 
-        return deleteStreamSubscriptionByUuidCall(streamId, subscriptionId, _callback);
+        return deleteStreamAlertRuleByUuidCall(streamId, alertRuleId, _callback);
 
     }
 
     /**
-     * Delete Subscription
-     * This API provides capability to delete user&#39;s Stream Subscriptions
+     * Update Stream Alert Rules
+     * This API provides capability to delete a user&#39;s stream alert rule
      * @param streamId Stream UUID (required)
-     * @param subscriptionId Stream Subscription UUID (required)
-     * @return StreamSubscription
+     * @param alertRuleId alert rule UUID (required)
+     * @return StreamAlertRule
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Stream Subscription object </td><td>  -  </td></tr>
+        <tr><td> 202 </td><td> Stream Alert Rules object </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -327,22 +326,22 @@ public class StreamSubscriptionsApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public StreamSubscription deleteStreamSubscriptionByUuid(UUID streamId, UUID subscriptionId) throws ApiException {
-        ApiResponse<StreamSubscription> localVarResp = deleteStreamSubscriptionByUuidWithHttpInfo(streamId, subscriptionId);
+    public StreamAlertRule deleteStreamAlertRuleByUuid(UUID streamId, UUID alertRuleId) throws ApiException {
+        ApiResponse<StreamAlertRule> localVarResp = deleteStreamAlertRuleByUuidWithHttpInfo(streamId, alertRuleId);
         return localVarResp.getData();
     }
 
     /**
-     * Delete Subscription
-     * This API provides capability to delete user&#39;s Stream Subscriptions
+     * Update Stream Alert Rules
+     * This API provides capability to delete a user&#39;s stream alert rule
      * @param streamId Stream UUID (required)
-     * @param subscriptionId Stream Subscription UUID (required)
-     * @return ApiResponse&lt;StreamSubscription&gt;
+     * @param alertRuleId alert rule UUID (required)
+     * @return ApiResponse&lt;StreamAlertRule&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Stream Subscription object </td><td>  -  </td></tr>
+        <tr><td> 202 </td><td> Stream Alert Rules object </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -350,24 +349,24 @@ public class StreamSubscriptionsApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<StreamSubscription> deleteStreamSubscriptionByUuidWithHttpInfo(UUID streamId, UUID subscriptionId) throws ApiException {
-        okhttp3.Call localVarCall = deleteStreamSubscriptionByUuidValidateBeforeCall(streamId, subscriptionId, null);
-        Type localVarReturnType = new TypeToken<StreamSubscription>(){}.getType();
+    public ApiResponse<StreamAlertRule> deleteStreamAlertRuleByUuidWithHttpInfo(UUID streamId, UUID alertRuleId) throws ApiException {
+        okhttp3.Call localVarCall = deleteStreamAlertRuleByUuidValidateBeforeCall(streamId, alertRuleId, null);
+        Type localVarReturnType = new TypeToken<StreamAlertRule>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
-     * Delete Subscription (asynchronously)
-     * This API provides capability to delete user&#39;s Stream Subscriptions
+     * Update Stream Alert Rules (asynchronously)
+     * This API provides capability to delete a user&#39;s stream alert rule
      * @param streamId Stream UUID (required)
-     * @param subscriptionId Stream Subscription UUID (required)
+     * @param alertRuleId alert rule UUID (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Stream Subscription object </td><td>  -  </td></tr>
+        <tr><td> 202 </td><td> Stream Alert Rules object </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -375,24 +374,24 @@ public class StreamSubscriptionsApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteStreamSubscriptionByUuidAsync(UUID streamId, UUID subscriptionId, final ApiCallback<StreamSubscription> _callback) throws ApiException {
+    public okhttp3.Call deleteStreamAlertRuleByUuidAsync(UUID streamId, UUID alertRuleId, final ApiCallback<StreamAlertRule> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = deleteStreamSubscriptionByUuidValidateBeforeCall(streamId, subscriptionId, _callback);
-        Type localVarReturnType = new TypeToken<StreamSubscription>(){}.getType();
+        okhttp3.Call localVarCall = deleteStreamAlertRuleByUuidValidateBeforeCall(streamId, alertRuleId, _callback);
+        Type localVarReturnType = new TypeToken<StreamAlertRule>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
-     * Build call for getStreamSubscriptionByUuid
+     * Build call for getStreamAlertRuleByUuid
      * @param streamId Stream UUID (required)
-     * @param subscriptionId Stream Subscription UUID (required)
+     * @param alertRuleId alert rule UUID (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Stream Subscription object </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Stream Alert Rules object </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -400,7 +399,7 @@ public class StreamSubscriptionsApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getStreamSubscriptionByUuidCall(UUID streamId, UUID subscriptionId, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getStreamAlertRuleByUuidCall(UUID streamId, UUID alertRuleId, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -417,9 +416,9 @@ public class StreamSubscriptionsApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/fabric/v4/streams/{streamId}/subscriptions/{subscriptionId}"
+        String localVarPath = "/fabric/v4/streams/{streamId}/alertRules/{alertRuleId}"
             .replace("{" + "streamId" + "}", localVarApiClient.escapeString(streamId.toString()))
-            .replace("{" + "subscriptionId" + "}", localVarApiClient.escapeString(subscriptionId.toString()));
+            .replace("{" + "alertRuleId" + "}", localVarApiClient.escapeString(alertRuleId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -447,32 +446,32 @@ public class StreamSubscriptionsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getStreamSubscriptionByUuidValidateBeforeCall(UUID streamId, UUID subscriptionId, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getStreamAlertRuleByUuidValidateBeforeCall(UUID streamId, UUID alertRuleId, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'streamId' is set
         if (streamId == null) {
-            throw new ApiException("Missing the required parameter 'streamId' when calling getStreamSubscriptionByUuid(Async)");
+            throw new ApiException("Missing the required parameter 'streamId' when calling getStreamAlertRuleByUuid(Async)");
         }
 
-        // verify the required parameter 'subscriptionId' is set
-        if (subscriptionId == null) {
-            throw new ApiException("Missing the required parameter 'subscriptionId' when calling getStreamSubscriptionByUuid(Async)");
+        // verify the required parameter 'alertRuleId' is set
+        if (alertRuleId == null) {
+            throw new ApiException("Missing the required parameter 'alertRuleId' when calling getStreamAlertRuleByUuid(Async)");
         }
 
-        return getStreamSubscriptionByUuidCall(streamId, subscriptionId, _callback);
+        return getStreamAlertRuleByUuidCall(streamId, alertRuleId, _callback);
 
     }
 
     /**
-     * Get Subscription
-     * This API provides capability to delete user&#39;s get Stream Subscriptions
+     * Get Stream Alert Rules
+     * This API provides capability to get user&#39;s stream alert rules
      * @param streamId Stream UUID (required)
-     * @param subscriptionId Stream Subscription UUID (required)
-     * @return StreamSubscription
+     * @param alertRuleId alert rule UUID (required)
+     * @return StreamAlertRule
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Stream Subscription object </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Stream Alert Rules object </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -480,22 +479,22 @@ public class StreamSubscriptionsApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public StreamSubscription getStreamSubscriptionByUuid(UUID streamId, UUID subscriptionId) throws ApiException {
-        ApiResponse<StreamSubscription> localVarResp = getStreamSubscriptionByUuidWithHttpInfo(streamId, subscriptionId);
+    public StreamAlertRule getStreamAlertRuleByUuid(UUID streamId, UUID alertRuleId) throws ApiException {
+        ApiResponse<StreamAlertRule> localVarResp = getStreamAlertRuleByUuidWithHttpInfo(streamId, alertRuleId);
         return localVarResp.getData();
     }
 
     /**
-     * Get Subscription
-     * This API provides capability to delete user&#39;s get Stream Subscriptions
+     * Get Stream Alert Rules
+     * This API provides capability to get user&#39;s stream alert rules
      * @param streamId Stream UUID (required)
-     * @param subscriptionId Stream Subscription UUID (required)
-     * @return ApiResponse&lt;StreamSubscription&gt;
+     * @param alertRuleId alert rule UUID (required)
+     * @return ApiResponse&lt;StreamAlertRule&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Stream Subscription object </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Stream Alert Rules object </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -503,24 +502,24 @@ public class StreamSubscriptionsApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<StreamSubscription> getStreamSubscriptionByUuidWithHttpInfo(UUID streamId, UUID subscriptionId) throws ApiException {
-        okhttp3.Call localVarCall = getStreamSubscriptionByUuidValidateBeforeCall(streamId, subscriptionId, null);
-        Type localVarReturnType = new TypeToken<StreamSubscription>(){}.getType();
+    public ApiResponse<StreamAlertRule> getStreamAlertRuleByUuidWithHttpInfo(UUID streamId, UUID alertRuleId) throws ApiException {
+        okhttp3.Call localVarCall = getStreamAlertRuleByUuidValidateBeforeCall(streamId, alertRuleId, null);
+        Type localVarReturnType = new TypeToken<StreamAlertRule>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
-     * Get Subscription (asynchronously)
-     * This API provides capability to delete user&#39;s get Stream Subscriptions
+     * Get Stream Alert Rules (asynchronously)
+     * This API provides capability to get user&#39;s stream alert rules
      * @param streamId Stream UUID (required)
-     * @param subscriptionId Stream Subscription UUID (required)
+     * @param alertRuleId alert rule UUID (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Stream Subscription object </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Stream Alert Rules object </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -528,15 +527,15 @@ public class StreamSubscriptionsApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getStreamSubscriptionByUuidAsync(UUID streamId, UUID subscriptionId, final ApiCallback<StreamSubscription> _callback) throws ApiException {
+    public okhttp3.Call getStreamAlertRuleByUuidAsync(UUID streamId, UUID alertRuleId, final ApiCallback<StreamAlertRule> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getStreamSubscriptionByUuidValidateBeforeCall(streamId, subscriptionId, _callback);
-        Type localVarReturnType = new TypeToken<StreamSubscription>(){}.getType();
+        okhttp3.Call localVarCall = getStreamAlertRuleByUuidValidateBeforeCall(streamId, alertRuleId, _callback);
+        Type localVarReturnType = new TypeToken<StreamAlertRule>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
-     * Build call for getStreamSubscriptions
+     * Build call for getStreamAlertRules
      * @param streamId Stream UUID (required)
      * @param offset offset (optional)
      * @param limit number of records to fetch (optional)
@@ -546,14 +545,14 @@ public class StreamSubscriptionsApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Stream Alert Rules object </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getStreamSubscriptionsCall(UUID streamId, Integer offset, Integer limit, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getStreamAlertRulesCall(UUID streamId, Integer offset, Integer limit, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -570,7 +569,7 @@ public class StreamSubscriptionsApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/fabric/v4/streams/{streamId}/subscriptions"
+        String localVarPath = "/fabric/v4/streams/{streamId}/alertRules"
             .replace("{" + "streamId" + "}", localVarApiClient.escapeString(streamId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -607,66 +606,66 @@ public class StreamSubscriptionsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getStreamSubscriptionsValidateBeforeCall(UUID streamId, Integer offset, Integer limit, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getStreamAlertRulesValidateBeforeCall(UUID streamId, Integer offset, Integer limit, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'streamId' is set
         if (streamId == null) {
-            throw new ApiException("Missing the required parameter 'streamId' when calling getStreamSubscriptions(Async)");
+            throw new ApiException("Missing the required parameter 'streamId' when calling getStreamAlertRules(Async)");
         }
 
-        return getStreamSubscriptionsCall(streamId, offset, limit, _callback);
+        return getStreamAlertRulesCall(streamId, offset, limit, _callback);
 
     }
 
     /**
-     * Get Subscriptions
-     * This API provides capability to retrieve stream subscriptions
+     * Get Stream Alert Rules
+     * This API provides capability to retrieve stream alert rules
      * @param streamId Stream UUID (required)
      * @param offset offset (optional)
      * @param limit number of records to fetch (optional)
-     * @return GetAllStreamSubscriptionResponse
+     * @return StreamAlertRule
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Stream Alert Rules object </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public GetAllStreamSubscriptionResponse getStreamSubscriptions(UUID streamId, Integer offset, Integer limit) throws ApiException {
-        ApiResponse<GetAllStreamSubscriptionResponse> localVarResp = getStreamSubscriptionsWithHttpInfo(streamId, offset, limit);
+    public StreamAlertRule getStreamAlertRules(UUID streamId, Integer offset, Integer limit) throws ApiException {
+        ApiResponse<StreamAlertRule> localVarResp = getStreamAlertRulesWithHttpInfo(streamId, offset, limit);
         return localVarResp.getData();
     }
 
     /**
-     * Get Subscriptions
-     * This API provides capability to retrieve stream subscriptions
+     * Get Stream Alert Rules
+     * This API provides capability to retrieve stream alert rules
      * @param streamId Stream UUID (required)
      * @param offset offset (optional)
      * @param limit number of records to fetch (optional)
-     * @return ApiResponse&lt;GetAllStreamSubscriptionResponse&gt;
+     * @return ApiResponse&lt;StreamAlertRule&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Stream Alert Rules object </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<GetAllStreamSubscriptionResponse> getStreamSubscriptionsWithHttpInfo(UUID streamId, Integer offset, Integer limit) throws ApiException {
-        okhttp3.Call localVarCall = getStreamSubscriptionsValidateBeforeCall(streamId, offset, limit, null);
-        Type localVarReturnType = new TypeToken<GetAllStreamSubscriptionResponse>(){}.getType();
+    public ApiResponse<StreamAlertRule> getStreamAlertRulesWithHttpInfo(UUID streamId, Integer offset, Integer limit) throws ApiException {
+        okhttp3.Call localVarCall = getStreamAlertRulesValidateBeforeCall(streamId, offset, limit, null);
+        Type localVarReturnType = new TypeToken<StreamAlertRule>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
-     * Get Subscriptions (asynchronously)
-     * This API provides capability to retrieve stream subscriptions
+     * Get Stream Alert Rules (asynchronously)
+     * This API provides capability to retrieve stream alert rules
      * @param streamId Stream UUID (required)
      * @param offset offset (optional)
      * @param limit number of records to fetch (optional)
@@ -676,32 +675,32 @@ public class StreamSubscriptionsApi {
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Stream Alert Rules object </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getStreamSubscriptionsAsync(UUID streamId, Integer offset, Integer limit, final ApiCallback<GetAllStreamSubscriptionResponse> _callback) throws ApiException {
+    public okhttp3.Call getStreamAlertRulesAsync(UUID streamId, Integer offset, Integer limit, final ApiCallback<StreamAlertRule> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getStreamSubscriptionsValidateBeforeCall(streamId, offset, limit, _callback);
-        Type localVarReturnType = new TypeToken<GetAllStreamSubscriptionResponse>(){}.getType();
+        okhttp3.Call localVarCall = getStreamAlertRulesValidateBeforeCall(streamId, offset, limit, _callback);
+        Type localVarReturnType = new TypeToken<StreamAlertRule>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
-     * Build call for updateStreamSubscriptionByUuid
+     * Build call for updateStreamAlertRuleByUuid
      * @param streamId Stream UUID (required)
-     * @param subscriptionId Stream Subscription UUID (required)
-     * @param streamSubscriptionPutRequest  (required)
+     * @param alertRuleId alert rule UUID (required)
+     * @param alertRulePutRequest  (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Stream Subscription object </td><td>  -  </td></tr>
+        <tr><td> 202 </td><td> Stream Alert Rules object </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -710,7 +709,7 @@ public class StreamSubscriptionsApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateStreamSubscriptionByUuidCall(UUID streamId, UUID subscriptionId, StreamSubscriptionPutRequest streamSubscriptionPutRequest, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call updateStreamAlertRuleByUuidCall(UUID streamId, UUID alertRuleId, AlertRulePutRequest alertRulePutRequest, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -724,12 +723,12 @@ public class StreamSubscriptionsApi {
             basePath = null;
         }
 
-        Object localVarPostBody = streamSubscriptionPutRequest;
+        Object localVarPostBody = alertRulePutRequest;
 
         // create path and map variables
-        String localVarPath = "/fabric/v4/streams/{streamId}/subscriptions/{subscriptionId}"
+        String localVarPath = "/fabric/v4/streams/{streamId}/alertRules/{alertRuleId}"
             .replace("{" + "streamId" + "}", localVarApiClient.escapeString(streamId.toString()))
-            .replace("{" + "subscriptionId" + "}", localVarApiClient.escapeString(subscriptionId.toString()));
+            .replace("{" + "alertRuleId" + "}", localVarApiClient.escapeString(alertRuleId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -758,38 +757,38 @@ public class StreamSubscriptionsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateStreamSubscriptionByUuidValidateBeforeCall(UUID streamId, UUID subscriptionId, StreamSubscriptionPutRequest streamSubscriptionPutRequest, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call updateStreamAlertRuleByUuidValidateBeforeCall(UUID streamId, UUID alertRuleId, AlertRulePutRequest alertRulePutRequest, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'streamId' is set
         if (streamId == null) {
-            throw new ApiException("Missing the required parameter 'streamId' when calling updateStreamSubscriptionByUuid(Async)");
+            throw new ApiException("Missing the required parameter 'streamId' when calling updateStreamAlertRuleByUuid(Async)");
         }
 
-        // verify the required parameter 'subscriptionId' is set
-        if (subscriptionId == null) {
-            throw new ApiException("Missing the required parameter 'subscriptionId' when calling updateStreamSubscriptionByUuid(Async)");
+        // verify the required parameter 'alertRuleId' is set
+        if (alertRuleId == null) {
+            throw new ApiException("Missing the required parameter 'alertRuleId' when calling updateStreamAlertRuleByUuid(Async)");
         }
 
-        // verify the required parameter 'streamSubscriptionPutRequest' is set
-        if (streamSubscriptionPutRequest == null) {
-            throw new ApiException("Missing the required parameter 'streamSubscriptionPutRequest' when calling updateStreamSubscriptionByUuid(Async)");
+        // verify the required parameter 'alertRulePutRequest' is set
+        if (alertRulePutRequest == null) {
+            throw new ApiException("Missing the required parameter 'alertRulePutRequest' when calling updateStreamAlertRuleByUuid(Async)");
         }
 
-        return updateStreamSubscriptionByUuidCall(streamId, subscriptionId, streamSubscriptionPutRequest, _callback);
+        return updateStreamAlertRuleByUuidCall(streamId, alertRuleId, alertRulePutRequest, _callback);
 
     }
 
     /**
-     * Update Subscription
-     * This API provides capability to update user&#39;s Stream Subscriptions
+     * Update Stream Alert Rules
+     * This API provides capability to update a user&#39;s stream alert rule
      * @param streamId Stream UUID (required)
-     * @param subscriptionId Stream Subscription UUID (required)
-     * @param streamSubscriptionPutRequest  (required)
-     * @return StreamSubscription
+     * @param alertRuleId alert rule UUID (required)
+     * @param alertRulePutRequest  (required)
+     * @return StreamAlertRule
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Stream Subscription object </td><td>  -  </td></tr>
+        <tr><td> 202 </td><td> Stream Alert Rules object </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -798,23 +797,23 @@ public class StreamSubscriptionsApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public StreamSubscription updateStreamSubscriptionByUuid(UUID streamId, UUID subscriptionId, StreamSubscriptionPutRequest streamSubscriptionPutRequest) throws ApiException {
-        ApiResponse<StreamSubscription> localVarResp = updateStreamSubscriptionByUuidWithHttpInfo(streamId, subscriptionId, streamSubscriptionPutRequest);
+    public StreamAlertRule updateStreamAlertRuleByUuid(UUID streamId, UUID alertRuleId, AlertRulePutRequest alertRulePutRequest) throws ApiException {
+        ApiResponse<StreamAlertRule> localVarResp = updateStreamAlertRuleByUuidWithHttpInfo(streamId, alertRuleId, alertRulePutRequest);
         return localVarResp.getData();
     }
 
     /**
-     * Update Subscription
-     * This API provides capability to update user&#39;s Stream Subscriptions
+     * Update Stream Alert Rules
+     * This API provides capability to update a user&#39;s stream alert rule
      * @param streamId Stream UUID (required)
-     * @param subscriptionId Stream Subscription UUID (required)
-     * @param streamSubscriptionPutRequest  (required)
-     * @return ApiResponse&lt;StreamSubscription&gt;
+     * @param alertRuleId alert rule UUID (required)
+     * @param alertRulePutRequest  (required)
+     * @return ApiResponse&lt;StreamAlertRule&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Stream Subscription object </td><td>  -  </td></tr>
+        <tr><td> 202 </td><td> Stream Alert Rules object </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -823,25 +822,25 @@ public class StreamSubscriptionsApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<StreamSubscription> updateStreamSubscriptionByUuidWithHttpInfo(UUID streamId, UUID subscriptionId, StreamSubscriptionPutRequest streamSubscriptionPutRequest) throws ApiException {
-        okhttp3.Call localVarCall = updateStreamSubscriptionByUuidValidateBeforeCall(streamId, subscriptionId, streamSubscriptionPutRequest, null);
-        Type localVarReturnType = new TypeToken<StreamSubscription>(){}.getType();
+    public ApiResponse<StreamAlertRule> updateStreamAlertRuleByUuidWithHttpInfo(UUID streamId, UUID alertRuleId, AlertRulePutRequest alertRulePutRequest) throws ApiException {
+        okhttp3.Call localVarCall = updateStreamAlertRuleByUuidValidateBeforeCall(streamId, alertRuleId, alertRulePutRequest, null);
+        Type localVarReturnType = new TypeToken<StreamAlertRule>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
-     * Update Subscription (asynchronously)
-     * This API provides capability to update user&#39;s Stream Subscriptions
+     * Update Stream Alert Rules (asynchronously)
+     * This API provides capability to update a user&#39;s stream alert rule
      * @param streamId Stream UUID (required)
-     * @param subscriptionId Stream Subscription UUID (required)
-     * @param streamSubscriptionPutRequest  (required)
+     * @param alertRuleId alert rule UUID (required)
+     * @param alertRulePutRequest  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 202 </td><td> Stream Subscription object </td><td>  -  </td></tr>
+        <tr><td> 202 </td><td> Stream Alert Rules object </td><td>  -  </td></tr>
         <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
@@ -850,10 +849,10 @@ public class StreamSubscriptionsApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateStreamSubscriptionByUuidAsync(UUID streamId, UUID subscriptionId, StreamSubscriptionPutRequest streamSubscriptionPutRequest, final ApiCallback<StreamSubscription> _callback) throws ApiException {
+    public okhttp3.Call updateStreamAlertRuleByUuidAsync(UUID streamId, UUID alertRuleId, AlertRulePutRequest alertRulePutRequest, final ApiCallback<StreamAlertRule> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = updateStreamSubscriptionByUuidValidateBeforeCall(streamId, subscriptionId, streamSubscriptionPutRequest, _callback);
-        Type localVarReturnType = new TypeToken<StreamSubscription>(){}.getType();
+        okhttp3.Call localVarCall = updateStreamAlertRuleByUuidValidateBeforeCall(streamId, alertRuleId, alertRulePutRequest, _callback);
+        Type localVarReturnType = new TypeToken<StreamAlertRule>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

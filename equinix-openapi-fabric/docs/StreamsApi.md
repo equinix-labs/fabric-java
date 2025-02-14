@@ -11,7 +11,6 @@ All URIs are relative to *https://api.equinix.com*
 | [**getStreamByUuid**](StreamsApi.md#getStreamByUuid) | **GET** /fabric/v4/streams/{streamId} | Get Stream |
 | [**getStreams**](StreamsApi.md#getStreams) | **GET** /fabric/v4/streams | Get Streams |
 | [**getStreamsAssets**](StreamsApi.md#getStreamsAssets) | **POST** /fabric/v4/streamAssets/search | Get Assets |
-| [**getSubscriptionsInStream**](StreamsApi.md#getSubscriptionsInStream) | **GET** /fabric/v4/streams/{streamId}/streamSubscriptions | Get Stream&#39;s Subs |
 | [**updateStreamAssetByUuid**](StreamsApi.md#updateStreamAssetByUuid) | **PUT** /fabric/v4/streams/{streamId}/{asset}/{assetId} | Attach Asset |
 | [**updateStreamByUuid**](StreamsApi.md#updateStreamByUuid) | **PUT** /fabric/v4/streams/{streamId} | Update Stream |
 
@@ -521,81 +520,6 @@ public class Example {
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successful operation |  -  |
-| **401** | Unauthorized |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **500** | Internal server error |  -  |
-
-<a name="getSubscriptionsInStream"></a>
-# **getSubscriptionsInStream**
-> GetSubscriptionsInStreamResponse getSubscriptionsInStream(streamId, offset, limit)
-
-Get Stream&#39;s Subs
-
-This API provides capability to retrieve subscriptions in a stream
-
-### Example
-```java
-// Import classes:
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
-import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.StreamsApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
-
-    StreamsApi apiInstance = new StreamsApi(defaultClient);
-    UUID streamId = UUID.randomUUID(); // UUID | Stream UUID
-    Integer offset = 1; // Integer | offset
-    Integer limit = 10; // Integer | number of records to fetch
-    try {
-      GetSubscriptionsInStreamResponse result = apiInstance.getSubscriptionsInStream(streamId, offset, limit);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling StreamsApi#getSubscriptionsInStream");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **streamId** | **UUID**| Stream UUID | |
-| **offset** | **Integer**| offset | [optional] |
-| **limit** | **Integer**| number of records to fetch | [optional] |
-
-### Return type
-
-[**GetSubscriptionsInStreamResponse**](GetSubscriptionsInStreamResponse.md)
-
-### Authorization
-
-[BearerAuth](../README.md#BearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
  - **Accept**: application/json
 
 ### HTTP response details

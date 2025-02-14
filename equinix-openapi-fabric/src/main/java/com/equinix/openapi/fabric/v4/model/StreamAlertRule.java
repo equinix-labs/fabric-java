@@ -14,9 +14,7 @@ package com.equinix.openapi.fabric.v4.model;
 import java.util.Objects;
 import java.util.Arrays;
 import com.equinix.openapi.fabric.v4.model.Changelog;
-import com.equinix.openapi.fabric.v4.model.StreamSubscriptionFilter;
-import com.equinix.openapi.fabric.v4.model.StreamSubscriptionSelector;
-import com.equinix.openapi.fabric.v4.model.StreamSubscriptionSink;
+import com.equinix.openapi.fabric.v4.model.ResourceSelector;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -48,10 +46,10 @@ import java.util.Set;
 import com.equinix.openapi.fabric.JSON;
 
 /**
- * Stream Subscription object
+ * Stream object
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class StreamSubscription {
+public class StreamAlertRule {
   public static final String SERIALIZED_NAME_HREF = "href";
   @SerializedName(SERIALIZED_NAME_HREF)
   private URI href;
@@ -61,11 +59,11 @@ public class StreamSubscription {
   private UUID uuid;
 
   /**
-   * type
+   * Stream subscription type
    */
   @JsonAdapter(TypeEnum.Adapter.class)
   public enum TypeEnum {
-    STREAM_SUBSCRIPTION("STREAM_SUBSCRIPTION");
+    METRIC_ALERT("METRIC_ALERT");
 
     private String value;
 
@@ -122,17 +120,9 @@ public class StreamSubscription {
    */
   @JsonAdapter(StateEnum.Adapter.class)
   public enum StateEnum {
-    PROVISIONING("PROVISIONING"),
+    ACTIVE("ACTIVE"),
     
-    PROVISIONED("PROVISIONED"),
-    
-    REPROVISIONING("REPROVISIONING"),
-    
-    DEPROVISIONING("DEPROVISIONING"),
-    
-    DEPROVISIONED("DEPROVISIONED"),
-    
-    FAILED("FAILED");
+    INACTIVE("INACTIVE");
 
     private String value;
 
@@ -178,33 +168,149 @@ public class StreamSubscription {
 
   public static final String SERIALIZED_NAME_ENABLED = "enabled";
   @SerializedName(SERIALIZED_NAME_ENABLED)
-  private Boolean enabled;
+  private Boolean enabled = true;
 
-  public static final String SERIALIZED_NAME_FILTERS = "filters";
-  @SerializedName(SERIALIZED_NAME_FILTERS)
-  private StreamSubscriptionFilter filters;
+  /**
+   * Stream alert rule metric name
+   */
+  @JsonAdapter(MetricNameEnum.Adapter.class)
+  public enum MetricNameEnum {
+    CONNECTION_BANDWIDTH_TX_USAGE("equinix.fabric.connection.bandwidth_tx.usage"),
+    
+    CONNECTION_BANDWIDTH_RX_USAGE("equinix.fabric.connection.bandwidth_rx.usage"),
+    
+    PORT_BANDWIDTH_TX_USAGE("equinix.fabric.port.bandwidth_tx.usage"),
+    
+    PORT_BANDWIDTH_RX_USAGE("equinix.fabric.port.bandwidth_rx.usage"),
+    
+    PORT_PACKETS_ERRED_TX_COUNT("equinix.fabric.port.packets_erred_tx.count"),
+    
+    PORT_PACKETS_ERRED_RX_COUNT("equinix.fabric.port.packets_erred_rx.count"),
+    
+    PORT_PACKETS_DROPPED_TX_COUNT("equinix.fabric.port.packets_dropped_tx.count"),
+    
+    PORT_PACKETS_DROPPED_RX_COUNT("equinix.fabric.port.packets_dropped_rx.count"),
+    
+    METRO_SOURCE_METRO_CODE___DESTINATION_METRO_CODE_LATENCY("equinix.fabric.metro.<source_metro_code>_<destination_metro_code>.latency");
 
-  public static final String SERIALIZED_NAME_METRIC_SELECTOR = "metricSelector";
-  @SerializedName(SERIALIZED_NAME_METRIC_SELECTOR)
-  private StreamSubscriptionSelector metricSelector;
+    private String value;
 
-  public static final String SERIALIZED_NAME_EVENT_SELECTOR = "eventSelector";
-  @SerializedName(SERIALIZED_NAME_EVENT_SELECTOR)
-  private StreamSubscriptionSelector eventSelector;
+    MetricNameEnum(String value) {
+      this.value = value;
+    }
 
-  public static final String SERIALIZED_NAME_SINK = "sink";
-  @SerializedName(SERIALIZED_NAME_SINK)
-  private StreamSubscriptionSink sink;
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static MetricNameEnum fromValue(String value) {
+      for (MetricNameEnum b : MetricNameEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+
+    public static class Adapter extends TypeAdapter<MetricNameEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final MetricNameEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public MetricNameEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return MetricNameEnum.fromValue(value);
+      }
+    }
+  }
+
+  public static final String SERIALIZED_NAME_METRIC_NAME = "metricName";
+  @SerializedName(SERIALIZED_NAME_METRIC_NAME)
+  private MetricNameEnum metricName;
+
+  public static final String SERIALIZED_NAME_RESOURCE_SELECTOR = "resourceSelector";
+  @SerializedName(SERIALIZED_NAME_RESOURCE_SELECTOR)
+  private ResourceSelector resourceSelector;
+
+  public static final String SERIALIZED_NAME_WINDOW_SIZE = "windowSize";
+  @SerializedName(SERIALIZED_NAME_WINDOW_SIZE)
+  private String windowSize;
+
+  /**
+   * Stream alert rule metric operand
+   */
+  @JsonAdapter(OperandEnum.Adapter.class)
+  public enum OperandEnum {
+    ABOVE("ABOVE"),
+    
+    BELOW("BELOW");
+
+    private String value;
+
+    OperandEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static OperandEnum fromValue(String value) {
+      for (OperandEnum b : OperandEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+
+    public static class Adapter extends TypeAdapter<OperandEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final OperandEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public OperandEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return OperandEnum.fromValue(value);
+      }
+    }
+  }
+
+  public static final String SERIALIZED_NAME_OPERAND = "operand";
+  @SerializedName(SERIALIZED_NAME_OPERAND)
+  private OperandEnum operand;
+
+  public static final String SERIALIZED_NAME_WARNING_THRESHOLD = "warningThreshold";
+  @SerializedName(SERIALIZED_NAME_WARNING_THRESHOLD)
+  private String warningThreshold;
+
+  public static final String SERIALIZED_NAME_CRITICAL_THRESHOLD = "criticalThreshold";
+  @SerializedName(SERIALIZED_NAME_CRITICAL_THRESHOLD)
+  private String criticalThreshold;
 
   public static final String SERIALIZED_NAME_CHANGE_LOG = "changeLog";
   @SerializedName(SERIALIZED_NAME_CHANGE_LOG)
   private Changelog changeLog;
 
-  public StreamSubscription() {
+  public StreamAlertRule() {
   }
 
   
-  public StreamSubscription(
+  public StreamAlertRule(
      URI href
   ) {
     this();
@@ -212,7 +318,7 @@ public class StreamSubscription {
   }
 
    /**
-   * Stream Subscription URI
+   * Stream Alert Rule URI
    * @return href
   **/
   @javax.annotation.Nullable
@@ -224,7 +330,7 @@ public class StreamSubscription {
 
 
 
-  public StreamSubscription uuid(UUID uuid) {
+  public StreamAlertRule uuid(UUID uuid) {
     
     this.uuid = uuid;
     return this;
@@ -246,14 +352,14 @@ public class StreamSubscription {
   }
 
 
-  public StreamSubscription type(TypeEnum type) {
+  public StreamAlertRule type(TypeEnum type) {
     
     this.type = type;
     return this;
   }
 
    /**
-   * type
+   * Stream subscription type
    * @return type
   **/
   @javax.annotation.Nullable
@@ -268,14 +374,14 @@ public class StreamSubscription {
   }
 
 
-  public StreamSubscription name(String name) {
+  public StreamAlertRule name(String name) {
     
     this.name = name;
     return this;
   }
 
    /**
-   * Customer-provided subscription name
+   * Customer-provided stream alert rule name
    * @return name
   **/
   @javax.annotation.Nullable
@@ -290,14 +396,14 @@ public class StreamSubscription {
   }
 
 
-  public StreamSubscription description(String description) {
+  public StreamAlertRule description(String description) {
     
     this.description = description;
     return this;
   }
 
    /**
-   * Customer-provided subscription description
+   * Customer-provided stream alert rule description
    * @return description
   **/
   @javax.annotation.Nullable
@@ -312,7 +418,7 @@ public class StreamSubscription {
   }
 
 
-  public StreamSubscription state(StateEnum state) {
+  public StreamAlertRule state(StateEnum state) {
     
     this.state = state;
     return this;
@@ -334,14 +440,14 @@ public class StreamSubscription {
   }
 
 
-  public StreamSubscription enabled(Boolean enabled) {
+  public StreamAlertRule enabled(Boolean enabled) {
     
     this.enabled = enabled;
     return this;
   }
 
    /**
-   * Stream subscription enabled status
+   * Stream alert rule enabled status
    * @return enabled
   **/
   @javax.annotation.Nullable
@@ -356,95 +462,139 @@ public class StreamSubscription {
   }
 
 
-  public StreamSubscription filters(StreamSubscriptionFilter filters) {
+  public StreamAlertRule metricName(MetricNameEnum metricName) {
     
-    this.filters = filters;
+    this.metricName = metricName;
     return this;
   }
 
    /**
-   * Get filters
-   * @return filters
+   * Stream alert rule metric name
+   * @return metricName
   **/
   @javax.annotation.Nullable
 
-  public StreamSubscriptionFilter getFilters() {
-    return filters;
+  public MetricNameEnum getMetricName() {
+    return metricName;
   }
 
 
-  public void setFilters(StreamSubscriptionFilter filters) {
-    this.filters = filters;
+  public void setMetricName(MetricNameEnum metricName) {
+    this.metricName = metricName;
   }
 
 
-  public StreamSubscription metricSelector(StreamSubscriptionSelector metricSelector) {
+  public StreamAlertRule resourceSelector(ResourceSelector resourceSelector) {
     
-    this.metricSelector = metricSelector;
+    this.resourceSelector = resourceSelector;
     return this;
   }
 
    /**
-   * Get metricSelector
-   * @return metricSelector
+   * Get resourceSelector
+   * @return resourceSelector
   **/
   @javax.annotation.Nullable
 
-  public StreamSubscriptionSelector getMetricSelector() {
-    return metricSelector;
+  public ResourceSelector getResourceSelector() {
+    return resourceSelector;
   }
 
 
-  public void setMetricSelector(StreamSubscriptionSelector metricSelector) {
-    this.metricSelector = metricSelector;
+  public void setResourceSelector(ResourceSelector resourceSelector) {
+    this.resourceSelector = resourceSelector;
   }
 
 
-  public StreamSubscription eventSelector(StreamSubscriptionSelector eventSelector) {
+  public StreamAlertRule windowSize(String windowSize) {
     
-    this.eventSelector = eventSelector;
+    this.windowSize = windowSize;
     return this;
   }
 
    /**
-   * Get eventSelector
-   * @return eventSelector
+   * Stream alert rule metric window size
+   * @return windowSize
   **/
   @javax.annotation.Nullable
 
-  public StreamSubscriptionSelector getEventSelector() {
-    return eventSelector;
+  public String getWindowSize() {
+    return windowSize;
   }
 
 
-  public void setEventSelector(StreamSubscriptionSelector eventSelector) {
-    this.eventSelector = eventSelector;
+  public void setWindowSize(String windowSize) {
+    this.windowSize = windowSize;
   }
 
 
-  public StreamSubscription sink(StreamSubscriptionSink sink) {
+  public StreamAlertRule operand(OperandEnum operand) {
     
-    this.sink = sink;
+    this.operand = operand;
     return this;
   }
 
    /**
-   * Get sink
-   * @return sink
+   * Stream alert rule metric operand
+   * @return operand
   **/
   @javax.annotation.Nullable
 
-  public StreamSubscriptionSink getSink() {
-    return sink;
+  public OperandEnum getOperand() {
+    return operand;
   }
 
 
-  public void setSink(StreamSubscriptionSink sink) {
-    this.sink = sink;
+  public void setOperand(OperandEnum operand) {
+    this.operand = operand;
   }
 
 
-  public StreamSubscription changeLog(Changelog changeLog) {
+  public StreamAlertRule warningThreshold(String warningThreshold) {
+    
+    this.warningThreshold = warningThreshold;
+    return this;
+  }
+
+   /**
+   * Stream alert rule metric warning threshold
+   * @return warningThreshold
+  **/
+  @javax.annotation.Nullable
+
+  public String getWarningThreshold() {
+    return warningThreshold;
+  }
+
+
+  public void setWarningThreshold(String warningThreshold) {
+    this.warningThreshold = warningThreshold;
+  }
+
+
+  public StreamAlertRule criticalThreshold(String criticalThreshold) {
+    
+    this.criticalThreshold = criticalThreshold;
+    return this;
+  }
+
+   /**
+   * Stream alert rule metric critical threshold
+   * @return criticalThreshold
+  **/
+  @javax.annotation.Nullable
+
+  public String getCriticalThreshold() {
+    return criticalThreshold;
+  }
+
+
+  public void setCriticalThreshold(String criticalThreshold) {
+    this.criticalThreshold = criticalThreshold;
+  }
+
+
+  public StreamAlertRule changeLog(Changelog changeLog) {
     
     this.changeLog = changeLog;
     return this;
@@ -478,9 +628,9 @@ public class StreamSubscription {
    *
    * @param key name of the property
    * @param value value of the property
-   * @return the StreamSubscription instance itself
+   * @return the StreamAlertRule instance itself
    */
-  public StreamSubscription putAdditionalProperty(String key, Object value) {
+  public StreamAlertRule putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
         this.additionalProperties = new HashMap<String, Object>();
     }
@@ -519,31 +669,33 @@ public class StreamSubscription {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    StreamSubscription streamSubscription = (StreamSubscription) o;
-    return Objects.equals(this.href, streamSubscription.href) &&
-        Objects.equals(this.uuid, streamSubscription.uuid) &&
-        Objects.equals(this.type, streamSubscription.type) &&
-        Objects.equals(this.name, streamSubscription.name) &&
-        Objects.equals(this.description, streamSubscription.description) &&
-        Objects.equals(this.state, streamSubscription.state) &&
-        Objects.equals(this.enabled, streamSubscription.enabled) &&
-        Objects.equals(this.filters, streamSubscription.filters) &&
-        Objects.equals(this.metricSelector, streamSubscription.metricSelector) &&
-        Objects.equals(this.eventSelector, streamSubscription.eventSelector) &&
-        Objects.equals(this.sink, streamSubscription.sink) &&
-        Objects.equals(this.changeLog, streamSubscription.changeLog)&&
-        Objects.equals(this.additionalProperties, streamSubscription.additionalProperties);
+    StreamAlertRule streamAlertRule = (StreamAlertRule) o;
+    return Objects.equals(this.href, streamAlertRule.href) &&
+        Objects.equals(this.uuid, streamAlertRule.uuid) &&
+        Objects.equals(this.type, streamAlertRule.type) &&
+        Objects.equals(this.name, streamAlertRule.name) &&
+        Objects.equals(this.description, streamAlertRule.description) &&
+        Objects.equals(this.state, streamAlertRule.state) &&
+        Objects.equals(this.enabled, streamAlertRule.enabled) &&
+        Objects.equals(this.metricName, streamAlertRule.metricName) &&
+        Objects.equals(this.resourceSelector, streamAlertRule.resourceSelector) &&
+        Objects.equals(this.windowSize, streamAlertRule.windowSize) &&
+        Objects.equals(this.operand, streamAlertRule.operand) &&
+        Objects.equals(this.warningThreshold, streamAlertRule.warningThreshold) &&
+        Objects.equals(this.criticalThreshold, streamAlertRule.criticalThreshold) &&
+        Objects.equals(this.changeLog, streamAlertRule.changeLog)&&
+        Objects.equals(this.additionalProperties, streamAlertRule.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(href, uuid, type, name, description, state, enabled, filters, metricSelector, eventSelector, sink, changeLog, additionalProperties);
+    return Objects.hash(href, uuid, type, name, description, state, enabled, metricName, resourceSelector, windowSize, operand, warningThreshold, criticalThreshold, changeLog, additionalProperties);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class StreamSubscription {\n");
+    sb.append("class StreamAlertRule {\n");
     sb.append("    href: ").append(toIndentedString(href)).append("\n");
     sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
@@ -551,10 +703,12 @@ public class StreamSubscription {
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
-    sb.append("    filters: ").append(toIndentedString(filters)).append("\n");
-    sb.append("    metricSelector: ").append(toIndentedString(metricSelector)).append("\n");
-    sb.append("    eventSelector: ").append(toIndentedString(eventSelector)).append("\n");
-    sb.append("    sink: ").append(toIndentedString(sink)).append("\n");
+    sb.append("    metricName: ").append(toIndentedString(metricName)).append("\n");
+    sb.append("    resourceSelector: ").append(toIndentedString(resourceSelector)).append("\n");
+    sb.append("    windowSize: ").append(toIndentedString(windowSize)).append("\n");
+    sb.append("    operand: ").append(toIndentedString(operand)).append("\n");
+    sb.append("    warningThreshold: ").append(toIndentedString(warningThreshold)).append("\n");
+    sb.append("    criticalThreshold: ").append(toIndentedString(criticalThreshold)).append("\n");
     sb.append("    changeLog: ").append(toIndentedString(changeLog)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
@@ -586,10 +740,12 @@ public class StreamSubscription {
     openapiFields.add("description");
     openapiFields.add("state");
     openapiFields.add("enabled");
-    openapiFields.add("filters");
-    openapiFields.add("metricSelector");
-    openapiFields.add("eventSelector");
-    openapiFields.add("sink");
+    openapiFields.add("metricName");
+    openapiFields.add("resourceSelector");
+    openapiFields.add("windowSize");
+    openapiFields.add("operand");
+    openapiFields.add("warningThreshold");
+    openapiFields.add("criticalThreshold");
     openapiFields.add("changeLog");
 
     // a set of required properties/fields (JSON key names)
@@ -600,12 +756,12 @@ public class StreamSubscription {
   * Validates the JSON Object and throws an exception if issues found
   *
   * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to StreamSubscription
+  * @throws IOException if the JSON Object is invalid with respect to StreamAlertRule
   */
   public static void validateJsonObject(JsonObject jsonObj) throws IOException {
       if (jsonObj == null) {
-        if (!StreamSubscription.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in StreamSubscription is not found in the empty JSON string", StreamSubscription.openapiRequiredFields.toString()));
+        if (!StreamAlertRule.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in StreamAlertRule is not found in the empty JSON string", StreamAlertRule.openapiRequiredFields.toString()));
         }
       }
       if ((jsonObj.get("href") != null && !jsonObj.get("href").isJsonNull()) && !jsonObj.get("href").isJsonPrimitive()) {
@@ -626,21 +782,24 @@ public class StreamSubscription {
       if ((jsonObj.get("state") != null && !jsonObj.get("state").isJsonNull()) && !jsonObj.get("state").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `state` to be a primitive type in the JSON string but got `%s`", jsonObj.get("state").toString()));
       }
-      // validate the optional field `filters`
-      if (jsonObj.get("filters") != null && !jsonObj.get("filters").isJsonNull()) {
-        StreamSubscriptionFilter.validateJsonObject(jsonObj.getAsJsonObject("filters"));
+      if ((jsonObj.get("metricName") != null && !jsonObj.get("metricName").isJsonNull()) && !jsonObj.get("metricName").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `metricName` to be a primitive type in the JSON string but got `%s`", jsonObj.get("metricName").toString()));
       }
-      // validate the optional field `metricSelector`
-      if (jsonObj.get("metricSelector") != null && !jsonObj.get("metricSelector").isJsonNull()) {
-        StreamSubscriptionSelector.validateJsonObject(jsonObj.getAsJsonObject("metricSelector"));
+      // validate the optional field `resourceSelector`
+      if (jsonObj.get("resourceSelector") != null && !jsonObj.get("resourceSelector").isJsonNull()) {
+        ResourceSelector.validateJsonObject(jsonObj.getAsJsonObject("resourceSelector"));
       }
-      // validate the optional field `eventSelector`
-      if (jsonObj.get("eventSelector") != null && !jsonObj.get("eventSelector").isJsonNull()) {
-        StreamSubscriptionSelector.validateJsonObject(jsonObj.getAsJsonObject("eventSelector"));
+      if ((jsonObj.get("windowSize") != null && !jsonObj.get("windowSize").isJsonNull()) && !jsonObj.get("windowSize").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `windowSize` to be a primitive type in the JSON string but got `%s`", jsonObj.get("windowSize").toString()));
       }
-      // validate the optional field `sink`
-      if (jsonObj.get("sink") != null && !jsonObj.get("sink").isJsonNull()) {
-        StreamSubscriptionSink.validateJsonObject(jsonObj.getAsJsonObject("sink"));
+      if ((jsonObj.get("operand") != null && !jsonObj.get("operand").isJsonNull()) && !jsonObj.get("operand").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `operand` to be a primitive type in the JSON string but got `%s`", jsonObj.get("operand").toString()));
+      }
+      if ((jsonObj.get("warningThreshold") != null && !jsonObj.get("warningThreshold").isJsonNull()) && !jsonObj.get("warningThreshold").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `warningThreshold` to be a primitive type in the JSON string but got `%s`", jsonObj.get("warningThreshold").toString()));
+      }
+      if ((jsonObj.get("criticalThreshold") != null && !jsonObj.get("criticalThreshold").isJsonNull()) && !jsonObj.get("criticalThreshold").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `criticalThreshold` to be a primitive type in the JSON string but got `%s`", jsonObj.get("criticalThreshold").toString()));
       }
       // validate the optional field `changeLog`
       if (jsonObj.get("changeLog") != null && !jsonObj.get("changeLog").isJsonNull()) {
@@ -652,16 +811,16 @@ public class StreamSubscription {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!StreamSubscription.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'StreamSubscription' and its subtypes
+       if (!StreamAlertRule.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'StreamAlertRule' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<StreamSubscription> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(StreamSubscription.class));
+       final TypeAdapter<StreamAlertRule> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(StreamAlertRule.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<StreamSubscription>() {
+       return (TypeAdapter<T>) new TypeAdapter<StreamAlertRule>() {
            @Override
-           public void write(JsonWriter out, StreamSubscription value) throws IOException {
+           public void write(JsonWriter out, StreamAlertRule value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
              // serialize additional properties
@@ -684,11 +843,11 @@ public class StreamSubscription {
            }
 
            @Override
-           public StreamSubscription read(JsonReader in) throws IOException {
+           public StreamAlertRule read(JsonReader in) throws IOException {
              JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
              validateJsonObject(jsonObj);
              // store additional fields in the deserialized instance
-             StreamSubscription instance = thisAdapter.fromJsonTree(jsonObj);
+             StreamAlertRule instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
                if (!openapiFields.contains(entry.getKey())) {
                  if (entry.getValue().isJsonPrimitive()) { // primitive type
@@ -715,18 +874,18 @@ public class StreamSubscription {
   }
 
  /**
-  * Create an instance of StreamSubscription given an JSON string
+  * Create an instance of StreamAlertRule given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of StreamSubscription
-  * @throws IOException if the JSON string is invalid with respect to StreamSubscription
+  * @return An instance of StreamAlertRule
+  * @throws IOException if the JSON string is invalid with respect to StreamAlertRule
   */
-  public static StreamSubscription fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, StreamSubscription.class);
+  public static StreamAlertRule fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, StreamAlertRule.class);
   }
 
  /**
-  * Convert an instance of StreamSubscription to an JSON string
+  * Convert an instance of StreamAlertRule to an JSON string
   *
   * @return JSON string
   */
