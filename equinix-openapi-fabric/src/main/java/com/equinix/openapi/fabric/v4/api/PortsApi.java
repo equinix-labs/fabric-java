@@ -33,6 +33,7 @@ import com.equinix.openapi.fabric.v4.model.BulkPortRequest;
 import com.equinix.openapi.fabric.v4.model.Error;
 import com.equinix.openapi.fabric.v4.model.LinkProtocolGetResponse;
 import com.equinix.openapi.fabric.v4.model.Port;
+import com.equinix.openapi.fabric.v4.model.PortChangeOperation;
 import com.equinix.openapi.fabric.v4.model.PortRequest;
 import com.equinix.openapi.fabric.v4.model.PortV4SearchRequest;
 import java.util.UUID;
@@ -1137,6 +1138,151 @@ public class PortsApi {
     public okhttp3.Call searchPortsAsync(PortV4SearchRequest portV4SearchRequest, final ApiCallback<AllPortsResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = searchPortsValidateBeforeCall(portV4SearchRequest, _callback);
+        Type localVarReturnType = new TypeToken<AllPortsResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for updatePortByUuid
+     * @param portId Port UUID (required)
+     * @param portChangeOperation  (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call updatePortByUuidCall(UUID portId, List<PortChangeOperation> portChangeOperation, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = portChangeOperation;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/ports/{portId}"
+            .replace("{" + "portId" + "}", localVarApiClient.escapeString(portId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json-patch+json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call updatePortByUuidValidateBeforeCall(UUID portId, List<PortChangeOperation> portChangeOperation, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'portId' is set
+        if (portId == null) {
+            throw new ApiException("Missing the required parameter 'portId' when calling updatePortByUuid(Async)");
+        }
+
+        // verify the required parameter 'portChangeOperation' is set
+        if (portChangeOperation == null) {
+            throw new ApiException("Missing the required parameter 'portChangeOperation' when calling updatePortByUuid(Async)");
+        }
+
+        return updatePortByUuidCall(portId, portChangeOperation, _callback);
+
+    }
+
+    /**
+     * Update by UUID
+     * Update Port by UUID
+     * @param portId Port UUID (required)
+     * @param portChangeOperation  (required)
+     * @return AllPortsResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public AllPortsResponse updatePortByUuid(UUID portId, List<PortChangeOperation> portChangeOperation) throws ApiException {
+        ApiResponse<AllPortsResponse> localVarResp = updatePortByUuidWithHttpInfo(portId, portChangeOperation);
+        return localVarResp.getData();
+    }
+
+    /**
+     * Update by UUID
+     * Update Port by UUID
+     * @param portId Port UUID (required)
+     * @param portChangeOperation  (required)
+     * @return ApiResponse&lt;AllPortsResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<AllPortsResponse> updatePortByUuidWithHttpInfo(UUID portId, List<PortChangeOperation> portChangeOperation) throws ApiException {
+        okhttp3.Call localVarCall = updatePortByUuidValidateBeforeCall(portId, portChangeOperation, null);
+        Type localVarReturnType = new TypeToken<AllPortsResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Update by UUID (asynchronously)
+     * Update Port by UUID
+     * @param portId Port UUID (required)
+     * @param portChangeOperation  (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call updatePortByUuidAsync(UUID portId, List<PortChangeOperation> portChangeOperation, final ApiCallback<AllPortsResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = updatePortByUuidValidateBeforeCall(portId, portChangeOperation, _callback);
         Type localVarReturnType = new TypeToken<AllPortsResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;

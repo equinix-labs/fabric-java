@@ -1,23 +1,23 @@
-# StreamSubscriptionsApi
+# StreamAlertRulesApi
 
 All URIs are relative to *https://api.equinix.com*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**createStreamSubscriptions**](StreamSubscriptionsApi.md#createStreamSubscriptions) | **POST** /fabric/v4/streams/{streamId}/subscriptions | Create Subscription |
-| [**deleteStreamSubscriptionByUuid**](StreamSubscriptionsApi.md#deleteStreamSubscriptionByUuid) | **DELETE** /fabric/v4/streams/{streamId}/subscriptions/{subscriptionId} | Delete Subscription |
-| [**getStreamSubscriptionByUuid**](StreamSubscriptionsApi.md#getStreamSubscriptionByUuid) | **GET** /fabric/v4/streams/{streamId}/subscriptions/{subscriptionId} | Get Subscription |
-| [**getStreamSubscriptions**](StreamSubscriptionsApi.md#getStreamSubscriptions) | **GET** /fabric/v4/streams/{streamId}/subscriptions | Get Subscriptions |
-| [**updateStreamSubscriptionByUuid**](StreamSubscriptionsApi.md#updateStreamSubscriptionByUuid) | **PUT** /fabric/v4/streams/{streamId}/subscriptions/{subscriptionId} | Update Subscription |
+| [**createStreamAlertRules**](StreamAlertRulesApi.md#createStreamAlertRules) | **POST** /fabric/v4/streams/{streamId}/alertRules | Create Stream Alert Rules |
+| [**deleteStreamAlertRuleByUuid**](StreamAlertRulesApi.md#deleteStreamAlertRuleByUuid) | **DELETE** /fabric/v4/streams/{streamId}/alertRules/{alertRuleId} | Update Stream Alert Rules |
+| [**getStreamAlertRuleByUuid**](StreamAlertRulesApi.md#getStreamAlertRuleByUuid) | **GET** /fabric/v4/streams/{streamId}/alertRules/{alertRuleId} | Get Stream Alert Rules |
+| [**getStreamAlertRules**](StreamAlertRulesApi.md#getStreamAlertRules) | **GET** /fabric/v4/streams/{streamId}/alertRules | Get Stream Alert Rules |
+| [**updateStreamAlertRuleByUuid**](StreamAlertRulesApi.md#updateStreamAlertRuleByUuid) | **PUT** /fabric/v4/streams/{streamId}/alertRules/{alertRuleId} | Update Stream Alert Rules |
 
 
-<a name="createStreamSubscriptions"></a>
-# **createStreamSubscriptions**
-> StreamSubscription createStreamSubscriptions(streamId, streamSubscriptionPostRequest)
+<a name="createStreamAlertRules"></a>
+# **createStreamAlertRules**
+> StreamAlertRule createStreamAlertRules(streamId, alertRulePostRequest)
 
-Create Subscription
+Create Stream Alert Rules
 
-This API provides capability to create user&#39;s Stream Subscriptions
+This API provides capability to create user&#39;s Stream Alert Rules
 
 ### Example
 ```java
@@ -27,7 +27,7 @@ import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.Configuration;
 import com.equinix.openapi.fabric.auth.*;
 import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.StreamSubscriptionsApi;
+import com.equinix.openapi.fabric.v4.api.StreamAlertRulesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -38,14 +38,14 @@ public class Example {
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
     BearerAuth.setBearerToken("BEARER TOKEN");
 
-    StreamSubscriptionsApi apiInstance = new StreamSubscriptionsApi(defaultClient);
+    StreamAlertRulesApi apiInstance = new StreamAlertRulesApi(defaultClient);
     UUID streamId = UUID.randomUUID(); // UUID | Stream UUID
-    StreamSubscriptionPostRequest streamSubscriptionPostRequest = new StreamSubscriptionPostRequest(); // StreamSubscriptionPostRequest | 
+    AlertRulePostRequest alertRulePostRequest = new AlertRulePostRequest(); // AlertRulePostRequest | 
     try {
-      StreamSubscription result = apiInstance.createStreamSubscriptions(streamId, streamSubscriptionPostRequest);
+      StreamAlertRule result = apiInstance.createStreamAlertRules(streamId, alertRulePostRequest);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling StreamSubscriptionsApi#createStreamSubscriptions");
+      System.err.println("Exception when calling StreamAlertRulesApi#createStreamAlertRules");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -60,11 +60,11 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **streamId** | **UUID**| Stream UUID | |
-| **streamSubscriptionPostRequest** | [**StreamSubscriptionPostRequest**](StreamSubscriptionPostRequest.md)|  | |
+| **alertRulePostRequest** | [**AlertRulePostRequest**](AlertRulePostRequest.md)|  | |
 
 ### Return type
 
-[**StreamSubscription**](StreamSubscription.md)
+[**StreamAlertRule**](StreamAlertRule.md)
 
 ### Authorization
 
@@ -78,20 +78,20 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **202** | Stream Subscription object |  -  |
+| **202** | Stream Alert Rules object |  -  |
 | **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
 | **415** | Unsupported Media Type |  -  |
 | **500** | Internal server error |  -  |
 
-<a name="deleteStreamSubscriptionByUuid"></a>
-# **deleteStreamSubscriptionByUuid**
-> StreamSubscription deleteStreamSubscriptionByUuid(streamId, subscriptionId)
+<a name="deleteStreamAlertRuleByUuid"></a>
+# **deleteStreamAlertRuleByUuid**
+> StreamAlertRule deleteStreamAlertRuleByUuid(streamId, alertRuleId)
 
-Delete Subscription
+Update Stream Alert Rules
 
-This API provides capability to delete user&#39;s Stream Subscriptions
+This API provides capability to delete a user&#39;s stream alert rule
 
 ### Example
 ```java
@@ -101,7 +101,7 @@ import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.Configuration;
 import com.equinix.openapi.fabric.auth.*;
 import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.StreamSubscriptionsApi;
+import com.equinix.openapi.fabric.v4.api.StreamAlertRulesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -112,14 +112,14 @@ public class Example {
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
     BearerAuth.setBearerToken("BEARER TOKEN");
 
-    StreamSubscriptionsApi apiInstance = new StreamSubscriptionsApi(defaultClient);
+    StreamAlertRulesApi apiInstance = new StreamAlertRulesApi(defaultClient);
     UUID streamId = UUID.randomUUID(); // UUID | Stream UUID
-    UUID subscriptionId = UUID.randomUUID(); // UUID | Stream Subscription UUID
+    UUID alertRuleId = UUID.randomUUID(); // UUID | alert rule UUID
     try {
-      StreamSubscription result = apiInstance.deleteStreamSubscriptionByUuid(streamId, subscriptionId);
+      StreamAlertRule result = apiInstance.deleteStreamAlertRuleByUuid(streamId, alertRuleId);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling StreamSubscriptionsApi#deleteStreamSubscriptionByUuid");
+      System.err.println("Exception when calling StreamAlertRulesApi#deleteStreamAlertRuleByUuid");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -134,11 +134,11 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **streamId** | **UUID**| Stream UUID | |
-| **subscriptionId** | **UUID**| Stream Subscription UUID | |
+| **alertRuleId** | **UUID**| alert rule UUID | |
 
 ### Return type
 
-[**StreamSubscription**](StreamSubscription.md)
+[**StreamAlertRule**](StreamAlertRule.md)
 
 ### Authorization
 
@@ -152,20 +152,20 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **202** | Stream Subscription object |  -  |
+| **202** | Stream Alert Rules object |  -  |
 | **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
 | **404** | Not Found |  -  |
 | **500** | Internal server error |  -  |
 
-<a name="getStreamSubscriptionByUuid"></a>
-# **getStreamSubscriptionByUuid**
-> StreamSubscription getStreamSubscriptionByUuid(streamId, subscriptionId)
+<a name="getStreamAlertRuleByUuid"></a>
+# **getStreamAlertRuleByUuid**
+> StreamAlertRule getStreamAlertRuleByUuid(streamId, alertRuleId)
 
-Get Subscription
+Get Stream Alert Rules
 
-This API provides capability to delete user&#39;s get Stream Subscriptions
+This API provides capability to get user&#39;s stream alert rules
 
 ### Example
 ```java
@@ -175,7 +175,7 @@ import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.Configuration;
 import com.equinix.openapi.fabric.auth.*;
 import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.StreamSubscriptionsApi;
+import com.equinix.openapi.fabric.v4.api.StreamAlertRulesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -186,14 +186,14 @@ public class Example {
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
     BearerAuth.setBearerToken("BEARER TOKEN");
 
-    StreamSubscriptionsApi apiInstance = new StreamSubscriptionsApi(defaultClient);
+    StreamAlertRulesApi apiInstance = new StreamAlertRulesApi(defaultClient);
     UUID streamId = UUID.randomUUID(); // UUID | Stream UUID
-    UUID subscriptionId = UUID.randomUUID(); // UUID | Stream Subscription UUID
+    UUID alertRuleId = UUID.randomUUID(); // UUID | alert rule UUID
     try {
-      StreamSubscription result = apiInstance.getStreamSubscriptionByUuid(streamId, subscriptionId);
+      StreamAlertRule result = apiInstance.getStreamAlertRuleByUuid(streamId, alertRuleId);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling StreamSubscriptionsApi#getStreamSubscriptionByUuid");
+      System.err.println("Exception when calling StreamAlertRulesApi#getStreamAlertRuleByUuid");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -208,11 +208,11 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **streamId** | **UUID**| Stream UUID | |
-| **subscriptionId** | **UUID**| Stream Subscription UUID | |
+| **alertRuleId** | **UUID**| alert rule UUID | |
 
 ### Return type
 
-[**StreamSubscription**](StreamSubscription.md)
+[**StreamAlertRule**](StreamAlertRule.md)
 
 ### Authorization
 
@@ -226,20 +226,20 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Stream Subscription object |  -  |
+| **200** | Stream Alert Rules object |  -  |
 | **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
 | **404** | Not Found |  -  |
 | **500** | Internal server error |  -  |
 
-<a name="getStreamSubscriptions"></a>
-# **getStreamSubscriptions**
-> GetAllStreamSubscriptionResponse getStreamSubscriptions(streamId, offset, limit)
+<a name="getStreamAlertRules"></a>
+# **getStreamAlertRules**
+> StreamAlertRule getStreamAlertRules(streamId, offset, limit)
 
-Get Subscriptions
+Get Stream Alert Rules
 
-This API provides capability to retrieve stream subscriptions
+This API provides capability to retrieve stream alert rules
 
 ### Example
 ```java
@@ -249,7 +249,7 @@ import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.Configuration;
 import com.equinix.openapi.fabric.auth.*;
 import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.StreamSubscriptionsApi;
+import com.equinix.openapi.fabric.v4.api.StreamAlertRulesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -260,15 +260,15 @@ public class Example {
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
     BearerAuth.setBearerToken("BEARER TOKEN");
 
-    StreamSubscriptionsApi apiInstance = new StreamSubscriptionsApi(defaultClient);
+    StreamAlertRulesApi apiInstance = new StreamAlertRulesApi(defaultClient);
     UUID streamId = UUID.randomUUID(); // UUID | Stream UUID
     Integer offset = 1; // Integer | offset
     Integer limit = 10; // Integer | number of records to fetch
     try {
-      GetAllStreamSubscriptionResponse result = apiInstance.getStreamSubscriptions(streamId, offset, limit);
+      StreamAlertRule result = apiInstance.getStreamAlertRules(streamId, offset, limit);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling StreamSubscriptionsApi#getStreamSubscriptions");
+      System.err.println("Exception when calling StreamAlertRulesApi#getStreamAlertRules");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -288,7 +288,7 @@ public class Example {
 
 ### Return type
 
-[**GetAllStreamSubscriptionResponse**](GetAllStreamSubscriptionResponse.md)
+[**StreamAlertRule**](StreamAlertRule.md)
 
 ### Authorization
 
@@ -302,19 +302,19 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful operation |  -  |
+| **200** | Stream Alert Rules object |  -  |
 | **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
 | **404** | Not Found |  -  |
 | **500** | Internal server error |  -  |
 
-<a name="updateStreamSubscriptionByUuid"></a>
-# **updateStreamSubscriptionByUuid**
-> StreamSubscription updateStreamSubscriptionByUuid(streamId, subscriptionId, streamSubscriptionPutRequest)
+<a name="updateStreamAlertRuleByUuid"></a>
+# **updateStreamAlertRuleByUuid**
+> StreamAlertRule updateStreamAlertRuleByUuid(streamId, alertRuleId, alertRulePutRequest)
 
-Update Subscription
+Update Stream Alert Rules
 
-This API provides capability to update user&#39;s Stream Subscriptions
+This API provides capability to update a user&#39;s stream alert rule
 
 ### Example
 ```java
@@ -324,7 +324,7 @@ import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.Configuration;
 import com.equinix.openapi.fabric.auth.*;
 import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.StreamSubscriptionsApi;
+import com.equinix.openapi.fabric.v4.api.StreamAlertRulesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -335,15 +335,15 @@ public class Example {
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
     BearerAuth.setBearerToken("BEARER TOKEN");
 
-    StreamSubscriptionsApi apiInstance = new StreamSubscriptionsApi(defaultClient);
+    StreamAlertRulesApi apiInstance = new StreamAlertRulesApi(defaultClient);
     UUID streamId = UUID.randomUUID(); // UUID | Stream UUID
-    UUID subscriptionId = UUID.randomUUID(); // UUID | Stream Subscription UUID
-    StreamSubscriptionPutRequest streamSubscriptionPutRequest = new StreamSubscriptionPutRequest(); // StreamSubscriptionPutRequest | 
+    UUID alertRuleId = UUID.randomUUID(); // UUID | alert rule UUID
+    AlertRulePutRequest alertRulePutRequest = new AlertRulePutRequest(); // AlertRulePutRequest | 
     try {
-      StreamSubscription result = apiInstance.updateStreamSubscriptionByUuid(streamId, subscriptionId, streamSubscriptionPutRequest);
+      StreamAlertRule result = apiInstance.updateStreamAlertRuleByUuid(streamId, alertRuleId, alertRulePutRequest);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling StreamSubscriptionsApi#updateStreamSubscriptionByUuid");
+      System.err.println("Exception when calling StreamAlertRulesApi#updateStreamAlertRuleByUuid");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -358,12 +358,12 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **streamId** | **UUID**| Stream UUID | |
-| **subscriptionId** | **UUID**| Stream Subscription UUID | |
-| **streamSubscriptionPutRequest** | [**StreamSubscriptionPutRequest**](StreamSubscriptionPutRequest.md)|  | |
+| **alertRuleId** | **UUID**| alert rule UUID | |
+| **alertRulePutRequest** | [**AlertRulePutRequest**](AlertRulePutRequest.md)|  | |
 
 ### Return type
 
-[**StreamSubscription**](StreamSubscription.md)
+[**StreamAlertRule**](StreamAlertRule.md)
 
 ### Authorization
 
@@ -377,7 +377,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **202** | Stream Subscription object |  -  |
+| **202** | Stream Alert Rules object |  -  |
 | **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |

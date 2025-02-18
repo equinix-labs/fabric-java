@@ -66,6 +66,10 @@ public class Order {
   @SerializedName(SERIALIZED_NAME_ORDER_NUMBER)
   private String orderNumber;
 
+  public static final String SERIALIZED_NAME_TERM_LENGTH = "termLength";
+  @SerializedName(SERIALIZED_NAME_TERM_LENGTH)
+  private Integer termLength = 1;
+
   public Order() {
   }
 
@@ -178,6 +182,30 @@ public class Order {
     this.orderNumber = orderNumber;
   }
 
+
+  public Order termLength(Integer termLength) {
+    
+    this.termLength = termLength;
+    return this;
+  }
+
+   /**
+   * Term length in months, valid values are 1, 12, 24, 36 where 1 is the default value (for on-demand case).
+   * minimum: 1
+   * maximum: 36
+   * @return termLength
+  **/
+  @javax.annotation.Nullable
+
+  public Integer getTermLength() {
+    return termLength;
+  }
+
+
+  public void setTermLength(Integer termLength) {
+    this.termLength = termLength;
+  }
+
   /**
    * A container for additional, undeclared properties.
    * This is a holder for any undeclared properties as specified with
@@ -237,13 +265,14 @@ public class Order {
         Objects.equals(this.customerReferenceNumber, order.customerReferenceNumber) &&
         Objects.equals(this.billingTier, order.billingTier) &&
         Objects.equals(this.orderId, order.orderId) &&
-        Objects.equals(this.orderNumber, order.orderNumber)&&
+        Objects.equals(this.orderNumber, order.orderNumber) &&
+        Objects.equals(this.termLength, order.termLength)&&
         Objects.equals(this.additionalProperties, order.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(purchaseOrderNumber, customerReferenceNumber, billingTier, orderId, orderNumber, additionalProperties);
+    return Objects.hash(purchaseOrderNumber, customerReferenceNumber, billingTier, orderId, orderNumber, termLength, additionalProperties);
   }
 
   @Override
@@ -255,6 +284,7 @@ public class Order {
     sb.append("    billingTier: ").append(toIndentedString(billingTier)).append("\n");
     sb.append("    orderId: ").append(toIndentedString(orderId)).append("\n");
     sb.append("    orderNumber: ").append(toIndentedString(orderNumber)).append("\n");
+    sb.append("    termLength: ").append(toIndentedString(termLength)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -283,6 +313,7 @@ public class Order {
     openapiFields.add("billingTier");
     openapiFields.add("orderId");
     openapiFields.add("orderNumber");
+    openapiFields.add("termLength");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();

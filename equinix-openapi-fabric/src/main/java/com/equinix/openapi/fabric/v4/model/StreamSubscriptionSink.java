@@ -131,6 +131,10 @@ public class StreamSubscriptionSink {
   @SerializedName(SERIALIZED_NAME_SETTINGS)
   private StreamSubscriptionSinkSetting settings;
 
+  public static final String SERIALIZED_NAME_HOST = "host";
+  @SerializedName(SERIALIZED_NAME_HOST)
+  private String host;
+
   public StreamSubscriptionSink() {
   }
 
@@ -287,6 +291,28 @@ public class StreamSubscriptionSink {
     this.settings = settings;
   }
 
+
+  public StreamSubscriptionSink host(String host) {
+    
+    this.host = host;
+    return this;
+  }
+
+   /**
+   * sink host
+   * @return host
+  **/
+  @javax.annotation.Nullable
+
+  public String getHost() {
+    return host;
+  }
+
+
+  public void setHost(String host) {
+    this.host = host;
+  }
+
   /**
    * A container for additional, undeclared properties.
    * This is a holder for any undeclared properties as specified with
@@ -348,13 +374,14 @@ public class StreamSubscriptionSink {
         Objects.equals(this.batchSizeMax, streamSubscriptionSink.batchSizeMax) &&
         Objects.equals(this.batchWaitTimeMax, streamSubscriptionSink.batchWaitTimeMax) &&
         Objects.equals(this.credential, streamSubscriptionSink.credential) &&
-        Objects.equals(this.settings, streamSubscriptionSink.settings)&&
+        Objects.equals(this.settings, streamSubscriptionSink.settings) &&
+        Objects.equals(this.host, streamSubscriptionSink.host)&&
         Objects.equals(this.additionalProperties, streamSubscriptionSink.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(uri, type, batchEnabled, batchSizeMax, batchWaitTimeMax, credential, settings, additionalProperties);
+    return Objects.hash(uri, type, batchEnabled, batchSizeMax, batchWaitTimeMax, credential, settings, host, additionalProperties);
   }
 
   @Override
@@ -368,6 +395,7 @@ public class StreamSubscriptionSink {
     sb.append("    batchWaitTimeMax: ").append(toIndentedString(batchWaitTimeMax)).append("\n");
     sb.append("    credential: ").append(toIndentedString(credential)).append("\n");
     sb.append("    settings: ").append(toIndentedString(settings)).append("\n");
+    sb.append("    host: ").append(toIndentedString(host)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -398,6 +426,7 @@ public class StreamSubscriptionSink {
     openapiFields.add("batchWaitTimeMax");
     openapiFields.add("credential");
     openapiFields.add("settings");
+    openapiFields.add("host");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -428,6 +457,9 @@ public class StreamSubscriptionSink {
       // validate the optional field `settings`
       if (jsonObj.get("settings") != null && !jsonObj.get("settings").isJsonNull()) {
         StreamSubscriptionSinkSetting.validateJsonObject(jsonObj.getAsJsonObject("settings"));
+      }
+      if ((jsonObj.get("host") != null && !jsonObj.get("host").isJsonNull()) && !jsonObj.get("host").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `host` to be a primitive type in the JSON string but got `%s`", jsonObj.get("host").toString()));
       }
   }
 

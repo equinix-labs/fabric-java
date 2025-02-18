@@ -1,7 +1,7 @@
 # equinix-openapi-fabric
 
 Equinix Fabric API v4
-- API version: 4.18
+- API version: 4.20
 
 Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br> </br> <b>Integrations (SDKs, Tools) links:</b> </br> <a href=\"https://deploy.equinix.com/labs/fabric-java\\\">Fabric Java SDK</a> </br> <a href=\"https://deploy.equinix.com/labs/equinix-sdk-go\\\">Fabric Go SDK</a> </br> <a href=\"https://deploy.equinix.com/labs/equinix-sdk-python\\\">Fabric Python SDK</a> </br> <a href=\"https://deploy.equinix.com/labs/terraform-provider-equinix\\\">Equinix Terraform Provider</a> </br> <a href=\"https://deploy.equinix.com/labs/terraform-equinix-fabric\\\">Fabric Terraform Modules</a> </br> <a href=\"https://deploy.equinix.com/labs/pulumi-provider-equinix/\">Equinix Pulumi Provider</a> </br>
 
@@ -161,6 +161,7 @@ Class | Method | HTTP request | Description
 *PortsApi* | [**getPorts**](docs/PortsApi.md#getPorts) | **GET** /fabric/v4/ports | Get All Ports
 *PortsApi* | [**getVlans**](docs/PortsApi.md#getVlans) | **GET** /fabric/v4/ports/{portUuid}/linkProtocols | Get Vlans
 *PortsApi* | [**searchPorts**](docs/PortsApi.md#searchPorts) | **POST** /fabric/v4/ports/search | Search ports
+*PortsApi* | [**updatePortByUuid**](docs/PortsApi.md#updatePortByUuid) | **PATCH** /fabric/v4/ports/{portId} | Update by UUID
 *PrecisionTimeApi* | [**createTimeServices**](docs/PrecisionTimeApi.md#createTimeServices) | **POST** /fabric/v4/timeServices | Create Time Service
 *PrecisionTimeApi* | [**deleteTimeServiceById**](docs/PrecisionTimeApi.md#deleteTimeServiceById) | **DELETE** /fabric/v4/timeServices/{serviceId} | Delete by ID.
 *PrecisionTimeApi* | [**fulfillTimeServices**](docs/PrecisionTimeApi.md#fulfillTimeServices) | **PUT** /fabric/v4/timeServices/{serviceId} | Configure Service.
@@ -242,13 +243,17 @@ Class | Method | HTTP request | Description
 *ServiceTokensApi* | [**searchServiceTokens**](docs/ServiceTokensApi.md#searchServiceTokens) | **POST** /fabric/v4/serviceTokens/search | Search servicetokens
 *ServiceTokensApi* | [**updateServiceTokenByUuid**](docs/ServiceTokensApi.md#updateServiceTokenByUuid) | **PATCH** /fabric/v4/serviceTokens/{serviceTokenId} | Update Token By ID
 *StatisticsApi* | [**getConnectionStatsByPortUuid**](docs/StatisticsApi.md#getConnectionStatsByPortUuid) | **GET** /fabric/v4/connections/{connectionId}/stats | Get Stats by uuid
-*StatisticsApi* | [**getPortStats**](docs/StatisticsApi.md#getPortStats) | **GET** /fabric/v4/ports/stats | Top Port Statistics
 *StatisticsApi* | [**getPortStatsByPortUuid**](docs/StatisticsApi.md#getPortStatsByPortUuid) | **GET** /fabric/v4/ports/{portId}/stats | Get Stats by uuid
-*StreamSubscriptionsApi* | [**createStreamSubscriptions**](docs/StreamSubscriptionsApi.md#createStreamSubscriptions) | **POST** /fabric/v4/streamSubscriptions | Create Subscription
-*StreamSubscriptionsApi* | [**deleteStreamSubscriptionByUuid**](docs/StreamSubscriptionsApi.md#deleteStreamSubscriptionByUuid) | **DELETE** /fabric/v4/streamSubscriptions/{streamSubscriptionId} | Delete Subscription
-*StreamSubscriptionsApi* | [**getStreamSubscriptionByUuid**](docs/StreamSubscriptionsApi.md#getStreamSubscriptionByUuid) | **GET** /fabric/v4/streamSubscriptions/{streamSubscriptionId} | Get Subscription
-*StreamSubscriptionsApi* | [**getStreamSubscriptions**](docs/StreamSubscriptionsApi.md#getStreamSubscriptions) | **GET** /fabric/v4/streamSubscriptions | Get Subscriptions
-*StreamSubscriptionsApi* | [**updateStreamSubscriptionByUuid**](docs/StreamSubscriptionsApi.md#updateStreamSubscriptionByUuid) | **PUT** /fabric/v4/streamSubscriptions/{streamSubscriptionId} | Update Subscription
+*StreamAlertRulesApi* | [**createStreamAlertRules**](docs/StreamAlertRulesApi.md#createStreamAlertRules) | **POST** /fabric/v4/streams/{streamId}/alertRules | Create Stream Alert Rules
+*StreamAlertRulesApi* | [**deleteStreamAlertRuleByUuid**](docs/StreamAlertRulesApi.md#deleteStreamAlertRuleByUuid) | **DELETE** /fabric/v4/streams/{streamId}/alertRules/{alertRuleId} | Update Stream Alert Rules
+*StreamAlertRulesApi* | [**getStreamAlertRuleByUuid**](docs/StreamAlertRulesApi.md#getStreamAlertRuleByUuid) | **GET** /fabric/v4/streams/{streamId}/alertRules/{alertRuleId} | Get Stream Alert Rules
+*StreamAlertRulesApi* | [**getStreamAlertRules**](docs/StreamAlertRulesApi.md#getStreamAlertRules) | **GET** /fabric/v4/streams/{streamId}/alertRules | Get Stream Alert Rules
+*StreamAlertRulesApi* | [**updateStreamAlertRuleByUuid**](docs/StreamAlertRulesApi.md#updateStreamAlertRuleByUuid) | **PUT** /fabric/v4/streams/{streamId}/alertRules/{alertRuleId} | Update Stream Alert Rules
+*StreamSubscriptionsApi* | [**createStreamSubscriptions**](docs/StreamSubscriptionsApi.md#createStreamSubscriptions) | **POST** /fabric/v4/streams/{streamId}/subscriptions | Create Subscription
+*StreamSubscriptionsApi* | [**deleteStreamSubscriptionByUuid**](docs/StreamSubscriptionsApi.md#deleteStreamSubscriptionByUuid) | **DELETE** /fabric/v4/streams/{streamId}/subscriptions/{subscriptionId} | Delete Subscription
+*StreamSubscriptionsApi* | [**getStreamSubscriptionByUuid**](docs/StreamSubscriptionsApi.md#getStreamSubscriptionByUuid) | **GET** /fabric/v4/streams/{streamId}/subscriptions/{subscriptionId} | Get Subscription
+*StreamSubscriptionsApi* | [**getStreamSubscriptions**](docs/StreamSubscriptionsApi.md#getStreamSubscriptions) | **GET** /fabric/v4/streams/{streamId}/subscriptions | Get Subscriptions
+*StreamSubscriptionsApi* | [**updateStreamSubscriptionByUuid**](docs/StreamSubscriptionsApi.md#updateStreamSubscriptionByUuid) | **PUT** /fabric/v4/streams/{streamId}/subscriptions/{subscriptionId} | Update Subscription
 *StreamsApi* | [**createStreams**](docs/StreamsApi.md#createStreams) | **POST** /fabric/v4/streams | Create Stream
 *StreamsApi* | [**deleteStreamAssetByUuid**](docs/StreamsApi.md#deleteStreamAssetByUuid) | **DELETE** /fabric/v4/streams/{streamId}/{asset}/{assetId} | Detach Asset
 *StreamsApi* | [**deleteStreamByUuid**](docs/StreamsApi.md#deleteStreamByUuid) | **DELETE** /fabric/v4/streams/{streamId} | Delete Stream
@@ -256,7 +261,6 @@ Class | Method | HTTP request | Description
 *StreamsApi* | [**getStreamByUuid**](docs/StreamsApi.md#getStreamByUuid) | **GET** /fabric/v4/streams/{streamId} | Get Stream
 *StreamsApi* | [**getStreams**](docs/StreamsApi.md#getStreams) | **GET** /fabric/v4/streams | Get Streams
 *StreamsApi* | [**getStreamsAssets**](docs/StreamsApi.md#getStreamsAssets) | **POST** /fabric/v4/streamAssets/search | Get Assets
-*StreamsApi* | [**getSubscriptionsInStream**](docs/StreamsApi.md#getSubscriptionsInStream) | **GET** /fabric/v4/streams/{streamId}/streamSubscriptions | Get Stream&#39;s Subs
 *StreamsApi* | [**updateStreamAssetByUuid**](docs/StreamsApi.md#updateStreamAssetByUuid) | **PUT** /fabric/v4/streams/{streamId}/{asset}/{assetId} | Attach Asset
 *StreamsApi* | [**updateStreamByUuid**](docs/StreamsApi.md#updateStreamByUuid) | **PUT** /fabric/v4/streams/{streamId} | Update Stream
 
@@ -268,6 +272,8 @@ Class | Method | HTTP request | Description
  - [AccessPointType](docs/AccessPointType.md)
  - [Actions](docs/Actions.md)
  - [AddOperation](docs/AddOperation.md)
+ - [AlertRulePostRequest](docs/AlertRulePostRequest.md)
+ - [AlertRulePutRequest](docs/AlertRulePutRequest.md)
  - [AllPhysicalPortsResponse](docs/AllPhysicalPortsResponse.md)
  - [AllPortsResponse](docs/AllPortsResponse.md)
  - [ApiConfig](docs/ApiConfig.md)
@@ -358,7 +364,6 @@ Class | Method | HTTP request | Description
  - [DirectConnectionIpv4](docs/DirectConnectionIpv4.md)
  - [DirectConnectionIpv6](docs/DirectConnectionIpv6.md)
  - [Direction](docs/Direction.md)
- - [Duration](docs/Duration.md)
  - [EndCustomer](docs/EndCustomer.md)
  - [EquinixStatus](docs/EquinixStatus.md)
  - [Error](docs/Error.md)
@@ -379,7 +384,6 @@ Class | Method | HTTP request | Description
  - [GetRouteAggregationRulesResponse](docs/GetRouteAggregationRulesResponse.md)
  - [GetRouteFilterGetConnectionsResponse](docs/GetRouteFilterGetConnectionsResponse.md)
  - [GetRouteFilterRulesResponse](docs/GetRouteFilterRulesResponse.md)
- - [GetSubscriptionsInStreamResponse](docs/GetSubscriptionsInStreamResponse.md)
  - [HealthResponse](docs/HealthResponse.md)
  - [InternetAccess](docs/InternetAccess.md)
  - [IpBlockPrice](docs/IpBlockPrice.md)
@@ -399,7 +403,6 @@ Class | Method | HTTP request | Description
  - [MarketplaceSubscription](docs/MarketplaceSubscription.md)
  - [Md5](docs/Md5.md)
  - [MetalInterconnection](docs/MetalInterconnection.md)
- - [MetricInterval](docs/MetricInterval.md)
  - [Metrics](docs/Metrics.md)
  - [Metro](docs/Metro.md)
  - [MetroError](docs/MetroError.md)
@@ -443,6 +446,7 @@ Class | Method | HTTP request | Description
  - [PhysicalPortType](docs/PhysicalPortType.md)
  - [Port](docs/Port.md)
  - [PortAdditionalInfo](docs/PortAdditionalInfo.md)
+ - [PortChangeOperation](docs/PortChangeOperation.md)
  - [PortDemarcationPoint](docs/PortDemarcationPoint.md)
  - [PortDevice](docs/PortDevice.md)
  - [PortDeviceRedundancy](docs/PortDeviceRedundancy.md)
@@ -491,9 +495,9 @@ Class | Method | HTTP request | Description
  - [Project](docs/Project.md)
  - [ProviderStatus](docs/ProviderStatus.md)
  - [PtpAdvanceConfiguration](docs/PtpAdvanceConfiguration.md)
- - [QueryDirection](docs/QueryDirection.md)
  - [RemoveOperation](docs/RemoveOperation.md)
  - [ReplaceOperation](docs/ReplaceOperation.md)
+ - [ResourceSelector](docs/ResourceSelector.md)
  - [RouteAggregationChangeData](docs/RouteAggregationChangeData.md)
  - [RouteAggregationChangeDataResponse](docs/RouteAggregationChangeDataResponse.md)
  - [RouteAggregationConnectionsData](docs/RouteAggregationConnectionsData.md)
@@ -620,7 +624,6 @@ Class | Method | HTTP request | Description
  - [SimplifiedServiceProfile](docs/SimplifiedServiceProfile.md)
  - [SimplifiedTokenNetwork](docs/SimplifiedTokenNetwork.md)
  - [SimplifiedVirtualDevice](docs/SimplifiedVirtualDevice.md)
- - [Sort](docs/Sort.md)
  - [SortBy](docs/SortBy.md)
  - [SortCriteria](docs/SortCriteria.md)
  - [SortCriteriaResponse](docs/SortCriteriaResponse.md)
@@ -628,6 +631,7 @@ Class | Method | HTTP request | Description
  - [SortItem](docs/SortItem.md)
  - [Statistics](docs/Statistics.md)
  - [Stream](docs/Stream.md)
+ - [StreamAlertRule](docs/StreamAlertRule.md)
  - [StreamAsset](docs/StreamAsset.md)
  - [StreamAssetFilter](docs/StreamAssetFilter.md)
  - [StreamAssetFilters](docs/StreamAssetFilters.md)
@@ -641,7 +645,6 @@ Class | Method | HTTP request | Description
  - [StreamFilter](docs/StreamFilter.md)
  - [StreamFilterOrFilter](docs/StreamFilterOrFilter.md)
  - [StreamFilterSimpleExpression](docs/StreamFilterSimpleExpression.md)
- - [StreamGetSubscriptions](docs/StreamGetSubscriptions.md)
  - [StreamPostRequest](docs/StreamPostRequest.md)
  - [StreamPutRequest](docs/StreamPutRequest.md)
  - [StreamSubscription](docs/StreamSubscription.md)
@@ -652,7 +655,6 @@ Class | Method | HTTP request | Description
  - [StreamSubscriptionSink](docs/StreamSubscriptionSink.md)
  - [StreamSubscriptionSinkCredential](docs/StreamSubscriptionSinkCredential.md)
  - [StreamSubscriptionSinkSetting](docs/StreamSubscriptionSinkSetting.md)
- - [StreamTarget](docs/StreamTarget.md)
  - [SubInterface](docs/SubInterface.md)
  - [SubscriptionAsset](docs/SubscriptionAsset.md)
  - [SubscriptionEntitlementResponse](docs/SubscriptionEntitlementResponse.md)
@@ -672,7 +674,6 @@ Class | Method | HTTP request | Description
  - [TimeServiceSortCriteria](docs/TimeServiceSortCriteria.md)
  - [TimeServiceSortDirection](docs/TimeServiceSortDirection.md)
  - [TimeServicesSearchRequest](docs/TimeServicesSearchRequest.md)
- - [TopUtilizedStatistics](docs/TopUtilizedStatistics.md)
  - [ValidateConnectionResponse](docs/ValidateConnectionResponse.md)
  - [ValidateRequest](docs/ValidateRequest.md)
  - [ValidateRequestFilter](docs/ValidateRequestFilter.md)

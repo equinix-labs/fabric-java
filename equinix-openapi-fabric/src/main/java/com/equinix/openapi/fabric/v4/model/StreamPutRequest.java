@@ -54,10 +54,6 @@ public class StreamPutRequest {
   @SerializedName(SERIALIZED_NAME_DESCRIPTION)
   private String description;
 
-  public static final String SERIALIZED_NAME_ENABLED = "enabled";
-  @SerializedName(SERIALIZED_NAME_ENABLED)
-  private Boolean enabled;
-
   public StreamPutRequest() {
   }
 
@@ -102,28 +98,6 @@ public class StreamPutRequest {
 
   public void setDescription(String description) {
     this.description = description;
-  }
-
-
-  public StreamPutRequest enabled(Boolean enabled) {
-    
-    this.enabled = enabled;
-    return this;
-  }
-
-   /**
-   * stream state
-   * @return enabled
-  **/
-  @javax.annotation.Nullable
-
-  public Boolean getEnabled() {
-    return enabled;
-  }
-
-
-  public void setEnabled(Boolean enabled) {
-    this.enabled = enabled;
   }
 
   /**
@@ -182,14 +156,13 @@ public class StreamPutRequest {
     }
     StreamPutRequest streamPutRequest = (StreamPutRequest) o;
     return Objects.equals(this.name, streamPutRequest.name) &&
-        Objects.equals(this.description, streamPutRequest.description) &&
-        Objects.equals(this.enabled, streamPutRequest.enabled)&&
+        Objects.equals(this.description, streamPutRequest.description)&&
         Objects.equals(this.additionalProperties, streamPutRequest.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, description, enabled, additionalProperties);
+    return Objects.hash(name, description, additionalProperties);
   }
 
   @Override
@@ -198,7 +171,6 @@ public class StreamPutRequest {
     sb.append("class StreamPutRequest {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -224,7 +196,6 @@ public class StreamPutRequest {
     openapiFields = new HashSet<String>();
     openapiFields.add("name");
     openapiFields.add("description");
-    openapiFields.add("enabled");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();

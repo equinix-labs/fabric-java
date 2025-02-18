@@ -8,7 +8,7 @@ Service Token Connection Type Information
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**type** | [**TypeEnum**](#TypeEnum) | Type of Connection |  |
+|**type** | [**TypeEnum**](#TypeEnum) | Type of Connection |  [optional] |
 |**href** | **URI** | An absolute URL that is the subject of the link&#39;s context. |  [optional] [readonly] |
 |**uuid** | **UUID** | Equinix-assigned connection identifier |  [optional] |
 |**allowRemoteConnection** | **Boolean** | Authorization to connect remotely |  [optional] |
@@ -29,6 +29,7 @@ Service Token Connection Type Information
 | EVPLAN_VC | &quot;EVPLAN_VC&quot; |
 | EPLAN_VC | &quot;EPLAN_VC&quot; |
 | IPWAN_VC | &quot;IPWAN_VC&quot; |
+| IP_VC | &quot;IP_VC&quot; |
 
 
 

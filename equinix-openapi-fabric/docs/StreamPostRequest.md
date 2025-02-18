@@ -12,7 +12,6 @@ Create Stream
 |**name** | **String** | Customer-provided stream name |  [optional] |
 |**description** | **String** | Customer-provided stream description |  [optional] |
 |**project** | [**Project**](Project.md) |  |  [optional] |
-|**enabled** | **Boolean** | Stream enabled status |  [optional] |
 
 
 

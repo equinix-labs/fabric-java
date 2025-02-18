@@ -15,6 +15,7 @@ Create Stream destination
 |**batchWaitTimeMax** | **Integer** | maximum batch waiting time |  [optional] |
 |**credential** | [**StreamSubscriptionSinkCredential**](StreamSubscriptionSinkCredential.md) |  |  [optional] |
 |**settings** | [**StreamSubscriptionSinkSetting**](StreamSubscriptionSinkSetting.md) |  |  [optional] |
+|**host** | **String** | sink host |  [optional] |
 
 
 
