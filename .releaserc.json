@@ -1,6 +1,6 @@
 {
   "branches": [
-    "updateVersion"
+    "main"
   ],
   "ci": false,
   "plugins": [
@@ -8,9 +8,9 @@
       "@semantic-release/commit-analyzer",
       {
         "preset": "conventionalcommits",
-        "parserOpts": {
-          "noteKeywords": ["sync:"]
-        }
+        "releaseRules": [
+          { "type": "sync" }
+        ]
       }
     ],
     [
