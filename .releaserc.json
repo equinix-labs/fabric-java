@@ -9,7 +9,7 @@
       {
         "preset": "conventionalcommits",
         "releaseRules": [
-          { "type": "sync" }
+          { "type": "sync", "release": "minor" }
         ]
       }
     ],
