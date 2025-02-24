@@ -1,6 +1,6 @@
 # Fabric java SDK
 
-[![Experimental](https://img.shields.io/badge/Stability-Experimental-red.svg)](https://github.com/equinix-labs/equinix-labs/blob/main/uniform-standards.md)
+![Stable](https://img.shields.io/badge/Stability-Stable-green.svg)
 
 > **[Experimental](https://github.com/equinix-labs/equinix-labs/blob/main/experimental-statement.md)**
 > Experimental Fabric SDK for Java. Don't use it in production. Examples demonstrate that this client is usable. Please submit patches and open issues with your experience. This repo contains java code generated from customized Equinix Fabric OAS3. The client is generated using the java client support built into the openapi-generator.
