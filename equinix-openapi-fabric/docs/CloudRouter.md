@@ -17,9 +17,9 @@ Fabric Cloud Router object
 |**marketplaceSubscription** | [**MarketplaceSubscription**](MarketplaceSubscription.md) |  |  [optional] |
 |**changeLog** | [**Changelog**](Changelog.md) |  |  [optional] |
 |**change** | [**CloudRouterChange**](CloudRouterChange.md) |  |  [optional] |
-|**type** | [**TypeEnum**](#TypeEnum) |  |  [optional] |
-|**location** | [**SimplifiedLocationWithoutIBX**](SimplifiedLocationWithoutIBX.md) |  |  [optional] |
-|**_package** | [**CloudRouterPostRequestPackage**](CloudRouterPostRequestPackage.md) |  |  [optional] |
+|**type** | [**TypeEnum**](#TypeEnum) |  |  |
+|**location** | [**SimplifiedLocationWithoutIBX**](SimplifiedLocationWithoutIBX.md) |  |  |
+|**_package** | [**CloudRouterPostRequestPackage**](CloudRouterPostRequestPackage.md) |  |  |
 |**order** | [**Order**](Order.md) |  |  [optional] |
 |**project** | [**Project**](Project.md) |  |  [optional] |
 |**account** | [**SimplifiedAccount**](SimplifiedAccount.md) |  |  [optional] |

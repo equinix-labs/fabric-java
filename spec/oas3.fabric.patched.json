@@ -12,7 +12,7 @@
       "name": "Equinix Inc",
       "url": "https://developer.equinix.com/agreement"
     },
-    "version": "4.20"
+    "version": "4.21"
   },
   "externalDocs": {
     "description": "Find more information on Equinix Developer Portal",
@@ -30,6 +30,10 @@
     }
   ],
   "tags": [
+    {
+      "name": "Cloud Events",
+      "description": "Cloud Events"
+    },
     {
       "name": "Cloud Routers",
       "description": "Cloud Routers"
@@ -88,18 +92,362 @@
     },
     {
       "name": "Stream Alert Rules",
-      "description": "Stream Subscriptions <font color=\"red\"> <sup color='red'>Beta</sup></font>"
+      "description": "Stream Subscriptions"
     },
     {
       "name": "Stream Subscriptions",
-      "description": "Stream Subscriptions <font color=\"red\"> <sup color='red'>Beta</sup></font>"
+      "description": "Stream Subscriptions"
     },
     {
       "name": "Streams",
-      "description": "Streams <font color=\"red\"> <sup color='red'>Beta</sup></font>"
+      "description": "Streams"
     }
   ],
   "paths": {
+    "/fabric/v4/{asset}/{assetId}/cloudevents": {
+      "get": {
+        "tags": [
+          "Cloud Events"
+        ],
+        "summary": "Get Cloud Events by Asset Id",
+        "description": "This API provides capability to retrieve cloud events of an asset id",
+        "operationId": "getCloudEventByAssetId",
+        "parameters": [
+          {
+            "name": "asset",
+            "in": "path",
+            "description": "asset",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/CloudEventAssetType"
+            }
+          },
+          {
+            "name": "assetId",
+            "in": "path",
+            "description": "asset UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/AssetId"
+            }
+          },
+          {
+            "name": "fromDateTime",
+            "in": "query",
+            "description": "Start date and time",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/StartDateTime"
+            }
+          },
+          {
+            "name": "toDateTime",
+            "in": "query",
+            "description": "End date and time",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/EndDateTime"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "offset",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/Offset"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCloudEventsByAssetResponse"
+                },
+                "examples": {
+                  "Example": {
+                    "$ref": "#/components/examples/get-cloud-events-by-asset-id"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/404"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fabric/v4/cloudevents/{cloudEventId}": {
+      "get": {
+        "tags": [
+          "Cloud Events"
+        ],
+        "summary": "Get Cloud Event",
+        "description": "This API provides capability to retrieve a cloud event by uuid",
+        "operationId": "getCloudEvent",
+        "parameters": [
+          {
+            "name": "cloudEventId",
+            "in": "path",
+            "description": "Cloud Event UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/CloudEventId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cloud Event object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CloudEvent"
+                },
+                "examples": {
+                  "CloudEventResponseExample": {
+                    "$ref": "#/components/examples/get-cloud-event"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/404"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fabric/v4/cloudevents/search": {
+      "post": {
+        "tags": [
+          "Cloud Events"
+        ],
+        "summary": "Search Cloud Events",
+        "description": "This API provides capability to search cloud events from a filtered query",
+        "operationId": "searchCloudEvents",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CloudEventSearchRequest"
+              },
+              "examples": {
+                "CloudEventSearchRequestExample": {
+                  "$ref": "#/components/examples/search-cloud-events"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCloudEventsByAssetResponse"
+                },
+                "examples": {
+                  "Example": {
+                    "$ref": "#/components/examples/get-cloud-events-by-asset-id"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/404"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/fabric/v4/connections": {
       "post": {
         "tags": [
@@ -418,7 +766,7 @@
                 },
                 "examples": {
                   "Colo2Sp": {
-                    "$ref": "#/components/examples/ConnectionExample"
+                    "$ref": "#/components/examples/ConnectionCreateResponse"
                   },
                   "Colo2Sp-Google": {
                     "$ref": "#/components/examples/COLO2GoogleSPwithDot1q-Response"
@@ -846,6 +1194,16 @@
             "schema": {
               "$ref": "#/components/schemas/ConnectionId"
             }
+          },
+          {
+            "name": "dryRun",
+            "in": "query",
+            "description": "option to verify that API calls will succeed",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
           }
         ],
         "requestBody": {
@@ -872,6 +1230,9 @@
                 },
                 "ConnectionMigrationAsideRequestForVirtualDevice": {
                   "$ref": "#/components/examples/ConnectionMigrationAsideVirtualDeviceRequest"
+                },
+                "ConnectionUpdateBandwidthRequestDryRun": {
+                  "$ref": "#/components/examples/ConnectionUpdateBandwidthRequest"
                 }
               }
             }
@@ -879,6 +1240,21 @@
           "required": true
         },
         "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Connection"
+                },
+                "examples": {
+                  "connectionPatchExampleDryRun": {
+                    "$ref": "#/components/examples/ConnectionPatchResponseDryRun"
+                  }
+                }
+              }
+            }
+          },
           "202": {
             "description": "Successful operation",
             "content": {
@@ -898,6 +1274,24 @@
                 "operationId": "getConnectionByUuid",
                 "parameters": {
                   "connectionId": "$response.body#/uuid"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/400"
+                  },
+                  "dryRun": {
+                    "$ref": "#/components/examples/400_dry_run"
+                  }
                 }
               }
             }
@@ -3532,7 +3926,7 @@
             "description": "startDateTime",
             "required": true,
             "schema": {
-              "$ref": "#/components/schemas/startDateTime"
+              "$ref": "#/components/schemas/StartDateTime"
             },
             "example": "2020-11-06T07:00:00Z"
           },
@@ -3542,7 +3936,7 @@
             "description": "endDateTime",
             "required": true,
             "schema": {
-              "$ref": "#/components/schemas/endDateTime"
+              "$ref": "#/components/schemas/EndDateTime"
             },
             "example": "2020-11-10T07:00:00Z"
           }
@@ -3635,7 +4029,7 @@
             "description": "startDateTime",
             "required": true,
             "schema": {
-              "$ref": "#/components/schemas/startDateTime"
+              "$ref": "#/components/schemas/StartDateTime"
             },
             "example": "2020-11-06T07:00:00Z"
           },
@@ -3645,7 +4039,7 @@
             "description": "endDateTime",
             "required": true,
             "schema": {
-              "$ref": "#/components/schemas/endDateTime"
+              "$ref": "#/components/schemas/EndDateTime"
             },
             "example": "2020-11-10T07:00:00Z"
           },
@@ -4747,6 +5141,9 @@
                   },
                   "tokenNetworkExample": {
                     "$ref": "#/components/examples/getServiceToken-Network"
+                  },
+                  "tokenDryRunExample": {
+                    "$ref": "#/components/examples/getServiceToken-DryRun"
                   }
                 }
               }
@@ -4762,6 +5159,9 @@
                 "examples": {
                   "example": {
                     "$ref": "#/components/examples/400_UUID"
+                  },
+                  "dryRunExample": {
+                    "$ref": "#/components/examples/400_dry_run"
                   }
                 }
               }
@@ -4834,6 +5234,9 @@
                   },
                   "tokenNetworkExample": {
                     "$ref": "#/components/examples/getServiceToken-Network"
+                  },
+                  "tokenDryRunExample": {
+                    "$ref": "#/components/examples/getServiceToken-DryRun"
                   }
                 }
               }
@@ -4849,6 +5252,9 @@
                 "examples": {
                   "example": {
                     "$ref": "#/components/examples/400_UUID"
+                  },
+                  "dryRunExample": {
+                    "$ref": "#/components/examples/400_dry_run"
                   }
                 }
               }
@@ -4902,6 +5308,16 @@
             "schema": {
               "$ref": "#/components/schemas/ServiceTokenUUID"
             }
+          },
+          {
+            "name": "dryRun",
+            "in": "query",
+            "description": "option to verify that API calls will succeed",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
           }
         ],
         "requestBody": {
@@ -4928,6 +5344,12 @@
                 },
                 "UpdateZsideTokenBandwidth": {
                   "$ref": "#/components/examples/UpdateZsideTokenBandwidth"
+                },
+                "UpdateAsideTokenBandwidthDryRun": {
+                  "$ref": "#/components/examples/UpdateAsideTokenBandwidth"
+                },
+                "UpdateZsideTokenBandwidthDryRun": {
+                  "$ref": "#/components/examples/UpdateZsideTokenBandwidth"
                 }
               }
             }
@@ -4951,6 +5373,9 @@
                   },
                   "tokenNetworkExample": {
                     "$ref": "#/components/examples/getServiceToken-Network"
+                  },
+                  "tokenDryRunExample": {
+                    "$ref": "#/components/examples/getServiceToken-DryRun"
                   }
                 }
               }
@@ -4966,6 +5391,9 @@
                 "examples": {
                   "example": {
                     "$ref": "#/components/examples/400_UUID"
+                  },
+                  "dryRunExample": {
+                    "$ref": "#/components/examples/400_dry_run"
                   }
                 }
               }
@@ -13168,6 +13596,663 @@
         }
       }
     },
+    "/fabric/v4/routers/{routerId}/commands": {
+      "get": {
+        "tags": [
+          "Cloud Routers"
+        ],
+        "summary": "Get Commands",
+        "description": "This API provides capability to fetch all commands",
+        "operationId": "getAllCloudRouterCommands",
+        "parameters": [
+          {
+            "name": "routerId",
+            "in": "path",
+            "description": "Router UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouterId_1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAllCloudRouterCommands"
+                },
+                "examples": {
+                  "getAllCommandsExample": {
+                    "$ref": "#/components/examples/GetAllPingCommandResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/400_invalid_operation_commands"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403_commands"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/404_commands"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415_commands"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500_commands"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Cloud Routers"
+        ],
+        "summary": "Initiate Command",
+        "description": "This API provides capability to initiate Command",
+        "operationId": "createCloudRouterCommand",
+        "parameters": [
+          {
+            "name": "routerId",
+            "in": "path",
+            "description": "Router UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouterId_1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CloudRouterCommandPostRequest"
+              },
+              "examples": {
+                "InitiatePingCommand": {
+                  "$ref": "#/components/examples/PostRequestPingCommand"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CloudRouterCommand"
+                },
+                "examples": {
+                  "initiateCommandsExample": {
+                    "$ref": "#/components/examples/PostResponsePingCommand"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/400_invalid_operation_commands"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403_commands"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/404_commands"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415_commands"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500_commands"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fabric/v4/routers/{routerId}/commands/search": {
+      "post": {
+        "tags": [
+          "Cloud Routers"
+        ],
+        "summary": "Search Commands",
+        "description": "This API provides capability to search commands",
+        "operationId": "searchCloudRouterCommands",
+        "parameters": [
+          {
+            "name": "routerId",
+            "in": "path",
+            "description": "Router UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouterId_1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CloudRouterCommandSearchRequest"
+              },
+              "examples": {
+                "SearchByState": {
+                  "$ref": "#/components/examples/SearchByStateRequest"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CloudRouterCommandSearchResponse"
+                },
+                "examples": {
+                  "searchCommandsExample": {
+                    "$ref": "#/components/examples/SearchResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/400_invalid_sorting_commands"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403_commands"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/404_commands"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415_commands"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500_commands"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fabric/v4/routers/{routerId}/commands/{commandId}": {
+      "get": {
+        "tags": [
+          "Cloud Routers"
+        ],
+        "summary": "Get Command",
+        "description": "This API provides capability to fetch command using command Id",
+        "operationId": "getCloudRouterCommand",
+        "parameters": [
+          {
+            "name": "routerId",
+            "in": "path",
+            "description": "Router UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouterId_1"
+            }
+          },
+          {
+            "name": "commandId",
+            "in": "path",
+            "description": "Command UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/CommandId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CloudRouterCommand"
+                },
+                "examples": {
+                  "getCommandExample": {
+                    "$ref": "#/components/examples/GetResponsePingCommand"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/400_invalid_operation_commands"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403_commands"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/404_commands"
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/415_commands"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500_commands"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Cloud Routers"
+        ],
+        "summary": "Delete Command",
+        "description": "This API provides capability to delete command based on command Id",
+        "operationId": "deleteCloudRouterCommandByUuid",
+        "parameters": [
+          {
+            "name": "routerId",
+            "in": "path",
+            "description": "Router UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RouterId_1"
+            }
+          },
+          {
+            "name": "commandId",
+            "in": "path",
+            "description": "Command UUID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/CommandId"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted command successfully"
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/400_invalid_state_commands"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/401"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/403_commands"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/404_commands"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                },
+                "examples": {
+                  "example": {
+                    "$ref": "#/components/examples/500_commands"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/fabric/v4/routers/{routerId}/routes/search": {
       "post": {
         "tags": [
@@ -13912,14 +14997,41 @@
                 "$ref": "#/components/schemas/NetworkPostRequest"
               },
               "examples": {
-                "CreateGlobalNetwork": {
-                  "$ref": "#/components/examples/CreateGlobalNetwork"
+                "Create-Global-EVPLAN-Network": {
+                  "$ref": "#/components/examples/Create-Global-EVPLAN-Network"
                 },
-                "CreateRegionalNetwork": {
-                  "$ref": "#/components/examples/CreateRegionalNetwork"
+                "Create-Regional-EVPLAN-Network": {
+                  "$ref": "#/components/examples/Create-Regional-EVPLAN-Network"
                 },
-                "CreateLocalNetwork": {
-                  "$ref": "#/components/examples/CreateLocalNetwork"
+                "Create-Local-EVPLAN-Network": {
+                  "$ref": "#/components/examples/Create-Local-EVPLAN-Network"
+                },
+                "Create-Global-EPLAN-Network": {
+                  "$ref": "#/components/examples/Create-Global-EPLAN-Network"
+                },
+                "Create-Regional-EPLAN-Network": {
+                  "$ref": "#/components/examples/Create-Regional-EPLAN-Network"
+                },
+                "Create-Local-EPLAN-Network": {
+                  "$ref": "#/components/examples/Create-Local-EPLAN-Network"
+                },
+                "Create-Global-EVPTREE-Network": {
+                  "$ref": "#/components/examples/Create-Global-EVPTREE-Network"
+                },
+                "Create-Regional-EVPTREE-Network": {
+                  "$ref": "#/components/examples/Create-Regional-EVPTREE-Network"
+                },
+                "Create-Local-EVPTREE-Network": {
+                  "$ref": "#/components/examples/Create-Local-EVPTREE-Network"
+                },
+                "Create-Global-EPTREE-Network": {
+                  "$ref": "#/components/examples/Create-Global-EPTREE-Network"
+                },
+                "Create-Regional-EPTREE-Network": {
+                  "$ref": "#/components/examples/Create-Regional-EPTREE-Network"
+                },
+                "Create-Local-EPTREE-Network": {
+                  "$ref": "#/components/examples/Create-Local-EPTREE-Network"
                 },
                 "NetworkDryRunCreate": {
                   "$ref": "#/components/examples/CreateNetworkDryRunResponse"
@@ -13930,7 +15042,7 @@
           "required": true
         },
         "responses": {
-          "200": {
+          "201": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -13938,6 +15050,42 @@
                   "$ref": "#/components/schemas/Network"
                 },
                 "examples": {
+                  "EVPLAN-Global-Network": {
+                    "$ref": "#/components/examples/Create-Global-EVPLAN-Network-Response"
+                  },
+                  "EVPLAN-Regional-Network": {
+                    "$ref": "#/components/examples/Create-Regional-EVPLAN-Network-Response"
+                  },
+                  "EVPLAN-Local-Network": {
+                    "$ref": "#/components/examples/Create-Local-EVPLAN-Network-Response"
+                  },
+                  "EPLAN-Global-Network": {
+                    "$ref": "#/components/examples/Create-Global-EPLAN-Network-Response"
+                  },
+                  "EPLAN-Regional-Network": {
+                    "$ref": "#/components/examples/Create-Regional-EPLAN-Network-Response"
+                  },
+                  "EPLAN-Local-Network": {
+                    "$ref": "#/components/examples/Create-Local-EPLAN-Network-Response"
+                  },
+                  "EVPTREE-Global-Network": {
+                    "$ref": "#/components/examples/Create-Global-EVPTREE-Network-Response"
+                  },
+                  "EVPTREE-Regional-Network": {
+                    "$ref": "#/components/examples/Create-Regional-EVPTREE-Network-Response"
+                  },
+                  "EVPTREE-Local-Network": {
+                    "$ref": "#/components/examples/Create-Local-EVPTREE-Network-Response"
+                  },
+                  "EPTREE-Global-Network": {
+                    "$ref": "#/components/examples/Create-Global-EPTREE-Network-Response"
+                  },
+                  "EPTREE-Regional-Network": {
+                    "$ref": "#/components/examples/Create-Regional-EPTREE-Network-Response"
+                  },
+                  "EPTREE-Local-Network": {
+                    "$ref": "#/components/examples/Create-Local-EPTREE-Network-Response"
+                  },
                   "networkDryRun": {
                     "$ref": "#/components/examples/CreateNetworkDryRunResponse"
                   }
@@ -17005,7 +18153,7 @@
             "description": "asset UUID",
             "required": true,
             "schema": {
-              "$ref": "#/components/schemas/AssetId"
+              "$ref": "#/components/schemas/AssetId_1"
             }
           },
           {
@@ -17129,7 +18277,7 @@
             "description": "asset UUID",
             "required": true,
             "schema": {
-              "$ref": "#/components/schemas/AssetId"
+              "$ref": "#/components/schemas/AssetId_1"
             }
           },
           {
@@ -17283,7 +18431,7 @@
             "description": "asset UUID",
             "required": true,
             "schema": {
-              "$ref": "#/components/schemas/AssetId"
+              "$ref": "#/components/schemas/AssetId_1"
             }
           },
           {
@@ -18647,6 +19795,191 @@
   },
   "components": {
     "schemas": {
+      "CloudEventAssetType": {
+        "type": "string",
+        "enum": [
+          "ports",
+          "connections",
+          "routers"
+        ]
+      },
+      "AssetId": {
+        "type": "string",
+        "description": "Asset UUID",
+        "format": "uuid",
+        "example": "757400f8-d360-11e9-bb65-2a2ae2dbcce6"
+      },
+      "StartDateTime": {
+        "type": "string",
+        "description": "Start date and time",
+        "format": "date-time",
+        "example": "2024-07-11T18:06:21Z"
+      },
+      "EndDateTime": {
+        "type": "string",
+        "description": "End date and time",
+        "format": "date-time",
+        "example": "2024-07-11T18:06:21Z"
+      },
+      "Offset": {
+        "type": "integer",
+        "description": "Pagination offset",
+        "example": 0,
+        "default": 0
+      },
+      "Limit": {
+        "type": "integer",
+        "description": "Pagination limit",
+        "example": 20,
+        "default": 20
+      },
+      "GetCloudEventsByAssetResponse": {
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "data": {
+            "type": "array",
+            "description": "Data returned from the API call.",
+            "items": {
+              "$ref": "#/components/schemas/CloudEvent"
+            }
+          }
+        }
+      },
+      "ErrorList": {
+        "type": "array",
+        "description": "List of Error Message",
+        "items": {
+          "$ref": "#/components/schemas/Error"
+        }
+      },
+      "CloudEventId": {
+        "type": "string",
+        "description": "Cloud Event UUID",
+        "format": "uuid",
+        "example": "557400f8-d360-11e9-bb65-2a2ae2dbcce4"
+      },
+      "CloudEvent": {
+        "type": "object",
+        "properties": {
+          "spec": {
+            "type": "string",
+            "description": "Cloud Event Open Telemetry specification",
+            "readOnly": true
+          },
+          "source": {
+            "type": "string",
+            "description": "Cloud Event source"
+          },
+          "id": {
+            "type": "string",
+            "description": "Cloud Event identifier",
+            "format": "uuid"
+          },
+          "type": {
+            "type": "string",
+            "description": "Equinix supported event type"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Cloud Event subject"
+          },
+          "dataschema": {
+            "type": "string",
+            "description": "Cloud Event dataschema reference"
+          },
+          "datacontenttype": {
+            "type": "string",
+            "description": "Cloud Event data content type"
+          },
+          "severitynumber": {
+            "type": "string",
+            "description": "Cloud Event severity number"
+          },
+          "severitytext": {
+            "type": "string",
+            "description": "Cloud Event severity text"
+          },
+          "equinixproject": {
+            "type": "string",
+            "description": "Equinix project identifier",
+            "format": "uuid"
+          },
+          "authtype": {
+            "type": "string",
+            "description": "Cloud Event auth type"
+          },
+          "authid": {
+            "type": "string",
+            "description": "Cloud Event user identifier"
+          },
+          "data": {
+            "$ref": "#/components/schemas/CloudEventData"
+          }
+        },
+        "description": "Cloud Event object"
+      },
+      "CloudEventSearchRequest": {
+        "type": "object",
+        "properties": {
+          "filter": {
+            "$ref": "#/components/schemas/CloudEventFilters"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/PaginationRequest"
+          },
+          "sort": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CloudEventFilters"
+            }
+          }
+        },
+        "description": "Search requests containing criteria"
+      },
+      "CloudEventFilters": {
+        "type": "object",
+        "properties": {
+          "and": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CloudEventFilter"
+            }
+          }
+        }
+      },
+      "CloudEventFilter": {
+        "type": "object",
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/CloudEventSimpleExpression"
+          }
+        ]
+      },
+      "CloudEventSimpleExpression": {
+        "type": "object",
+        "properties": {
+          "property": {
+            "type": "string",
+            "description": "Possible field names to use on filters:\n * `/subject` - Cloud Event subject description\n * `/type` - Cloud Event type\n * `/time` - Time of Cloud Events\n",
+            "example": "/subject"
+          },
+          "operator": {
+            "type": "string",
+            "description": "Possible operators to use on filters:\n * `=` - equal\n * `>` - greater than\n * `>=` - greater than or equal to\n * `<` - less than\n * `<=` - less than or equal to\n * `BETWEEN` - between\n * `IN` - in\n",
+            "example": "="
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "equinix.fabric.port.status.*"
+            }
+          }
+        }
+      },
       "ConnectionPostRequest": {
         "required": [
           "aSide",
@@ -18808,13 +20141,6 @@
           }
         },
         "description": "Connection specification"
-      },
-      "ErrorList": {
-        "type": "array",
-        "description": "List of Error Message",
-        "items": {
-          "$ref": "#/components/schemas/Error"
-        }
       },
       "ConnectionId": {
         "type": "string",
@@ -19573,18 +20899,6 @@
         "type": "string",
         "description": "Port UUID",
         "format": "uuid"
-      },
-      "startDateTime": {
-        "type": "string",
-        "description": "startDateTime",
-        "format": "date-time",
-        "example": "2020-11-06T07:00:00Z"
-      },
-      "endDateTime": {
-        "type": "string",
-        "description": "endDateTime",
-        "format": "date-time",
-        "example": "2020-11-06T07:00:00Z"
       },
       "Statistics": {
         "type": "object",
@@ -20982,6 +22296,9 @@
           "account": {
             "$ref": "#/components/schemas/SimplifiedAccount"
           },
+          "change": {
+            "$ref": "#/components/schemas/PortChange"
+          },
           "changeLog": {
             "$ref": "#/components/schemas/Changelog"
           },
@@ -22350,6 +23667,13 @@
         "description": "Create Route Aggregation Rule POST request"
       },
       "CloudRouterPostRequest": {
+        "required": [
+          "location",
+          "name",
+          "notification",
+          "package",
+          "type"
+        ],
         "type": "object",
         "properties": {
           "type": {
@@ -22656,6 +23980,219 @@
         "description": "Action UUID",
         "format": "uuid",
         "example": "457400f8-d360-11e9-bb65-2a2ae2dbcced"
+      },
+      "GetAllCloudRouterCommands": {
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CloudRouterCommand"
+            }
+          }
+        },
+        "description": "List of Fabric Cloud Router Command"
+      },
+      "CloudRouterCommandPostRequest": {
+        "required": [
+          "project",
+          "request",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/CloudRouterCommandType"
+          },
+          "name": {
+            "type": "string",
+            "description": "Customer-provided Cloud Router Command name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Customer-provided Cloud Router Command description"
+          },
+          "project": {
+            "$ref": "#/components/schemas/Project"
+          },
+          "request": {
+            "$ref": "#/components/schemas/CloudRouterCommandRequest"
+          }
+        },
+        "description": "Execute Cloud Router Command Request"
+      },
+      "CloudRouterCommand": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "example": "https://api.equinix.com//fabric/v4/routers/a1c6b7fd-aead-410a-96b4-b1dfa1071700/commands/1e9414f1-763e-4c0a-86c6-0bc8336048d9"
+          },
+          "type": {
+            "$ref": "#/components/schemas/CloudRouterCommandType"
+          },
+          "uuid": {
+            "type": "string",
+            "format": "uuid",
+            "example": "557400f8-d360-11e9-bb65-2a2ae2dbcce4"
+          },
+          "name": {
+            "type": "string",
+            "description": "Customer-provided Cloud Router name",
+            "format": "string",
+            "example": "test-fg-1"
+          },
+          "description": {
+            "type": "string",
+            "example": "description"
+          },
+          "state": {
+            "$ref": "#/components/schemas/CloudRouterCommandState"
+          },
+          "project": {
+            "$ref": "#/components/schemas/Project"
+          },
+          "request": {
+            "$ref": "#/components/schemas/CloudRouterCommandRequest"
+          },
+          "response": {
+            "$ref": "#/components/schemas/CloudRouterCommandResponse"
+          },
+          "changeLog": {
+            "$ref": "#/components/schemas/Changelog"
+          }
+        },
+        "description": "Get Fabric Cloud Router Command response object"
+      },
+      "CloudRouterCommandSearchRequest": {
+        "type": "object",
+        "properties": {
+          "filter": {
+            "$ref": "#/components/schemas/CloudRouterCommandSearchFilters"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/PaginationRequest"
+          },
+          "sort": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CloudRouterCommandSearchSortCriteria"
+            }
+          }
+        },
+        "description": "Search requests containing criteria"
+      },
+      "CloudRouterCommandSearchFilters": {
+        "type": "object",
+        "properties": {
+          "and": {
+            "maxItems": 8,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CloudRouterCommandSearchFilter"
+            }
+          }
+        }
+      },
+      "CloudRouterCommandSearchFilter": {
+        "type": "object",
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/CloudRouterCommandSearchExpression"
+          },
+          {
+            "$ref": "#/components/schemas/CloudRouterCommandSearchOrFilter"
+          }
+        ]
+      },
+      "CloudRouterCommandSearchExpression": {
+        "type": "object",
+        "properties": {
+          "property": {
+            "type": "string",
+            "description": "Possible field names to use on filters:\n * `/type` - type of command\n * `/name` - name of command\n * `/state` - state of command\n * `/request/destination` - destination of command request\n * `/request/sourceConnection/uuid` - source connection uuid\n * `/*` - all-category search\n",
+            "example": "/state"
+          },
+          "operator": {
+            "type": "string",
+            "description": "Possible operators to use on filters:\n * `=` - equal\n * `!=` - not equal\n * `>` - greater than\n * `>=` - greater than or equal to\n * `<` - less than\n * `<=` - less than or equal to\n * `[NOT] BETWEEN` - (not) between\n * `[NOT] LIKE` - (not) like\n * `[NOT] IN` - (not) in\n * `~*` - case-insensitive like\n",
+            "example": "="
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "PING_COMMAND"
+            }
+          }
+        }
+      },
+      "CloudRouterCommandSearchOrFilter": {
+        "type": "object",
+        "properties": {
+          "or": {
+            "maxItems": 3,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CloudRouterCommandSearchExpression"
+            }
+          }
+        }
+      },
+      "CloudRouterCommandSearchSortCriteria": {
+        "type": "object",
+        "properties": {
+          "direction": {
+            "$ref": "#/components/schemas/CloudRouterCommandSearchSortDirection"
+          },
+          "property": {
+            "$ref": "#/components/schemas/CloudRouterCommandSearchSortBy"
+          }
+        }
+      },
+      "CloudRouterCommandSearchSortDirection": {
+        "type": "string",
+        "description": "Sorting direction",
+        "default": "DESC",
+        "enum": [
+          "DESC",
+          "ASC"
+        ]
+      },
+      "CloudRouterCommandSearchSortBy": {
+        "type": "string",
+        "description": "Possible field names to use on sorting",
+        "default": "/changeLog/updatedDateTime",
+        "enum": [
+          "/changeLog/createdDateTime",
+          "/changeLog/updatedDateTime",
+          "/name",
+          "/type"
+        ]
+      },
+      "CloudRouterCommandSearchResponse": {
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "data": {
+            "type": "array",
+            "description": "Data returned from the API call.",
+            "items": {
+              "$ref": "#/components/schemas/CloudRouterCommand"
+            }
+          }
+        }
+      },
+      "CommandId": {
+        "type": "string",
+        "description": "Command UUID",
+        "format": "uuid",
+        "example": "37c10edc-ba2e-4240-a850-8a48f9c47d00"
       },
       "RouteTableEntrySearchRequest": {
         "type": "object",
@@ -23526,7 +25063,7 @@
             ]
           },
           "package": {
-            "$ref": "#/components/schemas/precisionTimePackageResponse"
+            "$ref": "#/components/schemas/precisionTimePackagePostResponse"
           },
           "connections": {
             "maxItems": 2,
@@ -24245,7 +25782,7 @@
           }
         }
       },
-      "AssetId": {
+      "AssetId_1": {
         "type": "string",
         "description": "Stream Asset UUID",
         "format": "uuid",
@@ -24358,9 +25895,6 @@
             "description": "Stream subscription enabled status",
             "example": true
           },
-          "filters": {
-            "$ref": "#/components/schemas/StreamSubscriptionFilter"
-          },
           "metricSelector": {
             "$ref": "#/components/schemas/StreamSubscriptionSelector"
           },
@@ -24372,63 +25906,6 @@
           }
         },
         "description": "Create Stream Subscription"
-      },
-      "StreamSubscriptionFilter": {
-        "type": "object",
-        "properties": {
-          "and": {
-            "maxItems": 8,
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/StreamFilter"
-            }
-          }
-        }
-      },
-      "StreamFilter": {
-        "type": "object",
-        "anyOf": [
-          {
-            "$ref": "#/components/schemas/StreamFilterSimpleExpression"
-          },
-          {
-            "$ref": "#/components/schemas/StreamFilterOrFilter"
-          }
-        ]
-      },
-      "StreamFilterSimpleExpression": {
-        "type": "object",
-        "properties": {
-          "property": {
-            "type": "string",
-            "description": "Possible field names to use on filters:\n * `/subject` - subject\n * `/type` - type\n",
-            "example": "/type"
-          },
-          "operator": {
-            "type": "string",
-            "description": "Possible operators to use on filters:\n * `=` - equal\n * `in` - in\n * `LIKE` - case-sensitive like\n * `ILIKE` - case-insensitive like\n",
-            "example": "="
-          },
-          "values": {
-            "type": "array",
-            "description": "### Supported event or metric names to use on filters with property /type:\n  * `*` - all events or metrics\n  * `equinix.fabric.port.*` - port events or metrics\n  * `equinix.fabric.connection.*` - connection events or metrics\n  * `equinix.fabric.router.*` - cloud router events\n  * `equinix.fabric.metro.*` - metro metrics\n  * `equinix.fabric.network.*` - network events\n  * `equinix.fabric.service_token.*` - service token events\n  * `equinix.network_edge.*` - network edge events\n  * `equinix.network_edge.acl.*` - network edge acl events\n  * `equinix.network_edge.device.*` - network edge device events\n  * `equinix.access_manager.*` - identity access manager events\n  * `equinix.access_manager.user.role.*` - identity access manager user role events\n### Supported event or metric names to use on filters with property /subject:\n  * `*` - all events or metrics\n  * `/fabric/v4/ports/<uuid>` - port events or metrics\n  * `/fabric/v4/connections/<uuid>` - connection events or metrics\n  * `/fabric/v4/routers/<uuid>` - cloud router events\n  * `/fabric/v4/metros/<metroCode>` - metro metrics\n  * `/fabric/v4/networks/<uuid>` - network events\n  * `/fabric/v4/tokens/<uuid>` - service token events\n  * `/ne/v1/acl/<uuid>` - network edge acl events\n  * `/ne/v1/devices/<uuid>` - network edge device events\n  * `/am/v2/users/<uuid>/roleAssignments/<uuid>` - identity access manager events\n",
-            "items": {
-              "type": "string"
-            }
-          }
-        }
-      },
-      "StreamFilterOrFilter": {
-        "type": "object",
-        "properties": {
-          "or": {
-            "maxItems": 3,
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/StreamFilterSimpleExpression"
-            }
-          }
-        }
       },
       "StreamSubscriptionSelector": {
         "type": "object",
@@ -24561,11 +26038,6 @@
           "metricUri": {
             "type": "string",
             "description": "metric uri"
-          },
-          "transformAlerts": {
-            "type": "boolean",
-            "description": "transform alerts",
-            "example": true
           }
         },
         "description": "Stream subscription sink settings"
@@ -24617,9 +26089,6 @@
             "type": "boolean",
             "description": "Stream subscription enabled status"
           },
-          "filters": {
-            "$ref": "#/components/schemas/StreamSubscriptionFilter"
-          },
           "metricSelector": {
             "$ref": "#/components/schemas/StreamSubscriptionSelector"
           },
@@ -24631,6 +26100,10 @@
           },
           "changeLog": {
             "$ref": "#/components/schemas/Changelog"
+          },
+          "lastErrorMessage": {
+            "type": "string",
+            "description": "HTTP response from sink type if error occurred"
           }
         },
         "description": "Stream Subscription object"
@@ -24899,6 +26372,125 @@
           }
         },
         "description": "Create Stream Alert Rules"
+      },
+      "Error": {
+        "required": [
+          "errorCode",
+          "errorMessage"
+        ],
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "pattern": "^EQ-\\d{7}$",
+            "type": "string"
+          },
+          "errorMessage": {
+            "type": "string"
+          },
+          "correlationId": {
+            "type": "string"
+          },
+          "details": {
+            "type": "string"
+          },
+          "help": {
+            "type": "string"
+          },
+          "additionalInfo": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PriceError_additionalInfo"
+            }
+          }
+        },
+        "description": "Error Response with details"
+      },
+      "CloudEventData": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Cloud Event message"
+          },
+          "resource": {
+            "$ref": "#/components/schemas/ResourceData"
+          },
+          "auth": {
+            "$ref": "#/components/schemas/AuthContext"
+          }
+        }
+      },
+      "ResourceData": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "description": "Cloud Event asset href"
+          },
+          "uuid": {
+            "type": "string",
+            "description": "Cloud Event asset uuid"
+          },
+          "type": {
+            "type": "string",
+            "description": "Cloud Event asset type"
+          },
+          "name": {
+            "type": "string",
+            "description": "Cloud Event asset name"
+          },
+          "state": {
+            "type": "string",
+            "description": "Cloud Event asset state"
+          }
+        }
+      },
+      "AuthContext": {
+        "type": "object",
+        "properties": {
+          "authtype": {
+            "type": "string",
+            "description": "Cloud Event auth type",
+            "enum": [
+              "system",
+              "user"
+            ]
+          },
+          "authid": {
+            "type": "string",
+            "description": "Cloud Event auth identifier",
+            "enum": [
+              "equinix",
+              "userId"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "description": "Cloud Event username"
+          },
+          "email": {
+            "type": "string",
+            "description": "Cloud Event email"
+          }
+        }
+      },
+      "PaginationRequest": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "minimum": 0,
+            "type": "integer",
+            "description": "Index of the first element.",
+            "default": 0
+          },
+          "limit": {
+            "minimum": 1,
+            "type": "integer",
+            "description": "Number of elements to be requested per page. Number must be between 1 and 100, and the default is 20.",
+            "default": 20
+          }
+        },
+        "description": "Pagination request information"
       },
       "ConnectionType": {
         "type": "string",
@@ -25330,38 +26922,6 @@
         },
         "description": "Change log"
       },
-      "Error": {
-        "required": [
-          "errorCode",
-          "errorMessage"
-        ],
-        "type": "object",
-        "properties": {
-          "errorCode": {
-            "pattern": "^EQ-\\d{7}$",
-            "type": "string"
-          },
-          "errorMessage": {
-            "type": "string"
-          },
-          "correlationId": {
-            "type": "string"
-          },
-          "details": {
-            "type": "string"
-          },
-          "help": {
-            "type": "string"
-          },
-          "additionalInfo": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/PriceError_additionalInfo"
-            }
-          }
-        },
-        "description": "Error Response with details"
-      },
       "ConnectionChangeOperation": {
         "required": [
           "op",
@@ -25418,24 +26978,6 @@
           }
         },
         "description": "Connection acceptance data"
-      },
-      "PaginationRequest": {
-        "type": "object",
-        "properties": {
-          "offset": {
-            "minimum": 0,
-            "type": "integer",
-            "description": "Index of the first element.",
-            "default": 0
-          },
-          "limit": {
-            "minimum": 1,
-            "type": "integer",
-            "description": "Number of elements to be requested per page. Number must be between 1 and 100, and the default is 20.",
-            "default": 20
-          }
-        },
-        "description": "Pagination request information"
       },
       "ConnectionRouteTableEntry": {
         "required": [
@@ -26130,7 +27672,8 @@
         "description": "Type of Port",
         "enum": [
           "XF_PORT",
-          "IX_PORT"
+          "IX_PORT",
+          "IA_PORT"
         ]
       },
       "PortState": {
@@ -26139,6 +27682,7 @@
         "enum": [
           "PENDING",
           "PROVISIONING",
+          "REPROVISIONING",
           "PROVISIONED",
           "ACTIVE",
           "DEPROVISIONING",
@@ -26219,6 +27763,53 @@
           }
         },
         "description": "Operational specifications for ports."
+      },
+      "PortChange": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "description": "Uniquely identifies a change"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of change",
+            "enum": [
+              "PORT_CREATION",
+              "PORT_UPDATE",
+              "PORT_DELETION"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "description": "Current outcome of the change flow",
+            "enum": [
+              "COMPLETED",
+              "FAILED",
+              "REQUESTED"
+            ]
+          },
+          "information": {
+            "type": "string",
+            "description": "Additional information"
+          },
+          "data": {
+            "$ref": "#/components/schemas/PortChangeOperation"
+          },
+          "createdDateTime": {
+            "type": "string",
+            "description": "Set when change flow starts",
+            "format": "date-time",
+            "example": "2020-11-06T07:00:00Z"
+          },
+          "updatedDateTime": {
+            "type": "string",
+            "description": "Set when change object is updated",
+            "format": "date-time",
+            "example": "2020-11-06T07:00:00Z"
+          }
+        },
+        "description": "Current state of latest port change"
       },
       "PortDevice": {
         "type": "object",
@@ -27257,6 +28848,80 @@
         },
         "description": "Operation object for router actions"
       },
+      "CloudRouterCommandType": {
+        "type": "string",
+        "description": "Fabric Cloud Router Command Type",
+        "example": "PING_COMMAND",
+        "enum": [
+          "PING_COMMAND"
+        ]
+      },
+      "CloudRouterCommandRequest": {
+        "required": [
+          "destination"
+        ],
+        "type": "object",
+        "properties": {
+          "destination": {
+            "type": "string",
+            "description": "Fabric Cloud Router Ping Command Destination",
+            "example": "8.8.8.8"
+          },
+          "sourceConnection": {
+            "$ref": "#/components/schemas/CloudRouterCommandRequestConnection"
+          },
+          "timeout": {
+            "type": "integer",
+            "description": "Fabric Cloud Router Ping Command Timeout",
+            "example": 5
+          },
+          "dataBytes": {
+            "maximum": 9000,
+            "minimum": 16,
+            "type": "integer",
+            "description": "Fabric Cloud Router Ping Command DataBytes",
+            "example": 100,
+            "default": 64
+          },
+          "interval": {
+            "type": "integer",
+            "description": "Time in milliseconds between sending each packet",
+            "readOnly": true,
+            "example": 1000,
+            "default": 1000
+          },
+          "count": {
+            "type": "integer",
+            "description": "Total number of ping requests",
+            "readOnly": true,
+            "example": 5,
+            "default": 5
+          }
+        },
+        "description": "Fabric Cloud Router Command Request"
+      },
+      "CloudRouterCommandState": {
+        "type": "string",
+        "description": "Fabric Cloud Router Command State",
+        "example": "SUCCEEDED",
+        "enum": [
+          "PENDING",
+          "SUCCEEDED",
+          "FAILED",
+          "DELETED"
+        ]
+      },
+      "CloudRouterCommandResponse": {
+        "type": "object",
+        "properties": {
+          "output": {
+            "type": "string"
+          },
+          "outputStructuredPing": {
+            "$ref": "#/components/schemas/OutputStructuredPing"
+          }
+        }
+      },
       "RouteTableEntry": {
         "required": [
           "changeLog",
@@ -27385,7 +29050,9 @@
         "enum": [
           "EVPLAN",
           "EPLAN",
-          "IPWAN"
+          "IPWAN",
+          "EVPTREE",
+          "EPTREE"
         ]
       },
       "NetworkScope": {
@@ -27732,13 +29399,34 @@
         },
         "description": "Precision Time Order"
       },
+      "precisionTimePackagePostResponse": {
+        "title": "precisionTimePackagePostResponse",
+        "required": [
+          "code"
+        ],
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "format": "uri"
+          },
+          "code": {
+            "type": "string",
+            "enum": [
+              "NTP_STANDARD",
+              "NTP_ENTERPRISE",
+              "PTP_STANDARD",
+              "PTP_ENTERPRISE"
+            ]
+          }
+        },
+        "example": {
+          "href": "https://api.equinix.com/fabric/v4/timeServicePackage/NTP_STANDARD",
+          "code": "NTP_STANDARD"
+        }
+      },
       "virtualConnectionTimeServiceResponse": {
         "title": "fabricConnectionResponse",
-        "required": [
-          "href",
-          "type",
-          "uuid"
-        ],
         "type": "object",
         "properties": {
           "href": {
@@ -27799,6 +29487,63 @@
           "uuid": {
             "type": "string",
             "format": "uuid"
+          }
+        }
+      },
+      "StreamSubscriptionFilter": {
+        "type": "object",
+        "properties": {
+          "and": {
+            "maxItems": 8,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StreamFilter"
+            }
+          }
+        }
+      },
+      "StreamFilter": {
+        "type": "object",
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/StreamFilterSimpleExpression"
+          },
+          {
+            "$ref": "#/components/schemas/StreamFilterOrFilter"
+          }
+        ]
+      },
+      "StreamFilterSimpleExpression": {
+        "type": "object",
+        "properties": {
+          "property": {
+            "type": "string",
+            "description": "Possible field names to use on filters:\n * `/subject` - subject\n * `/type` - type\n",
+            "example": "/type"
+          },
+          "operator": {
+            "type": "string",
+            "description": "Possible operators to use on filters:\n * `=` - equal\n * `in` - in\n * `LIKE` - case-sensitive like\n * `ILIKE` - case-insensitive like\n",
+            "example": "="
+          },
+          "values": {
+            "type": "array",
+            "description": "### Supported event or metric names to use on filters with property /type:\n  * `*` - all events or metrics\n  * `equinix.fabric.port.*` - port events or metrics\n  * `equinix.fabric.connection.*` - connection events or metrics\n  * `equinix.fabric.router.*` - cloud router events\n  * `equinix.fabric.metro.*` - metro metrics\n  * `equinix.fabric.network.*` - network events\n  * `equinix.fabric.service_token.*` - service token events\n  * `equinix.network_edge.*` - network edge events\n  * `equinix.network_edge.acl.*` - network edge acl events\n  * `equinix.network_edge.device.*` - network edge device events\n  * `equinix.access_manager.*` - identity access manager events\n  * `equinix.access_manager.user.role.*` - identity access manager user role events\n### Supported event or metric names to use on filters with property /subject:\n  * `*` - all events or metrics\n  * `/fabric/v4/ports/<uuid>` - port events or metrics\n  * `/fabric/v4/connections/<uuid>` - connection events or metrics\n  * `/fabric/v4/routers/<uuid>` - cloud router events\n  * `/fabric/v4/metros/<metroCode>` - metro metrics\n  * `/fabric/v4/networks/<uuid>` - network events\n  * `/fabric/v4/tokens/<uuid>` - service token events\n  * `/ne/v1/acl/<uuid>` - network edge acl events\n  * `/ne/v1/devices/<uuid>` - network edge device events\n  * `/am/v2/users/<uuid>/roleAssignments/<uuid>` - identity access manager events\n",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "StreamFilterOrFilter": {
+        "type": "object",
+        "properties": {
+          "or": {
+            "maxItems": 3,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StreamFilterSimpleExpression"
+            }
           }
         }
       },
@@ -28321,6 +30066,73 @@
           }
         },
         "description": "Service Token details of Link Protocol"
+      },
+      "CloudRouterCommandRequestConnection": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "description": "Connection UUID",
+            "example": "557400f8-d360-11e9-bb65-2a2ae2dbcce4"
+          }
+        },
+        "description": "Connection object for Cloud Router Command"
+      },
+      "OutputStructuredPing": {
+        "type": "object",
+        "properties": {
+          "destinationIp": {
+            "type": "string",
+            "example": "8.8.8.8"
+          },
+          "destinationName": {
+            "type": "string",
+            "example": "8.8.8.8"
+          },
+          "dataBytes": {
+            "type": "integer",
+            "example": 100
+          },
+          "packetsTransmitted": {
+            "type": "integer",
+            "example": 4
+          },
+          "packetsReceived": {
+            "type": "integer",
+            "example": 4
+          },
+          "packetsLossPercent": {
+            "type": "number",
+            "format": "float",
+            "example": 0
+          },
+          "rttMin": {
+            "type": "number",
+            "format": "float",
+            "example": 9.271
+          },
+          "rttAvg": {
+            "type": "number",
+            "format": "float",
+            "example": 15.483
+          },
+          "rttMax": {
+            "type": "number",
+            "format": "float",
+            "example": 26.771
+          },
+          "rttStdDev": {
+            "type": "number",
+            "format": "float",
+            "example": 7.039
+          },
+          "responses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OutputStructuredPingResponseItem"
+            }
+          }
+        }
       },
       "RouteTableEntryState": {
         "type": "string",
@@ -28921,6 +30733,32 @@
           }
         },
         "description": "List of criteria for selecting network access points with optimal efficiency, security, compatibility, and availability."
+      },
+      "OutputStructuredPingResponseItem": {
+        "type": "object",
+        "properties": {
+          "bytes": {
+            "type": "integer",
+            "example": 100
+          },
+          "ip": {
+            "type": "string",
+            "example": "8.8.8.8"
+          },
+          "icmpSeq": {
+            "type": "integer",
+            "example": 0
+          },
+          "ttl": {
+            "type": "integer",
+            "example": 117
+          },
+          "time": {
+            "type": "number",
+            "format": "float",
+            "example": 9.839
+          }
+        }
       },
       "LinkProtocolType": {
         "type": "string",
@@ -29686,18 +31524,20 @@
       "403": {
         "value": [
           {
-            "errorCode": "EQ-3142402",
-            "errorMessage": "Do not have create connection permission on this port",
-            "correlationId": "cebc3d33-9037-4a2b-a7af-0ad65602cdec"
+            "errorCode": "EQ-3040047",
+            "errorMessage": "Operation not allowed",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515",
+            "details": "Operation not allowed for current user"
           }
         ]
       },
       "404": {
         "value": [
           {
-            "errorCode": "EQ-3000036",
-            "errorMessage": "Requested path doesn't exists",
-            "correlationId": "cebc3d33-9037-4a2b-a7af-0ad65602cdec"
+            "errorCode": "EQ-3040020",
+            "errorMessage": "uuid not found",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515",
+            "details": "uuid not found"
           }
         ]
       },
@@ -29729,16 +31569,174 @@
       "500": {
         "value": [
           {
-            "errorCode": "EQ-3034003",
-            "errorMessage": "Method not supported,Please check the URL passed",
+            "errorCode": "EQ-3040030",
+            "errorMessage": "Internal Server Error",
             "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515",
-            "additionalInfo": [
-              {
-                "reason": "method:PATCH"
-              }
-            ]
+            "details": "Internal Server Error"
           }
         ]
+      },
+      "get-cloud-events-by-asset-id": {
+        "value": {
+          "pagination": {
+            "offset": 20,
+            "limit": 10,
+            "total": 3,
+            "next": null,
+            "previous": null
+          },
+          "data": [
+            {
+              "specversion": "1.0",
+              "source": "https://api.equinix.com/fabric/v4/events",
+              "id": "66c62c1a-f186-4fbd-9792-71a60705518f",
+              "time": "2025-03-20T13:13:12Z",
+              "type": "equinix.fabric.connection.bgpipv4_session_status.connect",
+              "subject": "/fabric/v4/connections/dab9fc84-cc95-4cb4-abe3-ca39361285a9/routingProtocol/e92cdf09-59eb-4131-ade4-49a87dc816dc",
+              "dataschema": "https://equinix.github.io/equinix-cloudevents/jsonschema/equinix/fabric/v1/ChangeEvent.json",
+              "datacontenttype": "application/json",
+              "severitynumber": 5,
+              "severitytext": "INFO",
+              "equinixproject": "dadd3ab6-c0af-430c-8216-43d44f08c1c5",
+              "authtype": "system",
+              "authid": "equinix",
+              "data": {
+                "message": "Neighbor 100.100.100.102 address session state changed to Connect",
+                "auth": {
+                  "type": "system",
+                  "id": "equinix"
+                }
+              }
+            },
+            {
+              "specversion": "1.0",
+              "source": "https://api.equinix.com/fabric/v4/cloudevents",
+              "id": "66c62c1a-f186-4fbd-9792-71a60705518f",
+              "type": "equinix.fabric.connection.state.provisioning",
+              "subject": "/fabric/v4/connections/dab9fc84-cc95-4cb4-abe3-ca39361285a9",
+              "time": "2025-03-20T13:13:12Z",
+              "dataschema": "https://equinix.github.io/equinix-cloudevents/jsonschema/equinix/fabric/v1/ChangeEvent.json",
+              "datacontenttype": "application/json",
+              "severitynumber": 9,
+              "severitytext": "INFO",
+              "equinixproject": "dadd3ab6-c0af-430c-8216-43d44f08c1c5",
+              "authtype": "user",
+              "authid": 123456,
+              "data": {
+                "message": "Connection named TEST-CONNECTION state changed to provisioning",
+                "resource": {
+                  "href": "http://api.corp.equinix.com/fabric/v4/connections/dab9fc84-cc95-4cb4-abe3-ca39361285a9",
+                  "uuid": "dab9fc84-cc95-4cb4-abe3-ca39361285a9",
+                  "type": "IP_VC",
+                  "name": "TEST-CONNECTION",
+                  "state": "PROVISIONING"
+                },
+                "auth": {
+                  "type": "user",
+                  "id": 123456,
+                  "name": "test user",
+                  "email": "testuser@test.com"
+                }
+              }
+            },
+            {
+              "specversion": "1.0",
+              "source": "https://api.equinix.com/fabric/v4/cloudevents",
+              "id": "66c62c1a-f186-4fbd-9792-71a60705518f",
+              "type": "equinix.fabric.connection.state.provisioned",
+              "subject": "/fabric/v4/connections/dab9fc84-cc95-4cb4-abe3-ca39361285a9",
+              "time": "2025-03-20T13:13:12Z",
+              "dataschema": "https://equinix.github.io/equinix-cloudevents/jsonschema/equinix/fabric/v1/ChangeEvent.json",
+              "datacontenttype": "application/json",
+              "severitynumber": 9,
+              "severitytext": "INFO",
+              "equinixproject": "dadd3ab6-c0af-430c-8216-43d44f08c1c5",
+              "authtype": "system",
+              "authid": "equinix",
+              "data": {
+                "message": "Connection named TEST-CONNECTION state changed to provisioned",
+                "resource": {
+                  "href": "http://api.corp.equinix.com/fabric/v4/connections/dab9fc84-cc95-4cb4-abe3-ca39361285a9",
+                  "uuid": "dab9fc84-cc95-4cb4-abe3-ca39361285a9",
+                  "type": "IP_VC",
+                  "name": "TEST-CONNECTION",
+                  "state": "PROVISIONED"
+                },
+                "auth": {
+                  "type": "system",
+                  "id": "equinix"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "get-cloud-event": {
+        "value": {
+          "specversion": "1.0",
+          "source": "https://api.equinix.com/fabric/v4/cloudevents",
+          "id": "66c62c1a-f186-4fbd-9792-71a60705518f",
+          "type": "equinix.fabric.connection.state.provisioning",
+          "subject": "/fabric/v4/connections/dab9fc84-cc95-4cb4-abe3-ca39361285a9",
+          "time": "2025-03-20T13:13:12Z",
+          "dataschema": "https://equinix.github.io/equinix-cloudevents/jsonschema/equinix/fabric/v1/ChangeEvent.json",
+          "datacontenttype": "application/json",
+          "severitynumber": 9,
+          "severitytext": "INFO",
+          "equinixproject": "dadd3ab6-c0af-430c-8216-43d44f08c1c5",
+          "authtype": "user",
+          "authid": 123456,
+          "data": {
+            "message": "Connection named TEST-CONNECTION state changed to provisioning",
+            "resource": {
+              "href": "http://api.corp.equinix.com/fabric/v4/connections/dab9fc84-cc95-4cb4-abe3-ca39361285a9",
+              "uuid": "dab9fc84-cc95-4cb4-abe3-ca39361285a9",
+              "type": "IP_VC",
+              "name": "TEST-CONNECTION",
+              "state": "PROVISIONING"
+            },
+            "auth": {
+              "type": "user",
+              "id": 123456,
+              "name": "test user",
+              "email": "testuser@test.com"
+            }
+          }
+        }
+      },
+      "search-cloud-events": {
+        "value": {
+          "filter": {
+            "and": [
+              {
+                "property": "/type",
+                "operator": "IN",
+                "values": [
+                  "equinix.fabric.port.status.*"
+                ]
+              },
+              {
+                "property": "/subject",
+                "operator": "IN",
+                "values": [
+                  "/fabric/v4/ports/8ac8ecfe-c7cb-4def-9f77-5ce93c19d83d*",
+                  "/fabric/v4/ports/c8bba3be-5132-4669-bb47-7f1a8811359b*"
+                ]
+              },
+              {
+                "property": "/time",
+                "operator": ">",
+                "values": [
+                  "2018-04-05T17:31:00.000Z"
+                ]
+              }
+            ]
+          },
+          "pagination": {
+            "offset": 0,
+            "limit": 20
+          }
+        }
       },
       "COLO2COLOwithDot1q-Dot1q": {
         "value": {
@@ -33518,7 +35516,7 @@
           ]
         }
       },
-      "ConnectionExample": {
+      "ConnectionCreateResponse": {
         "value": {
           "href": "https://api.equinix.com/fabric/v4/connections/3a58dd05-f46d-4b1d-a154-2e85c396ea62",
           "type": "EVPL_VC",
@@ -33559,8 +35557,8 @@
             }
           },
           "operation": {
-            "providerStatus": "AVAILABLE",
-            "equinixStatus": "PROVISIONED"
+            "providerStatus": "PROVISIONING",
+            "equinixStatus": "PROVISIONING"
           },
           "changeLog": {
             "createdDateTime": "2020-05-21T10:30:00Z"
@@ -34243,8 +36241,8 @@
             }
           },
           "operation": {
-            "equinixStatus": "PROVISIONING",
-            "providerStatus": "PROVISIONING"
+            "equinixStatus": "PENDING_INTERFACE_CONFIGURATION",
+            "providerStatus": "NOT_AVAILABLE"
           },
           "notifications": [
             {
@@ -38184,6 +40182,74 @@
           }
         ]
       },
+      "ConnectionPatchResponseDryRun": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/connections/3a58dd05-f46d-4b1d-a154-2e85c396ea62",
+          "type": "EVPL_VC",
+          "uuid": "3a58dd05-f46d-4b1d-a154-2e85c396ea62",
+          "name": "My-Layer2-Connection-2",
+          "bandwidth": 1000,
+          "direction": "OUTGOING",
+          "isRemote": true,
+          "redundancy": {
+            "group": "66c10a60-789e-4b25-b85c-7eb225a4c344",
+            "priority": "PRIMARY"
+          },
+          "aSide": {
+            "accessPoint": {
+              "type": "COLO",
+              "port": {
+                "href": "https://api.equinix.com/fabric/v4/ports/a00cef6f-8e35-4794-9ff9-665e084e4e6d",
+                "uuid": "a00cef6f-8e35-4794-9ff9-665e084e4e6d"
+              },
+              "linkProtocol": {
+                "type": "DOT1Q",
+                "vlanTag": 1001
+              }
+            }
+          },
+          "zSide": {
+            "accessPoint": {
+              "type": "SP",
+              "profile": {
+                "href": "https://api.equinix.com/fabric/v4/serviceProfiles/22d4e853-ef33-4ff0-b5b2-a2b1d5dfa50c",
+                "uuid": "22d4e853-ef33-4ff0-b5b2-a2b1d5dfa50c",
+                "type": "L2_PROFILE"
+              },
+              "location": {
+                "metroHref": "https://api.equinix.com/fabric/v4/metros/MX",
+                "metroCode": "MX"
+              },
+              "linkProtocol": {
+                "type": "DOT1Q",
+                "vlanTag": 1001
+              }
+            }
+          },
+          "operation": {
+            "providerStatus": "PROVISIONED",
+            "equinixStatus": "PROVISIONED"
+          },
+          "change": {
+            "type": "CONNECTION_UPDATE",
+            "status": "APPROVED",
+            "createdDateTime": "2021-12-12T06:00:01.183Z",
+            "data": {
+              "op": "replace",
+              "path": "/aSide/accessPoint/port/uuid",
+              "value": "c791f8cb-58f9-8f90-8ce0-306a5c00a4ee"
+            }
+          },
+          "changeLog": {
+            "createdDateTime": "2020-04-21T10:30:00Z"
+          },
+          "account": {
+            "accountNumber": 270001,
+            "orgId": 91997,
+            "globalOrgId": "3453453cccc"
+          }
+        }
+      },
       "ConnectionPatchResponse": {
         "value": {
           "href": "https://api.equinix.com/fabric/v4/connections/3a58dd05-f46d-4b1d-a154-2e85c396ea62",
@@ -38606,11 +40672,11 @@
       "RoutingProtocolCreateBGPResponse": {
         "value": {
           "href": "https://api.equinix.com/fabric/v4/connections/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170/routingProtocols/557400f8-d360-11e9-bb65-2a2ae2dbcce4",
-          "uuid": "c9b8e7a2-f3b1-4576-a4a9-1366a63df170",
+          "uuid": "557400f8-d360-11e9-bb65-2a2ae2dbcce4",
           "state": "PROVISIONING",
           "change": {
-            "uuid": "3c9b8e7a2-f3b1-4576-a4a9-1366a63df170",
             "href": "https://api.equinix.com/fabric/v4/connections/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170/routingProtocols/557400f8-d360-11e9-bb65-2a2ae2dbcce4/changes/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170",
+            "uuid": "3c9b8e7a2-f3b1-4576-a4a9-1366a63df170",
             "type": "ROUTING_PROTOCOL_CREATION"
           },
           "changelog": {
@@ -43448,6 +45514,55 @@
             "createdDateTime": "2021-03-18T06:43:49.980Z",
             "updatedBy": "843577",
             "updatedDateTime": "2021-03-18T06:44:14.206Z"
+          }
+        }
+      },
+      "getServiceToken-DryRun": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/serviceTokens/ea40918e-9b39-4045-8be8-0beaa7eb5ce1",
+          "type": "VC_TOKEN",
+          "uuid": "ea40918e-9b39-4045-8be8-0beaa7eb5ce1",
+          "name": "My-Token",
+          "state": "INACTIVE",
+          "expiryDateTime": "2020-05-31T10:30:00Z",
+          "connection": {
+            "type": "EVPL_VC",
+            "bandwidthLimit": 100,
+            "allowRemoteConnection": false,
+            "allowCustomBandwidth": false,
+            "aSide": {
+              "accessPointSelectors": [
+                {
+                  "type": "COLO",
+                  "port": {
+                    "href": "http://api.equinix.com/fabric/v4/ports/b840a1db-5758-758f-97e0-328a5c00a874",
+                    "type": "XF_PORT",
+                    "uuid": "b840a1db-5758-758f-97e0-328a5c00a874"
+                  },
+                  "linkProtocol": {
+                    "type": "QINQ",
+                    "vlanCTag": 1399,
+                    "vlanSTag": 1388
+                  }
+                }
+              ]
+            }
+          },
+          "account": {
+            "orgId": 111437
+          },
+          "notifications": [
+            {
+              "type": "NOTIFICATION",
+              "emails": [
+                "user1@example.com",
+                "user2@example.com"
+              ]
+            }
+          ],
+          "changeLog": {
+            "createdBy": 843577,
+            "createdDateTime": "2020-05-21T10:30:00Z"
           }
         }
       },
@@ -48614,6 +50729,384 @@
           }
         ]
       },
+      "GetAllPingCommandResponse": {
+        "value": {
+          "pagination": {
+            "offset": 20,
+            "limit": 20,
+            "total": 100,
+            "next": "/search?offset=40&limit=20",
+            "previous": "/search?offset=0&limit=20"
+          },
+          "data": {
+            "href": "https://api.equinix.com/fabric/v4/routers/9b8c5042-b553-4d5e-a2ac-c73bf6d4fd81/commands/37c10edc-ba2e-4240-a850-8a48f9c47d00",
+            "type": "PING_COMMAND",
+            "uuid": "37c10edc-ba2e-4240-a850-8a48f9c47d00",
+            "name": "ping-test-1",
+            "description": "Testing FCR-SV-1",
+            "state": "SUCCEEDED",
+            "project": {
+              "projectId": "b11d4cb5-978a-418a-8b13-bf19abb97938"
+            },
+            "request": {
+              "destination": "8.8.8.8",
+              "sourceConnection": {
+                "uuid": "1da3778c-6aa3-4e47-b2fe-83a0773dde18"
+              },
+              "timeout": 5,
+              "dataBytes": 100,
+              "count": 5,
+              "interval": 1000
+            },
+            "response": {
+              "output": "PING 8.8.8.8 (8.8.8.8): 100 data bytes\n108 bytes from 8.8.8.8: icmp_seq=0 ttl=117 time=9.839 ms\n108 bytes from 8.8.8.8: icmp_seq=1 ttl=117 time=16.051 ms\n108 bytes from 8.8.8.8: icmp_seq=2 ttl=117 time=9.271 ms\n108 bytes from 8.8.8.8: icmp_seq=3 ttl=117 time=26.771 ms \n--- 8.8.8.8 ping statistics ---\n4 packets transmitted, 4 packets received, 0.0% packet loss\nround-trip min/avg/max/stddev = 9.271/15.483/26.771/7.039 ms",
+              "outputStructuredPing": {
+                "destinationIp": "8.8.8.8",
+                "destinationName": "8.8.8.8",
+                "dataBytes": 100,
+                "packetsTransmitted": 4,
+                "packetsReceived": 4,
+                "packetsLossPercent": 0,
+                "rttMin": 9.271,
+                "rttAvg": 15.483,
+                "rttMax": 26.771,
+                "rttStdDev": 7.039,
+                "responses": [
+                  {
+                    "bytes": 100,
+                    "ip": "8.8.8.8",
+                    "icmpSeq": 0,
+                    "ttl": 117,
+                    "time": 9.839
+                  },
+                  {
+                    "bytes": 100,
+                    "ip": "8.8.8.8",
+                    "icmpSeq": 1,
+                    "ttl": 117,
+                    "time": 16.051
+                  },
+                  {
+                    "bytes": 100,
+                    "ip": "8.8.8.8",
+                    "icmpSeq": 2,
+                    "ttl": 117,
+                    "time": 9.271
+                  },
+                  {
+                    "bytes": 100,
+                    "ip": "8.8.8.8",
+                    "icmpSeq": 3,
+                    "ttl": 117,
+                    "time": 26.771
+                  }
+                ]
+              }
+            },
+            "changeLog": {
+              "createdBy": "testuser",
+              "createdDateTime": "2020-05-21T10:30:00Z"
+            }
+          }
+        }
+      },
+      "400_invalid_operation_commands": {
+        "value": [
+          {
+            "errorCode": "EQ-3043002",
+            "errorMessage": "Invalid argument passed",
+            "correlationId": "cebc3d33-9037-4a2b-a7af-0ad65602cdec",
+            "details": "Invalid argument passed"
+          }
+        ]
+      },
+      "403_commands": {
+        "value": [
+          {
+            "errorCode": "EQ-3043006",
+            "errorMessage": "The system is unable to process your request.",
+            "correlationId": "cebc3d33-9037-4a2b-a7af-0ad65602cdec",
+            "details": "The system is unable to process your request."
+          }
+        ]
+      },
+      "404_commands": {
+        "value": [
+          {
+            "errorCode": "EQ-3043022",
+            "errorMessage": "Cloud router command not found",
+            "correlationId": "cebc3d33-9037-4a2b-a7af-0ad65602cdec",
+            "details": "Cloud router command not found"
+          }
+        ]
+      },
+      "415_commands": {
+        "value": [
+          {
+            "errorCode": "EQ-3043029",
+            "errorMessage": "Unsupported media type",
+            "correlationId": "cebc3d33-9037-4a2b-a7af-0ad65602cdec",
+            "details": "Content type application/json not supported."
+          }
+        ]
+      },
+      "500_commands": {
+        "value": [
+          {
+            "errorCode": "EQ-3043005",
+            "errorMessage": "Internal server error",
+            "correlationId": "cebc3d33-9037-4a2b-a7af-0ad65602cdec",
+            "details": "Internal server error"
+          }
+        ]
+      },
+      "PostRequestPingCommand": {
+        "value": {
+          "type": "PING_COMMAND",
+          "name": "ping-test-1",
+          "description": "Testing FCR-SV-1",
+          "project": {
+            "projectId": "b11d4cb5-978a-418a-8b13-bf19abb97938"
+          },
+          "request": {
+            "destination": "8.8.8.8",
+            "sourceConnection": {
+              "uuid": "1da3778c-6aa3-4e47-b2fe-83a0773dde18"
+            },
+            "timeout": 2,
+            "dataBytes": 100
+          }
+        }
+      },
+      "PostResponsePingCommand": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/routers/9b8c5042-b553-4d5e-a2ac-c73bf6d4fd81/commands/37c10edc-ba2e-4240-a850-8a48f9c47d00",
+          "type": "PING_COMMAND",
+          "uuid": "37c10edc-ba2e-4240-a850-8a48f9c47d00",
+          "name": "ping-test-1",
+          "description": "Testing FCR-SV-1",
+          "state": "PENDING",
+          "project": {
+            "projectId": "b11d4cb5-978a-418a-8b13-bf19abb97938"
+          },
+          "request": {
+            "destination": "8.8.8.8",
+            "sourceConnection": {
+              "uuid": "1da3778c-6aa3-4e47-b2fe-83a0773dde18"
+            },
+            "timeout": 2,
+            "dataBytes": 100,
+            "count": 5,
+            "interval": 1000
+          },
+          "changeLog": {
+            "createdBy": "testuser",
+            "createdDateTime": "2020-05-21T10:30:00Z"
+          }
+        }
+      },
+      "SearchByStateRequest": {
+        "value": {
+          "filter": {
+            "and": [
+              {
+                "property": "/state",
+                "operator": "=",
+                "values": [
+                  "SUCCEEDED"
+                ]
+              }
+            ]
+          },
+          "pagination": {
+            "offset": 0,
+            "limit": 20
+          },
+          "sort": [
+            {
+              "direction": "DESC",
+              "property": "/changeLog/createdDateTime"
+            }
+          ]
+        }
+      },
+      "SearchResponse": {
+        "value": {
+          "pagination": {
+            "offset": 20,
+            "limit": 20,
+            "total": 100,
+            "next": "/search?offset=40&limit=20",
+            "previous": "/search?offset=0&limit=20"
+          },
+          "data": {
+            "href": "https://api.equinix.com/fabric/v4/routers/9b8c5042-b553-4d5e-a2ac-c73bf6d4fd81/commands/37c10edc-ba2e-4240-a850-8a48f9c47d00",
+            "type": "PING_COMMAND",
+            "uuid": "37c10edc-ba2e-4240-a850-8a48f9c47d00",
+            "name": "ping-test-1",
+            "description": "Testing FCR-SV-1",
+            "state": "SUCCEEDED",
+            "project": {
+              "projectId": "b11d4cb5-978a-418a-8b13-bf19abb97938"
+            },
+            "request": {
+              "destination": "8.8.8.8",
+              "sourceConnection": {
+                "uuid": "1da3778c-6aa3-4e47-b2fe-83a0773dde18"
+              },
+              "timeout": 2,
+              "dataBytes": 100,
+              "count": 5,
+              "interval": 1000
+            },
+            "response": {
+              "output": "PING 8.8.8.8 (8.8.8.8): 100 data bytes\n108 bytes from 8.8.8.8: icmp_seq=0 ttl=117 time=9.839 ms\n108 bytes from 8.8.8.8: icmp_seq=1 ttl=117 time=16.051 ms\n108 bytes from 8.8.8.8: icmp_seq=2 ttl=117 time=9.271 ms\n108 bytes from 8.8.8.8: icmp_seq=3 ttl=117 time=26.771 ms \n--- 8.8.8.8 ping statistics ---\n4 packets transmitted, 4 packets received, 0.0% packet loss\nround-trip min/avg/max/stddev = 9.271/15.483/26.771/7.039 ms",
+              "outputStructuredPing": {
+                "destinationIp": "8.8.8.8",
+                "destinationName": "8.8.8.8",
+                "dataBytes": 100,
+                "packetsTransmitted": 4,
+                "packetsReceived": 4,
+                "packetsLossPercent": 0,
+                "rttMin": 9.271,
+                "rttAvg": 15.483,
+                "rttMax": 26.771,
+                "rttStdDev": 7.039,
+                "responses": [
+                  {
+                    "bytes": 100,
+                    "ip": "8.8.8.8",
+                    "icmpSeq": 0,
+                    "ttl": 117,
+                    "time": 9.839
+                  },
+                  {
+                    "bytes": 100,
+                    "ip": "8.8.8.8",
+                    "icmpSeq": 1,
+                    "ttl": 117,
+                    "time": 16.051
+                  },
+                  {
+                    "bytes": 100,
+                    "ip": "8.8.8.8",
+                    "icmpSeq": 2,
+                    "ttl": 117,
+                    "time": 9.271
+                  },
+                  {
+                    "bytes": 100,
+                    "ip": "8.8.8.8",
+                    "icmpSeq": 3,
+                    "ttl": 117,
+                    "time": 26.771
+                  }
+                ]
+              }
+            },
+            "changeLog": {
+              "createdBy": "testuser",
+              "createdDateTime": "2020-05-21T10:30:00Z"
+            }
+          }
+        }
+      },
+      "400_invalid_sorting_commands": {
+        "value": [
+          {
+            "errorCode": "EQ-3043015",
+            "errorMessage": "Invalid value for sorting direction.",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515",
+            "additionalInfo": [
+              {
+                "reason": "Only accept DESC and ASC for sorting direction."
+              }
+            ]
+          }
+        ]
+      },
+      "GetResponsePingCommand": {
+        "value": {
+          "href": "https://api.equinix.com/fabric/v4/routers/9b8c5042-b553-4d5e-a2ac-c73bf6d4fd81/commands/37c10edc-ba2e-4240-a850-8a48f9c47d00",
+          "type": "PING_COMMAND",
+          "uuid": "37c10edc-ba2e-4240-a850-8a48f9c47d00",
+          "name": "ping-test-1",
+          "description": "Testing FCR-SV-1",
+          "state": "SUCCEEDED",
+          "project": {
+            "projectId": "b11d4cb5-978a-418a-8b13-bf19abb97938"
+          },
+          "request": {
+            "destination": "8.8.8.8",
+            "sourceConnection": {
+              "uuid": "1da3778c-6aa3-4e47-b2fe-83a0773dde18"
+            },
+            "timeout": 2,
+            "dataBytes": 100,
+            "count": 5,
+            "interval": 1000
+          },
+          "response": {
+            "output": "PING 8.8.8.8 (8.8.8.8): 100 data bytes\n108 bytes from 8.8.8.8: icmp_seq=0 ttl=117 time=9.839 ms\n108 bytes from 8.8.8.8: icmp_seq=1 ttl=117 time=16.051 ms\n108 bytes from 8.8.8.8: icmp_seq=2 ttl=117 time=9.271 ms\n108 bytes from 8.8.8.8: icmp_seq=3 ttl=117 time=26.771 ms \n--- 8.8.8.8 ping statistics ---\n4 packets transmitted, 4 packets received, 0.0% packet loss\nround-trip min/avg/max/stddev = 9.271/15.483/26.771/7.039 ms",
+            "outputStructuredPing": {
+              "destinationIp": "8.8.8.8",
+              "destinationName": "8.8.8.8",
+              "dataBytes": 100,
+              "packetsTransmitted": 4,
+              "packetsReceived": 4,
+              "packetsLossPercent": 0,
+              "rttMin": 9.271,
+              "rttAvg": 15.483,
+              "rttMax": 26.771,
+              "rttStdDev": 7.039,
+              "responses": [
+                {
+                  "bytes": 100,
+                  "ip": "8.8.8.8",
+                  "icmpSeq": 0,
+                  "ttl": 117,
+                  "time": 9.839
+                },
+                {
+                  "bytes": 100,
+                  "ip": "8.8.8.8",
+                  "icmpSeq": 1,
+                  "ttl": 117,
+                  "time": 16.051
+                },
+                {
+                  "bytes": 100,
+                  "ip": "8.8.8.8",
+                  "icmpSeq": 2,
+                  "ttl": 117,
+                  "time": 9.271
+                },
+                {
+                  "bytes": 100,
+                  "ip": "8.8.8.8",
+                  "icmpSeq": 3,
+                  "ttl": 117,
+                  "time": 26.771
+                }
+              ]
+            }
+          },
+          "changeLog": {
+            "createdBy": "testuser",
+            "createdDateTime": "2020-05-21T10:30:00Z"
+          }
+        }
+      },
+      "400_invalid_state_commands": {
+        "value": [
+          {
+            "errorCode": "EQ-3043023",
+            "errorMessage": "Cannot delete Command in pending state",
+            "correlationId": "c82ff3bc-de07-47e5-b3ec-53a009d01515",
+            "details": "Cannot delete Fabric Cloud Router in transient state."
+          }
+        ]
+      },
       "SearchFilterByNextHop": {
         "value": {
           "filter": {
@@ -49919,13 +52412,13 @@
           ]
         }
       },
-      "CreateGlobalNetwork": {
+      "Create-Global-EVPLAN-Network": {
         "value": {
           "type": "EVPLAN",
           "name": "My-Network-1",
           "scope": "GLOBAL",
           "project": {
-            "projectId": "1234567"
+            "projectId": "d64fa54a-cfcb-4fb0-82ee-86cf47007fa2"
           },
           "notifications": [
             {
@@ -49937,7 +52430,7 @@
           ]
         }
       },
-      "CreateRegionalNetwork": {
+      "Create-Regional-EVPLAN-Network": {
         "value": {
           "type": "EVPLAN",
           "name": "My-Network-1",
@@ -49946,7 +52439,7 @@
             "region": "EMEA"
           },
           "project": {
-            "projectId": "1234567"
+            "projectId": "d64fa54a-cfcb-4fb0-82ee-86cf47007fa2"
           },
           "notifications": [
             {
@@ -49958,13 +52451,184 @@
           ]
         }
       },
-      "CreateLocalNetwork": {
+      "Create-Local-EVPLAN-Network": {
         "value": {
           "type": "EVPLAN",
           "name": "My-Network-1",
           "scope": "LOCAL",
           "project": {
-            "projectId": "1234567"
+            "projectId": "d64fa54a-cfcb-4fb0-82ee-86cf47007fa2"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Create-Global-EPLAN-Network": {
+        "value": {
+          "type": "EPLAN",
+          "name": "My-EPLAN-Network-1",
+          "scope": "GLOBAL",
+          "project": {
+            "projectId": "d64fa54a-cfcb-4fb0-82ee-86cf47007fa2"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Create-Regional-EPLAN-Network": {
+        "value": {
+          "type": "EPLAN",
+          "name": "My-EPLAN-Network-1",
+          "scope": "REGIONAL",
+          "location": {
+            "region": "EMEA"
+          },
+          "project": {
+            "projectId": "d64fa54a-cfcb-4fb0-82ee-86cf47007fa2"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Create-Local-EPLAN-Network": {
+        "value": {
+          "type": "EPLAN",
+          "name": "My-EPLAN-Network-1",
+          "scope": "LOCAL",
+          "project": {
+            "projectId": "d64fa54a-cfcb-4fb0-82ee-86cf47007fa2"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Create-Global-EVPTREE-Network": {
+        "value": {
+          "type": "EVPTREE",
+          "name": "My-EVPTREE-Network-1",
+          "scope": "GLOBAL",
+          "project": {
+            "projectId": "d64fa54a-cfcb-4fb0-82ee-86cf47007fa2"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Create-Regional-EVPTREE-Network": {
+        "value": {
+          "type": "EVPTREE",
+          "name": "My-EVPTREE-Network-1",
+          "scope": "REGIONAL",
+          "location": {
+            "region": "AMER"
+          },
+          "project": {
+            "projectId": "d64fa54a-cfcb-4fb0-82ee-86cf47007fa2"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Create-Local-EVPTREE-Network": {
+        "value": {
+          "type": "EVPTREE",
+          "name": "My-EVPTREE-Network-1",
+          "scope": "LOCAL",
+          "project": {
+            "projectId": "d64fa54a-cfcb-4fb0-82ee-86cf47007fa2"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Create-Global-EPTREE-Network": {
+        "value": {
+          "type": "EPTREE",
+          "name": "My-EPTREE-Network-1",
+          "scope": "GLOBAL",
+          "project": {
+            "projectId": "d64fa54a-cfcb-4fb0-82ee-86cf47007fa2"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Create-Regional-EPTREE-Network": {
+        "value": {
+          "type": "EPTREE",
+          "name": "My-EPTREE-Network-1",
+          "scope": "REGIONAL",
+          "location": {
+            "region": "AMER"
+          },
+          "project": {
+            "projectId": "d64fa54a-cfcb-4fb0-82ee-86cf47007fa2"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "test@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Create-Local-EPTREE-Network": {
+        "value": {
+          "type": "EPTREE",
+          "name": "My-EPTREE-Network-1",
+          "scope": "LOCAL",
+          "project": {
+            "projectId": "d64fa54a-cfcb-4fb0-82ee-86cf47007fa2"
           },
           "notifications": [
             {
@@ -49989,6 +52653,594 @@
               "type": "ALL",
               "emails": [
                 "test@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Create-Global-EVPLAN-Network-Response": {
+        "value": {
+          "href": "http://api.corp.equinix.com/fabric/v4/networks/0633e83f-116f-481d-b86f-c472271d1a8c",
+          "uuid": "0633e83f-116f-481d-b86f-c472271d1a8c",
+          "type": "EVPLAN",
+          "name": "My-evplan-network-1",
+          "scope": "GLOBAL",
+          "state": "INACTIVE",
+          "connectionsCount": 0,
+          "account": {
+            "orgId": 14510,
+            "organizationName": "fabric",
+            "globalCustId": "0026u00000595sBAAM"
+          },
+          "change": {
+            "href": "http://api.corp.equinix.com/fabric/v4/networks/0633e83f-116f-481d-b86f-c472271d1a8c/changes/ce7c0bbc-7bd2-431f-903f-de796ea9e858",
+            "uuid": "ce7c0bbc-7bd2-431f-903f-de796ea9e858",
+            "type": "NETWORK_CREATION"
+          },
+          "operation": {
+            "equinixStatus": "PROVISIONING"
+          },
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric fabric",
+            "createdByEmail": "fabric@gmail.com",
+            "createdDateTime": "2025-03-03T19:37:29.326Z"
+          },
+          "links": {
+            "href": "http://api.corp.equinix.com/fabric/v4/networks/0633e83f-116f-481d-b86f-c472271d1a8c/connections",
+            "rel": "getConnectionsByNetworkUuid",
+            "method": "GET",
+            "contentType": "application/json",
+            "authenticate": true
+          },
+          "project": {
+            "projectId": "d64fa54a-cfcb-4fb0-82ee-86cf47007fa2"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@gmail.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Create-Regional-EVPLAN-Network-Response": {
+        "value": {
+          "href": "http://api.corp.equinix.com/fabric/v4/networks/884254b7-237d-44f7-af0f-84ba324350ef",
+          "uuid": "884254b7-237d-44f7-af0f-84ba324350ef",
+          "type": "EVPLAN",
+          "name": "My-evplan-network-1",
+          "scope": "REGIONAL",
+          "location": {
+            "region": "AMER"
+          },
+          "state": "INACTIVE",
+          "connectionsCount": 0,
+          "account": {
+            "orgId": 14510,
+            "organizationName": "fabric",
+            "globalCustId": "0026u00000595sBAAM"
+          },
+          "change": {
+            "href": "http://api.corp.equinix.com/fabric/v4/networks/884254b7-237d-44f7-af0f-84ba324350ef/changes/741c0927-d9ed-405b-a4f2-cb61d0dda2c5",
+            "uuid": "741c0927-d9ed-405b-a4f2-cb61d0dda2c5",
+            "type": "NETWORK_CREATION"
+          },
+          "operation": {
+            "equinixStatus": "PROVISIONING"
+          },
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric fabric",
+            "createdByEmail": "fabric@gmail.com",
+            "createdDateTime": "2025-03-03T19:21:43.145Z"
+          },
+          "links": {
+            "href": "http://api.corp.equinix.com/fabric/v4/networks/884254b7-237d-44f7-af0f-84ba324350ef/connections",
+            "rel": "getConnectionsByNetworkUuid",
+            "method": "GET",
+            "contentType": "application/json",
+            "authenticate": true
+          },
+          "project": {
+            "projectId": "d64fa54a-cfcb-4fb0-82ee-86cf47007fa2"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@gmail.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Create-Local-EVPLAN-Network-Response": {
+        "value": {
+          "href": "http://api.corp.equinix.com/fabric/v4/networks/726af704-0b1b-46dc-9efc-00fc938084b3",
+          "uuid": "726af704-0b1b-46dc-9efc-00fc938084b3",
+          "type": "EVPLAN",
+          "name": "My-evplan-network-1",
+          "scope": "LOCAL",
+          "state": "INACTIVE",
+          "connectionsCount": 0,
+          "account": {
+            "orgId": 14510,
+            "organizationName": "fabric",
+            "globalCustId": "0026u00000595sBAAM"
+          },
+          "change": {
+            "href": "http://api.corp.equinix.com/fabric/v4/networks/726af704-0b1b-46dc-9efc-00fc938084b3/changes/92e2f236-e77d-4818-bbad-cff6b716a610",
+            "uuid": "92e2f236-e77d-4818-bbad-cff6b716a610",
+            "type": "NETWORK_CREATION"
+          },
+          "operation": {
+            "equinixStatus": "PROVISIONING"
+          },
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric fabric",
+            "createdByEmail": "fabric@gmail.com",
+            "createdDateTime": "2025-03-03T19:43:20.145Z"
+          },
+          "links": {
+            "href": "http://api.corp.equinix.com/fabric/v4/networks/726af704-0b1b-46dc-9efc-00fc938084b3/connections",
+            "rel": "getConnectionsByNetworkUuid",
+            "method": "GET",
+            "contentType": "application/json",
+            "authenticate": true
+          },
+          "project": {
+            "projectId": "d64fa54a-cfcb-4fb0-82ee-86cf47007fa2"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@gmail.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Create-Global-EPLAN-Network-Response": {
+        "value": {
+          "href": "http://api.corp.equinix.com/fabric/v4/networks/0d51722e-b080-4943-92ab-9720eaab2cfa",
+          "uuid": "0d51722e-b080-4943-92ab-9720eaab2cfa",
+          "type": "EPLAN",
+          "name": "My-eplan-network-1",
+          "scope": "GLOBAL",
+          "state": "INACTIVE",
+          "connectionsCount": 0,
+          "account": {
+            "orgId": 14510,
+            "organizationName": "fabric",
+            "globalCustId": "0026u00000595sBAAM"
+          },
+          "change": {
+            "href": "http://api.corp.equinix.com/fabric/v4/networks/0d51722e-b080-4943-92ab-9720eaab2cfa/changes/e4f9c57f-a1d6-4520-9a31-fddbe69ed592",
+            "uuid": "e4f9c57f-a1d6-4520-9a31-fddbe69ed592",
+            "type": "NETWORK_CREATION"
+          },
+          "operation": {
+            "equinixStatus": "PROVISIONING"
+          },
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric fabric",
+            "createdByEmail": "fabric@gmail.com",
+            "createdDateTime": "2025-03-03T20:52:23.469Z"
+          },
+          "links": {
+            "href": "http://api.corp.equinix.com/fabric/v4/networks/0d51722e-b080-4943-92ab-9720eaab2cfa/connections",
+            "rel": "getConnectionsByNetworkUuid",
+            "method": "GET",
+            "contentType": "application/json",
+            "authenticate": true
+          },
+          "project": {
+            "projectId": "d64fa54a-cfcb-4fb0-82ee-86cf47007fa2"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@gmail.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Create-Regional-EPLAN-Network-Response": {
+        "value": {
+          "href": "http://api.corp.equinix.com/fabric/v4/networks/884254b7-237d-44f7-af0f-84ba324350ef",
+          "uuid": "884254b7-237d-44f7-af0f-84ba324350ef",
+          "type": "EVPLAN",
+          "name": "My-evplan-network-1",
+          "scope": "REGIONAL",
+          "location": {
+            "region": "AMER"
+          },
+          "state": "INACTIVE",
+          "connectionsCount": 0,
+          "account": {
+            "orgId": 14510,
+            "organizationName": "fabric",
+            "globalCustId": "0026u00000595sBAAM"
+          },
+          "change": {
+            "href": "http://api.corp.equinix.com/fabric/v4/networks/884254b7-237d-44f7-af0f-84ba324350ef/changes/741c0927-d9ed-405b-a4f2-cb61d0dda2c5",
+            "uuid": "741c0927-d9ed-405b-a4f2-cb61d0dda2c5",
+            "type": "NETWORK_CREATION"
+          },
+          "operation": {
+            "equinixStatus": "PROVISIONING"
+          },
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric fabric",
+            "createdByEmail": "fabric@gmail.com",
+            "createdDateTime": "2025-03-03T19:21:43.145Z"
+          },
+          "links": {
+            "href": "http://api.corp.equinix.com/fabric/v4/networks/884254b7-237d-44f7-af0f-84ba324350ef/connections",
+            "rel": "getConnectionsByNetworkUuid",
+            "method": "GET",
+            "contentType": "application/json",
+            "authenticate": true
+          },
+          "project": {
+            "projectId": "d64fa54a-cfcb-4fb0-82ee-86cf47007fa2"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@gmail.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Create-Local-EPLAN-Network-Response": {
+        "value": {
+          "href": "http://api.corp.equinix.com/fabric/v4/networks/82402fc0-cb55-4a21-b0b3-1af89f63742b",
+          "uuid": "82402fc0-cb55-4a21-b0b3-1af89f63742b",
+          "type": "EPLAN",
+          "name": "My-eplan-network-1",
+          "scope": "LOCAL",
+          "state": "INACTIVE",
+          "connectionsCount": 0,
+          "account": {
+            "orgId": 14510,
+            "organizationName": "fabric",
+            "globalCustId": "0026u00000595sBAAM"
+          },
+          "change": {
+            "href": "http://api.corp.equinix.com/fabric/v4/networks/82402fc0-cb55-4a21-b0b3-1af89f63742b/changes/1449105b-7576-4094-aa34-216f3f9ed122",
+            "uuid": "1449105b-7576-4094-aa34-216f3f9ed122",
+            "type": "NETWORK_CREATION"
+          },
+          "operation": {
+            "equinixStatus": "PROVISIONING"
+          },
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric fabric",
+            "createdByEmail": "fabric@gmail.com",
+            "createdDateTime": "2025-03-03T20:55:57.858Z"
+          },
+          "links": {
+            "href": "http://api.corp.equinix.com/fabric/v4/networks/82402fc0-cb55-4a21-b0b3-1af89f63742b/connections",
+            "rel": "getConnectionsByNetworkUuid",
+            "method": "GET",
+            "contentType": "application/json",
+            "authenticate": true
+          },
+          "project": {
+            "projectId": "d64fa54a-cfcb-4fb0-82ee-86cf47007fa2"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@gmail.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Create-Global-EVPTREE-Network-Response": {
+        "value": {
+          "href": "http://api.corp.equinix.com/fabric/v4/networks/07659346-9489-42cf-891a-683624e801d5",
+          "uuid": "07659346-9489-42cf-891a-683624e801d5",
+          "type": "EVPTREE",
+          "name": "My-evptree-network-1",
+          "scope": "GLOBAL",
+          "state": "INACTIVE",
+          "connectionsCount": 0,
+          "account": {
+            "orgId": 14510,
+            "organizationName": "fabric",
+            "globalCustId": "0026u00000595sBAAM"
+          },
+          "change": {
+            "href": "http://api.corp.equinix.com/fabric/v4/networks/07659346-9489-42cf-891a-683624e801d5/changes/1caf3efb-7427-4be1-8100-73fcff471654",
+            "uuid": "1caf3efb-7427-4be1-8100-73fcff471654",
+            "type": "NETWORK_CREATION"
+          },
+          "operation": {
+            "equinixStatus": "PROVISIONING"
+          },
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric fabric",
+            "createdByEmail": "fabric@equinix.comm",
+            "createdDateTime": "2025-03-05T21:17:46.656Z"
+          },
+          "links": {
+            "href": "http://api.corp.equinix.com/fabric/v4/networks/07659346-9489-42cf-891a-683624e801d5/connections",
+            "rel": "getConnectionsByNetworkUuid",
+            "method": "GET",
+            "contentType": "application/json",
+            "authenticate": true
+          },
+          "project": {
+            "projectId": "d64fa54a-cfcb-4fb0-82ee-86cf47007fa2"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Create-Regional-EVPTREE-Network-Response": {
+        "value": {
+          "href": "http://api.corp.equinix.com/fabric/v4/networks/0ec08139-bae5-44c4-bea2-970b14d7c7c0",
+          "uuid": "0ec08139-bae5-44c4-bea2-970b14d7c7c0",
+          "type": "EVPTREE",
+          "name": "My-evptree-network-1",
+          "scope": "REGIONAL",
+          "location": {
+            "region": "AMER"
+          },
+          "state": "INACTIVE",
+          "connectionsCount": 0,
+          "account": {
+            "orgId": 14510,
+            "organizationName": "fabric",
+            "globalCustId": "0026u00000595sBAAM"
+          },
+          "change": {
+            "href": "http://api.corp.equinix.com/fabric/v4/networks/0ec08139-bae5-44c4-bea2-970b14d7c7c0/changes/0e159ddd-47d2-4fa3-97fe-502f8a70ea0e",
+            "uuid": "0e159ddd-47d2-4fa3-97fe-502f8a70ea0e",
+            "type": "NETWORK_CREATION"
+          },
+          "operation": {
+            "equinixStatus": "PROVISIONING"
+          },
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric fabric",
+            "createdByEmail": "fabric@equinix.com",
+            "createdDateTime": "2025-03-05T20:57:07.206Z"
+          },
+          "links": {
+            "href": "http://api.corp.equinix.com/fabric/v4/networks/0ec08139-bae5-44c4-bea2-970b14d7c7c0/connections",
+            "rel": "getConnectionsByNetworkUuid",
+            "method": "GET",
+            "contentType": "application/json",
+            "authenticate": true
+          },
+          "project": {
+            "projectId": "d64fa54a-cfcb-4fb0-82ee-86cf47007fa2"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Create-Local-EVPTREE-Network-Response": {
+        "value": {
+          "href": "http://api.corp.equinix.com/fabric/v4/networks/4622cce8-114b-4432-94f4-060fda044ae3",
+          "uuid": "4622cce8-114b-4432-94f4-060fda044ae3",
+          "type": "EVPTREE",
+          "name": "My-evptree-network-1",
+          "scope": "LOCAL",
+          "state": "INACTIVE",
+          "connectionsCount": 0,
+          "account": {
+            "orgId": 14510,
+            "organizationName": "fabric",
+            "globalCustId": "0026u00000595sBAAM"
+          },
+          "change": {
+            "href": "http://api.corp.equinix.com/fabric/v4/networks/4622cce8-114b-4432-94f4-060fda044ae3/changes/6eacff89-a363-402f-ae15-84294177a866",
+            "uuid": "6eacff89-a363-402f-ae15-84294177a866",
+            "type": "NETWORK_CREATION"
+          },
+          "operation": {
+            "equinixStatus": "PROVISIONING"
+          },
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric fabric",
+            "createdByEmail": "fabric@equinix.com",
+            "createdDateTime": "2025-03-05T21:22:30.984Z"
+          },
+          "links": {
+            "href": "http://api.corp.equinix.com/fabric/v4/networks/4622cce8-114b-4432-94f4-060fda044ae3/connections",
+            "rel": "getConnectionsByNetworkUuid",
+            "method": "GET",
+            "contentType": "application/json",
+            "authenticate": true
+          },
+          "project": {
+            "projectId": "d64fa54a-cfcb-4fb0-82ee-86cf47007fa2"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Create-Global-EPTREE-Network-Response": {
+        "value": {
+          "href": "http://api.corp.equinix.com/fabric/v4/networks/16ee541c-9e93-428b-9557-3f99907aa21c",
+          "uuid": "16ee541c-9e93-428b-9557-3f99907aa21c",
+          "type": "EPTREE",
+          "name": "My-eptree-network-1",
+          "scope": "GLOBAL",
+          "state": "INACTIVE",
+          "connectionsCount": 0,
+          "account": {
+            "orgId": 14510,
+            "organizationName": "fabric",
+            "globalCustId": "0026u00000595sBAAM"
+          },
+          "change": {
+            "href": "http://api.corp.equinix.com/fabric/v4/networks/16ee541c-9e93-428b-9557-3f99907aa21c/changes/2f541dcd-c25b-43a1-97fa-8b2be6817899",
+            "uuid": "2f541dcd-c25b-43a1-97fa-8b2be6817899",
+            "type": "NETWORK_CREATION"
+          },
+          "operation": {
+            "equinixStatus": "PROVISIONING"
+          },
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric fabric",
+            "createdByEmail": "fabric@equinix.com",
+            "createdDateTime": "2025-03-05T21:37:08.370Z"
+          },
+          "links": {
+            "href": "http://api.corp.equinix.com/fabric/v4/networks/16ee541c-9e93-428b-9557-3f99907aa21c/connections",
+            "rel": "getConnectionsByNetworkUuid",
+            "method": "GET",
+            "contentType": "application/json",
+            "authenticate": true
+          },
+          "project": {
+            "projectId": "d64fa54a-cfcb-4fb0-82ee-86cf47007fa2"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Create-Regional-EPTREE-Network-Response": {
+        "value": {
+          "href": "http://api.corp.equinix.com/fabric/v4/networks/291fc758-91d3-482b-a9b3-3430685c390e",
+          "uuid": "291fc758-91d3-482b-a9b3-3430685c390e",
+          "type": "EPTREE",
+          "name": "My-eptree-network-1",
+          "scope": "REGIONAL",
+          "location": {
+            "region": "EMEA"
+          },
+          "state": "INACTIVE",
+          "connectionsCount": 0,
+          "account": {
+            "orgId": 14510,
+            "organizationName": "fabric",
+            "globalCustId": "0026u00000595sBAAM"
+          },
+          "change": {
+            "href": "http://api.corp.equinix.com/fabric/v4/networks/291fc758-91d3-482b-a9b3-3430685c390e/changes/8345324b-97cc-4c5c-9f15-40bc82b254ad",
+            "uuid": "8345324b-97cc-4c5c-9f15-40bc82b254ad",
+            "type": "NETWORK_CREATION"
+          },
+          "operation": {
+            "equinixStatus": "PROVISIONING"
+          },
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric fabric",
+            "createdByEmail": "fabric@equinix.com",
+            "createdDateTime": "2025-03-06T00:23:29.030Z"
+          },
+          "links": {
+            "href": "http://api.corp.equinix.com/fabric/v4/networks/291fc758-91d3-482b-a9b3-3430685c390e/connections",
+            "rel": "getConnectionsByNetworkUuid",
+            "method": "GET",
+            "contentType": "application/json",
+            "authenticate": true
+          },
+          "project": {
+            "projectId": "d64fa54a-cfcb-4fb0-82ee-86cf47007fa2"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@equinix.com"
+              ]
+            }
+          ]
+        }
+      },
+      "Create-Local-EPTREE-Network-Response": {
+        "value": {
+          "href": "http://api.corp.equinix.com/fabric/v4/networks/c929924e-5d87-46b2-a82f-91a145c1803d",
+          "uuid": "c929924e-5d87-46b2-a82f-91a145c1803d",
+          "type": "EPTREE",
+          "name": "My-eptree-network-1",
+          "scope": "LOCAL",
+          "state": "INACTIVE",
+          "connectionsCount": 0,
+          "account": {
+            "orgId": 14510,
+            "organizationName": "fabric",
+            "globalCustId": "0026u00000595sBAAM"
+          },
+          "change": {
+            "href": "http://api.corp.equinix.com/fabric/v4/networks/c929924e-5d87-46b2-a82f-91a145c1803d/changes/1b32bacb-5898-4efd-9404-b64ec825c652",
+            "uuid": "1b32bacb-5898-4efd-9404-b64ec825c652",
+            "type": "NETWORK_CREATION"
+          },
+          "operation": {
+            "equinixStatus": "PROVISIONING"
+          },
+          "changeLog": {
+            "createdBy": "fabric",
+            "createdByFullName": "fabric fabric",
+            "createdByEmail": "fabric@equinix.com",
+            "createdDateTime": "2025-03-06T00:30:42.972Z"
+          },
+          "links": {
+            "href": "http://api.corp.equinix.com/fabric/v4/networks/c929924e-5d87-46b2-a82f-91a145c1803d/connections",
+            "rel": "getConnectionsByNetworkUuid",
+            "method": "GET",
+            "contentType": "application/json",
+            "authenticate": true
+          },
+          "project": {
+            "projectId": "d64fa54a-cfcb-4fb0-82ee-86cf47007fa2"
+          },
+          "notifications": [
+            {
+              "type": "ALL",
+              "emails": [
+                "fabric@equinix.com"
               ]
             }
           ]
@@ -52580,24 +55832,6 @@
               "name": "splunk",
               "description": "subscription 1",
               "state": "PROVISIONED",
-              "filters": {
-                "and": [
-                  {
-                    "property": "/subject",
-                    "operator": "LIKE",
-                    "values": [
-                      "%/fabric/v4/connections/36276e58-b5a1-4864-ab5e-be10dff9eac1%"
-                    ]
-                  },
-                  {
-                    "property": "/type",
-                    "operator": "IN",
-                    "values": [
-                      "equinix.fabric.connection.state.provisioned"
-                    ]
-                  }
-                ]
-              },
               "metricSelector": {
                 "include": [
                   "equinix.fabric.connection.*"
@@ -52649,17 +55883,6 @@
           "name": "splunk1",
           "description": "subscription-1",
           "enabled": true,
-          "filters": {
-            "and": [
-              {
-                "property": "/type",
-                "operator": "LIKE",
-                "values": [
-                  "equinix.fabric.connection%"
-                ]
-              }
-            ]
-          },
           "metricSelector": {
             "include": [
               "equinix.fabric.connection.*"
@@ -52691,17 +55914,6 @@
           "name": "slack1",
           "description": "subscription-1",
           "enabled": true,
-          "filters": {
-            "and": [
-              {
-                "property": "/type",
-                "operator": "LIKE",
-                "values": [
-                  "equinix.fabric.connection%"
-                ]
-              }
-            ]
-          },
           "metricSelector": {
             "include": [
               "equinix.fabric.connection.*"
@@ -52724,17 +55936,6 @@
           "name": "pagerduty",
           "description": "subscription-1",
           "enabled": true,
-          "filters": {
-            "and": [
-              {
-                "property": "/type",
-                "operator": "LIKE",
-                "values": [
-                  "equinix.fabric.connection%"
-                ]
-              }
-            ]
-          },
           "metricSelector": {
             "include": [
               "equinix.fabric.connection.*"
@@ -52753,7 +55954,6 @@
               "integrationKey": "my-integration-key"
             },
             "settings": {
-              "transformAlerts": true,
               "changeUri": "https://events.pagerduty.com/v2/change/enqueeue",
               "alertUri": "https://events.pagerduty.com/v2/enqueeue"
             }
@@ -52766,17 +55966,6 @@
           "name": "datadog",
           "description": "subscription-1",
           "enabled": true,
-          "filters": {
-            "and": [
-              {
-                "property": "/type",
-                "operator": "LIKE",
-                "values": [
-                  "equinix.fabric.connection%"
-                ]
-              }
-            ]
-          },
           "metricSelector": {
             "include": [
               "equinix.fabric.connection.*"
@@ -52804,17 +55993,6 @@
           "name": "teams1",
           "description": "subscription-1",
           "enabled": true,
-          "filters": {
-            "and": [
-              {
-                "property": "/type",
-                "operator": "LIKE",
-                "values": [
-                  "equinix.fabric.connection%"
-                ]
-              }
-            ]
-          },
           "metricSelector": {
             "include": [
               "equinix.fabric.connection.*"
@@ -52837,17 +56015,6 @@
           "name": "servicenow-1",
           "description": "subscription-1",
           "enabled": true,
-          "filters": {
-            "and": [
-              {
-                "property": "/type",
-                "operator": "LIKE",
-                "values": [
-                  "equinix.fabric.connection%"
-                ]
-              }
-            ]
-          },
           "eventSelector": {
             "include": [
               "equinix.fabric.connection.*"
@@ -52876,17 +56043,6 @@
           "description": "stream dec 1",
           "state": "PROVISIONED",
           "enabled": true,
-          "filters": {
-            "and": [
-              {
-                "property": "/type",
-                "operator": "LIKE",
-                "values": [
-                  "equinix.fabric.connection%"
-                ]
-              }
-            ]
-          },
           "metricSelector": {
             "include": [
               "equinix.fabric.connection.*"
@@ -52923,17 +56079,6 @@
           "name": "splunk1",
           "description": "subscription 1",
           "enabled": true,
-          "filters": {
-            "and": [
-              {
-                "property": "/type",
-                "operator": "LIKE",
-                "values": [
-                  "equinix.fabric.connection%"
-                ]
-              }
-            ]
-          },
           "metricSelector": {
             "include": [
               "equinix.fabric.connection.*"
@@ -52971,17 +56116,6 @@
           "description": "stream dec 1",
           "state": "DEPROVISIONING",
           "enabled": true,
-          "filters": {
-            "and": [
-              {
-                "property": "/type",
-                "operator": "LIKE",
-                "values": [
-                  "equinix.fabric.connection%"
-                ]
-              }
-            ]
-          },
           "metricSelector": {
             "include": [
               "equinix.fabric.connection.*"

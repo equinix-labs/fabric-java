@@ -13,7 +13,6 @@ package com.equinix.openapi.fabric.v4.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.equinix.openapi.fabric.v4.model.StreamSubscriptionFilter;
 import com.equinix.openapi.fabric.v4.model.StreamSubscriptionSelector;
 import com.equinix.openapi.fabric.v4.model.StreamSubscriptionSink;
 import com.google.gson.TypeAdapter;
@@ -109,10 +108,6 @@ public class StreamSubscriptionPostRequest {
   public static final String SERIALIZED_NAME_ENABLED = "enabled";
   @SerializedName(SERIALIZED_NAME_ENABLED)
   private Boolean enabled;
-
-  public static final String SERIALIZED_NAME_FILTERS = "filters";
-  @SerializedName(SERIALIZED_NAME_FILTERS)
-  private StreamSubscriptionFilter filters;
 
   public static final String SERIALIZED_NAME_METRIC_SELECTOR = "metricSelector";
   @SerializedName(SERIALIZED_NAME_METRIC_SELECTOR)
@@ -214,28 +209,6 @@ public class StreamSubscriptionPostRequest {
 
   public void setEnabled(Boolean enabled) {
     this.enabled = enabled;
-  }
-
-
-  public StreamSubscriptionPostRequest filters(StreamSubscriptionFilter filters) {
-    
-    this.filters = filters;
-    return this;
-  }
-
-   /**
-   * Get filters
-   * @return filters
-  **/
-  @javax.annotation.Nullable
-
-  public StreamSubscriptionFilter getFilters() {
-    return filters;
-  }
-
-
-  public void setFilters(StreamSubscriptionFilter filters) {
-    this.filters = filters;
   }
 
 
@@ -363,7 +336,6 @@ public class StreamSubscriptionPostRequest {
         Objects.equals(this.name, streamSubscriptionPostRequest.name) &&
         Objects.equals(this.description, streamSubscriptionPostRequest.description) &&
         Objects.equals(this.enabled, streamSubscriptionPostRequest.enabled) &&
-        Objects.equals(this.filters, streamSubscriptionPostRequest.filters) &&
         Objects.equals(this.metricSelector, streamSubscriptionPostRequest.metricSelector) &&
         Objects.equals(this.eventSelector, streamSubscriptionPostRequest.eventSelector) &&
         Objects.equals(this.sink, streamSubscriptionPostRequest.sink)&&
@@ -372,7 +344,7 @@ public class StreamSubscriptionPostRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, name, description, enabled, filters, metricSelector, eventSelector, sink, additionalProperties);
+    return Objects.hash(type, name, description, enabled, metricSelector, eventSelector, sink, additionalProperties);
   }
 
   @Override
@@ -383,7 +355,6 @@ public class StreamSubscriptionPostRequest {
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
-    sb.append("    filters: ").append(toIndentedString(filters)).append("\n");
     sb.append("    metricSelector: ").append(toIndentedString(metricSelector)).append("\n");
     sb.append("    eventSelector: ").append(toIndentedString(eventSelector)).append("\n");
     sb.append("    sink: ").append(toIndentedString(sink)).append("\n");
@@ -414,7 +385,6 @@ public class StreamSubscriptionPostRequest {
     openapiFields.add("name");
     openapiFields.add("description");
     openapiFields.add("enabled");
-    openapiFields.add("filters");
     openapiFields.add("metricSelector");
     openapiFields.add("eventSelector");
     openapiFields.add("sink");
@@ -443,10 +413,6 @@ public class StreamSubscriptionPostRequest {
       }
       if ((jsonObj.get("description") != null && !jsonObj.get("description").isJsonNull()) && !jsonObj.get("description").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `description` to be a primitive type in the JSON string but got `%s`", jsonObj.get("description").toString()));
-      }
-      // validate the optional field `filters`
-      if (jsonObj.get("filters") != null && !jsonObj.get("filters").isJsonNull()) {
-        StreamSubscriptionFilter.validateJsonObject(jsonObj.getAsJsonObject("filters"));
       }
       // validate the optional field `metricSelector`
       if (jsonObj.get("metricSelector") != null && !jsonObj.get("metricSelector").isJsonNull()) {

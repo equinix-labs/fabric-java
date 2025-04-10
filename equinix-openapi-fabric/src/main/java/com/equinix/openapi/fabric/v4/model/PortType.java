@@ -29,7 +29,9 @@ public enum PortType {
   
   XF_PORT("XF_PORT"),
   
-  IX_PORT("IX_PORT");
+  IX_PORT("IX_PORT"),
+  
+  IA_PORT("IA_PORT");
 
   private String value;
 

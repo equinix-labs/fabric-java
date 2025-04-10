@@ -380,7 +380,7 @@ public class CloudRouter {
    * Get type
    * @return type
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
 
   public TypeEnum getType() {
     return type;
@@ -402,7 +402,7 @@ public class CloudRouter {
    * Get location
    * @return location
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
 
   public SimplifiedLocationWithoutIBX getLocation() {
     return location;
@@ -424,7 +424,7 @@ public class CloudRouter {
    * Get _package
    * @return _package
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
 
   public CloudRouterPostRequestPackage getPackage() {
     return _package;
@@ -665,6 +665,10 @@ public class CloudRouter {
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("type");
+    openapiRequiredFields.add("name");
+    openapiRequiredFields.add("location");
+    openapiRequiredFields.add("package");
   }
 
  /**
@@ -677,6 +681,13 @@ public class CloudRouter {
       if (jsonObj == null) {
         if (!CloudRouter.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
           throw new IllegalArgumentException(String.format("The required field(s) %s in CloudRouter is not found in the empty JSON string", CloudRouter.openapiRequiredFields.toString()));
+        }
+      }
+
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : CloudRouter.openapiRequiredFields) {
+        if (jsonObj.get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
         }
       }
       if ((jsonObj.get("href") != null && !jsonObj.get("href").isJsonNull()) && !jsonObj.get("href").isJsonPrimitive()) {
@@ -700,17 +711,13 @@ public class CloudRouter {
       if (jsonObj.get("change") != null && !jsonObj.get("change").isJsonNull()) {
         CloudRouterChange.validateJsonObject(jsonObj.getAsJsonObject("change"));
       }
-      if ((jsonObj.get("type") != null && !jsonObj.get("type").isJsonNull()) && !jsonObj.get("type").isJsonPrimitive()) {
+      if (!jsonObj.get("type").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("type").toString()));
       }
-      // validate the optional field `location`
-      if (jsonObj.get("location") != null && !jsonObj.get("location").isJsonNull()) {
-        SimplifiedLocationWithoutIBX.validateJsonObject(jsonObj.getAsJsonObject("location"));
-      }
-      // validate the optional field `package`
-      if (jsonObj.get("package") != null && !jsonObj.get("package").isJsonNull()) {
-        CloudRouterPostRequestPackage.validateJsonObject(jsonObj.getAsJsonObject("package"));
-      }
+      // validate the required field `location`
+      SimplifiedLocationWithoutIBX.validateJsonObject(jsonObj.getAsJsonObject("location"));
+      // validate the required field `package`
+      CloudRouterPostRequestPackage.validateJsonObject(jsonObj.getAsJsonObject("package"));
       // validate the optional field `order`
       if (jsonObj.get("order") != null && !jsonObj.get("order").isJsonNull()) {
         Order.validateJsonObject(jsonObj.getAsJsonObject("order"));

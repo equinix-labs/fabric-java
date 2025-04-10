@@ -14,7 +14,6 @@ package com.equinix.openapi.fabric.v4.model;
 import java.util.Objects;
 import java.util.Arrays;
 import com.equinix.openapi.fabric.v4.model.Changelog;
-import com.equinix.openapi.fabric.v4.model.StreamSubscriptionFilter;
 import com.equinix.openapi.fabric.v4.model.StreamSubscriptionSelector;
 import com.equinix.openapi.fabric.v4.model.StreamSubscriptionSink;
 import com.google.gson.TypeAdapter;
@@ -180,10 +179,6 @@ public class StreamSubscription {
   @SerializedName(SERIALIZED_NAME_ENABLED)
   private Boolean enabled;
 
-  public static final String SERIALIZED_NAME_FILTERS = "filters";
-  @SerializedName(SERIALIZED_NAME_FILTERS)
-  private StreamSubscriptionFilter filters;
-
   public static final String SERIALIZED_NAME_METRIC_SELECTOR = "metricSelector";
   @SerializedName(SERIALIZED_NAME_METRIC_SELECTOR)
   private StreamSubscriptionSelector metricSelector;
@@ -199,6 +194,10 @@ public class StreamSubscription {
   public static final String SERIALIZED_NAME_CHANGE_LOG = "changeLog";
   @SerializedName(SERIALIZED_NAME_CHANGE_LOG)
   private Changelog changeLog;
+
+  public static final String SERIALIZED_NAME_LAST_ERROR_MESSAGE = "lastErrorMessage";
+  @SerializedName(SERIALIZED_NAME_LAST_ERROR_MESSAGE)
+  private String lastErrorMessage;
 
   public StreamSubscription() {
   }
@@ -356,28 +355,6 @@ public class StreamSubscription {
   }
 
 
-  public StreamSubscription filters(StreamSubscriptionFilter filters) {
-    
-    this.filters = filters;
-    return this;
-  }
-
-   /**
-   * Get filters
-   * @return filters
-  **/
-  @javax.annotation.Nullable
-
-  public StreamSubscriptionFilter getFilters() {
-    return filters;
-  }
-
-
-  public void setFilters(StreamSubscriptionFilter filters) {
-    this.filters = filters;
-  }
-
-
   public StreamSubscription metricSelector(StreamSubscriptionSelector metricSelector) {
     
     this.metricSelector = metricSelector;
@@ -465,6 +442,28 @@ public class StreamSubscription {
     this.changeLog = changeLog;
   }
 
+
+  public StreamSubscription lastErrorMessage(String lastErrorMessage) {
+    
+    this.lastErrorMessage = lastErrorMessage;
+    return this;
+  }
+
+   /**
+   * HTTP response from sink type if error occurred
+   * @return lastErrorMessage
+  **/
+  @javax.annotation.Nullable
+
+  public String getLastErrorMessage() {
+    return lastErrorMessage;
+  }
+
+
+  public void setLastErrorMessage(String lastErrorMessage) {
+    this.lastErrorMessage = lastErrorMessage;
+  }
+
   /**
    * A container for additional, undeclared properties.
    * This is a holder for any undeclared properties as specified with
@@ -527,17 +526,17 @@ public class StreamSubscription {
         Objects.equals(this.description, streamSubscription.description) &&
         Objects.equals(this.state, streamSubscription.state) &&
         Objects.equals(this.enabled, streamSubscription.enabled) &&
-        Objects.equals(this.filters, streamSubscription.filters) &&
         Objects.equals(this.metricSelector, streamSubscription.metricSelector) &&
         Objects.equals(this.eventSelector, streamSubscription.eventSelector) &&
         Objects.equals(this.sink, streamSubscription.sink) &&
-        Objects.equals(this.changeLog, streamSubscription.changeLog)&&
+        Objects.equals(this.changeLog, streamSubscription.changeLog) &&
+        Objects.equals(this.lastErrorMessage, streamSubscription.lastErrorMessage)&&
         Objects.equals(this.additionalProperties, streamSubscription.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(href, uuid, type, name, description, state, enabled, filters, metricSelector, eventSelector, sink, changeLog, additionalProperties);
+    return Objects.hash(href, uuid, type, name, description, state, enabled, metricSelector, eventSelector, sink, changeLog, lastErrorMessage, additionalProperties);
   }
 
   @Override
@@ -551,11 +550,11 @@ public class StreamSubscription {
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
-    sb.append("    filters: ").append(toIndentedString(filters)).append("\n");
     sb.append("    metricSelector: ").append(toIndentedString(metricSelector)).append("\n");
     sb.append("    eventSelector: ").append(toIndentedString(eventSelector)).append("\n");
     sb.append("    sink: ").append(toIndentedString(sink)).append("\n");
     sb.append("    changeLog: ").append(toIndentedString(changeLog)).append("\n");
+    sb.append("    lastErrorMessage: ").append(toIndentedString(lastErrorMessage)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -586,11 +585,11 @@ public class StreamSubscription {
     openapiFields.add("description");
     openapiFields.add("state");
     openapiFields.add("enabled");
-    openapiFields.add("filters");
     openapiFields.add("metricSelector");
     openapiFields.add("eventSelector");
     openapiFields.add("sink");
     openapiFields.add("changeLog");
+    openapiFields.add("lastErrorMessage");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -626,10 +625,6 @@ public class StreamSubscription {
       if ((jsonObj.get("state") != null && !jsonObj.get("state").isJsonNull()) && !jsonObj.get("state").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `state` to be a primitive type in the JSON string but got `%s`", jsonObj.get("state").toString()));
       }
-      // validate the optional field `filters`
-      if (jsonObj.get("filters") != null && !jsonObj.get("filters").isJsonNull()) {
-        StreamSubscriptionFilter.validateJsonObject(jsonObj.getAsJsonObject("filters"));
-      }
       // validate the optional field `metricSelector`
       if (jsonObj.get("metricSelector") != null && !jsonObj.get("metricSelector").isJsonNull()) {
         StreamSubscriptionSelector.validateJsonObject(jsonObj.getAsJsonObject("metricSelector"));
@@ -645,6 +640,9 @@ public class StreamSubscription {
       // validate the optional field `changeLog`
       if (jsonObj.get("changeLog") != null && !jsonObj.get("changeLog").isJsonNull()) {
         Changelog.validateJsonObject(jsonObj.getAsJsonObject("changeLog"));
+      }
+      if ((jsonObj.get("lastErrorMessage") != null && !jsonObj.get("lastErrorMessage").isJsonNull()) && !jsonObj.get("lastErrorMessage").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `lastErrorMessage` to be a primitive type in the JSON string but got `%s`", jsonObj.get("lastErrorMessage").toString()));
       }
   }
 

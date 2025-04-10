@@ -18,6 +18,7 @@ import com.equinix.openapi.fabric.v4.model.EndCustomer;
 import com.equinix.openapi.fabric.v4.model.ModelPackage;
 import com.equinix.openapi.fabric.v4.model.PhysicalPort;
 import com.equinix.openapi.fabric.v4.model.PortAdditionalInfo;
+import com.equinix.openapi.fabric.v4.model.PortChange;
 import com.equinix.openapi.fabric.v4.model.PortDemarcationPoint;
 import com.equinix.openapi.fabric.v4.model.PortDevice;
 import com.equinix.openapi.fabric.v4.model.PortEncapsulation;
@@ -287,6 +288,10 @@ public class PortRequest {
   public static final String SERIALIZED_NAME_ACCOUNT = "account";
   @SerializedName(SERIALIZED_NAME_ACCOUNT)
   private SimplifiedAccount account;
+
+  public static final String SERIALIZED_NAME_CHANGE = "change";
+  @SerializedName(SERIALIZED_NAME_CHANGE)
+  private PortChange change;
 
   public static final String SERIALIZED_NAME_CHANGE_LOG = "changeLog";
   @SerializedName(SERIALIZED_NAME_CHANGE_LOG)
@@ -806,6 +811,28 @@ public class PortRequest {
 
   public void setAccount(SimplifiedAccount account) {
     this.account = account;
+  }
+
+
+  public PortRequest change(PortChange change) {
+    
+    this.change = change;
+    return this;
+  }
+
+   /**
+   * Get change
+   * @return change
+  **/
+  @javax.annotation.Nullable
+
+  public PortChange getChange() {
+    return change;
+  }
+
+
+  public void setChange(PortChange change) {
+    this.change = change;
   }
 
 
@@ -1447,6 +1474,7 @@ public class PortRequest {
         Objects.equals(this.order, portRequest.order) &&
         Objects.equals(this.operation, portRequest.operation) &&
         Objects.equals(this.account, portRequest.account) &&
+        Objects.equals(this.change, portRequest.change) &&
         Objects.equals(this.changeLog, portRequest.changeLog) &&
         Objects.equals(this.serviceType, portRequest.serviceType) &&
         Objects.equals(this.bandwidth, portRequest.bandwidth) &&
@@ -1476,7 +1504,7 @@ public class PortRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(href, type, id, uuid, name, description, physicalPortsSpeed, connectionsCount, physicalPortsType, physicalPortsCount, connectivitySourceType, bmmrType, project, state, order, operation, account, changeLog, serviceType, bandwidth, availableBandwidth, usedBandwidth, location, device, _interface, demarcationPointIbx, tetherIbx, demarcationPoint, redundancy, encapsulation, lagEnabled, lag, asn, _package, settings, physicalPortQuantity, notifications, additionalInfo, endCustomer, physicalPorts, loas, additionalProperties);
+    return Objects.hash(href, type, id, uuid, name, description, physicalPortsSpeed, connectionsCount, physicalPortsType, physicalPortsCount, connectivitySourceType, bmmrType, project, state, order, operation, account, change, changeLog, serviceType, bandwidth, availableBandwidth, usedBandwidth, location, device, _interface, demarcationPointIbx, tetherIbx, demarcationPoint, redundancy, encapsulation, lagEnabled, lag, asn, _package, settings, physicalPortQuantity, notifications, additionalInfo, endCustomer, physicalPorts, loas, additionalProperties);
   }
 
   @Override
@@ -1500,6 +1528,7 @@ public class PortRequest {
     sb.append("    order: ").append(toIndentedString(order)).append("\n");
     sb.append("    operation: ").append(toIndentedString(operation)).append("\n");
     sb.append("    account: ").append(toIndentedString(account)).append("\n");
+    sb.append("    change: ").append(toIndentedString(change)).append("\n");
     sb.append("    changeLog: ").append(toIndentedString(changeLog)).append("\n");
     sb.append("    serviceType: ").append(toIndentedString(serviceType)).append("\n");
     sb.append("    bandwidth: ").append(toIndentedString(bandwidth)).append("\n");
@@ -1564,6 +1593,7 @@ public class PortRequest {
     openapiFields.add("order");
     openapiFields.add("operation");
     openapiFields.add("account");
+    openapiFields.add("change");
     openapiFields.add("changeLog");
     openapiFields.add("serviceType");
     openapiFields.add("bandwidth");
@@ -1655,6 +1685,10 @@ public class PortRequest {
       }
       // validate the required field `account`
       SimplifiedAccount.validateJsonObject(jsonObj.getAsJsonObject("account"));
+      // validate the optional field `change`
+      if (jsonObj.get("change") != null && !jsonObj.get("change").isJsonNull()) {
+        PortChange.validateJsonObject(jsonObj.getAsJsonObject("change"));
+      }
       // validate the optional field `changeLog`
       if (jsonObj.get("changeLog") != null && !jsonObj.get("changeLog").isJsonNull()) {
         Changelog.validateJsonObject(jsonObj.getAsJsonObject("changeLog"));

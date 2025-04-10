@@ -15,11 +15,11 @@ Stream Subscription object
 |**description** | **String** | Customer-provided subscription description |  [optional] |
 |**state** | [**StateEnum**](#StateEnum) | Steam subscription provision state |  [optional] |
 |**enabled** | **Boolean** | Stream subscription enabled status |  [optional] |
-|**filters** | [**StreamSubscriptionFilter**](StreamSubscriptionFilter.md) |  |  [optional] |
 |**metricSelector** | [**StreamSubscriptionSelector**](StreamSubscriptionSelector.md) |  |  [optional] |
 |**eventSelector** | [**StreamSubscriptionSelector**](StreamSubscriptionSelector.md) |  |  [optional] |
 |**sink** | [**StreamSubscriptionSink**](StreamSubscriptionSink.md) |  |  [optional] |
 |**changeLog** | [**Changelog**](Changelog.md) |  |  [optional] |
+|**lastErrorMessage** | **String** | HTTP response from sink type if error occurred |  [optional] |
 
 
 

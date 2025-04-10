@@ -84,7 +84,7 @@ public class VirtualConnectionTimeServiceResponse {
    * Connection URI
    * @return href
   **/
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
 
   public URI getHref() {
     return href;
@@ -103,7 +103,7 @@ public class VirtualConnectionTimeServiceResponse {
    * Connection Type.
    * @return type
   **/
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
 
   public String getType() {
     return type;
@@ -125,7 +125,7 @@ public class VirtualConnectionTimeServiceResponse {
    * Connection UUID.
    * @return uuid
   **/
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
 
   public UUID getUuid() {
     return uuid;
@@ -288,9 +288,6 @@ public class VirtualConnectionTimeServiceResponse {
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("href");
-    openapiRequiredFields.add("type");
-    openapiRequiredFields.add("uuid");
   }
 
  /**
@@ -305,20 +302,13 @@ public class VirtualConnectionTimeServiceResponse {
           throw new IllegalArgumentException(String.format("The required field(s) %s in VirtualConnectionTimeServiceResponse is not found in the empty JSON string", VirtualConnectionTimeServiceResponse.openapiRequiredFields.toString()));
         }
       }
-
-      // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : VirtualConnectionTimeServiceResponse.openapiRequiredFields) {
-        if (jsonObj.get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
-        }
-      }
-      if (!jsonObj.get("href").isJsonPrimitive()) {
+      if ((jsonObj.get("href") != null && !jsonObj.get("href").isJsonNull()) && !jsonObj.get("href").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `href` to be a primitive type in the JSON string but got `%s`", jsonObj.get("href").toString()));
       }
-      if (!jsonObj.get("type").isJsonPrimitive()) {
+      if ((jsonObj.get("type") != null && !jsonObj.get("type").isJsonNull()) && !jsonObj.get("type").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("type").toString()));
       }
-      if (!jsonObj.get("uuid").isJsonPrimitive()) {
+      if ((jsonObj.get("uuid") != null && !jsonObj.get("uuid").isJsonNull()) && !jsonObj.get("uuid").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `uuid` to be a primitive type in the JSON string but got `%s`", jsonObj.get("uuid").toString()));
       }
       // validate the optional field `aSide`

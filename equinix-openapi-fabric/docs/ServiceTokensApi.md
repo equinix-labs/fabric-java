@@ -446,7 +446,7 @@ public class Example {
 
 <a name="updateServiceTokenByUuid"></a>
 # **updateServiceTokenByUuid**
-> ServiceToken updateServiceTokenByUuid(serviceTokenId, serviceTokenChangeOperation)
+> ServiceToken updateServiceTokenByUuid(serviceTokenId, serviceTokenChangeOperation, dryRun)
 
 Update Token By ID
 
@@ -474,8 +474,9 @@ public class Example {
     ServiceTokensApi apiInstance = new ServiceTokensApi(defaultClient);
     UUID serviceTokenId = UUID.randomUUID(); // UUID | Service Token UUID
     List<ServiceTokenChangeOperation> serviceTokenChangeOperation = Arrays.asList(); // List<ServiceTokenChangeOperation> | 
+    Boolean dryRun = false; // Boolean | option to verify that API calls will succeed
     try {
-      ServiceToken result = apiInstance.updateServiceTokenByUuid(serviceTokenId, serviceTokenChangeOperation);
+      ServiceToken result = apiInstance.updateServiceTokenByUuid(serviceTokenId, serviceTokenChangeOperation, dryRun);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ServiceTokensApi#updateServiceTokenByUuid");
@@ -494,6 +495,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **serviceTokenId** | **UUID**| Service Token UUID | |
 | **serviceTokenChangeOperation** | [**List&lt;ServiceTokenChangeOperation&gt;**](ServiceTokenChangeOperation.md)|  | |
+| **dryRun** | **Boolean**| option to verify that API calls will succeed | [optional] [default to false] |
 
 ### Return type
 
