@@ -936,6 +936,7 @@ public class ServiceTokensApi {
      * Build call for updateServiceTokenByUuid
      * @param serviceTokenId Service Token UUID (required)
      * @param serviceTokenChangeOperation  (required)
+     * @param dryRun option to verify that API calls will succeed (optional, default to false)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -948,7 +949,7 @@ public class ServiceTokensApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateServiceTokenByUuidCall(UUID serviceTokenId, List<ServiceTokenChangeOperation> serviceTokenChangeOperation, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call updateServiceTokenByUuidCall(UUID serviceTokenId, List<ServiceTokenChangeOperation> serviceTokenChangeOperation, Boolean dryRun, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -974,6 +975,10 @@ public class ServiceTokensApi {
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+        if (dryRun != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("dryRun", dryRun));
+        }
+
         final String[] localVarAccepts = {
             "application/json"
         };
@@ -995,7 +1000,7 @@ public class ServiceTokensApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateServiceTokenByUuidValidateBeforeCall(UUID serviceTokenId, List<ServiceTokenChangeOperation> serviceTokenChangeOperation, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call updateServiceTokenByUuidValidateBeforeCall(UUID serviceTokenId, List<ServiceTokenChangeOperation> serviceTokenChangeOperation, Boolean dryRun, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'serviceTokenId' is set
         if (serviceTokenId == null) {
             throw new ApiException("Missing the required parameter 'serviceTokenId' when calling updateServiceTokenByUuid(Async)");
@@ -1006,7 +1011,7 @@ public class ServiceTokensApi {
             throw new ApiException("Missing the required parameter 'serviceTokenChangeOperation' when calling updateServiceTokenByUuid(Async)");
         }
 
-        return updateServiceTokenByUuidCall(serviceTokenId, serviceTokenChangeOperation, _callback);
+        return updateServiceTokenByUuidCall(serviceTokenId, serviceTokenChangeOperation, dryRun, _callback);
 
     }
 
@@ -1015,6 +1020,7 @@ public class ServiceTokensApi {
      * This API provides capability to update user&#39;s Service Token
      * @param serviceTokenId Service Token UUID (required)
      * @param serviceTokenChangeOperation  (required)
+     * @param dryRun option to verify that API calls will succeed (optional, default to false)
      * @return ServiceToken
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -1026,8 +1032,8 @@ public class ServiceTokensApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public ServiceToken updateServiceTokenByUuid(UUID serviceTokenId, List<ServiceTokenChangeOperation> serviceTokenChangeOperation) throws ApiException {
-        ApiResponse<ServiceToken> localVarResp = updateServiceTokenByUuidWithHttpInfo(serviceTokenId, serviceTokenChangeOperation);
+    public ServiceToken updateServiceTokenByUuid(UUID serviceTokenId, List<ServiceTokenChangeOperation> serviceTokenChangeOperation, Boolean dryRun) throws ApiException {
+        ApiResponse<ServiceToken> localVarResp = updateServiceTokenByUuidWithHttpInfo(serviceTokenId, serviceTokenChangeOperation, dryRun);
         return localVarResp.getData();
     }
 
@@ -1036,6 +1042,7 @@ public class ServiceTokensApi {
      * This API provides capability to update user&#39;s Service Token
      * @param serviceTokenId Service Token UUID (required)
      * @param serviceTokenChangeOperation  (required)
+     * @param dryRun option to verify that API calls will succeed (optional, default to false)
      * @return ApiResponse&lt;ServiceToken&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -1047,8 +1054,8 @@ public class ServiceTokensApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<ServiceToken> updateServiceTokenByUuidWithHttpInfo(UUID serviceTokenId, List<ServiceTokenChangeOperation> serviceTokenChangeOperation) throws ApiException {
-        okhttp3.Call localVarCall = updateServiceTokenByUuidValidateBeforeCall(serviceTokenId, serviceTokenChangeOperation, null);
+    public ApiResponse<ServiceToken> updateServiceTokenByUuidWithHttpInfo(UUID serviceTokenId, List<ServiceTokenChangeOperation> serviceTokenChangeOperation, Boolean dryRun) throws ApiException {
+        okhttp3.Call localVarCall = updateServiceTokenByUuidValidateBeforeCall(serviceTokenId, serviceTokenChangeOperation, dryRun, null);
         Type localVarReturnType = new TypeToken<ServiceToken>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -1058,6 +1065,7 @@ public class ServiceTokensApi {
      * This API provides capability to update user&#39;s Service Token
      * @param serviceTokenId Service Token UUID (required)
      * @param serviceTokenChangeOperation  (required)
+     * @param dryRun option to verify that API calls will succeed (optional, default to false)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -1070,9 +1078,9 @@ public class ServiceTokensApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateServiceTokenByUuidAsync(UUID serviceTokenId, List<ServiceTokenChangeOperation> serviceTokenChangeOperation, final ApiCallback<ServiceToken> _callback) throws ApiException {
+    public okhttp3.Call updateServiceTokenByUuidAsync(UUID serviceTokenId, List<ServiceTokenChangeOperation> serviceTokenChangeOperation, Boolean dryRun, final ApiCallback<ServiceToken> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = updateServiceTokenByUuidValidateBeforeCall(serviceTokenId, serviceTokenChangeOperation, _callback);
+        okhttp3.Call localVarCall = updateServiceTokenByUuidValidateBeforeCall(serviceTokenId, serviceTokenChangeOperation, dryRun, _callback);
         Type localVarReturnType = new TypeToken<ServiceToken>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;

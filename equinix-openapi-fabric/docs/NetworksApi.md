@@ -81,7 +81,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Successful operation |  -  |
+| **201** | Successful operation |  -  |
 | **202** | Fabric Network Access point object |  -  |
 | **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |

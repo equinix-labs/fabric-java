@@ -22,7 +22,7 @@ info:
     url: https://developer.equinix.com/agreement
   termsOfService: https://www.equinix.com/about/legal/terms
   title: Equinix Fabric API v4
-  version: "4.20"
+  version: "4.21"
 externalDocs:
   description: Find more information on Equinix Developer Portal
   url: https://developer.equinix.com
@@ -32,6 +32,8 @@ servers:
 security:
 - BearerAuth: []
 tags:
+- description: Cloud Events
+  name: Cloud Events
 - description: Cloud Routers
   name: Cloud Routers
 - description: Connections
@@ -60,13 +62,262 @@ tags:
   name: Service Tokens
 - description: Statistics
   name: Statistics
-- description: Stream Subscriptions <font color="red"> <sup color='red'>Beta</sup></font>
+- description: Stream Subscriptions
   name: Stream Alert Rules
-- description: Stream Subscriptions <font color="red"> <sup color='red'>Beta</sup></font>
+- description: Stream Subscriptions
   name: Stream Subscriptions
-- description: Streams <font color="red"> <sup color='red'>Beta</sup></font>
+- description: Streams
   name: Streams
 paths:
+  /fabric/v4/{asset}/{assetId}/cloudevents:
+    get:
+      description: This API provides capability to retrieve cloud events of an asset
+        id
+      operationId: getCloudEventByAssetId
+      parameters:
+      - description: asset
+        explode: false
+        in: path
+        name: asset
+        required: true
+        schema:
+          $ref: '#/components/schemas/CloudEventAssetType'
+        style: simple
+      - description: asset UUID
+        explode: false
+        in: path
+        name: assetId
+        required: true
+        schema:
+          $ref: '#/components/schemas/AssetId'
+        style: simple
+      - description: Start date and time
+        explode: true
+        in: query
+        name: fromDateTime
+        required: false
+        schema:
+          $ref: '#/components/schemas/StartDateTime'
+        style: form
+      - description: End date and time
+        explode: true
+        in: query
+        name: toDateTime
+        required: false
+        schema:
+          $ref: '#/components/schemas/EndDateTime'
+        style: form
+      - description: offset
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          $ref: '#/components/schemas/Offset'
+        style: form
+      - description: limit
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          $ref: '#/components/schemas/Limit'
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                Example:
+                  $ref: '#/components/examples/get-cloud-events-by-asset-id'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/GetCloudEventsByAssetResponse'
+          description: Successful operation
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/404'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
+      summary: Get Cloud Events by Asset Id
+      tags:
+      - Cloud Events
+      x-accepts: application/json
+  /fabric/v4/cloudevents/{cloudEventId}:
+    get:
+      description: This API provides capability to retrieve a cloud event by uuid
+      operationId: getCloudEvent
+      parameters:
+      - description: Cloud Event UUID
+        explode: false
+        in: path
+        name: cloudEventId
+        required: true
+        schema:
+          $ref: '#/components/schemas/CloudEventId'
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                CloudEventResponseExample:
+                  $ref: '#/components/examples/get-cloud-event'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/CloudEvent'
+          description: Cloud Event object
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/404'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
+      summary: Get Cloud Event
+      tags:
+      - Cloud Events
+      x-accepts: application/json
+  /fabric/v4/cloudevents/search:
+    post:
+      description: This API provides capability to search cloud events from a filtered
+        query
+      operationId: searchCloudEvents
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            examples:
+              CloudEventSearchRequestExample:
+                $ref: '#/components/examples/search-cloud-events'
+                value: null
+            schema:
+              $ref: '#/components/schemas/CloudEventSearchRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                Example:
+                  $ref: '#/components/examples/get-cloud-events-by-asset-id'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/GetCloudEventsByAssetResponse'
+          description: Successful operation
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/404'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
+      summary: Search Cloud Events
+      tags:
+      - Cloud Events
+      x-content-type: application/json
+      x-accepts: application/json
   /fabric/v4/connections:
     post:
       description: This API provides capability to create user's virtual connection
@@ -365,7 +616,7 @@ paths:
             application/json:
               examples:
                 Colo2Sp:
-                  $ref: '#/components/examples/ConnectionExample'
+                  $ref: '#/components/examples/ConnectionCreateResponse'
                   value: null
                 Colo2Sp-Google:
                   $ref: '#/components/examples/COLO2GoogleSPwithDot1q-Response'
@@ -713,6 +964,15 @@ paths:
         schema:
           $ref: '#/components/schemas/ConnectionId'
         style: simple
+      - description: option to verify that API calls will succeed
+        explode: true
+        in: query
+        name: dryRun
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
       requestBody:
         content:
           application/json-patch+json:
@@ -735,10 +995,23 @@ paths:
               ConnectionMigrationAsideRequestForVirtualDevice:
                 $ref: '#/components/examples/ConnectionMigrationAsideVirtualDeviceRequest'
                 value: null
+              ConnectionUpdateBandwidthRequestDryRun:
+                $ref: '#/components/examples/ConnectionUpdateBandwidthRequest'
+                value: null
             schema:
               $ref: '#/components/schemas/ConnectionUpdateRequest'
         required: true
       responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                connectionPatchExampleDryRun:
+                  $ref: '#/components/examples/ConnectionPatchResponseDryRun'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/Connection'
+          description: Successful operation
         "202":
           content:
             application/json:
@@ -754,6 +1027,19 @@ paths:
               operationId: getConnectionByUuid
               parameters:
                 connectionId: $response.body#/uuid
+        "400":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/400'
+                  value: null
+                dryRun:
+                  $ref: '#/components/examples/400_dry_run'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Bad request
         "401":
           content:
             application/json:
@@ -2719,7 +3005,7 @@ paths:
         name: startDateTime
         required: true
         schema:
-          $ref: '#/components/schemas/startDateTime'
+          $ref: '#/components/schemas/StartDateTime'
         style: form
       - description: endDateTime
         example: 2020-11-10T07:00:00Z
@@ -2728,7 +3014,7 @@ paths:
         name: endDateTime
         required: true
         schema:
-          $ref: '#/components/schemas/endDateTime'
+          $ref: '#/components/schemas/EndDateTime'
         style: form
       responses:
         "200":
@@ -2797,7 +3083,7 @@ paths:
         name: startDateTime
         required: true
         schema:
-          $ref: '#/components/schemas/startDateTime'
+          $ref: '#/components/schemas/StartDateTime'
         style: form
       - description: endDateTime
         example: 2020-11-10T07:00:00Z
@@ -2806,7 +3092,7 @@ paths:
         name: endDateTime
         required: true
         schema:
-          $ref: '#/components/schemas/endDateTime'
+          $ref: '#/components/schemas/EndDateTime'
         style: form
       - description: viewPoint
         example: aSide
@@ -3602,6 +3888,9 @@ paths:
                 tokenNetworkExample:
                   $ref: '#/components/examples/getServiceToken-Network'
                   value: null
+                tokenDryRunExample:
+                  $ref: '#/components/examples/getServiceToken-DryRun'
+                  value: null
               schema:
                 $ref: '#/components/schemas/ServiceToken'
           description: Successful operation
@@ -3611,6 +3900,9 @@ paths:
               examples:
                 example:
                   $ref: '#/components/examples/400_UUID'
+                  value: null
+                dryRunExample:
+                  $ref: '#/components/examples/400_dry_run'
                   value: null
               schema:
                 $ref: '#/components/schemas/ErrorList'
@@ -3667,6 +3959,9 @@ paths:
                 tokenNetworkExample:
                   $ref: '#/components/examples/getServiceToken-Network'
                   value: null
+                tokenDryRunExample:
+                  $ref: '#/components/examples/getServiceToken-DryRun'
+                  value: null
               schema:
                 $ref: '#/components/schemas/ServiceToken'
           description: Successful operation
@@ -3676,6 +3971,9 @@ paths:
               examples:
                 example:
                   $ref: '#/components/examples/400_UUID'
+                  value: null
+                dryRunExample:
+                  $ref: '#/components/examples/400_dry_run'
                   value: null
               schema:
                 $ref: '#/components/schemas/ErrorList'
@@ -3716,6 +4014,15 @@ paths:
         schema:
           $ref: '#/components/schemas/ServiceTokenUUID'
         style: simple
+      - description: option to verify that API calls will succeed
+        explode: true
+        in: query
+        name: dryRun
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
       requestBody:
         content:
           application/json-patch+json:
@@ -3738,6 +4045,12 @@ paths:
               UpdateZsideTokenBandwidth:
                 $ref: '#/components/examples/UpdateZsideTokenBandwidth'
                 value: null
+              UpdateAsideTokenBandwidthDryRun:
+                $ref: '#/components/examples/UpdateAsideTokenBandwidth'
+                value: null
+              UpdateZsideTokenBandwidthDryRun:
+                $ref: '#/components/examples/UpdateZsideTokenBandwidth'
+                value: null
             schema:
               $ref: '#/components/schemas/ServiceTokenUpdateRequest'
         required: true
@@ -3755,6 +4068,9 @@ paths:
                 tokenNetworkExample:
                   $ref: '#/components/examples/getServiceToken-Network'
                   value: null
+                tokenDryRunExample:
+                  $ref: '#/components/examples/getServiceToken-DryRun'
+                  value: null
               schema:
                 $ref: '#/components/schemas/ServiceToken'
           description: Successful operation
@@ -3764,6 +4080,9 @@ paths:
               examples:
                 example:
                   $ref: '#/components/examples/400_UUID'
+                  value: null
+                dryRunExample:
+                  $ref: '#/components/examples/400_dry_run'
                   value: null
               schema:
                 $ref: '#/components/schemas/ErrorList'
@@ -9631,6 +9950,465 @@ paths:
       tags:
       - Cloud Routers
       x-accepts: application/json
+  /fabric/v4/routers/{routerId}/commands:
+    get:
+      description: This API provides capability to fetch all commands
+      operationId: getAllCloudRouterCommands
+      parameters:
+      - description: Router UUID
+        explode: false
+        in: path
+        name: routerId
+        required: true
+        schema:
+          $ref: '#/components/schemas/RouterId_1'
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                getAllCommandsExample:
+                  $ref: '#/components/examples/GetAllPingCommandResponse'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/GetAllCloudRouterCommands'
+          description: Successful operation
+        "400":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/400_invalid_operation_commands'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403_commands'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/404_commands'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Not Found
+        "415":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/415_commands'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500_commands'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
+      summary: Get Commands
+      tags:
+      - Cloud Routers
+      x-accepts: application/json
+    post:
+      description: This API provides capability to initiate Command
+      operationId: createCloudRouterCommand
+      parameters:
+      - description: Router UUID
+        explode: false
+        in: path
+        name: routerId
+        required: true
+        schema:
+          $ref: '#/components/schemas/RouterId_1'
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            examples:
+              InitiatePingCommand:
+                $ref: '#/components/examples/PostRequestPingCommand'
+                value: null
+            schema:
+              $ref: '#/components/schemas/CloudRouterCommandPostRequest'
+        required: true
+      responses:
+        "202":
+          content:
+            application/json:
+              examples:
+                initiateCommandsExample:
+                  $ref: '#/components/examples/PostResponsePingCommand'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/CloudRouterCommand'
+          description: Successful operation
+        "400":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/400_invalid_operation_commands'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403_commands'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/404_commands'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Not Found
+        "415":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/415_commands'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500_commands'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
+      summary: Initiate Command
+      tags:
+      - Cloud Routers
+      x-content-type: application/json
+      x-accepts: application/json
+  /fabric/v4/routers/{routerId}/commands/search:
+    post:
+      description: This API provides capability to search commands
+      operationId: searchCloudRouterCommands
+      parameters:
+      - description: Router UUID
+        explode: false
+        in: path
+        name: routerId
+        required: true
+        schema:
+          $ref: '#/components/schemas/RouterId_1'
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            examples:
+              SearchByState:
+                $ref: '#/components/examples/SearchByStateRequest'
+                value: null
+            schema:
+              $ref: '#/components/schemas/CloudRouterCommandSearchRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                searchCommandsExample:
+                  $ref: '#/components/examples/SearchResponse'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/CloudRouterCommandSearchResponse'
+          description: Successful operation
+        "400":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/400_invalid_sorting_commands'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403_commands'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/404_commands'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Not Found
+        "415":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/415_commands'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500_commands'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
+      summary: Search Commands
+      tags:
+      - Cloud Routers
+      x-content-type: application/json
+      x-accepts: application/json
+  /fabric/v4/routers/{routerId}/commands/{commandId}:
+    delete:
+      description: This API provides capability to delete command based on command
+        Id
+      operationId: deleteCloudRouterCommandByUuid
+      parameters:
+      - description: Router UUID
+        explode: false
+        in: path
+        name: routerId
+        required: true
+        schema:
+          $ref: '#/components/schemas/RouterId_1'
+        style: simple
+      - description: Command UUID
+        explode: false
+        in: path
+        name: commandId
+        required: true
+        schema:
+          $ref: '#/components/schemas/CommandId'
+        style: simple
+      responses:
+        "204":
+          description: Deleted command successfully
+        "400":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/400_invalid_state_commands'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403_commands'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/404_commands'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Not Found
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500_commands'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
+      summary: Delete Command
+      tags:
+      - Cloud Routers
+      x-accepts: application/json
+    get:
+      description: This API provides capability to fetch command using command Id
+      operationId: getCloudRouterCommand
+      parameters:
+      - description: Router UUID
+        explode: false
+        in: path
+        name: routerId
+        required: true
+        schema:
+          $ref: '#/components/schemas/RouterId_1'
+        style: simple
+      - description: Command UUID
+        explode: false
+        in: path
+        name: commandId
+        required: true
+        schema:
+          $ref: '#/components/schemas/CommandId'
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                getCommandExample:
+                  $ref: '#/components/examples/GetResponsePingCommand'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/CloudRouterCommand'
+          description: Successful operation
+        "400":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/400_invalid_operation_commands'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Bad request
+        "401":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/401'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/403_commands'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/404_commands'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Not Found
+        "415":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/415_commands'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
+        "500":
+          content:
+            application/json:
+              examples:
+                example:
+                  $ref: '#/components/examples/500_commands'
+                  value: null
+              schema:
+                $ref: '#/components/schemas/ErrorList'
+          description: Internal server error
+      summary: Get Command
+      tags:
+      - Cloud Routers
+      x-accepts: application/json
   /fabric/v4/routers/{routerId}/routes/search:
     post:
       description: "The API provides capability to get list of user's Fabric Cloud\
@@ -10183,14 +10961,41 @@ paths:
         content:
           application/json:
             examples:
-              CreateGlobalNetwork:
-                $ref: '#/components/examples/CreateGlobalNetwork'
+              Create-Global-EVPLAN-Network:
+                $ref: '#/components/examples/Create-Global-EVPLAN-Network'
                 value: null
-              CreateRegionalNetwork:
-                $ref: '#/components/examples/CreateRegionalNetwork'
+              Create-Regional-EVPLAN-Network:
+                $ref: '#/components/examples/Create-Regional-EVPLAN-Network'
                 value: null
-              CreateLocalNetwork:
-                $ref: '#/components/examples/CreateLocalNetwork'
+              Create-Local-EVPLAN-Network:
+                $ref: '#/components/examples/Create-Local-EVPLAN-Network'
+                value: null
+              Create-Global-EPLAN-Network:
+                $ref: '#/components/examples/Create-Global-EPLAN-Network'
+                value: null
+              Create-Regional-EPLAN-Network:
+                $ref: '#/components/examples/Create-Regional-EPLAN-Network'
+                value: null
+              Create-Local-EPLAN-Network:
+                $ref: '#/components/examples/Create-Local-EPLAN-Network'
+                value: null
+              Create-Global-EVPTREE-Network:
+                $ref: '#/components/examples/Create-Global-EVPTREE-Network'
+                value: null
+              Create-Regional-EVPTREE-Network:
+                $ref: '#/components/examples/Create-Regional-EVPTREE-Network'
+                value: null
+              Create-Local-EVPTREE-Network:
+                $ref: '#/components/examples/Create-Local-EVPTREE-Network'
+                value: null
+              Create-Global-EPTREE-Network:
+                $ref: '#/components/examples/Create-Global-EPTREE-Network'
+                value: null
+              Create-Regional-EPTREE-Network:
+                $ref: '#/components/examples/Create-Regional-EPTREE-Network'
+                value: null
+              Create-Local-EPTREE-Network:
+                $ref: '#/components/examples/Create-Local-EPTREE-Network'
                 value: null
               NetworkDryRunCreate:
                 $ref: '#/components/examples/CreateNetworkDryRunResponse'
@@ -10199,10 +11004,46 @@ paths:
               $ref: '#/components/schemas/NetworkPostRequest'
         required: true
       responses:
-        "200":
+        "201":
           content:
             application/json:
               examples:
+                EVPLAN-Global-Network:
+                  $ref: '#/components/examples/Create-Global-EVPLAN-Network-Response'
+                  value: null
+                EVPLAN-Regional-Network:
+                  $ref: '#/components/examples/Create-Regional-EVPLAN-Network-Response'
+                  value: null
+                EVPLAN-Local-Network:
+                  $ref: '#/components/examples/Create-Local-EVPLAN-Network-Response'
+                  value: null
+                EPLAN-Global-Network:
+                  $ref: '#/components/examples/Create-Global-EPLAN-Network-Response'
+                  value: null
+                EPLAN-Regional-Network:
+                  $ref: '#/components/examples/Create-Regional-EPLAN-Network-Response'
+                  value: null
+                EPLAN-Local-Network:
+                  $ref: '#/components/examples/Create-Local-EPLAN-Network-Response'
+                  value: null
+                EVPTREE-Global-Network:
+                  $ref: '#/components/examples/Create-Global-EVPTREE-Network-Response'
+                  value: null
+                EVPTREE-Regional-Network:
+                  $ref: '#/components/examples/Create-Regional-EVPTREE-Network-Response'
+                  value: null
+                EVPTREE-Local-Network:
+                  $ref: '#/components/examples/Create-Local-EVPTREE-Network-Response'
+                  value: null
+                EPTREE-Global-Network:
+                  $ref: '#/components/examples/Create-Global-EPTREE-Network-Response'
+                  value: null
+                EPTREE-Regional-Network:
+                  $ref: '#/components/examples/Create-Regional-EPTREE-Network-Response'
+                  value: null
+                EPTREE-Local-Network:
+                  $ref: '#/components/examples/Create-Local-EPTREE-Network-Response'
+                  value: null
                 networkDryRun:
                   $ref: '#/components/examples/CreateNetworkDryRunResponse'
                   value: null
@@ -12488,7 +13329,7 @@ paths:
         name: assetId
         required: true
         schema:
-          $ref: '#/components/schemas/AssetId'
+          $ref: '#/components/schemas/AssetId_1'
         style: simple
       - description: asset
         explode: false
@@ -12578,7 +13419,7 @@ paths:
         name: assetId
         required: true
         schema:
-          $ref: '#/components/schemas/AssetId'
+          $ref: '#/components/schemas/AssetId_1'
         style: simple
       - description: asset
         explode: false
@@ -12667,7 +13508,7 @@ paths:
         name: assetId
         required: true
         schema:
-          $ref: '#/components/schemas/AssetId'
+          $ref: '#/components/schemas/AssetId_1'
         style: simple
       - description: asset
         explode: false
@@ -13807,14 +14648,16 @@ components:
         correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
     "403":
       value:
-      - errorCode: EQ-3142402
-        errorMessage: Do not have create connection permission on this port
-        correlationId: cebc3d33-9037-4a2b-a7af-0ad65602cdec
+      - errorCode: EQ-3040047
+        errorMessage: Operation not allowed
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+        details: Operation not allowed for current user
     "404":
       value:
-      - errorCode: EQ-3000036
-        errorMessage: Requested path doesn't exists
-        correlationId: cebc3d33-9037-4a2b-a7af-0ad65602cdec
+      - errorCode: EQ-3040020
+        errorMessage: uuid not found
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+        details: uuid not found
     "405":
       value:
       - errorCode: EQ-3142569
@@ -13832,11 +14675,135 @@ components:
           reason: The payload format is in an unsupported format
     "500":
       value:
-      - errorCode: EQ-3034003
-        errorMessage: "Method not supported,Please check the URL passed"
+      - errorCode: EQ-3040030
+        errorMessage: Internal Server Error
         correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
-        additionalInfo:
-        - reason: method:PATCH
+        details: Internal Server Error
+    get-cloud-events-by-asset-id:
+      value:
+        pagination:
+          offset: 20
+          limit: 10
+          total: 3
+          next: null
+          previous: null
+        data:
+        - specversion: "1.0"
+          source: https://api.equinix.com/fabric/v4/events
+          id: 66c62c1a-f186-4fbd-9792-71a60705518f
+          time: 2025-03-20T13:13:12Z
+          type: equinix.fabric.connection.bgpipv4_session_status.connect
+          subject: /fabric/v4/connections/dab9fc84-cc95-4cb4-abe3-ca39361285a9/routingProtocol/e92cdf09-59eb-4131-ade4-49a87dc816dc
+          dataschema: https://equinix.github.io/equinix-cloudevents/jsonschema/equinix/fabric/v1/ChangeEvent.json
+          datacontenttype: application/json
+          severitynumber: 5
+          severitytext: INFO
+          equinixproject: dadd3ab6-c0af-430c-8216-43d44f08c1c5
+          authtype: system
+          authid: equinix
+          data:
+            message: Neighbor 100.100.100.102 address session state changed to Connect
+            auth:
+              type: system
+              id: equinix
+        - specversion: "1.0"
+          source: https://api.equinix.com/fabric/v4/cloudevents
+          id: 66c62c1a-f186-4fbd-9792-71a60705518f
+          type: equinix.fabric.connection.state.provisioning
+          subject: /fabric/v4/connections/dab9fc84-cc95-4cb4-abe3-ca39361285a9
+          time: 2025-03-20T13:13:12Z
+          dataschema: https://equinix.github.io/equinix-cloudevents/jsonschema/equinix/fabric/v1/ChangeEvent.json
+          datacontenttype: application/json
+          severitynumber: 9
+          severitytext: INFO
+          equinixproject: dadd3ab6-c0af-430c-8216-43d44f08c1c5
+          authtype: user
+          authid: 123456
+          data:
+            message: Connection named TEST-CONNECTION state changed to provisioning
+            resource:
+              href: http://api.corp.equinix.com/fabric/v4/connections/dab9fc84-cc95-4cb4-abe3-ca39361285a9
+              uuid: dab9fc84-cc95-4cb4-abe3-ca39361285a9
+              type: IP_VC
+              name: TEST-CONNECTION
+              state: PROVISIONING
+            auth:
+              type: user
+              id: 123456
+              name: test user
+              email: testuser@test.com
+        - specversion: "1.0"
+          source: https://api.equinix.com/fabric/v4/cloudevents
+          id: 66c62c1a-f186-4fbd-9792-71a60705518f
+          type: equinix.fabric.connection.state.provisioned
+          subject: /fabric/v4/connections/dab9fc84-cc95-4cb4-abe3-ca39361285a9
+          time: 2025-03-20T13:13:12Z
+          dataschema: https://equinix.github.io/equinix-cloudevents/jsonschema/equinix/fabric/v1/ChangeEvent.json
+          datacontenttype: application/json
+          severitynumber: 9
+          severitytext: INFO
+          equinixproject: dadd3ab6-c0af-430c-8216-43d44f08c1c5
+          authtype: system
+          authid: equinix
+          data:
+            message: Connection named TEST-CONNECTION state changed to provisioned
+            resource:
+              href: http://api.corp.equinix.com/fabric/v4/connections/dab9fc84-cc95-4cb4-abe3-ca39361285a9
+              uuid: dab9fc84-cc95-4cb4-abe3-ca39361285a9
+              type: IP_VC
+              name: TEST-CONNECTION
+              state: PROVISIONED
+            auth:
+              type: system
+              id: equinix
+    get-cloud-event:
+      value:
+        specversion: "1.0"
+        source: https://api.equinix.com/fabric/v4/cloudevents
+        id: 66c62c1a-f186-4fbd-9792-71a60705518f
+        type: equinix.fabric.connection.state.provisioning
+        subject: /fabric/v4/connections/dab9fc84-cc95-4cb4-abe3-ca39361285a9
+        time: 2025-03-20T13:13:12Z
+        dataschema: https://equinix.github.io/equinix-cloudevents/jsonschema/equinix/fabric/v1/ChangeEvent.json
+        datacontenttype: application/json
+        severitynumber: 9
+        severitytext: INFO
+        equinixproject: dadd3ab6-c0af-430c-8216-43d44f08c1c5
+        authtype: user
+        authid: 123456
+        data:
+          message: Connection named TEST-CONNECTION state changed to provisioning
+          resource:
+            href: http://api.corp.equinix.com/fabric/v4/connections/dab9fc84-cc95-4cb4-abe3-ca39361285a9
+            uuid: dab9fc84-cc95-4cb4-abe3-ca39361285a9
+            type: IP_VC
+            name: TEST-CONNECTION
+            state: PROVISIONING
+          auth:
+            type: user
+            id: 123456
+            name: test user
+            email: testuser@test.com
+    search-cloud-events:
+      value:
+        filter:
+          and:
+          - property: /type
+            operator: IN
+            values:
+            - equinix.fabric.port.status.*
+          - property: /subject
+            operator: IN
+            values:
+            - /fabric/v4/ports/8ac8ecfe-c7cb-4def-9f77-5ce93c19d83d*
+            - /fabric/v4/ports/c8bba3be-5132-4669-bb47-7f1a8811359b*
+          - property: /time
+            operator: '>'
+            values:
+            - 2018-04-05T17:31:00.000Z
+        pagination:
+          offset: 0
+          limit: 20
     COLO2COLOwithDot1q-Dot1q:
       value:
         type: EVPL_VC
@@ -16293,7 +17260,7 @@ components:
         - type: ALL
           emails:
           - test@test.com
-    ConnectionExample:
+    ConnectionCreateResponse:
       value:
         href: https://api.equinix.com/fabric/v4/connections/3a58dd05-f46d-4b1d-a154-2e85c396ea62
         type: EVPL_VC
@@ -16325,8 +17292,8 @@ components:
               metroHref: https://api.equinix.com/fabric/v4/metros/MX
               metroCode: MX
         operation:
-          providerStatus: AVAILABLE
-          equinixStatus: PROVISIONED
+          providerStatus: PROVISIONING
+          equinixStatus: PROVISIONING
         changeLog:
           createdDateTime: 2020-05-21T10:30:00Z
     COLO2GoogleSPwithDot1q-Response:
@@ -16818,8 +17785,8 @@ components:
               type: DOT1Q
               vlanTag: 1001
         operation:
-          equinixStatus: PROVISIONING
-          providerStatus: PROVISIONING
+          equinixStatus: PENDING_INTERFACE_CONFIGURATION
+          providerStatus: NOT_AVAILABLE
         notifications:
         - type: ALL
           emails:
@@ -19567,6 +20534,57 @@ components:
           interface:
             type: CLOUD
             id: 4
+    ConnectionPatchResponseDryRun:
+      value:
+        href: https://api.equinix.com/fabric/v4/connections/3a58dd05-f46d-4b1d-a154-2e85c396ea62
+        type: EVPL_VC
+        uuid: 3a58dd05-f46d-4b1d-a154-2e85c396ea62
+        name: My-Layer2-Connection-2
+        bandwidth: 1000
+        direction: OUTGOING
+        isRemote: true
+        redundancy:
+          group: 66c10a60-789e-4b25-b85c-7eb225a4c344
+          priority: PRIMARY
+        aSide:
+          accessPoint:
+            type: COLO
+            port:
+              href: https://api.equinix.com/fabric/v4/ports/a00cef6f-8e35-4794-9ff9-665e084e4e6d
+              uuid: a00cef6f-8e35-4794-9ff9-665e084e4e6d
+            linkProtocol:
+              type: DOT1Q
+              vlanTag: 1001
+        zSide:
+          accessPoint:
+            type: SP
+            profile:
+              href: https://api.equinix.com/fabric/v4/serviceProfiles/22d4e853-ef33-4ff0-b5b2-a2b1d5dfa50c
+              uuid: 22d4e853-ef33-4ff0-b5b2-a2b1d5dfa50c
+              type: L2_PROFILE
+            location:
+              metroHref: https://api.equinix.com/fabric/v4/metros/MX
+              metroCode: MX
+            linkProtocol:
+              type: DOT1Q
+              vlanTag: 1001
+        operation:
+          providerStatus: PROVISIONED
+          equinixStatus: PROVISIONED
+        change:
+          type: CONNECTION_UPDATE
+          status: APPROVED
+          createdDateTime: 2021-12-12T06:00:01.183Z
+          data:
+            op: replace
+            path: /aSide/accessPoint/port/uuid
+            value: c791f8cb-58f9-8f90-8ce0-306a5c00a4ee
+        changeLog:
+          createdDateTime: 2020-04-21T10:30:00Z
+        account:
+          accountNumber: 270001
+          orgId: 91997
+          globalOrgId: 3453453cccc
     ConnectionPatchResponse:
       value:
         href: https://api.equinix.com/fabric/v4/connections/3a58dd05-f46d-4b1d-a154-2e85c396ea62
@@ -19854,11 +20872,11 @@ components:
     RoutingProtocolCreateBGPResponse:
       value:
         href: https://api.equinix.com/fabric/v4/connections/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170/routingProtocols/557400f8-d360-11e9-bb65-2a2ae2dbcce4
-        uuid: c9b8e7a2-f3b1-4576-a4a9-1366a63df170
+        uuid: 557400f8-d360-11e9-bb65-2a2ae2dbcce4
         state: PROVISIONING
         change:
-          uuid: 3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
           href: https://api.equinix.com/fabric/v4/connections/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170/routingProtocols/557400f8-d360-11e9-bb65-2a2ae2dbcce4/changes/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
+          uuid: 3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
           type: ROUTING_PROTOCOL_CREATION
         changelog:
           createdBy: abc@xyz.com
@@ -22947,6 +23965,40 @@ components:
           createdDateTime: 2021-03-18T06:43:49.980Z
           updatedBy: "843577"
           updatedDateTime: 2021-03-18T06:44:14.206Z
+    getServiceToken-DryRun:
+      value:
+        href: https://api.equinix.com/fabric/v4/serviceTokens/ea40918e-9b39-4045-8be8-0beaa7eb5ce1
+        type: VC_TOKEN
+        uuid: ea40918e-9b39-4045-8be8-0beaa7eb5ce1
+        name: My-Token
+        state: INACTIVE
+        expiryDateTime: 2020-05-31T10:30:00Z
+        connection:
+          type: EVPL_VC
+          bandwidthLimit: 100
+          allowRemoteConnection: false
+          allowCustomBandwidth: false
+          aSide:
+            accessPointSelectors:
+            - type: COLO
+              port:
+                href: http://api.equinix.com/fabric/v4/ports/b840a1db-5758-758f-97e0-328a5c00a874
+                type: XF_PORT
+                uuid: b840a1db-5758-758f-97e0-328a5c00a874
+              linkProtocol:
+                type: QINQ
+                vlanCTag: 1399
+                vlanSTag: 1388
+        account:
+          orgId: 111437
+        notifications:
+        - type: NOTIFICATION
+          emails:
+          - user1@example.com
+          - user2@example.com
+        changeLog:
+          createdBy: 843577
+          createdDateTime: 2020-05-21T10:30:00Z
     "400_UUID":
       value:
       - errorCode: EQ-3034016
@@ -26547,6 +27599,294 @@ components:
         correlationId: cebc3d33-9037-4a2b-a7af-0ad65602cdec
         additionalInfo:
         - reason: Only accept DESC and ASC for sorting direction.
+    GetAllPingCommandResponse:
+      value:
+        pagination:
+          offset: 20
+          limit: 20
+          total: 100
+          next: /search?offset=40&limit=20
+          previous: /search?offset=0&limit=20
+        data:
+          href: https://api.equinix.com/fabric/v4/routers/9b8c5042-b553-4d5e-a2ac-c73bf6d4fd81/commands/37c10edc-ba2e-4240-a850-8a48f9c47d00
+          type: PING_COMMAND
+          uuid: 37c10edc-ba2e-4240-a850-8a48f9c47d00
+          name: ping-test-1
+          description: Testing FCR-SV-1
+          state: SUCCEEDED
+          project:
+            projectId: b11d4cb5-978a-418a-8b13-bf19abb97938
+          request:
+            destination: 8.8.8.8
+            sourceConnection:
+              uuid: 1da3778c-6aa3-4e47-b2fe-83a0773dde18
+            timeout: 5
+            dataBytes: 100
+            count: 5
+            interval: 1000
+          response:
+            output: "PING 8.8.8.8 (8.8.8.8): 100 data bytes\n108 bytes from 8.8.8.8:\
+              \ icmp_seq=0 ttl=117 time=9.839 ms\n108 bytes from 8.8.8.8: icmp_seq=1\
+              \ ttl=117 time=16.051 ms\n108 bytes from 8.8.8.8: icmp_seq=2 ttl=117\
+              \ time=9.271 ms\n108 bytes from 8.8.8.8: icmp_seq=3 ttl=117 time=26.771\
+              \ ms \n--- 8.8.8.8 ping statistics ---\n4 packets transmitted, 4 packets\
+              \ received, 0.0% packet loss\nround-trip min/avg/max/stddev = 9.271/15.483/26.771/7.039\
+              \ ms"
+            outputStructuredPing:
+              destinationIp: 8.8.8.8
+              destinationName: 8.8.8.8
+              dataBytes: 100
+              packetsTransmitted: 4
+              packetsReceived: 4
+              packetsLossPercent: 0
+              rttMin: 9.271
+              rttAvg: 15.483
+              rttMax: 26.771
+              rttStdDev: 7.039
+              responses:
+              - bytes: 100
+                ip: 8.8.8.8
+                icmpSeq: 0
+                ttl: 117
+                time: 9.839
+              - bytes: 100
+                ip: 8.8.8.8
+                icmpSeq: 1
+                ttl: 117
+                time: 16.051
+              - bytes: 100
+                ip: 8.8.8.8
+                icmpSeq: 2
+                ttl: 117
+                time: 9.271
+              - bytes: 100
+                ip: 8.8.8.8
+                icmpSeq: 3
+                ttl: 117
+                time: 26.771
+          changeLog:
+            createdBy: testuser
+            createdDateTime: 2020-05-21T10:30:00Z
+    "400_invalid_operation_commands":
+      value:
+      - errorCode: EQ-3043002
+        errorMessage: Invalid argument passed
+        correlationId: cebc3d33-9037-4a2b-a7af-0ad65602cdec
+        details: Invalid argument passed
+    "403_commands":
+      value:
+      - errorCode: EQ-3043006
+        errorMessage: The system is unable to process your request.
+        correlationId: cebc3d33-9037-4a2b-a7af-0ad65602cdec
+        details: The system is unable to process your request.
+    "404_commands":
+      value:
+      - errorCode: EQ-3043022
+        errorMessage: Cloud router command not found
+        correlationId: cebc3d33-9037-4a2b-a7af-0ad65602cdec
+        details: Cloud router command not found
+    "415_commands":
+      value:
+      - errorCode: EQ-3043029
+        errorMessage: Unsupported media type
+        correlationId: cebc3d33-9037-4a2b-a7af-0ad65602cdec
+        details: Content type application/json not supported.
+    "500_commands":
+      value:
+      - errorCode: EQ-3043005
+        errorMessage: Internal server error
+        correlationId: cebc3d33-9037-4a2b-a7af-0ad65602cdec
+        details: Internal server error
+    PostRequestPingCommand:
+      value:
+        type: PING_COMMAND
+        name: ping-test-1
+        description: Testing FCR-SV-1
+        project:
+          projectId: b11d4cb5-978a-418a-8b13-bf19abb97938
+        request:
+          destination: 8.8.8.8
+          sourceConnection:
+            uuid: 1da3778c-6aa3-4e47-b2fe-83a0773dde18
+          timeout: 2
+          dataBytes: 100
+    PostResponsePingCommand:
+      value:
+        href: https://api.equinix.com/fabric/v4/routers/9b8c5042-b553-4d5e-a2ac-c73bf6d4fd81/commands/37c10edc-ba2e-4240-a850-8a48f9c47d00
+        type: PING_COMMAND
+        uuid: 37c10edc-ba2e-4240-a850-8a48f9c47d00
+        name: ping-test-1
+        description: Testing FCR-SV-1
+        state: PENDING
+        project:
+          projectId: b11d4cb5-978a-418a-8b13-bf19abb97938
+        request:
+          destination: 8.8.8.8
+          sourceConnection:
+            uuid: 1da3778c-6aa3-4e47-b2fe-83a0773dde18
+          timeout: 2
+          dataBytes: 100
+          count: 5
+          interval: 1000
+        changeLog:
+          createdBy: testuser
+          createdDateTime: 2020-05-21T10:30:00Z
+    SearchByStateRequest:
+      value:
+        filter:
+          and:
+          - property: /state
+            operator: =
+            values:
+            - SUCCEEDED
+        pagination:
+          offset: 0
+          limit: 20
+        sort:
+        - direction: DESC
+          property: /changeLog/createdDateTime
+    SearchResponse:
+      value:
+        pagination:
+          offset: 20
+          limit: 20
+          total: 100
+          next: /search?offset=40&limit=20
+          previous: /search?offset=0&limit=20
+        data:
+          href: https://api.equinix.com/fabric/v4/routers/9b8c5042-b553-4d5e-a2ac-c73bf6d4fd81/commands/37c10edc-ba2e-4240-a850-8a48f9c47d00
+          type: PING_COMMAND
+          uuid: 37c10edc-ba2e-4240-a850-8a48f9c47d00
+          name: ping-test-1
+          description: Testing FCR-SV-1
+          state: SUCCEEDED
+          project:
+            projectId: b11d4cb5-978a-418a-8b13-bf19abb97938
+          request:
+            destination: 8.8.8.8
+            sourceConnection:
+              uuid: 1da3778c-6aa3-4e47-b2fe-83a0773dde18
+            timeout: 2
+            dataBytes: 100
+            count: 5
+            interval: 1000
+          response:
+            output: "PING 8.8.8.8 (8.8.8.8): 100 data bytes\n108 bytes from 8.8.8.8:\
+              \ icmp_seq=0 ttl=117 time=9.839 ms\n108 bytes from 8.8.8.8: icmp_seq=1\
+              \ ttl=117 time=16.051 ms\n108 bytes from 8.8.8.8: icmp_seq=2 ttl=117\
+              \ time=9.271 ms\n108 bytes from 8.8.8.8: icmp_seq=3 ttl=117 time=26.771\
+              \ ms \n--- 8.8.8.8 ping statistics ---\n4 packets transmitted, 4 packets\
+              \ received, 0.0% packet loss\nround-trip min/avg/max/stddev = 9.271/15.483/26.771/7.039\
+              \ ms"
+            outputStructuredPing:
+              destinationIp: 8.8.8.8
+              destinationName: 8.8.8.8
+              dataBytes: 100
+              packetsTransmitted: 4
+              packetsReceived: 4
+              packetsLossPercent: 0
+              rttMin: 9.271
+              rttAvg: 15.483
+              rttMax: 26.771
+              rttStdDev: 7.039
+              responses:
+              - bytes: 100
+                ip: 8.8.8.8
+                icmpSeq: 0
+                ttl: 117
+                time: 9.839
+              - bytes: 100
+                ip: 8.8.8.8
+                icmpSeq: 1
+                ttl: 117
+                time: 16.051
+              - bytes: 100
+                ip: 8.8.8.8
+                icmpSeq: 2
+                ttl: 117
+                time: 9.271
+              - bytes: 100
+                ip: 8.8.8.8
+                icmpSeq: 3
+                ttl: 117
+                time: 26.771
+          changeLog:
+            createdBy: testuser
+            createdDateTime: 2020-05-21T10:30:00Z
+    "400_invalid_sorting_commands":
+      value:
+      - errorCode: EQ-3043015
+        errorMessage: Invalid value for sorting direction.
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+        additionalInfo:
+        - reason: Only accept DESC and ASC for sorting direction.
+    GetResponsePingCommand:
+      value:
+        href: https://api.equinix.com/fabric/v4/routers/9b8c5042-b553-4d5e-a2ac-c73bf6d4fd81/commands/37c10edc-ba2e-4240-a850-8a48f9c47d00
+        type: PING_COMMAND
+        uuid: 37c10edc-ba2e-4240-a850-8a48f9c47d00
+        name: ping-test-1
+        description: Testing FCR-SV-1
+        state: SUCCEEDED
+        project:
+          projectId: b11d4cb5-978a-418a-8b13-bf19abb97938
+        request:
+          destination: 8.8.8.8
+          sourceConnection:
+            uuid: 1da3778c-6aa3-4e47-b2fe-83a0773dde18
+          timeout: 2
+          dataBytes: 100
+          count: 5
+          interval: 1000
+        response:
+          output: "PING 8.8.8.8 (8.8.8.8): 100 data bytes\n108 bytes from 8.8.8.8:\
+            \ icmp_seq=0 ttl=117 time=9.839 ms\n108 bytes from 8.8.8.8: icmp_seq=1\
+            \ ttl=117 time=16.051 ms\n108 bytes from 8.8.8.8: icmp_seq=2 ttl=117 time=9.271\
+            \ ms\n108 bytes from 8.8.8.8: icmp_seq=3 ttl=117 time=26.771 ms \n---\
+            \ 8.8.8.8 ping statistics ---\n4 packets transmitted, 4 packets received,\
+            \ 0.0% packet loss\nround-trip min/avg/max/stddev = 9.271/15.483/26.771/7.039\
+            \ ms"
+          outputStructuredPing:
+            destinationIp: 8.8.8.8
+            destinationName: 8.8.8.8
+            dataBytes: 100
+            packetsTransmitted: 4
+            packetsReceived: 4
+            packetsLossPercent: 0
+            rttMin: 9.271
+            rttAvg: 15.483
+            rttMax: 26.771
+            rttStdDev: 7.039
+            responses:
+            - bytes: 100
+              ip: 8.8.8.8
+              icmpSeq: 0
+              ttl: 117
+              time: 9.839
+            - bytes: 100
+              ip: 8.8.8.8
+              icmpSeq: 1
+              ttl: 117
+              time: 16.051
+            - bytes: 100
+              ip: 8.8.8.8
+              icmpSeq: 2
+              ttl: 117
+              time: 9.271
+            - bytes: 100
+              ip: 8.8.8.8
+              icmpSeq: 3
+              ttl: 117
+              time: 26.771
+        changeLog:
+          createdBy: testuser
+          createdDateTime: 2020-05-21T10:30:00Z
+    "400_invalid_state_commands":
+      value:
+      - errorCode: EQ-3043023
+        errorMessage: Cannot delete Command in pending state
+        correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+        details: Cannot delete Fabric Cloud Router in transient state.
     SearchFilterByNextHop:
       value:
         filter:
@@ -27371,18 +28711,18 @@ components:
             href: https://api.equinix.com/fabric/v4/routers/e2e99d48-66b8-4b80-84eb-daea190e9186
             type: XF_ROUTER
             uuid: e2e99d48-66b8-4b80-84eb-daea190e9186
-    CreateGlobalNetwork:
+    Create-Global-EVPLAN-Network:
       value:
         type: EVPLAN
         name: My-Network-1
         scope: GLOBAL
         project:
-          projectId: "1234567"
+          projectId: d64fa54a-cfcb-4fb0-82ee-86cf47007fa2
         notifications:
         - type: ALL
           emails:
           - test@equinix.com
-    CreateRegionalNetwork:
+    Create-Regional-EVPLAN-Network:
       value:
         type: EVPLAN
         name: My-Network-1
@@ -27390,18 +28730,123 @@ components:
         location:
           region: EMEA
         project:
-          projectId: "1234567"
+          projectId: d64fa54a-cfcb-4fb0-82ee-86cf47007fa2
         notifications:
         - type: ALL
           emails:
           - test@equinix.com
-    CreateLocalNetwork:
+    Create-Local-EVPLAN-Network:
       value:
         type: EVPLAN
         name: My-Network-1
         scope: LOCAL
         project:
-          projectId: "1234567"
+          projectId: d64fa54a-cfcb-4fb0-82ee-86cf47007fa2
+        notifications:
+        - type: ALL
+          emails:
+          - test@equinix.com
+    Create-Global-EPLAN-Network:
+      value:
+        type: EPLAN
+        name: My-EPLAN-Network-1
+        scope: GLOBAL
+        project:
+          projectId: d64fa54a-cfcb-4fb0-82ee-86cf47007fa2
+        notifications:
+        - type: ALL
+          emails:
+          - test@equinix.com
+    Create-Regional-EPLAN-Network:
+      value:
+        type: EPLAN
+        name: My-EPLAN-Network-1
+        scope: REGIONAL
+        location:
+          region: EMEA
+        project:
+          projectId: d64fa54a-cfcb-4fb0-82ee-86cf47007fa2
+        notifications:
+        - type: ALL
+          emails:
+          - test@equinix.com
+    Create-Local-EPLAN-Network:
+      value:
+        type: EPLAN
+        name: My-EPLAN-Network-1
+        scope: LOCAL
+        project:
+          projectId: d64fa54a-cfcb-4fb0-82ee-86cf47007fa2
+        notifications:
+        - type: ALL
+          emails:
+          - test@equinix.com
+    Create-Global-EVPTREE-Network:
+      value:
+        type: EVPTREE
+        name: My-EVPTREE-Network-1
+        scope: GLOBAL
+        project:
+          projectId: d64fa54a-cfcb-4fb0-82ee-86cf47007fa2
+        notifications:
+        - type: ALL
+          emails:
+          - test@equinix.com
+    Create-Regional-EVPTREE-Network:
+      value:
+        type: EVPTREE
+        name: My-EVPTREE-Network-1
+        scope: REGIONAL
+        location:
+          region: AMER
+        project:
+          projectId: d64fa54a-cfcb-4fb0-82ee-86cf47007fa2
+        notifications:
+        - type: ALL
+          emails:
+          - test@equinix.com
+    Create-Local-EVPTREE-Network:
+      value:
+        type: EVPTREE
+        name: My-EVPTREE-Network-1
+        scope: LOCAL
+        project:
+          projectId: d64fa54a-cfcb-4fb0-82ee-86cf47007fa2
+        notifications:
+        - type: ALL
+          emails:
+          - test@equinix.com
+    Create-Global-EPTREE-Network:
+      value:
+        type: EPTREE
+        name: My-EPTREE-Network-1
+        scope: GLOBAL
+        project:
+          projectId: d64fa54a-cfcb-4fb0-82ee-86cf47007fa2
+        notifications:
+        - type: ALL
+          emails:
+          - test@equinix.com
+    Create-Regional-EPTREE-Network:
+      value:
+        type: EPTREE
+        name: My-EPTREE-Network-1
+        scope: REGIONAL
+        location:
+          region: AMER
+        project:
+          projectId: d64fa54a-cfcb-4fb0-82ee-86cf47007fa2
+        notifications:
+        - type: ALL
+          emails:
+          - test@equinix.com
+    Create-Local-EPTREE-Network:
+      value:
+        type: EPTREE
+        name: My-EPTREE-Network-1
+        scope: LOCAL
+        project:
+          projectId: d64fa54a-cfcb-4fb0-82ee-86cf47007fa2
         notifications:
         - type: ALL
           emails:
@@ -27417,6 +28862,446 @@ components:
         - type: ALL
           emails:
           - test@equinix.com
+    Create-Global-EVPLAN-Network-Response:
+      value:
+        href: http://api.corp.equinix.com/fabric/v4/networks/0633e83f-116f-481d-b86f-c472271d1a8c
+        uuid: 0633e83f-116f-481d-b86f-c472271d1a8c
+        type: EVPLAN
+        name: My-evplan-network-1
+        scope: GLOBAL
+        state: INACTIVE
+        connectionsCount: 0
+        account:
+          orgId: 14510
+          organizationName: fabric
+          globalCustId: 0026u00000595sBAAM
+        change:
+          href: http://api.corp.equinix.com/fabric/v4/networks/0633e83f-116f-481d-b86f-c472271d1a8c/changes/ce7c0bbc-7bd2-431f-903f-de796ea9e858
+          uuid: ce7c0bbc-7bd2-431f-903f-de796ea9e858
+          type: NETWORK_CREATION
+        operation:
+          equinixStatus: PROVISIONING
+        changeLog:
+          createdBy: fabric
+          createdByFullName: fabric fabric
+          createdByEmail: fabric@gmail.com
+          createdDateTime: 2025-03-03T19:37:29.326Z
+        links:
+          href: http://api.corp.equinix.com/fabric/v4/networks/0633e83f-116f-481d-b86f-c472271d1a8c/connections
+          rel: getConnectionsByNetworkUuid
+          method: GET
+          contentType: application/json
+          authenticate: true
+        project:
+          projectId: d64fa54a-cfcb-4fb0-82ee-86cf47007fa2
+        notifications:
+        - type: ALL
+          emails:
+          - fabric@gmail.com
+    Create-Regional-EVPLAN-Network-Response:
+      value:
+        href: http://api.corp.equinix.com/fabric/v4/networks/884254b7-237d-44f7-af0f-84ba324350ef
+        uuid: 884254b7-237d-44f7-af0f-84ba324350ef
+        type: EVPLAN
+        name: My-evplan-network-1
+        scope: REGIONAL
+        location:
+          region: AMER
+        state: INACTIVE
+        connectionsCount: 0
+        account:
+          orgId: 14510
+          organizationName: fabric
+          globalCustId: 0026u00000595sBAAM
+        change:
+          href: http://api.corp.equinix.com/fabric/v4/networks/884254b7-237d-44f7-af0f-84ba324350ef/changes/741c0927-d9ed-405b-a4f2-cb61d0dda2c5
+          uuid: 741c0927-d9ed-405b-a4f2-cb61d0dda2c5
+          type: NETWORK_CREATION
+        operation:
+          equinixStatus: PROVISIONING
+        changeLog:
+          createdBy: fabric
+          createdByFullName: fabric fabric
+          createdByEmail: fabric@gmail.com
+          createdDateTime: 2025-03-03T19:21:43.145Z
+        links:
+          href: http://api.corp.equinix.com/fabric/v4/networks/884254b7-237d-44f7-af0f-84ba324350ef/connections
+          rel: getConnectionsByNetworkUuid
+          method: GET
+          contentType: application/json
+          authenticate: true
+        project:
+          projectId: d64fa54a-cfcb-4fb0-82ee-86cf47007fa2
+        notifications:
+        - type: ALL
+          emails:
+          - fabric@gmail.com
+    Create-Local-EVPLAN-Network-Response:
+      value:
+        href: http://api.corp.equinix.com/fabric/v4/networks/726af704-0b1b-46dc-9efc-00fc938084b3
+        uuid: 726af704-0b1b-46dc-9efc-00fc938084b3
+        type: EVPLAN
+        name: My-evplan-network-1
+        scope: LOCAL
+        state: INACTIVE
+        connectionsCount: 0
+        account:
+          orgId: 14510
+          organizationName: fabric
+          globalCustId: 0026u00000595sBAAM
+        change:
+          href: http://api.corp.equinix.com/fabric/v4/networks/726af704-0b1b-46dc-9efc-00fc938084b3/changes/92e2f236-e77d-4818-bbad-cff6b716a610
+          uuid: 92e2f236-e77d-4818-bbad-cff6b716a610
+          type: NETWORK_CREATION
+        operation:
+          equinixStatus: PROVISIONING
+        changeLog:
+          createdBy: fabric
+          createdByFullName: fabric fabric
+          createdByEmail: fabric@gmail.com
+          createdDateTime: 2025-03-03T19:43:20.145Z
+        links:
+          href: http://api.corp.equinix.com/fabric/v4/networks/726af704-0b1b-46dc-9efc-00fc938084b3/connections
+          rel: getConnectionsByNetworkUuid
+          method: GET
+          contentType: application/json
+          authenticate: true
+        project:
+          projectId: d64fa54a-cfcb-4fb0-82ee-86cf47007fa2
+        notifications:
+        - type: ALL
+          emails:
+          - fabric@gmail.com
+    Create-Global-EPLAN-Network-Response:
+      value:
+        href: http://api.corp.equinix.com/fabric/v4/networks/0d51722e-b080-4943-92ab-9720eaab2cfa
+        uuid: 0d51722e-b080-4943-92ab-9720eaab2cfa
+        type: EPLAN
+        name: My-eplan-network-1
+        scope: GLOBAL
+        state: INACTIVE
+        connectionsCount: 0
+        account:
+          orgId: 14510
+          organizationName: fabric
+          globalCustId: 0026u00000595sBAAM
+        change:
+          href: http://api.corp.equinix.com/fabric/v4/networks/0d51722e-b080-4943-92ab-9720eaab2cfa/changes/e4f9c57f-a1d6-4520-9a31-fddbe69ed592
+          uuid: e4f9c57f-a1d6-4520-9a31-fddbe69ed592
+          type: NETWORK_CREATION
+        operation:
+          equinixStatus: PROVISIONING
+        changeLog:
+          createdBy: fabric
+          createdByFullName: fabric fabric
+          createdByEmail: fabric@gmail.com
+          createdDateTime: 2025-03-03T20:52:23.469Z
+        links:
+          href: http://api.corp.equinix.com/fabric/v4/networks/0d51722e-b080-4943-92ab-9720eaab2cfa/connections
+          rel: getConnectionsByNetworkUuid
+          method: GET
+          contentType: application/json
+          authenticate: true
+        project:
+          projectId: d64fa54a-cfcb-4fb0-82ee-86cf47007fa2
+        notifications:
+        - type: ALL
+          emails:
+          - fabric@gmail.com
+    Create-Regional-EPLAN-Network-Response:
+      value:
+        href: http://api.corp.equinix.com/fabric/v4/networks/884254b7-237d-44f7-af0f-84ba324350ef
+        uuid: 884254b7-237d-44f7-af0f-84ba324350ef
+        type: EVPLAN
+        name: My-evplan-network-1
+        scope: REGIONAL
+        location:
+          region: AMER
+        state: INACTIVE
+        connectionsCount: 0
+        account:
+          orgId: 14510
+          organizationName: fabric
+          globalCustId: 0026u00000595sBAAM
+        change:
+          href: http://api.corp.equinix.com/fabric/v4/networks/884254b7-237d-44f7-af0f-84ba324350ef/changes/741c0927-d9ed-405b-a4f2-cb61d0dda2c5
+          uuid: 741c0927-d9ed-405b-a4f2-cb61d0dda2c5
+          type: NETWORK_CREATION
+        operation:
+          equinixStatus: PROVISIONING
+        changeLog:
+          createdBy: fabric
+          createdByFullName: fabric fabric
+          createdByEmail: fabric@gmail.com
+          createdDateTime: 2025-03-03T19:21:43.145Z
+        links:
+          href: http://api.corp.equinix.com/fabric/v4/networks/884254b7-237d-44f7-af0f-84ba324350ef/connections
+          rel: getConnectionsByNetworkUuid
+          method: GET
+          contentType: application/json
+          authenticate: true
+        project:
+          projectId: d64fa54a-cfcb-4fb0-82ee-86cf47007fa2
+        notifications:
+        - type: ALL
+          emails:
+          - fabric@gmail.com
+    Create-Local-EPLAN-Network-Response:
+      value:
+        href: http://api.corp.equinix.com/fabric/v4/networks/82402fc0-cb55-4a21-b0b3-1af89f63742b
+        uuid: 82402fc0-cb55-4a21-b0b3-1af89f63742b
+        type: EPLAN
+        name: My-eplan-network-1
+        scope: LOCAL
+        state: INACTIVE
+        connectionsCount: 0
+        account:
+          orgId: 14510
+          organizationName: fabric
+          globalCustId: 0026u00000595sBAAM
+        change:
+          href: http://api.corp.equinix.com/fabric/v4/networks/82402fc0-cb55-4a21-b0b3-1af89f63742b/changes/1449105b-7576-4094-aa34-216f3f9ed122
+          uuid: 1449105b-7576-4094-aa34-216f3f9ed122
+          type: NETWORK_CREATION
+        operation:
+          equinixStatus: PROVISIONING
+        changeLog:
+          createdBy: fabric
+          createdByFullName: fabric fabric
+          createdByEmail: fabric@gmail.com
+          createdDateTime: 2025-03-03T20:55:57.858Z
+        links:
+          href: http://api.corp.equinix.com/fabric/v4/networks/82402fc0-cb55-4a21-b0b3-1af89f63742b/connections
+          rel: getConnectionsByNetworkUuid
+          method: GET
+          contentType: application/json
+          authenticate: true
+        project:
+          projectId: d64fa54a-cfcb-4fb0-82ee-86cf47007fa2
+        notifications:
+        - type: ALL
+          emails:
+          - fabric@gmail.com
+    Create-Global-EVPTREE-Network-Response:
+      value:
+        href: http://api.corp.equinix.com/fabric/v4/networks/07659346-9489-42cf-891a-683624e801d5
+        uuid: 07659346-9489-42cf-891a-683624e801d5
+        type: EVPTREE
+        name: My-evptree-network-1
+        scope: GLOBAL
+        state: INACTIVE
+        connectionsCount: 0
+        account:
+          orgId: 14510
+          organizationName: fabric
+          globalCustId: 0026u00000595sBAAM
+        change:
+          href: http://api.corp.equinix.com/fabric/v4/networks/07659346-9489-42cf-891a-683624e801d5/changes/1caf3efb-7427-4be1-8100-73fcff471654
+          uuid: 1caf3efb-7427-4be1-8100-73fcff471654
+          type: NETWORK_CREATION
+        operation:
+          equinixStatus: PROVISIONING
+        changeLog:
+          createdBy: fabric
+          createdByFullName: fabric fabric
+          createdByEmail: fabric@equinix.comm
+          createdDateTime: 2025-03-05T21:17:46.656Z
+        links:
+          href: http://api.corp.equinix.com/fabric/v4/networks/07659346-9489-42cf-891a-683624e801d5/connections
+          rel: getConnectionsByNetworkUuid
+          method: GET
+          contentType: application/json
+          authenticate: true
+        project:
+          projectId: d64fa54a-cfcb-4fb0-82ee-86cf47007fa2
+        notifications:
+        - type: ALL
+          emails:
+          - fabric@equinix.com
+    Create-Regional-EVPTREE-Network-Response:
+      value:
+        href: http://api.corp.equinix.com/fabric/v4/networks/0ec08139-bae5-44c4-bea2-970b14d7c7c0
+        uuid: 0ec08139-bae5-44c4-bea2-970b14d7c7c0
+        type: EVPTREE
+        name: My-evptree-network-1
+        scope: REGIONAL
+        location:
+          region: AMER
+        state: INACTIVE
+        connectionsCount: 0
+        account:
+          orgId: 14510
+          organizationName: fabric
+          globalCustId: 0026u00000595sBAAM
+        change:
+          href: http://api.corp.equinix.com/fabric/v4/networks/0ec08139-bae5-44c4-bea2-970b14d7c7c0/changes/0e159ddd-47d2-4fa3-97fe-502f8a70ea0e
+          uuid: 0e159ddd-47d2-4fa3-97fe-502f8a70ea0e
+          type: NETWORK_CREATION
+        operation:
+          equinixStatus: PROVISIONING
+        changeLog:
+          createdBy: fabric
+          createdByFullName: fabric fabric
+          createdByEmail: fabric@equinix.com
+          createdDateTime: 2025-03-05T20:57:07.206Z
+        links:
+          href: http://api.corp.equinix.com/fabric/v4/networks/0ec08139-bae5-44c4-bea2-970b14d7c7c0/connections
+          rel: getConnectionsByNetworkUuid
+          method: GET
+          contentType: application/json
+          authenticate: true
+        project:
+          projectId: d64fa54a-cfcb-4fb0-82ee-86cf47007fa2
+        notifications:
+        - type: ALL
+          emails:
+          - fabric@equinix.com
+    Create-Local-EVPTREE-Network-Response:
+      value:
+        href: http://api.corp.equinix.com/fabric/v4/networks/4622cce8-114b-4432-94f4-060fda044ae3
+        uuid: 4622cce8-114b-4432-94f4-060fda044ae3
+        type: EVPTREE
+        name: My-evptree-network-1
+        scope: LOCAL
+        state: INACTIVE
+        connectionsCount: 0
+        account:
+          orgId: 14510
+          organizationName: fabric
+          globalCustId: 0026u00000595sBAAM
+        change:
+          href: http://api.corp.equinix.com/fabric/v4/networks/4622cce8-114b-4432-94f4-060fda044ae3/changes/6eacff89-a363-402f-ae15-84294177a866
+          uuid: 6eacff89-a363-402f-ae15-84294177a866
+          type: NETWORK_CREATION
+        operation:
+          equinixStatus: PROVISIONING
+        changeLog:
+          createdBy: fabric
+          createdByFullName: fabric fabric
+          createdByEmail: fabric@equinix.com
+          createdDateTime: 2025-03-05T21:22:30.984Z
+        links:
+          href: http://api.corp.equinix.com/fabric/v4/networks/4622cce8-114b-4432-94f4-060fda044ae3/connections
+          rel: getConnectionsByNetworkUuid
+          method: GET
+          contentType: application/json
+          authenticate: true
+        project:
+          projectId: d64fa54a-cfcb-4fb0-82ee-86cf47007fa2
+        notifications:
+        - type: ALL
+          emails:
+          - fabric@equinix.com
+    Create-Global-EPTREE-Network-Response:
+      value:
+        href: http://api.corp.equinix.com/fabric/v4/networks/16ee541c-9e93-428b-9557-3f99907aa21c
+        uuid: 16ee541c-9e93-428b-9557-3f99907aa21c
+        type: EPTREE
+        name: My-eptree-network-1
+        scope: GLOBAL
+        state: INACTIVE
+        connectionsCount: 0
+        account:
+          orgId: 14510
+          organizationName: fabric
+          globalCustId: 0026u00000595sBAAM
+        change:
+          href: http://api.corp.equinix.com/fabric/v4/networks/16ee541c-9e93-428b-9557-3f99907aa21c/changes/2f541dcd-c25b-43a1-97fa-8b2be6817899
+          uuid: 2f541dcd-c25b-43a1-97fa-8b2be6817899
+          type: NETWORK_CREATION
+        operation:
+          equinixStatus: PROVISIONING
+        changeLog:
+          createdBy: fabric
+          createdByFullName: fabric fabric
+          createdByEmail: fabric@equinix.com
+          createdDateTime: 2025-03-05T21:37:08.370Z
+        links:
+          href: http://api.corp.equinix.com/fabric/v4/networks/16ee541c-9e93-428b-9557-3f99907aa21c/connections
+          rel: getConnectionsByNetworkUuid
+          method: GET
+          contentType: application/json
+          authenticate: true
+        project:
+          projectId: d64fa54a-cfcb-4fb0-82ee-86cf47007fa2
+        notifications:
+        - type: ALL
+          emails:
+          - fabric@equinix.com
+    Create-Regional-EPTREE-Network-Response:
+      value:
+        href: http://api.corp.equinix.com/fabric/v4/networks/291fc758-91d3-482b-a9b3-3430685c390e
+        uuid: 291fc758-91d3-482b-a9b3-3430685c390e
+        type: EPTREE
+        name: My-eptree-network-1
+        scope: REGIONAL
+        location:
+          region: EMEA
+        state: INACTIVE
+        connectionsCount: 0
+        account:
+          orgId: 14510
+          organizationName: fabric
+          globalCustId: 0026u00000595sBAAM
+        change:
+          href: http://api.corp.equinix.com/fabric/v4/networks/291fc758-91d3-482b-a9b3-3430685c390e/changes/8345324b-97cc-4c5c-9f15-40bc82b254ad
+          uuid: 8345324b-97cc-4c5c-9f15-40bc82b254ad
+          type: NETWORK_CREATION
+        operation:
+          equinixStatus: PROVISIONING
+        changeLog:
+          createdBy: fabric
+          createdByFullName: fabric fabric
+          createdByEmail: fabric@equinix.com
+          createdDateTime: 2025-03-06T00:23:29.030Z
+        links:
+          href: http://api.corp.equinix.com/fabric/v4/networks/291fc758-91d3-482b-a9b3-3430685c390e/connections
+          rel: getConnectionsByNetworkUuid
+          method: GET
+          contentType: application/json
+          authenticate: true
+        project:
+          projectId: d64fa54a-cfcb-4fb0-82ee-86cf47007fa2
+        notifications:
+        - type: ALL
+          emails:
+          - fabric@equinix.com
+    Create-Local-EPTREE-Network-Response:
+      value:
+        href: http://api.corp.equinix.com/fabric/v4/networks/c929924e-5d87-46b2-a82f-91a145c1803d
+        uuid: c929924e-5d87-46b2-a82f-91a145c1803d
+        type: EPTREE
+        name: My-eptree-network-1
+        scope: LOCAL
+        state: INACTIVE
+        connectionsCount: 0
+        account:
+          orgId: 14510
+          organizationName: fabric
+          globalCustId: 0026u00000595sBAAM
+        change:
+          href: http://api.corp.equinix.com/fabric/v4/networks/c929924e-5d87-46b2-a82f-91a145c1803d/changes/1b32bacb-5898-4efd-9404-b64ec825c652
+          uuid: 1b32bacb-5898-4efd-9404-b64ec825c652
+          type: NETWORK_CREATION
+        operation:
+          equinixStatus: PROVISIONING
+        changeLog:
+          createdBy: fabric
+          createdByFullName: fabric fabric
+          createdByEmail: fabric@equinix.com
+          createdDateTime: 2025-03-06T00:30:42.972Z
+        links:
+          href: http://api.corp.equinix.com/fabric/v4/networks/c929924e-5d87-46b2-a82f-91a145c1803d/connections
+          rel: getConnectionsByNetworkUuid
+          method: GET
+          contentType: application/json
+          authenticate: true
+        project:
+          projectId: d64fa54a-cfcb-4fb0-82ee-86cf47007fa2
+        notifications:
+        - type: ALL
+          emails:
+          - fabric@equinix.com
     NetworkPostResponseExample:
       value:
         href: https://api.equinix.com/fabric/v4/networks/92dc376a-a932-43aa-a6a2-c806dedbd784
@@ -29179,16 +31064,6 @@ components:
           name: splunk
           description: subscription 1
           state: PROVISIONED
-          filters:
-            and:
-            - property: /subject
-              operator: LIKE
-              values:
-              - '%/fabric/v4/connections/36276e58-b5a1-4864-ab5e-be10dff9eac1%'
-            - property: /type
-              operator: IN
-              values:
-              - equinix.fabric.connection.state.provisioned
           metricSelector:
             include:
             - equinix.fabric.connection.*
@@ -29225,12 +31100,6 @@ components:
         name: splunk1
         description: subscription-1
         enabled: true
-        filters:
-          and:
-          - property: /type
-            operator: LIKE
-            values:
-            - equinix.fabric.connection%
         metricSelector:
           include:
           - equinix.fabric.connection.*
@@ -29253,12 +31122,6 @@ components:
         name: slack1
         description: subscription-1
         enabled: true
-        filters:
-          and:
-          - property: /type
-            operator: LIKE
-            values:
-            - equinix.fabric.connection%
         metricSelector:
           include:
           - equinix.fabric.connection.*
@@ -29274,12 +31137,6 @@ components:
         name: pagerduty
         description: subscription-1
         enabled: true
-        filters:
-          and:
-          - property: /type
-            operator: LIKE
-            values:
-            - equinix.fabric.connection%
         metricSelector:
           include:
           - equinix.fabric.connection.*
@@ -29293,7 +31150,6 @@ components:
             type: INTEGRATION_KEY
             integrationKey: my-integration-key
           settings:
-            transformAlerts: true
             changeUri: https://events.pagerduty.com/v2/change/enqueeue
             alertUri: https://events.pagerduty.com/v2/enqueeue
     StreamSubscriptionPostRequestExampleDatadog:
@@ -29302,12 +31158,6 @@ components:
         name: datadog
         description: subscription-1
         enabled: true
-        filters:
-          and:
-          - property: /type
-            operator: LIKE
-            values:
-            - equinix.fabric.connection%
         metricSelector:
           include:
           - equinix.fabric.connection.*
@@ -29328,12 +31178,6 @@ components:
         name: teams1
         description: subscription-1
         enabled: true
-        filters:
-          and:
-          - property: /type
-            operator: LIKE
-            values:
-            - equinix.fabric.connection%
         metricSelector:
           include:
           - equinix.fabric.connection.*
@@ -29349,12 +31193,6 @@ components:
         name: servicenow-1
         description: subscription-1
         enabled: true
-        filters:
-          and:
-          - property: /type
-            operator: LIKE
-            values:
-            - equinix.fabric.connection%
         eventSelector:
           include:
           - equinix.fabric.connection.*
@@ -29376,12 +31214,6 @@ components:
         description: stream dec 1
         state: PROVISIONED
         enabled: true
-        filters:
-          and:
-          - property: /type
-            operator: LIKE
-            values:
-            - equinix.fabric.connection%
         metricSelector:
           include:
           - equinix.fabric.connection.*
@@ -29408,12 +31240,6 @@ components:
         name: splunk1
         description: subscription 1
         enabled: true
-        filters:
-          and:
-          - property: /type
-            operator: LIKE
-            values:
-            - equinix.fabric.connection%
         metricSelector:
           include:
           - equinix.fabric.connection.*
@@ -29442,12 +31268,6 @@ components:
         description: stream dec 1
         state: DEPROVISIONING
         enabled: true
-        filters:
-          and:
-          - property: /type
-            operator: LIKE
-            values:
-            - equinix.fabric.connection%
         metricSelector:
           include:
           - equinix.fabric.connection.*
@@ -29573,6 +31393,256 @@ components:
         type: string
       style: simple
   schemas:
+    CloudEventAssetType:
+      enum:
+      - ports
+      - connections
+      - routers
+      type: string
+    AssetId:
+      description: Asset UUID
+      example: 757400f8-d360-11e9-bb65-2a2ae2dbcce6
+      format: uuid
+      type: string
+    StartDateTime:
+      description: Start date and time
+      example: 2024-07-11T18:06:21Z
+      format: date-time
+      type: string
+    EndDateTime:
+      description: End date and time
+      example: 2024-07-11T18:06:21Z
+      format: date-time
+      type: string
+    Offset:
+      default: 0
+      description: Pagination offset
+      example: 0
+      type: integer
+    Limit:
+      default: 20
+      description: Pagination limit
+      example: 20
+      type: integer
+    GetCloudEventsByAssetResponse:
+      example:
+        pagination:
+          next: next
+          total: 0
+          offset: 0
+          previous: previous
+          limit: 0
+        data:
+        - datacontenttype: datacontenttype
+          data:
+            resource:
+              name: name
+              href: href
+              state: state
+              type: type
+              uuid: uuid
+            auth:
+              name: name
+              authid: equinix
+              email: email
+              authtype: system
+            message: message
+          subject: subject
+          source: source
+          type: type
+          severitytext: severitytext
+          equinixproject: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          spec: spec
+          severitynumber: severitynumber
+          authid: authid
+          dataschema: dataschema
+          authtype: authtype
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        - datacontenttype: datacontenttype
+          data:
+            resource:
+              name: name
+              href: href
+              state: state
+              type: type
+              uuid: uuid
+            auth:
+              name: name
+              authid: equinix
+              email: email
+              authtype: system
+            message: message
+          subject: subject
+          source: source
+          type: type
+          severitytext: severitytext
+          equinixproject: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          spec: spec
+          severitynumber: severitynumber
+          authid: authid
+          dataschema: dataschema
+          authtype: authtype
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        data:
+          description: Data returned from the API call.
+          items:
+            $ref: '#/components/schemas/CloudEvent'
+          type: array
+      type: object
+    ErrorList:
+      description: List of Error Message
+      items:
+        $ref: '#/components/schemas/Error'
+      type: array
+    CloudEventId:
+      description: Cloud Event UUID
+      example: 557400f8-d360-11e9-bb65-2a2ae2dbcce4
+      format: uuid
+      type: string
+    CloudEvent:
+      description: Cloud Event object
+      example:
+        datacontenttype: datacontenttype
+        data:
+          resource:
+            name: name
+            href: href
+            state: state
+            type: type
+            uuid: uuid
+          auth:
+            name: name
+            authid: equinix
+            email: email
+            authtype: system
+          message: message
+        subject: subject
+        source: source
+        type: type
+        severitytext: severitytext
+        equinixproject: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        spec: spec
+        severitynumber: severitynumber
+        authid: authid
+        dataschema: dataschema
+        authtype: authtype
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        spec:
+          description: Cloud Event Open Telemetry specification
+          readOnly: true
+          type: string
+        source:
+          description: Cloud Event source
+          type: string
+        id:
+          description: Cloud Event identifier
+          format: uuid
+          type: string
+        type:
+          description: Equinix supported event type
+          type: string
+        subject:
+          description: Cloud Event subject
+          type: string
+        dataschema:
+          description: Cloud Event dataschema reference
+          type: string
+        datacontenttype:
+          description: Cloud Event data content type
+          type: string
+        severitynumber:
+          description: Cloud Event severity number
+          type: string
+        severitytext:
+          description: Cloud Event severity text
+          type: string
+        equinixproject:
+          description: Equinix project identifier
+          format: uuid
+          type: string
+        authtype:
+          description: Cloud Event auth type
+          type: string
+        authid:
+          description: Cloud Event user identifier
+          type: string
+        data:
+          $ref: '#/components/schemas/CloudEventData'
+      type: object
+    CloudEventSearchRequest:
+      description: Search requests containing criteria
+      example:
+        filter:
+          and:
+          - null
+          - null
+        pagination:
+          offset: 0
+          limit: 1
+        sort:
+        - and:
+          - null
+          - null
+        - and:
+          - null
+          - null
+      properties:
+        filter:
+          $ref: '#/components/schemas/CloudEventFilters'
+        pagination:
+          $ref: '#/components/schemas/PaginationRequest'
+        sort:
+          items:
+            $ref: '#/components/schemas/CloudEventFilters'
+          type: array
+      type: object
+    CloudEventFilters:
+      example:
+        and:
+        - null
+        - null
+      properties:
+        and:
+          items:
+            $ref: '#/components/schemas/CloudEventFilter'
+          type: array
+      type: object
+    CloudEventFilter:
+      anyOf:
+      - $ref: '#/components/schemas/CloudEventSimpleExpression'
+      type: object
+    CloudEventSimpleExpression:
+      properties:
+        property:
+          description: |
+            Possible field names to use on filters:
+             * `/subject` - Cloud Event subject description
+             * `/type` - Cloud Event type
+             * `/time` - Time of Cloud Events
+          example: /subject
+          type: string
+        operator:
+          description: |
+            Possible operators to use on filters:
+             * `=` - equal
+             * `>` - greater than
+             * `>=` - greater than or equal to
+             * `<` - less than
+             * `<=` - less than or equal to
+             * `BETWEEN` - between
+             * `IN` - in
+          example: =
+          type: string
+        values:
+          items:
+            example: equinix.fabric.port.status.*
+            type: string
+          type: array
+      type: object
     ConnectionPostRequest:
       description: Create connection post request
       example:
@@ -33115,11 +35185,6 @@ components:
       - type
       - zSide
       type: object
-    ErrorList:
-      description: List of Error Message
-      items:
-        $ref: '#/components/schemas/Error'
-      type: array
     ConnectionId:
       description: Connection UUID
       example: 557400f8-d360-11e9-bb65-2a2ae2dbcce4
@@ -39318,16 +41383,6 @@ components:
       description: Port UUID
       format: uuid
       type: string
-    startDateTime:
-      description: startDateTime
-      example: 2020-11-06T07:00:00Z
-      format: date-time
-      type: string
-    endDateTime:
-      description: endDateTime
-      example: 2020-11-06T07:00:00Z
-      format: date-time
-      type: string
     Statistics:
       description: This API provides service-level traffic metrics so that you can
         view access and gather key information required to manage service subscription
@@ -41783,6 +43838,17 @@ components:
                 type: EXEMPTION
                 startDate: startDate
               uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          change:
+            data:
+              op: replace
+              path: /name
+              value: "{}"
+            createdDateTime: 2020-11-06T07:00:00Z
+            information: information
+            type: PORT_CREATION
+            uuid: uuid
+            status: COMPLETED
+            updatedDateTime: 2020-11-06T07:00:00Z
           physicalPortsType: 1000BASE_LX
           physicalPortsCount: 5
           name: name
@@ -42098,6 +44164,17 @@ components:
                 type: EXEMPTION
                 startDate: startDate
               uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          change:
+            data:
+              op: replace
+              path: /name
+              value: "{}"
+            createdDateTime: 2020-11-06T07:00:00Z
+            information: information
+            type: PORT_CREATION
+            uuid: uuid
+            status: COMPLETED
+            updatedDateTime: 2020-11-06T07:00:00Z
           physicalPortsType: 1000BASE_LX
           physicalPortsCount: 5
           name: name
@@ -42425,6 +44502,17 @@ components:
               type: EXEMPTION
               startDate: startDate
             uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        change:
+          data:
+            op: replace
+            path: /name
+            value: "{}"
+          createdDateTime: 2020-11-06T07:00:00Z
+          information: information
+          type: PORT_CREATION
+          uuid: uuid
+          status: COMPLETED
+          updatedDateTime: 2020-11-06T07:00:00Z
         physicalPortsType: 1000BASE_LX
         physicalPortsCount: 5
         name: name
@@ -42526,6 +44614,8 @@ components:
           $ref: '#/components/schemas/Port_operation'
         account:
           $ref: '#/components/schemas/SimplifiedAccount'
+        change:
+          $ref: '#/components/schemas/PortChange'
         changeLog:
           $ref: '#/components/schemas/Changelog'
         serviceType:
@@ -43062,6 +45152,17 @@ components:
                 type: EXEMPTION
                 startDate: startDate
               uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          change:
+            data:
+              op: replace
+              path: /name
+              value: "{}"
+            createdDateTime: 2020-11-06T07:00:00Z
+            information: information
+            type: PORT_CREATION
+            uuid: uuid
+            status: COMPLETED
+            updatedDateTime: 2020-11-06T07:00:00Z
           physicalPortsType: 1000BASE_LX
           physicalPortsCount: 5
           name: name
@@ -43377,6 +45478,17 @@ components:
                 type: EXEMPTION
                 startDate: startDate
               uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          change:
+            data:
+              op: replace
+              path: /name
+              value: "{}"
+            createdDateTime: 2020-11-06T07:00:00Z
+            information: information
+            type: PORT_CREATION
+            uuid: uuid
+            status: COMPLETED
+            updatedDateTime: 2020-11-06T07:00:00Z
           physicalPortsType: 1000BASE_LX
           physicalPortsCount: 5
           name: name
@@ -45548,6 +47660,12 @@ components:
           type: array
         marketplaceSubscription:
           $ref: '#/components/schemas/marketplaceSubscription'
+      required:
+      - location
+      - name
+      - notification
+      - package
+      - type
       type: object
     CloudRouter:
       allOf:
@@ -45896,6 +48014,494 @@ components:
     ActionId_1:
       description: Action UUID
       example: 457400f8-d360-11e9-bb65-2a2ae2dbcced
+      format: uuid
+      type: string
+    GetAllCloudRouterCommands:
+      description: List of Fabric Cloud Router Command
+      example:
+        pagination:
+          next: next
+          total: 0
+          offset: 0
+          previous: previous
+          limit: 0
+        data:
+        - request:
+            dataBytes: 100
+            destination: 8.8.8.8
+            count: 5
+            sourceConnection:
+              uuid: 557400f8-d360-11e9-bb65-2a2ae2dbcce4
+            interval: 1000
+            timeout: 5
+          response:
+            output: output
+            outputStructuredPing:
+              destinationIp: 8.8.8.8
+              dataBytes: 100
+              rttAvg: 15.483
+              rttMin: 9.271
+              rttMax: 26.771
+              packetsReceived: 4
+              destinationName: 8.8.8.8
+              packetsLossPercent: 0
+              responses:
+              - icmpSeq: 0
+                bytes: 100
+                ip: 8.8.8.8
+                time: 9.839
+                ttl: 117
+              - icmpSeq: 0
+                bytes: 100
+                ip: 8.8.8.8
+                time: 9.839
+                ttl: 117
+              packetsTransmitted: 4
+              rttStdDev: 7.039
+          name: test-fg-1
+          description: description
+          project:
+            projectId: 44f4c4f8-2f39-494e-838c-d8e640591be5
+          changeLog:
+            createdByEmail: john.smith@example.com
+            deletedByFullName: John Smith
+            updatedBy: johnsmith
+            createdBy: johnsmith
+            updatedByEmail: john.smith@example.com
+            createdByFullName: John Smith
+            createdDateTime: 2020-11-06T07:00:00Z
+            deletedDateTime: 2020-11-06T07:00:00Z
+            updatedByFullName: John Smith
+            deletedBy: johnsmith
+            deletedByEmail: john.smith@example.com
+            updatedDateTime: 2020-11-06T07:00:00Z
+          href: https://api.equinix.com//fabric/v4/routers/a1c6b7fd-aead-410a-96b4-b1dfa1071700/commands/1e9414f1-763e-4c0a-86c6-0bc8336048d9
+          state: SUCCEEDED
+          type: PING_COMMAND
+          uuid: 557400f8-d360-11e9-bb65-2a2ae2dbcce4
+        - request:
+            dataBytes: 100
+            destination: 8.8.8.8
+            count: 5
+            sourceConnection:
+              uuid: 557400f8-d360-11e9-bb65-2a2ae2dbcce4
+            interval: 1000
+            timeout: 5
+          response:
+            output: output
+            outputStructuredPing:
+              destinationIp: 8.8.8.8
+              dataBytes: 100
+              rttAvg: 15.483
+              rttMin: 9.271
+              rttMax: 26.771
+              packetsReceived: 4
+              destinationName: 8.8.8.8
+              packetsLossPercent: 0
+              responses:
+              - icmpSeq: 0
+                bytes: 100
+                ip: 8.8.8.8
+                time: 9.839
+                ttl: 117
+              - icmpSeq: 0
+                bytes: 100
+                ip: 8.8.8.8
+                time: 9.839
+                ttl: 117
+              packetsTransmitted: 4
+              rttStdDev: 7.039
+          name: test-fg-1
+          description: description
+          project:
+            projectId: 44f4c4f8-2f39-494e-838c-d8e640591be5
+          changeLog:
+            createdByEmail: john.smith@example.com
+            deletedByFullName: John Smith
+            updatedBy: johnsmith
+            createdBy: johnsmith
+            updatedByEmail: john.smith@example.com
+            createdByFullName: John Smith
+            createdDateTime: 2020-11-06T07:00:00Z
+            deletedDateTime: 2020-11-06T07:00:00Z
+            updatedByFullName: John Smith
+            deletedBy: johnsmith
+            deletedByEmail: john.smith@example.com
+            updatedDateTime: 2020-11-06T07:00:00Z
+          href: https://api.equinix.com//fabric/v4/routers/a1c6b7fd-aead-410a-96b4-b1dfa1071700/commands/1e9414f1-763e-4c0a-86c6-0bc8336048d9
+          state: SUCCEEDED
+          type: PING_COMMAND
+          uuid: 557400f8-d360-11e9-bb65-2a2ae2dbcce4
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        data:
+          items:
+            $ref: '#/components/schemas/CloudRouterCommand'
+          type: array
+      type: object
+    CloudRouterCommandPostRequest:
+      description: Execute Cloud Router Command Request
+      example:
+        request:
+          dataBytes: 100
+          destination: 8.8.8.8
+          count: 5
+          sourceConnection:
+            uuid: 557400f8-d360-11e9-bb65-2a2ae2dbcce4
+          interval: 1000
+          timeout: 5
+        name: name
+        description: description
+        project:
+          projectId: 44f4c4f8-2f39-494e-838c-d8e640591be5
+        type: PING_COMMAND
+      properties:
+        type:
+          $ref: '#/components/schemas/CloudRouterCommandType'
+        name:
+          description: Customer-provided Cloud Router Command name
+          type: string
+        description:
+          description: Customer-provided Cloud Router Command description
+          type: string
+        project:
+          $ref: '#/components/schemas/Project'
+        request:
+          $ref: '#/components/schemas/CloudRouterCommandRequest'
+      required:
+      - project
+      - request
+      - type
+      type: object
+    CloudRouterCommand:
+      description: Get Fabric Cloud Router Command response object
+      example:
+        request:
+          dataBytes: 100
+          destination: 8.8.8.8
+          count: 5
+          sourceConnection:
+            uuid: 557400f8-d360-11e9-bb65-2a2ae2dbcce4
+          interval: 1000
+          timeout: 5
+        response:
+          output: output
+          outputStructuredPing:
+            destinationIp: 8.8.8.8
+            dataBytes: 100
+            rttAvg: 15.483
+            rttMin: 9.271
+            rttMax: 26.771
+            packetsReceived: 4
+            destinationName: 8.8.8.8
+            packetsLossPercent: 0
+            responses:
+            - icmpSeq: 0
+              bytes: 100
+              ip: 8.8.8.8
+              time: 9.839
+              ttl: 117
+            - icmpSeq: 0
+              bytes: 100
+              ip: 8.8.8.8
+              time: 9.839
+              ttl: 117
+            packetsTransmitted: 4
+            rttStdDev: 7.039
+        name: test-fg-1
+        description: description
+        project:
+          projectId: 44f4c4f8-2f39-494e-838c-d8e640591be5
+        changeLog:
+          createdByEmail: john.smith@example.com
+          deletedByFullName: John Smith
+          updatedBy: johnsmith
+          createdBy: johnsmith
+          updatedByEmail: john.smith@example.com
+          createdByFullName: John Smith
+          createdDateTime: 2020-11-06T07:00:00Z
+          deletedDateTime: 2020-11-06T07:00:00Z
+          updatedByFullName: John Smith
+          deletedBy: johnsmith
+          deletedByEmail: john.smith@example.com
+          updatedDateTime: 2020-11-06T07:00:00Z
+        href: https://api.equinix.com//fabric/v4/routers/a1c6b7fd-aead-410a-96b4-b1dfa1071700/commands/1e9414f1-763e-4c0a-86c6-0bc8336048d9
+        state: SUCCEEDED
+        type: PING_COMMAND
+        uuid: 557400f8-d360-11e9-bb65-2a2ae2dbcce4
+      properties:
+        href:
+          example: https://api.equinix.com//fabric/v4/routers/a1c6b7fd-aead-410a-96b4-b1dfa1071700/commands/1e9414f1-763e-4c0a-86c6-0bc8336048d9
+          type: string
+        type:
+          $ref: '#/components/schemas/CloudRouterCommandType'
+        uuid:
+          example: 557400f8-d360-11e9-bb65-2a2ae2dbcce4
+          format: uuid
+          type: string
+        name:
+          description: Customer-provided Cloud Router name
+          example: test-fg-1
+          format: string
+          type: string
+        description:
+          example: description
+          type: string
+        state:
+          $ref: '#/components/schemas/CloudRouterCommandState'
+        project:
+          $ref: '#/components/schemas/Project'
+        request:
+          $ref: '#/components/schemas/CloudRouterCommandRequest'
+        response:
+          $ref: '#/components/schemas/CloudRouterCommandResponse'
+        changeLog:
+          $ref: '#/components/schemas/Changelog'
+      type: object
+    CloudRouterCommandSearchRequest:
+      description: Search requests containing criteria
+      example:
+        filter:
+          and:
+          - null
+          - null
+          - null
+          - null
+          - null
+        pagination:
+          offset: 0
+          limit: 1
+        sort:
+        - property: null
+          direction: null
+        - property: null
+          direction: null
+      properties:
+        filter:
+          $ref: '#/components/schemas/CloudRouterCommandSearchFilters'
+        pagination:
+          $ref: '#/components/schemas/PaginationRequest'
+        sort:
+          items:
+            $ref: '#/components/schemas/CloudRouterCommandSearchSortCriteria'
+          type: array
+      type: object
+    CloudRouterCommandSearchFilters:
+      example:
+        and:
+        - null
+        - null
+        - null
+        - null
+        - null
+      properties:
+        and:
+          items:
+            $ref: '#/components/schemas/CloudRouterCommandSearchFilter'
+          maxItems: 8
+          type: array
+      type: object
+    CloudRouterCommandSearchFilter:
+      anyOf:
+      - $ref: '#/components/schemas/CloudRouterCommandSearchExpression'
+      - $ref: '#/components/schemas/CloudRouterCommandSearchOrFilter'
+      type: object
+    CloudRouterCommandSearchExpression:
+      properties:
+        property:
+          description: |
+            Possible field names to use on filters:
+             * `/type` - type of command
+             * `/name` - name of command
+             * `/state` - state of command
+             * `/request/destination` - destination of command request
+             * `/request/sourceConnection/uuid` - source connection uuid
+             * `/*` - all-category search
+          example: /state
+          type: string
+        operator:
+          description: |
+            Possible operators to use on filters:
+             * `=` - equal
+             * `!=` - not equal
+             * `>` - greater than
+             * `>=` - greater than or equal to
+             * `<` - less than
+             * `<=` - less than or equal to
+             * `[NOT] BETWEEN` - (not) between
+             * `[NOT] LIKE` - (not) like
+             * `[NOT] IN` - (not) in
+             * `~*` - case-insensitive like
+          example: =
+          type: string
+        values:
+          items:
+            example: PING_COMMAND
+            type: string
+          type: array
+      type: object
+    CloudRouterCommandSearchOrFilter:
+      properties:
+        or:
+          items:
+            $ref: '#/components/schemas/CloudRouterCommandSearchExpression'
+          maxItems: 3
+          type: array
+      type: object
+    CloudRouterCommandSearchSortCriteria:
+      example:
+        property: null
+        direction: null
+      properties:
+        direction:
+          $ref: '#/components/schemas/CloudRouterCommandSearchSortDirection'
+        property:
+          $ref: '#/components/schemas/CloudRouterCommandSearchSortBy'
+      type: object
+    CloudRouterCommandSearchSortDirection:
+      default: DESC
+      description: Sorting direction
+      enum:
+      - DESC
+      - ASC
+      type: string
+    CloudRouterCommandSearchSortBy:
+      default: /changeLog/updatedDateTime
+      description: Possible field names to use on sorting
+      enum:
+      - /changeLog/createdDateTime
+      - /changeLog/updatedDateTime
+      - /name
+      - /type
+      type: string
+    CloudRouterCommandSearchResponse:
+      example:
+        pagination:
+          next: next
+          total: 0
+          offset: 0
+          previous: previous
+          limit: 0
+        data:
+        - request:
+            dataBytes: 100
+            destination: 8.8.8.8
+            count: 5
+            sourceConnection:
+              uuid: 557400f8-d360-11e9-bb65-2a2ae2dbcce4
+            interval: 1000
+            timeout: 5
+          response:
+            output: output
+            outputStructuredPing:
+              destinationIp: 8.8.8.8
+              dataBytes: 100
+              rttAvg: 15.483
+              rttMin: 9.271
+              rttMax: 26.771
+              packetsReceived: 4
+              destinationName: 8.8.8.8
+              packetsLossPercent: 0
+              responses:
+              - icmpSeq: 0
+                bytes: 100
+                ip: 8.8.8.8
+                time: 9.839
+                ttl: 117
+              - icmpSeq: 0
+                bytes: 100
+                ip: 8.8.8.8
+                time: 9.839
+                ttl: 117
+              packetsTransmitted: 4
+              rttStdDev: 7.039
+          name: test-fg-1
+          description: description
+          project:
+            projectId: 44f4c4f8-2f39-494e-838c-d8e640591be5
+          changeLog:
+            createdByEmail: john.smith@example.com
+            deletedByFullName: John Smith
+            updatedBy: johnsmith
+            createdBy: johnsmith
+            updatedByEmail: john.smith@example.com
+            createdByFullName: John Smith
+            createdDateTime: 2020-11-06T07:00:00Z
+            deletedDateTime: 2020-11-06T07:00:00Z
+            updatedByFullName: John Smith
+            deletedBy: johnsmith
+            deletedByEmail: john.smith@example.com
+            updatedDateTime: 2020-11-06T07:00:00Z
+          href: https://api.equinix.com//fabric/v4/routers/a1c6b7fd-aead-410a-96b4-b1dfa1071700/commands/1e9414f1-763e-4c0a-86c6-0bc8336048d9
+          state: SUCCEEDED
+          type: PING_COMMAND
+          uuid: 557400f8-d360-11e9-bb65-2a2ae2dbcce4
+        - request:
+            dataBytes: 100
+            destination: 8.8.8.8
+            count: 5
+            sourceConnection:
+              uuid: 557400f8-d360-11e9-bb65-2a2ae2dbcce4
+            interval: 1000
+            timeout: 5
+          response:
+            output: output
+            outputStructuredPing:
+              destinationIp: 8.8.8.8
+              dataBytes: 100
+              rttAvg: 15.483
+              rttMin: 9.271
+              rttMax: 26.771
+              packetsReceived: 4
+              destinationName: 8.8.8.8
+              packetsLossPercent: 0
+              responses:
+              - icmpSeq: 0
+                bytes: 100
+                ip: 8.8.8.8
+                time: 9.839
+                ttl: 117
+              - icmpSeq: 0
+                bytes: 100
+                ip: 8.8.8.8
+                time: 9.839
+                ttl: 117
+              packetsTransmitted: 4
+              rttStdDev: 7.039
+          name: test-fg-1
+          description: description
+          project:
+            projectId: 44f4c4f8-2f39-494e-838c-d8e640591be5
+          changeLog:
+            createdByEmail: john.smith@example.com
+            deletedByFullName: John Smith
+            updatedBy: johnsmith
+            createdBy: johnsmith
+            updatedByEmail: john.smith@example.com
+            createdByFullName: John Smith
+            createdDateTime: 2020-11-06T07:00:00Z
+            deletedDateTime: 2020-11-06T07:00:00Z
+            updatedByFullName: John Smith
+            deletedBy: johnsmith
+            deletedByEmail: john.smith@example.com
+            updatedDateTime: 2020-11-06T07:00:00Z
+          href: https://api.equinix.com//fabric/v4/routers/a1c6b7fd-aead-410a-96b4-b1dfa1071700/commands/1e9414f1-763e-4c0a-86c6-0bc8336048d9
+          state: SUCCEEDED
+          type: PING_COMMAND
+          uuid: 557400f8-d360-11e9-bb65-2a2ae2dbcce4
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        data:
+          description: Data returned from the API call.
+          items:
+            $ref: '#/components/schemas/CloudRouterCommand'
+          type: array
+      type: object
+    CommandId:
+      description: Command UUID
+      example: 37c10edc-ba2e-4240-a850-8a48f9c47d00
       format: uuid
       type: string
     RouteTableEntrySearchRequest:
@@ -53678,19 +56284,7 @@ components:
       example:
         package:
           href: https://api.equinix.com/fabric/v4/timeServicePackage/NTP_STANDARD
-          type: TIME_SERVICE_PACKAGE
           code: NTP_STANDARD
-          bandwidth: 10
-          accuracySlaUnit: microseconds
-          accuracySla: 50
-          accuracySlaMin: 1
-          accuracySlaMax: 10
-          clientsPerSecondMax: 100
-          redundancySupported: true
-          multiSubnetSupported: true
-          changeLog:
-            createdDateTime: 2023-05-16T07:50:49.749Z
-            updatedDateTime: 2023-05-17T07:50:49.749Z
         project:
           projectId: 44f4c4f8-2f39-494e-838c-d8e640591be5
         changeLog:
@@ -56008,7 +58602,7 @@ components:
           - REPROVISIONING_FAILED
           type: string
         package:
-          $ref: '#/components/schemas/precisionTimePackageResponse'
+          $ref: '#/components/schemas/precisionTimePackagePostResponse'
         connections:
           description: Fabric Connections associated with Precision Time Service.
           items:
@@ -56204,19 +58798,7 @@ components:
         data:
         - package:
             href: https://api.equinix.com/fabric/v4/timeServicePackage/NTP_STANDARD
-            type: TIME_SERVICE_PACKAGE
             code: NTP_STANDARD
-            bandwidth: 10
-            accuracySlaUnit: microseconds
-            accuracySla: 50
-            accuracySlaMin: 1
-            accuracySlaMax: 10
-            clientsPerSecondMax: 100
-            redundancySupported: true
-            multiSubnetSupported: true
-            changeLog:
-              createdDateTime: 2023-05-16T07:50:49.749Z
-              updatedDateTime: 2023-05-17T07:50:49.749Z
           project:
             projectId: 44f4c4f8-2f39-494e-838c-d8e640591be5
           changeLog:
@@ -58500,19 +61082,7 @@ components:
             purchaseOrderNumber: purchaseOrderNumber
         - package:
             href: https://api.equinix.com/fabric/v4/timeServicePackage/NTP_STANDARD
-            type: TIME_SERVICE_PACKAGE
             code: NTP_STANDARD
-            bandwidth: 10
-            accuracySlaUnit: microseconds
-            accuracySla: 50
-            accuracySlaMin: 1
-            accuracySlaMax: 10
-            clientsPerSecondMax: 100
-            redundancySupported: true
-            multiSubnetSupported: true
-            changeLog:
-              createdDateTime: 2023-05-16T07:50:49.749Z
-              updatedDateTime: 2023-05-17T07:50:49.749Z
           project:
             projectId: 44f4c4f8-2f39-494e-838c-d8e640591be5
           changeLog:
@@ -61431,7 +64001,7 @@ components:
             $ref: '#/components/schemas/StreamAsset'
           type: array
       type: object
-    AssetId:
+    AssetId_1:
       description: Stream Asset UUID
       example: 757400f8-d360-11e9-bb65-2a2ae2dbcce6
       format: uuid
@@ -61522,6 +64092,7 @@ components:
             - equinix.fabric.connection.*
             - equinix.fabric.connection.*
             - equinix.fabric.connection.*
+          lastErrorMessage: lastErrorMessage
           eventSelector:
             include:
             - equinix.fabric.connection.*
@@ -61544,7 +64115,6 @@ components:
               metricIndex: metricIndex
               eventIndex: eventIndex
               source: source
-              transformAlerts: true
             credential:
               password: password
               apiKey: apiKey
@@ -61574,13 +64144,6 @@ components:
             updatedDateTime: 2020-11-06T07:00:00Z
           href: https://api.equinix.com/fabric/v4/streams/d684aa26-8276-48b7-bb42-a6d9def0a418/subscriptions/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
           state: PROVISIONING
-          filters:
-            and:
-            - null
-            - null
-            - null
-            - null
-            - null
           type: STREAM_SUBSCRIPTION
           uuid: c9b8e7a2-f3b1-4576-a4a9-1366a63df170
           enabled: true
@@ -61597,6 +64160,7 @@ components:
             - equinix.fabric.connection.*
             - equinix.fabric.connection.*
             - equinix.fabric.connection.*
+          lastErrorMessage: lastErrorMessage
           eventSelector:
             include:
             - equinix.fabric.connection.*
@@ -61619,7 +64183,6 @@ components:
               metricIndex: metricIndex
               eventIndex: eventIndex
               source: source
-              transformAlerts: true
             credential:
               password: password
               apiKey: apiKey
@@ -61649,13 +64212,6 @@ components:
             updatedDateTime: 2020-11-06T07:00:00Z
           href: https://api.equinix.com/fabric/v4/streams/d684aa26-8276-48b7-bb42-a6d9def0a418/subscriptions/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
           state: PROVISIONING
-          filters:
-            and:
-            - null
-            - null
-            - null
-            - null
-            - null
           type: STREAM_SUBSCRIPTION
           uuid: c9b8e7a2-f3b1-4576-a4a9-1366a63df170
           enabled: true
@@ -61706,7 +64262,6 @@ components:
             metricIndex: metricIndex
             eventIndex: eventIndex
             source: source
-            transformAlerts: true
           credential:
             password: password
             apiKey: apiKey
@@ -61721,13 +64276,6 @@ components:
           batchEnabled: false
         name: name
         description: description
-        filters:
-          and:
-          - null
-          - null
-          - null
-          - null
-          - null
         type: STREAM_SUBSCRIPTION
         enabled: true
       properties:
@@ -61745,90 +64293,12 @@ components:
           description: Stream subscription enabled status
           example: true
           type: boolean
-        filters:
-          $ref: '#/components/schemas/StreamSubscriptionFilter'
         metricSelector:
           $ref: '#/components/schemas/StreamSubscriptionSelector'
         eventSelector:
           $ref: '#/components/schemas/StreamSubscriptionSelector'
         sink:
           $ref: '#/components/schemas/StreamSubscriptionSink'
-      type: object
-    StreamSubscriptionFilter:
-      example:
-        and:
-        - null
-        - null
-        - null
-        - null
-        - null
-      properties:
-        and:
-          items:
-            $ref: '#/components/schemas/StreamFilter'
-          maxItems: 8
-          type: array
-      type: object
-    StreamFilter:
-      anyOf:
-      - $ref: '#/components/schemas/StreamFilterSimpleExpression'
-      - $ref: '#/components/schemas/StreamFilterOrFilter'
-      type: object
-    StreamFilterSimpleExpression:
-      properties:
-        property:
-          description: |
-            Possible field names to use on filters:
-             * `/subject` - subject
-             * `/type` - type
-          example: /type
-          type: string
-        operator:
-          description: |
-            Possible operators to use on filters:
-             * `=` - equal
-             * `in` - in
-             * `LIKE` - case-sensitive like
-             * `ILIKE` - case-insensitive like
-          example: =
-          type: string
-        values:
-          description: |
-            ### Supported event or metric names to use on filters with property /type:
-              * `*` - all events or metrics
-              * `equinix.fabric.port.*` - port events or metrics
-              * `equinix.fabric.connection.*` - connection events or metrics
-              * `equinix.fabric.router.*` - cloud router events
-              * `equinix.fabric.metro.*` - metro metrics
-              * `equinix.fabric.network.*` - network events
-              * `equinix.fabric.service_token.*` - service token events
-              * `equinix.network_edge.*` - network edge events
-              * `equinix.network_edge.acl.*` - network edge acl events
-              * `equinix.network_edge.device.*` - network edge device events
-              * `equinix.access_manager.*` - identity access manager events
-              * `equinix.access_manager.user.role.*` - identity access manager user role events
-            ### Supported event or metric names to use on filters with property /subject:
-              * `*` - all events or metrics
-              * `/fabric/v4/ports/<uuid>` - port events or metrics
-              * `/fabric/v4/connections/<uuid>` - connection events or metrics
-              * `/fabric/v4/routers/<uuid>` - cloud router events
-              * `/fabric/v4/metros/<metroCode>` - metro metrics
-              * `/fabric/v4/networks/<uuid>` - network events
-              * `/fabric/v4/tokens/<uuid>` - service token events
-              * `/ne/v1/acl/<uuid>` - network edge acl events
-              * `/ne/v1/devices/<uuid>` - network edge device events
-              * `/am/v2/users/<uuid>/roleAssignments/<uuid>` - identity access manager events
-          items:
-            type: string
-          type: array
-      type: object
-    StreamFilterOrFilter:
-      properties:
-        or:
-          items:
-            $ref: '#/components/schemas/StreamFilterSimpleExpression'
-          maxItems: 3
-          type: array
       type: object
     StreamSubscriptionSelector:
       example:
@@ -61884,7 +64354,6 @@ components:
           metricIndex: metricIndex
           eventIndex: eventIndex
           source: source
-          transformAlerts: true
         credential:
           password: password
           apiKey: apiKey
@@ -61972,7 +64441,6 @@ components:
         metricIndex: metricIndex
         eventIndex: eventIndex
         source: source
-        transformAlerts: true
       properties:
         eventIndex:
           description: event index
@@ -61992,10 +64460,6 @@ components:
         metricUri:
           description: metric uri
           type: string
-        transformAlerts:
-          description: transform alerts
-          example: true
-          type: boolean
       type: object
     StreamSubscription:
       description: Stream Subscription object
@@ -62013,6 +64477,7 @@ components:
           - equinix.fabric.connection.*
           - equinix.fabric.connection.*
           - equinix.fabric.connection.*
+        lastErrorMessage: lastErrorMessage
         eventSelector:
           include:
           - equinix.fabric.connection.*
@@ -62035,7 +64500,6 @@ components:
             metricIndex: metricIndex
             eventIndex: eventIndex
             source: source
-            transformAlerts: true
           credential:
             password: password
             apiKey: apiKey
@@ -62065,13 +64529,6 @@ components:
           updatedDateTime: 2020-11-06T07:00:00Z
         href: https://api.equinix.com/fabric/v4/streams/d684aa26-8276-48b7-bb42-a6d9def0a418/subscriptions/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
         state: PROVISIONING
-        filters:
-          and:
-          - null
-          - null
-          - null
-          - null
-          - null
         type: STREAM_SUBSCRIPTION
         uuid: c9b8e7a2-f3b1-4576-a4a9-1366a63df170
         enabled: true
@@ -62111,8 +64568,6 @@ components:
         enabled:
           description: Stream subscription enabled status
           type: boolean
-        filters:
-          $ref: '#/components/schemas/StreamSubscriptionFilter'
         metricSelector:
           $ref: '#/components/schemas/StreamSubscriptionSelector'
         eventSelector:
@@ -62121,6 +64576,9 @@ components:
           $ref: '#/components/schemas/StreamSubscriptionSink'
         changeLog:
           $ref: '#/components/schemas/Changelog'
+        lastErrorMessage:
+          description: HTTP response from sink type if error occurred
+          type: string
       type: object
     StreamSubscriptionId:
       description: Stream Subscription UUID
@@ -62165,7 +64623,6 @@ components:
             metricIndex: metricIndex
             eventIndex: eventIndex
             source: source
-            transformAlerts: true
           credential:
             password: password
             apiKey: apiKey
@@ -62448,6 +64905,130 @@ components:
         criticalThreshold:
           description: Stream alert rule metric critical threshold
           type: string
+      type: object
+    Error:
+      description: Error Response with details
+      example:
+        help: help
+        errorMessage: errorMessage
+        additionalInfo:
+        - reason: reason
+          property: property
+        - reason: reason
+          property: property
+        errorCode: errorCode
+        correlationId: correlationId
+        details: details
+      properties:
+        errorCode:
+          pattern: "^EQ-\\d{7}$"
+          type: string
+        errorMessage:
+          type: string
+        correlationId:
+          type: string
+        details:
+          type: string
+        help:
+          type: string
+        additionalInfo:
+          items:
+            $ref: '#/components/schemas/PriceError_additionalInfo'
+          type: array
+      required:
+      - errorCode
+      - errorMessage
+      type: object
+    CloudEventData:
+      example:
+        resource:
+          name: name
+          href: href
+          state: state
+          type: type
+          uuid: uuid
+        auth:
+          name: name
+          authid: equinix
+          email: email
+          authtype: system
+        message: message
+      properties:
+        message:
+          description: Cloud Event message
+          type: string
+        resource:
+          $ref: '#/components/schemas/ResourceData'
+        auth:
+          $ref: '#/components/schemas/AuthContext'
+      type: object
+    ResourceData:
+      example:
+        name: name
+        href: href
+        state: state
+        type: type
+        uuid: uuid
+      properties:
+        href:
+          description: Cloud Event asset href
+          type: string
+        uuid:
+          description: Cloud Event asset uuid
+          type: string
+        type:
+          description: Cloud Event asset type
+          type: string
+        name:
+          description: Cloud Event asset name
+          type: string
+        state:
+          description: Cloud Event asset state
+          type: string
+      type: object
+    AuthContext:
+      example:
+        name: name
+        authid: equinix
+        email: email
+        authtype: system
+      properties:
+        authtype:
+          description: Cloud Event auth type
+          enum:
+          - system
+          - user
+          type: string
+        authid:
+          description: Cloud Event auth identifier
+          enum:
+          - equinix
+          - userId
+          type: string
+        name:
+          description: Cloud Event username
+          type: string
+        email:
+          description: Cloud Event email
+          type: string
+      type: object
+    PaginationRequest:
+      description: Pagination request information
+      example:
+        offset: 0
+        limit: 1
+      properties:
+        offset:
+          default: 0
+          description: Index of the first element.
+          minimum: 0
+          type: integer
+        limit:
+          default: 20
+          description: "Number of elements to be requested per page. Number must be\
+            \ between 1 and 100, and the default is 20."
+          minimum: 1
+          type: integer
       type: object
     ConnectionType:
       description: Connection type
@@ -63690,39 +66271,6 @@ components:
           format: date-time
           type: string
       type: object
-    Error:
-      description: Error Response with details
-      example:
-        help: help
-        errorMessage: errorMessage
-        additionalInfo:
-        - reason: reason
-          property: property
-        - reason: reason
-          property: property
-        errorCode: errorCode
-        correlationId: correlationId
-        details: details
-      properties:
-        errorCode:
-          pattern: "^EQ-\\d{7}$"
-          type: string
-        errorMessage:
-          type: string
-        correlationId:
-          type: string
-        details:
-          type: string
-        help:
-          type: string
-        additionalInfo:
-          items:
-            $ref: '#/components/schemas/PriceError_additionalInfo'
-          type: array
-      required:
-      - errorCode
-      - errorMessage
-      type: object
     ConnectionChangeOperation:
       description: Connection change operation data
       example:
@@ -64590,24 +67138,6 @@ components:
           readOnly: true
           type: integer
       type: object
-    PaginationRequest:
-      description: Pagination request information
-      example:
-        offset: 0
-        limit: 1
-      properties:
-        offset:
-          default: 0
-          description: Index of the first element.
-          minimum: 0
-          type: integer
-        limit:
-          default: 20
-          description: "Number of elements to be requested per page. Number must be\
-            \ between 1 and 100, and the default is 20."
-          minimum: 1
-          type: integer
-      type: object
     ConnectionRouteTableEntry:
       description: Advertised and received route table entry object
       example:
@@ -65470,12 +68000,14 @@ components:
       enum:
       - XF_PORT
       - IX_PORT
+      - IA_PORT
       type: string
     PortState:
       description: Port lifecycle state
       enum:
       - PENDING
       - PROVISIONING
+      - REPROVISIONING
       - PROVISIONED
       - ACTIVE
       - DEPROVISIONING
@@ -65562,6 +68094,53 @@ components:
           type: integer
         opStatusChangedAt:
           description: Date and time at which port availability changed.
+          example: 2020-11-06T07:00:00Z
+          format: date-time
+          type: string
+      type: object
+    PortChange:
+      description: Current state of latest port change
+      example:
+        data:
+          op: replace
+          path: /name
+          value: "{}"
+        createdDateTime: 2020-11-06T07:00:00Z
+        information: information
+        type: PORT_CREATION
+        uuid: uuid
+        status: COMPLETED
+        updatedDateTime: 2020-11-06T07:00:00Z
+      properties:
+        uuid:
+          description: Uniquely identifies a change
+          type: string
+        type:
+          description: Type of change
+          enum:
+          - PORT_CREATION
+          - PORT_UPDATE
+          - PORT_DELETION
+          type: string
+        status:
+          description: Current outcome of the change flow
+          enum:
+          - COMPLETED
+          - FAILED
+          - REQUESTED
+          type: string
+        information:
+          description: Additional information
+          type: string
+        data:
+          $ref: '#/components/schemas/PortChangeOperation'
+        createdDateTime:
+          description: Set when change flow starts
+          example: 2020-11-06T07:00:00Z
+          format: date-time
+          type: string
+        updatedDateTime:
+          description: Set when change object is updated
           example: 2020-11-06T07:00:00Z
           format: date-time
           type: string
@@ -66551,6 +69130,95 @@ components:
           description: IPV6 route count
           example: 6
           type: integer
+      type: object
+    CloudRouterCommandType:
+      description: Fabric Cloud Router Command Type
+      enum:
+      - PING_COMMAND
+      example: PING_COMMAND
+      type: string
+    CloudRouterCommandRequest:
+      description: Fabric Cloud Router Command Request
+      example:
+        dataBytes: 100
+        destination: 8.8.8.8
+        count: 5
+        sourceConnection:
+          uuid: 557400f8-d360-11e9-bb65-2a2ae2dbcce4
+        interval: 1000
+        timeout: 5
+      properties:
+        destination:
+          description: Fabric Cloud Router Ping Command Destination
+          example: 8.8.8.8
+          type: string
+        sourceConnection:
+          $ref: '#/components/schemas/CloudRouterCommandRequestConnection'
+        timeout:
+          description: Fabric Cloud Router Ping Command Timeout
+          example: 5
+          type: integer
+        dataBytes:
+          default: 64
+          description: Fabric Cloud Router Ping Command DataBytes
+          example: 100
+          maximum: 9000
+          minimum: 16
+          type: integer
+        interval:
+          default: 1000
+          description: Time in milliseconds between sending each packet
+          example: 1000
+          readOnly: true
+          type: integer
+        count:
+          default: 5
+          description: Total number of ping requests
+          example: 5
+          readOnly: true
+          type: integer
+      required:
+      - destination
+      type: object
+    CloudRouterCommandState:
+      description: Fabric Cloud Router Command State
+      enum:
+      - PENDING
+      - SUCCEEDED
+      - FAILED
+      - DELETED
+      example: SUCCEEDED
+      type: string
+    CloudRouterCommandResponse:
+      example:
+        output: output
+        outputStructuredPing:
+          destinationIp: 8.8.8.8
+          dataBytes: 100
+          rttAvg: 15.483
+          rttMin: 9.271
+          rttMax: 26.771
+          packetsReceived: 4
+          destinationName: 8.8.8.8
+          packetsLossPercent: 0
+          responses:
+          - icmpSeq: 0
+            bytes: 100
+            ip: 8.8.8.8
+            time: 9.839
+            ttl: 117
+          - icmpSeq: 0
+            bytes: 100
+            ip: 8.8.8.8
+            time: 9.839
+            ttl: 117
+          packetsTransmitted: 4
+          rttStdDev: 7.039
+      properties:
+        output:
+          type: string
+        outputStructuredPing:
+          $ref: '#/components/schemas/OutputStructuredPing'
       type: object
     RouteTableEntry:
       description: Route table entry object
@@ -68320,6 +70988,8 @@ components:
       - EVPLAN
       - EPLAN
       - IPWAN
+      - EVPTREE
+      - EPTREE
       type: string
     NetworkScope:
       description: Network scope
@@ -68629,6 +71299,25 @@ components:
           description: Order Reference Number
           type: string
       title: precisionTimeOrder
+      type: object
+    precisionTimePackagePostResponse:
+      example:
+        href: https://api.equinix.com/fabric/v4/timeServicePackage/NTP_STANDARD
+        code: NTP_STANDARD
+      properties:
+        href:
+          format: uri
+          type: string
+        code:
+          enum:
+          - NTP_STANDARD
+          - NTP_ENTERPRISE
+          - PTP_STANDARD
+          - PTP_ENTERPRISE
+          type: string
+      required:
+      - code
+      title: precisionTimePackagePostResponse
       type: object
     virtualConnectionTimeServiceResponse:
       description: Fabric Connection Precision Time Service Response Object
@@ -69757,10 +72446,6 @@ components:
           $ref: '#/components/schemas/virtualConnectionSide'
         zSide:
           $ref: '#/components/schemas/virtualConnectionSide'
-      required:
-      - href
-      - type
-      - uuid
       title: fabricConnectionResponse
       type: object
     precisionTimePrice:
@@ -69799,6 +72484,82 @@ components:
         uuid:
           format: uuid
           type: string
+      type: object
+    StreamSubscriptionFilter:
+      example:
+        and:
+        - null
+        - null
+        - null
+        - null
+        - null
+      properties:
+        and:
+          items:
+            $ref: '#/components/schemas/StreamFilter'
+          maxItems: 8
+          type: array
+      type: object
+    StreamFilter:
+      anyOf:
+      - $ref: '#/components/schemas/StreamFilterSimpleExpression'
+      - $ref: '#/components/schemas/StreamFilterOrFilter'
+      type: object
+    StreamFilterSimpleExpression:
+      properties:
+        property:
+          description: |
+            Possible field names to use on filters:
+             * `/subject` - subject
+             * `/type` - type
+          example: /type
+          type: string
+        operator:
+          description: |
+            Possible operators to use on filters:
+             * `=` - equal
+             * `in` - in
+             * `LIKE` - case-sensitive like
+             * `ILIKE` - case-insensitive like
+          example: =
+          type: string
+        values:
+          description: |
+            ### Supported event or metric names to use on filters with property /type:
+              * `*` - all events or metrics
+              * `equinix.fabric.port.*` - port events or metrics
+              * `equinix.fabric.connection.*` - connection events or metrics
+              * `equinix.fabric.router.*` - cloud router events
+              * `equinix.fabric.metro.*` - metro metrics
+              * `equinix.fabric.network.*` - network events
+              * `equinix.fabric.service_token.*` - service token events
+              * `equinix.network_edge.*` - network edge events
+              * `equinix.network_edge.acl.*` - network edge acl events
+              * `equinix.network_edge.device.*` - network edge device events
+              * `equinix.access_manager.*` - identity access manager events
+              * `equinix.access_manager.user.role.*` - identity access manager user role events
+            ### Supported event or metric names to use on filters with property /subject:
+              * `*` - all events or metrics
+              * `/fabric/v4/ports/<uuid>` - port events or metrics
+              * `/fabric/v4/connections/<uuid>` - connection events or metrics
+              * `/fabric/v4/routers/<uuid>` - cloud router events
+              * `/fabric/v4/metros/<metroCode>` - metro metrics
+              * `/fabric/v4/networks/<uuid>` - network events
+              * `/fabric/v4/tokens/<uuid>` - service token events
+              * `/ne/v1/acl/<uuid>` - network edge acl events
+              * `/ne/v1/devices/<uuid>` - network edge device events
+              * `/am/v2/users/<uuid>/roleAssignments/<uuid>` - identity access manager events
+          items:
+            type: string
+          type: array
+      type: object
+    StreamFilterOrFilter:
+      properties:
+        or:
+          items:
+            $ref: '#/components/schemas/StreamFilterSimpleExpression'
+          maxItems: 3
+          type: array
       type: object
     ConnectionPriority:
       description: Connection priority in redundancy group
@@ -70937,6 +73698,80 @@ components:
           example: 1000
           format: int64
           type: integer
+      type: object
+    CloudRouterCommandRequestConnection:
+      description: Connection object for Cloud Router Command
+      example:
+        uuid: 557400f8-d360-11e9-bb65-2a2ae2dbcce4
+      properties:
+        uuid:
+          description: Connection UUID
+          example: 557400f8-d360-11e9-bb65-2a2ae2dbcce4
+          type: string
+      type: object
+    OutputStructuredPing:
+      example:
+        destinationIp: 8.8.8.8
+        dataBytes: 100
+        rttAvg: 15.483
+        rttMin: 9.271
+        rttMax: 26.771
+        packetsReceived: 4
+        destinationName: 8.8.8.8
+        packetsLossPercent: 0
+        responses:
+        - icmpSeq: 0
+          bytes: 100
+          ip: 8.8.8.8
+          time: 9.839
+          ttl: 117
+        - icmpSeq: 0
+          bytes: 100
+          ip: 8.8.8.8
+          time: 9.839
+          ttl: 117
+        packetsTransmitted: 4
+        rttStdDev: 7.039
+      properties:
+        destinationIp:
+          example: 8.8.8.8
+          type: string
+        destinationName:
+          example: 8.8.8.8
+          type: string
+        dataBytes:
+          example: 100
+          type: integer
+        packetsTransmitted:
+          example: 4
+          type: integer
+        packetsReceived:
+          example: 4
+          type: integer
+        packetsLossPercent:
+          example: 0
+          format: float
+          type: number
+        rttMin:
+          example: 9.271
+          format: float
+          type: number
+        rttAvg:
+          example: 15.483
+          format: float
+          type: number
+        rttMax:
+          example: 26.771
+          format: float
+          type: number
+        rttStdDev:
+          example: 7.039
+          format: float
+          type: number
+        responses:
+          items:
+            $ref: '#/components/schemas/OutputStructuredPingResponseItem'
+          type: array
       type: object
     RouteTableEntryState:
       description: Route table entry state
@@ -72410,6 +75245,31 @@ components:
           $ref: '#/components/schemas/VirtualDeviceInterface'
         network:
           $ref: '#/components/schemas/SimplifiedTokenNetwork'
+      type: object
+    OutputStructuredPingResponseItem:
+      example:
+        icmpSeq: 0
+        bytes: 100
+        ip: 8.8.8.8
+        time: 9.839
+        ttl: 117
+      properties:
+        bytes:
+          example: 100
+          type: integer
+        ip:
+          example: 8.8.8.8
+          type: string
+        icmpSeq:
+          example: 0
+          type: integer
+        ttl:
+          example: 117
+          type: integer
+        time:
+          example: 9.839
+          format: float
+          type: number
       type: object
     LinkProtocolType:
       description: Type of Link Protocol
