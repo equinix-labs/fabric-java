@@ -810,19 +810,22 @@ public class ConnectionsApi {
      * Build call for updateConnectionByUuid
      * @param connectionId Connection Id (required)
      * @param connectionChangeOperation  (required)
+     * @param dryRun option to verify that API calls will succeed (optional, default to false)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateConnectionByUuidCall(String connectionId, List<ConnectionChangeOperation> connectionChangeOperation, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call updateConnectionByUuidCall(String connectionId, List<ConnectionChangeOperation> connectionChangeOperation, Boolean dryRun, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -848,6 +851,10 @@ public class ConnectionsApi {
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
+        if (dryRun != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("dryRun", dryRun));
+        }
+
         final String[] localVarAccepts = {
             "application/json"
         };
@@ -869,7 +876,7 @@ public class ConnectionsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateConnectionByUuidValidateBeforeCall(String connectionId, List<ConnectionChangeOperation> connectionChangeOperation, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call updateConnectionByUuidValidateBeforeCall(String connectionId, List<ConnectionChangeOperation> connectionChangeOperation, Boolean dryRun, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'connectionId' is set
         if (connectionId == null) {
             throw new ApiException("Missing the required parameter 'connectionId' when calling updateConnectionByUuid(Async)");
@@ -880,7 +887,7 @@ public class ConnectionsApi {
             throw new ApiException("Missing the required parameter 'connectionChangeOperation' when calling updateConnectionByUuid(Async)");
         }
 
-        return updateConnectionByUuidCall(connectionId, connectionChangeOperation, _callback);
+        return updateConnectionByUuidCall(connectionId, connectionChangeOperation, dryRun, _callback);
 
     }
 
@@ -889,19 +896,22 @@ public class ConnectionsApi {
      * Update Connection by ID
      * @param connectionId Connection Id (required)
      * @param connectionChangeOperation  (required)
+     * @param dryRun option to verify that API calls will succeed (optional, default to false)
      * @return Connection
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
      </table>
      */
-    public Connection updateConnectionByUuid(String connectionId, List<ConnectionChangeOperation> connectionChangeOperation) throws ApiException {
-        ApiResponse<Connection> localVarResp = updateConnectionByUuidWithHttpInfo(connectionId, connectionChangeOperation);
+    public Connection updateConnectionByUuid(String connectionId, List<ConnectionChangeOperation> connectionChangeOperation, Boolean dryRun) throws ApiException {
+        ApiResponse<Connection> localVarResp = updateConnectionByUuidWithHttpInfo(connectionId, connectionChangeOperation, dryRun);
         return localVarResp.getData();
     }
 
@@ -910,19 +920,22 @@ public class ConnectionsApi {
      * Update Connection by ID
      * @param connectionId Connection Id (required)
      * @param connectionChangeOperation  (required)
+     * @param dryRun option to verify that API calls will succeed (optional, default to false)
      * @return ApiResponse&lt;Connection&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Connection> updateConnectionByUuidWithHttpInfo(String connectionId, List<ConnectionChangeOperation> connectionChangeOperation) throws ApiException {
-        okhttp3.Call localVarCall = updateConnectionByUuidValidateBeforeCall(connectionId, connectionChangeOperation, null);
+    public ApiResponse<Connection> updateConnectionByUuidWithHttpInfo(String connectionId, List<ConnectionChangeOperation> connectionChangeOperation, Boolean dryRun) throws ApiException {
+        okhttp3.Call localVarCall = updateConnectionByUuidValidateBeforeCall(connectionId, connectionChangeOperation, dryRun, null);
         Type localVarReturnType = new TypeToken<Connection>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -932,21 +945,24 @@ public class ConnectionsApi {
      * Update Connection by ID
      * @param connectionId Connection Id (required)
      * @param connectionChangeOperation  (required)
+     * @param dryRun option to verify that API calls will succeed (optional, default to false)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
         <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateConnectionByUuidAsync(String connectionId, List<ConnectionChangeOperation> connectionChangeOperation, final ApiCallback<Connection> _callback) throws ApiException {
+    public okhttp3.Call updateConnectionByUuidAsync(String connectionId, List<ConnectionChangeOperation> connectionChangeOperation, Boolean dryRun, final ApiCallback<Connection> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = updateConnectionByUuidValidateBeforeCall(connectionId, connectionChangeOperation, _callback);
+        okhttp3.Call localVarCall = updateConnectionByUuidValidateBeforeCall(connectionId, connectionChangeOperation, dryRun, _callback);
         Type localVarReturnType = new TypeToken<Connection>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
