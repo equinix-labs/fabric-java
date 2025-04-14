@@ -25,6 +25,7 @@ PortRequest is the Request Object for creating single and bulk fabric ports
 |**order** | [**PortOrder**](PortOrder.md) |  |  [optional] |
 |**operation** | [**PortOperation**](PortOperation.md) |  |  [optional] |
 |**account** | [**SimplifiedAccount**](SimplifiedAccount.md) |  |  |
+|**change** | [**PortChange**](PortChange.md) |  |  [optional] |
 |**changeLog** | [**Changelog**](Changelog.md) |  |  [optional] |
 |**serviceType** | [**ServiceTypeEnum**](#ServiceTypeEnum) | Port service Type |  [optional] |
 |**bandwidth** | **Integer** | Equinix assigned response attribute for Port bandwidth in Mbps |  [optional] |
