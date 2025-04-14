@@ -1,0 +1,10 @@
+--- oas3.fabric.fetched.json
++++ oas3.fabric.fetched.json
+@@ -13768,7 +13768,6 @@
+       "CustomField": {
+         "required": [
+           "dataType",
+-          "description",
+           "isRequired",
+           "label"
+         ],
