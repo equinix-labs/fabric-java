@@ -377,7 +377,7 @@ public class Example {
 
 <a name="updateConnectionByUuid"></a>
 # **updateConnectionByUuid**
-> Connection updateConnectionByUuid(connectionId, connectionChangeOperation)
+> Connection updateConnectionByUuid(connectionId, connectionChangeOperation, dryRun)
 
 Update by ID
 
@@ -405,8 +405,9 @@ public class Example {
     ConnectionsApi apiInstance = new ConnectionsApi(defaultClient);
     String connectionId = "connectionId_example"; // String | Connection Id
     List<ConnectionChangeOperation> connectionChangeOperation = Arrays.asList(); // List<ConnectionChangeOperation> | 
+    Boolean dryRun = false; // Boolean | option to verify that API calls will succeed
     try {
-      Connection result = apiInstance.updateConnectionByUuid(connectionId, connectionChangeOperation);
+      Connection result = apiInstance.updateConnectionByUuid(connectionId, connectionChangeOperation, dryRun);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ConnectionsApi#updateConnectionByUuid");
@@ -425,6 +426,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **connectionId** | **String**| Connection Id | |
 | **connectionChangeOperation** | [**List&lt;ConnectionChangeOperation&gt;**](ConnectionChangeOperation.md)|  | |
+| **dryRun** | **Boolean**| option to verify that API calls will succeed | [optional] [default to false] |
 
 ### Return type
 
@@ -442,7 +444,9 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+| **200** | Successful operation |  -  |
 | **202** | Successful operation |  -  |
+| **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
 | **404** | Not Found |  -  |

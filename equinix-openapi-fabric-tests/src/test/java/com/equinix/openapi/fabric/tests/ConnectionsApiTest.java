@@ -282,7 +282,7 @@ public class ConnectionsApiTest {
                 .path("/name")
                 .value(updatedName);
 
-        Connection updatedConnection = connectionsApi.updateConnectionByUuid(connection.getUuid(), singletonList(connectionChangeOperation));
+        Connection updatedConnection = connectionsApi.updateConnectionByUuid(connection.getUuid(), singletonList(connectionChangeOperation), true);
 
         assertEquals(202, connectionsApi.getApiClient().getStatusCode());
 
