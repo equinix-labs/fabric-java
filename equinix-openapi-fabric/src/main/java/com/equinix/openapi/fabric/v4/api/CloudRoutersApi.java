@@ -32,12 +32,17 @@ import com.equinix.openapi.fabric.v4.model.CloudRouterActionState;
 import com.equinix.openapi.fabric.v4.model.CloudRouterActionsSearchRequest;
 import com.equinix.openapi.fabric.v4.model.CloudRouterActionsSearchResponse;
 import com.equinix.openapi.fabric.v4.model.CloudRouterChangeOperation;
+import com.equinix.openapi.fabric.v4.model.CloudRouterCommand;
+import com.equinix.openapi.fabric.v4.model.CloudRouterCommandPostRequest;
+import com.equinix.openapi.fabric.v4.model.CloudRouterCommandSearchRequest;
+import com.equinix.openapi.fabric.v4.model.CloudRouterCommandSearchResponse;
 import com.equinix.openapi.fabric.v4.model.CloudRouterPackage;
 import com.equinix.openapi.fabric.v4.model.CloudRouterPostRequest;
 import com.equinix.openapi.fabric.v4.model.CloudRouterSearchRequest;
 import com.equinix.openapi.fabric.v4.model.ConnectionRouteSearchRequest;
 import com.equinix.openapi.fabric.v4.model.ConnectionRouteTableEntrySearchResponse;
 import com.equinix.openapi.fabric.v4.model.Error;
+import com.equinix.openapi.fabric.v4.model.GetAllCloudRouterCommands;
 import com.equinix.openapi.fabric.v4.model.PackageResponse;
 import com.equinix.openapi.fabric.v4.model.RouteTableEntrySearchRequest;
 import com.equinix.openapi.fabric.v4.model.RouteTableEntrySearchResponse;
@@ -398,6 +403,163 @@ public class CloudRoutersApi {
         return localVarCall;
     }
     /**
+     * Build call for createCloudRouterCommand
+     * @param routerId Router UUID (required)
+     * @param cloudRouterCommandPostRequest  (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Internal server error </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call createCloudRouterCommandCall(UUID routerId, CloudRouterCommandPostRequest cloudRouterCommandPostRequest, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = cloudRouterCommandPostRequest;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/routers/{routerId}/commands"
+            .replace("{" + "routerId" + "}", localVarApiClient.escapeString(routerId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call createCloudRouterCommandValidateBeforeCall(UUID routerId, CloudRouterCommandPostRequest cloudRouterCommandPostRequest, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'routerId' is set
+        if (routerId == null) {
+            throw new ApiException("Missing the required parameter 'routerId' when calling createCloudRouterCommand(Async)");
+        }
+
+        // verify the required parameter 'cloudRouterCommandPostRequest' is set
+        if (cloudRouterCommandPostRequest == null) {
+            throw new ApiException("Missing the required parameter 'cloudRouterCommandPostRequest' when calling createCloudRouterCommand(Async)");
+        }
+
+        return createCloudRouterCommandCall(routerId, cloudRouterCommandPostRequest, _callback);
+
+    }
+
+    /**
+     * Initiate Command
+     * This API provides capability to initiate Command
+     * @param routerId Router UUID (required)
+     * @param cloudRouterCommandPostRequest  (required)
+     * @return CloudRouterCommand
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Internal server error </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public CloudRouterCommand createCloudRouterCommand(UUID routerId, CloudRouterCommandPostRequest cloudRouterCommandPostRequest) throws ApiException {
+        ApiResponse<CloudRouterCommand> localVarResp = createCloudRouterCommandWithHttpInfo(routerId, cloudRouterCommandPostRequest);
+        return localVarResp.getData();
+    }
+
+    /**
+     * Initiate Command
+     * This API provides capability to initiate Command
+     * @param routerId Router UUID (required)
+     * @param cloudRouterCommandPostRequest  (required)
+     * @return ApiResponse&lt;CloudRouterCommand&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Internal server error </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<CloudRouterCommand> createCloudRouterCommandWithHttpInfo(UUID routerId, CloudRouterCommandPostRequest cloudRouterCommandPostRequest) throws ApiException {
+        okhttp3.Call localVarCall = createCloudRouterCommandValidateBeforeCall(routerId, cloudRouterCommandPostRequest, null);
+        Type localVarReturnType = new TypeToken<CloudRouterCommand>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Initiate Command (asynchronously)
+     * This API provides capability to initiate Command
+     * @param routerId Router UUID (required)
+     * @param cloudRouterCommandPostRequest  (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 202 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Internal server error </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call createCloudRouterCommandAsync(UUID routerId, CloudRouterCommandPostRequest cloudRouterCommandPostRequest, final ApiCallback<CloudRouterCommand> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = createCloudRouterCommandValidateBeforeCall(routerId, cloudRouterCommandPostRequest, _callback);
+        Type localVarReturnType = new TypeToken<CloudRouterCommand>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
      * Build call for deleteCloudRouterByUuid
      * @param routerId Cloud Router UUID (required)
      * @param _callback Callback for upload/download progress
@@ -534,6 +696,302 @@ public class CloudRoutersApi {
 
         okhttp3.Call localVarCall = deleteCloudRouterByUuidValidateBeforeCall(routerId, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for deleteCloudRouterCommandByUuid
+     * @param routerId Router UUID (required)
+     * @param commandId Command UUID (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> Deleted command successfully </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call deleteCloudRouterCommandByUuidCall(UUID routerId, UUID commandId, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/routers/{routerId}/commands/{commandId}"
+            .replace("{" + "routerId" + "}", localVarApiClient.escapeString(routerId.toString()))
+            .replace("{" + "commandId" + "}", localVarApiClient.escapeString(commandId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call deleteCloudRouterCommandByUuidValidateBeforeCall(UUID routerId, UUID commandId, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'routerId' is set
+        if (routerId == null) {
+            throw new ApiException("Missing the required parameter 'routerId' when calling deleteCloudRouterCommandByUuid(Async)");
+        }
+
+        // verify the required parameter 'commandId' is set
+        if (commandId == null) {
+            throw new ApiException("Missing the required parameter 'commandId' when calling deleteCloudRouterCommandByUuid(Async)");
+        }
+
+        return deleteCloudRouterCommandByUuidCall(routerId, commandId, _callback);
+
+    }
+
+    /**
+     * Delete Command
+     * This API provides capability to delete command based on command Id
+     * @param routerId Router UUID (required)
+     * @param commandId Command UUID (required)
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> Deleted command successfully </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public void deleteCloudRouterCommandByUuid(UUID routerId, UUID commandId) throws ApiException {
+        deleteCloudRouterCommandByUuidWithHttpInfo(routerId, commandId);
+    }
+
+    /**
+     * Delete Command
+     * This API provides capability to delete command based on command Id
+     * @param routerId Router UUID (required)
+     * @param commandId Command UUID (required)
+     * @return ApiResponse&lt;Void&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> Deleted command successfully </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<Void> deleteCloudRouterCommandByUuidWithHttpInfo(UUID routerId, UUID commandId) throws ApiException {
+        okhttp3.Call localVarCall = deleteCloudRouterCommandByUuidValidateBeforeCall(routerId, commandId, null);
+        return localVarApiClient.execute(localVarCall);
+    }
+
+    /**
+     * Delete Command (asynchronously)
+     * This API provides capability to delete command based on command Id
+     * @param routerId Router UUID (required)
+     * @param commandId Command UUID (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 204 </td><td> Deleted command successfully </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call deleteCloudRouterCommandByUuidAsync(UUID routerId, UUID commandId, final ApiCallback<Void> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = deleteCloudRouterCommandByUuidValidateBeforeCall(routerId, commandId, _callback);
+        localVarApiClient.executeAsync(localVarCall, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for getAllCloudRouterCommands
+     * @param routerId Router UUID (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Internal server error </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getAllCloudRouterCommandsCall(UUID routerId, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/routers/{routerId}/commands"
+            .replace("{" + "routerId" + "}", localVarApiClient.escapeString(routerId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getAllCloudRouterCommandsValidateBeforeCall(UUID routerId, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'routerId' is set
+        if (routerId == null) {
+            throw new ApiException("Missing the required parameter 'routerId' when calling getAllCloudRouterCommands(Async)");
+        }
+
+        return getAllCloudRouterCommandsCall(routerId, _callback);
+
+    }
+
+    /**
+     * Get Commands
+     * This API provides capability to fetch all commands
+     * @param routerId Router UUID (required)
+     * @return GetAllCloudRouterCommands
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Internal server error </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public GetAllCloudRouterCommands getAllCloudRouterCommands(UUID routerId) throws ApiException {
+        ApiResponse<GetAllCloudRouterCommands> localVarResp = getAllCloudRouterCommandsWithHttpInfo(routerId);
+        return localVarResp.getData();
+    }
+
+    /**
+     * Get Commands
+     * This API provides capability to fetch all commands
+     * @param routerId Router UUID (required)
+     * @return ApiResponse&lt;GetAllCloudRouterCommands&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Internal server error </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<GetAllCloudRouterCommands> getAllCloudRouterCommandsWithHttpInfo(UUID routerId) throws ApiException {
+        okhttp3.Call localVarCall = getAllCloudRouterCommandsValidateBeforeCall(routerId, null);
+        Type localVarReturnType = new TypeToken<GetAllCloudRouterCommands>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Get Commands (asynchronously)
+     * This API provides capability to fetch all commands
+     * @param routerId Router UUID (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Internal server error </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getAllCloudRouterCommandsAsync(UUID routerId, final ApiCallback<GetAllCloudRouterCommands> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getAllCloudRouterCommandsValidateBeforeCall(routerId, _callback);
+        Type localVarReturnType = new TypeToken<GetAllCloudRouterCommands>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
@@ -996,6 +1454,163 @@ public class CloudRoutersApi {
         return localVarCall;
     }
     /**
+     * Build call for getCloudRouterCommand
+     * @param routerId Router UUID (required)
+     * @param commandId Command UUID (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Internal server error </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getCloudRouterCommandCall(UUID routerId, UUID commandId, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/routers/{routerId}/commands/{commandId}"
+            .replace("{" + "routerId" + "}", localVarApiClient.escapeString(routerId.toString()))
+            .replace("{" + "commandId" + "}", localVarApiClient.escapeString(commandId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getCloudRouterCommandValidateBeforeCall(UUID routerId, UUID commandId, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'routerId' is set
+        if (routerId == null) {
+            throw new ApiException("Missing the required parameter 'routerId' when calling getCloudRouterCommand(Async)");
+        }
+
+        // verify the required parameter 'commandId' is set
+        if (commandId == null) {
+            throw new ApiException("Missing the required parameter 'commandId' when calling getCloudRouterCommand(Async)");
+        }
+
+        return getCloudRouterCommandCall(routerId, commandId, _callback);
+
+    }
+
+    /**
+     * Get Command
+     * This API provides capability to fetch command using command Id
+     * @param routerId Router UUID (required)
+     * @param commandId Command UUID (required)
+     * @return CloudRouterCommand
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Internal server error </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public CloudRouterCommand getCloudRouterCommand(UUID routerId, UUID commandId) throws ApiException {
+        ApiResponse<CloudRouterCommand> localVarResp = getCloudRouterCommandWithHttpInfo(routerId, commandId);
+        return localVarResp.getData();
+    }
+
+    /**
+     * Get Command
+     * This API provides capability to fetch command using command Id
+     * @param routerId Router UUID (required)
+     * @param commandId Command UUID (required)
+     * @return ApiResponse&lt;CloudRouterCommand&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Internal server error </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<CloudRouterCommand> getCloudRouterCommandWithHttpInfo(UUID routerId, UUID commandId) throws ApiException {
+        okhttp3.Call localVarCall = getCloudRouterCommandValidateBeforeCall(routerId, commandId, null);
+        Type localVarReturnType = new TypeToken<CloudRouterCommand>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Get Command (asynchronously)
+     * This API provides capability to fetch command using command Id
+     * @param routerId Router UUID (required)
+     * @param commandId Command UUID (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Internal server error </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getCloudRouterCommandAsync(UUID routerId, UUID commandId, final ApiCallback<CloudRouterCommand> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getCloudRouterCommandValidateBeforeCall(routerId, commandId, _callback);
+        Type localVarReturnType = new TypeToken<CloudRouterCommand>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
      * Build call for getCloudRouterPackageByCode
      * @param routerPackageCode Equinix-assigned Cloud Router package identifier (required)
      * @param _callback Callback for upload/download progress
@@ -1280,6 +1895,163 @@ public class CloudRoutersApi {
 
         okhttp3.Call localVarCall = getCloudRouterPackagesValidateBeforeCall(offset, limit, _callback);
         Type localVarReturnType = new TypeToken<PackageResponse>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
+     * Build call for searchCloudRouterCommands
+     * @param routerId Router UUID (required)
+     * @param cloudRouterCommandSearchRequest  (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Internal server error </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call searchCloudRouterCommandsCall(UUID routerId, CloudRouterCommandSearchRequest cloudRouterCommandSearchRequest, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = cloudRouterCommandSearchRequest;
+
+        // create path and map variables
+        String localVarPath = "/fabric/v4/routers/{routerId}/commands/search"
+            .replace("{" + "routerId" + "}", localVarApiClient.escapeString(routerId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "BearerAuth" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call searchCloudRouterCommandsValidateBeforeCall(UUID routerId, CloudRouterCommandSearchRequest cloudRouterCommandSearchRequest, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'routerId' is set
+        if (routerId == null) {
+            throw new ApiException("Missing the required parameter 'routerId' when calling searchCloudRouterCommands(Async)");
+        }
+
+        // verify the required parameter 'cloudRouterCommandSearchRequest' is set
+        if (cloudRouterCommandSearchRequest == null) {
+            throw new ApiException("Missing the required parameter 'cloudRouterCommandSearchRequest' when calling searchCloudRouterCommands(Async)");
+        }
+
+        return searchCloudRouterCommandsCall(routerId, cloudRouterCommandSearchRequest, _callback);
+
+    }
+
+    /**
+     * Search Commands
+     * This API provides capability to search commands
+     * @param routerId Router UUID (required)
+     * @param cloudRouterCommandSearchRequest  (required)
+     * @return CloudRouterCommandSearchResponse
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Internal server error </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public CloudRouterCommandSearchResponse searchCloudRouterCommands(UUID routerId, CloudRouterCommandSearchRequest cloudRouterCommandSearchRequest) throws ApiException {
+        ApiResponse<CloudRouterCommandSearchResponse> localVarResp = searchCloudRouterCommandsWithHttpInfo(routerId, cloudRouterCommandSearchRequest);
+        return localVarResp.getData();
+    }
+
+    /**
+     * Search Commands
+     * This API provides capability to search commands
+     * @param routerId Router UUID (required)
+     * @param cloudRouterCommandSearchRequest  (required)
+     * @return ApiResponse&lt;CloudRouterCommandSearchResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Internal server error </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<CloudRouterCommandSearchResponse> searchCloudRouterCommandsWithHttpInfo(UUID routerId, CloudRouterCommandSearchRequest cloudRouterCommandSearchRequest) throws ApiException {
+        okhttp3.Call localVarCall = searchCloudRouterCommandsValidateBeforeCall(routerId, cloudRouterCommandSearchRequest, null);
+        Type localVarReturnType = new TypeToken<CloudRouterCommandSearchResponse>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Search Commands (asynchronously)
+     * This API provides capability to search commands
+     * @param routerId Router UUID (required)
+     * @param cloudRouterCommandSearchRequest  (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successful operation </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
+        <tr><td> 415 </td><td> Internal server error </td><td>  -  </td></tr>
+        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call searchCloudRouterCommandsAsync(UUID routerId, CloudRouterCommandSearchRequest cloudRouterCommandSearchRequest, final ApiCallback<CloudRouterCommandSearchResponse> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = searchCloudRouterCommandsValidateBeforeCall(routerId, cloudRouterCommandSearchRequest, _callback);
+        Type localVarReturnType = new TypeToken<CloudRouterCommandSearchResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

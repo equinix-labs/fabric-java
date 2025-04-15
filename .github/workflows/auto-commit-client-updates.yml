@@ -4,9 +4,9 @@
 name: Auto commit client updates
 
 on:
-  workflow_dispatch:
   push:
-    branches: [ "**" ]
+    branches-ignore:
+      - 'sync/**'
 
 jobs:
   build:

@@ -1,7 +1,7 @@
 # equinix-openapi-fabric
 
 Equinix Fabric API v4
-- API version: 4.20
+- API version: 4.21
 
 Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br> </br> <b>Integrations (SDKs, Tools) links:</b> </br> <a href=\"https://deploy.equinix.com/labs/fabric-java\\\">Fabric Java SDK</a> </br> <a href=\"https://deploy.equinix.com/labs/equinix-sdk-go\\\">Fabric Go SDK</a> </br> <a href=\"https://deploy.equinix.com/labs/equinix-sdk-python\\\">Fabric Python SDK</a> </br> <a href=\"https://deploy.equinix.com/labs/terraform-provider-equinix\\\">Equinix Terraform Provider</a> </br> <a href=\"https://deploy.equinix.com/labs/terraform-equinix-fabric\\\">Fabric Terraform Modules</a> </br> <a href=\"https://deploy.equinix.com/labs/pulumi-provider-equinix/\">Equinix Pulumi Provider</a> </br>
 
@@ -85,7 +85,7 @@ import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.Configuration;
 import com.equinix.openapi.fabric.auth.*;
 import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.CloudRoutersApi;
+import com.equinix.openapi.fabric.v4.api.CloudEventsApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -96,14 +96,13 @@ public class Example {
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
     BearerAuth.setBearerToken("BEARER TOKEN");
 
-    CloudRoutersApi apiInstance = new CloudRoutersApi(defaultClient);
-    CloudRouterPostRequest cloudRouterPostRequest = new CloudRouterPostRequest(); // CloudRouterPostRequest | 
-    Boolean dryRun = false; // Boolean | option to verify that API calls will succeed
+    CloudEventsApi apiInstance = new CloudEventsApi(defaultClient);
+    UUID cloudEventId = UUID.randomUUID(); // UUID | Cloud Event UUID
     try {
-      CloudRouter result = apiInstance.createCloudRouter(cloudRouterPostRequest, dryRun);
+      CloudEvent result = apiInstance.getCloudEvent(cloudEventId);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling CloudRoutersApi#createCloudRouter");
+      System.err.println("Exception when calling CloudEventsApi#getCloudEvent");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -120,14 +119,22 @@ All URIs are relative to *https://api.equinix.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*CloudEventsApi* | [**getCloudEvent**](docs/CloudEventsApi.md#getCloudEvent) | **GET** /fabric/v4/cloudevents/{cloudEventId} | Get Cloud Event
+*CloudEventsApi* | [**getCloudEventByAssetId**](docs/CloudEventsApi.md#getCloudEventByAssetId) | **GET** /fabric/v4/{asset}/{assetId}/cloudevents | Get Cloud Events by Asset Id
+*CloudEventsApi* | [**searchCloudEvents**](docs/CloudEventsApi.md#searchCloudEvents) | **POST** /fabric/v4/cloudevents/search | Search Cloud Events
 *CloudRoutersApi* | [**createCloudRouter**](docs/CloudRoutersApi.md#createCloudRouter) | **POST** /fabric/v4/routers | Create Routers
 *CloudRoutersApi* | [**createCloudRouterAction**](docs/CloudRoutersApi.md#createCloudRouterAction) | **POST** /fabric/v4/routers/{routerId}/actions | Create Route Table Action
+*CloudRoutersApi* | [**createCloudRouterCommand**](docs/CloudRoutersApi.md#createCloudRouterCommand) | **POST** /fabric/v4/routers/{routerId}/commands | Initiate Command
 *CloudRoutersApi* | [**deleteCloudRouterByUuid**](docs/CloudRoutersApi.md#deleteCloudRouterByUuid) | **DELETE** /fabric/v4/routers/{routerId} | Delete Routers
+*CloudRoutersApi* | [**deleteCloudRouterCommandByUuid**](docs/CloudRoutersApi.md#deleteCloudRouterCommandByUuid) | **DELETE** /fabric/v4/routers/{routerId}/commands/{commandId} | Delete Command
+*CloudRoutersApi* | [**getAllCloudRouterCommands**](docs/CloudRoutersApi.md#getAllCloudRouterCommands) | **GET** /fabric/v4/routers/{routerId}/commands | Get Commands
 *CloudRoutersApi* | [**getCloudRouterActions**](docs/CloudRoutersApi.md#getCloudRouterActions) | **GET** /fabric/v4/routers/{routerId}/actions | Get Route Table Actions
 *CloudRoutersApi* | [**getCloudRouterActionsByUuid**](docs/CloudRoutersApi.md#getCloudRouterActionsByUuid) | **GET** /fabric/v4/routers/{routerId}/actions/{actionId} | Get Route Table Action by ID
 *CloudRoutersApi* | [**getCloudRouterByUuid**](docs/CloudRoutersApi.md#getCloudRouterByUuid) | **GET** /fabric/v4/routers/{routerId} | Get Routers
+*CloudRoutersApi* | [**getCloudRouterCommand**](docs/CloudRoutersApi.md#getCloudRouterCommand) | **GET** /fabric/v4/routers/{routerId}/commands/{commandId} | Get Command
 *CloudRoutersApi* | [**getCloudRouterPackageByCode**](docs/CloudRoutersApi.md#getCloudRouterPackageByCode) | **GET** /fabric/v4/routerPackages/{routerPackageCode} | Get Package Details
 *CloudRoutersApi* | [**getCloudRouterPackages**](docs/CloudRoutersApi.md#getCloudRouterPackages) | **GET** /fabric/v4/routerPackages | List Packages
+*CloudRoutersApi* | [**searchCloudRouterCommands**](docs/CloudRoutersApi.md#searchCloudRouterCommands) | **POST** /fabric/v4/routers/{routerId}/commands/search | Search Commands
 *CloudRoutersApi* | [**searchCloudRouterRoutes**](docs/CloudRoutersApi.md#searchCloudRouterRoutes) | **POST** /fabric/v4/routers/{routerId}/routes/search | Search Route Table
 *CloudRoutersApi* | [**searchCloudRouters**](docs/CloudRoutersApi.md#searchCloudRouters) | **POST** /fabric/v4/routers/search | Search Routers
 *CloudRoutersApi* | [**searchConnectionAdvertisedRoutes**](docs/CloudRoutersApi.md#searchConnectionAdvertisedRoutes) | **POST** /fabric/v4/connections/{connectionId}/advertisedRoutes/search | Search Advertised Routes
@@ -279,6 +286,7 @@ Class | Method | HTTP request | Description
  - [ApiConfig](docs/ApiConfig.md)
  - [ApiServices](docs/ApiServices.md)
  - [Asset](docs/Asset.md)
+ - [AuthContext](docs/AuthContext.md)
  - [AuthenticationKey](docs/AuthenticationKey.md)
  - [BGPActionData](docs/BGPActionData.md)
  - [BGPActionRequest](docs/BGPActionRequest.md)
@@ -294,6 +302,13 @@ Class | Method | HTTP request | Description
  - [BulkPortRequest](docs/BulkPortRequest.md)
  - [Change](docs/Change.md)
  - [Changelog](docs/Changelog.md)
+ - [CloudEvent](docs/CloudEvent.md)
+ - [CloudEventAssetType](docs/CloudEventAssetType.md)
+ - [CloudEventData](docs/CloudEventData.md)
+ - [CloudEventFilter](docs/CloudEventFilter.md)
+ - [CloudEventFilters](docs/CloudEventFilters.md)
+ - [CloudEventSearchRequest](docs/CloudEventSearchRequest.md)
+ - [CloudEventSimpleExpression](docs/CloudEventSimpleExpression.md)
  - [CloudRouter](docs/CloudRouter.md)
  - [CloudRouterAccessPointState](docs/CloudRouterAccessPointState.md)
  - [CloudRouterActionRequest](docs/CloudRouterActionRequest.md)
@@ -311,6 +326,22 @@ Class | Method | HTTP request | Description
  - [CloudRouterActionsSearchSortDirection](docs/CloudRouterActionsSearchSortDirection.md)
  - [CloudRouterChange](docs/CloudRouterChange.md)
  - [CloudRouterChangeOperation](docs/CloudRouterChangeOperation.md)
+ - [CloudRouterCommand](docs/CloudRouterCommand.md)
+ - [CloudRouterCommandPostRequest](docs/CloudRouterCommandPostRequest.md)
+ - [CloudRouterCommandRequest](docs/CloudRouterCommandRequest.md)
+ - [CloudRouterCommandRequestConnection](docs/CloudRouterCommandRequestConnection.md)
+ - [CloudRouterCommandResponse](docs/CloudRouterCommandResponse.md)
+ - [CloudRouterCommandSearchExpression](docs/CloudRouterCommandSearchExpression.md)
+ - [CloudRouterCommandSearchFilter](docs/CloudRouterCommandSearchFilter.md)
+ - [CloudRouterCommandSearchFilters](docs/CloudRouterCommandSearchFilters.md)
+ - [CloudRouterCommandSearchOrFilter](docs/CloudRouterCommandSearchOrFilter.md)
+ - [CloudRouterCommandSearchRequest](docs/CloudRouterCommandSearchRequest.md)
+ - [CloudRouterCommandSearchResponse](docs/CloudRouterCommandSearchResponse.md)
+ - [CloudRouterCommandSearchSortBy](docs/CloudRouterCommandSearchSortBy.md)
+ - [CloudRouterCommandSearchSortCriteria](docs/CloudRouterCommandSearchSortCriteria.md)
+ - [CloudRouterCommandSearchSortDirection](docs/CloudRouterCommandSearchSortDirection.md)
+ - [CloudRouterCommandState](docs/CloudRouterCommandState.md)
+ - [CloudRouterCommandType](docs/CloudRouterCommandType.md)
  - [CloudRouterFilter](docs/CloudRouterFilter.md)
  - [CloudRouterFilters](docs/CloudRouterFilters.md)
  - [CloudRouterOrFilter](docs/CloudRouterOrFilter.md)
@@ -374,11 +405,13 @@ Class | Method | HTTP request | Description
  - [FilterBody](docs/FilterBody.md)
  - [GeoCoordinates](docs/GeoCoordinates.md)
  - [GeoScopeType](docs/GeoScopeType.md)
+ - [GetAllCloudRouterCommands](docs/GetAllCloudRouterCommands.md)
  - [GetAllConnectionRouteAggregationsResponse](docs/GetAllConnectionRouteAggregationsResponse.md)
  - [GetAllConnectionRouteFiltersResponse](docs/GetAllConnectionRouteFiltersResponse.md)
  - [GetAllStreamAssetResponse](docs/GetAllStreamAssetResponse.md)
  - [GetAllStreamResponse](docs/GetAllStreamResponse.md)
  - [GetAllStreamSubscriptionResponse](docs/GetAllStreamSubscriptionResponse.md)
+ - [GetCloudEventsByAssetResponse](docs/GetCloudEventsByAssetResponse.md)
  - [GetResponse](docs/GetResponse.md)
  - [GetRouteAggregationGetConnectionsResponse](docs/GetRouteAggregationGetConnectionsResponse.md)
  - [GetRouteAggregationRulesResponse](docs/GetRouteAggregationRulesResponse.md)
@@ -436,6 +469,8 @@ Class | Method | HTTP request | Description
  - [OpEnum](docs/OpEnum.md)
  - [Operation](docs/Operation.md)
  - [Order](docs/Order.md)
+ - [OutputStructuredPing](docs/OutputStructuredPing.md)
+ - [OutputStructuredPingResponseItem](docs/OutputStructuredPingResponseItem.md)
  - [PackageChangeLog](docs/PackageChangeLog.md)
  - [PackageResponse](docs/PackageResponse.md)
  - [Pagination](docs/Pagination.md)
@@ -446,6 +481,7 @@ Class | Method | HTTP request | Description
  - [PhysicalPortType](docs/PhysicalPortType.md)
  - [Port](docs/Port.md)
  - [PortAdditionalInfo](docs/PortAdditionalInfo.md)
+ - [PortChange](docs/PortChange.md)
  - [PortChangeOperation](docs/PortChangeOperation.md)
  - [PortDemarcationPoint](docs/PortDemarcationPoint.md)
  - [PortDevice](docs/PortDevice.md)
@@ -475,6 +511,7 @@ Class | Method | HTTP request | Description
  - [PortV4SearchRequest](docs/PortV4SearchRequest.md)
  - [PrecisionTimeChangeOperation](docs/PrecisionTimeChangeOperation.md)
  - [PrecisionTimeOrder](docs/PrecisionTimeOrder.md)
+ - [PrecisionTimePackagePostResponse](docs/PrecisionTimePackagePostResponse.md)
  - [PrecisionTimePackageRequest](docs/PrecisionTimePackageRequest.md)
  - [PrecisionTimePackageResponse](docs/PrecisionTimePackageResponse.md)
  - [PrecisionTimePrice](docs/PrecisionTimePrice.md)
@@ -497,6 +534,7 @@ Class | Method | HTTP request | Description
  - [PtpAdvanceConfiguration](docs/PtpAdvanceConfiguration.md)
  - [RemoveOperation](docs/RemoveOperation.md)
  - [ReplaceOperation](docs/ReplaceOperation.md)
+ - [ResourceData](docs/ResourceData.md)
  - [ResourceSelector](docs/ResourceSelector.md)
  - [RouteAggregationChangeData](docs/RouteAggregationChangeData.md)
  - [RouteAggregationChangeDataResponse](docs/RouteAggregationChangeDataResponse.md)
