@@ -10,22 +10,25 @@
 
 package com.equinix.openapi.fabric.tests.helpers;
 
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.Pair;
-
-import com.google.gson.reflect.TypeToken;
+import com.equinix.openapi.fabric.*;
 import com.equinix.openapi.fabric.tests.dto.TokenRequestDto;
 import com.equinix.openapi.fabric.tests.dto.TokenResponseDto;
 import com.equinix.openapi.fabric.tests.dto.users.UserUsedDto;
 import com.equinix.openapi.fabric.tests.dto.users.UsersItem;
+import com.google.gson.reflect.TypeToken;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class TokenGenerator {
 
@@ -47,7 +50,9 @@ public class TokenGenerator {
         String baseUrl = System.getProperty("envUrl");
         UsersItem user = Utils.getUserData(userName);
 
-        ApiClient apiTokeClient = Configuration.getDefaultApiClient();
+        ApiClient apiTokenClient = Configuration.getDefaultApiClient();
+        apiTokenClient.setHttpClient(getOkHttpClient(HttpLoggingInterceptor.Level.NONE));
+
         TokenRequestDto tokenRequestDto = new TokenRequestDto();
         tokenRequestDto.setClientId(user.getClientId());
         tokenRequestDto.setClientSecret(user.getClientSecret());
@@ -68,19 +73,47 @@ public class TokenGenerator {
         TokenResponseDto tokenResponseDto = null;
 
         try {
-            call = apiTokeClient.buildCall(baseUrl, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, tokenRequestDto, localVarHeaderParams
+            call = apiTokenClient.buildCall(baseUrl, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, tokenRequestDto, localVarHeaderParams
                     , localVarCookieParams, localVarFormParams, localVarAuthNames, null);
 
             Type localVarReturnType = new TypeToken<TokenResponseDto>() {
             }.getType();
-            tokenResponseDto = (TokenResponseDto) apiTokeClient.execute(call, localVarReturnType).getData();
+            tokenResponseDto = (TokenResponseDto) apiTokenClient.execute(call, localVarReturnType).getData();
         } catch (ApiException e) {
             throw new RuntimeException(e);
         }
 
         ApiClient apiClient = Configuration.getDefaultApiClient().setBasePath(baseUrl);
         apiClient.addDefaultHeader("Authorization", String.format("Bearer %s", tokenResponseDto.getAccessToken()));
+        apiClient.setHttpClient(getOkHttpClient(HttpLoggingInterceptor.Level.BODY));
         users.put(userName, new UserUsedDto(userName, apiClient));
         return users.get(userName).getApiClient();
+    }
+
+    private static OkHttpClient getOkHttpClient(HttpLoggingInterceptor.Level level) {
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.readTimeout(0, TimeUnit.SECONDS);
+        builder.writeTimeout(0, TimeUnit.SECONDS);
+        builder.callTimeout(60, TimeUnit.SECONDS);
+        builder.addNetworkInterceptor(getProgressInterceptor());
+        builder.addInterceptor(new HttpLoggingInterceptor().setLevel(level));
+        return builder.build();
+    }
+
+    private static Interceptor getProgressInterceptor() {
+        return new Interceptor() {
+            @Override
+            public Response intercept(Interceptor.Chain chain) throws IOException {
+                final Request request = chain.request();
+                final Response originalResponse = chain.proceed(request);
+                if (request.tag() instanceof ApiCallback) {
+                    final ApiCallback callback = (ApiCallback) request.tag();
+                    return originalResponse.newBuilder()
+                            .body(new ProgressResponseBody(originalResponse.body(), callback))
+                            .build();
+                }
+                return originalResponse;
+            }
+        };
     }
 }

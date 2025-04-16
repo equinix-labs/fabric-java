@@ -33,7 +33,7 @@
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "cd equinix-openapi-fabric-tests/ && mvn versions:use-dep-version -Dincludes=com.equinix:equinix-openapi-fabric -DdepVersion=${nextRelease.version}, -DforceVersion=true"
+        "prepareCmd": "cd equinix-openapi-fabric-tests/ && mvn versions:use-dep-version -Dincludes=com.equinix:equinix-openapi-fabric -DdepVersion=${nextRelease.version} -DforceVersion=true"
       }
     ],
     [
