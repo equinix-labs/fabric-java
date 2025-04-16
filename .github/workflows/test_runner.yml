@@ -4,8 +4,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        testClass: [ "CloudRoutersApiTest", "ConnectionsApiTest", "MetrosApiTest", "NetworksApiTest", "PortsApiTest", "PricesApiTest", "RoutingProtocolsApiTest", "ServiceProfilesApiTest" ]
 
     env:
       TEST_HOST_URL: ${{ secrets.TEST_HOST_URL }}
@@ -30,7 +34,7 @@ jobs:
         shell: bash
         working-directory: ./equinix-openapi-fabric-tests
         run: |-
-          mvn test -DenvUrl=${{ env.TEST_HOST_URL }}
+          mvn test -Dtest=${{ matrix.testClass }} -DenvUrl=${{ env.TEST_HOST_URL }}
 
       - name: Generate report
         if: always()
@@ -43,5 +47,5 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: test report
+          name: ${{ matrix.testClass }}-test-report
           path: ./equinix-openapi-fabric-tests/target/reports
