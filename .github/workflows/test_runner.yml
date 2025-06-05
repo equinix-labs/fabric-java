@@ -1,4 +1,4 @@
-name: Test Runner
+name: Test Fabric Java Runner
 
 on:
   workflow_dispatch:
@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix:
         testClass: [ "CloudRoutersApiTest", "ConnectionsApiTest", "MetrosApiTest", "NetworksApiTest", "PortsApiTest", "PricesApiTest", "RoutingProtocolsApiTest", "ServiceProfilesApiTest" ]
 
@@ -26,12 +27,10 @@ jobs:
           cache: maven
 
       - name: Install modules
-        shell: bash
         run: |-
           mvn clean install -DskipTests 
 
       - name: Tests
-        shell: bash
         working-directory: ./equinix-openapi-fabric-tests
         run: |-
           mvn test -Dtest=${{ matrix.testClass }} -DenvUrl=${{ env.TEST_HOST_URL }}
@@ -39,9 +38,43 @@ jobs:
       - name: Generate report
         if: always()
         working-directory: ./equinix-openapi-fabric-tests
-        shell: bash
         run: |-
           mvn surefire-report:report -DskipTests    
+
+      - name: Parse test results
+        if: always()
+        working-directory: ./equinix-openapi-fabric-tests
+        shell: bash
+        run: |
+          report_dir="target/surefire-reports"
+          file=$(find "$report_dir" -maxdepth 1 -type f -name '*Test.txt' | head -n1)
+          if [[ -f "$file" ]]; then
+            summary=$(grep -m1 "Tests run:" "$file")
+            tests_run=$(echo "$summary" | awk -F'[:,]' '{for(i=1;i<=NF;i++){if($i~"Tests run"){print $(i+1)}}}')
+            failures=$(echo "$summary" | awk -F'[:,]' '{for(i=1;i<=NF;i++){if($i~"Failures"){print $(i+1)}}}')
+            errors=$(echo "$summary" | awk -F'[:,]' '{for(i=1;i<=NF;i++){if($i~"Errors"){print $(i+1)}}}')
+            tests_run=${tests_run:-0}
+            failures=${failures:-0}
+            errors=${errors:-0}
+            errors_sum=$((failures + errors))
+            passed=$((tests_run-errors_sum))
+            echo "$passed" > passed_tests_${{ matrix.testClass }}.txt
+            echo "$errors_sum" > failed_tests_${{ matrix.testClass }}.txt
+            fi
+
+      - name: Upload passed_tests
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: passed_tests_${{ matrix.testClass }}
+          path: ./equinix-openapi-fabric-tests/passed_tests_${{ matrix.testClass }}.txt
+
+      - name: Upload failed_tests
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: failed_tests_${{ matrix.testClass }}
+          path: ./equinix-openapi-fabric-tests/failed_tests_${{ matrix.testClass }}.txt
 
       - name: attach report as attachment
         if: always()
@@ -49,3 +82,66 @@ jobs:
         with:
           name: ${{ matrix.testClass }}-test-report
           path: ./equinix-openapi-fabric-tests/target/reports
+
+  notify-slack:
+    needs: test
+    if: always()
+    runs-on: ubuntu-latest
+
+    outputs:
+      total_passed: ${{ steps.set-output-passed.outputs.total_passed }}
+      total_failed: ${{ steps.set-output-failed.outputs.total_failed }}
+
+    steps:
+      - name: Download all passed_tests
+        uses: actions/download-artifact@v4
+        with:
+          pattern: passed_tests_*
+          merge-multiple: true
+          path: ./all_passed
+
+      - name: Download all failed_tests
+        uses: actions/download-artifact@v4
+        with:
+          pattern: failed_tests_*
+          merge-multiple: true
+          path: ./all_failed
+
+      - name: Sum all passed and failed tests
+        id: set-output-passed
+        run: |
+          total_passed=0
+          for f in $(find . -type f -name 'passed_tests*'); do
+            val=$(cat "$f")
+            total_passed=$((total_passed + val))
+          done
+          echo "total_passed=$total_passed" >> $GITHUB_OUTPUT
+
+      - name: Sum all failed and failed tests
+        id: set-output-failed
+        run: |
+          total_failed=0
+          for f in $(find . -type f -name 'failed_tests*'); do
+            val=$(cat "$f")
+            val=${val:-0}
+            total_failed=$((total_failed + val))
+          done
+          echo "total_failed=$total_failed" >> $GITHUB_OUTPUT    
+
+      - name: Notify Slack
+        uses: slackapi/slack-github-action@v2
+        if: always()
+        with:
+          method: chat.postMessage
+          token: ${{ secrets.SLACK_ACCESS_TOKEN }}
+          payload: |
+            channel: digin-panthers-gha-automation
+            attachments:
+              - color: ${{ needs.test.result == 'success' && 'good' || needs.test.result == 'failure' && 'danger' || 'warning' }}
+                text: |
+                  *Repository:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|${{ github.repository }}>
+                  *Workflow:* ${{ github.workflow }}
+                  *Status:* ${{ needs.test.result }}
+                  *Test Runs:* ${{ needs.test.outputs.tests_run }}
+                  *Results:* ${{ steps.set-output-passed.outputs.total_passed }} Passed, ${{ steps.set-output-failed.outputs.total_failed }} Failed
+                  *Triggered by:* <@${{ github.actor }}>
