@@ -1,0 +1,12 @@
+diff --git a/spec/patched.openapi.yaml b/spec/patched.openapi.yaml
+index ff43d17..972a8cc 100644
+--- a/spec/patched.openapi.yaml
++++ b/spec/patched.openapi.yaml
+@@ -12566,7 +12566,6 @@ components:
+     ConnectionAction:
+       required:
+         - data
+-        - href
+         - type
+         - uuid
+       type: object
