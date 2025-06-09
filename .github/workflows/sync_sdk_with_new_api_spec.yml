@@ -59,7 +59,7 @@ jobs:
         if: ${{ always() && steps.fetch.conclusion == 'success' && steps.spec_versions.outputs.cur_version != steps.fetch.outputs.new_version }}
         run: |
           make generate
-          git .
+          git add .
           echo `git commit -m 'sync: generate client with ${{ steps.date.outputs.date }} spec'`    
 
       - name: Tests
