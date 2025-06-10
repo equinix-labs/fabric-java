@@ -1,8 +1,5 @@
 on:
   workflow_dispatch:
-    inputs:
-      new_api_spec_version_number:
-        required: true
 name: Sync SDK with New API Spec
 jobs:
   sync:
@@ -31,10 +28,8 @@ jobs:
       - name: Get next API Spec Version
         id: spec_versions
         run: |
-          API_SPEC_LINE=$(grep -i app.swaggerhub.com Makefile)
-          CURRENT_VERSION_NUM=$(echo $API_SPEC_LINE | cut -d / -f7)
-          echo "api_spec_line=$API_SPEC_LINE" >> "$GITHUB_OUTPUT"
-          echo "cur_version=$CURRENT_VERSION_NUM" >> "$GITHUB_OUTPUT"
+           CURRENT_VERSION_NUM=$(yq eval .info.version ./spec/fetched.openapi.yaml)
+           echo "cur_version=$CURRENT_VERSION_NUM" >> "$GITHUB_OUTPUT"
 
       - name: GitHub user
         run: |
@@ -42,13 +37,33 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
 
-      - name: Sync
+      - name: Fetch latest spec
+        id: fetch
         run: |
-          VERSION_UPDATE="OPENAPI_URL=\"https://app.swaggerhub.com/apiproxy/registry/equinix-api/fabric/${{ github.event.inputs.new_api_spec_version_number }}\""
-          sed -i 's,${{ steps.spec_versions.outputs.api_spec_line }},'"$VERSION_UPDATE"',' Makefile
-          make generate 
+          make fetch
+          git add .
+          echo `git commit -m 'sync: fetch ${{ steps.date.outputs.date }} spec'`
+          NEW_VERSION_NUM=$(yq eval .info.version ./spec/fetched.openapi.yaml)
+          echo "new_version=$NEW_VERSION_NUM" >> "$GITHUB_OUTPUT"
+
+      - name: Apply spec patches
+        id: patch
+        if: ${{ always() && steps.fetch.conclusion == 'success' && steps.spec_versions.outputs.cur_version != steps.fetch.outputs.new_version }}
+        run: |
+          make patch
+          git add .
+          echo `git commit -m 'sync: patch spec with ${{ steps.date.outputs.date }} spec'`
+
+      - name: Generate code
+        id: generate
+        if: ${{ always() && steps.fetch.conclusion == 'success' && steps.spec_versions.outputs.cur_version != steps.fetch.outputs.new_version }}
+        run: |
+          make generate
+          git add .
+          echo `git commit -m 'sync: generate client with ${{ steps.date.outputs.date }} spec'`    
 
       - name: Tests
+        if: ${{ always() && steps.fetch.conclusion == 'success' && steps.spec_versions.outputs.cur_version != steps.fetch.outputs.new_version }}
         env:
           TEST_HOST_URL: https://uatapi.equinix.com
           CLIENT_ID: ${{ secrets.TEST_USER_CLIENT_ID }}
@@ -60,42 +75,55 @@ jobs:
         run: |-
           mvn clean package -DskipTests -DenvUrl=${{ env.TEST_HOST_URL }} -DuserName=${{ env.TEST_USER_NAME }}
 
-      - name: Commit changes
-        run: |
-          git commit -m 'sync: fetch ${{ steps.date.outputs.date }} spec and apply patches' spec/*.json
-          git add equinix-openapi-fabric
-          git commit -m 'sync: generate client with ${{ steps.date.outputs.date }} spec'    
-
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v7
+        if: ${{ always() && steps.fetch.conclusion == 'success' && steps.spec_versions.outputs.cur_version != steps.fetch.outputs.new_version }}
         with:
           branch: sync/gh
           branch-suffix: timestamp
-          title: "feat: Version ${{ steps.spec_versions.outputs.cur_version }} to ${{ github.event.inputs.new_api_spec_version_number }} API Spec Sync by GitHub Action (${{ steps.date.outputs.date }})"
+          author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          commit-message: "sync: uncommitted changes detected when opening PR"
+          title: "feat: Fabric API Sync ${{ steps.spec_versions.outputs.cur_version }} to ${{ steps.fetch.outputs.new_version }} by GitHub Action for @${{ github.event.sender.login }}"
           body: |
-            This API Sync PR was automated through GitHub Actions workflow_displatch
+            This API Sync PR was triggered by @${{ github.event.sender.login }} through [GitHub Actions workflow_dispatch](https://github.com/equinix-labs/fabric-java/actions/workflows/sync_sdk_with_new_api_spec.yml)
             on ${{ steps.date.outputs.date }}.
-            
+
             This PR updates the SDK API Spec Version:
-            from ${{ steps.spec_versions.outputs.cur_version }} to ${{ github.event.inputs.new_api_spec_version_number }}
-            
-            * Latest Swaggerhub API Spec is fetched - version ${{ github.event.inputs.new_api_spec_version_number }}
+            from ${{ steps.spec_versions.outputs.cur_version }} to ${{ steps.fetch.outputs.new_version  }}
+
+            * Latest Swaggerhub API Spec is fetched - version ${{ steps.fetch.outputs.new_version  }}
             * Patches have been applied
             * Generated client has been updated
-            
+
             ## Changes in SDK
-            
+
             ### Enhancements
-            
+
             -Add enhancements here-
-            
+
             ### Breaking Changes
-            
+
             -Add breaking changes here-
           delete-branch: true
+          draft: ${{ steps.patch.conclusion == 'failure' || steps.generate.conclusion == 'failure' }}
+
+      - name: Comment for failed patch
+        uses: mshick/add-pr-comment@v2
+        if: ${{ always() && steps.patch.conclusion == 'failure' && steps.cpr.conclusion == 'success' && steps.spec_versions.outputs.cur_version != steps.fetch.outputs.new_version }}
+        with:
+          issue: ${{ steps.cpr.outputs.pull-request-number }}
+          message: Failed to patch latest spec.  Someone with write access must review and, if necessary, fix this PR manually and then convert it from Draft status to Ready for Review.
+
+      - name: Comment for failed generate
+        uses: mshick/add-pr-comment@v2
+        if: ${{ always() && steps.generate.conclusion == 'failure' && steps.cpr.conclusion == 'success' && steps.spec_versions.outputs.cur_version != steps.fetch.outputs.new_version }}
+        with:
+          issue: ${{ steps.cpr.outputs.pull-request-number }}
+          message: Failed to generate code from latest patched spec.  Someone with write access must fix this PR manually and then convert it from Draft status to Ready for Review.
 
       - name: Check outputs
+        if: ${{ always() && steps.cpr.conclusion == 'success' && steps.spec_versions.outputs.cur_version != steps.fetch.outputs.new_version }}
         run: |
           echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
           echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
