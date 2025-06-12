@@ -27,8 +27,9 @@ Fabric Cloud Router Package Type
 | Name | Value |
 |---- | -----|
 | LAB | &quot;LAB&quot; |
-| ADVANCED | &quot;ADVANCED&quot; |
+| BASIC | &quot;BASIC&quot; |
 | STANDARD | &quot;STANDARD&quot; |
+| ADVANCED | &quot;ADVANCED&quot; |
 | PREMIUM | &quot;PREMIUM&quot; |
 
 

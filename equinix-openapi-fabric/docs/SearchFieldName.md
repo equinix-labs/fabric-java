@@ -89,6 +89,8 @@
 
 * `_ZSIDE_ACCESSPOINT_TYPE` (value: `"/zSide/accessPoint/type"`)
 
+* `_ZSIDE_ACCESSPOINT_ROLE` (value: `"/zSide/accessPoint/role"`)
+
 * `_ZSIDE_ACCESSPOINT_VIRTUALDEVICE_NAME` (value: `"/zSide/accessPoint/virtualDevice/name"`)
 
 * `_ZSIDE_ACCESSPOINT_VIRTUALDEVICE_UUID` (value: `"/zSide/accessPoint/virtualDevice/uuid"`)

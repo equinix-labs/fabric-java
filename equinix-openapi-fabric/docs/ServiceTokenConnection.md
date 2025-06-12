@@ -30,6 +30,8 @@ Service Token Connection Type Information
 | EPLAN_VC | &quot;EPLAN_VC&quot; |
 | IPWAN_VC | &quot;IPWAN_VC&quot; |
 | IP_VC | &quot;IP_VC&quot; |
+| EVPTREE_VC | &quot;EVPTREE_VC&quot; |
+| EPTREE_VC | &quot;EPTREE_VC&quot; |
 
 
 

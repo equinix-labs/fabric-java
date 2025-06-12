@@ -13,6 +13,7 @@ package com.equinix.openapi.fabric.v4.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import com.equinix.openapi.fabric.v4.model.SimplifiedAccount;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -55,6 +56,10 @@ public class SimplifiedVirtualDevice {
   public static final String SERIALIZED_NAME_UUID = "uuid";
   @SerializedName(SERIALIZED_NAME_UUID)
   private UUID uuid;
+
+  public static final String SERIALIZED_NAME_NAME = "name";
+  @SerializedName(SERIALIZED_NAME_NAME)
+  private String name;
 
   /**
    * Type of Virtual Device
@@ -105,9 +110,9 @@ public class SimplifiedVirtualDevice {
   @SerializedName(SERIALIZED_NAME_TYPE)
   private TypeEnum type;
 
-  public static final String SERIALIZED_NAME_NAME = "name";
-  @SerializedName(SERIALIZED_NAME_NAME)
-  private String name;
+  public static final String SERIALIZED_NAME_ACCOUNT = "account";
+  @SerializedName(SERIALIZED_NAME_ACCOUNT)
+  private SimplifiedAccount account;
 
   public static final String SERIALIZED_NAME_CLUSTER = "cluster";
   @SerializedName(SERIALIZED_NAME_CLUSTER)
@@ -160,6 +165,28 @@ public class SimplifiedVirtualDevice {
   }
 
 
+  public SimplifiedVirtualDevice name(String name) {
+    
+    this.name = name;
+    return this;
+  }
+
+   /**
+   * Customer-assigned Virtual Device name
+   * @return name
+  **/
+  @javax.annotation.Nullable
+
+  public String getName() {
+    return name;
+  }
+
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+
   public SimplifiedVirtualDevice type(TypeEnum type) {
     
     this.type = type;
@@ -182,25 +209,25 @@ public class SimplifiedVirtualDevice {
   }
 
 
-  public SimplifiedVirtualDevice name(String name) {
+  public SimplifiedVirtualDevice account(SimplifiedAccount account) {
     
-    this.name = name;
+    this.account = account;
     return this;
   }
 
    /**
-   * Customer-assigned Virtual Device name
-   * @return name
+   * Get account
+   * @return account
   **/
   @javax.annotation.Nullable
 
-  public String getName() {
-    return name;
+  public SimplifiedAccount getAccount() {
+    return account;
   }
 
 
-  public void setName(String name) {
-    this.name = name;
+  public void setAccount(SimplifiedAccount account) {
+    this.account = account;
   }
 
 
@@ -282,15 +309,16 @@ public class SimplifiedVirtualDevice {
     SimplifiedVirtualDevice simplifiedVirtualDevice = (SimplifiedVirtualDevice) o;
     return Objects.equals(this.href, simplifiedVirtualDevice.href) &&
         Objects.equals(this.uuid, simplifiedVirtualDevice.uuid) &&
-        Objects.equals(this.type, simplifiedVirtualDevice.type) &&
         Objects.equals(this.name, simplifiedVirtualDevice.name) &&
+        Objects.equals(this.type, simplifiedVirtualDevice.type) &&
+        Objects.equals(this.account, simplifiedVirtualDevice.account) &&
         Objects.equals(this.cluster, simplifiedVirtualDevice.cluster)&&
         Objects.equals(this.additionalProperties, simplifiedVirtualDevice.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(href, uuid, type, name, cluster, additionalProperties);
+    return Objects.hash(href, uuid, name, type, account, cluster, additionalProperties);
   }
 
   @Override
@@ -299,8 +327,9 @@ public class SimplifiedVirtualDevice {
     sb.append("class SimplifiedVirtualDevice {\n");
     sb.append("    href: ").append(toIndentedString(href)).append("\n");
     sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    account: ").append(toIndentedString(account)).append("\n");
     sb.append("    cluster: ").append(toIndentedString(cluster)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
@@ -327,8 +356,9 @@ public class SimplifiedVirtualDevice {
     openapiFields = new HashSet<String>();
     openapiFields.add("href");
     openapiFields.add("uuid");
-    openapiFields.add("type");
     openapiFields.add("name");
+    openapiFields.add("type");
+    openapiFields.add("account");
     openapiFields.add("cluster");
 
     // a set of required properties/fields (JSON key names)
@@ -353,11 +383,15 @@ public class SimplifiedVirtualDevice {
       if ((jsonObj.get("uuid") != null && !jsonObj.get("uuid").isJsonNull()) && !jsonObj.get("uuid").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `uuid` to be a primitive type in the JSON string but got `%s`", jsonObj.get("uuid").toString()));
       }
+      if ((jsonObj.get("name") != null && !jsonObj.get("name").isJsonNull()) && !jsonObj.get("name").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
+      }
       if ((jsonObj.get("type") != null && !jsonObj.get("type").isJsonNull()) && !jsonObj.get("type").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("type").toString()));
       }
-      if ((jsonObj.get("name") != null && !jsonObj.get("name").isJsonNull()) && !jsonObj.get("name").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
+      // validate the optional field `account`
+      if (jsonObj.get("account") != null && !jsonObj.get("account").isJsonNull()) {
+        SimplifiedAccount.validateJsonObject(jsonObj.getAsJsonObject("account"));
       }
       if ((jsonObj.get("cluster") != null && !jsonObj.get("cluster").isJsonNull()) && !jsonObj.get("cluster").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `cluster` to be a primitive type in the JSON string but got `%s`", jsonObj.get("cluster").toString()));

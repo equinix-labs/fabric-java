@@ -811,7 +811,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **routerPackageCode** | [**RouterPackageCode**](.md)| Equinix-assigned Cloud Router package identifier | [enum: LAB, ADVANCED, STANDARD, PREMIUM] |
+| **routerPackageCode** | [**RouterPackageCode**](.md)| Equinix-assigned Cloud Router package identifier | [enum: LAB, BASIC, STANDARD, ADVANCED, PREMIUM] |
 
 ### Return type
 

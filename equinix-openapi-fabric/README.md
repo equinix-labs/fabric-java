@@ -1,7 +1,7 @@
 # equinix-openapi-fabric
 
 Equinix Fabric API v4
-- API version: 4.21
+- API version: 4.22
 
 Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br> </br> <b>Integrations (SDKs, Tools) links:</b> </br> <a href=\"https://deploy.equinix.com/labs/fabric-java\\\">Fabric Java SDK</a> </br> <a href=\"https://deploy.equinix.com/labs/equinix-sdk-go\\\">Fabric Go SDK</a> </br> <a href=\"https://deploy.equinix.com/labs/equinix-sdk-python\\\">Fabric Python SDK</a> </br> <a href=\"https://deploy.equinix.com/labs/terraform-provider-equinix\\\">Equinix Terraform Provider</a> </br> <a href=\"https://deploy.equinix.com/labs/terraform-equinix-fabric\\\">Fabric Terraform Modules</a> </br> <a href=\"https://deploy.equinix.com/labs/pulumi-provider-equinix/\">Equinix Pulumi Provider</a> </br>
 
@@ -148,8 +148,15 @@ Class | Method | HTTP request | Description
 *ConnectionsApi* | [**searchConnections**](docs/ConnectionsApi.md#searchConnections) | **POST** /fabric/v4/connections/search | Search connections
 *ConnectionsApi* | [**updateConnectionByUuid**](docs/ConnectionsApi.md#updateConnectionByUuid) | **PATCH** /fabric/v4/connections/{connectionId} | Update by ID
 *ConnectionsApi* | [**validateConnections**](docs/ConnectionsApi.md#validateConnections) | **POST** /fabric/v4/connections/validate | Validate Connection
+*DeploymentsApi* | [**actionDeployment**](docs/DeploymentsApi.md#actionDeployment) | **POST** /fabric/v4/deployments/{deploymentId}/actions | Deploy, Dry Run or Destroy Deployment
+*DeploymentsApi* | [**createTopologyDeployment**](docs/DeploymentsApi.md#createTopologyDeployment) | **POST** /fabric/v4/deployments | Create a new topology deployment
+*DeploymentsApi* | [**deleteDeployment**](docs/DeploymentsApi.md#deleteDeployment) | **DELETE** /fabric/v4/deployments/{deploymentId} | Delete Deployment using UUID
+*DeploymentsApi* | [**getDeployment**](docs/DeploymentsApi.md#getDeployment) | **GET** /fabric/v4/deployments/{deploymentId} | Retrieve Deployment details using UUID
+*DeploymentsApi* | [**searchDeployments**](docs/DeploymentsApi.md#searchDeployments) | **POST** /fabric/v4/deployments/searchDeployments | Search deployments
+*DeploymentsApi* | [**searchProviderResources**](docs/DeploymentsApi.md#searchProviderResources) | **POST** /fabric/v4/providerResources/search | Search provider resources
 *HealthApi* | [**getStatus**](docs/HealthApi.md#getStatus) | **GET** /fabric/v4/health | Get service status
 *MarketplaceSubscriptionsApi* | [**getSubscriptionById**](docs/MarketplaceSubscriptionsApi.md#getSubscriptionById) | **GET** /fabric/v4/marketplaceSubscriptions/{subscriptionId} | Get Subscription
+*MetricsApi* | [**getMetricByAssetId**](docs/MetricsApi.md#getMetricByAssetId) | **GET** /fabric/v4/{asset}/{assetId}/metrics | Get Metrics by Asset Id
 *MetrosApi* | [**getMetroByCode**](docs/MetrosApi.md#getMetroByCode) | **GET** /fabric/v4/metros/{metroCode} | Get Metro by Code
 *MetrosApi* | [**getMetros**](docs/MetrosApi.md#getMetros) | **GET** /fabric/v4/metros | Get all Metros
 *NetworksApi* | [**createNetwork**](docs/NetworksApi.md#createNetwork) | **POST** /fabric/v4/networks | Create Network
@@ -274,9 +281,19 @@ Class | Method | HTTP request | Description
 
 ## Documentation for Models
 
+ - [AWSDirectConnect](docs/AWSDirectConnect.md)
+ - [AWSDirectConnectResponse](docs/AWSDirectConnectResponse.md)
+ - [AWSPermission](docs/AWSPermission.md)
+ - [AWSProvider](docs/AWSProvider.md)
+ - [AWSProviderResource](docs/AWSProviderResource.md)
+ - [AWSProviderResourceResponse](docs/AWSProviderResourceResponse.md)
+ - [AWSProviderResponse](docs/AWSProviderResponse.md)
+ - [AWSVirtualPrivateGateway](docs/AWSVirtualPrivateGateway.md)
+ - [AWSVirtualPrivateGatewayResponse](docs/AWSVirtualPrivateGatewayResponse.md)
  - [AccessPoint](docs/AccessPoint.md)
  - [AccessPointSelector](docs/AccessPointSelector.md)
  - [AccessPointType](docs/AccessPointType.md)
+ - [ActionRequest](docs/ActionRequest.md)
  - [Actions](docs/Actions.md)
  - [AddOperation](docs/AddOperation.md)
  - [AlertRulePostRequest](docs/AlertRulePostRequest.md)
@@ -327,6 +344,7 @@ Class | Method | HTTP request | Description
  - [CloudRouterChange](docs/CloudRouterChange.md)
  - [CloudRouterChangeOperation](docs/CloudRouterChangeOperation.md)
  - [CloudRouterCommand](docs/CloudRouterCommand.md)
+ - [CloudRouterCommandPingResponse](docs/CloudRouterCommandPingResponse.md)
  - [CloudRouterCommandPostRequest](docs/CloudRouterCommandPostRequest.md)
  - [CloudRouterCommandRequest](docs/CloudRouterCommandRequest.md)
  - [CloudRouterCommandRequestConnection](docs/CloudRouterCommandRequestConnection.md)
@@ -341,6 +359,7 @@ Class | Method | HTTP request | Description
  - [CloudRouterCommandSearchSortCriteria](docs/CloudRouterCommandSearchSortCriteria.md)
  - [CloudRouterCommandSearchSortDirection](docs/CloudRouterCommandSearchSortDirection.md)
  - [CloudRouterCommandState](docs/CloudRouterCommandState.md)
+ - [CloudRouterCommandTracerouteResponse](docs/CloudRouterCommandTracerouteResponse.md)
  - [CloudRouterCommandType](docs/CloudRouterCommandType.md)
  - [CloudRouterFilter](docs/CloudRouterFilter.md)
  - [CloudRouterFilters](docs/CloudRouterFilters.md)
@@ -392,6 +411,16 @@ Class | Method | HTTP request | Description
  - [ConnectivitySource](docs/ConnectivitySource.md)
  - [ConnectivitySourceType](docs/ConnectivitySourceType.md)
  - [CustomField](docs/CustomField.md)
+ - [Deployment](docs/Deployment.md)
+ - [DeploymentActionRequest](docs/DeploymentActionRequest.md)
+ - [DeploymentActionType](docs/DeploymentActionType.md)
+ - [DeploymentExpression](docs/DeploymentExpression.md)
+ - [DeploymentResponse](docs/DeploymentResponse.md)
+ - [DeploymentSearchExpressions](docs/DeploymentSearchExpressions.md)
+ - [DeploymentSearchRequest](docs/DeploymentSearchRequest.md)
+ - [DeploymentSearchResponse](docs/DeploymentSearchResponse.md)
+ - [DeploymentState](docs/DeploymentState.md)
+ - [DeploymentTopology](docs/DeploymentTopology.md)
  - [DirectConnectionIpv4](docs/DirectConnectionIpv4.md)
  - [DirectConnectionIpv6](docs/DirectConnectionIpv6.md)
  - [Direction](docs/Direction.md)
@@ -399,25 +428,48 @@ Class | Method | HTTP request | Description
  - [EquinixStatus](docs/EquinixStatus.md)
  - [Error](docs/Error.md)
  - [Expression](docs/Expression.md)
+ - [FabricBGPConnectionIpv4](docs/FabricBGPConnectionIpv4.md)
  - [FabricCloudRouterCode](docs/FabricCloudRouterCode.md)
  - [FabricCloudRouterPackages](docs/FabricCloudRouterPackages.md)
  - [FabricCloudRouterPrice](docs/FabricCloudRouterPrice.md)
+ - [FabricConnection](docs/FabricConnection.md)
+ - [FabricConnectionResponse](docs/FabricConnectionResponse.md)
+ - [FabricProvider](docs/FabricProvider.md)
+ - [FabricProviderResource](docs/FabricProviderResource.md)
+ - [FabricProviderResourceResponse](docs/FabricProviderResourceResponse.md)
+ - [FabricProviderResponse](docs/FabricProviderResponse.md)
+ - [FabricRouteProtocols](docs/FabricRouteProtocols.md)
+ - [FabricRouteProtocolsResponse](docs/FabricRouteProtocolsResponse.md)
+ - [FabricRouter](docs/FabricRouter.md)
+ - [FabricRouterResponse](docs/FabricRouterResponse.md)
+ - [FabricRoutingProtocolBGPType](docs/FabricRoutingProtocolBGPType.md)
  - [FilterBody](docs/FilterBody.md)
+ - [GCPCloudRouter](docs/GCPCloudRouter.md)
+ - [GCPCloudRouterResponse](docs/GCPCloudRouterResponse.md)
+ - [GCPPermission](docs/GCPPermission.md)
+ - [GCPProvider](docs/GCPProvider.md)
+ - [GCPProviderResource](docs/GCPProviderResource.md)
+ - [GCPProviderResourceResponse](docs/GCPProviderResourceResponse.md)
+ - [GCPProviderResponse](docs/GCPProviderResponse.md)
  - [GeoCoordinates](docs/GeoCoordinates.md)
  - [GeoScopeType](docs/GeoScopeType.md)
  - [GetAllCloudRouterCommands](docs/GetAllCloudRouterCommands.md)
  - [GetAllConnectionRouteAggregationsResponse](docs/GetAllConnectionRouteAggregationsResponse.md)
  - [GetAllConnectionRouteFiltersResponse](docs/GetAllConnectionRouteFiltersResponse.md)
+ - [GetAllStreamAlertRuleResponse](docs/GetAllStreamAlertRuleResponse.md)
  - [GetAllStreamAssetResponse](docs/GetAllStreamAssetResponse.md)
  - [GetAllStreamResponse](docs/GetAllStreamResponse.md)
  - [GetAllStreamSubscriptionResponse](docs/GetAllStreamSubscriptionResponse.md)
  - [GetCloudEventsByAssetResponse](docs/GetCloudEventsByAssetResponse.md)
+ - [GetMetricsByAssetResponse](docs/GetMetricsByAssetResponse.md)
  - [GetResponse](docs/GetResponse.md)
  - [GetRouteAggregationGetConnectionsResponse](docs/GetRouteAggregationGetConnectionsResponse.md)
  - [GetRouteAggregationRulesResponse](docs/GetRouteAggregationRulesResponse.md)
  - [GetRouteFilterGetConnectionsResponse](docs/GetRouteFilterGetConnectionsResponse.md)
  - [GetRouteFilterRulesResponse](docs/GetRouteFilterRulesResponse.md)
  - [HealthResponse](docs/HealthResponse.md)
+ - [Hop](docs/Hop.md)
+ - [HopProbes](docs/HopProbes.md)
  - [InternetAccess](docs/InternetAccess.md)
  - [IpBlockPrice](docs/IpBlockPrice.md)
  - [IpBlockType](docs/IpBlockType.md)
@@ -436,6 +488,10 @@ Class | Method | HTTP request | Description
  - [MarketplaceSubscription](docs/MarketplaceSubscription.md)
  - [Md5](docs/Md5.md)
  - [MetalInterconnection](docs/MetalInterconnection.md)
+ - [Metric](docs/Metric.md)
+ - [MetricAssetType](docs/MetricAssetType.md)
+ - [MetricDatapoints](docs/MetricDatapoints.md)
+ - [MetricResource](docs/MetricResource.md)
  - [Metrics](docs/Metrics.md)
  - [Metro](docs/Metro.md)
  - [MetroError](docs/MetroError.md)
@@ -468,9 +524,11 @@ Class | Method | HTTP request | Description
  - [NetworkType](docs/NetworkType.md)
  - [OpEnum](docs/OpEnum.md)
  - [Operation](docs/Operation.md)
+ - [OrchestratorProviders](docs/OrchestratorProviders.md)
  - [Order](docs/Order.md)
  - [OutputStructuredPing](docs/OutputStructuredPing.md)
  - [OutputStructuredPingResponseItem](docs/OutputStructuredPingResponseItem.md)
+ - [OutputStructuredTraceroute](docs/OutputStructuredTraceroute.md)
  - [PackageChangeLog](docs/PackageChangeLog.md)
  - [PackageResponse](docs/PackageResponse.md)
  - [Pagination](docs/Pagination.md)
@@ -530,7 +588,14 @@ Class | Method | HTTP request | Description
  - [ProcessStep](docs/ProcessStep.md)
  - [ProductType](docs/ProductType.md)
  - [Project](docs/Project.md)
+ - [ProviderExpression](docs/ProviderExpression.md)
+ - [ProviderResponse](docs/ProviderResponse.md)
+ - [ProviderSearchExpressions](docs/ProviderSearchExpressions.md)
+ - [ProviderSearchRequest](docs/ProviderSearchRequest.md)
+ - [ProviderSearchResponse](docs/ProviderSearchResponse.md)
  - [ProviderStatus](docs/ProviderStatus.md)
+ - [ProviderType](docs/ProviderType.md)
+ - [ProvidersSearchResponse](docs/ProvidersSearchResponse.md)
  - [PtpAdvanceConfiguration](docs/PtpAdvanceConfiguration.md)
  - [RemoveOperation](docs/RemoveOperation.md)
  - [ReplaceOperation](docs/ReplaceOperation.md)
@@ -610,8 +675,11 @@ Class | Method | HTTP request | Description
  - [RoutingProtocolDirectData](docs/RoutingProtocolDirectData.md)
  - [RoutingProtocolDirectType](docs/RoutingProtocolDirectType.md)
  - [RoutingProtocolOperation](docs/RoutingProtocolOperation.md)
+ - [SearchDeploymentField](docs/SearchDeploymentField.md)
+ - [SearchDirectConnect](docs/SearchDirectConnect.md)
  - [SearchExpression](docs/SearchExpression.md)
  - [SearchFieldName](docs/SearchFieldName.md)
+ - [SearchProviderField](docs/SearchProviderField.md)
  - [SearchRequest](docs/SearchRequest.md)
  - [SearchResponse](docs/SearchResponse.md)
  - [ServiceMetro](docs/ServiceMetro.md)
@@ -650,6 +718,7 @@ Class | Method | HTTP request | Description
  - [ServiceTokenState](docs/ServiceTokenState.md)
  - [ServiceTokenType](docs/ServiceTokenType.md)
  - [ServiceTokens](docs/ServiceTokens.md)
+ - [Services](docs/Services.md)
  - [SimplifiedAccount](docs/SimplifiedAccount.md)
  - [SimplifiedLinkProtocol](docs/SimplifiedLinkProtocol.md)
  - [SimplifiedLocation](docs/SimplifiedLocation.md)
@@ -694,6 +763,7 @@ Class | Method | HTTP request | Description
  - [StreamSubscriptionSinkCredential](docs/StreamSubscriptionSinkCredential.md)
  - [StreamSubscriptionSinkSetting](docs/StreamSubscriptionSinkSetting.md)
  - [SubInterface](docs/SubInterface.md)
+ - [Subnet](docs/Subnet.md)
  - [SubscriptionAsset](docs/SubscriptionAsset.md)
  - [SubscriptionEntitlementResponse](docs/SubscriptionEntitlementResponse.md)
  - [SubscriptionResponse](docs/SubscriptionResponse.md)
@@ -712,6 +782,8 @@ Class | Method | HTTP request | Description
  - [TimeServiceSortCriteria](docs/TimeServiceSortCriteria.md)
  - [TimeServiceSortDirection](docs/TimeServiceSortDirection.md)
  - [TimeServicesSearchRequest](docs/TimeServicesSearchRequest.md)
+ - [TopologyProperties](docs/TopologyProperties.md)
+ - [VPC](docs/VPC.md)
  - [ValidateConnectionResponse](docs/ValidateConnectionResponse.md)
  - [ValidateRequest](docs/ValidateRequest.md)
  - [ValidateRequestFilter](docs/ValidateRequestFilter.md)
@@ -744,6 +816,7 @@ Class | Method | HTTP request | Description
  - [VirtualPortServiceType](docs/VirtualPortServiceType.md)
  - [VirtualPortType](docs/VirtualPortType.md)
  - [VpicInterface](docs/VpicInterface.md)
+ - [VpnTunnelState](docs/VpnTunnelState.md)
 
 
 ## Documentation for Authorization

@@ -13,194 +13,225 @@ package com.equinix.openapi.fabric.v4.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import com.equinix.openapi.fabric.v4.model.CloudRouterCommandPingResponse;
+import com.equinix.openapi.fabric.v4.model.CloudRouterCommandTracerouteResponse;
+import com.equinix.openapi.fabric.v4.model.Error;
 import com.equinix.openapi.fabric.v4.model.OutputStructuredPing;
+import com.equinix.openapi.fabric.v4.model.OutputStructuredTraceroute;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.ws.rs.core.GenericType;
+
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
+import com.google.gson.JsonParseException;
+import com.google.gson.TypeAdapter;
+import com.google.gson.TypeAdapterFactory;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import com.google.gson.TypeAdapterFactory;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import com.equinix.openapi.fabric.JSON;
 
-/**
- * CloudRouterCommandResponse
- */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class CloudRouterCommandResponse {
-  public static final String SERIALIZED_NAME_OUTPUT = "output";
-  @SerializedName(SERIALIZED_NAME_OUTPUT)
-  private String output;
+public class CloudRouterCommandResponse extends AbstractOpenApiSchema {
+    private static final Logger log = Logger.getLogger(CloudRouterCommandResponse.class.getName());
 
-  public static final String SERIALIZED_NAME_OUTPUT_STRUCTURED_PING = "outputStructuredPing";
-  @SerializedName(SERIALIZED_NAME_OUTPUT_STRUCTURED_PING)
-  private OutputStructuredPing outputStructuredPing;
+    public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+        @SuppressWarnings("unchecked")
+        @Override
+        public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+            if (!CloudRouterCommandResponse.class.isAssignableFrom(type.getRawType())) {
+                return null; // this class only serializes 'CloudRouterCommandResponse' and its subtypes
+            }
+            final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+            final TypeAdapter<CloudRouterCommandPingResponse> adapterCloudRouterCommandPingResponse = gson.getDelegateAdapter(this, TypeToken.get(CloudRouterCommandPingResponse.class));
+            final TypeAdapter<CloudRouterCommandTracerouteResponse> adapterCloudRouterCommandTracerouteResponse = gson.getDelegateAdapter(this, TypeToken.get(CloudRouterCommandTracerouteResponse.class));
 
-  public CloudRouterCommandResponse() {
-  }
+            return (TypeAdapter<T>) new TypeAdapter<CloudRouterCommandResponse>() {
+                @Override
+                public void write(JsonWriter out, CloudRouterCommandResponse value) throws IOException {
+                    if (value == null || value.getActualInstance() == null) {
+                        elementAdapter.write(out, null);
+                        return;
+                    }
 
-  public CloudRouterCommandResponse output(String output) {
-    
-    this.output = output;
-    return this;
-  }
+                    // check if the actual instance is of the type `CloudRouterCommandPingResponse`
+                    if (value.getActualInstance() instanceof CloudRouterCommandPingResponse) {
+                        JsonObject obj = adapterCloudRouterCommandPingResponse.toJsonTree((CloudRouterCommandPingResponse)value.getActualInstance()).getAsJsonObject();
+                        elementAdapter.write(out, obj);
+                        return;
+                    }
 
-   /**
-   * Get output
-   * @return output
-  **/
-  @javax.annotation.Nullable
+                    // check if the actual instance is of the type `CloudRouterCommandTracerouteResponse`
+                    if (value.getActualInstance() instanceof CloudRouterCommandTracerouteResponse) {
+                        JsonObject obj = adapterCloudRouterCommandTracerouteResponse.toJsonTree((CloudRouterCommandTracerouteResponse)value.getActualInstance()).getAsJsonObject();
+                        elementAdapter.write(out, obj);
+                        return;
+                    }
 
-  public String getOutput() {
-    return output;
-  }
+                    throw new IOException("Failed to serialize as the type doesn't match oneOf schemas: CloudRouterCommandPingResponse, CloudRouterCommandTracerouteResponse");
+                }
 
+                @Override
+                public CloudRouterCommandResponse read(JsonReader in) throws IOException {
+                    Object deserialized = null;
+                    JsonObject jsonObject = elementAdapter.read(in).getAsJsonObject();
 
-  public void setOutput(String output) {
-    this.output = output;
-  }
+                    int match = 0;
+                    ArrayList<String> errorMessages = new ArrayList<>();
+                    TypeAdapter actualAdapter = elementAdapter;
 
+                    // deserialize CloudRouterCommandPingResponse
+                    try {
+                        // validate the JSON object to see if any exception is thrown
+                        CloudRouterCommandPingResponse.validateJsonObject(jsonObject);
+                        actualAdapter = adapterCloudRouterCommandPingResponse;
+                        match++;
+                        log.log(Level.FINER, "Input data matches schema 'CloudRouterCommandPingResponse'");
+                    } catch (Exception e) {
+                        // deserialization failed, continue
+                        errorMessages.add(String.format("Deserialization for CloudRouterCommandPingResponse failed with `%s`.", e.getMessage()));
+                        log.log(Level.FINER, "Input data does not match schema 'CloudRouterCommandPingResponse'", e);
+                    }
 
-  public CloudRouterCommandResponse outputStructuredPing(OutputStructuredPing outputStructuredPing) {
-    
-    this.outputStructuredPing = outputStructuredPing;
-    return this;
-  }
+                    // deserialize CloudRouterCommandTracerouteResponse
+                    try {
+                        // validate the JSON object to see if any exception is thrown
+                        CloudRouterCommandTracerouteResponse.validateJsonObject(jsonObject);
+                        actualAdapter = adapterCloudRouterCommandTracerouteResponse;
+                        match++;
+                        log.log(Level.FINER, "Input data matches schema 'CloudRouterCommandTracerouteResponse'");
+                    } catch (Exception e) {
+                        // deserialization failed, continue
+                        errorMessages.add(String.format("Deserialization for CloudRouterCommandTracerouteResponse failed with `%s`.", e.getMessage()));
+                        log.log(Level.FINER, "Input data does not match schema 'CloudRouterCommandTracerouteResponse'", e);
+                    }
 
-   /**
-   * Get outputStructuredPing
-   * @return outputStructuredPing
-  **/
-  @javax.annotation.Nullable
+                    if (match == 1) {
+                        CloudRouterCommandResponse ret = new CloudRouterCommandResponse();
+                        ret.setActualInstance(actualAdapter.fromJsonTree(jsonObject));
+                        return ret;
+                    }
 
-  public OutputStructuredPing getOutputStructuredPing() {
-    return outputStructuredPing;
-  }
-
-
-  public void setOutputStructuredPing(OutputStructuredPing outputStructuredPing) {
-    this.outputStructuredPing = outputStructuredPing;
-  }
-
-  /**
-   * A container for additional, undeclared properties.
-   * This is a holder for any undeclared properties as specified with
-   * the 'additionalProperties' keyword in the OAS document.
-   */
-  private Map<String, Object> additionalProperties;
-
-  /**
-   * Set the additional (undeclared) property with the specified name and value.
-   * If the property does not already exist, create it otherwise replace it.
-   *
-   * @param key name of the property
-   * @param value value of the property
-   * @return the CloudRouterCommandResponse instance itself
-   */
-  public CloudRouterCommandResponse putAdditionalProperty(String key, Object value) {
-    if (this.additionalProperties == null) {
-        this.additionalProperties = new HashMap<String, Object>();
+                    throw new IOException(String.format("Failed deserialization for CloudRouterCommandResponse: %d classes match result, expected 1. Detailed failure message for oneOf schemas: %s. JSON: %s", match, errorMessages, jsonObject.toString()));
+                }
+            }.nullSafe();
+        }
     }
-    this.additionalProperties.put(key, value);
-    return this;
-  }
 
-  /**
-   * Return the additional (undeclared) property.
-   *
-   * @return a map of objects
-   */
-  public Map<String, Object> getAdditionalProperties() {
-    return additionalProperties;
-  }
+    // store a list of schema names defined in oneOf
+    public static final Map<String, GenericType> schemas = new HashMap<String, GenericType>();
 
-  /**
-   * Return the additional (undeclared) property with the specified name.
-   *
-   * @param key name of the property
-   * @return an object
-   */
-  public Object getAdditionalProperty(String key) {
-    if (this.additionalProperties == null) {
-        return null;
+    public CloudRouterCommandResponse() {
+        super("oneOf", Boolean.FALSE);
     }
-    return this.additionalProperties.get(key);
-  }
 
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public CloudRouterCommandResponse(CloudRouterCommandPingResponse o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    public CloudRouterCommandResponse(CloudRouterCommandTracerouteResponse o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
     }
-    CloudRouterCommandResponse cloudRouterCommandResponse = (CloudRouterCommandResponse) o;
-    return Objects.equals(this.output, cloudRouterCommandResponse.output) &&
-        Objects.equals(this.outputStructuredPing, cloudRouterCommandResponse.outputStructuredPing)&&
-        Objects.equals(this.additionalProperties, cloudRouterCommandResponse.additionalProperties);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(output, outputStructuredPing, additionalProperties);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CloudRouterCommandResponse {\n");
-    sb.append("    output: ").append(toIndentedString(output)).append("\n");
-    sb.append("    outputStructuredPing: ").append(toIndentedString(outputStructuredPing)).append("\n");
-    sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    static {
+        schemas.put("CloudRouterCommandPingResponse", new GenericType<CloudRouterCommandPingResponse>() {
+        });
+        schemas.put("CloudRouterCommandTracerouteResponse", new GenericType<CloudRouterCommandTracerouteResponse>() {
+        });
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    @Override
+    public Map<String, GenericType> getSchemas() {
+        return CloudRouterCommandResponse.schemas;
+    }
 
-  public static HashSet<String> openapiFields;
-  public static HashSet<String> openapiRequiredFields;
+    /**
+     * Set the instance that matches the oneOf child schema, check
+     * the instance parameter is valid against the oneOf child schemas:
+     * CloudRouterCommandPingResponse, CloudRouterCommandTracerouteResponse
+     *
+     * It could be an instance of the 'oneOf' schemas.
+     * The oneOf child schemas may themselves be a composed schema (allOf, anyOf, oneOf).
+     */
+    @Override
+    public void setActualInstance(Object instance) {
+        if (instance instanceof CloudRouterCommandPingResponse) {
+            super.setActualInstance(instance);
+            return;
+        }
 
-  static {
-    // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("output");
-    openapiFields.add("outputStructuredPing");
+        if (instance instanceof CloudRouterCommandTracerouteResponse) {
+            super.setActualInstance(instance);
+            return;
+        }
 
-    // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-  }
+        throw new RuntimeException("Invalid instance type. Must be CloudRouterCommandPingResponse, CloudRouterCommandTracerouteResponse");
+    }
+
+    /**
+     * Get the actual instance, which can be the following:
+     * CloudRouterCommandPingResponse, CloudRouterCommandTracerouteResponse
+     *
+     * @return The actual instance (CloudRouterCommandPingResponse, CloudRouterCommandTracerouteResponse)
+     */
+    @Override
+    public Object getActualInstance() {
+        return super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `CloudRouterCommandPingResponse`. If the actual instance is not `CloudRouterCommandPingResponse`,
+     * the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `CloudRouterCommandPingResponse`
+     * @throws ClassCastException if the instance is not `CloudRouterCommandPingResponse`
+     */
+    public CloudRouterCommandPingResponse getCloudRouterCommandPingResponse() throws ClassCastException {
+        return (CloudRouterCommandPingResponse)super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `CloudRouterCommandTracerouteResponse`. If the actual instance is not `CloudRouterCommandTracerouteResponse`,
+     * the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `CloudRouterCommandTracerouteResponse`
+     * @throws ClassCastException if the instance is not `CloudRouterCommandTracerouteResponse`
+     */
+    public CloudRouterCommandTracerouteResponse getCloudRouterCommandTracerouteResponse() throws ClassCastException {
+        return (CloudRouterCommandTracerouteResponse)super.getActualInstance();
+    }
+
 
  /**
   * Validates the JSON Object and throws an exception if issues found
@@ -209,83 +240,27 @@ public class CloudRouterCommandResponse {
   * @throws IOException if the JSON Object is invalid with respect to CloudRouterCommandResponse
   */
   public static void validateJsonObject(JsonObject jsonObj) throws IOException {
-      if (jsonObj == null) {
-        if (!CloudRouterCommandResponse.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in CloudRouterCommandResponse is not found in the empty JSON string", CloudRouterCommandResponse.openapiRequiredFields.toString()));
-        }
-      }
-      if ((jsonObj.get("output") != null && !jsonObj.get("output").isJsonNull()) && !jsonObj.get("output").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `output` to be a primitive type in the JSON string but got `%s`", jsonObj.get("output").toString()));
-      }
-      // validate the optional field `outputStructuredPing`
-      if (jsonObj.get("outputStructuredPing") != null && !jsonObj.get("outputStructuredPing").isJsonNull()) {
-        OutputStructuredPing.validateJsonObject(jsonObj.getAsJsonObject("outputStructuredPing"));
-      }
-  }
-
-  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
-    @SuppressWarnings("unchecked")
-    @Override
-    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!CloudRouterCommandResponse.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'CloudRouterCommandResponse' and its subtypes
-       }
-       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<CloudRouterCommandResponse> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(CloudRouterCommandResponse.class));
-
-       return (TypeAdapter<T>) new TypeAdapter<CloudRouterCommandResponse>() {
-           @Override
-           public void write(JsonWriter out, CloudRouterCommandResponse value) throws IOException {
-             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
-             obj.remove("additionalProperties");
-             // serialize additional properties
-             if (value.getAdditionalProperties() != null) {
-               for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
-                 if (entry.getValue() instanceof String)
-                   obj.addProperty(entry.getKey(), (String) entry.getValue());
-                 else if (entry.getValue() instanceof Number)
-                   obj.addProperty(entry.getKey(), (Number) entry.getValue());
-                 else if (entry.getValue() instanceof Boolean)
-                   obj.addProperty(entry.getKey(), (Boolean) entry.getValue());
-                 else if (entry.getValue() instanceof Character)
-                   obj.addProperty(entry.getKey(), (Character) entry.getValue());
-                 else {
-                   obj.add(entry.getKey(), gson.toJsonTree(entry.getValue()).getAsJsonObject());
-                 }
-               }
-             }
-             elementAdapter.write(out, obj);
-           }
-
-           @Override
-           public CloudRouterCommandResponse read(JsonReader in) throws IOException {
-             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
-             validateJsonObject(jsonObj);
-             // store additional fields in the deserialized instance
-             CloudRouterCommandResponse instance = thisAdapter.fromJsonTree(jsonObj);
-             for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
-               if (!openapiFields.contains(entry.getKey())) {
-                 if (entry.getValue().isJsonPrimitive()) { // primitive type
-                   if (entry.getValue().getAsJsonPrimitive().isString())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsString());
-                   else if (entry.getValue().getAsJsonPrimitive().isNumber())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsNumber());
-                   else if (entry.getValue().getAsJsonPrimitive().isBoolean())
-                     instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
-                   else
-                     throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else if (entry.getValue().isJsonArray()) {
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
-                 } else { // JSON object
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
-                 }
-               }
-             }
-             return instance;
-           }
-
-       }.nullSafe();
+    // validate oneOf schemas one by one
+    int validCount = 0;
+    ArrayList<String> errorMessages = new ArrayList<>();
+    // validate the json string with CloudRouterCommandPingResponse
+    try {
+      CloudRouterCommandPingResponse.validateJsonObject(jsonObj);
+      validCount++;
+    } catch (Exception e) {
+      errorMessages.add(String.format("Deserialization for CloudRouterCommandPingResponse failed with `%s`.", e.getMessage()));
+      // continue to the next one
+    }
+    // validate the json string with CloudRouterCommandTracerouteResponse
+    try {
+      CloudRouterCommandTracerouteResponse.validateJsonObject(jsonObj);
+      validCount++;
+    } catch (Exception e) {
+      errorMessages.add(String.format("Deserialization for CloudRouterCommandTracerouteResponse failed with `%s`.", e.getMessage()));
+      // continue to the next one
+    }
+    if (validCount != 1) {
+      throw new IOException(String.format("The JSON string is invalid for CloudRouterCommandResponse with oneOf schemas: CloudRouterCommandPingResponse, CloudRouterCommandTracerouteResponse. %d class(es) match the result, expected 1. Detailed failure message for oneOf schemas: %s. JSON: %s", validCount, errorMessages, jsonObj.toString()));
     }
   }
 

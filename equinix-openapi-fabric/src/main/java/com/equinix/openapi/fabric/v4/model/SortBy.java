@@ -49,6 +49,8 @@ public enum SortBy {
   
   ZSIDE_ACCESSPOINT_TYPE("/zSide/accessPoint/type"),
   
+  ZSIDE_ACCESSPOINT_ROLE("/zSide/accessPoint/role"),
+  
   ZSIDE_ACCESSPOINT_ACCOUNT_ACCOUNTNAME("/zSide/accessPoint/account/accountName"),
   
   ZSIDE_ACCESSPOINT_LOCATION_METRONAME("/zSide/accessPoint/location/metroName"),

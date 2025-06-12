@@ -114,6 +114,10 @@ public class VirtualDevice {
   @SerializedName(SERIALIZED_NAME_ACCOUNT)
   private SimplifiedAccount account;
 
+  public static final String SERIALIZED_NAME_CLUSTER = "cluster";
+  @SerializedName(SERIALIZED_NAME_CLUSTER)
+  private String cluster;
+
   public VirtualDevice() {
   }
 
@@ -225,6 +229,28 @@ public class VirtualDevice {
     this.account = account;
   }
 
+
+  public VirtualDevice cluster(String cluster) {
+    
+    this.cluster = cluster;
+    return this;
+  }
+
+   /**
+   * Virtual Device Cluster Information
+   * @return cluster
+  **/
+  @javax.annotation.Nullable
+
+  public String getCluster() {
+    return cluster;
+  }
+
+
+  public void setCluster(String cluster) {
+    this.cluster = cluster;
+  }
+
   /**
    * A container for additional, undeclared properties.
    * This is a holder for any undeclared properties as specified with
@@ -284,13 +310,14 @@ public class VirtualDevice {
         Objects.equals(this.uuid, virtualDevice.uuid) &&
         Objects.equals(this.name, virtualDevice.name) &&
         Objects.equals(this.type, virtualDevice.type) &&
-        Objects.equals(this.account, virtualDevice.account)&&
+        Objects.equals(this.account, virtualDevice.account) &&
+        Objects.equals(this.cluster, virtualDevice.cluster)&&
         Objects.equals(this.additionalProperties, virtualDevice.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(href, uuid, name, type, account, additionalProperties);
+    return Objects.hash(href, uuid, name, type, account, cluster, additionalProperties);
   }
 
   @Override
@@ -302,6 +329,7 @@ public class VirtualDevice {
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    account: ").append(toIndentedString(account)).append("\n");
+    sb.append("    cluster: ").append(toIndentedString(cluster)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -330,6 +358,7 @@ public class VirtualDevice {
     openapiFields.add("name");
     openapiFields.add("type");
     openapiFields.add("account");
+    openapiFields.add("cluster");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -362,6 +391,9 @@ public class VirtualDevice {
       // validate the optional field `account`
       if (jsonObj.get("account") != null && !jsonObj.get("account").isJsonNull()) {
         SimplifiedAccount.validateJsonObject(jsonObj.getAsJsonObject("account"));
+      }
+      if ((jsonObj.get("cluster") != null && !jsonObj.get("cluster").isJsonNull()) && !jsonObj.get("cluster").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `cluster` to be a primitive type in the JSON string but got `%s`", jsonObj.get("cluster").toString()));
       }
   }
 

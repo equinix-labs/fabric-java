@@ -173,7 +173,9 @@ public class PortOrder {
    /**
    * Equinix-assigned order identifier, this is a derived response atrribute
    * @return uuid
+   * @deprecated
   **/
+  @Deprecated
   @javax.annotation.Nullable
 
   public UUID getUuid() {

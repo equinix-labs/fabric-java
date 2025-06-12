@@ -29,9 +29,11 @@ public enum RouterPackageCode {
   
   LAB("LAB"),
   
-  ADVANCED("ADVANCED"),
+  BASIC("BASIC"),
   
   STANDARD("STANDARD"),
+  
+  ADVANCED("ADVANCED"),
   
   PREMIUM("PREMIUM");
 

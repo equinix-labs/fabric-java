@@ -66,7 +66,11 @@ public class SimplifiedTokenNetwork {
     
     EPLAN("EPLAN"),
     
-    IPWAN("IPWAN");
+    IPWAN("IPWAN"),
+    
+    EVPTREE("EVPTREE"),
+    
+    EPTREE("EPTREE");
 
     private String value;
 

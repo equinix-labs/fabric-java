@@ -27,7 +27,9 @@ import com.google.gson.stream.JsonWriter;
 @JsonAdapter(CloudRouterCommandType.Adapter.class)
 public enum CloudRouterCommandType {
   
-  PING_COMMAND("PING_COMMAND");
+  PING_COMMAND("PING_COMMAND"),
+  
+  TRACEROUTE_COMMAND("TRACEROUTE_COMMAND");
 
   private String value;
 

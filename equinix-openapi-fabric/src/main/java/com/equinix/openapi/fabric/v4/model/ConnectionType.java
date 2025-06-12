@@ -43,6 +43,10 @@ public enum ConnectionType {
   
   EPLAN_VC("EPLAN_VC"),
   
+  EVPTREE_VC("EVPTREE_VC"),
+  
+  EPTREE_VC("EPTREE_VC"),
+  
   IPWAN_VC("IPWAN_VC"),
   
   IA_VC("IA_VC");

@@ -235,7 +235,7 @@ public class Example {
 
 <a name="getStreamAlertRules"></a>
 # **getStreamAlertRules**
-> StreamAlertRule getStreamAlertRules(streamId, offset, limit)
+> GetAllStreamAlertRuleResponse getStreamAlertRules(streamId, offset, limit)
 
 Get Stream Alert Rules
 
@@ -265,7 +265,7 @@ public class Example {
     Integer offset = 1; // Integer | offset
     Integer limit = 10; // Integer | number of records to fetch
     try {
-      StreamAlertRule result = apiInstance.getStreamAlertRules(streamId, offset, limit);
+      GetAllStreamAlertRuleResponse result = apiInstance.getStreamAlertRules(streamId, offset, limit);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling StreamAlertRulesApi#getStreamAlertRules");
@@ -288,7 +288,7 @@ public class Example {
 
 ### Return type
 
-[**StreamAlertRule**](StreamAlertRule.md)
+[**GetAllStreamAlertRuleResponse**](GetAllStreamAlertRuleResponse.md)
 
 ### Authorization
 

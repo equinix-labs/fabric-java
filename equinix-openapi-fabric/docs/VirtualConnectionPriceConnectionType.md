@@ -23,6 +23,10 @@
 
 * `IPWAN_VC` (value: `"IPWAN_VC"`)
 
+* `EVPTREE_VC` (value: `"EVPTREE_VC"`)
+
+* `EPTREE_VC` (value: `"EPTREE_VC"`)
+
 * `IA_VC` (value: `"IA_VC"`)
 
 

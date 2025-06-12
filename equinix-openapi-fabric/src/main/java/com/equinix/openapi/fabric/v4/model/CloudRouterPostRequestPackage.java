@@ -107,9 +107,11 @@ public class CloudRouterPostRequestPackage {
   public enum CodeEnum {
     LAB("LAB"),
     
-    ADVANCED("ADVANCED"),
+    BASIC("BASIC"),
     
     STANDARD("STANDARD"),
+    
+    ADVANCED("ADVANCED"),
     
     PREMIUM("PREMIUM");
 

@@ -45,6 +45,10 @@ public enum VirtualConnectionPriceConnectionType {
   
   IPWAN_VC("IPWAN_VC"),
   
+  EVPTREE_VC("EVPTREE_VC"),
+  
+  EPTREE_VC("EPTREE_VC"),
+  
   IA_VC("IA_VC");
 
   private String value;

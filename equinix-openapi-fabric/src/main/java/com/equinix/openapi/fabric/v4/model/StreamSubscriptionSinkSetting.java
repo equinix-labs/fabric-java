@@ -70,6 +70,57 @@ public class StreamSubscriptionSinkSetting {
   @SerializedName(SERIALIZED_NAME_METRIC_URI)
   private String metricUri;
 
+  /**
+   * webhook message format
+   */
+  @JsonAdapter(FormatEnum.Adapter.class)
+  public enum FormatEnum {
+    CLOUDEVENT("CLOUDEVENT"),
+    
+    OPENTELEMETRY("OPENTELEMETRY");
+
+    private String value;
+
+    FormatEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static FormatEnum fromValue(String value) {
+      for (FormatEnum b : FormatEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+
+    public static class Adapter extends TypeAdapter<FormatEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final FormatEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public FormatEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return FormatEnum.fromValue(value);
+      }
+    }
+  }
+
+  public static final String SERIALIZED_NAME_FORMAT = "format";
+  @SerializedName(SERIALIZED_NAME_FORMAT)
+  private FormatEnum format = FormatEnum.CLOUDEVENT;
+
   public StreamSubscriptionSinkSetting() {
   }
 
@@ -204,6 +255,28 @@ public class StreamSubscriptionSinkSetting {
     this.metricUri = metricUri;
   }
 
+
+  public StreamSubscriptionSinkSetting format(FormatEnum format) {
+    
+    this.format = format;
+    return this;
+  }
+
+   /**
+   * webhook message format
+   * @return format
+  **/
+  @javax.annotation.Nullable
+
+  public FormatEnum getFormat() {
+    return format;
+  }
+
+
+  public void setFormat(FormatEnum format) {
+    this.format = format;
+  }
+
   /**
    * A container for additional, undeclared properties.
    * This is a holder for any undeclared properties as specified with
@@ -264,13 +337,14 @@ public class StreamSubscriptionSinkSetting {
         Objects.equals(this.source, streamSubscriptionSinkSetting.source) &&
         Objects.equals(this.applicationKey, streamSubscriptionSinkSetting.applicationKey) &&
         Objects.equals(this.eventUri, streamSubscriptionSinkSetting.eventUri) &&
-        Objects.equals(this.metricUri, streamSubscriptionSinkSetting.metricUri)&&
+        Objects.equals(this.metricUri, streamSubscriptionSinkSetting.metricUri) &&
+        Objects.equals(this.format, streamSubscriptionSinkSetting.format)&&
         Objects.equals(this.additionalProperties, streamSubscriptionSinkSetting.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(eventIndex, metricIndex, source, applicationKey, eventUri, metricUri, additionalProperties);
+    return Objects.hash(eventIndex, metricIndex, source, applicationKey, eventUri, metricUri, format, additionalProperties);
   }
 
   @Override
@@ -283,6 +357,7 @@ public class StreamSubscriptionSinkSetting {
     sb.append("    applicationKey: ").append(toIndentedString(applicationKey)).append("\n");
     sb.append("    eventUri: ").append(toIndentedString(eventUri)).append("\n");
     sb.append("    metricUri: ").append(toIndentedString(metricUri)).append("\n");
+    sb.append("    format: ").append(toIndentedString(format)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -312,6 +387,7 @@ public class StreamSubscriptionSinkSetting {
     openapiFields.add("applicationKey");
     openapiFields.add("eventUri");
     openapiFields.add("metricUri");
+    openapiFields.add("format");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -346,6 +422,9 @@ public class StreamSubscriptionSinkSetting {
       }
       if ((jsonObj.get("metricUri") != null && !jsonObj.get("metricUri").isJsonNull()) && !jsonObj.get("metricUri").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `metricUri` to be a primitive type in the JSON string but got `%s`", jsonObj.get("metricUri").toString()));
+      }
+      if ((jsonObj.get("format") != null && !jsonObj.get("format").isJsonNull()) && !jsonObj.get("format").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `format` to be a primitive type in the JSON string but got `%s`", jsonObj.get("format").toString()));
       }
   }
 

@@ -16,6 +16,7 @@ import java.util.Arrays;
 import com.equinix.openapi.fabric.v4.model.ConnectedMetro;
 import com.equinix.openapi.fabric.v4.model.GeoCoordinates;
 import com.equinix.openapi.fabric.v4.model.GeoScopeType;
+import com.equinix.openapi.fabric.v4.model.Services;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -86,6 +87,10 @@ public class Metro {
   public static final String SERIALIZED_NAME_CONNECTED_METROS = "connectedMetros";
   @SerializedName(SERIALIZED_NAME_CONNECTED_METROS)
   private List<ConnectedMetro> connectedMetros = new ArrayList<>();
+
+  public static final String SERIALIZED_NAME_SERVICES = "services";
+  @SerializedName(SERIALIZED_NAME_SERVICES)
+  private List<Services> services = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_GEO_SCOPES = "geoScopes";
   @SerializedName(SERIALIZED_NAME_GEO_SCOPES)
@@ -300,6 +305,36 @@ public class Metro {
   }
 
 
+  public Metro services(List<Services> services) {
+    
+    this.services = services;
+    return this;
+  }
+
+  public Metro addServicesItem(Services servicesItem) {
+    if (this.services == null) {
+      this.services = new ArrayList<>();
+    }
+    this.services.add(servicesItem);
+    return this;
+  }
+
+   /**
+   * Get services
+   * @return services
+  **/
+  @javax.annotation.Nullable
+
+  public List<Services> getServices() {
+    return services;
+  }
+
+
+  public void setServices(List<Services> services) {
+    this.services = services;
+  }
+
+
   public Metro geoScopes(List<GeoScopeType> geoScopes) {
     
     this.geoScopes = geoScopes;
@@ -393,13 +428,14 @@ public class Metro {
         Objects.equals(this.localVCBandwidthMax, metro.localVCBandwidthMax) &&
         Objects.equals(this.geoCoordinates, metro.geoCoordinates) &&
         Objects.equals(this.connectedMetros, metro.connectedMetros) &&
+        Objects.equals(this.services, metro.services) &&
         Objects.equals(this.geoScopes, metro.geoScopes)&&
         Objects.equals(this.additionalProperties, metro.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(href, type, code, region, name, equinixAsn, localVCBandwidthMax, geoCoordinates, connectedMetros, geoScopes, additionalProperties);
+    return Objects.hash(href, type, code, region, name, equinixAsn, localVCBandwidthMax, geoCoordinates, connectedMetros, services, geoScopes, additionalProperties);
   }
 
   @Override
@@ -415,6 +451,7 @@ public class Metro {
     sb.append("    localVCBandwidthMax: ").append(toIndentedString(localVCBandwidthMax)).append("\n");
     sb.append("    geoCoordinates: ").append(toIndentedString(geoCoordinates)).append("\n");
     sb.append("    connectedMetros: ").append(toIndentedString(connectedMetros)).append("\n");
+    sb.append("    services: ").append(toIndentedString(services)).append("\n");
     sb.append("    geoScopes: ").append(toIndentedString(geoScopes)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
@@ -448,6 +485,7 @@ public class Metro {
     openapiFields.add("localVCBandwidthMax");
     openapiFields.add("geoCoordinates");
     openapiFields.add("connectedMetros");
+    openapiFields.add("services");
     openapiFields.add("geoScopes");
 
     // a set of required properties/fields (JSON key names)
@@ -496,6 +534,20 @@ public class Metro {
           // validate the optional field `connectedMetros` (array)
           for (int i = 0; i < jsonArrayconnectedMetros.size(); i++) {
             ConnectedMetro.validateJsonObject(jsonArrayconnectedMetros.get(i).getAsJsonObject());
+          };
+        }
+      }
+      if (jsonObj.get("services") != null && !jsonObj.get("services").isJsonNull()) {
+        JsonArray jsonArrayservices = jsonObj.getAsJsonArray("services");
+        if (jsonArrayservices != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("services").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `services` to be an array in the JSON string but got `%s`", jsonObj.get("services").toString()));
+          }
+
+          // validate the optional field `services` (array)
+          for (int i = 0; i < jsonArrayservices.size(); i++) {
+            Services.validateJsonObject(jsonArrayservices.get(i).getAsJsonObject());
           };
         }
       }
