@@ -17,6 +17,7 @@ GET Metros retrieves all Equinix? Fabric? metros, as well as latency data for ea
 |**localVCBandwidthMax** | **Long** | This field holds Max Connection speed with in the metro |  [optional] |
 |**geoCoordinates** | [**GeoCoordinates**](GeoCoordinates.md) |  |  [optional] |
 |**connectedMetros** | [**List&lt;ConnectedMetro&gt;**](ConnectedMetro.md) |  |  [optional] |
+|**services** | [**List&lt;Services&gt;**](Services.md) |  |  [optional] |
 |**geoScopes** | **List&lt;GeoScopeType&gt;** | List of supported geographic boundaries of a Fabric Metro. |  [optional] |
 
 

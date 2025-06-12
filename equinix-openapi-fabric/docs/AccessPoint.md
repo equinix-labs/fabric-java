@@ -25,6 +25,16 @@ Access point object
 |**virtualNetwork** | [**VirtualNetwork**](VirtualNetwork.md) |  |  [optional] |
 |**interconnection** | [**MetalInterconnection**](MetalInterconnection.md) |  |  [optional] |
 |**vpicInterface** | [**VpicInterface**](VpicInterface.md) |  |  [optional] |
+|**role** | [**RoleEnum**](#RoleEnum) | E-Tree network connection role |  [optional] |
+
+
+
+## Enum: RoleEnum
+
+| Name | Value |
+|---- | -----|
+| LEAF | &quot;LEAF&quot; |
+| ROOT | &quot;ROOT&quot; |
 
 
 

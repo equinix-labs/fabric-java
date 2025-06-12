@@ -27,6 +27,8 @@
 
 * `ZSIDE_ACCESSPOINT_TYPE` (value: `"/zSide/accessPoint/type"`)
 
+* `ZSIDE_ACCESSPOINT_ROLE` (value: `"/zSide/accessPoint/role"`)
+
 * `ZSIDE_ACCESSPOINT_ACCOUNT_ACCOUNTNAME` (value: `"/zSide/accessPoint/account/accountName"`)
 
 * `ZSIDE_ACCESSPOINT_LOCATION_METRONAME` (value: `"/zSide/accessPoint/location/metroName"`)

@@ -28,6 +28,7 @@ import java.io.IOException;
 import com.equinix.openapi.fabric.v4.model.AlertRulePostRequest;
 import com.equinix.openapi.fabric.v4.model.AlertRulePutRequest;
 import com.equinix.openapi.fabric.v4.model.Error;
+import com.equinix.openapi.fabric.v4.model.GetAllStreamAlertRuleResponse;
 import com.equinix.openapi.fabric.v4.model.StreamAlertRule;
 import java.util.UUID;
 
@@ -622,7 +623,7 @@ public class StreamAlertRulesApi {
      * @param streamId Stream UUID (required)
      * @param offset offset (optional)
      * @param limit number of records to fetch (optional)
-     * @return StreamAlertRule
+     * @return GetAllStreamAlertRuleResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -634,8 +635,8 @@ public class StreamAlertRulesApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public StreamAlertRule getStreamAlertRules(UUID streamId, Integer offset, Integer limit) throws ApiException {
-        ApiResponse<StreamAlertRule> localVarResp = getStreamAlertRulesWithHttpInfo(streamId, offset, limit);
+    public GetAllStreamAlertRuleResponse getStreamAlertRules(UUID streamId, Integer offset, Integer limit) throws ApiException {
+        ApiResponse<GetAllStreamAlertRuleResponse> localVarResp = getStreamAlertRulesWithHttpInfo(streamId, offset, limit);
         return localVarResp.getData();
     }
 
@@ -645,7 +646,7 @@ public class StreamAlertRulesApi {
      * @param streamId Stream UUID (required)
      * @param offset offset (optional)
      * @param limit number of records to fetch (optional)
-     * @return ApiResponse&lt;StreamAlertRule&gt;
+     * @return ApiResponse&lt;GetAllStreamAlertRuleResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -657,9 +658,9 @@ public class StreamAlertRulesApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<StreamAlertRule> getStreamAlertRulesWithHttpInfo(UUID streamId, Integer offset, Integer limit) throws ApiException {
+    public ApiResponse<GetAllStreamAlertRuleResponse> getStreamAlertRulesWithHttpInfo(UUID streamId, Integer offset, Integer limit) throws ApiException {
         okhttp3.Call localVarCall = getStreamAlertRulesValidateBeforeCall(streamId, offset, limit, null);
-        Type localVarReturnType = new TypeToken<StreamAlertRule>(){}.getType();
+        Type localVarReturnType = new TypeToken<GetAllStreamAlertRuleResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -682,10 +683,10 @@ public class StreamAlertRulesApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getStreamAlertRulesAsync(UUID streamId, Integer offset, Integer limit, final ApiCallback<StreamAlertRule> _callback) throws ApiException {
+    public okhttp3.Call getStreamAlertRulesAsync(UUID streamId, Integer offset, Integer limit, final ApiCallback<GetAllStreamAlertRuleResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getStreamAlertRulesValidateBeforeCall(streamId, offset, limit, _callback);
-        Type localVarReturnType = new TypeToken<StreamAlertRule>(){}.getType();
+        Type localVarReturnType = new TypeToken<GetAllStreamAlertRuleResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

@@ -215,7 +215,7 @@ public class ConnectionPostRequest {
    /**
    * Connection bandwidth in Mbps
    * minimum: 0
-   * maximum: 50000
+   * maximum: 100000
    * @return bandwidth
   **/
   @javax.annotation.Nonnull

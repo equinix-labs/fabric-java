@@ -8,7 +8,7 @@ Connection object for Cloud Router Command
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**uuid** | **String** | Connection UUID |  [optional] |
+|**uuid** | **String** | Connection UUID |  |
 
 
 

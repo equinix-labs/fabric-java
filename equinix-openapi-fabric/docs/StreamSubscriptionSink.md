@@ -24,11 +24,13 @@ Create Stream destination
 | Name | Value |
 |---- | -----|
 | DATADOG | &quot;DATADOG&quot; |
+| GOOGLE_PUBSUB | &quot;GOOGLE_PUBSUB&quot; |
 | PAGERDUTY | &quot;PAGERDUTY&quot; |
-| SPLUNK_HEC | &quot;SPLUNK_HEC&quot; |
+| SERVICENOW | &quot;SERVICENOW&quot; |
 | SLACK | &quot;SLACK&quot; |
+| SPLUNK_HEC | &quot;SPLUNK_HEC&quot; |
 | TEAMS | &quot;TEAMS&quot; |
-| CUSTOM | &quot;CUSTOM&quot; |
+| WEBHOOK | &quot;WEBHOOK&quot; |
 
 
 

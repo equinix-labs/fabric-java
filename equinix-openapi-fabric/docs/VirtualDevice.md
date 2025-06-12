@@ -13,6 +13,7 @@ Virtual Device AccessPoint Information
 |**name** | **String** | Customer-assigned Virtual Device name |  [optional] |
 |**type** | [**TypeEnum**](#TypeEnum) | Virtual Device type |  [optional] |
 |**account** | [**SimplifiedAccount**](SimplifiedAccount.md) |  |  [optional] |
+|**cluster** | **String** | Virtual Device Cluster Information |  [optional] |
 
 
 
