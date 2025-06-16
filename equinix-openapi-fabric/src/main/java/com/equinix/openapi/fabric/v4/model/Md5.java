@@ -103,7 +103,7 @@ public class Md5 {
 
   public static final String SERIALIZED_NAME_KEY = "key";
   @SerializedName(SERIALIZED_NAME_KEY)
-  private String key;
+  private byte[] key;
 
   public Md5() {
   }
@@ -154,24 +154,24 @@ public class Md5 {
   }
 
 
-  public Md5 key(String key) {
+  public Md5 key(byte[] key) {
     
     this.key = key;
     return this;
   }
 
    /**
-   * The plaintext authentication key. For ASCII type, the key must contain printable ASCII characters, range 10-20 characters. For HEX type, range should be 10-40 characters.
+   * The plaintext authentication key. Must be Base64 encoded. For ASCII type, the key must contain printable ASCII characters, range 10-20 characters. For HEX type, range should be 10-40 characters.
    * @return key
   **/
   @javax.annotation.Nullable
 
-  public String getKey() {
+  public byte[] getKey() {
     return key;
   }
 
 
-  public void setKey(String key) {
+  public void setKey(byte[] key) {
     this.key = key;
   }
 
@@ -232,13 +232,13 @@ public class Md5 {
     Md5 md5 = (Md5) o;
     return Objects.equals(this.type, md5.type) &&
         Objects.equals(this.keyNumber, md5.keyNumber) &&
-        Objects.equals(this.key, md5.key)&&
+        Arrays.equals(this.key, md5.key)&&
         Objects.equals(this.additionalProperties, md5.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, keyNumber, key, additionalProperties);
+    return Objects.hash(type, keyNumber, Arrays.hashCode(key), additionalProperties);
   }
 
   @Override
@@ -293,9 +293,6 @@ public class Md5 {
       }
       if ((jsonObj.get("type") != null && !jsonObj.get("type").isJsonNull()) && !jsonObj.get("type").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("type").toString()));
-      }
-      if ((jsonObj.get("key") != null && !jsonObj.get("key").isJsonNull()) && !jsonObj.get("key").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `key` to be a primitive type in the JSON string but got `%s`", jsonObj.get("key").toString()));
       }
   }
 

@@ -63,7 +63,7 @@ public class CloudRouterCommandRequestConnection {
    * Connection UUID
    * @return uuid
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
 
   public String getUuid() {
     return uuid;
@@ -170,6 +170,7 @@ public class CloudRouterCommandRequestConnection {
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("uuid");
   }
 
  /**
@@ -184,7 +185,14 @@ public class CloudRouterCommandRequestConnection {
           throw new IllegalArgumentException(String.format("The required field(s) %s in CloudRouterCommandRequestConnection is not found in the empty JSON string", CloudRouterCommandRequestConnection.openapiRequiredFields.toString()));
         }
       }
-      if ((jsonObj.get("uuid") != null && !jsonObj.get("uuid").isJsonNull()) && !jsonObj.get("uuid").isJsonPrimitive()) {
+
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : CloudRouterCommandRequestConnection.openapiRequiredFields) {
+        if (jsonObj.get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
+        }
+      }
+      if (!jsonObj.get("uuid").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `uuid` to be a primitive type in the JSON string but got `%s`", jsonObj.get("uuid").toString()));
       }
   }

@@ -71,6 +71,14 @@ public class CloudRouterCommandRequest {
   @SerializedName(SERIALIZED_NAME_COUNT)
   private Integer count = 5;
 
+  public static final String SERIALIZED_NAME_PROBES = "probes";
+  @SerializedName(SERIALIZED_NAME_PROBES)
+  private Integer probes = 3;
+
+  public static final String SERIALIZED_NAME_HOPS_MAX = "hopsMax";
+  @SerializedName(SERIALIZED_NAME_HOPS_MAX)
+  private Integer hopsMax = 20;
+
   public CloudRouterCommandRequest() {
   }
 
@@ -116,7 +124,7 @@ public class CloudRouterCommandRequest {
    * Get sourceConnection
    * @return sourceConnection
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
 
   public CloudRouterCommandRequestConnection getSourceConnection() {
     return sourceConnection;
@@ -135,7 +143,7 @@ public class CloudRouterCommandRequest {
   }
 
    /**
-   * Fabric Cloud Router Ping Command Timeout
+   * Timeout in seconds for Fabric Cloud Router Ping or Traceroute Command
    * @return timeout
   **/
   @javax.annotation.Nullable
@@ -175,7 +183,7 @@ public class CloudRouterCommandRequest {
 
 
    /**
-   * Time in milliseconds between sending each packet
+   * Time in milliseconds between sending each packet for Fabric Cloud Router Ping Command
    * @return interval
   **/
   @javax.annotation.Nullable
@@ -188,7 +196,7 @@ public class CloudRouterCommandRequest {
 
 
    /**
-   * Total number of ping requests
+   * Total number of ping requests for Fabric Cloud Router Ping Command
    * @return count
   **/
   @javax.annotation.Nullable
@@ -198,6 +206,51 @@ public class CloudRouterCommandRequest {
   }
 
 
+
+
+  public CloudRouterCommandRequest probes(Integer probes) {
+    
+    this.probes = probes;
+    return this;
+  }
+
+   /**
+   * Number of probes to send for Fabric Cloud Router Traceroute Command
+   * @return probes
+  **/
+  @javax.annotation.Nullable
+
+  public Integer getProbes() {
+    return probes;
+  }
+
+
+  public void setProbes(Integer probes) {
+    this.probes = probes;
+  }
+
+
+  public CloudRouterCommandRequest hopsMax(Integer hopsMax) {
+    
+    this.hopsMax = hopsMax;
+    return this;
+  }
+
+   /**
+   * Maximum number of hops for Fabric Cloud Router Traceroute Command
+   * maximum: 30
+   * @return hopsMax
+  **/
+  @javax.annotation.Nullable
+
+  public Integer getHopsMax() {
+    return hopsMax;
+  }
+
+
+  public void setHopsMax(Integer hopsMax) {
+    this.hopsMax = hopsMax;
+  }
 
   /**
    * A container for additional, undeclared properties.
@@ -259,13 +312,15 @@ public class CloudRouterCommandRequest {
         Objects.equals(this.timeout, cloudRouterCommandRequest.timeout) &&
         Objects.equals(this.dataBytes, cloudRouterCommandRequest.dataBytes) &&
         Objects.equals(this.interval, cloudRouterCommandRequest.interval) &&
-        Objects.equals(this.count, cloudRouterCommandRequest.count)&&
+        Objects.equals(this.count, cloudRouterCommandRequest.count) &&
+        Objects.equals(this.probes, cloudRouterCommandRequest.probes) &&
+        Objects.equals(this.hopsMax, cloudRouterCommandRequest.hopsMax)&&
         Objects.equals(this.additionalProperties, cloudRouterCommandRequest.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(destination, sourceConnection, timeout, dataBytes, interval, count, additionalProperties);
+    return Objects.hash(destination, sourceConnection, timeout, dataBytes, interval, count, probes, hopsMax, additionalProperties);
   }
 
   @Override
@@ -278,6 +333,8 @@ public class CloudRouterCommandRequest {
     sb.append("    dataBytes: ").append(toIndentedString(dataBytes)).append("\n");
     sb.append("    interval: ").append(toIndentedString(interval)).append("\n");
     sb.append("    count: ").append(toIndentedString(count)).append("\n");
+    sb.append("    probes: ").append(toIndentedString(probes)).append("\n");
+    sb.append("    hopsMax: ").append(toIndentedString(hopsMax)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -307,10 +364,13 @@ public class CloudRouterCommandRequest {
     openapiFields.add("dataBytes");
     openapiFields.add("interval");
     openapiFields.add("count");
+    openapiFields.add("probes");
+    openapiFields.add("hopsMax");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
     openapiRequiredFields.add("destination");
+    openapiRequiredFields.add("sourceConnection");
   }
 
  /**
@@ -335,10 +395,8 @@ public class CloudRouterCommandRequest {
       if (!jsonObj.get("destination").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `destination` to be a primitive type in the JSON string but got `%s`", jsonObj.get("destination").toString()));
       }
-      // validate the optional field `sourceConnection`
-      if (jsonObj.get("sourceConnection") != null && !jsonObj.get("sourceConnection").isJsonNull()) {
-        CloudRouterCommandRequestConnection.validateJsonObject(jsonObj.getAsJsonObject("sourceConnection"));
-      }
+      // validate the required field `sourceConnection`
+      CloudRouterCommandRequestConnection.validateJsonObject(jsonObj.getAsJsonObject("sourceConnection"));
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {

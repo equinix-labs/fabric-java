@@ -55,6 +55,10 @@ public class PortDevice {
   @SerializedName(SERIALIZED_NAME_REDUNDANCY)
   private PortDeviceRedundancy redundancy;
 
+  public static final String SERIALIZED_NAME_VC_BANDWIDTH_MAX = "vcBandwidthMax";
+  @SerializedName(SERIALIZED_NAME_VC_BANDWIDTH_MAX)
+  private Long vcBandwidthMax;
+
   public PortDevice() {
   }
 
@@ -99,6 +103,28 @@ public class PortDevice {
 
   public void setRedundancy(PortDeviceRedundancy redundancy) {
     this.redundancy = redundancy;
+  }
+
+
+  public PortDevice vcBandwidthMax(Long vcBandwidthMax) {
+    
+    this.vcBandwidthMax = vcBandwidthMax;
+    return this;
+  }
+
+   /**
+   * Maximum bandwidth allowed for connection.
+   * @return vcBandwidthMax
+  **/
+  @javax.annotation.Nullable
+
+  public Long getVcBandwidthMax() {
+    return vcBandwidthMax;
+  }
+
+
+  public void setVcBandwidthMax(Long vcBandwidthMax) {
+    this.vcBandwidthMax = vcBandwidthMax;
   }
 
   /**
@@ -157,13 +183,14 @@ public class PortDevice {
     }
     PortDevice portDevice = (PortDevice) o;
     return Objects.equals(this.name, portDevice.name) &&
-        Objects.equals(this.redundancy, portDevice.redundancy)&&
+        Objects.equals(this.redundancy, portDevice.redundancy) &&
+        Objects.equals(this.vcBandwidthMax, portDevice.vcBandwidthMax)&&
         Objects.equals(this.additionalProperties, portDevice.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, redundancy, additionalProperties);
+    return Objects.hash(name, redundancy, vcBandwidthMax, additionalProperties);
   }
 
   @Override
@@ -172,6 +199,7 @@ public class PortDevice {
     sb.append("class PortDevice {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    redundancy: ").append(toIndentedString(redundancy)).append("\n");
+    sb.append("    vcBandwidthMax: ").append(toIndentedString(vcBandwidthMax)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -197,6 +225,7 @@ public class PortDevice {
     openapiFields = new HashSet<String>();
     openapiFields.add("name");
     openapiFields.add("redundancy");
+    openapiFields.add("vcBandwidthMax");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();

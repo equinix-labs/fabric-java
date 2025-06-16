@@ -111,6 +111,8 @@ public enum SearchFieldName {
   
   _ZSIDE_ACCESSPOINT_TYPE("/zSide/accessPoint/type"),
   
+  _ZSIDE_ACCESSPOINT_ROLE("/zSide/accessPoint/role"),
+  
   _ZSIDE_ACCESSPOINT_VIRTUALDEVICE_NAME("/zSide/accessPoint/virtualDevice/name"),
   
   _ZSIDE_ACCESSPOINT_VIRTUALDEVICE_UUID("/zSide/accessPoint/virtualDevice/uuid"),

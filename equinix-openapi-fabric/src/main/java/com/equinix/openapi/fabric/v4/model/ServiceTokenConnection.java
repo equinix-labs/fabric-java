@@ -66,7 +66,11 @@ public class ServiceTokenConnection {
     
     IPWAN_VC("IPWAN_VC"),
     
-    IP_VC("IP_VC");
+    IP_VC("IP_VC"),
+    
+    EVPTREE_VC("EVPTREE_VC"),
+    
+    EPTREE_VC("EPTREE_VC");
 
     private String value;
 

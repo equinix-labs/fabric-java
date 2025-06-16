@@ -14,6 +14,16 @@ Stream subscription sink settings
 |**applicationKey** | **String** | Application key |  [optional] |
 |**eventUri** | **String** | event uri |  [optional] |
 |**metricUri** | **String** | metric uri |  [optional] |
+|**format** | [**FormatEnum**](#FormatEnum) | webhook message format |  [optional] |
+
+
+
+## Enum: FormatEnum
+
+| Name | Value |
+|---- | -----|
+| CLOUDEVENT | &quot;CLOUDEVENT&quot; |
+| OPENTELEMETRY | &quot;OPENTELEMETRY&quot; |
 
 
 

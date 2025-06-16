@@ -59,15 +59,19 @@ public class StreamSubscriptionSink {
   public enum TypeEnum {
     DATADOG("DATADOG"),
     
+    GOOGLE_PUBSUB("GOOGLE_PUBSUB"),
+    
     PAGERDUTY("PAGERDUTY"),
     
-    SPLUNK_HEC("SPLUNK_HEC"),
+    SERVICENOW("SERVICENOW"),
     
     SLACK("SLACK"),
     
+    SPLUNK_HEC("SPLUNK_HEC"),
+    
     TEAMS("TEAMS"),
     
-    CUSTOM("CUSTOM");
+    WEBHOOK("WEBHOOK");
 
     private String value;
 

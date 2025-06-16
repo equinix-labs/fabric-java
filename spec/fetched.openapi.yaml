@@ -1,5 +1,4 @@
 openapi: 3.0.3
-x-eqx-api-linter-skip-rules: [ 3, 24 ] 
 info:
   title: Equinix Fabric API v4
   description: 'Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br> </br> <b>Integrations (SDKs, Tools) links:</b> </br> <a href="https://deploy.equinix.com/labs/fabric-java\">Fabric Java SDK</a> </br> <a href="https://deploy.equinix.com/labs/equinix-sdk-go\">Fabric Go SDK</a> </br> <a href="https://deploy.equinix.com/labs/equinix-sdk-python\">Fabric Python SDK</a> </br> <a href="https://deploy.equinix.com/labs/terraform-provider-equinix\">Equinix Terraform Provider</a> </br> <a href="https://deploy.equinix.com/labs/terraform-equinix-fabric\">Fabric Terraform Modules</a> </br> <a href="https://deploy.equinix.com/labs/pulumi-provider-equinix/">Equinix Pulumi Provider</a> </br>'
@@ -10,7 +9,7 @@ info:
   license:
     name: Equinix Inc
     url: https://developer.equinix.com/agreement
-  version: "4.21"
+  version: "4.22"
 externalDocs:
   description: Find more information on Equinix Docs Portal
   url: https://docs.equinix.com/en-us/apis/fabric
@@ -26,6 +25,10 @@ tags:
     description: Cloud Routers
   - name: Connections
     description: Connections
+  - name: Deployments
+    description: Deployments <font color="red"> <sup color='red'>Beta</sup></font>
+  - name: Metrics
+    description: Metrics
   - name: Metros
     description: Metros
   - name: Ports
@@ -270,6 +273,96 @@ paths:
               examples:
                 example:
                   $ref: "#/components/examples/500"
+  "/fabric/v4/{asset}/{assetId}/metrics":
+    get:
+      tags:
+        - Metrics
+      summary: Get Metrics by Asset Id
+      description: This API provides capability to retrieve Metrics of an asset id
+      operationId: getMetricByAssetId
+      parameters:
+        - name: asset
+          in: path
+          description: asset
+          required: true
+          schema:
+            $ref: "#/components/schemas/MetricAssetType"
+        - name: assetId
+          in: path
+          description: asset UUID
+          required: true
+          schema:
+            $ref: "#/components/schemas/AssetId"
+        - name: fromDateTime
+          in: query
+          description: Start date and time
+          required: false
+          schema:
+            $ref: "#/components/schemas/StartDateTime"
+        - name: toDateTime
+          in: query
+          description: End date and time
+          required: false
+          schema:
+            $ref: "#/components/schemas/EndDateTime"
+        - name: offset
+          in: query
+          description: offset
+          required: false
+          schema:
+            $ref: "#/components/schemas/Offset"
+        - name: limit
+          in: query
+          description: limit
+          required: false
+          schema:
+            $ref: "#/components/schemas/Limit"
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetMetricsByAssetResponse"
+              examples:
+                Example:
+                  $ref: "#/components/examples/get-metrics-by-asset-id"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/401"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/403"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/404"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/500"
   /fabric/v4/connections:
     post:
       tags:
@@ -341,6 +434,14 @@ paths:
                 $ref: "#/components/examples/COLO2NETWORKwithEPL"
               Colo2Network-EPLAN_VC-With-Terms:
                 $ref: "#/components/examples/COLO2NETWORKwithEPLAndTerms"
+              Colo2Network-EVPTREE_VC:
+                $ref: "#/components/examples/COLO2NETWORK_EVPTREE_withDot1q"
+              Colo2Network-EVPTREE_VC-With-Terms:
+                $ref: "#/components/examples/COLO2NETWORK_EVPTREE_withDot1qAndTerms"
+              Colo2Network-EPTREE_VC:
+                $ref: "#/components/examples/COLO2NETWORK_EPTREE_withEPL"
+              Colo2Network-EPTREE_VC-With-Terms:
+                $ref: "#/components/examples/COLO2NETWORK_EPTREE_withEPLAndTerms"
               Vd2Network:
                 $ref: "#/components/examples/Vd2NETWORK"
               Vd2Sp-Aws:
@@ -557,6 +658,14 @@ paths:
                   $ref: "#/components/examples/COLO2NETWORKwithEPL-Response"
                 Colo2Network-EPLAN_VC-WithTerms:
                   $ref: "#/components/examples/COLO2NETWORKwithEPLAndTerms-Response"
+                Colo2Network-EVPTREE_VC:
+                  $ref: "#/components/examples/COLO2NETWORK_EVPTREE_withDot1q-Response"
+                Colo2Network-EVPTREE_VC-WithTerms:
+                  $ref: "#/components/examples/COLO2NETWORK_EVPTREE_withDot1qAndTerms-Response"
+                Colo2Network-EPTREE_VC:
+                  $ref: "#/components/examples/COLO2NETWORK_EPTREE_withEPL-Response"
+                Colo2Network-EPTREE_VC-WithTerms:
+                  $ref: "#/components/examples/COLO2NETWORK_EPTREE_withEPLAndTerms-Response"
                 Vd2IASp:
                   $ref: "#/components/examples/Vd2IAProfile-Response"
                 Vd2Network:
@@ -8520,6 +8629,8 @@ paths:
             examples:
               InitiatePingCommand:
                 $ref: "#/components/examples/PostRequestPingCommand"
+              InitiateTracerouteCommand:
+                $ref: "#/components/examples/PostRequestTracerouteCommand"
         required: true
       responses:
         "202":
@@ -8529,8 +8640,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/CloudRouterCommand"
               examples:
-                initiateCommandsExample:
+                initiatePingCommandsExample:
                   $ref: "#/components/examples/PostResponsePingCommand"
+                initiateTracerouteCommandsExample:
+                  $ref: "#/components/examples/PostResponseTracerouteCommand"
         "400":
           description: Bad request
           content:
@@ -8702,6 +8815,8 @@ paths:
               examples:
                 getCommandExample:
                   $ref: "#/components/examples/GetResponsePingCommand"
+                getTracerouteCommandWithErrorExample:
+                  $ref: "#/components/examples/GetResponseTracerouteCommandWithError"
         "400":
           description: Bad request
           content:
@@ -11599,6 +11714,12 @@ paths:
                 $ref: "#/components/examples/StreamSubscriptionPostRequestExampleTeams"
               CreateStreamSubscription_Servicenow:
                 $ref: "#/components/examples/StreamSubscriptionPostRequestExampleServicenow"
+              CreateStreamSubscription_Webhook:
+                $ref: "#/components/examples/StreamSubscriptionPostRequestExampleWebhook"
+              CreateStreamSubscription_Grafana_Webhook:
+                $ref: "#/components/examples/StreamSubscriptionPostRequestExampleGrafanaWebhook"
+              CreateStreamSubscription_Google_PubSub:
+                $ref: "#/components/examples/StreamSubscriptionPostRequestExampleGooglePubSub"
         required: true
       responses:
         "202":
@@ -11918,7 +12039,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/StreamAlertRule"
+                $ref: "#/components/schemas/GetAllStreamAlertRuleResponse"
               examples:
                 GetAllStreamAlertRuleResponse:
                   $ref: "#/components/examples/stream-alert-rules-get-all-example"
@@ -12264,6 +12385,399 @@ paths:
               examples:
                 example:
                   $ref: "#/components/examples/500"
+  /fabric/v4/deployments:
+    post:
+      tags:
+        - Deployments
+      summary: Create a new topology deployment
+      description: "The deployment API is used to creates new deployment topologies. \nIt allows users to define the properties of the deployment, including Fabric and CSP providers.\n"
+      operationId: createTopologyDeployment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Deployment"
+            examples:
+              CreateTopologyDeployment:
+                $ref: "#/components/examples/DeploymentCreate"
+        required: true
+      responses:
+        "201":
+          description: Deployment created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeploymentResponse"
+              examples:
+                deploymentPostResponse:
+                  $ref: "#/components/examples/DeploymentPostResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                InvalidName:
+                  $ref: "#/components/examples/Orchestrator_400_InvalidName"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/Orchestrator_401"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/Orchestrator_403"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/Orchestrator_404"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/Orchestrator_500"
+  "/fabric/v4/deployments/{deploymentId}":
+    get:
+      tags:
+        - Deployments
+      summary: Retrieve Deployment details using UUID
+      description: This API provides capability to retrieve user's deployment details.
+      operationId: getDeployment
+      parameters:
+        - name: deploymentId
+          in: path
+          description: Deployment UUID
+          required: true
+          schema:
+            $ref: "#/components/schemas/DeploymentId"
+      responses:
+        "200":
+          description: Deployment details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeploymentResponse"
+              examples:
+                deploymentGetResponse:
+                  $ref: "#/components/examples/DeploymentGet"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/Orchestrator_401"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/Orchestrator_403"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/Orchestrator_404"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/Orchestrator_500"
+    delete:
+      tags:
+        - Deployments
+      summary: Delete Deployment using UUID
+      description: This API provides capability to delete user's deployment
+      operationId: deleteDeployment
+      parameters:
+        - name: deploymentId
+          in: path
+          description: Deployment UUID
+          required: true
+          schema:
+            $ref: "#/components/schemas/DeploymentId"
+      responses:
+        "200":
+          description: Deployment object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeploymentResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/Orchestrator_400_InvalidState"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/Orchestrator_401"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/Orchestrator_403"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/Orchestrator_404"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/Orchestrator_500"
+  "/fabric/v4/deployments/{deploymentId}/actions":
+    post:
+      tags:
+        - Deployments
+      summary: Deploy, Dry Run or Destroy Deployment
+      description: |
+        The deployment action is used to deploy, dry run or destroy a deployment. The request body must contain the type of action to be performed and the connection details.
+        The response will contain the status of the action.
+      operationId: actionDeployment
+      parameters:
+        - name: deploymentId
+          in: path
+          description: Deployment UUID
+          required: true
+          schema:
+            $ref: "#/components/schemas/DeploymentId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DeploymentActionRequest"
+            examples:
+              Deploy:
+                $ref: "#/components/examples/DeploymentActions"
+        required: true
+      responses:
+        "202":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CloudRouterActionResponse"
+              examples:
+                cloudRouterActionExample:
+                  $ref: "#/components/examples/CloudRouterActionResponse"
+                receivedRouteEntriesExample:
+                  $ref: "#/components/examples/CloudRouterReceivedRoutesActionResponse"
+                advertisedRouteEntriesExample:
+                  $ref: "#/components/examples/CloudRouterAdvertisedRoutesActionResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/400_invalid_operation"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/401"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/403"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/404"
+        "415":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/415"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/500"
+  /fabric/v4/deployments/searchDeployments:
+    post:
+      tags:
+        - Deployments
+      summary: Search deployments
+      description: The API provides capability to get list of user's deployment using search criteria.
+      operationId: searchDeployments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DeploymentSearchRequest"
+        required: true
+      responses:
+        "200":
+          description: A list of deployments
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeploymentSearchResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/Orchestrator_401"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/Orchestrator_403"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/Orchestrator_404"
+  /fabric/v4/providerResources/search:
+    post:
+      tags:
+        - Deployments
+      summary: Search provider resources
+      description: The API provides capability to get list of user's provider resources using search criteria, including optional filtering
+      operationId: searchProviderResources
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProviderSearchRequest"
+            examples:
+              SearchProviderResources:
+                $ref: "#/components/examples/ProviderResourcesSearch"
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProviderSearchResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/Orchestrator_401"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/Orchestrator_403"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/Orchestrator_500"
 components:
   schemas:
     CloudEventAssetType:
@@ -12272,6 +12786,10 @@ components:
         - ports
         - connections
         - routers
+        - serviceTokens
+        - networks
+        - projects
+        - organizations
     AssetId:
       type: string
       description: Asset UUID
@@ -12413,6 +12931,22 @@ components:
           items:
             type: string
             example: equinix.fabric.port.status.*
+    MetricAssetType:
+      type: string
+      enum:
+        - ports
+        - connections
+        - routers
+    GetMetricsByAssetResponse:
+      type: object
+      properties:
+        pagination:
+          $ref: "#/components/schemas/Pagination"
+        data:
+          type: array
+          description: Data returned from the API call.
+          items:
+            $ref: "#/components/schemas/Metric"
     ConnectionPostRequest:
       required:
         - aSide
@@ -12436,7 +12970,7 @@ components:
           items:
             $ref: "#/components/schemas/SimplifiedNotification"
         bandwidth:
-          maximum: 50000
+          maximum: 100000
           minimum: 0
           type: integer
           description: Connection bandwidth in Mbps
@@ -12979,6 +13513,7 @@ components:
         - /zSide/accessPoint/port/name
         - /zSide/accessPoint/profile/uuid
         - /zSide/accessPoint/type
+        - /zSide/accessPoint/role
         - /zSide/accessPoint/virtualDevice/name
         - /zSide/accessPoint/virtualDevice/uuid
         - /zSide/serviceToken/uuid
@@ -13947,6 +14482,10 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ConnectedMetro"
+        services:
+          type: array
+          items:
+            $ref: "#/components/schemas/services"
         geoScopes:
           type: array
           description: List of supported geographic boundaries of a Fabric Metro.
@@ -13982,6 +14521,13 @@ components:
           description: This field holds the Max Connection speed with connected metros
           format: int64
       description: Arrays of objects containing latency data for the specified metros
+    services:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type of Service
+      description: Arrays of objects containing type of services supported in the specified metros
     GeoScopeType:
       type: string
       description: Geographic boundary types
@@ -15730,8 +16276,9 @@ components:
       description: Router package code
       enum:
         - LAB
-        - ADVANCED
+        - BASIC
         - STANDARD
+        - ADVANCED
         - PREMIUM
     CloudRouterPackage:
       type: object
@@ -16852,11 +17399,13 @@ components:
           description: destination type
           enum:
             - DATADOG
+            - GOOGLE_PUBSUB
             - PAGERDUTY
-            - SPLUNK_HEC
+            - SERVICENOW
             - SLACK
+            - SPLUNK_HEC
             - TEAMS
-            - CUSTOM
+            - WEBHOOK
         batchEnabled:
           type: boolean
           description: batch mode on/off
@@ -16923,6 +17472,13 @@ components:
         metricUri:
           type: string
           description: metric uri
+        format:
+          type: string
+          description: webhook message format
+          default: CLOUDEVENT
+          enum:
+            - CLOUDEVENT
+            - OPENTELEMETRY
       description: Stream subscription sink settings
     StreamSubscription:
       type: object
@@ -17001,6 +17557,78 @@ components:
         sink:
           $ref: "#/components/schemas/StreamSubscriptionSink"
       description: Update Stream Subscription
+    GetAllStreamAlertRuleResponse:
+      type: object
+      properties:
+        pagination:
+          $ref: "#/components/schemas/Pagination"
+        data:
+          type: array
+          description: Data returned from the API call.
+          items:
+            $ref: "#/components/schemas/StreamAlertRule"
+    AlertRulePostRequest:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - METRIC_ALERT
+        name:
+          type: string
+          description: Customer-provided stream name
+        description:
+          type: string
+          description: Customer-provided stream description
+        enabled:
+          type: boolean
+          description: Stream alert rule enabled status
+          default: true
+        metricName:
+          type: string
+          description: Stream alert rule metric name
+          enum:
+            - equinix.fabric.connection.bandwidth_tx.usage
+            - equinix.fabric.connection.bandwidth_rx.usage
+            - equinix.fabric.port.bandwidth_tx.usage
+            - equinix.fabric.port.bandwidth_rx.usage
+            - equinix.fabric.port.packets_erred_tx.count
+            - equinix.fabric.port.packets_erred_rx.count
+            - equinix.fabric.port.packets_dropped_tx.count
+            - equinix.fabric.port.packets_dropped_rx.count
+            - equinix.fabric.metro.<source_metro_code>_<destination_metro_code>.latency
+        resourceSelector:
+          $ref: "#/components/schemas/ResourceSelector"
+        windowSize:
+          type: string
+          description: Stream alert rule metric window size
+          example: PT15M
+        operand:
+          type: string
+          description: Stream alert rule metric operand
+          enum:
+            - ABOVE
+            - BELOW
+        warningThreshold:
+          type: string
+          description: Stream alert rule metric warning threshold
+        criticalThreshold:
+          type: string
+          description: Stream alert rule metric critical threshold
+      description: Create Stream Alert Rules
+    ResourceSelector:
+      type: object
+      properties:
+        include:
+          type: array
+          description: |
+            ### Supported metric names to use on filters with property /subject:
+              * `*` - all events or metrics
+              * `*/ports/<uuid>` - port metrics
+              * `*/connections/<uuid>` - connection metrics
+              * `*/metros/<metroCode>` - metro latency metrics
+          items:
+            type: string
     StreamAlertRule:
       type: object
       properties:
@@ -17069,68 +17697,6 @@ components:
         changeLog:
           $ref: "#/components/schemas/Changelog"
       description: Stream object
-    AlertRulePostRequest:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-            - METRIC_ALERT
-        name:
-          type: string
-          description: Customer-provided stream name
-        description:
-          type: string
-          description: Customer-provided stream description
-        enabled:
-          type: boolean
-          description: Stream alert rule enabled status
-          default: true
-        metricName:
-          type: string
-          description: Stream alert rule metric name
-          enum:
-            - equinix.fabric.connection.bandwidth_tx.usage
-            - equinix.fabric.connection.bandwidth_rx.usage
-            - equinix.fabric.port.bandwidth_tx.usage
-            - equinix.fabric.port.bandwidth_rx.usage
-            - equinix.fabric.port.packets_erred_tx.count
-            - equinix.fabric.port.packets_erred_rx.count
-            - equinix.fabric.port.packets_dropped_tx.count
-            - equinix.fabric.port.packets_dropped_rx.count
-            - equinix.fabric.metro.<source_metro_code>_<destination_metro_code>.latency
-        resourceSelector:
-          $ref: "#/components/schemas/ResourceSelector"
-        windowSize:
-          type: string
-          description: Stream alert rule metric window size
-          example: PT15M
-        operand:
-          type: string
-          description: Stream alert rule metric operand
-          enum:
-            - ABOVE
-            - BELOW
-        warningThreshold:
-          type: string
-          description: Stream alert rule metric warning threshold
-        criticalThreshold:
-          type: string
-          description: Stream alert rule metric critical threshold
-      description: Create Stream Alert Rules
-    ResourceSelector:
-      type: object
-      properties:
-        include:
-          type: array
-          description: |
-            ### Supported metric names to use on filters with property /subject:
-              * `*` - all events or metrics
-              * `*/ports/<uuid>` - port metrics
-              * `*/connections/<uuid>` - connection metrics
-              * `*/metros/<metroCode>` - metro latency metrics
-          items:
-            type: string
     AlertRuleId:
       type: string
       description: Stream Alert Rule UUID
@@ -17181,6 +17747,199 @@ components:
           type: string
           description: Stream alert rule metric critical threshold
       description: Create Stream Alert Rules
+    Deployment:
+      required:
+        - account
+        - name
+        - project
+        - providers
+        - type
+      type: object
+      properties:
+        type:
+          type: string
+          example: TOPOLOGY_DEPLOYMENT
+        name:
+          type: string
+          example: MCN-Deployment
+        description:
+          type: string
+          example: FCR and AWS DGW Deployment in DC
+        topology:
+          $ref: "#/components/schemas/Deployment_topology"
+        providers:
+          type: array
+          items:
+            $ref: "#/components/schemas/OrchestratorProviders"
+        project:
+          $ref: "#/components/schemas/Project"
+        account:
+          $ref: "#/components/schemas/SimplifiedAccount"
+        order:
+          $ref: "#/components/schemas/Order"
+        notifications:
+          type: array
+          description: Preferences for notifications on deployement status changes
+          items:
+            $ref: "#/components/schemas/SimplifiedNotification"
+    DeploymentResponse:
+      type: object
+      properties:
+        href:
+          type: string
+          example: /fabric/v4/deployments/d3d51d91-7688-446b-aa08-d1cb6a5ca393
+        uuid:
+          type: string
+          format: uuid
+          example: d3d51d91-7688-446b-aa08-d1cb6a5ca393
+        type:
+          type: string
+          example: TOPOLOGY_DEPLOYMENT
+        name:
+          type: string
+          example: MCN-Deployment
+        description:
+          type: string
+          example: FCR and AWS DG Deployment in DC
+        state:
+          type: string
+          example: NOT_STARTED
+        topology:
+          $ref: "#/components/schemas/Deployment_topology"
+        providers:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProviderResponse"
+        notifications:
+          type: array
+          description: Preferences for notifications on deployement status changes
+          items:
+            $ref: "#/components/schemas/SimplifiedNotification"
+      description: "This API provides capability to retrieve user's deployments\nThe response contains the details of the deployment including its state, topology, and providers.\nThe deployment is identified by its UUID.\nThe response also includes a list of notifications preferences for deployment status changes.    \nThe response is in JSON format and follows the OpenAPI specification.\n"
+    DeploymentId:
+      type: string
+      description: Deployment UUID
+      format: uuid
+      example: 6658cc3b-18e0-437c-b972-62b51a419a1e
+    DeploymentActionRequest:
+      required:
+        - data
+        - type
+      type: object
+      properties:
+        type:
+          $ref: "#/components/schemas/DeploymentActionType"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/ActionRequest"
+    DeploymentActionType:
+      type: string
+      description: Deployment action type
+      enum:
+        - DEPLOY
+        - DRY_RUN
+        - DESTROY
+    DeploymentSearchRequest:
+      type: object
+      properties:
+        filter:
+          $ref: "#/components/schemas/DeploymentExpression"
+      description: Search requests containing criteria
+    DeploymentExpression:
+      type: object
+      properties:
+        and:
+          $ref: "#/components/schemas/DeploymentExpressions"
+        or:
+          $ref: "#/components/schemas/DeploymentExpressions"
+    DeploymentExpressions:
+      type: array
+      items:
+        $ref: "#/components/schemas/DeploymentSearchExpressions"
+    DeploymentSearchExpressions:
+      type: object
+      properties:
+        property:
+          $ref: "#/components/schemas/SearchDeploymentField"
+        operator:
+          type: string
+          enum:
+            - =
+            - "!="
+        values:
+          type: array
+          items:
+            type: string
+            example: 7a1228ee-91f7-462f-8f87-c8c01849bd47
+    SearchDeploymentField:
+      type: string
+      description: Possible deployment field names to use on filters
+      enum:
+        - /project/projectId
+        - "*"
+    DeploymentSearchResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/DeploymentResponse"
+      description: A list of deployments matching the search criteria
+    ProviderSearchRequest:
+      type: object
+      properties:
+        filter:
+          $ref: "#/components/schemas/ProviderExpression"
+      description: Search requests containing criteria
+    ProviderExpression:
+      type: object
+      properties:
+        and:
+          $ref: "#/components/schemas/ProviderExpressions"
+        or:
+          $ref: "#/components/schemas/ProviderExpressions"
+    ProviderExpressions:
+      type: array
+      items:
+        $ref: "#/components/schemas/ProviderSearchExpressions"
+    ProviderSearchExpressions:
+      type: object
+      properties:
+        property:
+          $ref: "#/components/schemas/SearchProviderField"
+        operator:
+          type: string
+          enum:
+            - =
+            - "!="
+        values:
+          type: array
+          items:
+            type: string
+            example: AWS_PROVIDER
+    SearchProviderField:
+      type: string
+      description: Possible Provider field names to use on filters
+      enum:
+        - /providers/type
+        - /providers/oidcCredentials/roleArn
+        - /providers/oidcCredentials/region
+        - /providers/resources/type
+        - /providers/oidcCredentials/projectId
+        - /providers/oidcCredentials/providerId
+        - /providers/oidcCredentials/poolId
+        - /project/projectId
+        - "*"
+    ProviderSearchResponse:
+      type: object
+      properties:
+        type:
+          $ref: "#/components/schemas/ProviderType"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProvidersSearchResponse"
     Error:
       required:
         - errorCode
@@ -17266,6 +18025,29 @@ components:
           description: Number of elements to be requested per page. Number must be between 1 and 100, and the default is 20.
           default: 20
       description: Pagination request information
+    Metric:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Equinix supported metric type
+        name:
+          type: string
+          description: Metric name
+        unit:
+          type: string
+          description: Metric unit
+        resource:
+          $ref: "#/components/schemas/Metric_resource"
+        summary:
+          type: string
+          description: Metric summary
+        datapoints:
+          type: array
+          description: Metric data points
+          items:
+            $ref: "#/components/schemas/Metric_datapoints"
+      description: Metric object
     ConnectionType:
       type: string
       description: Connection type
@@ -17278,6 +18060,8 @@ components:
         - EIA_VC
         - EVPLAN_VC
         - EPLAN_VC
+        - EVPTREE_VC
+        - EPTREE_VC
         - IPWAN_VC
         - IA_VC
     Order:
@@ -17964,6 +18748,7 @@ components:
         - /aSide/accessPoint/linkProtocol/vlanSTag
         - /zSide/accessPoint/name
         - /zSide/accessPoint/type
+        - /zSide/accessPoint/role
         - /zSide/accessPoint/account/accountName
         - /zSide/accessPoint/location/metroName
         - /zSide/accessPoint/location/metroCode
@@ -18092,6 +18877,8 @@ components:
             - EPLAN_VC
             - IPWAN_VC
             - IP_VC
+            - EVPTREE_VC
+            - EPTREE_VC
         href:
           type: string
           description: An absolute URL that is the subject of the link's context.
@@ -18201,6 +18988,7 @@ components:
           type: string
           description: Equinix-assigned order identifier, this is a derived response atrribute
           format: uuid
+          deprecated: true
         signature:
           $ref: "#/components/schemas/PortOrder_signature"
     PortOperation:
@@ -18279,6 +19067,10 @@ components:
           description: Device name
         redundancy:
           $ref: "#/components/schemas/PortDeviceRedundancy"
+        vcBandwidthMax:
+          type: integer
+          description: Maximum bandwidth allowed for connection.
+          format: int64
       description: Port device
     PortInterface:
       type: object
@@ -18951,8 +19743,9 @@ components:
           example: LAB
           enum:
             - LAB
-            - ADVANCED
+            - BASIC
             - STANDARD
+            - ADVANCED
             - PREMIUM
       description: Fabric Cloud Router Package Type
     CloudRouterAccessPointState:
@@ -19059,9 +19852,11 @@ components:
       example: PING_COMMAND
       enum:
         - PING_COMMAND
+        - TRACEROUTE_COMMAND
     CloudRouterCommandRequest:
       required:
         - destination
+        - sourceConnection
       type: object
       properties:
         destination:
@@ -19072,8 +19867,8 @@ components:
           $ref: "#/components/schemas/CloudRouterCommandRequestConnection"
         timeout:
           type: integer
-          description: Fabric Cloud Router Ping Command Timeout
-          example: 5
+          description: Timeout in seconds for Fabric Cloud Router Ping or Traceroute Command
+          example: 2
         dataBytes:
           maximum: 9000
           minimum: 16
@@ -19083,16 +19878,27 @@ components:
           default: 64
         interval:
           type: integer
-          description: Time in milliseconds between sending each packet
+          description: Time in milliseconds between sending each packet for Fabric Cloud Router Ping Command
           readOnly: true
           example: 1000
           default: 1000
         count:
           type: integer
-          description: Total number of ping requests
+          description: Total number of ping requests for Fabric Cloud Router Ping Command
           readOnly: true
           example: 5
           default: 5
+        probes:
+          type: integer
+          description: Number of probes to send for Fabric Cloud Router Traceroute Command
+          example: 3
+          default: 3
+        hopsMax:
+          maximum: 30
+          type: integer
+          description: Maximum number of hops for Fabric Cloud Router Traceroute Command
+          example: 20
+          default: 20
       description: Fabric Cloud Router Command Request
     CloudRouterCommandState:
       type: string
@@ -19105,11 +19911,9 @@ components:
         - DELETED
     CloudRouterCommandResponse:
       type: object
-      properties:
-        output:
-          type: string
-        outputStructuredPing:
-          $ref: "#/components/schemas/OutputStructuredPing"
+      oneOf:
+        - $ref: "#/components/schemas/CloudRouterCommandPingResponse"
+        - $ref: "#/components/schemas/CloudRouterCommandTracerouteResponse"
     RouteTableEntry:
       required:
         - changeLog
@@ -19153,8 +19957,9 @@ components:
       example: LAB
       enum:
         - LAB
-        - ADVANCED
+        - BASIC
         - STANDARD
+        - ADVANCED
         - PREMIUM
     PackageChangeLog:
       type: object
@@ -19188,7 +19993,7 @@ components:
           type: string
           description: Equinix-assigned connection identifier
         bandwidth:
-          maximum: 50000
+          maximum: 100000
           minimum: 0
           type: integer
           description: Connection bandwidth in Mbps
@@ -19609,6 +20414,64 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/StreamFilterSimpleExpression"
+    VpnTunnelState:
+      type: string
+      description: VPN Tunnel lifecycle state
+      example: PROVISIONED
+      enum:
+        - PROVISIONING
+        - PROVISIONED
+        - DEPROVISIONING
+        - DEPROVISIONED
+        - REPROVISIONING
+        - PROVISIONING_FAILED
+        - DEPROVISIONING_FAILED
+      x-order: 6
+    OrchestratorProviders:
+      type: object
+      description: |
+        The OrchestratorProvider schema defines the structure for the orchestrator provider configuration.
+        It includes details about the provider type and its specific configurations.
+      oneOf:
+        - $ref: "#/components/schemas/FabricProvider"
+        - $ref: "#/components/schemas/AWSProvider"
+        - $ref: "#/components/schemas/GCPProvider"
+    ProviderResponse:
+      type: object
+      description: |
+        Describes the response structure for different orchestrator provider types, including their specific configuration details.
+      oneOf:
+        - $ref: "#/components/schemas/FabricProviderResponse"
+        - $ref: "#/components/schemas/AWSProviderResponse"
+        - $ref: "#/components/schemas/GCPProviderResponse"
+    ActionRequest:
+      type: object
+      discriminator:
+        propertyName: type
+        mapping:
+          AWSPermission: "#/components/schemas/AWSPermission"
+          GCPPermission: "#/components/schemas/GCPPermission"
+      oneOf:
+        - $ref: "#/components/schemas/AWSPermission"
+        - $ref: "#/components/schemas/GCPPermission"
+    ProviderType:
+      type: string
+      description: Deployment action type
+      enum:
+        - AWS_PROVIDER
+        - GCP_PROVIDER
+    ProvidersSearchResponse:
+      type: object
+      discriminator:
+        propertyName: type
+        mapping:
+          VPC: "#/components/schemas/VPC"
+          Subnet: "#/components/schemas/Subnet"
+          SearchDirectConnect: "#/components/schemas/SearchDirectConnect"
+      oneOf:
+        - $ref: "#/components/schemas/VPC"
+        - $ref: "#/components/schemas/Subnet"
+        - $ref: "#/components/schemas/SearchDirectConnect"
     ConnectionPriority:
       type: string
       description: Connection priority in redundancy group
@@ -19655,6 +20518,12 @@ components:
           $ref: "#/components/schemas/MetalInterconnection"
         vpic_interface:
           $ref: "#/components/schemas/VpicInterface"
+        role:
+          type: string
+          description: E-Tree network connection role
+          enum:
+            - LEAF
+            - ROOT
       description: Access point object
     InternetAccess:
       type: object
@@ -20003,6 +20872,8 @@ components:
           example: 1000
       description: Service Token details of Link Protocol
     CloudRouterCommandRequestConnection:
+      required:
+        - uuid
       type: object
       properties:
         uuid:
@@ -20010,48 +20881,28 @@ components:
           description: Connection UUID
           example: 557400f8-d360-11e9-bb65-2a2ae2dbcce4
       description: Connection object for Cloud Router Command
-    OutputStructuredPing:
+    CloudRouterCommandPingResponse:
       type: object
       properties:
-        destinationIp:
+        output:
           type: string
-          example: 8.8.8.8
-        destinationName:
-          type: string
-          example: 8.8.8.8
-        dataBytes:
-          type: integer
-          example: 100
-        packetsTransmitted:
-          type: integer
-          example: 4
-        packetsReceived:
-          type: integer
-          example: 4
-        packetsLossPercent:
-          type: number
-          format: float
-          example: 0
-        rttMin:
-          type: number
-          format: float
-          example: 9.271
-        rttAvg:
-          type: number
-          format: float
-          example: 15.483
-        rttMax:
-          type: number
-          format: float
-          example: 26.771
-        rttStdDev:
-          type: number
-          format: float
-          example: 7.039
-        responses:
+        outputStructuredPing:
+          $ref: "#/components/schemas/OutputStructuredPing"
+        errors:
           type: array
           items:
-            $ref: "#/components/schemas/OutputStructuredPingResponseItem"
+            $ref: "#/components/schemas/Error"
+    CloudRouterCommandTracerouteResponse:
+      type: object
+      properties:
+        output:
+          type: string
+        outputStructuredTraceroute:
+          $ref: "#/components/schemas/OutputStructuredTraceroute"
+        errors:
+          type: array
+          items:
+            $ref: "#/components/schemas/Error"
     RouteTableEntryState:
       type: string
       description: Route table entry state
@@ -20102,10 +20953,10 @@ components:
           description: The authentication Key ID.
           example: 10
         key:
-          maxLength: 40
-          minLength: 10
+          pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
           type: string
-          description: The plaintext authentication key. For ASCII type, the key must contain printable ASCII characters, range 10-20 characters. For HEX type, range should be 10-40 characters.
+          description: The plaintext authentication key. Must be Base64 encoded. For ASCII type, the key must contain printable ASCII characters, range 10-20 characters. For HEX type, range should be 10-40 characters.
+          format: byte
     virtualConnectionSide:
       title: fabricConnectionAccessPoint
       type: object
@@ -20113,6 +20964,221 @@ components:
         accessPoint:
           $ref: "#/components/schemas/AccessPoint"
       description: Fabric Connection access point object.
+    FabricProvider:
+      required:
+        - resources
+        - type
+      type: object
+      properties:
+        type:
+          type: string
+          example: FABRIC_PROVIDER
+          enum:
+            - FABRIC_PROVIDER
+        resources:
+          type: array
+          items:
+            $ref: "#/components/schemas/FabricProviderResource"
+      description: |
+        The Orchestrator Fabric Providers schema defines the structure for the orchestrator fabric provider configuration.
+    AWSProvider:
+      required:
+        - resources
+        - type
+      type: object
+      properties:
+        type:
+          type: string
+          example: AWS_PROVIDER
+          enum:
+            - AWS_PROVIDER
+        resources:
+          type: array
+          items:
+            $ref: "#/components/schemas/AWSProviderResource"
+      description: |
+        The Orchestrator AWS Providers schema defines the structure for the orchestrator aws provider configuration.
+    GCPProvider:
+      required:
+        - resources
+        - type
+      type: object
+      properties:
+        type:
+          type: string
+          example: GCP_PROVIDER
+          enum:
+            - GCP_PROVIDER
+        resources:
+          type: array
+          items:
+            $ref: "#/components/schemas/GCPProviderResource"
+      description: |
+        The Orchestrator GCP Providers schema defines the structure for the orchestrator gcp provider configuration.
+    FabricProviderResponse:
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          type: string
+          example: FABRIC_PROVIDER
+          enum:
+            - FABRIC_PROVIDER
+        resources:
+          type: array
+          items:
+            $ref: "#/components/schemas/FabricProviderResourceResponse"
+      description: |
+        The response from the orchestrator when querying for fabric provider resources.
+        This response contains a list of resources that are managed by the fabric provider.
+        The resources can be routers, connections, or route protocols.
+    AWSProviderResponse:
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          type: string
+          example: AWS_PROVIDER
+          enum:
+            - AWS_PROVIDER
+        resources:
+          type: array
+          items:
+            $ref: "#/components/schemas/AWSProviderResourceResponse"
+    GCPProviderResponse:
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          type: string
+          example: GCP_PROVIDER
+          enum:
+            - GCP_PROVIDER
+        resources:
+          type: array
+          items:
+            $ref: "#/components/schemas/GCPProviderResourceResponse"
+    AWSPermission:
+      required:
+        - deploymentProperties
+        - region
+        - roleArn
+        - type
+      type: object
+      properties:
+        type:
+          type: string
+          example: PERMISSION
+          enum:
+            - PERMISSION
+        roleArn:
+          type: string
+          example: arn:aws:iam:::role/
+        region:
+          type: string
+          example: us-east-1
+        deploymentProperties:
+          $ref: "#/components/schemas/TopologyProperties"
+      description: |
+        Provides the AWS permission configuration for the orchestrator. This permission is used to manage the AWS resources and their access control.
+    GCPPermission:
+      required:
+        - deploymentProperties
+        - poolId
+        - projectId
+        - providerId
+        - type
+      type: object
+      properties:
+        type:
+          type: string
+          example: PERMISSION
+          enum:
+            - PERMISSION
+        projectId:
+          type: string
+          example: "149749245261"
+        providerId:
+          type: string
+          example: equinix
+        poolId:
+          type: string
+          example: orchestrator-demo
+        deploymentProperties:
+          $ref: "#/components/schemas/TopologyProperties"
+      description: |
+        Provides the GCP permission configuration for the orchestrator. This permission is used to manage the GCP resources and their access control.
+    VPC:
+      type: object
+      properties:
+        type:
+          type: string
+          example: VPC
+          enum:
+            - VPC
+        name:
+          type: string
+          example: my_aws_vpc
+        id:
+          type: string
+          example: vpc-09ac9040cd1a54aa7
+        state:
+          type: string
+          example: Available
+          enum:
+            - Available
+            - Pending
+            - Deleteing
+            - Deleted
+            - Failed
+            - Ready
+            - Creating
+    Subnet:
+      type: object
+      properties:
+        type:
+          type: string
+          example: Subnet
+          enum:
+            - Subnet
+        name:
+          type: string
+          example: test-demo-subnet-public1-us-east-1a
+        id:
+          type: string
+          example: subnet-0a3144cb5c7d41f48
+        vpcId:
+          type: string
+          example: vpc-09ac9040cd1a54aa7
+        ipv4:
+          type: string
+          example: 10.170.0.0/20
+    SearchDirectConnect:
+      type: object
+      properties:
+        type:
+          type: string
+          example: DIRECT_CONNECT
+          enum:
+            - DIRECT_CONNECT
+        name:
+          type: string
+          example: secondary_1
+        id:
+          type: string
+          example: dxcon-fg3fjufk
+        state:
+          type: string
+          example: Available
+          enum:
+            - Available
+            - Pending
+            - Deleted
+            - Down
+            - Rejected
     AccessPointType:
       type: string
       description: Access point type
@@ -20266,6 +21332,9 @@ components:
             - EDGE
         account:
           $ref: "#/components/schemas/SimplifiedAccount"
+        cluster:
+          type: string
+          description: Virtual Device Cluster Information
       description: Virtual Device AccessPoint Information
     Interface:
       type: object
@@ -20390,6 +21459,8 @@ components:
         - EVPLAN_VC
         - EPLAN_VC
         - IPWAN_VC
+        - EVPTREE_VC
+        - EPTREE_VC
         - IA_VC
     VirtualConnectionPriceASide:
       type: object
@@ -20499,25 +21570,151 @@ components:
         network:
           $ref: "#/components/schemas/SimplifiedTokenNetwork"
       description: List of criteria for selecting network access points with optimal efficiency, security, compatibility, and availability.
-    OutputStructuredPingResponseItem:
+    OutputStructuredPing:
       type: object
       properties:
-        bytes:
-          type: integer
-          example: 100
-        ip:
+        destinationIp:
           type: string
           example: 8.8.8.8
-        icmpSeq:
+        destinationName:
+          type: string
+          example: 8.8.8.8
+        dataBytes:
           type: integer
-          example: 0
-        ttl:
+          example: 100
+        packetsTransmitted:
           type: integer
-          example: 117
-        time:
+          example: 4
+        packetsReceived:
+          type: integer
+          example: 4
+        packetsLossPercent:
           type: number
           format: float
-          example: 9.839
+          example: 0
+        rttMin:
+          type: number
+          format: float
+          example: 9.271
+        rttAvg:
+          type: number
+          format: float
+          example: 15.483
+        rttMax:
+          type: number
+          format: float
+          example: 26.771
+        rttStdDev:
+          type: number
+          format: float
+          example: 7.039
+        responses:
+          type: array
+          items:
+            $ref: "#/components/schemas/OutputStructuredPingResponseItem"
+    OutputStructuredTraceroute:
+      type: object
+      properties:
+        destinationIp:
+          type: string
+          example: 8.8.8.8
+        destinationName:
+          type: string
+          example: 8.8.8.8
+        packetBytes:
+          type: integer
+          example: 60
+        hopsMax:
+          type: integer
+          example: 10
+        hops:
+          type: array
+          items:
+            $ref: "#/components/schemas/Hop"
+    FabricProviderResource:
+      type: object
+      discriminator:
+        propertyName: type
+        mapping:
+          FabricRouter: "#/components/schemas/FabricRouter"
+          FabricConnection: "#/components/schemas/FabricConnection"
+          FabricRouteProtocols: "#/components/schemas/FabricRouteProtocols"
+      oneOf:
+        - $ref: "#/components/schemas/FabricRouter"
+        - $ref: "#/components/schemas/FabricConnection"
+        - $ref: "#/components/schemas/FabricRouteProtocols"
+    AWSProviderResource:
+      type: object
+      discriminator:
+        propertyName: type
+        mapping:
+          AWSPermission: "#/components/schemas/AWSPermission"
+          AWSDirectConnect: "#/components/schemas/AWSDirectConnect"
+          AWSVirtualPrivateGateway: "#/components/schemas/AWSVirtualPrivateGateway"
+      oneOf:
+        - $ref: "#/components/schemas/AWSPermission"
+        - $ref: "#/components/schemas/AWSDirectConnect"
+        - $ref: "#/components/schemas/AWSVirtualPrivateGateway"
+    GCPProviderResource:
+      type: object
+      discriminator:
+        propertyName: type
+        mapping:
+          GCPPermission: "#/components/schemas/GCPPermission"
+          GCPCloudRouter: "#/components/schemas/GCPCloudRouter"
+      oneOf:
+        - $ref: "#/components/schemas/GCPPermission"
+        - $ref: "#/components/schemas/GCPCloudRouter"
+    FabricProviderResourceResponse:
+      type: object
+      discriminator:
+        propertyName: type
+        mapping:
+          FabricRouterResponse: "#/components/schemas/FabricRouterResponse"
+          FabricConnectionResponse: "#/components/schemas/FabricConnectionResponse"
+          FabricRouteProtocolsResponse: "#/components/schemas/FabricRouteProtocolsResponse"
+      oneOf:
+        - $ref: "#/components/schemas/FabricRouterResponse"
+        - $ref: "#/components/schemas/FabricConnectionResponse"
+        - $ref: "#/components/schemas/FabricRouteProtocolsResponse"
+    AWSProviderResourceResponse:
+      type: object
+      discriminator:
+        propertyName: type
+        mapping:
+          AWSPermission: "#/components/schemas/AWSPermission"
+          AWSDirectConnectResponse: "#/components/schemas/AWSDirectConnectResponse"
+          AWSVirtualPrivateGatewayResponse: "#/components/schemas/AWSVirtualPrivateGatewayResponse"
+      oneOf:
+        - $ref: "#/components/schemas/AWSPermission"
+        - $ref: "#/components/schemas/AWSDirectConnectResponse"
+        - $ref: "#/components/schemas/AWSVirtualPrivateGatewayResponse"
+    GCPProviderResourceResponse:
+      type: object
+      discriminator:
+        propertyName: type
+        mapping:
+          GCPPermission: "#/components/schemas/GCPPermission"
+          GCPCloudRouterResponse: "#/components/schemas/GCPCloudRouterResponse"
+      oneOf:
+        - $ref: "#/components/schemas/GCPPermission"
+        - $ref: "#/components/schemas/GCPCloudRouterResponse"
+    TopologyProperties:
+      required:
+        - elementId
+      type: object
+      properties:
+        elementId:
+          type: string
+          example: 13fc5d30-036d-11f0-96a3-5336ee83f43f
+        dependsOn:
+          type: array
+          items:
+            type: string
+            example: 686fd746-78b6-42fb-8496-be6887814430
+      description: |
+        TopologyProperties is a schema that defines the properties of a topology in the orchestrator.
+        It includes the element ID and any dependencies that the topology may have.
     LinkProtocolType:
       type: string
       description: Type of Link Protocol
@@ -20549,8 +21746,9 @@ components:
       description: Cloud Router code
       enum:
         - LAB
-        - ADVANCED
+        - BASIC
         - STANDARD
+        - ADVANCED
         - PREMIUM
     ConnectivitySourceType:
       type: string
@@ -20612,14 +21810,16 @@ components:
           type: string
           description: Network Edge assigned Virtual Device Identifier
           format: uuid
+        name:
+          type: string
+          description: Customer-assigned Virtual Device name
         type:
           type: string
           description: Type of Virtual Device
           enum:
             - EDGE
-        name:
-          type: string
-          description: Customer-assigned Virtual Device name
+        account:
+          $ref: "#/components/schemas/SimplifiedAccount"
         cluster:
           type: string
           description: Virtual Device Cluster Information
@@ -20657,6 +21857,8 @@ components:
             - EVPLAN
             - EPLAN
             - IPWAN
+            - EVPTREE
+            - EPTREE
         name:
           type: string
           description: Network Name
@@ -20669,12 +21871,414 @@ components:
             - GLOBAL
         location:
           $ref: "#/components/schemas/SimplifiedLocation"
+    OutputStructuredPingResponseItem:
+      type: object
+      properties:
+        bytes:
+          type: integer
+          example: 100
+        ip:
+          type: string
+          example: 8.8.8.8
+        icmpSeq:
+          type: integer
+          example: 0
+        ttl:
+          type: integer
+          example: 117
+        time:
+          type: number
+          format: float
+          example: 9.839
+    Hop:
+      type: object
+      properties:
+        hop:
+          type: integer
+          example: 1
+        probes:
+          type: array
+          items:
+            $ref: "#/components/schemas/Hop_probes"
+    FabricRouter:
+      required:
+        - deploymentProperties
+        - type
+      type: object
+      properties:
+        type:
+          type: string
+          example: XF_ROUTER
+          enum:
+            - XF_ROUTER
+        name:
+          type: string
+          example: router-1
+        uuid:
+          type: string
+          description: Equinix-assigned access point identifier
+          format: uuid
+          example: 6658cc3b-18e0-437c-b972-62b51a419a1e
+        location:
+          $ref: "#/components/schemas/SimplifiedLocationWithoutIBX"
+        package:
+          $ref: "#/components/schemas/CloudRouterPostRequestPackage"
+        deploymentProperties:
+          $ref: "#/components/schemas/TopologyProperties"
+      description: The Router schema defines the structure for a network router within the orchestrator system.
+    FabricConnection:
+      required:
+        - aSide
+        - bandwidth
+        - deploymentProperties
+        - redundancy
+        - type
+        - zSide
+      type: object
+      properties:
+        type:
+          type: string
+          example: IP_VC
+          enum:
+            - IP_VC
+        bandwidth:
+          type: integer
+          example: 50
+        name:
+          type: string
+          example: My connection to router
+        redundancy:
+          $ref: "#/components/schemas/ConnectionRedundancy"
+        aSide:
+          $ref: "#/components/schemas/ConnectionSide"
+        zSide:
+          $ref: "#/components/schemas/ConnectionSide"
+        deploymentProperties:
+          $ref: "#/components/schemas/TopologyProperties"
+      description: |
+        The OrchestratorProvider schema defines the configuration for a network connection and deployment properties, offering a detailed overview of the connection's characteristics and requirements.
+    FabricRouteProtocols:
+      type: object
+      description: |
+        The RouteProtocols schema specifies the supported routing protocols for orchestrator providers.
+        It defines the structure and configuration options for each protocol type.
+      oneOf:
+        - $ref: "#/components/schemas/FabricRoutingProtocolBGPType"
+    AWSDirectConnect:
+      required:
+        - deploymentProperties
+        - type
+      type: object
+      properties:
+        type:
+          type: string
+          example: DIRECT_CONNECT
+          enum:
+            - DIRECT_CONNECT
+        id:
+          type: string
+          example: dxcon-ffol3em2
+        deploymentProperties:
+          $ref: "#/components/schemas/TopologyProperties"
+      description: |
+        Direct Connect helps to identify the direct connect to use or creates new one.
+    AWSVirtualPrivateGateway:
+      required:
+        - deploymentProperties
+        - required
+        - type
+      type: object
+      properties:
+        type:
+          type: string
+          example: VIRTUAL_PRIVATE_GATEWAY
+          enum:
+            - VIRTUAL_PRIVATE_GATEWAY
+        required:
+          type: boolean
+          example: true
+        vpcId:
+          type: string
+          format: uuid
+          example: c0c68cc5-06e7-43d3-a322-afdac89038d7
+        subnetId:
+          type: string
+          format: uuid
+          example: c3af0941-b4e1-45d3-b961-8fc50768fcfb
+        deploymentProperties:
+          $ref: "#/components/schemas/TopologyProperties"
+      description: |
+        The VirtualPrivateGateway schema defines the structure for the virtual private gateway configuration.
+        It includes details about the gateway type, required flag, VPC and subnet IDs, and deployment properties.
+    GCPCloudRouter:
+      required:
+        - deploymentProperties
+        - subnetId
+        - type
+        - vpcId
+      type: object
+      properties:
+        type:
+          type: string
+          example: GCP_CLOUD_ROUTER
+          enum:
+            - GCP_CLOUD_ROUTER
+        vpcId:
+          type: string
+          format: uuid
+          example: c0c68cc5-06e7-43d3-a322-afdac89038d7
+        subnetId:
+          type: string
+          format: uuid
+          example: c3af0941-b4e1-45d3-b961-8fc50768fcfb
+        deploymentProperties:
+          $ref: "#/components/schemas/TopologyProperties"
+      description: |
+        The GCP CloudRouter schema defines the structure for the gcp cloud router configuration, including provider type, VPC, subnet, and deployment properties.
+    FabricRouterResponse:
+      required:
+        - deploymentProperties
+        - location
+        - name
+        - package
+        - state
+        - type
+      type: object
+      properties:
+        href:
+          type: string
+          description: Cloud Routers URI
+          format: uri
+          readOnly: true
+          example: https://api.equinix.com/fabric/v4/routers/3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
+        type:
+          type: string
+          example: XF_ROUTER
+          enum:
+            - XF_ROUTER
+        uuid:
+          type: string
+          description: Equinix-assigned cloud router identifier
+          example: 3c9b8e7a2-f3b1-4576-a4a9-1366a63df170
+        state:
+          $ref: "#/components/schemas/DeploymentState"
+        name:
+          type: string
+          example: router-1
+        location:
+          $ref: "#/components/schemas/SimplifiedLocationWithoutIBX"
+        package:
+          $ref: "#/components/schemas/CloudRouterPostRequestPackage"
+        deploymentProperties:
+          $ref: "#/components/schemas/TopologyProperties"
+    FabricConnectionResponse:
+      required:
+        - aSide
+        - bandwidth
+        - deploymentProperties
+        - name
+        - redundancy
+        - state
+        - type
+        - zSide
+      type: object
+      properties:
+        href:
+          type: string
+          description: Connection URI
+          format: uri
+          readOnly: true
+          example: https://api.equinix.com/fabric/v4/connections/81331c52-04c0-4656-a4a7-18c52669348f
+        type:
+          type: string
+          example: IP_VC
+          enum:
+            - IP_VC
+        uuid:
+          type: string
+          description: Equinix-assigned connection identifier
+          example: 81331c52-04c0-4656-a4a7-18c52669348f
+        state:
+          $ref: "#/components/schemas/DeploymentState"
+        bandwidth:
+          type: integer
+          example: 50
+        name:
+          type: string
+          example: My connection to router
+        redundancy:
+          $ref: "#/components/schemas/ConnectionRedundancy"
+        aSide:
+          $ref: "#/components/schemas/ConnectionSide"
+        zSide:
+          $ref: "#/components/schemas/ConnectionSide"
+        deploymentProperties:
+          $ref: "#/components/schemas/TopologyProperties"
+    FabricRouteProtocolsResponse:
+      required:
+        - state
+      type: object
+      properties:
+        href:
+          type: string
+          description: Route Protocol URI
+          format: uri
+          readOnly: true
+          example: https://api.equinix.com/fabric/v4/connections/81331c52-04c0-4656-a4a7-18c52669348f/routingProtocols/69762051-85ed-4d13-b6b4-e32e93c672b5
+        uuid:
+          type: string
+          description: Equinix-assigned route protocol identifier
+          example: 69762051-85ed-4d13-b6b4-e32e93c672b5
+        state:
+          $ref: "#/components/schemas/DeploymentState"
+      oneOf:
+        - $ref: "#/components/schemas/FabricRoutingProtocolBGPType"
+    AWSDirectConnectResponse:
+      required:
+        - deploymentProperties
+        - state
+        - type
+      type: object
+      properties:
+        type:
+          type: string
+          example: DIRECT_CONNECT
+          enum:
+            - DIRECT_CONNECT
+        id:
+          type: string
+          example: dxcon-ffol3em2
+        state:
+          $ref: "#/components/schemas/DeploymentState"
+        deploymentProperties:
+          $ref: "#/components/schemas/TopologyProperties"
+    AWSVirtualPrivateGatewayResponse:
+      required:
+        - deploymentProperties
+        - state
+        - subnetId
+        - type
+        - vpcId
+      type: object
+      properties:
+        id:
+          type: string
+          description: Virtual private gateway id.
+        type:
+          type: string
+          example: VIRTUAL_PRIVATE_GATEWAY
+        state:
+          $ref: "#/components/schemas/DeploymentState"
+        required:
+          type: boolean
+          example: true
+        vpcId:
+          type: string
+          format: uuid
+          example: c0c68cc5-06e7-43d3-a322-afdac89038d7
+        subnetId:
+          type: string
+          format: uuid
+          example: c3af0941-b4e1-45d3-b961-8fc50768fcfb
+        deploymentProperties:
+          $ref: "#/components/schemas/TopologyProperties"
+    GCPCloudRouterResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Cloud Router id.
+        state:
+          $ref: "#/components/schemas/DeploymentState"
+        type:
+          type: string
+          example: GCP_CLOUD_ROUTER
+          enum:
+            - GCP_CLOUD_ROUTER
+        vpcId:
+          type: string
+          format: uuid
+          example: c0c68cc5-06e7-43d3-a322-afdac89038d7
+        subnetId:
+          type: string
+          format: uuid
+          example: c3af0941-b4e1-45d3-b961-8fc50768fcfb
+        deploymentProperties:
+          $ref: "#/components/schemas/TopologyProperties"
     TimeServicePriceConnectionAccessPoint:
       type: object
       properties:
         location:
           $ref: "#/components/schemas/PriceLocation"
       description: Time Service Price Connection Access Point configuration
+    FabricRoutingProtocolBGPType:
+      required:
+        - bgpAuthKey
+        - bgpIpv4
+        - customerAsn
+        - deployementProperties
+        - type
+      type: object
+      properties:
+        type:
+          type: string
+          description: Routing protocol type
+          enum:
+            - BGP
+        name:
+          type: string
+          example: My-BGP-route-1
+        uuid:
+          type: string
+          description: Equinix-assigned route protocol identifier
+          format: uuid
+          example: 69762051-85ed-4d13-b6b4-e32e93c672b5
+        bgpIpv4:
+          $ref: "#/components/schemas/FabricBGPConnectionIpv4"
+        customerAsn:
+          type: integer
+          description: Customer asn
+          format: int64
+        bgpAuthKey:
+          type: string
+          description: BGP authorization key
+        asOverrideEnabled:
+          type: boolean
+          description: Enable AS number override
+        deploymentProperties:
+          $ref: "#/components/schemas/TopologyProperties"
+      description: |
+        Defines the structure for BGP routing protocol configuration, including protocol type, BGP IPv4 settings, customer ASN, authentication key, and deployment properties.
+    DeploymentState:
+      type: string
+      description: Deployment status
+      example: DEPLOYED
+      enum:
+        - NOT_STARTED
+        - DEPLOYING
+        - DEPLOYED
+        - DEPROVISIONED
+        - DEPROVISIONING
+        - FAILED
+        - PENDING
+        - PROVISIONED
+        - PROVISIONING
+    FabricBGPConnectionIpv4:
+      required:
+        - customerPeerIp
+        - equinixIp
+      type: object
+      properties:
+        customerIp:
+          type: string
+          description: Customer side peering ip
+          example: 10.1.1.2
+        equinixIp:
+          type: string
+          description: Equinix side peering ip
+          example: 10.1.1.3
+      description: |
+        Defines the structure for a BGP IPv4 connection, including customer and Equinix peering IP addresses.
     PriceError_additionalInfo:
       type: object
       properties:
@@ -20744,6 +22348,46 @@ components:
           items:
             $ref: "#/components/schemas/ValidateRequest_filter_and"
       description: Filters
+    Deployment_topology:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          example: 3d4cfd38-5f56-4f71-b3e4-5f44631f1b2a
+    Metric_resource:
+      type: object
+      properties:
+        href:
+          type: string
+          description: Metric resource href
+        uuid:
+          type: string
+          description: Metric resource UUID
+        type:
+          type: string
+          description: Metric resource type
+        name:
+          type: string
+          description: Metric resource name
+        description:
+          type: string
+          description: Metric resource description
+      description: Metric resource
+    Metric_datapoints:
+      type: object
+      properties:
+        endDateTime:
+          type: string
+          description: Datapoint end date and time
+          format: date-time
+        startDateTime:
+          type: string
+          description: Datapoint start date and time
+          format: date-time
+        value:
+          type: number
+          description: Datapoint value
     ConnectionRouteTableEntry_connection:
       type: object
       properties:
@@ -20868,6 +22512,23 @@ components:
           $ref: "#/components/schemas/VirtualConnectionPriceZSide_accessPoint_profile"
         bridge:
           $ref: "#/components/schemas/VirtualConnectionPriceZSide_accessPoint_bridge"
+    Hop_probes:
+      type: object
+      properties:
+        name:
+          type: string
+          example: dns.google
+        ip:
+          type: string
+          example: 8.8.8.8
+        asn:
+          type: integer
+          example: 15169
+        rtt:
+          type: string
+          example: "11.764"
+        annotation:
+          type: string
   examples:
     "400":
       value:
@@ -21082,7 +22743,7 @@ components:
             data:
               message: Connection named TEST-CONNECTION state changed to provisioning
               resource:
-                href: https://api.corp.equinix.com/fabric/v4/connections/dab9fc84-cc95-4cb4-abe3-ca39361285a9
+                href: http://api.corp.equinix.com/fabric/v4/connections/dab9fc84-cc95-4cb4-abe3-ca39361285a9
                 uuid: dab9fc84-cc95-4cb4-abe3-ca39361285a9
                 type: IP_VC
                 name: TEST-CONNECTION
@@ -21108,7 +22769,7 @@ components:
             data:
               message: Connection named TEST-CONNECTION state changed to provisioned
               resource:
-                href: https://api.corp.equinix.com/fabric/v4/connections/dab9fc84-cc95-4cb4-abe3-ca39361285a9
+                href: http://api.corp.equinix.com/fabric/v4/connections/dab9fc84-cc95-4cb4-abe3-ca39361285a9
                 uuid: dab9fc84-cc95-4cb4-abe3-ca39361285a9
                 type: IP_VC
                 name: TEST-CONNECTION
@@ -21134,7 +22795,7 @@ components:
         data:
           message: Connection named TEST-CONNECTION state changed to provisioning
           resource:
-            href: https://api.corp.equinix.com/fabric/v4/connections/dab9fc84-cc95-4cb4-abe3-ca39361285a9
+            href: http://api.corp.equinix.com/fabric/v4/connections/dab9fc84-cc95-4cb4-abe3-ca39361285a9
             uuid: dab9fc84-cc95-4cb4-abe3-ca39361285a9
             type: IP_VC
             name: TEST-CONNECTION
@@ -21164,6 +22825,87 @@ components:
         pagination:
           offset: 0
           limit: 20
+    get-metrics-by-asset-id:
+      value:
+        pagination:
+          offset: 0
+          limit: 10
+          total: 2
+          next: null
+          previous: null
+        data:
+          - type: GAUGE
+            name: equinix.fabric.port.bandwidth_rx.usage
+            unit: bit/s
+            resource:
+              href: https://api.equinix.com/fabric/v4/ports/0689734d-25c6-40d1-a9ff-3e4edea07a72
+              uuid: 0689734d-25c6-40d1-a9ff-3e4edea07a72
+            summary:
+              mean: 102.15384615384616
+              max: 107
+            datapoints:
+              - endDateTime: 2025-05-14T13:57:56.000Z
+                value: 107
+              - endDateTime: 2025-05-14T14:02:48.000Z
+                value: 97
+              - endDateTime: 2025-05-14T14:07:58.000Z
+                value: 105
+              - endDateTime: 2025-05-14T14:12:36.000Z
+                value: 102
+              - endDateTime: 2025-05-14T14:18:00.000Z
+                value: 96
+              - endDateTime: 2025-05-14T14:23:03.000Z
+                value: 106
+              - endDateTime: 2025-05-14T14:27:59.000Z
+                value: 104
+              - endDateTime: 2025-05-14T14:32:56.000Z
+                value: 104
+              - endDateTime: 2025-05-14T14:37:51.000Z
+                value: 103
+              - endDateTime: 2025-05-14T14:42:59.000Z
+                value: 100
+              - endDateTime: 2025-05-14T14:47:58.000Z
+                value: 105
+              - endDateTime: 2025-05-14T14:53:08.000Z
+                value: 94
+              - endDateTime: 2025-05-14T14:57:46.000Z
+                value: 105
+          - type: GAUGE
+            name: equinix.fabric.port.bandwidth_tx.usage
+            unit: bit/s
+            resource:
+              href: https://api.equinix.com/fabric/v4/ports/0689734d-25c6-40d1-a9ff-3e4edea07a72
+              uuid: 0689734d-25c6-40d1-a9ff-3e4edea07a72
+            summary:
+              mean: 255.92307692307693
+              max: 295
+            datapoints:
+              - endDateTime: 2025-05-14T13:57:56.000Z
+                value: 259
+              - endDateTime: 2025-05-14T14:02:48.000Z
+                value: 234
+              - endDateTime: 2025-05-14T14:07:58.000Z
+                value: 242
+              - endDateTime: 2025-05-14T14:12:36.000Z
+                value: 280
+              - endDateTime: 2025-05-14T14:18:00.000Z
+                value: 243
+              - endDateTime: 2025-05-14T14:23:03.000Z
+                value: 262
+              - endDateTime: 2025-05-14T14:27:59.000Z
+                value: 247
+              - endDateTime: 2025-05-14T14:32:56.000Z
+                value: 295
+              - endDateTime: 2025-05-14T14:37:51.000Z
+                value: 284
+              - endDateTime: 2025-05-14T14:42:59.000Z
+                value: 227
+              - endDateTime: 2025-05-14T14:47:58.000Z
+                value: 260
+              - endDateTime: 2025-05-14T14:53:08.000Z
+                value: 251
+              - endDateTime: 2025-05-14T14:57:46.000Z
+                value: 243
     COLO2COLOwithDot1q-Dot1q:
       value:
         type: EVPL_VC
@@ -21864,6 +23606,110 @@ components:
             type: NETWORK
             network:
               uuid: 25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2
+        order:
+          purchaseOrderNumber: 1-129105284100
+          termLength: 12
+        project:
+          projectId: ae708bbb-d669-406a-845a-99b39ff65fd0
+        notifications:
+          - type: ALL
+            emails:
+              - fabric@equinix.com
+    COLO2NETWORK_EVPTREE_withDot1q:
+      value:
+        type: EVPTREE_VC
+        name: colo2network-evptree-vc
+        bandwidth: 50
+        aSide:
+          accessPoint:
+            type: COLO
+            port:
+              uuid: 9127bb72-5f4f-4517-be74-3af7ce612687
+            linkProtocol:
+              type: DOT1Q
+              vlanTag: 300
+        zSide:
+          accessPoint:
+            type: NETWORK
+            network:
+              uuid: 25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2
+            role: LEAF
+        order:
+          purchaseOrderNumber: 1-129105284100
+        project:
+          projectId: ae708bbb-d669-406a-845a-99b39ff65fd0
+        notifications:
+          - type: ALL
+            emails:
+              - fabric@equinix.com
+    COLO2NETWORK_EVPTREE_withDot1qAndTerms:
+      value:
+        type: EVPTREE_VC
+        name: colo2network-evptree-vc
+        bandwidth: 50
+        aSide:
+          accessPoint:
+            type: COLO
+            port:
+              uuid: 9127bb72-5f4f-4517-be74-3af7ce612687
+            linkProtocol:
+              type: DOT1Q
+              vlanTag: 300
+        zSide:
+          accessPoint:
+            type: NETWORK
+            network:
+              uuid: 25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2
+            role: LEAF
+        order:
+          purchaseOrderNumber: 1-129105284100
+          termLength: 24
+        project:
+          projectId: ae708bbb-d669-406a-845a-99b39ff65fd0
+        notifications:
+          - type: ALL
+            emails:
+              - fabric@equinix.com
+    COLO2NETWORK_EPTREE_withEPL:
+      value:
+        type: EPTREE_VC
+        name: colo2network-eptree-vc
+        bandwidth: 50
+        aSide:
+          accessPoint:
+            type: COLO
+            port:
+              uuid: 9127bb72-5f4f-4517-be74-3af7ce612687
+        zSide:
+          accessPoint:
+            type: NETWORK
+            network:
+              uuid: 25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2
+            role: LEAF
+        order:
+          purchaseOrderNumber: 1-129105284100
+        project:
+          projectId: ae708bbb-d669-406a-845a-99b39ff65fd0
+        notifications:
+          - type: ALL
+            emails:
+              - fabric@equinix.com
+    COLO2NETWORK_EPTREE_withEPLAndTerms:
+      value:
+        type: EPTREE_VC
+        name: colo2network-eptree-vc
+        bandwidth: 50
+        aSide:
+          accessPoint:
+            type: COLO
+            port:
+              uuid: 9127bb72-5f4f-4517-be74-3af7ce612687
+        zSide:
+          accessPoint:
+            type: NETWORK
+            network:
+              uuid: 25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2
+            role: LEAF
         order:
           purchaseOrderNumber: 1-129105284100
           termLength: 12
@@ -24244,7 +26090,7 @@ components:
           createdDateTime: 2022-05-12T17:53:45.401Z
     AsideServiceToken2PortResponseWithDot1q:
       value:
-        href: https://api.equinix.com/fabric/v4/connections/a00cef6f-8e35-4794-9ff9-665e084e4e6d
+        href: http://api.equinix.com/fabric/v4/connections/a00cef6f-8e35-4794-9ff9-665e084e4e6d
         type: EVPL_VC
         uuid: a00cef6f-8e35-4794-9ff9-665e084e4e6d
         name: a-token qinq-dot1q
@@ -24274,10 +26120,10 @@ components:
             uuid: a00cef6f-8e35-4794-9ff9-665e084e4e6d
           accessPoint:
             location:
-              metroHref: https://api.equinix.com/fabric/v4/metros/SV
+              metroHref: http://api.equinix.com/fabric/v4/metros/SV
               metroCode: SV
             port:
-              href: https://api.equinix.com/fabric/v4/ports/a00cef6f-8e35-4794-9ff9-665e084e4e6d
+              href: http://api.equinix.com/fabric/v4/ports/a00cef6f-8e35-4794-9ff9-665e084e4e6d
               uuid: a00cef6f-8e35-4794-9ff9-665e084e4e6d
               name: test-port-name-2
             linkProtocol:
@@ -24338,12 +26184,12 @@ components:
             uuid: a00cef6f-8e35-4794-9ff9-665e084e4e6d
           accessPoint:
             location:
-              metroHref: https://api.equinix.com/fabric/v4/metros/SV
+              metroHref: http://api.equinix.com/fabric/v4/metros/SV
               region: AMER
               metroName: Silicon Valley
               metroCode: SV
             port:
-              href: https://api.equinix.com/fabric/v4/ports/a00cef6f-8e35-4794-9ff9-665e084e4e6d
+              href: http://api.equinix.com/fabric/v4/ports/a00cef6f-8e35-4794-9ff9-665e084e4e6d
               uuid: a00cef6f-8e35-4794-9ff9-665e084e4e6d
               name: test-port-name-2
             linkProtocol:
@@ -24825,7 +26671,7 @@ components:
         zSide:
           accessPoint:
             location:
-              metroHref: https://api.corp.equinix.com/fabric/v4/metros/DC
+              metroHref: http://api.corp.equinix.com/fabric/v4/metros/DC
               metroCode: DC
             profile:
               href: https://api.equinix.com/fabric/v4/serviceProfiles/4c4b8edf-873b-4c6c-805a-edb2c335bd6c
@@ -24870,7 +26716,7 @@ components:
         zSide:
           accessPoint:
             location:
-              metroHref: https://api.corp.equinix.com/fabric/v4/metros/DC
+              metroHref: http://api.corp.equinix.com/fabric/v4/metros/DC
               metroCode: DC
             profile:
               href: https://api.equinix.com/fabric/v4/serviceProfiles/69ee618d-be52-468d-bc99-00566f2dd2b9
@@ -24915,7 +26761,7 @@ components:
         zSide:
           accessPoint:
             location:
-              metroHref: https://api.corp.equinix.com/fabric/v4/metros/DC
+              metroHref: http://api.corp.equinix.com/fabric/v4/metros/DC
               metroCode: DC
             profile:
               href: https://api.equinix.com/fabric/v4/serviceProfiles/bd4570e2-d792-4a00-87f5-3bde040cdcd7
@@ -24960,7 +26806,7 @@ components:
         zSide:
           accessPoint:
             location:
-              metroHref: https://api.corp.equinix.com/fabric/v4/metros/DC
+              metroHref: http://api.corp.equinix.com/fabric/v4/metros/DC
               metroCode: DC
             profile:
               href: https://api.equinix.com/fabric/v4/serviceProfiles/e092ed47-63d2-4f4a-87a0-82e3b08eefe5
@@ -25005,7 +26851,7 @@ components:
         zSide:
           accessPoint:
             location:
-              metroHref: https://api.corp.equinix.com/fabric/v4/metros/DC
+              metroHref: http://api.corp.equinix.com/fabric/v4/metros/DC
               metroCode: DC
             profile:
               href: https://api.equinix.com/fabric/v4/serviceProfiles/a1390b22-bbe0-4e93-ad37-85beef9d254d
@@ -25049,7 +26895,7 @@ components:
         zSide:
           accessPoint:
             location:
-              metroHref: https://api.corp.equinix.com/fabric/v4/metros/DC
+              metroHref: http://api.corp.equinix.com/fabric/v4/metros/DC
               metroCode: DC
             profile:
               href: https://api.equinix.com/fabric/v4/serviceProfiles/60ef0382-cdaa-44e7-bd36-b803731816b8
@@ -25060,8 +26906,8 @@ components:
             authenticationKey: xxxx-xxx-xxxx
     COLO2NETWORKwithDot1q-Response:
       value:
-        type: EVPLAN_VC
         href: https://api.equinix.com/fabric/v4/connections/f3dd7395-7196-45f4-9b6f-54094aa75f53
+        type: EVPLAN_VC
         uuid: f3dd7395-7196-45f4-9b6f-54094aa75f53
         name: colo2network-evplan-vc
         operation:
@@ -25090,10 +26936,11 @@ components:
         aSide:
           accessPoint:
             location:
+              metroHref: http://qa3api.corp.equinix.com/fabric/v4/metros/DA
               metroCode: DA
             port:
-              type: XF_PORT
               href: https://api.equinix.com/fabric/v4/ports/9127bb72-5f4f-4517-be74-3af7ce612687
+              type: XF_PORT
               uuid: 9127bb72-5f4f-4517-be74-3af7ce612687
               name: 1-DA1-port
             linkProtocol:
@@ -25112,8 +26959,8 @@ components:
               location: null
     COLO2NETWORKwithDot1qAndTerms-Response:
       value:
-        type: EVPLAN_VC
         href: https://api.equinix.com/fabric/v4/connections/f3dd7395-7196-45f4-9b6f-54094aa75f53
+        type: EVPLAN_VC
         uuid: f3dd7395-7196-45f4-9b6f-54094aa75f53
         name: colo2network-evplan-vc
         operation:
@@ -25143,10 +26990,11 @@ components:
         aSide:
           accessPoint:
             location:
+              metroHref: http://qa3api.corp.equinix.com/fabric/v4/metros/DA
               metroCode: DA
             port:
-              type: XF_PORT
               href: https://api.equinix.com/fabric/v4/ports/9127bb72-5f4f-4517-be74-3af7ce612687
+              type: XF_PORT
               uuid: 9127bb72-5f4f-4517-be74-3af7ce612687
               name: 1-DA1-port
             linkProtocol:
@@ -25165,107 +27013,325 @@ components:
               location: null
     COLO2NETWORKwithEPL-Response:
       value:
-        type: EPLAN_VC
         href: https://api.equinix.com/fabric/v4/connections/cce170c5-a496-4928-8426-507e00818887
+        type: EPLAN_VC
         uuid: cce170c5-a496-4928-8426-507e00818887
         name: colo2network-eplan-vc
         operation:
           providerStatus: NOT_AVAILABLE
           equinixStatus: PROVISIONING
-          order:
-            purchaseOrderNumber: 1-129105284100
-            billingTier: Up to 50 MB
-          notifications:
-            - type: ALL
-              emails:
-                - fabric@test.com
-          changeLog:
-            createdBy: fabric
-            createdByFullName: fabric
-            createdByEmail: fabric@equinix.com
-            createdDateTime: 2024-04-23T03:07:17.587Z
-            updatedBy: fabric
-            updatedByFullName: fabric
-            updatedByEmail: fabric@equinix.com
-            updatedDateTime: 2024-04-23T03:07:17.587Z
-          bandwidth: 50
-          redundancy:
-            group: dbab0e00-db97-4abf-aebe-76c7a40a371e
-            priority: PRIMARY
-          aSide:
-            accessPoint:
-              location:
-                metroCode: SP
-              port:
-                type: XF_PORT
-                href: https://api.equinix.com/fabric/v4/ports/9127bb72-5f4f-4517-be74-3af7ce612687
-                uuid: 9127bb72-5f4f-4517-be74-3af7ce612687
-                name: 505783-port
-              linkProtocol:
-                type: UNTAGGED
-          zSide:
-            accessPoint:
-              network:
-                href: https://api.equinix.com/fabric/v4/networks/25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2
-                uuid: 25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2
-                name: EPLAN-GLOBAL
-                platformUuid: 8abb8305-258b-4690-9b49-714962591add
-                state: ACTIVE
-                type: EPLAN
-                scope: GLOBAL
-                location: null
+        order:
+          purchaseOrderNumber: 1-129105284100
+          billingTier: Up to 50 MB
+        notifications:
+          - type: ALL
+            emails:
+              - fabric@test.com
+        changeLog:
+          createdBy: fabric
+          createdByFullName: fabric
+          createdByEmail: fabric@equinix.com
+          createdDateTime: 2024-04-23T03:07:17.587Z
+          updatedBy: fabric
+          updatedByFullName: fabric
+          updatedByEmail: fabric@equinix.com
+          updatedDateTime: 2024-04-23T03:07:17.587Z
+        bandwidth: 50
+        redundancy:
+          group: dbab0e00-db97-4abf-aebe-76c7a40a371e
+          priority: PRIMARY
+        aSide:
+          accessPoint:
+            location:
+              metroHref: http://qa3api.corp.equinix.com/fabric/v4/metros/SP
+              metroCode: SP
+            port:
+              href: https://api.equinix.com/fabric/v4/ports/9127bb72-5f4f-4517-be74-3af7ce612687
+              type: XF_PORT
+              uuid: 9127bb72-5f4f-4517-be74-3af7ce612687
+              name: 505783-port
+            linkProtocol:
+              type: UNTAGGED
+        zSide:
+          accessPoint:
+            network:
+              href: https://api.equinix.com/fabric/v4/networks/25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2
+              uuid: 25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2
+              name: EPLAN-GLOBAL
+              platformUuid: 8abb8305-258b-4690-9b49-714962591add
+              state: ACTIVE
+              type: EPLAN
+              scope: GLOBAL
+              location: null
     COLO2NETWORKwithEPLAndTerms-Response:
       value:
-        type: EPLAN_VC
         href: https://api.equinix.com/fabric/v4/connections/cce170c5-a496-4928-8426-507e00818887
+        type: EPLAN_VC
         uuid: cce170c5-a496-4928-8426-507e00818887
         name: colo2network-eplan-vc
         operation:
           providerStatus: NOT_AVAILABLE
           equinixStatus: PROVISIONING
-          order:
-            purchaseOrderNumber: 1-129105284100
-            billingTier: Up to 50 MB
-            termLength: 12
-          notifications:
-            - type: ALL
-              emails:
-                - fabric@test.com
-          changeLog:
-            createdBy: fabric
-            createdByFullName: fabric
-            createdByEmail: fabric@equinix.com
-            createdDateTime: 2024-04-23T03:07:17.587Z
-            updatedBy: fabric
-            updatedByFullName: fabric
-            updatedByEmail: fabric@equinix.com
-            updatedDateTime: 2024-04-23T03:07:17.587Z
-          bandwidth: 50
-          redundancy:
-            group: dbab0e00-db97-4abf-aebe-76c7a40a371e
-            priority: PRIMARY
-          aSide:
-            accessPoint:
-              location:
-                metroCode: SP
-              port:
-                type: XF_PORT
-                href: https://api.equinix.com/fabric/v4/ports/9127bb72-5f4f-4517-be74-3af7ce612687
-                uuid: 9127bb72-5f4f-4517-be74-3af7ce612687
-                name: 505783-port
-              linkProtocol:
-                type: UNTAGGED
-          zSide:
-            accessPoint:
-              network:
-                href: https://api.equinix.com/fabric/v4/networks/25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2
-                uuid: 25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2
-                name: EPLAN-GLOBAL
-                platformUuid: 8abb8305-258b-4690-9b49-714962591add
-                state: ACTIVE
-                type: EPLAN
-                scope: GLOBAL
-                location: null
+        order:
+          purchaseOrderNumber: 1-129105284100
+          billingTier: Up to 50 MB
+          termLength: 12
+        notifications:
+          - type: ALL
+            emails:
+              - fabric@test.com
+        changeLog:
+          createdBy: fabric
+          createdByFullName: fabric
+          createdByEmail: fabric@equinix.com
+          createdDateTime: 2024-04-23T03:07:17.587Z
+          updatedBy: fabric
+          updatedByFullName: fabric
+          updatedByEmail: fabric@equinix.com
+          updatedDateTime: 2024-04-23T03:07:17.587Z
+        bandwidth: 50
+        redundancy:
+          group: dbab0e00-db97-4abf-aebe-76c7a40a371e
+          priority: PRIMARY
+        aSide:
+          accessPoint:
+            location:
+              metroHref: http://qa3api.corp.equinix.com/fabric/v4/metros/SP
+              metroCode: SP
+            port:
+              href: https://api.equinix.com/fabric/v4/ports/9127bb72-5f4f-4517-be74-3af7ce612687
+              type: XF_PORT
+              uuid: 9127bb72-5f4f-4517-be74-3af7ce612687
+              name: 505783-port
+            linkProtocol:
+              type: UNTAGGED
+        zSide:
+          accessPoint:
+            network:
+              href: https://api.equinix.com/fabric/v4/networks/25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2
+              uuid: 25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2
+              name: EPLAN-GLOBAL
+              platformUuid: 8abb8305-258b-4690-9b49-714962591add
+              state: ACTIVE
+              type: EPLAN
+              scope: GLOBAL
+              location: null
+    COLO2NETWORK_EVPTREE_withDot1q-Response:
+      value:
+        href: https://api.equinix.com/fabric/v4/connections/f3dd7395-7196-45f4-9b6f-54094aa75f53
+        type: EVPTREE_VC
+        uuid: f3dd7395-7196-45f4-9b6f-54094aa75f53
+        name: colo2network-evptree-vc
+        operation:
+          providerStatus: NOT_AVAILABLE
+          equinixStatus: PROVISIONING
+        order:
+          purchaseOrderNumber: 1-129105284100
+          billingTier: Up to 50 MB
+        notifications:
+          - type: ALL
+            emails:
+              - fabric@equinix.com
+        changeLog:
+          createdBy: fabric
+          createdByFullName: fabric
+          createdByEmail: fabric@equinix.com
+          createdDateTime: 2024-04-23T02:51:07.675Z
+          updatedBy: fabric
+          updatedByFullName: fabric
+          updatedByEmail: fabric@equinix.com
+          updatedDateTime: 2024-04-23T02:51:07.675Z
+        bandwidth: 50
+        redundancy:
+          group: ecebee55-975b-4017-857c-74617f821b87
+          priority: PRIMARY
+        aSide:
+          accessPoint:
+            location:
+              metroHref: http://qa3api.corp.equinix.com/fabric/v4/metros/DA
+              metroCode: DA
+            port:
+              href: https://api.equinix.com/fabric/v4/ports/9127bb72-5f4f-4517-be74-3af7ce612687
+              type: XF_PORT
+              uuid: 9127bb72-5f4f-4517-be74-3af7ce612687
+              name: 1-DA1-port
+            linkProtocol:
+              type: DOT1Q
+              vlanTag: 307
+        zSide:
+          accessPoint:
+            network:
+              href: https://api.equinix.com/fabric/v4/networks/25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2
+              uuid: 25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2
+              name: EVPTREE-GLOBAL
+              platformUuid: afe28606-8021-4161-802c-b80d4bc22f20
+              state: ACTIVE
+              type: EVPTREE
+              scope: GLOBAL
+              location: null
+            role: LEAF
+    COLO2NETWORK_EVPTREE_withDot1qAndTerms-Response:
+      value:
+        href: https://api.equinix.com/fabric/v4/connections/f3dd7395-7196-45f4-9b6f-54094aa75f53
+        type: EVPTREE_VC
+        uuid: f3dd7395-7196-45f4-9b6f-54094aa75f53
+        name: colo2network-evptree-vc
+        operation:
+          providerStatus: NOT_AVAILABLE
+          equinixStatus: PROVISIONING
+        order:
+          purchaseOrderNumber: 1-129105284100
+          billingTier: Up to 50 MB
+          termLength: 24
+        notifications:
+          - type: ALL
+            emails:
+              - fabric@equinix.com
+        changeLog:
+          createdBy: fabric
+          createdByFullName: fabric
+          createdByEmail: fabric@equinix.com
+          createdDateTime: 2024-04-23T02:51:07.675Z
+          updatedBy: fabric
+          updatedByFullName: fabric
+          updatedByEmail: fabric@equinix.com
+          updatedDateTime: 2024-04-23T02:51:07.675Z
+        bandwidth: 50
+        redundancy:
+          group: ecebee55-975b-4017-857c-74617f821b87
+          priority: PRIMARY
+        aSide:
+          accessPoint:
+            location:
+              metroHref: http://qa3api.corp.equinix.com/fabric/v4/metros/DA
+              metroCode: DA
+            port:
+              href: https://api.equinix.com/fabric/v4/ports/9127bb72-5f4f-4517-be74-3af7ce612687
+              type: XF_PORT
+              uuid: 9127bb72-5f4f-4517-be74-3af7ce612687
+              name: 1-DA1-port
+            linkProtocol:
+              type: DOT1Q
+              vlanTag: 307
+        zSide:
+          accessPoint:
+            network:
+              href: https://api.equinix.com/fabric/v4/networks/25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2
+              uuid: 25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2
+              name: EVPTREE-GLOBAL
+              platformUuid: afe28606-8021-4161-802c-b80d4bc22f20
+              state: ACTIVE
+              type: EVPTREE
+              scope: GLOBAL
+              location: null
+            role: LEAF
+    COLO2NETWORK_EPTREE_withEPL-Response:
+      value:
+        href: https://api.equinix.com/fabric/v4/connections/cce170c5-a496-4928-8426-507e00818887
+        type: EPTREE_VC
+        uuid: cce170c5-a496-4928-8426-507e00818887
+        name: colo2network-eptree-vc
+        operation:
+          providerStatus: NOT_AVAILABLE
+          equinixStatus: PROVISIONING
+        order:
+          purchaseOrderNumber: 1-129105284100
+          billingTier: Up to 50 MB
+        notifications:
+          - type: ALL
+            emails:
+              - fabric@test.com
+        changeLog:
+          createdBy: fabric
+          createdByFullName: fabric
+          createdByEmail: fabric@equinix.com
+          createdDateTime: 2024-04-23T03:07:17.587Z
+          updatedBy: fabric
+          updatedByFullName: fabric
+          updatedByEmail: fabric@equinix.com
+          updatedDateTime: 2024-04-23T03:07:17.587Z
+        bandwidth: 50
+        redundancy:
+          group: dbab0e00-db97-4abf-aebe-76c7a40a371e
+          priority: PRIMARY
+        aSide:
+          accessPoint:
+            location:
+              metroHref: http://qa3api.corp.equinix.com/fabric/v4/metros/SP
+              metroCode: SP
+            port:
+              href: https://api.equinix.com/fabric/v4/ports/9127bb72-5f4f-4517-be74-3af7ce612687
+              type: XF_PORT
+              uuid: 9127bb72-5f4f-4517-be74-3af7ce612687
+              name: 505783-port
+            linkProtocol:
+              type: UNTAGGED
+        zSide:
+          accessPoint:
+            network:
+              href: https://api.equinix.com/fabric/v4/networks/25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2
+              uuid: 25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2
+              name: EPTREE-GLOBAL
+              platformUuid: 47aedd04-64dc-4e86-8da3-f88a9755a214
+              state: ACTIVE
+              type: EPTREE
+              scope: GLOBAL
+              location: null
+            role: LEAF
+    COLO2NETWORK_EPTREE_withEPLAndTerms-Response:
+      value:
+        href: https://api.equinix.com/fabric/v4/connections/cce170c5-a496-4928-8426-507e00818887
+        type: EPTREE_VC
+        uuid: cce170c5-a496-4928-8426-507e00818887
+        name: colo2network-eptree-vc
+        operation:
+          providerStatus: NOT_AVAILABLE
+          equinixStatus: PROVISIONING
+        order:
+          purchaseOrderNumber: 1-129105284100
+          billingTier: Up to 50 MB
+          termLength: 12
+        notifications:
+          - type: ALL
+            emails:
+              - fabric@test.com
+        changeLog:
+          createdBy: fabric
+          createdByFullName: fabric
+          createdByEmail: fabric@equinix.com
+          createdDateTime: 2024-04-23T03:07:17.587Z
+          updatedBy: fabric
+          updatedByFullName: fabric
+          updatedByEmail: fabric@equinix.com
+          updatedDateTime: 2024-04-23T03:07:17.587Z
+        bandwidth: 50
+        redundancy:
+          group: dbab0e00-db97-4abf-aebe-76c7a40a371e
+          priority: PRIMARY
+        aSide:
+          accessPoint:
+            location:
+              metroHref: http://qa3api.corp.equinix.com/fabric/v4/metros/SP
+              metroCode: SP
+            port:
+              href: https://api.equinix.com/fabric/v4/ports/9127bb72-5f4f-4517-be74-3af7ce612687
+              type: XF_PORT
+              uuid: 9127bb72-5f4f-4517-be74-3af7ce612687
+              name: 505783-port
+            linkProtocol:
+              type: UNTAGGED
+        zSide:
+          accessPoint:
+            network:
+              href: https://api.equinix.com/fabric/v4/networks/25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2
+              uuid: 25f8884e-85e3-4eaa-8ea9-a7ad2ca5b3c2
+              name: EPTREE-GLOBAL
+              platformUuid: 8abb8305-258b-4690-9b49-714962591add
+              state: ACTIVE
+              type: EPTREE
+              scope: GLOBAL
+              location: null
+            role: LEAF
     Vd2IAProfile-Response:
       value:
         type: IA_VC
@@ -29223,7 +31289,7 @@ components:
           details: We couldn't process you request
     200_port:
       value:
-        href: https://api.equinix.com/fabric/v4/ports/xxxxx191-xx70-xxxx-xx04-xxxxxxxa37xx
+        href: http://api.equinix.com/fabric/v4/ports/xxxxx191-xx70-xxxx-xx04-xxxxxxxa37xx
         type: XF_PORT
         uuid: xxxxx191-xx70-xxxx-xx04-xxxxxxxa37xx
         name: Equinix-EM-CX-xxx-L-Dot1q-BO-100G-PRI-xx
@@ -30195,7 +32261,7 @@ components:
           errorMessage: "If-Match : invalid Etag version"
     getServiceToken:
       value:
-        href: https://api.equinix.com/fabric/v4/serviceTokens/13ab7dc7-c18e-4f73-aa35-fc3a83966e79
+        href: http://api.equinix.com/fabric/v4/serviceTokens/13ab7dc7-c18e-4f73-aa35-fc3a83966e79
         type: VC_TOKEN
         uuid: 13ab7dc7-c18e-4f73-aa35-fc3a83966e79
         name: Az_Aside_Dot1Q_Pri_SV
@@ -30211,7 +32277,7 @@ components:
             accessPointSelectors:
               - type: COLO
                 port:
-                  href: https://api.equinix.com/fabric/v4/ports/b840a1db-5758-758f-97e0-328a5c00a874
+                  href: http://api.equinix.com/fabric/v4/ports/b840a1db-5758-758f-97e0-328a5c00a874
                   type: XF_PORT
                   uuid: b840a1db-5758-758f-97e0-328a5c00a874
                 linkProtocol:
@@ -30234,7 +32300,7 @@ components:
           projectId: "995072000433550"
     getServiceToken-VD:
       value:
-        href: https://api.equinix.com/fabric/v4/serviceTokens/ea40918e-9b39-4045-8be8-0beaa7eb5ce1
+        href: http://api.equinix.com/fabric/v4/serviceTokens/ea40918e-9b39-4045-8be8-0beaa7eb5ce1
         type: VC_TOKEN
         name: Zside_Virtual_Device_token
         uuid: ea40918e-9b39-4045-8be8-0beaa7eb5ce1
@@ -30325,7 +32391,7 @@ components:
             accessPointSelectors:
               - type: COLO
                 port:
-                  href: https://api.equinix.com/fabric/v4/ports/b840a1db-5758-758f-97e0-328a5c00a874
+                  href: http://api.equinix.com/fabric/v4/ports/b840a1db-5758-758f-97e0-328a5c00a874
                   type: XF_PORT
                   uuid: b840a1db-5758-758f-97e0-328a5c00a874
                 linkProtocol:
@@ -30445,7 +32511,7 @@ components:
               - type: NOTIFICATION
                 emails:
                   - abc@company.com
-          - href: https://api.equinix.com/fabric/v4/serviceTokens/13ab7dc7-c18e-4f73-aa35-fc3a83966e79
+          - href: http://api.equinix.com/fabric/v4/serviceTokens/13ab7dc7-c18e-4f73-aa35-fc3a83966e79
             type: VC_TOKEN
             uuid: 13ab7dc7-c18e-4f73-aa35-fc3a83966e79
             name: Az_Aside_Dot1Q_Pri_SV
@@ -30463,7 +32529,7 @@ components:
                 accessPointSelectors:
                   - type: COLO
                     port:
-                      href: https://api.equinix.com/fabric/v4/ports/b840a1db-5758-758f-97e0-328a5c00a874
+                      href: http://api.equinix.com/fabric/v4/ports/b840a1db-5758-758f-97e0-328a5c00a874
                       type: XF_PORT
                       uuid: b840a1db-5758-758f-97e0-328a5c00a874
                     linkProtocol:
@@ -30783,7 +32849,7 @@ components:
             accessPointSelectors:
               - type: COLO
                 port:
-                  href: https://api.equinix.com/fabric/v4/ports/b840a1db-5758-758f-97e0-328a5c00a874
+                  href: http://api.equinix.com/fabric/v4/ports/b840a1db-5758-758f-97e0-328a5c00a874
                   uuid: b840a1db-5758-758f-97e0-328a5c00a874
                 linkProtocol:
                   type: DOT1Q
@@ -30798,7 +32864,7 @@ components:
         type: RESEND_EMAIL_NOTIFICATION
     postServiceTokenActionResponse:
       value:
-        href: https://api.equinix.com/fabric/v4/serviceTokens/13ab7dc7-c18e-4f73-aa35-fc3a83966e79
+        href: http://api.equinix.com/fabric/v4/serviceTokens/13ab7dc7-c18e-4f73-aa35-fc3a83966e79
         type: VC_TOKEN
         uuid: 13ab7dc7-c18e-4f73-aa35-fc3a83966e79
         name: Az_Aside_Dot1Q_Pri_SV
@@ -30815,7 +32881,7 @@ components:
             accessPointSelectors:
               - type: COLO
                 port:
-                  href: https://api.equinix.com/fabric/v4/ports/b840a1db-5758-758f-97e0-328a5c00a874
+                  href: http://api.equinix.com/fabric/v4/ports/b840a1db-5758-758f-97e0-328a5c00a874
                   type: XF_PORT
                   uuid: b840a1db-5758-758f-97e0-328a5c00a874
                 linkProtocol:
@@ -30902,6 +32968,9 @@ components:
                 code: LD
                 avgLatency: 5.85
                 remoteVCBandwidthMax: 50000
+            services:
+              - type: ETHERNET_IP_SERVICE
+              - type: TIME_SERVICE
     400_metros:
       value:
         - errorCode: EQ-3036013
@@ -30977,6 +33046,9 @@ components:
             code: LD
             avgLatency: 5.85
             remoteVCBandwidthMax: 10000
+        services:
+          - type: ETHERNET_IP_SERVICE
+          - type: TIME_SERVICE
     400_metroCode:
       value:
         - errorCode: EQ-3036013
@@ -30995,7 +33067,9 @@ components:
           - href: https://api.equinix.com/v4/fabric/metros/AM/ibxs/AM1
             type: XF_IBX
             code: AM1
-            isTimeServiceEnabled: true
+            services:
+              - type: ETHERNET_IP_SERVICE
+              - type: TIME_SERVICE
     ports:
       value:
         pagination:
@@ -34042,6 +36116,20 @@ components:
             uuid: 1da3778c-6aa3-4e47-b2fe-83a0773dde18
           timeout: 2
           dataBytes: 100
+    PostRequestTracerouteCommand:
+      value:
+        type: TRACEROUTE_COMMAND
+        name: traceroute-test-1
+        description: Testing FCR-SV-1
+        project:
+          projectId: b11d4cb5-978a-418a-8b13-bf19abb97938
+        request:
+          destination: 8.8.8.8
+          sourceConnection:
+            uuid: 1da3778c-6aa3-4e47-b2fe-83a0773dde18
+          timeout: 2
+          probes: 3
+          hopsMax: 20
     PostResponsePingCommand:
       value:
         href: https://api.equinix.com/fabric/v4/routers/9b8c5042-b553-4d5e-a2ac-c73bf6d4fd81/commands/37c10edc-ba2e-4240-a850-8a48f9c47d00
@@ -34060,6 +36148,26 @@ components:
           dataBytes: 100
           count: 5
           interval: 1000
+        changeLog:
+          createdBy: testuser
+          createdDateTime: 2020-05-21T10:30:00Z
+    PostResponseTracerouteCommand:
+      value:
+        href: https://api.equinix.com/fabric/v4/routers/9b8c5042-b553-4d5e-a2ac-c73bf6d4fd81/commands/37c10edc-ba2e-4240-a850-8a48f9c47d00
+        type: TRACEROUTE_COMMAND
+        uuid: 37c10edc-ba2e-4240-a850-8a48f9c47d00
+        name: traceroute-test-1
+        description: Testing FCR-SV-1
+        state: PENDING
+        project:
+          projectId: b11d4cb5-978a-418a-8b13-bf19abb97938
+        request:
+          destination: 8.8.8.8
+          sourceConnection:
+            uuid: 1da3778c-6aa3-4e47-b2fe-83a0773dde18
+          timeout: 2
+          probes: 3
+          hopsMax: 20
         changeLog:
           createdBy: testuser
           createdDateTime: 2020-05-21T10:30:00Z
@@ -34198,6 +36306,34 @@ components:
                 icmpSeq: 3
                 ttl: 117
                 time: 26.771
+        changeLog:
+          createdBy: testuser
+          createdDateTime: 2020-05-21T10:30:00Z
+    GetResponseTracerouteCommandWithError:
+      value:
+        href: https://api.equinix.com/fabric/v4/routers/9b8c5042-b553-4d5e-a2ac-c73bf6d4fd81/commands/37c10edc-ba2e-4240-a850-8a48f9c47d00
+        type: TRACEROUTE_COMMAND
+        uuid: 37c10edc-ba2e-4240-a850-8a48f9c47d00
+        name: traceroute-test-1
+        description: Testing FCR-SV-1
+        state: FAILED
+        project:
+          projectId: b11d4cb5-978a-418a-8b13-bf19abb97938
+        request:
+          destination: 8.8.8.8
+          sourceConnection:
+            uuid: 1da3778c-6aa3-4e47-b2fe-83a0773dde18
+          timeout: 2
+          probes: 3
+          hopsMax: 20
+        response:
+          errors:
+            - errorCode: EQ-3041105
+              errorMessage: Request timeout.
+              correlationId: 86c57a79-06fb-4ba3-b496-5387f3b45380
+              details: Request timeout after 480 seconds.
+              additionalInfo:
+                - reason: Request timeout after 480 seconds.
         changeLog:
           createdBy: testuser
           createdDateTime: 2020-05-21T10:30:00Z
@@ -35178,7 +37314,7 @@ components:
               - test@equinix.com
     Create-Global-EVPLAN-Network-Response:
       value:
-        href: https://api.corp.equinix.com/fabric/v4/networks/0633e83f-116f-481d-b86f-c472271d1a8c
+        href: http://api.corp.equinix.com/fabric/v4/networks/0633e83f-116f-481d-b86f-c472271d1a8c
         uuid: 0633e83f-116f-481d-b86f-c472271d1a8c
         type: EVPLAN
         name: My-evplan-network-1
@@ -35190,7 +37326,7 @@ components:
           organizationName: fabric
           globalCustId: 0026u00000595sBAAM
         change:
-          href: https://api.corp.equinix.com/fabric/v4/networks/0633e83f-116f-481d-b86f-c472271d1a8c/changes/ce7c0bbc-7bd2-431f-903f-de796ea9e858
+          href: http://api.corp.equinix.com/fabric/v4/networks/0633e83f-116f-481d-b86f-c472271d1a8c/changes/ce7c0bbc-7bd2-431f-903f-de796ea9e858
           uuid: ce7c0bbc-7bd2-431f-903f-de796ea9e858
           type: NETWORK_CREATION
         operation:
@@ -35201,7 +37337,7 @@ components:
           createdByEmail: fabric@gmail.com
           createdDateTime: 2025-03-03T19:37:29.326Z
         links:
-          href: https://api.corp.equinix.com/fabric/v4/networks/0633e83f-116f-481d-b86f-c472271d1a8c/connections
+          href: http://api.corp.equinix.com/fabric/v4/networks/0633e83f-116f-481d-b86f-c472271d1a8c/connections
           rel: getConnectionsByNetworkUuid
           method: GET
           contentType: application/json
@@ -35214,7 +37350,7 @@ components:
               - fabric@gmail.com
     Create-Regional-EVPLAN-Network-Response:
       value:
-        href: https://api.corp.equinix.com/fabric/v4/networks/884254b7-237d-44f7-af0f-84ba324350ef
+        href: http://api.corp.equinix.com/fabric/v4/networks/884254b7-237d-44f7-af0f-84ba324350ef
         uuid: 884254b7-237d-44f7-af0f-84ba324350ef
         type: EVPLAN
         name: My-evplan-network-1
@@ -35228,7 +37364,7 @@ components:
           organizationName: fabric
           globalCustId: 0026u00000595sBAAM
         change:
-          href: https://api.corp.equinix.com/fabric/v4/networks/884254b7-237d-44f7-af0f-84ba324350ef/changes/741c0927-d9ed-405b-a4f2-cb61d0dda2c5
+          href: http://api.corp.equinix.com/fabric/v4/networks/884254b7-237d-44f7-af0f-84ba324350ef/changes/741c0927-d9ed-405b-a4f2-cb61d0dda2c5
           uuid: 741c0927-d9ed-405b-a4f2-cb61d0dda2c5
           type: NETWORK_CREATION
         operation:
@@ -35239,7 +37375,7 @@ components:
           createdByEmail: fabric@gmail.com
           createdDateTime: 2025-03-03T19:21:43.145Z
         links:
-          href: https://api.corp.equinix.com/fabric/v4/networks/884254b7-237d-44f7-af0f-84ba324350ef/connections
+          href: http://api.corp.equinix.com/fabric/v4/networks/884254b7-237d-44f7-af0f-84ba324350ef/connections
           rel: getConnectionsByNetworkUuid
           method: GET
           contentType: application/json
@@ -35252,7 +37388,7 @@ components:
               - fabric@gmail.com
     Create-Local-EVPLAN-Network-Response:
       value:
-        href: https://api.corp.equinix.com/fabric/v4/networks/726af704-0b1b-46dc-9efc-00fc938084b3
+        href: http://api.corp.equinix.com/fabric/v4/networks/726af704-0b1b-46dc-9efc-00fc938084b3
         uuid: 726af704-0b1b-46dc-9efc-00fc938084b3
         type: EVPLAN
         name: My-evplan-network-1
@@ -35264,7 +37400,7 @@ components:
           organizationName: fabric
           globalCustId: 0026u00000595sBAAM
         change:
-          href: https://api.corp.equinix.com/fabric/v4/networks/726af704-0b1b-46dc-9efc-00fc938084b3/changes/92e2f236-e77d-4818-bbad-cff6b716a610
+          href: http://api.corp.equinix.com/fabric/v4/networks/726af704-0b1b-46dc-9efc-00fc938084b3/changes/92e2f236-e77d-4818-bbad-cff6b716a610
           uuid: 92e2f236-e77d-4818-bbad-cff6b716a610
           type: NETWORK_CREATION
         operation:
@@ -35275,7 +37411,7 @@ components:
           createdByEmail: fabric@gmail.com
           createdDateTime: 2025-03-03T19:43:20.145Z
         links:
-          href: https://api.corp.equinix.com/fabric/v4/networks/726af704-0b1b-46dc-9efc-00fc938084b3/connections
+          href: http://api.corp.equinix.com/fabric/v4/networks/726af704-0b1b-46dc-9efc-00fc938084b3/connections
           rel: getConnectionsByNetworkUuid
           method: GET
           contentType: application/json
@@ -35288,7 +37424,7 @@ components:
               - fabric@gmail.com
     Create-Global-EPLAN-Network-Response:
       value:
-        href: https://api.corp.equinix.com/fabric/v4/networks/0d51722e-b080-4943-92ab-9720eaab2cfa
+        href: http://api.corp.equinix.com/fabric/v4/networks/0d51722e-b080-4943-92ab-9720eaab2cfa
         uuid: 0d51722e-b080-4943-92ab-9720eaab2cfa
         type: EPLAN
         name: My-eplan-network-1
@@ -35300,7 +37436,7 @@ components:
           organizationName: fabric
           globalCustId: 0026u00000595sBAAM
         change:
-          href: https://api.corp.equinix.com/fabric/v4/networks/0d51722e-b080-4943-92ab-9720eaab2cfa/changes/e4f9c57f-a1d6-4520-9a31-fddbe69ed592
+          href: http://api.corp.equinix.com/fabric/v4/networks/0d51722e-b080-4943-92ab-9720eaab2cfa/changes/e4f9c57f-a1d6-4520-9a31-fddbe69ed592
           uuid: e4f9c57f-a1d6-4520-9a31-fddbe69ed592
           type: NETWORK_CREATION
         operation:
@@ -35311,7 +37447,7 @@ components:
           createdByEmail: fabric@gmail.com
           createdDateTime: 2025-03-03T20:52:23.469Z
         links:
-          href: https://api.corp.equinix.com/fabric/v4/networks/0d51722e-b080-4943-92ab-9720eaab2cfa/connections
+          href: http://api.corp.equinix.com/fabric/v4/networks/0d51722e-b080-4943-92ab-9720eaab2cfa/connections
           rel: getConnectionsByNetworkUuid
           method: GET
           contentType: application/json
@@ -35324,7 +37460,7 @@ components:
               - fabric@gmail.com
     Create-Regional-EPLAN-Network-Response:
       value:
-        href: https://api.corp.equinix.com/fabric/v4/networks/884254b7-237d-44f7-af0f-84ba324350ef
+        href: http://api.corp.equinix.com/fabric/v4/networks/884254b7-237d-44f7-af0f-84ba324350ef
         uuid: 884254b7-237d-44f7-af0f-84ba324350ef
         type: EVPLAN
         name: My-evplan-network-1
@@ -35338,7 +37474,7 @@ components:
           organizationName: fabric
           globalCustId: 0026u00000595sBAAM
         change:
-          href: https://api.corp.equinix.com/fabric/v4/networks/884254b7-237d-44f7-af0f-84ba324350ef/changes/741c0927-d9ed-405b-a4f2-cb61d0dda2c5
+          href: http://api.corp.equinix.com/fabric/v4/networks/884254b7-237d-44f7-af0f-84ba324350ef/changes/741c0927-d9ed-405b-a4f2-cb61d0dda2c5
           uuid: 741c0927-d9ed-405b-a4f2-cb61d0dda2c5
           type: NETWORK_CREATION
         operation:
@@ -35349,7 +37485,7 @@ components:
           createdByEmail: fabric@gmail.com
           createdDateTime: 2025-03-03T19:21:43.145Z
         links:
-          href: https://api.corp.equinix.com/fabric/v4/networks/884254b7-237d-44f7-af0f-84ba324350ef/connections
+          href: http://api.corp.equinix.com/fabric/v4/networks/884254b7-237d-44f7-af0f-84ba324350ef/connections
           rel: getConnectionsByNetworkUuid
           method: GET
           contentType: application/json
@@ -35362,7 +37498,7 @@ components:
               - fabric@gmail.com
     Create-Local-EPLAN-Network-Response:
       value:
-        href: https://api.corp.equinix.com/fabric/v4/networks/82402fc0-cb55-4a21-b0b3-1af89f63742b
+        href: http://api.corp.equinix.com/fabric/v4/networks/82402fc0-cb55-4a21-b0b3-1af89f63742b
         uuid: 82402fc0-cb55-4a21-b0b3-1af89f63742b
         type: EPLAN
         name: My-eplan-network-1
@@ -35374,7 +37510,7 @@ components:
           organizationName: fabric
           globalCustId: 0026u00000595sBAAM
         change:
-          href: https://api.corp.equinix.com/fabric/v4/networks/82402fc0-cb55-4a21-b0b3-1af89f63742b/changes/1449105b-7576-4094-aa34-216f3f9ed122
+          href: http://api.corp.equinix.com/fabric/v4/networks/82402fc0-cb55-4a21-b0b3-1af89f63742b/changes/1449105b-7576-4094-aa34-216f3f9ed122
           uuid: 1449105b-7576-4094-aa34-216f3f9ed122
           type: NETWORK_CREATION
         operation:
@@ -35385,7 +37521,7 @@ components:
           createdByEmail: fabric@gmail.com
           createdDateTime: 2025-03-03T20:55:57.858Z
         links:
-          href: https://api.corp.equinix.com/fabric/v4/networks/82402fc0-cb55-4a21-b0b3-1af89f63742b/connections
+          href: http://api.corp.equinix.com/fabric/v4/networks/82402fc0-cb55-4a21-b0b3-1af89f63742b/connections
           rel: getConnectionsByNetworkUuid
           method: GET
           contentType: application/json
@@ -35398,7 +37534,7 @@ components:
               - fabric@gmail.com
     Create-Global-EVPTREE-Network-Response:
       value:
-        href: https://api.corp.equinix.com/fabric/v4/networks/07659346-9489-42cf-891a-683624e801d5
+        href: http://api.corp.equinix.com/fabric/v4/networks/07659346-9489-42cf-891a-683624e801d5
         uuid: 07659346-9489-42cf-891a-683624e801d5
         type: EVPTREE
         name: My-evptree-network-1
@@ -35410,7 +37546,7 @@ components:
           organizationName: fabric
           globalCustId: 0026u00000595sBAAM
         change:
-          href: https://api.corp.equinix.com/fabric/v4/networks/07659346-9489-42cf-891a-683624e801d5/changes/1caf3efb-7427-4be1-8100-73fcff471654
+          href: http://api.corp.equinix.com/fabric/v4/networks/07659346-9489-42cf-891a-683624e801d5/changes/1caf3efb-7427-4be1-8100-73fcff471654
           uuid: 1caf3efb-7427-4be1-8100-73fcff471654
           type: NETWORK_CREATION
         operation:
@@ -35421,7 +37557,7 @@ components:
           createdByEmail: fabric@equinix.comm
           createdDateTime: 2025-03-05T21:17:46.656Z
         links:
-          href: https://api.corp.equinix.com/fabric/v4/networks/07659346-9489-42cf-891a-683624e801d5/connections
+          href: http://api.corp.equinix.com/fabric/v4/networks/07659346-9489-42cf-891a-683624e801d5/connections
           rel: getConnectionsByNetworkUuid
           method: GET
           contentType: application/json
@@ -35434,7 +37570,7 @@ components:
               - fabric@equinix.com
     Create-Regional-EVPTREE-Network-Response:
       value:
-        href: https://api.corp.equinix.com/fabric/v4/networks/0ec08139-bae5-44c4-bea2-970b14d7c7c0
+        href: http://api.corp.equinix.com/fabric/v4/networks/0ec08139-bae5-44c4-bea2-970b14d7c7c0
         uuid: 0ec08139-bae5-44c4-bea2-970b14d7c7c0
         type: EVPTREE
         name: My-evptree-network-1
@@ -35448,7 +37584,7 @@ components:
           organizationName: fabric
           globalCustId: 0026u00000595sBAAM
         change:
-          href: https://api.corp.equinix.com/fabric/v4/networks/0ec08139-bae5-44c4-bea2-970b14d7c7c0/changes/0e159ddd-47d2-4fa3-97fe-502f8a70ea0e
+          href: http://api.corp.equinix.com/fabric/v4/networks/0ec08139-bae5-44c4-bea2-970b14d7c7c0/changes/0e159ddd-47d2-4fa3-97fe-502f8a70ea0e
           uuid: 0e159ddd-47d2-4fa3-97fe-502f8a70ea0e
           type: NETWORK_CREATION
         operation:
@@ -35459,7 +37595,7 @@ components:
           createdByEmail: fabric@equinix.com
           createdDateTime: 2025-03-05T20:57:07.206Z
         links:
-          href: https://api.corp.equinix.com/fabric/v4/networks/0ec08139-bae5-44c4-bea2-970b14d7c7c0/connections
+          href: http://api.corp.equinix.com/fabric/v4/networks/0ec08139-bae5-44c4-bea2-970b14d7c7c0/connections
           rel: getConnectionsByNetworkUuid
           method: GET
           contentType: application/json
@@ -35472,7 +37608,7 @@ components:
               - fabric@equinix.com
     Create-Local-EVPTREE-Network-Response:
       value:
-        href: https://api.corp.equinix.com/fabric/v4/networks/4622cce8-114b-4432-94f4-060fda044ae3
+        href: http://api.corp.equinix.com/fabric/v4/networks/4622cce8-114b-4432-94f4-060fda044ae3
         uuid: 4622cce8-114b-4432-94f4-060fda044ae3
         type: EVPTREE
         name: My-evptree-network-1
@@ -35484,7 +37620,7 @@ components:
           organizationName: fabric
           globalCustId: 0026u00000595sBAAM
         change:
-          href: https://api.corp.equinix.com/fabric/v4/networks/4622cce8-114b-4432-94f4-060fda044ae3/changes/6eacff89-a363-402f-ae15-84294177a866
+          href: http://api.corp.equinix.com/fabric/v4/networks/4622cce8-114b-4432-94f4-060fda044ae3/changes/6eacff89-a363-402f-ae15-84294177a866
           uuid: 6eacff89-a363-402f-ae15-84294177a866
           type: NETWORK_CREATION
         operation:
@@ -35495,7 +37631,7 @@ components:
           createdByEmail: fabric@equinix.com
           createdDateTime: 2025-03-05T21:22:30.984Z
         links:
-          href: https://api.corp.equinix.com/fabric/v4/networks/4622cce8-114b-4432-94f4-060fda044ae3/connections
+          href: http://api.corp.equinix.com/fabric/v4/networks/4622cce8-114b-4432-94f4-060fda044ae3/connections
           rel: getConnectionsByNetworkUuid
           method: GET
           contentType: application/json
@@ -35508,7 +37644,7 @@ components:
               - fabric@equinix.com
     Create-Global-EPTREE-Network-Response:
       value:
-        href: https://api.corp.equinix.com/fabric/v4/networks/16ee541c-9e93-428b-9557-3f99907aa21c
+        href: http://api.corp.equinix.com/fabric/v4/networks/16ee541c-9e93-428b-9557-3f99907aa21c
         uuid: 16ee541c-9e93-428b-9557-3f99907aa21c
         type: EPTREE
         name: My-eptree-network-1
@@ -35520,7 +37656,7 @@ components:
           organizationName: fabric
           globalCustId: 0026u00000595sBAAM
         change:
-          href: https://api.corp.equinix.com/fabric/v4/networks/16ee541c-9e93-428b-9557-3f99907aa21c/changes/2f541dcd-c25b-43a1-97fa-8b2be6817899
+          href: http://api.corp.equinix.com/fabric/v4/networks/16ee541c-9e93-428b-9557-3f99907aa21c/changes/2f541dcd-c25b-43a1-97fa-8b2be6817899
           uuid: 2f541dcd-c25b-43a1-97fa-8b2be6817899
           type: NETWORK_CREATION
         operation:
@@ -35531,7 +37667,7 @@ components:
           createdByEmail: fabric@equinix.com
           createdDateTime: 2025-03-05T21:37:08.370Z
         links:
-          href: https://api.corp.equinix.com/fabric/v4/networks/16ee541c-9e93-428b-9557-3f99907aa21c/connections
+          href: http://api.corp.equinix.com/fabric/v4/networks/16ee541c-9e93-428b-9557-3f99907aa21c/connections
           rel: getConnectionsByNetworkUuid
           method: GET
           contentType: application/json
@@ -35544,7 +37680,7 @@ components:
               - fabric@equinix.com
     Create-Regional-EPTREE-Network-Response:
       value:
-        href: https://api.corp.equinix.com/fabric/v4/networks/291fc758-91d3-482b-a9b3-3430685c390e
+        href: http://api.corp.equinix.com/fabric/v4/networks/291fc758-91d3-482b-a9b3-3430685c390e
         uuid: 291fc758-91d3-482b-a9b3-3430685c390e
         type: EPTREE
         name: My-eptree-network-1
@@ -35558,7 +37694,7 @@ components:
           organizationName: fabric
           globalCustId: 0026u00000595sBAAM
         change:
-          href: https://api.corp.equinix.com/fabric/v4/networks/291fc758-91d3-482b-a9b3-3430685c390e/changes/8345324b-97cc-4c5c-9f15-40bc82b254ad
+          href: http://api.corp.equinix.com/fabric/v4/networks/291fc758-91d3-482b-a9b3-3430685c390e/changes/8345324b-97cc-4c5c-9f15-40bc82b254ad
           uuid: 8345324b-97cc-4c5c-9f15-40bc82b254ad
           type: NETWORK_CREATION
         operation:
@@ -35569,7 +37705,7 @@ components:
           createdByEmail: fabric@equinix.com
           createdDateTime: 2025-03-06T00:23:29.030Z
         links:
-          href: https://api.corp.equinix.com/fabric/v4/networks/291fc758-91d3-482b-a9b3-3430685c390e/connections
+          href: http://api.corp.equinix.com/fabric/v4/networks/291fc758-91d3-482b-a9b3-3430685c390e/connections
           rel: getConnectionsByNetworkUuid
           method: GET
           contentType: application/json
@@ -35582,7 +37718,7 @@ components:
               - fabric@equinix.com
     Create-Local-EPTREE-Network-Response:
       value:
-        href: https://api.corp.equinix.com/fabric/v4/networks/c929924e-5d87-46b2-a82f-91a145c1803d
+        href: http://api.corp.equinix.com/fabric/v4/networks/c929924e-5d87-46b2-a82f-91a145c1803d
         uuid: c929924e-5d87-46b2-a82f-91a145c1803d
         type: EPTREE
         name: My-eptree-network-1
@@ -35594,7 +37730,7 @@ components:
           organizationName: fabric
           globalCustId: 0026u00000595sBAAM
         change:
-          href: https://api.corp.equinix.com/fabric/v4/networks/c929924e-5d87-46b2-a82f-91a145c1803d/changes/1b32bacb-5898-4efd-9404-b64ec825c652
+          href: http://api.corp.equinix.com/fabric/v4/networks/c929924e-5d87-46b2-a82f-91a145c1803d/changes/1b32bacb-5898-4efd-9404-b64ec825c652
           uuid: 1b32bacb-5898-4efd-9404-b64ec825c652
           type: NETWORK_CREATION
         operation:
@@ -35605,7 +37741,7 @@ components:
           createdByEmail: fabric@equinix.com
           createdDateTime: 2025-03-06T00:30:42.972Z
         links:
-          href: https://api.corp.equinix.com/fabric/v4/networks/c929924e-5d87-46b2-a82f-91a145c1803d/connections
+          href: http://api.corp.equinix.com/fabric/v4/networks/c929924e-5d87-46b2-a82f-91a145c1803d/connections
           rel: getConnectionsByNetworkUuid
           method: GET
           contentType: application/json
@@ -37392,7 +39528,7 @@ components:
         description: subscription-1
         enabled: true
         sink:
-          uri: https://xxxxxx
+          uri: https://http-inputs-<host>.splunkcloud.com:<port>/services/collector/event
           type: SPLUNK_HEC
           credential:
             type: ACCESS_TOKEN
@@ -37414,7 +39550,7 @@ components:
           include:
             - equinix.fabric.connection.*
         sink:
-          uri: https://xxxxxx
+          uri: https://http-inputs-<host>.splunkcloud.com:<port>/services/collector/event
           type: SPLUNK_HEC
           credential:
             type: ACCESS_TOKEN
@@ -37451,7 +39587,7 @@ components:
           include:
             - equinix.fabric.connection.*
         sink:
-          host: events.pagerduty.com
+          host: https://events.pagerduty.com
           type: PAGERDUTY
           credential:
             type: INTEGRATION_KEY
@@ -37469,7 +39605,7 @@ components:
           include:
             - equinix.fabric.connection.*
         sink:
-          host: us.datadoghq.com
+          host: https://<xyz>.datadoghq.com
           type: DATADOG
           credential:
             type: API_KEY
@@ -37477,8 +39613,8 @@ components:
           settings:
             source: Equinix
             applicationKey: my-application-key
-            eventUri: https://us.datadoghq.com/api/v1/events
-            metricUri: https://us.datadoghq.com/api/v2/series
+            eventUri: https://<xyz>.datadoghq.com/api/v1/events
+            metricUri: https://<xyz>.datadoghq.com/api/v2/series
     StreamSubscriptionPostRequestExampleTeams:
       value:
         type: STREAM_SUBSCRIPTION
@@ -37512,6 +39648,53 @@ components:
             password: <servicenow-password>
           settings:
             source: Equinix
+    StreamSubscriptionPostRequestExampleWebhook:
+      value:
+        type: STREAM_SUBSCRIPTION
+        name: webhook
+        description: subscription-1
+        enabled: true
+        metricSelector:
+          include:
+            - equinix.fabric.connection.*
+        sink:
+          type: WEBHOOK
+          settings:
+            eventUri: https://xxxxxx
+            format: CLOUDEVENT
+    StreamSubscriptionPostRequestExampleGrafanaWebhook:
+      value:
+        type: STREAM_SUBSCRIPTION
+        name: webhook
+        description: subscription-1
+        enabled: true
+        metricSelector:
+          include:
+            - equinix.fabric.connection.*
+        sink:
+          type: WEBHOOK
+          settings:
+            eventUri: https://<grafana_oltp_endpoint>/otlp/v1/logs
+            metricUri: https://<grafana_oltp_endpoint>/otlp/v1/metrics
+            format: OPENTELEMETRY
+          credential:
+            type: API_KEY
+            apiKey: <granfana_instance_id>:<grafana_api_key>
+    StreamSubscriptionPostRequestExampleGooglePubSub:
+      value:
+        type: STREAM_SUBSCRIPTION
+        name: gcp-pubsub
+        description: subscription-1
+        enabled: true
+        metricSelector:
+          include:
+            - equinix.fabric.connection.*
+        sink:
+          type: GOOGLE_PUBSUB
+          uri: https://pubsub.googleapis.com/v1/projects/<gcp-project-name>/topics/<gcp-topic-name>:publish
+          credential:
+            type: ACCESS_TOKEN
+            accessToken: <encoded-base64-gcp-service-account-json>
     StreamSubscriptionResponseExample:
       value:
         href: https://api.equinix.com/fabric/v4/streams/d684aa26-8276-48b7-bb42-a6d9def0a418/subscriptions/d684aa26-8276-48b7-bb42-a6d9def0a418
@@ -37528,7 +39711,7 @@ components:
           include:
             - equinix.fabric.connection.*
         sink:
-          uri: https://xxxxxx
+          uri: https://http-inputs-<host>.splunkcloud.com:<port>/services/collector/event
           type: SPLUNK_HEC
           credential:
             type: ACCESS_TOKEN
@@ -37692,6 +39875,915 @@ components:
           createdDateTime: 2024-05-06T16:21:18.545214Z
           updatedBy: user
           updatedDateTime: 2025-02-04T00:20:54.511118575Z
+    VpnInterfaceCreate:
+      value:
+        type: IFACE_IPSEC_VPN
+        name: My-VpnInterface
+        description: test interface description
+        location:
+          metroCode: SV
+        bandwidth: 50
+        mtu: 1500
+        enabled: true
+        interfaceGroup: 9918ab4f-d3f1-488e-92ba-291fa3f025c1
+        project:
+          projectId: b1baecec-b7e7-453b-89fc-b35757bfcdbf
+        account:
+          accountNumber: 123
+    VpnInterfacePostResponseExample:
+      value:
+        href: https://api.equinix.com/fabric/v4/vpnInterfaces/6658cc3b-18e0-437c-b972-62b51a419a1e
+        uuid: 6658cc3b-18e0-437c-b972-62b51a419a1e
+        type: IFACE_IPSEC_VPN
+        name: My-VpnInterface
+        description: test interface description
+        state: PROVISIONING
+        location:
+          metroHref: https://api.equinix.com/fabric/v4/metros/SV
+          metroCode: SV
+        bandwidth: 50
+        mtu: 1500
+        enabled: true
+        interfaceGroup: 9918ab4f-d3f1-488e-92ba-291fa3f025c1
+        ipv4:
+          equinixIfaceIp: 192.10.20.10
+        ipv6:
+          equinixIfaceIp: c9f7:0b36:98c6:ac7e:f0e9:010c:f3d1:9940
+        project:
+          projectId: b1baecec-b7e7-453b-89fc-b35757bfcdbf
+        account:
+          accountNumber: 123
+        changeLog:
+          createdBy: abc@xyz.com
+          createdByFullName: abc
+          createdByEmail: abc@xyz.com
+          createdDateTime: 2025-04-21T01:11:11.117Z
+    VpnInterface_400_InvalidName:
+      value:
+        - errorCode: EQ-8020022
+          errorMessage: Name is minimum 0 and up to 50 characters in length
+          correlationId: fc7a32c8-2b99-4915-bb4b-eb42bbba668e
+          details: Name is minimum 0 and up to 50 characters in length
+          additionalInfo:
+            - property: /name
+              reason: Name is minimum 0 and up to 50 characters in length
+    VpnInterface_401:
+      value:
+        - errorCode: EQ-8020001
+          errorMessage: User not found in request or invalid.
+          correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+          additionalInfo:
+            - reason: You are unauthorized to perform this operation
+    VpnInterface_403:
+      value:
+        - errorCode: EQ-8020002
+          errorMessage: Operation not allowed
+          correlationId: 8a72af9d-23f7-4b90-8237-0987130b42dd
+          details: Operation not allowed for current user
+    VpnInterface_415:
+      value:
+        - errorCode: EQ-8020016
+          errorMessage: Unsupported media type, please check the request's Content-Type or Content-Encoding
+          correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+          additionalInfo:
+            - property: contentType
+              reason: The payload format is in an unsupported format
+    VpnInterface_500:
+      value:
+        - errorCode: EQ-8020030
+          errorMessage: Internal Server Error
+          correlationId: f9018571-1001-4422-978b-bfa38ed6b92e
+          details: Internal Server Error
+    VpnInterfaceGetResponseExample:
+      value:
+        href: https://api.equinix.com/fabric/v4/vpnInterfaces/6658cc3b-18e0-437c-b972-62b51a419a1e
+        uuid: 6658cc3b-18e0-437c-b972-62b51a419a1e
+        type: IFACE_IPSEC_VPN
+        name: My-VpnInterface
+        description: test interface description
+        state: PROVISIONED
+        location:
+          metroHref: https://api.equinix.com/fabric/v4/metros/SV
+          metroCode: SV
+        bandwidth: 50
+        mtu: 1500
+        enabled: true
+        interfaceGroup: 9918ab4f-d3f1-488e-92ba-291fa3f025c1
+        ipv4:
+          equinixIfaceIp: 192.10.20.10
+        ipv6:
+          equinixIfaceIp: c9f7:0b36:98c6:ac7e:f0e9:010c:f3d1:9940
+        project:
+          projectId: b1baecec-b7e7-453b-89fc-b35757bfcdbf
+        account:
+          accountNumber: 123
+        change:
+          type: IFACE_IPSEC_VPN_UPDATE
+          status: COMPLETED
+          createdDateTime: 2025-03-28T04:12:36.607Z
+          updatedDateTime: 2025-03-10T05:00:00Z
+          data:
+            - op: replace
+              path: /name
+              value: My-VpnInterface
+        changeLog:
+          createdBy: abc@xyz.com
+          createdByFullName: abc
+          createdByEmail: abc@xyz.com
+          createdDateTime: 2025-04-21T01:11:11.117Z
+          updatedBy: abc@xyz.com
+          updatedByFullName: abc
+          updatedByEmail: abc@xyz.com
+          updatedDateTime: 2025-04-22T02:22:22.227Z
+        attachment:
+          href: https://api.equinix.com/fabric/v4/vpnGateways/c93a9ca0-bb56-490b-8bce-4b2bdaeb4d46
+          type: INFRA_VPN_GW
+          attachmentStatus: ATTACHED
+        links:
+          - href: https://api.equinix.com/fabric/v4/vpnInterfaces/6658cc3b-18e0-437c-b972-62b51a419a1e/tunnels/search
+            rel: searchTunnels
+            method: POST
+            contentType: application/json
+            authenticate: true
+    VpnInterface_404:
+      value:
+        - errorCode: EQ-8020020
+          errorMessage: VPN Interface not found or already deleted
+          correlationId: 9b6baf30-3eb0-458c-af8b-fff3fae32bc7
+          details: VPN Interface not found or already deleted
+    VpnInterfaceDeleteResponseExample:
+      value:
+        href: https://api.equinix.com/fabric/v4/vpnInterfaces/6658cc3b-18e0-437c-b972-62b51a419a1e
+        uuid: 6658cc3b-18e0-437c-b972-62b51a419a1e
+        type: IFACE_IPSEC_VPN
+        name: My-VpnInterface
+        description: test interface description
+        state: DEPROVISIONING
+        location:
+          metroHref: https://api.equinix.com/fabric/v4/metros/SV
+          metroCode: SV
+        bandwidth: 50
+        mtu: 1500
+        enabled: true
+        interfaceGroup: 9918ab4f-d3f1-488e-92ba-291fa3f025c1
+        ipv4:
+          equinixIfaceIp: 192.10.20.10
+        ipv6:
+          equinixIfaceIp: c9f7:0b36:98c6:ac7e:f0e9:010c:f3d1:9940
+        project:
+          projectId: b1baecec-b7e7-453b-89fc-b35757bfcdbf
+        account:
+          accountNumber: 123
+        change:
+          type: IFACE_IPSEC_VPN_UPDATE
+          status: COMPLETED
+          createdDateTime: 2025-03-28T04:12:36.607Z
+          updatedDateTime: 2025-03-10T05:00:00Z
+          data:
+            - op: replace
+              path: /name
+              value: My-VpnInterface
+        changeLog:
+          createdBy: abc@xyz.com
+          createdByFullName: abc
+          createdByEmail: abc@xyz.com
+          createdDateTime: 2025-04-21T01:11:11.117Z
+          updatedBy: abc@xyz.com
+          updatedByFullName: abc
+          updatedByEmail: abc@xyz.com
+          updatedDateTime: 2025-04-22T02:22:22.227Z
+          deletedBy: abc@xyz.com
+          deletedByFullName: abc
+          deletedByEmail: abc@xyz.com
+          deletedDateTime: 2025-04-23T03:33:33.337Z
+    VpnInterface_400_InvalidState:
+      value:
+        - errorCode: EQ-8020030
+          errorMessage: Cannot delete VPN Interface in transient state
+          correlationId: 09fbe616-e563-438e-9b1b-56632d1611ff
+          details: Cannot delete VPN Interface in transient state.
+    VpnInterfaceSearchFilterByStatus:
+      value:
+        filter:
+          and:
+            - property: /state
+              operator: =
+              values:
+                - PROVISIONED
+            - property: /project/projectId
+              operator: =
+              values:
+                - b1baecec-b7e7-453b-89fc-b35757bfcdbf
+        pagination:
+          offset: 0
+          limit: 20
+        sort:
+          - direction: DESC
+            property: /changeLog/createdDateTime
+    VpnInterfaceSearchFilterByName:
+      value:
+        filter:
+          and:
+            - property: /name
+              operator: =
+              values:
+                - test-
+            - property: /project/projectId
+              operator: =
+              values:
+                - 6658cc3b-18e0-437c-b972-62b51a419a1e
+        pagination:
+          offset: 0
+          limit: 20
+        sort:
+          - direction: DESC
+            property: /changeLog/createdDateTime
+    VpnInterfaceSearchFilterOrAnd:
+      value:
+        filter:
+          and:
+            - or:
+                - property: /name
+                  operator: =
+                  values:
+                    - abc
+            - property: /project/projectId
+              operator: =
+              values:
+                - b1baecec-b7e7-453b-89fc-b35757bfcdbf
+    VpnInterfaceSearchExample:
+      value:
+        pagination:
+          offset: 20
+          limit: 20
+          total: 100
+          next: /search?offset=40&limit=20
+          previous: /search?offset=0&limit=20
+        data:
+          - href: https://api.equinix.com/fabric/v4/vpnInterfaces/6658cc3b-18e0-437c-b972-62b51a419a1e
+            uuid: 6658cc3b-18e0-437c-b972-62b51a419a1e
+            type: IFACE_IPSEC_VPN
+            name: My-VpnInterface
+            description: test interface description
+            state: PROVISIONED
+            location:
+              metroHref: https://api.equinix.com/fabric/v4/metros/SV
+              metroCode: SV
+            bandwidth: 50
+            mtu: 1500
+            enabled: true
+            interfaceGroup: 9918ab4f-d3f1-488e-92ba-291fa3f025c1
+            ipv4:
+              equinixIfaceIp: 192.10.20.10
+            ipv6:
+              equinixIfaceIp: c9f7:0b36:98c6:ac7e:f0e9:010c:f3d1:9940
+            project:
+              projectId: b1baecec-b7e7-453b-89fc-b35757bfcdbf
+            account:
+              accountNumber: 123
+            changeLog:
+              createdBy: abc@xyz.com
+              createdByFullName: abc
+              createdByEmail: abc@xyz.com
+              createdDateTime: 2025-04-21T01:11:11.117Z
+              updatedBy: abc@xyz.com
+              updatedByFullName: abc
+              updatedByEmail: abc@xyz.com
+              updatedDateTime: 2025-04-22T02:22:22.227Z
+    VpnInterface_400_InvalidSorting:
+      value:
+        - errorCode: EQ-8020039
+          errorMessage: Invalid value for sorting direction.
+          correlationId: 11091aa7-322a-461e-b6af-40fd10543c94
+          additionalInfo:
+            - reason: Only accept DESC and ASC for sorting direction.
+    VpnTunnelCreate:
+      value:
+        type: IPSEC_IPv4
+        name: My-Tunnel
+        description: ipsec tunnel configuration
+        isInitiator: true
+        tunnelLocalInsideCidr: 192.168.1.1/30
+        tunnelRemoteInsideCidr: 192.168.1.2/30
+        customerPeerIp: 1.2.3.43
+        mtu: 1500
+        enabled: true
+        isNatT: false
+        authentication:
+          type: PSK
+          ikeVersion: ikev2
+          preSharedKey: EBY8EAY_yo2
+          phase1DhGroup: 2
+          phase1EncryptAlgorithm: AES_CBC
+          phase1IntegrityAlgorithm: HMAC_SHA1
+          phase2DhGroup: 2
+          phase2EncryptAlgorithm: AES_CTR
+          phase2IntegrityAlgorithm: HMAC_SHA2_256
+    VpnTunnelPostResponseExample:
+      value:
+        href: https://api.equinix.com/fabric/v4/vpnInterfaces/6658cc3b-18e0-437c-b972-62b51a419a1e/tunnels/aee72df9-dec8-4c89-8f18-c4d0ef203656
+        uuid: aee72df9-dec8-4c89-8f18-c4d0ef203656
+        type: IPSEC_IPv4
+        name: My-Tunnel
+        description: ipsec tunnel configuration
+        state: PROVISIONED
+        isInitiator: true
+        tunnelLocalInsideCidr: 192.168.1.1/30
+        tunnelRemoteInsideCidr: 192.168.1.2/30
+        customerPeerIp: 1.2.3.43
+        mtu: 1500
+        enabled: true
+        isNatT: false
+        authentication:
+          type: PSK
+          ikeVersion: ikev2
+          preSharedKey: EBY8EAY_yo2
+          phase1DhGroup: 2
+          phase1EncryptAlgorithm: AES_CBC
+          phase1IntegrityAlgorithm: HMAC_SHA1
+          phase2DhGroup: 2
+          phase2EncryptAlgorithm: AES_CTR
+          phase2IntegrityAlgorithm: HMAC_SHA2_256
+        operation:
+          operationalStatus: UP
+          opStatusChangedAt: 2025-03-20T08:10:26.132Z
+        changeLog:
+          createdBy: testBuyer
+          createdDateTime: 2025-03-28T04:12:36.607Z
+    VpnTunnel_400_InvalidName:
+      value:
+        - errorCode: EQ-8030022
+          errorMessage: Name is minimum 0 and up to 50 characters in length
+          correlationId: fc7a32c8-2b99-4915-bb4b-eb42bbba668e
+          details: Name is minimum 0 and up to 50 characters in length
+          additionalInfo:
+            - property: /name
+              reason: Name is minimum 0 and up to 50 characters in length
+    VpnTunnel_401:
+      value:
+        - errorCode: EQ-8030001
+          errorMessage: User not found in request or invalid.
+          correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+          additionalInfo:
+            - reason: You are unauthorized to perform this operation
+    VpnTunnel_403:
+      value:
+        - errorCode: EQ-8030002
+          errorMessage: Operation not allowed
+          correlationId: 8a72af9d-23f7-4b90-8237-0987130b42dd
+          details: Operation not allowed for current user
+    VpnTunnel_415:
+      value:
+        - errorCode: EQ-8030016
+          errorMessage: Unsupported media type, please check the request's Content-Type or Content-Encoding
+          correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+          additionalInfo:
+            - property: contentType
+              reason: The payload format is in an unsupported format
+    VpnTunnel_500:
+      value:
+        - errorCode: EQ-8030030
+          errorMessage: Internal Server Error
+          correlationId: f9018571-1001-4422-978b-bfa38ed6b92e
+          details: Internal Server Error
+    VpnTunnelGetResponseExample:
+      value:
+        href: https://api.equinix.com/fabric/v4/vpnInterfaces/6658cc3b-18e0-437c-b972-62b51a419a1e/tunnels/aee72df9-dec8-4c89-8f18-c4d0ef203656
+        uuid: aee72df9-dec8-4c89-8f18-c4d0ef203656
+        type: IPSEC_IPv4
+        name: My-Tunnel
+        description: ipsec tunnel configuration
+        state: PROVISIONED
+        isInitiator: true
+        tunnelLocalInsideCidr: 192.168.1.1/30
+        tunnelRemoteInsideCidr: 192.168.1.2/30
+        customerPeerIp: 1.2.3.43
+        mtu: 1500
+        enabled: true
+        isNatT: false
+        authentication:
+          type: PSK
+          ikeVersion: ikev2
+          preSharedKey: EBY8EAY_yo2
+          phase1DhGroup: 2
+          phase1EncryptAlgorithm: AES_CBC
+          phase1IntegrityAlgorithm: HMAC_SHA1
+          phase2DhGroup: 2
+          phase2EncryptAlgorithm: AES_CTR
+          phase2IntegrityAlgorithm: HMAC_SHA2_256
+        operation:
+          operationalStatus: UP
+          opStatusChangedAt: 2025-03-20T08:10:26.132Z
+        change:
+          type: IPSEC_IPv4_UPDATE
+          status: COMPLETED
+          createdDateTime: 2025-03-28T04:12:36.607Z
+          updatedDateTime: 2025-03-10T05:00:00Z
+          data:
+            - op: replace
+              path: /name
+              value: Update-VPN-tunnel
+        changeLog:
+          createdBy: testBuyer
+          createdDateTime: 2025-03-28T04:12:36.607Z
+          updatedBy: testBuyer
+          updatedDateTime: 2025-03-10T05:00:00Z
+        links:
+          - href: https://api.equinix.com/fabric/v4/vpnInterfaces/6658cc3b-18e0-437c-b972-62b51a419a1e/tunnels/aee72df9-dec8-4c89-8f18-c4d0ef203656/routingProtocols/search
+            rel: searchRoutingProtocols
+            method: POST
+            contentType: application/json
+            authenticate: true
+    VpnTunnel_404:
+      value:
+        - errorCode: EQ-8030020
+          errorMessage: VPN Tunnel not found or already deleted
+          correlationId: 9b6baf30-3eb0-458c-af8b-fff3fae32bc7
+          details: VPN Tunnel not found or already deleted
+    VpnTunnelDeleteResponseExample:
+      value:
+        href: https://api.equinix.com/fabric/v4/vpnInterfaces/6658cc3b-18e0-437c-b972-62b51a419a1e/tunnels/aee72df9-dec8-4c89-8f18-c4d0ef203656
+        uuid: aee72df9-dec8-4c89-8f18-c4d0ef203656
+        type: IPSEC_IPv4
+        name: Update-tunnel
+        description: ipsec tunnel configuration
+        state: DEPROVISIONING
+        isInitiator: true
+        tunnelLocalInsideCidr: 192.168.1.1/30
+        tunnelRemoteInsideCidr: 192.168.1.2/30
+        customerPeerIp: 1.2.3.43
+        mtu: 1500
+        enabled: true
+        isNatT: false
+        authentication:
+          type: PSK
+          ikeVersion: ikev2
+          preSharedKey: EBY8EAY_yo2
+          phase1DhGroup: 2
+          phase1EncryptAlgorithm: AES_CBC
+          phase1IntegrityAlgorithm: HMAC_SHA1
+          phase2DhGroup: 2
+          phase2EncryptAlgorithm: AES_CTR
+          phase2IntegrityAlgorithm: HMAC_SHA2_256
+        operation:
+          operationalStatus: UP
+          opStatusChangedAt: 2025-03-20T08:10:26.132Z
+        change:
+          type: IPSEC_IPv4_UPDATE
+          status: COMPLETED
+          createdDateTime: 2025-03-28T04:12:36.607Z
+          updatedDateTime: 2025-03-10T05:00:00Z
+          data:
+            - op: replace
+              path: /name
+              value: Update-VPN-tunnel
+        changeLog:
+          createdBy: testBuyer
+          createdDateTime: 2025-03-28T04:12:36.607Z
+          updatedBy: testBuyer
+          updatedDateTime: 2025-03-10T05:00:00Z
+          deletedBy: testBuyer
+          deletedDateTime: 2025-03-15T12:20:06Z
+    VpnTunnel_400_InvalidState:
+      value:
+        - errorCode: EQ-8030030
+          errorMessage: Cannot delete VPN Tunnel in transient state
+          correlationId: 09fbe616-e563-438e-9b1b-56632d1611ff
+          details: Cannot delete VPN Tunnel in transient state.
+    VpnTunnelSearchFilterByStatus:
+      value:
+        filter:
+          and:
+            - property: /state
+              operator: =
+              values:
+                - PROVISIONED
+        pagination:
+          offset: 0
+          limit: 20
+        sort:
+          - direction: DESC
+            property: /changeLog/createdDateTime
+    VpnTunnelSearchFilterByName:
+      value:
+        filter:
+          and:
+            - property: /name
+              operator: =
+              values:
+                - test-
+        pagination:
+          offset: 0
+          limit: 20
+        sort:
+          - direction: DESC
+            property: /changeLog/createdDateTime
+    VpnTunnelSearchFilterOrAnd:
+      value:
+        filter:
+          and:
+            - or:
+                - property: /name
+                  operator: =
+                  values:
+                    - abc
+            - property: /state
+              operator: =
+              values:
+                - PROVISIONED
+    VpnTunnelSearchExample:
+      value:
+        pagination:
+          offset: 20
+          limit: 20
+          total: 100
+          next: /search?offset=40&limit=20
+          previous: /search?offset=0&limit=20
+        data:
+          - href: https://api.equinix.com/fabric/v4/vpnInterfaces/6658cc3b-18e0-437c-b972-62b51a419a1e/tunnels/aee72df9-dec8-4c89-8f18-c4d0ef203656
+            uuid: aee72df9-dec8-4c89-8f18-c4d0ef203656
+            type: IPSEC_IPv4
+            name: My-Tunnel
+            description: ipsec tunnel configuration
+            state: PROVISIONED
+            isInitiator: true
+            tunnelLocalInsideCidr: 192.168.1.1/30
+            tunnelRemoteInsideCidr: 192.168.1.2/30
+            customerPeerIp: 1.2.3.43
+            mtu: 1500
+            enabled: true
+            isNatT: false
+            authentication:
+              type: PSK
+              ikeVersion: ikev2
+              preSharedKey: EBY8EAY_yo2
+              phase1DhGroup: 2
+              phase1EncryptAlgorithm: AES_CBC
+              phase1IntegrityAlgorithm: HMAC_SHA1
+              phase2DhGroup: 2
+              phase2EncryptAlgorithm: AES_CTR
+              phase2IntegrityAlgorithm: HMAC_SHA2_256
+            operation:
+              operationalStatus: UP
+              opStatusChangedAt: 2025-03-20T08:10:26.132Z
+            change:
+              type: IPSEC_IPv4_UPDATE
+              status: COMPLETED
+              createdDateTime: 2025-03-28T04:12:36.607Z
+              updatedDateTime: 2025-03-10T05:00:00Z
+              data:
+                - op: replace
+                  path: /name
+                  value: Update-VPN-tunnel
+            changeLog:
+              createdBy: testBuyer
+              createdDateTime: 2025-03-28T04:12:36.607Z
+              updatedBy: testBuyer
+              updatedDateTime: 2025-03-10T05:00:00Z
+    VpnTunnel_400_InvalidSorting:
+      value:
+        - errorCode: EQ-8030039
+          errorMessage: Invalid value for sorting direction.
+          correlationId: 11091aa7-322a-461e-b6af-40fd10543c94
+          additionalInfo:
+            - reason: Only accept DESC and ASC for sorting direction.
+    DeploymentCreate:
+      value:
+        type: TOPOLOGY_DEPLOYMENT
+        name: MCN-Deployment
+        description: FCR and AWS DGW Deployment in DC
+        topology:
+          uuid: 3d4cfd38-5f56-4f71-b3e4-5f44631f1b2a
+        providers:
+          - type: FABRIC_PROVIDER
+            resources:
+              - type: XF_ROUTER
+                name: router-1
+                location:
+                  metroCode: DC
+                package:
+                  code: LAB
+                deploymentProperties:
+                  elementId: 13fc5d30-036d-11f0-96a3-5336ee83f43f
+              - type: IP_VC
+                bandwidth: 50
+                name: My connection to router
+                redundancy:
+                  priority: PRIMARY
+                aSide:
+                  accessPoint:
+                    type: CLOUD_ROUTER
+                zSide:
+                  accessPoint:
+                    type: SP
+                    profile:
+                      type: L2_PROFILE
+                      uuid: 22d4e853-ef33-4ff0-b5b2-a2b1d5dfa50c
+                    location:
+                      metroCode: DC
+                    sellerRegion: us-east-1
+                    authenticationKey: 12345678923
+                deploymentProperties:
+                  elementId: adbad8be-10d7-42d5-ab85-066d1c8a8259
+                  dependsOn:
+                    - 13fc5d30-036d-11f0-96a3-5336ee83f43f
+              - type: BGP
+                bgpIpv4:
+                  equinixip: 192.168.100.1/30
+                  customerip: 192.168.100.2
+                  enabled: true
+                  bgpAuthKey: xxxxxxx
+                  customerAsn: 65333
+                asOverrideEnabled: true
+                deploymentProperties:
+                  elementId: 3184e34a-69ba-4821-aa54-1e66a8a6672e
+                  dependsOn:
+                    - adbad8be-10d7-42d5-ab85-066d1c8a8259
+          - type: AWS_PROVIDER
+            resources:
+              - type: PERMISSION
+                roleArn: arn:aws:iam::<account-id>:role/<role-name>
+                region: us-east-1
+                deploymentProperties:
+                  elementId: c2a3d2ec-265a-41af-b72d-fded5a371f48
+                  dependsOn:
+                    - adbad8be-10d7-42d5-ab85-066d1c8a8259
+              - type: DIRECT_CONNECT
+                uuid: c3af0941-b4e1-45d3-b961-8fc50768fcfb
+                deploymentProperties:
+                  elementId: c2a3d2ec-265a-41af-b72d-fded5a371f46
+                  dependsOn:
+                    - adbad8be-10d7-42d5-ab85-066d1c8a8259
+                    - c2a3d2ec-265a-41af-b72d-fded5a371f48
+              - type: VIRTUAL_PRIVATE_GATEWAY
+                required: true/false
+                vpcId: c0c68cc5-6e7f-43d3-a322-afdac89038d7
+                subnetId: c3af0941-b4e1-45d3-b961-8fc50768fcfb
+                deploymentProperties:
+                  elementId: c2a3d2ec-265a-41af-b72d-fded5a371f45
+                  dependsOn:
+                    - adbad8be-10d7-42d5-ab85-066d1c8a8259
+                    - c2a3d2ec-265a-41af-b72d-fded5a371f48
+        project:
+          projectId: ad444dd7-1144-47db-bacc-bab4d313222d
+        account:
+          accountNumber: 346346456
+        order:
+          purchaseNumber: PO345346534563
+        notifications:
+          - type: ALL
+            emails:
+              - test@test.com
+    DeploymentPostResponse:
+      value:
+        href: https://api.equinix.com/fabric/v4/deployments/8c9dfc8d-b32b-44a4-aa2e-e3dcc3c7fdac
+        type: TOPOLOGY_DEPLOYMENT
+        uuid: 8c9dfc8d-b32b-44a4-aa2e-e3dcc3c7fdac
+        name: MCN-Deployment
+        state: PENDING
+        description: FCR and AWS DGW Deployment in DC
+        topology:
+          uuid: 3d4cfd38-5f56-4f71-b3e4-5f44631f1b2a
+        providers:
+          - type: FABRIC_PROVIDER
+            resources:
+              - type: XF_ROUTER
+                uuid: 1479d681-a7f5-4ea9-9495-9f54c4ca2ec4
+                deploymentProperties:
+                  elementId: 13fc5d30-036d-11f0-96a3-5336ee83f43f
+              - type: IP_VC
+                uuid: 21d5251c-8142-45b7-b566-76ae345d81ee
+                bandwidth: 50
+                state: PROVISIONING
+                name: My connection to router
+                redundancy:
+                  priority: PRIMARY
+                aSide:
+                  accessPoint:
+                    type: CLOUD_ROUTER
+                zSide:
+                  accessPoint:
+                    type: SP
+                    profile:
+                      type: L2_PROFILE
+                      uuid: 22d4e853-ef33-4ff0-b5b2-a2b1d5dfa50c
+                    location:
+                      metroCode: DC
+                    sellerRegion: us-east-1
+                    authenticationKey: 12345678923
+                deploymentProperties:
+                  elementId: adbad8be-10d7-42d5-ab85-066d1c8a8259
+                  dependsOn:
+                    - 13fc5d30-036d-11f0-96a3-5336ee83f43f
+              - type: BGP
+                bgpIpv4:
+                  equinixip: 192.168.100.1/30
+                  customerip: 192.168.100.2
+                  enabled: true
+                  bgpAuthKey: xxxxxxx
+                  customerAsn: 65333
+                asOverrideEnabled: true
+                deploymentProperties:
+                  elementId: 3184e34a-69ba-4821-aa54-1e66a8a6672e
+                  dependsOn:
+                    - e40def8d-b067-4a94-8a67-e6caa5fa41b3
+          - type: AWS_PROVIDER
+            resources:
+              - type: PERMISSION
+                roleArn: arn:aws:iam::<account-id>:role/<role-name>
+                region: us-east-1
+                deploymentProperties:
+                  elementId: c2a3d2ec-265a-41af-b72d-fded5a371f48
+                  dependsOn:
+                    - adbad8be-10d7-42d5-ab85-066d1c8a8259
+              - type: DIRECT_CONNECT
+                uuid: c3af0941-b4e1-45d3-b961-8fc50768fcfb
+                deploymentProperties:
+                  elementId: c2a3d2ec-265a-41af-b72d-fded5a371f46
+                  dependsOn:
+                    - adbad8be-10d7-42d5-ab85-066d1c8a8259
+                    - c2a3d2ec-265a-41af-b72d-fded5a371f48
+              - type: VIRTUAL_PRIVATE_GATEWAY
+                required: true
+                vpcId: c0c68cc5-6e7f-43d3-a322-afdac89038d7
+                subnetId: c3af0941-b4e1-45d3-b961-8fc50768fcfb
+                deploymentProperties:
+                  elementId: c2a3d2ec-265a-41af-b72d-fded5a371f45
+                  dependsOn:
+                    - adbad8be-10d7-42d5-ab85-066d1c8a8259
+                    - c2a3d2ec-265a-41af-b72d-fded5a371f48
+        project:
+          projectId: ad444dd7-1144-47db-bacc-bab4d313222d
+        account:
+          accountNumber: 346346456
+        order:
+          purchaseNumber: PO345346534563
+        notifications:
+          - type: ALL
+            emails:
+              - test@test.com
+    Orchestrator_400_InvalidName:
+      value:
+        - errorCode: EQ-8020022
+          errorMessage: Name is minimum 0 and up to 50 characters in length
+          correlationId: fc7a32c8-2b99-4915-bb4b-eb42bbba668e
+          details: Name is minimum 0 and up to 50 characters in length
+          additionalInfo:
+            - property: /name
+              reason: Name is minimum 0 and up to 50 characters in length
+    Orchestrator_401:
+      value:
+        - errorCode: EQ-8020001
+          errorMessage: User not found in request or invalid.
+          correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+          additionalInfo:
+            - reason: You are unauthorized to perform this operation
+    Orchestrator_403:
+      value:
+        - errorCode: EQ-8020002
+          errorMessage: Operation not allowed
+          correlationId: 8a72af9d-23f7-4b90-8237-0987130b42dd
+          details: Operation not allowed for current user
+    Orchestrator_404:
+      value:
+        - errorCode: EQ-8020020
+          errorMessage: Deployement not found or already deleted
+          correlationId: 9b6baf30-3eb0-458c-af8b-fff3fae32bc7
+          details: Deployement not found or already deleted
+    Orchestrator_500:
+      value:
+        - errorCode: EQ-8020030
+          errorMessage: Internal Server Error
+          correlationId: f9018571-1001-4422-978b-bfa38ed6b92e
+          details: Internal Server Error
+    DeploymentGet:
+      value:
+        href: https://api.equinix.com/fabric/v4/deployments/8c9dfc8d-b32b-44a4-aa2e-e3dcc3c7fdac
+        type: TOPOLOGY_DEPLOYMENT
+        uuid: 8c9dfc8d-b32b-44a4-aa2e-e3dcc3c7fdac
+        name: MCN-Deployment
+        state: PROVISIONED
+        description: FCR and AWS DGW Deployment in DC
+        providers:
+          - type: FABRIC_PROVIDER
+            resources:
+              - href: https://api.equinix.com/fabric/v4/routers/1479d681-a7f5-4ea9-9495-9f54c4ca2ec4
+                type: XF_ROUTER
+                uuid: 1479d681-a7f5-4ea9-9495-9f54c4ca2ec4
+                deploymentProperties:
+                  elementId: 13fc5d30-036d-11f0-96a3-5336ee83f43f
+                  dependsOn: []
+              - href: https://api.equinix.com/fabric/v4/connections/21d5251c-8142-45b7-b566-76ae345d81ee
+                type: IP_VC
+                uuid: 21d5251c-8142-45b7-b566-76ae345d81ee
+                bandwidth: 50
+                state: PROVISIONING
+                name: My connection to router
+                redundancy:
+                  priority: PRIMARY
+                aSide:
+                  accessPoint:
+                    type: CLOUD_ROUTER
+                zSide:
+                  accessPoint:
+                    type: SP
+                    profile:
+                      type: L2_PROFILE
+                      uuid: 22d4e853-ef33-4ff0-b5b2-a2b1d5dfa50c
+                    location:
+                      metroCode: DC
+                    sellerRegion: us-east-1
+                    authenticationKey: 12345678923
+                deploymentProperties:
+                  elementId: adbad8be-10d7-42d5-ab85-066d1c8a8259
+                  dependsOn:
+                    - 13fc5d30-036d-11f0-96a3-5336ee83f43f
+              - type: BGP
+                bgpIpv4:
+                  equinixip: 192.168.100.1/30
+                  customerip: 192.168.100.2
+                  enabled: true
+                  bgpAuthKey: xxxxxxx
+                  customerAsn: 65333
+                asOverrideEnabled: true
+                deploymentProperties:
+                  elementId: 3184e34a-69ba-4821-aa54-1e66a8a6672e
+                  dependsOn:
+                    - e40def8d-b067-4a94-8a67-e6caa5fa41b3
+          - type: AWS_PROVIDER
+            resources:
+              - type: PERMISSION
+                roleArn: arn:aws:iam::<account-id>:role/<role-name>
+                region: us-east-1
+                deploymentProperties:
+                  elementId: c2a3d2ec-265a-41af-b72d-fded5a371f48
+                  dependsOn:
+                    - adbad8be-10d7-42d5-ab85-066d1c8a8259
+              - type: DIRECT_CONNECT
+                uuid: c3af0941-b4e1-45d3-b961-8fc50768fcfb
+                deploymentProperties:
+                  elementId: c2a3d2ec-265a-41af-b72d-fded5a371f46
+                  dependsOn:
+                    - adbad8be-10d7-42d5-ab85-066d1c8a8259
+                    - c2a3d2ec-265a-41af-b72d-fded5a371f48
+              - type: VIRTUAL_PRIVATE_GATEWAY
+                required: true
+                vpcId: c0c68cc5-6e7f-43d3-a322-afdac89038d7
+                subnetId: c3af0941-b4e1-45d3-b961-8fc50768fcfb
+                deploymentProperties:
+                  elementId: c2a3d2ec-265a-41af-b72d-fded5a371f45
+                  dependsOn:
+                    - adbad8be-10d7-42d5-ab85-066d1c8a8259
+                    - c2a3d2ec-265a-41af-b72d-fded5a371f48
+        project:
+          projectId: ad444dd7-1144-47db-bacc-bab4d313222d
+        account:
+          accountNumber: 346346456
+        order:
+          purchaseNumber: PO345346534563
+        notifications:
+          - type: ALL
+            emails:
+              - test@test.com
+    Orchestrator_400_InvalidState:
+      value:
+        - errorCode: EQ-8020030
+          errorMessage: Cannot delete Deployment in transient state
+          correlationId: 09fbe616-e563-438e-9b1b-56632d1611ff
+          details: Cannot delete Deployment in transient state.
+    DeploymentActions:
+      value:
+        type: DEPLOY
+        data:
+          - type: PERMISSION
+            roleArn: arn:aws:iam::<account-id>:role/<role-name>
+            region: us-east-1
+            deploymentProperties:
+              elementId: c2a3d2ec-265a-41af-b72d-fded5a371f48
+              dependsOn:
+                - adbad8be-10d7-42d5-ab85-066d1c8a8259
+    ProviderResourcesSearch:
+      value:
+        filter:
+          and:
+            - property: /providers/type
+              operator: =
+              values:
+                - AWS_PROVIDER
+            - property: /providers/oidcCredentials/roleArn
+              operator: =
+              values:
+                - arn:aws:iam::<account-id>:role/<role-name>
+            - property: /providers/oidcCredentials/region
+              operator: =
+              values:
+                - us-east-1
+            - property: /providers/resources/type
+              operator: =
+              values:
+                - DIRECT_CONNECT
+                - VPC
+                - SUBNET
   headers:
     ETag:
       description: response header - identifier for a specific version of a resource.

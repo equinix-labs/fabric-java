@@ -31,7 +31,15 @@ public enum CloudEventAssetType {
   
   CONNECTIONS("connections"),
   
-  ROUTERS("routers");
+  ROUTERS("routers"),
+  
+  SERVICETOKENS("serviceTokens"),
+  
+  NETWORKS("networks"),
+  
+  PROJECTS("projects"),
+  
+  ORGANIZATIONS("organizations");
 
   private String value;
 

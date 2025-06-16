@@ -128,6 +128,57 @@ public class AccessPoint {
   @SerializedName(SERIALIZED_NAME_VPIC_INTERFACE)
   private VpicInterface vpicInterface;
 
+  /**
+   * E-Tree network connection role
+   */
+  @JsonAdapter(RoleEnum.Adapter.class)
+  public enum RoleEnum {
+    LEAF("LEAF"),
+    
+    ROOT("ROOT");
+
+    private String value;
+
+    RoleEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static RoleEnum fromValue(String value) {
+      for (RoleEnum b : RoleEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+
+    public static class Adapter extends TypeAdapter<RoleEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final RoleEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public RoleEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return RoleEnum.fromValue(value);
+      }
+    }
+  }
+
+  public static final String SERIALIZED_NAME_ROLE = "role";
+  @SerializedName(SERIALIZED_NAME_ROLE)
+  private RoleEnum role;
+
   public AccessPoint() {
   }
 
@@ -504,6 +555,28 @@ public class AccessPoint {
     this.vpicInterface = vpicInterface;
   }
 
+
+  public AccessPoint role(RoleEnum role) {
+    
+    this.role = role;
+    return this;
+  }
+
+   /**
+   * E-Tree network connection role
+   * @return role
+  **/
+  @javax.annotation.Nullable
+
+  public RoleEnum getRole() {
+    return role;
+  }
+
+
+  public void setRole(RoleEnum role) {
+    this.role = role;
+  }
+
   /**
    * A container for additional, undeclared properties.
    * This is a holder for any undeclared properties as specified with
@@ -575,13 +648,14 @@ public class AccessPoint {
         Objects.equals(this.providerConnectionId, accessPoint.providerConnectionId) &&
         Objects.equals(this.virtualNetwork, accessPoint.virtualNetwork) &&
         Objects.equals(this.interconnection, accessPoint.interconnection) &&
-        Objects.equals(this.vpicInterface, accessPoint.vpicInterface)&&
+        Objects.equals(this.vpicInterface, accessPoint.vpicInterface) &&
+        Objects.equals(this.role, accessPoint.role)&&
         Objects.equals(this.additionalProperties, accessPoint.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, account, location, port, profile, router, linkProtocol, virtualDevice, _interface, network, sellerRegion, peeringType, authenticationKey, providerConnectionId, virtualNetwork, interconnection, vpicInterface, additionalProperties);
+    return Objects.hash(type, account, location, port, profile, router, linkProtocol, virtualDevice, _interface, network, sellerRegion, peeringType, authenticationKey, providerConnectionId, virtualNetwork, interconnection, vpicInterface, role, additionalProperties);
   }
 
   @Override
@@ -605,6 +679,7 @@ public class AccessPoint {
     sb.append("    virtualNetwork: ").append(toIndentedString(virtualNetwork)).append("\n");
     sb.append("    interconnection: ").append(toIndentedString(interconnection)).append("\n");
     sb.append("    vpicInterface: ").append(toIndentedString(vpicInterface)).append("\n");
+    sb.append("    role: ").append(toIndentedString(role)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -645,6 +720,7 @@ public class AccessPoint {
     openapiFields.add("virtualNetwork");
     openapiFields.add("interconnection");
     openapiFields.add("vpic_interface");
+    openapiFields.add("role");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -718,6 +794,9 @@ public class AccessPoint {
       // validate the optional field `vpic_interface`
       if (jsonObj.get("vpic_interface") != null && !jsonObj.get("vpic_interface").isJsonNull()) {
         VpicInterface.validateJsonObject(jsonObj.getAsJsonObject("vpic_interface"));
+      }
+      if ((jsonObj.get("role") != null && !jsonObj.get("role").isJsonNull()) && !jsonObj.get("role").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `role` to be a primitive type in the JSON string but got `%s`", jsonObj.get("role").toString()));
       }
   }
 
