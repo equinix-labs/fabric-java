@@ -3982,33 +3982,6 @@ paths:
               examples:
                 example:
                   $ref: "#/components/examples/port-500"
-  /fabric/v4/ports/bulk:
-    post:
-      tags:
-        - Ports
-      summary: Create Port
-      description: Create Port creates Equinix Fabric? Port.<font color="red"> <sup color='red'>Preview</sup></font>
-      operationId: createBulkPort
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/BulkPortRequest"
-            examples:
-              COLOBulkPort:
-                $ref: "#/components/examples/COLOBulkPort"
-        required: true
-      responses:
-        "201":
-          description: Successful operation for COLO Bulk Port
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/BulkPort"
-              examples:
-                bulkPortExample:
-                  $ref: "#/components/examples/COLOBulkPortResponse"
   "/fabric/v4/ports/{portId}/physicalPorts/bulk":
     post:
       tags:
