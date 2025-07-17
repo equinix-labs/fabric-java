@@ -168,7 +168,6 @@ Class | Method | HTTP request | Description
 *NetworksApi* | [**searchNetworks**](docs/NetworksApi.md#searchNetworks) | **POST** /fabric/v4/networks/search | Search Network
 *NetworksApi* | [**updateNetworkByUuid**](docs/NetworksApi.md#updateNetworkByUuid) | **PATCH** /fabric/v4/networks/{networkId} | Update Network By ID
 *PortsApi* | [**addToLag**](docs/PortsApi.md#addToLag) | **POST** /fabric/v4/ports/{portId}/physicalPorts/bulk | Add to Lag
-*PortsApi* | [**createBulkPort**](docs/PortsApi.md#createBulkPort) | **POST** /fabric/v4/ports/bulk | Create Port
 *PortsApi* | [**createPort**](docs/PortsApi.md#createPort) | **POST** /fabric/v4/ports | Create Port
 *PortsApi* | [**deletePort**](docs/PortsApi.md#deletePort) | **DELETE** /fabric/v4/ports/{portId} | Delete a single port
 *PortsApi* | [**getPortByUuid**](docs/PortsApi.md#getPortByUuid) | **GET** /fabric/v4/ports/{portId} | Get Port by uuid
