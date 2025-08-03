@@ -28,8 +28,6 @@ import java.io.IOException;
 import com.equinix.openapi.fabric.v4.model.AllPhysicalPortsResponse;
 import com.equinix.openapi.fabric.v4.model.AllPortsResponse;
 import com.equinix.openapi.fabric.v4.model.BulkPhysicalPort;
-import com.equinix.openapi.fabric.v4.model.BulkPort;
-import com.equinix.openapi.fabric.v4.model.BulkPortRequest;
 import com.equinix.openapi.fabric.v4.model.Error;
 import com.equinix.openapi.fabric.v4.model.LinkProtocolGetResponse;
 import com.equinix.openapi.fabric.v4.model.Port;
@@ -224,129 +222,6 @@ public class PortsApi {
 
         okhttp3.Call localVarCall = addToLagValidateBeforeCall(portId, bulkPhysicalPort, _callback);
         Type localVarReturnType = new TypeToken<AllPhysicalPortsResponse>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for createBulkPort
-     * @param bulkPortRequest  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td> Successful operation for COLO Bulk Port </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createBulkPortCall(BulkPortRequest bulkPortRequest, final ApiCallback _callback) throws ApiException {
-        String basePath = null;
-        // Operation Servers
-        String[] localBasePaths = new String[] {  };
-
-        // Determine Base Path to Use
-        if (localCustomBaseUrl != null){
-            basePath = localCustomBaseUrl;
-        } else if ( localBasePaths.length > 0 ) {
-            basePath = localBasePaths[localHostIndex];
-        } else {
-            basePath = null;
-        }
-
-        Object localVarPostBody = bulkPortRequest;
-
-        // create path and map variables
-        String localVarPath = "/fabric/v4/ports/bulk";
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, String> localVarCookieParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-
-        final String[] localVarAccepts = {
-            "application/json"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            "application/json"
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (localVarContentType != null) {
-            localVarHeaderParams.put("Content-Type", localVarContentType);
-        }
-
-        String[] localVarAuthNames = new String[] { "BearerAuth" };
-        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call createBulkPortValidateBeforeCall(BulkPortRequest bulkPortRequest, final ApiCallback _callback) throws ApiException {
-        // verify the required parameter 'bulkPortRequest' is set
-        if (bulkPortRequest == null) {
-            throw new ApiException("Missing the required parameter 'bulkPortRequest' when calling createBulkPort(Async)");
-        }
-
-        return createBulkPortCall(bulkPortRequest, _callback);
-
-    }
-
-    /**
-     * Create Port
-     * Create Port creates Equinix Fabric? Port.&lt;font color&#x3D;\&quot;red\&quot;&gt; &lt;sup color&#x3D;&#39;red&#39;&gt;Preview&lt;/sup&gt;&lt;/font&gt;
-     * @param bulkPortRequest  (required)
-     * @return BulkPort
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td> Successful operation for COLO Bulk Port </td><td>  -  </td></tr>
-     </table>
-     */
-    public BulkPort createBulkPort(BulkPortRequest bulkPortRequest) throws ApiException {
-        ApiResponse<BulkPort> localVarResp = createBulkPortWithHttpInfo(bulkPortRequest);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Create Port
-     * Create Port creates Equinix Fabric? Port.&lt;font color&#x3D;\&quot;red\&quot;&gt; &lt;sup color&#x3D;&#39;red&#39;&gt;Preview&lt;/sup&gt;&lt;/font&gt;
-     * @param bulkPortRequest  (required)
-     * @return ApiResponse&lt;BulkPort&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td> Successful operation for COLO Bulk Port </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<BulkPort> createBulkPortWithHttpInfo(BulkPortRequest bulkPortRequest) throws ApiException {
-        okhttp3.Call localVarCall = createBulkPortValidateBeforeCall(bulkPortRequest, null);
-        Type localVarReturnType = new TypeToken<BulkPort>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Create Port (asynchronously)
-     * Create Port creates Equinix Fabric? Port.&lt;font color&#x3D;\&quot;red\&quot;&gt; &lt;sup color&#x3D;&#39;red&#39;&gt;Preview&lt;/sup&gt;&lt;/font&gt;
-     * @param bulkPortRequest  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td> Successful operation for COLO Bulk Port </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createBulkPortAsync(BulkPortRequest bulkPortRequest, final ApiCallback<BulkPort> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = createBulkPortValidateBeforeCall(bulkPortRequest, _callback);
-        Type localVarReturnType = new TypeToken<BulkPort>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
