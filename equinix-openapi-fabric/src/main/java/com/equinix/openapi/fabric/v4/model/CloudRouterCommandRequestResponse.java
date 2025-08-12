@@ -46,7 +46,7 @@ import com.equinix.openapi.fabric.JSON;
  * Fabric Cloud Router Command Request
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class CloudRouterCommandRequest {
+public class CloudRouterCommandRequestResponse {
   public static final String SERIALIZED_NAME_DESTINATION = "destination";
   @SerializedName(SERIALIZED_NAME_DESTINATION)
   private String destination;
@@ -79,30 +79,20 @@ public class CloudRouterCommandRequest {
   @SerializedName(SERIALIZED_NAME_HOPS_MAX)
   private Integer hopsMax = 20;
 
-  public CloudRouterCommandRequest() {
+  public CloudRouterCommandRequestResponse() {
   }
 
-  
-  public CloudRouterCommandRequest(
-     Integer interval, 
-     Integer count
-  ) {
-    this();
-    this.interval = interval;
-    this.count = count;
-  }
-
-  public CloudRouterCommandRequest destination(String destination) {
+  public CloudRouterCommandRequestResponse destination(String destination) {
     
     this.destination = destination;
     return this;
   }
 
    /**
-   * Fabric Cloud Router Ping Command Destination
+   * Fabric Cloud Router Ping or Traceroute Command Destination
    * @return destination
   **/
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
 
   public String getDestination() {
     return destination;
@@ -114,7 +104,7 @@ public class CloudRouterCommandRequest {
   }
 
 
-  public CloudRouterCommandRequest sourceConnection(CloudRouterCommandRequestConnection sourceConnection) {
+  public CloudRouterCommandRequestResponse sourceConnection(CloudRouterCommandRequestConnection sourceConnection) {
     
     this.sourceConnection = sourceConnection;
     return this;
@@ -124,7 +114,7 @@ public class CloudRouterCommandRequest {
    * Get sourceConnection
    * @return sourceConnection
   **/
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
 
   public CloudRouterCommandRequestConnection getSourceConnection() {
     return sourceConnection;
@@ -136,14 +126,14 @@ public class CloudRouterCommandRequest {
   }
 
 
-  public CloudRouterCommandRequest timeout(Integer timeout) {
+  public CloudRouterCommandRequestResponse timeout(Integer timeout) {
     
     this.timeout = timeout;
     return this;
   }
 
    /**
-   * Timeout in seconds for Fabric Cloud Router Ping or Traceroute Command
+   * Timeout in seconds for Fabric Cloud Router Command:   - For &#x60;PING_COMMAND&#x60;: Packet timeout duration. The default value is 5.   - For &#x60;TRACEROUTE_COMMAND&#x60;: Probe timeout duration.     The default value is 2 and it is not configurable. 
    * @return timeout
   **/
   @javax.annotation.Nullable
@@ -158,14 +148,14 @@ public class CloudRouterCommandRequest {
   }
 
 
-  public CloudRouterCommandRequest dataBytes(Integer dataBytes) {
+  public CloudRouterCommandRequestResponse dataBytes(Integer dataBytes) {
     
     this.dataBytes = dataBytes;
     return this;
   }
 
    /**
-   * Fabric Cloud Router Ping Command DataBytes
+   * Ping Command DataBytes.  This field is only applicable for commands of type &#x60;PING_COMMAND&#x60;. 
    * minimum: 16
    * maximum: 9000
    * @return dataBytes
@@ -182,8 +172,14 @@ public class CloudRouterCommandRequest {
   }
 
 
+  public CloudRouterCommandRequestResponse interval(Integer interval) {
+    
+    this.interval = interval;
+    return this;
+  }
+
    /**
-   * Time in milliseconds between sending each packet for Fabric Cloud Router Ping Command
+   * Time in milliseconds between sending each packet. This field is only applicable for commands of type &#x60;PING_COMMAND&#x60;. 
    * @return interval
   **/
   @javax.annotation.Nullable
@@ -193,10 +189,19 @@ public class CloudRouterCommandRequest {
   }
 
 
+  public void setInterval(Integer interval) {
+    this.interval = interval;
+  }
 
+
+  public CloudRouterCommandRequestResponse count(Integer count) {
+    
+    this.count = count;
+    return this;
+  }
 
    /**
-   * Total number of ping requests for Fabric Cloud Router Ping Command
+   * Total number of ping requests. This field is only applicable for commands of type &#x60;PING_COMMAND&#x60;. 
    * @return count
   **/
   @javax.annotation.Nullable
@@ -206,16 +211,19 @@ public class CloudRouterCommandRequest {
   }
 
 
+  public void setCount(Integer count) {
+    this.count = count;
+  }
 
 
-  public CloudRouterCommandRequest probes(Integer probes) {
+  public CloudRouterCommandRequestResponse probes(Integer probes) {
     
     this.probes = probes;
     return this;
   }
 
    /**
-   * Number of probes to send for Fabric Cloud Router Traceroute Command
+   * Number of probes for Fabric Cloud Router Traceroute Command. This field is only applicable for commands of type &#x60;TRACEROUTE_COMMAND&#x60; and is not configurable. 
    * @return probes
   **/
   @javax.annotation.Nullable
@@ -230,14 +238,14 @@ public class CloudRouterCommandRequest {
   }
 
 
-  public CloudRouterCommandRequest hopsMax(Integer hopsMax) {
+  public CloudRouterCommandRequestResponse hopsMax(Integer hopsMax) {
     
     this.hopsMax = hopsMax;
     return this;
   }
 
    /**
-   * Maximum number of hops for Fabric Cloud Router Traceroute Command
+   * Maximum number of hops for the traceroute command. This field is only applicable for commands of type &#x60;TRACEROUTE_COMMAND&#x60;. 
    * maximum: 30
    * @return hopsMax
   **/
@@ -265,9 +273,9 @@ public class CloudRouterCommandRequest {
    *
    * @param key name of the property
    * @param value value of the property
-   * @return the CloudRouterCommandRequest instance itself
+   * @return the CloudRouterCommandRequestResponse instance itself
    */
-  public CloudRouterCommandRequest putAdditionalProperty(String key, Object value) {
+  public CloudRouterCommandRequestResponse putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
         this.additionalProperties = new HashMap<String, Object>();
     }
@@ -306,16 +314,16 @@ public class CloudRouterCommandRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CloudRouterCommandRequest cloudRouterCommandRequest = (CloudRouterCommandRequest) o;
-    return Objects.equals(this.destination, cloudRouterCommandRequest.destination) &&
-        Objects.equals(this.sourceConnection, cloudRouterCommandRequest.sourceConnection) &&
-        Objects.equals(this.timeout, cloudRouterCommandRequest.timeout) &&
-        Objects.equals(this.dataBytes, cloudRouterCommandRequest.dataBytes) &&
-        Objects.equals(this.interval, cloudRouterCommandRequest.interval) &&
-        Objects.equals(this.count, cloudRouterCommandRequest.count) &&
-        Objects.equals(this.probes, cloudRouterCommandRequest.probes) &&
-        Objects.equals(this.hopsMax, cloudRouterCommandRequest.hopsMax)&&
-        Objects.equals(this.additionalProperties, cloudRouterCommandRequest.additionalProperties);
+    CloudRouterCommandRequestResponse cloudRouterCommandRequestResponse = (CloudRouterCommandRequestResponse) o;
+    return Objects.equals(this.destination, cloudRouterCommandRequestResponse.destination) &&
+        Objects.equals(this.sourceConnection, cloudRouterCommandRequestResponse.sourceConnection) &&
+        Objects.equals(this.timeout, cloudRouterCommandRequestResponse.timeout) &&
+        Objects.equals(this.dataBytes, cloudRouterCommandRequestResponse.dataBytes) &&
+        Objects.equals(this.interval, cloudRouterCommandRequestResponse.interval) &&
+        Objects.equals(this.count, cloudRouterCommandRequestResponse.count) &&
+        Objects.equals(this.probes, cloudRouterCommandRequestResponse.probes) &&
+        Objects.equals(this.hopsMax, cloudRouterCommandRequestResponse.hopsMax)&&
+        Objects.equals(this.additionalProperties, cloudRouterCommandRequestResponse.additionalProperties);
   }
 
   @Override
@@ -326,7 +334,7 @@ public class CloudRouterCommandRequest {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class CloudRouterCommandRequest {\n");
+    sb.append("class CloudRouterCommandRequestResponse {\n");
     sb.append("    destination: ").append(toIndentedString(destination)).append("\n");
     sb.append("    sourceConnection: ").append(toIndentedString(sourceConnection)).append("\n");
     sb.append("    timeout: ").append(toIndentedString(timeout)).append("\n");
@@ -369,50 +377,43 @@ public class CloudRouterCommandRequest {
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("destination");
-    openapiRequiredFields.add("sourceConnection");
   }
 
  /**
   * Validates the JSON Object and throws an exception if issues found
   *
   * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to CloudRouterCommandRequest
+  * @throws IOException if the JSON Object is invalid with respect to CloudRouterCommandRequestResponse
   */
   public static void validateJsonObject(JsonObject jsonObj) throws IOException {
       if (jsonObj == null) {
-        if (!CloudRouterCommandRequest.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in CloudRouterCommandRequest is not found in the empty JSON string", CloudRouterCommandRequest.openapiRequiredFields.toString()));
+        if (!CloudRouterCommandRequestResponse.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in CloudRouterCommandRequestResponse is not found in the empty JSON string", CloudRouterCommandRequestResponse.openapiRequiredFields.toString()));
         }
       }
-
-      // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : CloudRouterCommandRequest.openapiRequiredFields) {
-        if (jsonObj.get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
-        }
-      }
-      if (!jsonObj.get("destination").isJsonPrimitive()) {
+      if ((jsonObj.get("destination") != null && !jsonObj.get("destination").isJsonNull()) && !jsonObj.get("destination").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `destination` to be a primitive type in the JSON string but got `%s`", jsonObj.get("destination").toString()));
       }
-      // validate the required field `sourceConnection`
-      CloudRouterCommandRequestConnection.validateJsonObject(jsonObj.getAsJsonObject("sourceConnection"));
+      // validate the optional field `sourceConnection`
+      if (jsonObj.get("sourceConnection") != null && !jsonObj.get("sourceConnection").isJsonNull()) {
+        CloudRouterCommandRequestConnection.validateJsonObject(jsonObj.getAsJsonObject("sourceConnection"));
+      }
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!CloudRouterCommandRequest.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'CloudRouterCommandRequest' and its subtypes
+       if (!CloudRouterCommandRequestResponse.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'CloudRouterCommandRequestResponse' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<CloudRouterCommandRequest> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(CloudRouterCommandRequest.class));
+       final TypeAdapter<CloudRouterCommandRequestResponse> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(CloudRouterCommandRequestResponse.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<CloudRouterCommandRequest>() {
+       return (TypeAdapter<T>) new TypeAdapter<CloudRouterCommandRequestResponse>() {
            @Override
-           public void write(JsonWriter out, CloudRouterCommandRequest value) throws IOException {
+           public void write(JsonWriter out, CloudRouterCommandRequestResponse value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
              // serialize additional properties
@@ -435,11 +436,11 @@ public class CloudRouterCommandRequest {
            }
 
            @Override
-           public CloudRouterCommandRequest read(JsonReader in) throws IOException {
+           public CloudRouterCommandRequestResponse read(JsonReader in) throws IOException {
              JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
              validateJsonObject(jsonObj);
              // store additional fields in the deserialized instance
-             CloudRouterCommandRequest instance = thisAdapter.fromJsonTree(jsonObj);
+             CloudRouterCommandRequestResponse instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
                if (!openapiFields.contains(entry.getKey())) {
                  if (entry.getValue().isJsonPrimitive()) { // primitive type
@@ -466,18 +467,18 @@ public class CloudRouterCommandRequest {
   }
 
  /**
-  * Create an instance of CloudRouterCommandRequest given an JSON string
+  * Create an instance of CloudRouterCommandRequestResponse given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of CloudRouterCommandRequest
-  * @throws IOException if the JSON string is invalid with respect to CloudRouterCommandRequest
+  * @return An instance of CloudRouterCommandRequestResponse
+  * @throws IOException if the JSON string is invalid with respect to CloudRouterCommandRequestResponse
   */
-  public static CloudRouterCommandRequest fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, CloudRouterCommandRequest.class);
+  public static CloudRouterCommandRequestResponse fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, CloudRouterCommandRequestResponse.class);
   }
 
  /**
-  * Convert an instance of CloudRouterCommandRequest to an JSON string
+  * Convert an instance of CloudRouterCommandRequestResponse to an JSON string
   *
   * @return JSON string
   */

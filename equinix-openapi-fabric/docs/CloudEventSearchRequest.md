@@ -10,7 +10,6 @@ Search requests containing criteria
 |------------ | ------------- | ------------- | -------------|
 |**filter** | [**CloudEventFilters**](CloudEventFilters.md) |  |  [optional] |
 |**pagination** | [**PaginationRequest**](PaginationRequest.md) |  |  [optional] |
-|**sort** | [**List&lt;CloudEventFilters&gt;**](CloudEventFilters.md) |  |  [optional] |
 
 
 

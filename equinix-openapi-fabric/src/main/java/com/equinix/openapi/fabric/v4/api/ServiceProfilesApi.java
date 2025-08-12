@@ -153,7 +153,7 @@ public class ServiceProfilesApi {
 
     /**
      * Create Profile
-     * Create Service Profile creates Equinix Fabric? Service Profile.
+     * Create Service Profile creates Equinix Fabric™ Service Profile.
      * @param serviceProfileRequest  (required)
      * @return ServiceProfile
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -174,7 +174,7 @@ public class ServiceProfilesApi {
 
     /**
      * Create Profile
-     * Create Service Profile creates Equinix Fabric? Service Profile.
+     * Create Service Profile creates Equinix Fabric™ Service Profile.
      * @param serviceProfileRequest  (required)
      * @return ApiResponse&lt;ServiceProfile&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -196,7 +196,7 @@ public class ServiceProfilesApi {
 
     /**
      * Create Profile (asynchronously)
-     * Create Service Profile creates Equinix Fabric? Service Profile.
+     * Create Service Profile creates Equinix Fabric™ Service Profile.
      * @param serviceProfileRequest  (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call

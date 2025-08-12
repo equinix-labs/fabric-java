@@ -132,7 +132,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **asset** | [**CloudEventAssetType**](.md)| asset | [enum: ports, connections, routers, serviceTokens, networks, projects, organizations] |
+| **asset** | [**CloudEventAssetType**](.md)| asset | [enum: ports, connections, routers, serviceTokens, networks, projects, organizations, timeServices] |
 | **assetId** | **UUID**| asset UUID | |
 | **fromDateTime** | **OffsetDateTime**| Start date and time | [optional] |
 | **toDateTime** | **OffsetDateTime**| End date and time | [optional] |

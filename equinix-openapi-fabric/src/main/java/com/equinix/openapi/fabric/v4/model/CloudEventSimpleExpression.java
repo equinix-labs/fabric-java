@@ -70,7 +70,7 @@ public class CloudEventSimpleExpression {
   }
 
    /**
-   * Possible field names to use on filters:  * &#x60;/subject&#x60; - Cloud Event subject description  * &#x60;/type&#x60; - Cloud Event type  * &#x60;/time&#x60; - Time of Cloud Events 
+   * Possible field names to use on filters:  * &#x60;/subject&#x60; - Cloud Event subject description  * &#x60;/type&#x60; - Cloud Event type  * &#x60;/time&#x60; - Time of Cloud Events  * &#x60;/equinixproject&#x60; - Equinix Project of Cloud Events  * &#x60;/equinixorganization&#x60; - Equinix Organization of Cloud Events 
    * @return property
   **/
   @javax.annotation.Nullable
