@@ -1,0 +1,15 @@
+--- patched.openapi.yaml
++++ patched.openapi.yaml
+@@ -15088,12 +15088,6 @@ components:
+             $ref: "#/components/schemas/RouteAggregationRulesBase"
+       description: Create Route Aggregation Rule POST request
+     CloudRouterPostRequest:
+-      required:
+-        - location
+-        - name
+-        - notification
+-        - package
+-        - type
+       type: object
+       properties:
+         type:

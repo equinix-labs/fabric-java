@@ -12,7 +12,7 @@ Execute Cloud Router Command Request
 |**name** | **String** | Customer-provided Cloud Router Command name |  [optional] |
 |**description** | **String** | Customer-provided Cloud Router Command description |  [optional] |
 |**project** | [**Project**](Project.md) |  |  |
-|**request** | [**CloudRouterCommandRequest**](CloudRouterCommandRequest.md) |  |  |
+|**request** | [**CloudRouterCommandRequestPayload**](CloudRouterCommandRequestPayload.md) |  |  |
 
 
 

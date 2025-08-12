@@ -44,6 +44,8 @@ docs/BulkPort.md
 docs/BulkPortRequest.md
 docs/Change.md
 docs/Changelog.md
+docs/ClientInterfaces.md
+docs/ClientInterfacesApi.md
 docs/CloudEvent.md
 docs/CloudEventAssetType.md
 docs/CloudEventData.md
@@ -72,8 +74,9 @@ docs/CloudRouterChangeOperation.md
 docs/CloudRouterCommand.md
 docs/CloudRouterCommandPingResponse.md
 docs/CloudRouterCommandPostRequest.md
-docs/CloudRouterCommandRequest.md
 docs/CloudRouterCommandRequestConnection.md
+docs/CloudRouterCommandRequestPayload.md
+docs/CloudRouterCommandRequestResponse.md
 docs/CloudRouterCommandResponse.md
 docs/CloudRouterCommandSearchExpression.md
 docs/CloudRouterCommandSearchFilter.md
@@ -92,6 +95,7 @@ docs/CloudRouterFilters.md
 docs/CloudRouterOrFilter.md
 docs/CloudRouterPackage.md
 docs/CloudRouterPostRequest.md
+docs/CloudRouterPostRequestBase.md
 docs/CloudRouterPostRequestPackage.md
 docs/CloudRouterSearchRequest.md
 docs/CloudRouterSimpleExpression.md
@@ -226,6 +230,14 @@ docs/MetricResource.md
 docs/Metrics.md
 docs/MetricsApi.md
 docs/Metro.md
+docs/MetroConnectASide.md
+docs/MetroConnectASideResponse.md
+docs/MetroConnectOrder.md
+docs/MetroConnectPatchPanel.md
+docs/MetroConnectPort.md
+docs/MetroConnectPostRequest.md
+docs/MetroConnectZSide.md
+docs/MetroConnectZSideResponse.md
 docs/MetroError.md
 docs/MetroResponse.md
 docs/MetrosApi.md
@@ -502,6 +514,9 @@ docs/StreamPostRequest.md
 docs/StreamPutRequest.md
 docs/StreamSubscription.md
 docs/StreamSubscriptionFilter.md
+docs/StreamSubscriptionOperation.md
+docs/StreamSubscriptionOperationAdditionalInfo.md
+docs/StreamSubscriptionOperationErrors.md
 docs/StreamSubscriptionPostRequest.md
 docs/StreamSubscriptionPutRequest.md
 docs/StreamSubscriptionSelector.md
@@ -564,7 +579,6 @@ docs/VirtualPortRedundancy.md
 docs/VirtualPortServiceType.md
 docs/VirtualPortType.md
 docs/VpicInterface.md
-docs/VpnTunnelState.md
 git_push.sh
 gradle.properties
 gradle/wrapper/gradle-wrapper.jar
@@ -591,6 +605,7 @@ src/main/java/com/equinix/openapi/fabric/auth/ApiKeyAuth.java
 src/main/java/com/equinix/openapi/fabric/auth/Authentication.java
 src/main/java/com/equinix/openapi/fabric/auth/HttpBasicAuth.java
 src/main/java/com/equinix/openapi/fabric/auth/HttpBearerAuth.java
+src/main/java/com/equinix/openapi/fabric/v4/api/ClientInterfacesApi.java
 src/main/java/com/equinix/openapi/fabric/v4/api/CloudEventsApi.java
 src/main/java/com/equinix/openapi/fabric/v4/api/CloudRoutersApi.java
 src/main/java/com/equinix/openapi/fabric/v4/api/ConnectionsApi.java
@@ -653,6 +668,7 @@ src/main/java/com/equinix/openapi/fabric/v4/model/BulkPort.java
 src/main/java/com/equinix/openapi/fabric/v4/model/BulkPortRequest.java
 src/main/java/com/equinix/openapi/fabric/v4/model/Change.java
 src/main/java/com/equinix/openapi/fabric/v4/model/Changelog.java
+src/main/java/com/equinix/openapi/fabric/v4/model/ClientInterfaces.java
 src/main/java/com/equinix/openapi/fabric/v4/model/CloudEvent.java
 src/main/java/com/equinix/openapi/fabric/v4/model/CloudEventAssetType.java
 src/main/java/com/equinix/openapi/fabric/v4/model/CloudEventData.java
@@ -680,8 +696,9 @@ src/main/java/com/equinix/openapi/fabric/v4/model/CloudRouterChangeOperation.jav
 src/main/java/com/equinix/openapi/fabric/v4/model/CloudRouterCommand.java
 src/main/java/com/equinix/openapi/fabric/v4/model/CloudRouterCommandPingResponse.java
 src/main/java/com/equinix/openapi/fabric/v4/model/CloudRouterCommandPostRequest.java
-src/main/java/com/equinix/openapi/fabric/v4/model/CloudRouterCommandRequest.java
 src/main/java/com/equinix/openapi/fabric/v4/model/CloudRouterCommandRequestConnection.java
+src/main/java/com/equinix/openapi/fabric/v4/model/CloudRouterCommandRequestPayload.java
+src/main/java/com/equinix/openapi/fabric/v4/model/CloudRouterCommandRequestResponse.java
 src/main/java/com/equinix/openapi/fabric/v4/model/CloudRouterCommandResponse.java
 src/main/java/com/equinix/openapi/fabric/v4/model/CloudRouterCommandSearchExpression.java
 src/main/java/com/equinix/openapi/fabric/v4/model/CloudRouterCommandSearchFilter.java
@@ -700,6 +717,7 @@ src/main/java/com/equinix/openapi/fabric/v4/model/CloudRouterFilters.java
 src/main/java/com/equinix/openapi/fabric/v4/model/CloudRouterOrFilter.java
 src/main/java/com/equinix/openapi/fabric/v4/model/CloudRouterPackage.java
 src/main/java/com/equinix/openapi/fabric/v4/model/CloudRouterPostRequest.java
+src/main/java/com/equinix/openapi/fabric/v4/model/CloudRouterPostRequestBase.java
 src/main/java/com/equinix/openapi/fabric/v4/model/CloudRouterPostRequestPackage.java
 src/main/java/com/equinix/openapi/fabric/v4/model/CloudRouterSearchRequest.java
 src/main/java/com/equinix/openapi/fabric/v4/model/CloudRouterSimpleExpression.java
@@ -828,6 +846,14 @@ src/main/java/com/equinix/openapi/fabric/v4/model/MetricDatapoints.java
 src/main/java/com/equinix/openapi/fabric/v4/model/MetricResource.java
 src/main/java/com/equinix/openapi/fabric/v4/model/Metrics.java
 src/main/java/com/equinix/openapi/fabric/v4/model/Metro.java
+src/main/java/com/equinix/openapi/fabric/v4/model/MetroConnectASide.java
+src/main/java/com/equinix/openapi/fabric/v4/model/MetroConnectASideResponse.java
+src/main/java/com/equinix/openapi/fabric/v4/model/MetroConnectOrder.java
+src/main/java/com/equinix/openapi/fabric/v4/model/MetroConnectPatchPanel.java
+src/main/java/com/equinix/openapi/fabric/v4/model/MetroConnectPort.java
+src/main/java/com/equinix/openapi/fabric/v4/model/MetroConnectPostRequest.java
+src/main/java/com/equinix/openapi/fabric/v4/model/MetroConnectZSide.java
+src/main/java/com/equinix/openapi/fabric/v4/model/MetroConnectZSideResponse.java
 src/main/java/com/equinix/openapi/fabric/v4/model/MetroError.java
 src/main/java/com/equinix/openapi/fabric/v4/model/MetroResponse.java
 src/main/java/com/equinix/openapi/fabric/v4/model/ModelInterface.java
@@ -1090,6 +1116,9 @@ src/main/java/com/equinix/openapi/fabric/v4/model/StreamPostRequest.java
 src/main/java/com/equinix/openapi/fabric/v4/model/StreamPutRequest.java
 src/main/java/com/equinix/openapi/fabric/v4/model/StreamSubscription.java
 src/main/java/com/equinix/openapi/fabric/v4/model/StreamSubscriptionFilter.java
+src/main/java/com/equinix/openapi/fabric/v4/model/StreamSubscriptionOperation.java
+src/main/java/com/equinix/openapi/fabric/v4/model/StreamSubscriptionOperationAdditionalInfo.java
+src/main/java/com/equinix/openapi/fabric/v4/model/StreamSubscriptionOperationErrors.java
 src/main/java/com/equinix/openapi/fabric/v4/model/StreamSubscriptionPostRequest.java
 src/main/java/com/equinix/openapi/fabric/v4/model/StreamSubscriptionPutRequest.java
 src/main/java/com/equinix/openapi/fabric/v4/model/StreamSubscriptionSelector.java
@@ -1150,7 +1179,7 @@ src/main/java/com/equinix/openapi/fabric/v4/model/VirtualPortRedundancy.java
 src/main/java/com/equinix/openapi/fabric/v4/model/VirtualPortServiceType.java
 src/main/java/com/equinix/openapi/fabric/v4/model/VirtualPortType.java
 src/main/java/com/equinix/openapi/fabric/v4/model/VpicInterface.java
-src/main/java/com/equinix/openapi/fabric/v4/model/VpnTunnelState.java
+src/test/java/com/equinix/openapi/fabric/v4/api/ClientInterfacesApiTest.java
 src/test/java/com/equinix/openapi/fabric/v4/api/CloudEventsApiTest.java
 src/test/java/com/equinix/openapi/fabric/v4/api/CloudRoutersApiTest.java
 src/test/java/com/equinix/openapi/fabric/v4/api/ConnectionsApiTest.java
@@ -1212,6 +1241,7 @@ src/test/java/com/equinix/openapi/fabric/v4/model/BulkPortRequestTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/BulkPortTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/ChangeTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/ChangelogTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/ClientInterfacesTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/CloudEventAssetTypeTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/CloudEventDataTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/CloudEventFilterTest.java
@@ -1238,7 +1268,8 @@ src/test/java/com/equinix/openapi/fabric/v4/model/CloudRouterChangeTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/CloudRouterCommandPingResponseTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/CloudRouterCommandPostRequestTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/CloudRouterCommandRequestConnectionTest.java
-src/test/java/com/equinix/openapi/fabric/v4/model/CloudRouterCommandRequestTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/CloudRouterCommandRequestPayloadTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/CloudRouterCommandRequestResponseTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/CloudRouterCommandResponseTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/CloudRouterCommandSearchExpressionTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/CloudRouterCommandSearchFilterTest.java
@@ -1257,6 +1288,7 @@ src/test/java/com/equinix/openapi/fabric/v4/model/CloudRouterFilterTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/CloudRouterFiltersTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/CloudRouterOrFilterTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/CloudRouterPackageTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/CloudRouterPostRequestBaseTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/CloudRouterPostRequestPackageTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/CloudRouterPostRequestTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/CloudRouterSearchRequestTest.java
@@ -1386,6 +1418,14 @@ src/test/java/com/equinix/openapi/fabric/v4/model/MetricDatapointsTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/MetricResourceTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/MetricTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/MetricsTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/MetroConnectASideResponseTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/MetroConnectASideTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/MetroConnectOrderTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/MetroConnectPatchPanelTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/MetroConnectPortTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/MetroConnectPostRequestTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/MetroConnectZSideResponseTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/MetroConnectZSideTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/MetroErrorTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/MetroResponseTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/MetroTest.java
@@ -1647,6 +1687,9 @@ src/test/java/com/equinix/openapi/fabric/v4/model/StreamFilterTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/StreamPostRequestTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/StreamPutRequestTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/StreamSubscriptionFilterTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/StreamSubscriptionOperationAdditionalInfoTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/StreamSubscriptionOperationErrorsTest.java
+src/test/java/com/equinix/openapi/fabric/v4/model/StreamSubscriptionOperationTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/StreamSubscriptionPostRequestTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/StreamSubscriptionPutRequestTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/StreamSubscriptionSelectorTest.java
@@ -1709,4 +1752,3 @@ src/test/java/com/equinix/openapi/fabric/v4/model/VirtualPortRedundancyTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/VirtualPortServiceTypeTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/VirtualPortTypeTest.java
 src/test/java/com/equinix/openapi/fabric/v4/model/VpicInterfaceTest.java
-src/test/java/com/equinix/openapi/fabric/v4/model/VpnTunnelStateTest.java

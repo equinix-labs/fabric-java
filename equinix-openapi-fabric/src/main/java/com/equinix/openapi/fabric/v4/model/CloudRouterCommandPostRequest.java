@@ -13,7 +13,7 @@ package com.equinix.openapi.fabric.v4.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.equinix.openapi.fabric.v4.model.CloudRouterCommandRequest;
+import com.equinix.openapi.fabric.v4.model.CloudRouterCommandRequestPayload;
 import com.equinix.openapi.fabric.v4.model.CloudRouterCommandType;
 import com.equinix.openapi.fabric.v4.model.Project;
 import com.google.gson.TypeAdapter;
@@ -67,7 +67,7 @@ public class CloudRouterCommandPostRequest {
 
   public static final String SERIALIZED_NAME_REQUEST = "request";
   @SerializedName(SERIALIZED_NAME_REQUEST)
-  private CloudRouterCommandRequest request;
+  private CloudRouterCommandRequestPayload request;
 
   public CloudRouterCommandPostRequest() {
   }
@@ -160,7 +160,7 @@ public class CloudRouterCommandPostRequest {
   }
 
 
-  public CloudRouterCommandPostRequest request(CloudRouterCommandRequest request) {
+  public CloudRouterCommandPostRequest request(CloudRouterCommandRequestPayload request) {
     
     this.request = request;
     return this;
@@ -172,12 +172,12 @@ public class CloudRouterCommandPostRequest {
   **/
   @javax.annotation.Nonnull
 
-  public CloudRouterCommandRequest getRequest() {
+  public CloudRouterCommandRequestPayload getRequest() {
     return request;
   }
 
 
-  public void setRequest(CloudRouterCommandRequest request) {
+  public void setRequest(CloudRouterCommandRequestPayload request) {
     this.request = request;
   }
 
@@ -322,7 +322,7 @@ public class CloudRouterCommandPostRequest {
       // validate the required field `project`
       Project.validateJsonObject(jsonObj.getAsJsonObject("project"));
       // validate the required field `request`
-      CloudRouterCommandRequest.validateJsonObject(jsonObj.getAsJsonObject("request"));
+      CloudRouterCommandRequestPayload.validateJsonObject(jsonObj.getAsJsonObject("request"));
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {

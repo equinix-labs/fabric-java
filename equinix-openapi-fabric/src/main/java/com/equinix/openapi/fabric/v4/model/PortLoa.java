@@ -19,7 +19,6 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
-import java.net.URI;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -51,68 +50,11 @@ public class PortLoa {
   @SerializedName(SERIALIZED_NAME_UUID)
   private String uuid;
 
-  public static final String SERIALIZED_NAME_HREF = "href";
-  @SerializedName(SERIALIZED_NAME_HREF)
-  private URI href;
-
-  /**
-   * Loa type
-   */
-  @JsonAdapter(TypeEnum.Adapter.class)
-  public enum TypeEnum {
-    CTR_LOA("CTR_LOA");
-
-    private String value;
-
-    TypeEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static TypeEnum fromValue(String value) {
-      for (TypeEnum b : TypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-
-    public static class Adapter extends TypeAdapter<TypeEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final TypeEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public TypeEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return TypeEnum.fromValue(value);
-      }
-    }
-  }
-
   public static final String SERIALIZED_NAME_TYPE = "type";
   @SerializedName(SERIALIZED_NAME_TYPE)
-  private TypeEnum type;
+  private String type;
 
   public PortLoa() {
-  }
-
-  
-  public PortLoa(
-     URI href
-  ) {
-    this();
-    this.href = href;
   }
 
   public PortLoa uuid(String uuid) {
@@ -137,20 +79,7 @@ public class PortLoa {
   }
 
 
-   /**
-   * Loa uri.
-   * @return href
-  **/
-  @javax.annotation.Nullable
-
-  public URI getHref() {
-    return href;
-  }
-
-
-
-
-  public PortLoa type(TypeEnum type) {
+  public PortLoa type(String type) {
     
     this.type = type;
     return this;
@@ -162,12 +91,12 @@ public class PortLoa {
   **/
   @javax.annotation.Nullable
 
-  public TypeEnum getType() {
+  public String getType() {
     return type;
   }
 
 
-  public void setType(TypeEnum type) {
+  public void setType(String type) {
     this.type = type;
   }
 
@@ -227,14 +156,13 @@ public class PortLoa {
     }
     PortLoa portLoa = (PortLoa) o;
     return Objects.equals(this.uuid, portLoa.uuid) &&
-        Objects.equals(this.href, portLoa.href) &&
         Objects.equals(this.type, portLoa.type)&&
         Objects.equals(this.additionalProperties, portLoa.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(uuid, href, type, additionalProperties);
+    return Objects.hash(uuid, type, additionalProperties);
   }
 
   @Override
@@ -242,7 +170,6 @@ public class PortLoa {
     StringBuilder sb = new StringBuilder();
     sb.append("class PortLoa {\n");
     sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
-    sb.append("    href: ").append(toIndentedString(href)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
@@ -268,7 +195,6 @@ public class PortLoa {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("uuid");
-    openapiFields.add("href");
     openapiFields.add("type");
 
     // a set of required properties/fields (JSON key names)
@@ -289,9 +215,6 @@ public class PortLoa {
       }
       if ((jsonObj.get("uuid") != null && !jsonObj.get("uuid").isJsonNull()) && !jsonObj.get("uuid").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `uuid` to be a primitive type in the JSON string but got `%s`", jsonObj.get("uuid").toString()));
-      }
-      if ((jsonObj.get("href") != null && !jsonObj.get("href").isJsonNull()) && !jsonObj.get("href").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `href` to be a primitive type in the JSON string but got `%s`", jsonObj.get("href").toString()));
       }
       if ((jsonObj.get("type") != null && !jsonObj.get("type").isJsonNull()) && !jsonObj.get("type").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("type").toString()));

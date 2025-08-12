@@ -17,9 +17,12 @@ Cloud Event object
 |**datacontenttype** | **String** | Cloud Event data content type |  [optional] |
 |**severitynumber** | **String** | Cloud Event severity number |  [optional] |
 |**severitytext** | **String** | Cloud Event severity text |  [optional] |
+|**equinixorganization** | **UUID** | Equinix organization identifier |  [optional] |
 |**equinixproject** | **UUID** | Equinix project identifier |  [optional] |
 |**authtype** | **String** | Cloud Event auth type |  [optional] |
 |**authid** | **String** | Cloud Event user identifier |  [optional] |
+|**traceparent** | **String** | Cloud Event traceparent |  [optional] |
+|**tracestate** | **String** | Cloud Event tracestate |  [optional] |
 |**data** | [**CloudEventData**](CloudEventData.md) |  |  [optional] |
 
 

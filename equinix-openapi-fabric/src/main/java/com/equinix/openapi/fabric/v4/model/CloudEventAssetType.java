@@ -39,7 +39,9 @@ public enum CloudEventAssetType {
   
   PROJECTS("projects"),
   
-  ORGANIZATIONS("organizations");
+  ORGANIZATIONS("organizations"),
+  
+  TIMESERVICES("timeServices");
 
   private String value;
 

@@ -170,70 +170,9 @@ public class StreamAlertRule {
   @SerializedName(SERIALIZED_NAME_ENABLED)
   private Boolean enabled = true;
 
-  /**
-   * Stream alert rule metric name
-   */
-  @JsonAdapter(MetricNameEnum.Adapter.class)
-  public enum MetricNameEnum {
-    CONNECTION_BANDWIDTH_TX_USAGE("equinix.fabric.connection.bandwidth_tx.usage"),
-    
-    CONNECTION_BANDWIDTH_RX_USAGE("equinix.fabric.connection.bandwidth_rx.usage"),
-    
-    PORT_BANDWIDTH_TX_USAGE("equinix.fabric.port.bandwidth_tx.usage"),
-    
-    PORT_BANDWIDTH_RX_USAGE("equinix.fabric.port.bandwidth_rx.usage"),
-    
-    PORT_PACKETS_ERRED_TX_COUNT("equinix.fabric.port.packets_erred_tx.count"),
-    
-    PORT_PACKETS_ERRED_RX_COUNT("equinix.fabric.port.packets_erred_rx.count"),
-    
-    PORT_PACKETS_DROPPED_TX_COUNT("equinix.fabric.port.packets_dropped_tx.count"),
-    
-    PORT_PACKETS_DROPPED_RX_COUNT("equinix.fabric.port.packets_dropped_rx.count"),
-    
-    METRO_SOURCE_METRO_CODE___DESTINATION_METRO_CODE_LATENCY("equinix.fabric.metro.<source_metro_code>_<destination_metro_code>.latency");
-
-    private String value;
-
-    MetricNameEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static MetricNameEnum fromValue(String value) {
-      for (MetricNameEnum b : MetricNameEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-
-    public static class Adapter extends TypeAdapter<MetricNameEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final MetricNameEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public MetricNameEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return MetricNameEnum.fromValue(value);
-      }
-    }
-  }
-
   public static final String SERIALIZED_NAME_METRIC_NAME = "metricName";
   @SerializedName(SERIALIZED_NAME_METRIC_NAME)
-  private MetricNameEnum metricName;
+  private String metricName;
 
   public static final String SERIALIZED_NAME_RESOURCE_SELECTOR = "resourceSelector";
   @SerializedName(SERIALIZED_NAME_RESOURCE_SELECTOR)
@@ -462,7 +401,7 @@ public class StreamAlertRule {
   }
 
 
-  public StreamAlertRule metricName(MetricNameEnum metricName) {
+  public StreamAlertRule metricName(String metricName) {
     
     this.metricName = metricName;
     return this;
@@ -474,12 +413,12 @@ public class StreamAlertRule {
   **/
   @javax.annotation.Nullable
 
-  public MetricNameEnum getMetricName() {
+  public String getMetricName() {
     return metricName;
   }
 
 
-  public void setMetricName(MetricNameEnum metricName) {
+  public void setMetricName(String metricName) {
     this.metricName = metricName;
   }
 

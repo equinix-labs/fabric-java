@@ -9,7 +9,7 @@ All URIs are relative to *https://api.equinix.com*
 
 <a name="getMetricByAssetId"></a>
 # **getMetricByAssetId**
-> GetMetricsByAssetResponse getMetricByAssetId(asset, assetId, fromDateTime, toDateTime, offset, limit)
+> GetMetricsByAssetResponse getMetricByAssetId(asset, assetId, name, fromDateTime, toDateTime, offset, limit)
 
 Get Metrics by Asset Id
 
@@ -37,12 +37,13 @@ public class Example {
     MetricsApi apiInstance = new MetricsApi(defaultClient);
     MetricAssetType asset = MetricAssetType.fromValue("ports"); // MetricAssetType | asset
     UUID assetId = UUID.randomUUID(); // UUID | asset UUID
+    String name = "name_example"; // String | Name of the metric types: - equinix.fabric.connection.bandwidth_rx.usage - equinix.fabric.connection.bandwidth_tx.usage - equinix.fabric.connection.packets_dropped_rx_aside_rateexceeded.count - equinix.fabric.connection.packets_dropped_tx_aside_rateexceeded.count - equinix.fabric.connection.packets_dropped_rx_zside_rateexceeded.count - equinix.fabric.connection.packets_dropped_tx_zside_rateexceeded.count - equinix.fabric.port.bandwidth_rx.usage - equinix.fabric.port.bandwidth_tx.usage - equinix.fabric.port.packets_dropped_rx.count - equinix.fabric.port.packets_dropped_tx.count - equinix.fabric.port.packets_erred_rx.count - equinix.fabric.port.packets_erred_tx.count - equinix.fabric.metro.{source_metro_code}_{destination_metro_code}.latency - equinix.fabric.metro.{source_metro_code}_{destination_metro_code}.jitter_avg 
     OffsetDateTime fromDateTime = OffsetDateTime.now(); // OffsetDateTime | Start date and time
     OffsetDateTime toDateTime = OffsetDateTime.now(); // OffsetDateTime | End date and time
     Integer offset = 0; // Integer | offset
     Integer limit = 20; // Integer | limit
     try {
-      GetMetricsByAssetResponse result = apiInstance.getMetricByAssetId(asset, assetId, fromDateTime, toDateTime, offset, limit);
+      GetMetricsByAssetResponse result = apiInstance.getMetricByAssetId(asset, assetId, name, fromDateTime, toDateTime, offset, limit);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling MetricsApi#getMetricByAssetId");
@@ -59,8 +60,9 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **asset** | [**MetricAssetType**](.md)| asset | [enum: ports, connections, routers] |
+| **asset** | [**MetricAssetType**](.md)| asset | [enum: ports, connections, metros] |
 | **assetId** | **UUID**| asset UUID | |
+| **name** | **String**| Name of the metric types: - equinix.fabric.connection.bandwidth_rx.usage - equinix.fabric.connection.bandwidth_tx.usage - equinix.fabric.connection.packets_dropped_rx_aside_rateexceeded.count - equinix.fabric.connection.packets_dropped_tx_aside_rateexceeded.count - equinix.fabric.connection.packets_dropped_rx_zside_rateexceeded.count - equinix.fabric.connection.packets_dropped_tx_zside_rateexceeded.count - equinix.fabric.port.bandwidth_rx.usage - equinix.fabric.port.bandwidth_tx.usage - equinix.fabric.port.packets_dropped_rx.count - equinix.fabric.port.packets_dropped_tx.count - equinix.fabric.port.packets_erred_rx.count - equinix.fabric.port.packets_erred_tx.count - equinix.fabric.metro.{source_metro_code}_{destination_metro_code}.latency - equinix.fabric.metro.{source_metro_code}_{destination_metro_code}.jitter_avg  | |
 | **fromDateTime** | **OffsetDateTime**| Start date and time | [optional] |
 | **toDateTime** | **OffsetDateTime**| End date and time | [optional] |
 | **offset** | **Integer**| offset | [optional] [default to 0] |

@@ -79,6 +79,7 @@ public class MetricsApi {
      * Build call for getMetricByAssetId
      * @param asset asset (required)
      * @param assetId asset UUID (required)
+     * @param name Name of the metric types: - equinix.fabric.connection.bandwidth_rx.usage - equinix.fabric.connection.bandwidth_tx.usage - equinix.fabric.connection.packets_dropped_rx_aside_rateexceeded.count - equinix.fabric.connection.packets_dropped_tx_aside_rateexceeded.count - equinix.fabric.connection.packets_dropped_rx_zside_rateexceeded.count - equinix.fabric.connection.packets_dropped_tx_zside_rateexceeded.count - equinix.fabric.port.bandwidth_rx.usage - equinix.fabric.port.bandwidth_tx.usage - equinix.fabric.port.packets_dropped_rx.count - equinix.fabric.port.packets_dropped_tx.count - equinix.fabric.port.packets_erred_rx.count - equinix.fabric.port.packets_erred_tx.count - equinix.fabric.metro.{source_metro_code}_{destination_metro_code}.latency - equinix.fabric.metro.{source_metro_code}_{destination_metro_code}.jitter_avg  (required)
      * @param fromDateTime Start date and time (optional)
      * @param toDateTime End date and time (optional)
      * @param offset offset (optional, default to 0)
@@ -96,7 +97,7 @@ public class MetricsApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getMetricByAssetIdCall(MetricAssetType asset, UUID assetId, OffsetDateTime fromDateTime, OffsetDateTime toDateTime, Integer offset, Integer limit, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getMetricByAssetIdCall(MetricAssetType asset, UUID assetId, String name, OffsetDateTime fromDateTime, OffsetDateTime toDateTime, Integer offset, Integer limit, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -122,6 +123,10 @@ public class MetricsApi {
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        if (name != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("name", name));
+        }
 
         if (fromDateTime != null) {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("fromDateTime", fromDateTime));
@@ -159,7 +164,7 @@ public class MetricsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getMetricByAssetIdValidateBeforeCall(MetricAssetType asset, UUID assetId, OffsetDateTime fromDateTime, OffsetDateTime toDateTime, Integer offset, Integer limit, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getMetricByAssetIdValidateBeforeCall(MetricAssetType asset, UUID assetId, String name, OffsetDateTime fromDateTime, OffsetDateTime toDateTime, Integer offset, Integer limit, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'asset' is set
         if (asset == null) {
             throw new ApiException("Missing the required parameter 'asset' when calling getMetricByAssetId(Async)");
@@ -170,7 +175,12 @@ public class MetricsApi {
             throw new ApiException("Missing the required parameter 'assetId' when calling getMetricByAssetId(Async)");
         }
 
-        return getMetricByAssetIdCall(asset, assetId, fromDateTime, toDateTime, offset, limit, _callback);
+        // verify the required parameter 'name' is set
+        if (name == null) {
+            throw new ApiException("Missing the required parameter 'name' when calling getMetricByAssetId(Async)");
+        }
+
+        return getMetricByAssetIdCall(asset, assetId, name, fromDateTime, toDateTime, offset, limit, _callback);
 
     }
 
@@ -179,6 +189,7 @@ public class MetricsApi {
      * This API provides capability to retrieve Metrics of an asset id
      * @param asset asset (required)
      * @param assetId asset UUID (required)
+     * @param name Name of the metric types: - equinix.fabric.connection.bandwidth_rx.usage - equinix.fabric.connection.bandwidth_tx.usage - equinix.fabric.connection.packets_dropped_rx_aside_rateexceeded.count - equinix.fabric.connection.packets_dropped_tx_aside_rateexceeded.count - equinix.fabric.connection.packets_dropped_rx_zside_rateexceeded.count - equinix.fabric.connection.packets_dropped_tx_zside_rateexceeded.count - equinix.fabric.port.bandwidth_rx.usage - equinix.fabric.port.bandwidth_tx.usage - equinix.fabric.port.packets_dropped_rx.count - equinix.fabric.port.packets_dropped_tx.count - equinix.fabric.port.packets_erred_rx.count - equinix.fabric.port.packets_erred_tx.count - equinix.fabric.metro.{source_metro_code}_{destination_metro_code}.latency - equinix.fabric.metro.{source_metro_code}_{destination_metro_code}.jitter_avg  (required)
      * @param fromDateTime Start date and time (optional)
      * @param toDateTime End date and time (optional)
      * @param offset offset (optional, default to 0)
@@ -195,8 +206,8 @@ public class MetricsApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public GetMetricsByAssetResponse getMetricByAssetId(MetricAssetType asset, UUID assetId, OffsetDateTime fromDateTime, OffsetDateTime toDateTime, Integer offset, Integer limit) throws ApiException {
-        ApiResponse<GetMetricsByAssetResponse> localVarResp = getMetricByAssetIdWithHttpInfo(asset, assetId, fromDateTime, toDateTime, offset, limit);
+    public GetMetricsByAssetResponse getMetricByAssetId(MetricAssetType asset, UUID assetId, String name, OffsetDateTime fromDateTime, OffsetDateTime toDateTime, Integer offset, Integer limit) throws ApiException {
+        ApiResponse<GetMetricsByAssetResponse> localVarResp = getMetricByAssetIdWithHttpInfo(asset, assetId, name, fromDateTime, toDateTime, offset, limit);
         return localVarResp.getData();
     }
 
@@ -205,6 +216,7 @@ public class MetricsApi {
      * This API provides capability to retrieve Metrics of an asset id
      * @param asset asset (required)
      * @param assetId asset UUID (required)
+     * @param name Name of the metric types: - equinix.fabric.connection.bandwidth_rx.usage - equinix.fabric.connection.bandwidth_tx.usage - equinix.fabric.connection.packets_dropped_rx_aside_rateexceeded.count - equinix.fabric.connection.packets_dropped_tx_aside_rateexceeded.count - equinix.fabric.connection.packets_dropped_rx_zside_rateexceeded.count - equinix.fabric.connection.packets_dropped_tx_zside_rateexceeded.count - equinix.fabric.port.bandwidth_rx.usage - equinix.fabric.port.bandwidth_tx.usage - equinix.fabric.port.packets_dropped_rx.count - equinix.fabric.port.packets_dropped_tx.count - equinix.fabric.port.packets_erred_rx.count - equinix.fabric.port.packets_erred_tx.count - equinix.fabric.metro.{source_metro_code}_{destination_metro_code}.latency - equinix.fabric.metro.{source_metro_code}_{destination_metro_code}.jitter_avg  (required)
      * @param fromDateTime Start date and time (optional)
      * @param toDateTime End date and time (optional)
      * @param offset offset (optional, default to 0)
@@ -221,8 +233,8 @@ public class MetricsApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<GetMetricsByAssetResponse> getMetricByAssetIdWithHttpInfo(MetricAssetType asset, UUID assetId, OffsetDateTime fromDateTime, OffsetDateTime toDateTime, Integer offset, Integer limit) throws ApiException {
-        okhttp3.Call localVarCall = getMetricByAssetIdValidateBeforeCall(asset, assetId, fromDateTime, toDateTime, offset, limit, null);
+    public ApiResponse<GetMetricsByAssetResponse> getMetricByAssetIdWithHttpInfo(MetricAssetType asset, UUID assetId, String name, OffsetDateTime fromDateTime, OffsetDateTime toDateTime, Integer offset, Integer limit) throws ApiException {
+        okhttp3.Call localVarCall = getMetricByAssetIdValidateBeforeCall(asset, assetId, name, fromDateTime, toDateTime, offset, limit, null);
         Type localVarReturnType = new TypeToken<GetMetricsByAssetResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -232,6 +244,7 @@ public class MetricsApi {
      * This API provides capability to retrieve Metrics of an asset id
      * @param asset asset (required)
      * @param assetId asset UUID (required)
+     * @param name Name of the metric types: - equinix.fabric.connection.bandwidth_rx.usage - equinix.fabric.connection.bandwidth_tx.usage - equinix.fabric.connection.packets_dropped_rx_aside_rateexceeded.count - equinix.fabric.connection.packets_dropped_tx_aside_rateexceeded.count - equinix.fabric.connection.packets_dropped_rx_zside_rateexceeded.count - equinix.fabric.connection.packets_dropped_tx_zside_rateexceeded.count - equinix.fabric.port.bandwidth_rx.usage - equinix.fabric.port.bandwidth_tx.usage - equinix.fabric.port.packets_dropped_rx.count - equinix.fabric.port.packets_dropped_tx.count - equinix.fabric.port.packets_erred_rx.count - equinix.fabric.port.packets_erred_tx.count - equinix.fabric.metro.{source_metro_code}_{destination_metro_code}.latency - equinix.fabric.metro.{source_metro_code}_{destination_metro_code}.jitter_avg  (required)
      * @param fromDateTime Start date and time (optional)
      * @param toDateTime End date and time (optional)
      * @param offset offset (optional, default to 0)
@@ -249,9 +262,9 @@ public class MetricsApi {
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getMetricByAssetIdAsync(MetricAssetType asset, UUID assetId, OffsetDateTime fromDateTime, OffsetDateTime toDateTime, Integer offset, Integer limit, final ApiCallback<GetMetricsByAssetResponse> _callback) throws ApiException {
+    public okhttp3.Call getMetricByAssetIdAsync(MetricAssetType asset, UUID assetId, String name, OffsetDateTime fromDateTime, OffsetDateTime toDateTime, Integer offset, Integer limit, final ApiCallback<GetMetricsByAssetResponse> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getMetricByAssetIdValidateBeforeCall(asset, assetId, fromDateTime, toDateTime, offset, limit, _callback);
+        okhttp3.Call localVarCall = getMetricByAssetIdValidateBeforeCall(asset, assetId, name, fromDateTime, toDateTime, offset, limit, _callback);
         Type localVarReturnType = new TypeToken<GetMetricsByAssetResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
