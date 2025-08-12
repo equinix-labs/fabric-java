@@ -19,7 +19,7 @@ All URIs are relative to *https://api.equinix.com*
 
 Create Service Token
 
-Create Service Tokens generates Equinix Fabric? service tokens. These tokens authorize users to access protected resources and services.
+Create Service Tokens generates Equinix Fabric™ service tokens. These tokens authorize users to access protected resources and services.
 
 ### Example
 ```java

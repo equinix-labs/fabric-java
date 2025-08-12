@@ -1,9 +1,9 @@
 # equinix-openapi-fabric
 
 Equinix Fabric API v4
-- API version: 4.22
+- API version: 4.23
 
-Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br> </br> <b>Integrations (SDKs, Tools) links:</b> </br> <a href=\"https://deploy.equinix.com/labs/fabric-java\\\">Fabric Java SDK</a> </br> <a href=\"https://deploy.equinix.com/labs/equinix-sdk-go\\\">Fabric Go SDK</a> </br> <a href=\"https://deploy.equinix.com/labs/equinix-sdk-python\\\">Fabric Python SDK</a> </br> <a href=\"https://deploy.equinix.com/labs/terraform-provider-equinix\\\">Equinix Terraform Provider</a> </br> <a href=\"https://deploy.equinix.com/labs/terraform-equinix-fabric\\\">Fabric Terraform Modules</a> </br> <a href=\"https://deploy.equinix.com/labs/pulumi-provider-equinix/\">Equinix Pulumi Provider</a> </br>
+Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br> </br> <b>Integrations (SDKs, Tools) links:</b> </br> <a href=\"https://github.com/equinix/equinix-sdk-java\">Fabric Java SDK</a> </br> <a href=\"https://github.com/equinix/equinix-sdk-go\">Fabric Go SDK</a> </br> <a href=\"https://github.com/equinix/equinix-sdk-python\">Fabric Python SDK</a> </br> <a href=\"https://registry.terraform.io/providers/equinix/equinix/latest/docs\">Equinix Terraform Provider</a> </br> <a href=\"https://registry.terraform.io/modules/equinix/fabric/equinix/latest\">Fabric Terraform Modules</a> </br> <a href=\"https://www.pulumi.com/registry/packages/equinix/\">Equinix Pulumi Provider</a> </br>
 
   For more information, please visit [https://docs.equinix.com/api-support.htm](https://docs.equinix.com/api-support.htm)
 
@@ -85,7 +85,7 @@ import com.equinix.openapi.fabric.ApiException;
 import com.equinix.openapi.fabric.Configuration;
 import com.equinix.openapi.fabric.auth.*;
 import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.CloudEventsApi;
+import com.equinix.openapi.fabric.v4.api.ClientInterfacesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -96,13 +96,14 @@ public class Example {
     HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
     BearerAuth.setBearerToken("BEARER TOKEN");
 
-    CloudEventsApi apiInstance = new CloudEventsApi(defaultClient);
-    UUID cloudEventId = UUID.randomUUID(); // UUID | Cloud Event UUID
+    ClientInterfacesApi apiInstance = new ClientInterfacesApi(defaultClient);
+    UUID deploymentId = UUID.randomUUID(); // UUID | Deployment UUID
+    ClientInterfaces clientInterfaces = new ClientInterfaces(); // ClientInterfaces | 
     try {
-      CloudEvent result = apiInstance.getCloudEvent(cloudEventId);
+      File result = apiInstance.createTerraformTemplates(deploymentId, clientInterfaces);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling CloudEventsApi#getCloudEvent");
+      System.err.println("Exception when calling ClientInterfacesApi#createTerraformTemplates");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -119,6 +120,7 @@ All URIs are relative to *https://api.equinix.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*ClientInterfacesApi* | [**createTerraformTemplates**](docs/ClientInterfacesApi.md#createTerraformTemplates) | **POST** /fabric/v4/deployments/{deploymentId}/download | Generate Terraform Deployment Templates
 *CloudEventsApi* | [**getCloudEvent**](docs/CloudEventsApi.md#getCloudEvent) | **GET** /fabric/v4/cloudevents/{cloudEventId} | Get Cloud Event
 *CloudEventsApi* | [**getCloudEventByAssetId**](docs/CloudEventsApi.md#getCloudEventByAssetId) | **GET** /fabric/v4/{asset}/{assetId}/cloudevents | Get Cloud Events by Asset Id
 *CloudEventsApi* | [**searchCloudEvents**](docs/CloudEventsApi.md#searchCloudEvents) | **POST** /fabric/v4/cloudevents/search | Search Cloud Events
@@ -168,7 +170,6 @@ Class | Method | HTTP request | Description
 *NetworksApi* | [**searchNetworks**](docs/NetworksApi.md#searchNetworks) | **POST** /fabric/v4/networks/search | Search Network
 *NetworksApi* | [**updateNetworkByUuid**](docs/NetworksApi.md#updateNetworkByUuid) | **PATCH** /fabric/v4/networks/{networkId} | Update Network By ID
 *PortsApi* | [**addToLag**](docs/PortsApi.md#addToLag) | **POST** /fabric/v4/ports/{portId}/physicalPorts/bulk | Add to Lag
-*PortsApi* | [**createBulkPort**](docs/PortsApi.md#createBulkPort) | **POST** /fabric/v4/ports/bulk | Create Port
 *PortsApi* | [**createPort**](docs/PortsApi.md#createPort) | **POST** /fabric/v4/ports | Create Port
 *PortsApi* | [**deletePort**](docs/PortsApi.md#deletePort) | **DELETE** /fabric/v4/ports/{portId} | Delete a single port
 *PortsApi* | [**getPortByUuid**](docs/PortsApi.md#getPortByUuid) | **GET** /fabric/v4/ports/{portId} | Get Port by uuid
@@ -256,8 +257,8 @@ Class | Method | HTTP request | Description
 *ServiceTokensApi* | [**getServiceTokens**](docs/ServiceTokensApi.md#getServiceTokens) | **GET** /fabric/v4/serviceTokens | Get All Tokens
 *ServiceTokensApi* | [**searchServiceTokens**](docs/ServiceTokensApi.md#searchServiceTokens) | **POST** /fabric/v4/serviceTokens/search | Search servicetokens
 *ServiceTokensApi* | [**updateServiceTokenByUuid**](docs/ServiceTokensApi.md#updateServiceTokenByUuid) | **PATCH** /fabric/v4/serviceTokens/{serviceTokenId} | Update Token By ID
-*StatisticsApi* | [**getConnectionStatsByPortUuid**](docs/StatisticsApi.md#getConnectionStatsByPortUuid) | **GET** /fabric/v4/connections/{connectionId}/stats | Get Stats by uuid
-*StatisticsApi* | [**getPortStatsByPortUuid**](docs/StatisticsApi.md#getPortStatsByPortUuid) | **GET** /fabric/v4/ports/{portId}/stats | Get Stats by uuid
+*StatisticsApi* | [**getConnectionStatsByPortUuid**](docs/StatisticsApi.md#getConnectionStatsByPortUuid) | **GET** /fabric/v4/connections/{connectionId}/stats | Get Stats by uuid **(DEPRECATED)**
+*StatisticsApi* | [**getPortStatsByPortUuid**](docs/StatisticsApi.md#getPortStatsByPortUuid) | **GET** /fabric/v4/ports/{portId}/stats | Get Stats by uuid **(DEPRECATED)**
 *StreamAlertRulesApi* | [**createStreamAlertRules**](docs/StreamAlertRulesApi.md#createStreamAlertRules) | **POST** /fabric/v4/streams/{streamId}/alertRules | Create Stream Alert Rules
 *StreamAlertRulesApi* | [**deleteStreamAlertRuleByUuid**](docs/StreamAlertRulesApi.md#deleteStreamAlertRuleByUuid) | **DELETE** /fabric/v4/streams/{streamId}/alertRules/{alertRuleId} | Update Stream Alert Rules
 *StreamAlertRulesApi* | [**getStreamAlertRuleByUuid**](docs/StreamAlertRulesApi.md#getStreamAlertRuleByUuid) | **GET** /fabric/v4/streams/{streamId}/alertRules/{alertRuleId} | Get Stream Alert Rules
@@ -319,6 +320,7 @@ Class | Method | HTTP request | Description
  - [BulkPortRequest](docs/BulkPortRequest.md)
  - [Change](docs/Change.md)
  - [Changelog](docs/Changelog.md)
+ - [ClientInterfaces](docs/ClientInterfaces.md)
  - [CloudEvent](docs/CloudEvent.md)
  - [CloudEventAssetType](docs/CloudEventAssetType.md)
  - [CloudEventData](docs/CloudEventData.md)
@@ -346,8 +348,9 @@ Class | Method | HTTP request | Description
  - [CloudRouterCommand](docs/CloudRouterCommand.md)
  - [CloudRouterCommandPingResponse](docs/CloudRouterCommandPingResponse.md)
  - [CloudRouterCommandPostRequest](docs/CloudRouterCommandPostRequest.md)
- - [CloudRouterCommandRequest](docs/CloudRouterCommandRequest.md)
  - [CloudRouterCommandRequestConnection](docs/CloudRouterCommandRequestConnection.md)
+ - [CloudRouterCommandRequestPayload](docs/CloudRouterCommandRequestPayload.md)
+ - [CloudRouterCommandRequestResponse](docs/CloudRouterCommandRequestResponse.md)
  - [CloudRouterCommandResponse](docs/CloudRouterCommandResponse.md)
  - [CloudRouterCommandSearchExpression](docs/CloudRouterCommandSearchExpression.md)
  - [CloudRouterCommandSearchFilter](docs/CloudRouterCommandSearchFilter.md)
@@ -366,6 +369,7 @@ Class | Method | HTTP request | Description
  - [CloudRouterOrFilter](docs/CloudRouterOrFilter.md)
  - [CloudRouterPackage](docs/CloudRouterPackage.md)
  - [CloudRouterPostRequest](docs/CloudRouterPostRequest.md)
+ - [CloudRouterPostRequestBase](docs/CloudRouterPostRequestBase.md)
  - [CloudRouterPostRequestPackage](docs/CloudRouterPostRequestPackage.md)
  - [CloudRouterSearchRequest](docs/CloudRouterSearchRequest.md)
  - [CloudRouterSimpleExpression](docs/CloudRouterSimpleExpression.md)
@@ -494,6 +498,14 @@ Class | Method | HTTP request | Description
  - [MetricResource](docs/MetricResource.md)
  - [Metrics](docs/Metrics.md)
  - [Metro](docs/Metro.md)
+ - [MetroConnectASide](docs/MetroConnectASide.md)
+ - [MetroConnectASideResponse](docs/MetroConnectASideResponse.md)
+ - [MetroConnectOrder](docs/MetroConnectOrder.md)
+ - [MetroConnectPatchPanel](docs/MetroConnectPatchPanel.md)
+ - [MetroConnectPort](docs/MetroConnectPort.md)
+ - [MetroConnectPostRequest](docs/MetroConnectPostRequest.md)
+ - [MetroConnectZSide](docs/MetroConnectZSide.md)
+ - [MetroConnectZSideResponse](docs/MetroConnectZSideResponse.md)
  - [MetroError](docs/MetroError.md)
  - [MetroResponse](docs/MetroResponse.md)
  - [ModelInterface](docs/ModelInterface.md)
@@ -756,6 +768,9 @@ Class | Method | HTTP request | Description
  - [StreamPutRequest](docs/StreamPutRequest.md)
  - [StreamSubscription](docs/StreamSubscription.md)
  - [StreamSubscriptionFilter](docs/StreamSubscriptionFilter.md)
+ - [StreamSubscriptionOperation](docs/StreamSubscriptionOperation.md)
+ - [StreamSubscriptionOperationAdditionalInfo](docs/StreamSubscriptionOperationAdditionalInfo.md)
+ - [StreamSubscriptionOperationErrors](docs/StreamSubscriptionOperationErrors.md)
  - [StreamSubscriptionPostRequest](docs/StreamSubscriptionPostRequest.md)
  - [StreamSubscriptionPutRequest](docs/StreamSubscriptionPutRequest.md)
  - [StreamSubscriptionSelector](docs/StreamSubscriptionSelector.md)
@@ -816,7 +831,6 @@ Class | Method | HTTP request | Description
  - [VirtualPortServiceType](docs/VirtualPortServiceType.md)
  - [VirtualPortType](docs/VirtualPortType.md)
  - [VpicInterface](docs/VpicInterface.md)
- - [VpnTunnelState](docs/VpnTunnelState.md)
 
 
 ## Documentation for Authorization

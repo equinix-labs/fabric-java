@@ -27,11 +27,25 @@ import com.google.gson.stream.JsonWriter;
 @JsonAdapter(PortSearchFieldName.Adapter.class)
 public enum PortSearchFieldName {
   
+  DEVICE_NAME("/device/name"),
+  
+  PHYSICALPORTS_TETHER_CROSSCONNECTID("/physicalPorts/tether/crossConnectId"),
+  
+  PHYSICALPORTS_INTERFACE_NAME("/physicalPorts/interface/name"),
+  
+  STATE("/state"),
+  
   PROJECT_PROJECTID("/project/projectId"),
   
-  SETTINGS_PRODUCTCODE("/settings/productCode"),
+  UUID("/uuid"),
   
-  STATE("/state");
+  NAME("/name"),
+  
+  ACCOUNT_ORGID("/account/orgId"),
+  
+  ACCOUNT_ACCOUNTNUMBER("/account/accountNumber"),
+  
+  LOCATION_METROCODE("/location/metroCode");
 
   private String value;
 

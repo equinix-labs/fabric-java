@@ -2,16 +2,15 @@
 
 # CloudRouterPostRequest
 
-Create Cloud Router
 
 ## Properties
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**type** | [**TypeEnum**](#TypeEnum) |  |  [optional] |
-|**name** | **String** | Customer-provided Cloud Router name |  [optional] |
-|**location** | [**SimplifiedLocationWithoutIBX**](SimplifiedLocationWithoutIBX.md) |  |  [optional] |
-|**_package** | [**CloudRouterPostRequestPackage**](CloudRouterPostRequestPackage.md) |  |  [optional] |
+|**type** | [**TypeEnum**](#TypeEnum) |  |  |
+|**name** | **String** | Customer-provided Cloud Router name |  |
+|**location** | [**SimplifiedLocationWithoutIBX**](SimplifiedLocationWithoutIBX.md) |  |  |
+|**_package** | [**CloudRouterPostRequestPackage**](CloudRouterPostRequestPackage.md) |  |  |
 |**order** | [**Order**](Order.md) |  |  [optional] |
 |**project** | [**Project**](Project.md) |  |  [optional] |
 |**account** | [**SimplifiedAccount**](SimplifiedAccount.md) |  |  [optional] |

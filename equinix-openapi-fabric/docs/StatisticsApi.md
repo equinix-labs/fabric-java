@@ -4,17 +4,17 @@ All URIs are relative to *https://api.equinix.com*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**getConnectionStatsByPortUuid**](StatisticsApi.md#getConnectionStatsByPortUuid) | **GET** /fabric/v4/connections/{connectionId}/stats | Get Stats by uuid |
-| [**getPortStatsByPortUuid**](StatisticsApi.md#getPortStatsByPortUuid) | **GET** /fabric/v4/ports/{portId}/stats | Get Stats by uuid |
+| [**getConnectionStatsByPortUuid**](StatisticsApi.md#getConnectionStatsByPortUuid) | **GET** /fabric/v4/connections/{connectionId}/stats | Get Stats by uuid **(DEPRECATED)** |
+| [**getPortStatsByPortUuid**](StatisticsApi.md#getPortStatsByPortUuid) | **GET** /fabric/v4/ports/{portId}/stats | Get Stats by uuid **(DEPRECATED)** |
 
 
 <a name="getConnectionStatsByPortUuid"></a>
 # **getConnectionStatsByPortUuid**
 > Statistics getConnectionStatsByPortUuid(connectionId, startDateTime, endDateTime, viewPoint)
 
-Get Stats by uuid
+Get Stats by uuid **(DEPRECATED)**
 
-This API provides service-level metrics so that you can view access and gather key information required to manage service subscription sizing and capacity
+This API provides service-level metrics so that you can view access and gather key information required to manage service subscription sizing and capacity **(DEPRECATED)**
 
 ### Example
 ```java
@@ -87,9 +87,9 @@ public class Example {
 # **getPortStatsByPortUuid**
 > Statistics getPortStatsByPortUuid(portId, startDateTime, endDateTime)
 
-Get Stats by uuid
+Get Stats by uuid **(DEPRECATED)**
 
-This API provides service-level traffic metrics so that you can view access and gather key information required to manage service subscription sizing and capacity.
+This API provides service-level traffic metrics so that you can view access and gather key information required to manage service subscription sizing and capacity.**(DEPRECATED)**
 
 ### Example
 ```java

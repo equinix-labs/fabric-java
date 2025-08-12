@@ -9,7 +9,7 @@
 
 * `CONNECTIONS` (value: `"connections"`)
 
-* `ROUTERS` (value: `"routers"`)
+* `METROS` (value: `"metros"`)
 
 
 
