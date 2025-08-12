@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Equinix Fabric API v4
-  description: 'Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br> </br> <b>Integrations (SDKs, Tools) links:</b> </br> <a href="https://deploy.equinix.com/labs/fabric-java\">Fabric Java SDK</a> </br> <a href="https://deploy.equinix.com/labs/equinix-sdk-go\">Fabric Go SDK</a> </br> <a href="https://deploy.equinix.com/labs/equinix-sdk-python\">Fabric Python SDK</a> </br> <a href="https://deploy.equinix.com/labs/terraform-provider-equinix\">Equinix Terraform Provider</a> </br> <a href="https://deploy.equinix.com/labs/terraform-equinix-fabric\">Fabric Terraform Modules</a> </br> <a href="https://deploy.equinix.com/labs/pulumi-provider-equinix/">Equinix Pulumi Provider</a> </br>'
+  description: 'Equinix Fabric is an advanced software-defined interconnection solution that enables you to directly, securely and dynamically connect to distributed infrastructure and digital ecosystems on platform Equinix via a single port, Customers can use Fabric to connect to: </br> 1. Cloud Service Providers - Clouds, network and other service providers.  </br> 2. Enterprises - Other Equinix customers, vendors and partners.  </br> 3. Myself - Another customer instance deployed at Equinix. </br> </br> <b>Integrations (SDKs, Tools) links:</b> </br> <a href="https://github.com/equinix/equinix-sdk-java">Fabric Java SDK</a> </br> <a href="https://github.com/equinix/equinix-sdk-go">Fabric Go SDK</a> </br> <a href="https://github.com/equinix/equinix-sdk-python">Fabric Python SDK</a> </br> <a href="https://registry.terraform.io/providers/equinix/equinix/latest/docs">Equinix Terraform Provider</a> </br> <a href="https://registry.terraform.io/modules/equinix/fabric/equinix/latest">Fabric Terraform Modules</a> </br> <a href="https://www.pulumi.com/registry/packages/equinix/">Equinix Pulumi Provider</a> </br>'
   termsOfService: https://www.equinix.com/about/legal/terms
   contact:
     name: Equinix API Support
@@ -9,16 +9,18 @@ info:
   license:
     name: Equinix Inc
     url: https://developer.equinix.com/agreement
-  version: "4.22"
+  version: "4.23"
 externalDocs:
   description: Find more information on Equinix Docs Portal
-  url: https://docs.equinix.com/en-us/apis/fabric
+  url: https://docs.equinix.com/fabric/
 servers:
   - url: https://api.equinix.com
     description: Equinix Inc
 security:
   - BearerAuth: []
 tags:
+  - name: Client Interfaces
+    description: Client Interfaces <font color="red"> <sup color='red'>Beta</sup></font>
   - name: Cloud Events
     description: Cloud Events
   - name: Cloud Routers
@@ -34,7 +36,7 @@ tags:
   - name: Ports
     description: Ports
   - name: Precision Time
-    description: Precision Time <font color="red"> <sup color='red'>Beta</sup></font>
+    description: Precision Time
   - name: Prices
     description: Prices
   - name: Route Aggregation Rules
@@ -293,6 +295,13 @@ paths:
           required: true
           schema:
             $ref: "#/components/schemas/AssetId"
+        - name: name
+          in: query
+          description: |
+            Name of the metric types: - equinix.fabric.connection.bandwidth_rx.usage - equinix.fabric.connection.bandwidth_tx.usage - equinix.fabric.connection.packets_dropped_rx_aside_rateexceeded.count - equinix.fabric.connection.packets_dropped_tx_aside_rateexceeded.count - equinix.fabric.connection.packets_dropped_rx_zside_rateexceeded.count - equinix.fabric.connection.packets_dropped_tx_zside_rateexceeded.count - equinix.fabric.port.bandwidth_rx.usage - equinix.fabric.port.bandwidth_tx.usage - equinix.fabric.port.packets_dropped_rx.count - equinix.fabric.port.packets_dropped_tx.count - equinix.fabric.port.packets_erred_rx.count - equinix.fabric.port.packets_erred_tx.count - equinix.fabric.metro.{source_metro_code}_{destination_metro_code}.latency - equinix.fabric.metro.{source_metro_code}_{destination_metro_code}.jitter_avg
+          required: true
+          schema:
+            $ref: "#/components/schemas/MetricTypeQueryParams"
         - name: fromDateTime
           in: query
           description: Start date and time
@@ -2555,8 +2564,8 @@ paths:
     get:
       tags:
         - Statistics
-      summary: Get Stats by uuid
-      description: This API provides service-level traffic metrics so that you can view access and gather key information required to manage service subscription sizing and capacity.
+      summary: Get Stats by uuid **(DEPRECATED)**
+      description: This API provides service-level traffic metrics so that you can view access and gather key information required to manage service subscription sizing and capacity.**(DEPRECATED)**
       operationId: getPortStatsByPortUuid
       parameters:
         - name: portId
@@ -2616,12 +2625,13 @@ paths:
               examples:
                 example:
                   $ref: "#/components/examples/500"
+      deprecated: true
   "/fabric/v4/connections/{connectionId}/stats":
     get:
       tags:
         - Statistics
-      summary: Get Stats by uuid
-      description: This API provides service-level metrics so that you can view access and gather key information required to manage service subscription sizing and capacity
+      summary: Get Stats by uuid **(DEPRECATED)**
+      description: This API provides service-level metrics so that you can view access and gather key information required to manage service subscription sizing and capacity **(DEPRECATED)**
       operationId: getConnectionStatsByPortUuid
       parameters:
         - name: connectionId
@@ -2679,6 +2689,7 @@ paths:
               examples:
                 example:
                   $ref: "#/components/examples/403"
+      deprecated: true
   /fabric/v4/serviceProfiles:
     get:
       tags:
@@ -2762,7 +2773,7 @@ paths:
       tags:
         - Service Profiles
       summary: Create Profile
-      description: Create Service Profile creates Equinix Fabric? Service Profile.
+      description: Create Service Profile creates Equinix Fabric™ Service Profile.
       operationId: createServiceProfile
       parameters: []
       requestBody:
@@ -3546,7 +3557,7 @@ paths:
       tags:
         - Service Tokens
       summary: Create Service Token
-      description: Create Service Tokens generates Equinix Fabric? service tokens. These tokens authorize users to access protected resources and services.
+      description: Create Service Tokens generates Equinix Fabric™ service tokens. These tokens authorize users to access protected resources and services.
       operationId: createServiceToken
       parameters:
         - name: dryRun
@@ -3576,8 +3587,14 @@ paths:
                 $ref: "#/components/examples/createZsideServiceTokenWithVxlan"
               ZsideTokenWithVD:
                 $ref: "#/components/examples/createZsideServiceTokenWithVD"
-              ZsideTokenWithNetwork:
-                $ref: "#/components/examples/createZsideServiceTokenWithNetwork"
+              ZsideTokenForEVPLAN-Network:
+                $ref: "#/components/examples/createZsideServiceTokenWithNetworkEvplan"
+              ZsideTokenForEPLAN-Network:
+                $ref: "#/components/examples/createZsideServiceTokenWithNetworkEplan"
+              ZsideTokenForEVPTree-Network:
+                $ref: "#/components/examples/createZsideServiceTokenWithNetworkEvptree"
+              ZsideTokenForEPTree-Network:
+                $ref: "#/components/examples/createZsideServiceTokenWithNetworkEptree"
               AsideTokenWithDot1QDryRunCreate:
                 $ref: "#/components/examples/createServiceTokenDryRunRequest"
               AsideFCRWithZsidePortBasedToken:
@@ -3602,6 +3619,10 @@ paths:
               examples:
                 tokenExample:
                   $ref: "#/components/examples/getServiceToken"
+                ZsideTokenForEVPLANNetwork:
+                  $ref: "#/components/examples/createZsideServiceTokenWithNetworkEvplan-Response"
+                ZsideTokenForEVPTreeNetwork:
+                  $ref: "#/components/examples/createZsideServiceTokenWithNetworkEvptree-Response"
         "400":
           description: Bad request
           content:
@@ -3913,6 +3934,24 @@ paths:
               examples:
                 portExample:
                   $ref: "#/components/examples/ports"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/400"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/401"
         "403":
           description: Forbidden
           content:
@@ -3922,13 +3961,31 @@ paths:
               examples:
                 example:
                   $ref: "#/components/examples/403"
+        "500":
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                portExample:
+                  $ref: "#/components/examples/ports-500"
+                userFailureExample:
+                  $ref: "#/components/examples/ports-500-user-failure"
     post:
       tags:
         - Ports
       summary: Create Port
-      description: Creates Equinix Fabric? Port.
+      description: Creates Equinix Fabric™ Port.
       operationId: createPort
-      parameters: []
+      parameters:
+        - name: dryRun
+          in: query
+          description: option to verify that API calls will succeed
+          required: false
+          schema:
+            type: boolean
+            default: false
       requestBody:
         content:
           application/json:
@@ -3936,34 +3993,53 @@ paths:
               $ref: "#/components/schemas/PortRequest"
             examples:
               COLOSinglePortNonLag:
-                $ref: "#/components/examples/COLOSinglePortNonLag"
+                $ref: "#/components/examples/coloSinglePortNonLag"
               COLOSinglePortLag:
-                $ref: "#/components/examples/COLOSinglePortLag"
+                $ref: "#/components/examples/coloSinglePortLag"
               COLOLagPortNewGroup:
-                $ref: "#/components/examples/COLOLagPortNewGroup"
+                $ref: "#/components/examples/coloLagPortNewGroup"
               COLOAddSecondaryPort:
-                $ref: "#/components/examples/COLOAddSecondaryPort"
+                $ref: "#/components/examples/coloAddSecondaryPort"
+              COLOSinglePortNonLagDryRun:
+                $ref: "#/components/examples/COLOSinglePortNonLagCreateDryRun"
+              COLOSinglePortLagDryRun:
+                $ref: "#/components/examples/COLOSinglePortLagCreateDryRun"
               REMOTESinglePortLag:
-                $ref: "#/components/examples/REMOTESinglePortNewGroupLagRequest"
+                $ref: "#/components/examples/remoteSinglePortNewGroupLagRequest"
               BMMRSinglePortLag:
-                $ref: "#/components/examples/BMMRSinglePortLag"
+                $ref: "#/components/examples/bmmrSinglePortLag"
               BMMRSinglePortNoLag:
-                $ref: "#/components/examples/BMMRSinglePortNoLag"
+                $ref: "#/components/examples/bmmrSinglePortNoLag"
               BMMRAddSecondaryPort:
-                $ref: "#/components/examples/BMMRAddSecondaryPort"
+                $ref: "#/components/examples/bmmrAddSecondaryPort"
               BMMRLagPortNewGroup:
-                $ref: "#/components/examples/BMMRLagPortNewGroup"
+                $ref: "#/components/examples/bmmrLagPortNewGroup"
         required: true
       responses:
-        "201":
-          description: Successful operation for COLO Single Port Non Lag
+        "200":
+          description: Successful operation
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Port"
               examples:
-                portExample:
-                  $ref: "#/components/examples/COLOSinglePortNonLagResponse"
+                portDryRunExample:
+                  $ref: "#/components/examples/PortCreateDryRunResponse"
+        "201":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Port"
+              examples:
+                COLOSinglePortNonLag:
+                  $ref: "#/components/examples/coloSinglePortNonLagResponse"
+                BMMRSinglePortLag:
+                  $ref: "#/components/examples/bmmrSinglePortLagResponse"
+                REMOTESinglePortLag:
+                  $ref: "#/components/examples/remoteSinglePortLagResponse"
+                REMOTESinglePortLagWithOrderExemption:
+                  $ref: "#/components/examples/remoteSinglePortLagWithPurchaseOrderExemption"
         "400":
           description: Bad request
           content:
@@ -3971,8 +4047,19 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorList"
               examples:
-                example:
+                validationError:
                   $ref: "#/components/examples/port-400"
+                badRequest:
+                  $ref: "#/components/examples/createPortBadRequest"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/401"
         "500":
           description: Internal Server Error
           content:
@@ -3982,33 +4069,6 @@ paths:
               examples:
                 example:
                   $ref: "#/components/examples/port-500"
-  /fabric/v4/ports/bulk:
-    post:
-      tags:
-        - Ports
-      summary: Create Port
-      description: Create Port creates Equinix Fabric? Port.<font color="red"> <sup color='red'>Preview</sup></font>
-      operationId: createBulkPort
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/BulkPortRequest"
-            examples:
-              COLOBulkPort:
-                $ref: "#/components/examples/COLOBulkPort"
-        required: true
-      responses:
-        "201":
-          description: Successful operation for COLO Bulk Port
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/BulkPort"
-              examples:
-                bulkPortExample:
-                  $ref: "#/components/examples/COLOBulkPortResponse"
   "/fabric/v4/ports/{portId}/physicalPorts/bulk":
     post:
       tags:
@@ -4030,11 +4090,11 @@ paths:
               $ref: "#/components/schemas/BulkPhysicalPort"
             examples:
               COLOAddToLag:
-                $ref: "#/components/examples/COLOAddToLag"
+                $ref: "#/components/examples/coloAddToLag"
               REMOTEAddToLag:
-                $ref: "#/components/examples/REMOTEAddToLag"
+                $ref: "#/components/examples/remoteAddToLag"
               BMMRAddToLag:
-                $ref: "#/components/examples/BMMRAddToLag"
+                $ref: "#/components/examples/bmmrAddToLag"
         required: true
       responses:
         "200":
@@ -4045,7 +4105,16 @@ paths:
                 $ref: "#/components/schemas/AllPhysicalPortsResponse"
               examples:
                 COLOAddToLag:
-                  $ref: "#/components/examples/COLOAddToLagResponse"
+                  $ref: "#/components/examples/coloAddToLagResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/port-400"
         "401":
           description: Unauthorized
           content:
@@ -4062,11 +4131,14 @@ paths:
                 example:
                   $ref: "#/components/examples/404"
         "500":
-          description: Internal server error
+          description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/port-500"
   "/fabric/v4/ports/{portId}":
     get:
       tags:
@@ -4131,7 +4203,23 @@ paths:
           required: true
           schema:
             $ref: "#/components/schemas/PortUUID"
+        - name: dryRun
+          in: query
+          description: option to verify that API calls will succeed
+          required: false
+          schema:
+            type: boolean
+            default: false
       responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Port"
+              examples:
+                portDryRunExample:
+                  $ref: "#/components/examples/portDryRunDelete"
         "202":
           description: Accepted
           content:
@@ -4156,6 +4244,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/401"
         "404":
           description: Not Found
           content:
@@ -4175,6 +4266,13 @@ paths:
           required: true
           schema:
             $ref: "#/components/schemas/PortUUID"
+        - name: dryRun
+          in: query
+          description: option to verify that API calls will succeed
+          required: false
+          schema:
+            type: boolean
+            default: false
       requestBody:
         content:
           application/json-patch+json:
@@ -4182,18 +4280,29 @@ paths:
               $ref: "#/components/schemas/PortUpdateRequest"
             examples:
               PortUpdateNameRequest:
-                $ref: "#/components/examples/PortUpdateNameRequest"
+                $ref: "#/components/examples/portUpdateNameRequest"
+              PortUpdateNameDryRunRequest:
+                $ref: "#/components/examples/PortUpdateNameDryRunRequest"
         required: true
       responses:
-        "202":
+        "200":
           description: Successful operation
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AllPortsResponse"
               examples:
+                portDryRunExample:
+                  $ref: "#/components/examples/PortUpdateDryRunResponse"
+        "202":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Port"
+              examples:
                 portExample:
-                  $ref: "#/components/examples/ports"
+                  $ref: "#/components/examples/portPatchResponse202"
         "400":
           description: Bad request
           content:
@@ -4201,8 +4310,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorList"
               examples:
-                example:
+                InvalidUUID:
                   $ref: "#/components/examples/400"
+                ResourceUsedError:
+                  $ref: "#/components/examples/portPatchMultipleConnections400Response"
         "403":
           description: Forbidden
           content:
@@ -4217,7 +4328,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorList"
+                $ref: "#/components/schemas/Error"
               examples:
                 example:
                   $ref: "#/components/examples/500"
@@ -4282,7 +4393,9 @@ paths:
               $ref: "#/components/schemas/PortV4SearchRequest"
             examples:
               PortSearchDirection:
-                $ref: "#/components/examples/PortSearchByProjectId"
+                $ref: "#/components/examples/portSearchByProjectId"
+              PortSearchOptionalFilter:
+                $ref: "#/components/examples/portSearchByOptionalFilters"
         required: true
       responses:
         "200":
@@ -4301,20 +4414,42 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorList"
               examples:
-                example:
+                invalidUuid:
                   $ref: "#/components/examples/400"
+                invalidProjectIdRequest:
+                  $ref: "#/components/examples/portSearchInvalidProjectRequest"
+                invalidRequest:
+                  $ref: "#/components/examples/portSearchInvalidRequest"
+                invalidSearchFieldProperty:
+                  $ref: "#/components/examples/portSearchInvalidSearchFieldProperty"
+                invalidSearchFieldArgument:
+                  $ref: "#/components/examples/portSearchInvalidSearchFieldArgument"
         "401":
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/401"
         "404":
           description: Not Found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorList"
+        "500":
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                portExample:
+                  $ref: "#/components/examples/ports-500"
+                userFailureExample:
+                  $ref: "#/components/examples/ports-500-user-failure"
   "/fabric/v4/connections/{connectionId}/routeAggregations":
     get:
       tags:
@@ -12390,7 +12525,9 @@ paths:
       tags:
         - Deployments
       summary: Create a new topology deployment
-      description: "The deployment API is used to creates new deployment topologies. \nIt allows users to define the properties of the deployment, including Fabric and CSP providers.\n"
+      description: |
+        The deployment API is used to creates new deployment topologies. 
+        It allows users to define the properties of the deployment, including Fabric and CSP providers.
       operationId: createTopologyDeployment
       requestBody:
         content:
@@ -12778,6 +12915,75 @@ paths:
               examples:
                 example:
                   $ref: "#/components/examples/Orchestrator_500"
+  "/fabric/v4/deployments/{deploymentId}/download":
+    post:
+      tags:
+        - Client Interfaces
+      summary: Generate Terraform Deployment Templates
+      description: The Client Interfaces API is used to generate Terraform Templates based on Deployment details.
+      operationId: createTerraformTemplates
+      parameters:
+        - name: deploymentId
+          in: path
+          description: Deployment UUID
+          required: true
+          schema:
+            $ref: "#/components/schemas/DeploymentId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClientInterfaces"
+            examples:
+              TerraformDeploymentCreate:
+                $ref: "#/components/examples/client-interfaces-create"
+        required: true
+      responses:
+        "201":
+          description: Terraform deployment templates ZIP file generated successfully
+          content:
+            application/zip:
+              schema:
+                type: string
+                description: ZIP file containing Terraform deployment templates
+                format: binary
+                example: "[ZIP file containing Terraform templates]"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/client-interfaces-400-invalid-name"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/client-interfaces-401"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/client-interfaces-404"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorList"
+              examples:
+                example:
+                  $ref: "#/components/examples/client-interfaces-500"
 components:
   schemas:
     CloudEventAssetType:
@@ -12790,6 +12996,7 @@ components:
         - networks
         - projects
         - organizations
+        - timeServices
     AssetId:
       type: string
       description: Asset UUID
@@ -12867,6 +13074,10 @@ components:
         severitytext:
           type: string
           description: Cloud Event severity text
+        equinixorganization:
+          type: string
+          description: Equinix organization identifier
+          format: uuid
         equinixproject:
           type: string
           description: Equinix project identifier
@@ -12877,6 +13088,12 @@ components:
         authid:
           type: string
           description: Cloud Event user identifier
+        traceparent:
+          type: string
+          description: Cloud Event traceparent
+        tracestate:
+          type: string
+          description: Cloud Event tracestate
         data:
           $ref: "#/components/schemas/CloudEventData"
       description: Cloud Event object
@@ -12887,10 +13104,6 @@ components:
           $ref: "#/components/schemas/CloudEventFilters"
         pagination:
           $ref: "#/components/schemas/PaginationRequest"
-        sort:
-          type: array
-          items:
-            $ref: "#/components/schemas/CloudEventFilters"
       description: Search requests containing criteria
     CloudEventFilters:
       type: object
@@ -12913,6 +13126,8 @@ components:
              * `/subject` - Cloud Event subject description
              * `/type` - Cloud Event type
              * `/time` - Time of Cloud Events
+             * `/equinixproject` - Equinix Project of Cloud Events
+             * `/equinixorganization` - Equinix Organization of Cloud Events
           example: /subject
         operator:
           type: string
@@ -12936,7 +13151,11 @@ components:
       enum:
         - ports
         - connections
-        - routers
+        - metros
+    MetricTypeQueryParams:
+      type: string
+      description: Name of the metric types
+      example: name=equinix.fabric.port.bandwidth_rx.usage&name=equinix.fabric.port.bandwidth_tx.usage
     GetMetricsByAssetResponse:
       type: object
       properties:
@@ -14434,6 +14653,52 @@ components:
         - /state
         - /name
         - /project/projectId
+    MetroConnectPostRequest:
+      required:
+        - aSide
+        - account
+        - bandwidth
+        - connectivityDestinationType
+        - type
+        - zSide
+      type: object
+      properties:
+        type:
+          type: string
+          description: Metro Connect Type
+          example: PROTECTED_FABRIC_MC
+        bandwidth:
+          type: integer
+          description: Bandwidth in Mbps
+          example: 10000
+        connectivityDestinationType:
+          type: string
+          description: Destination Port connectivity type
+          enum:
+            - COLO
+            - BMMR
+            - REMOTE
+        aSide:
+          $ref: "#/components/schemas/MetroConnectASide"
+        zSide:
+          $ref: "#/components/schemas/MetroConnectZSide"
+        order:
+          $ref: "#/components/schemas/MetroConnectOrder"
+        project:
+          $ref: "#/components/schemas/Project"
+        account:
+          $ref: "#/components/schemas/SimplifiedAccount"
+        notifications:
+          type: array
+          description: Preferences for notifications on connection configuration or status changes
+          items:
+            $ref: "#/components/schemas/SimplifiedNotification"
+      description: Create Metro Connect
+    MetroConnectId:
+      type: string
+      description: Metro Connect Service UUID
+      format: uuid
+      example: 557400f8-d360-11e9-bb65-2a2ae2dbcce4
     Presence:
       type: string
       description: Presence
@@ -14449,7 +14714,7 @@ components:
           description: List of Fabric Metros.
           items:
             $ref: "#/components/schemas/Metro"
-      description: GET Metros retrieves all Equinix? Fabric? metros, as well as latency data for each location.This performance data helps network planning engineers and administrators make strategic decisions about port locations and traffic routes.
+      description: GET Metros retrieves all Equinix® Fabric™ metros, as well as latency data for each location.This performance data helps network planning engineers and administrators make strategic decisions about port locations and traffic routes.
     Metro:
       type: object
       properties:
@@ -14491,7 +14756,7 @@ components:
           description: List of supported geographic boundaries of a Fabric Metro.
           items:
             $ref: "#/components/schemas/GeoScopeType"
-      description: GET Metros retrieves all Equinix? Fabric? metros, as well as latency data for each location.This performance data helps network planning engineers and administrators make strategic decisions about port locations and traffic routes.
+      description: GET Metros retrieves all Equinix® Fabric™ metros, as well as latency data for each location.This performance data helps network planning engineers and administrators make strategic decisions about port locations and traffic routes.
     GeoCoordinates:
       type: object
       properties:
@@ -14848,6 +15113,28 @@ components:
       description: Port Update Request
       items:
         $ref: "#/components/schemas/PortChangeOperation"
+    Error:
+      required:
+        - errorCode
+        - errorMessage
+      type: object
+      properties:
+        errorCode:
+          pattern: ^EQ-\d{7}$
+          type: string
+        errorMessage:
+          type: string
+        correlationId:
+          type: string
+        details:
+          type: string
+        help:
+          type: string
+        additionalInfo:
+          type: array
+          items:
+            $ref: "#/components/schemas/PriceError_additionalInfo"
+      description: Error Response with details
     LinkProtocolGetResponse:
       type: object
       properties:
@@ -14895,9 +15182,16 @@ components:
       type: string
       description: Possible field names to use on filters
       enum:
-        - /project/projectId
-        - /settings/productCode
+        - /device/name
+        - /physicalPorts/tether/crossConnectId
+        - /physicalPorts/interface/name
         - /state
+        - /project/projectId
+        - /uuid
+        - /name
+        - /account/orgId
+        - /account/accountNumber
+        - /location/metroCode
     PortSortCriteria:
       type: object
       properties:
@@ -15640,6 +15934,9 @@ components:
         - notification
         - package
         - type
+      allOf:
+        - $ref: "#/components/schemas/CloudRouterPostRequestBase"
+    CloudRouterPostRequestBase:
       type: object
       properties:
         type:
@@ -15705,7 +16002,7 @@ components:
           $ref: "#/components/schemas/CloudRouterChange"
       description: Fabric Cloud Router object
       allOf:
-        - $ref: "#/components/schemas/CloudRouterPostRequest"
+        - $ref: "#/components/schemas/CloudRouterPostRequestBase"
     RouterId:
       type: string
       description: Cloud Router UUID
@@ -15901,7 +16198,7 @@ components:
         project:
           $ref: "#/components/schemas/Project"
         request:
-          $ref: "#/components/schemas/CloudRouterCommandRequest"
+          $ref: "#/components/schemas/CloudRouterCommandRequestPayload"
       description: Execute Cloud Router Command Request
     CloudRouterCommand:
       type: object
@@ -15928,7 +16225,7 @@ components:
         project:
           $ref: "#/components/schemas/Project"
         request:
-          $ref: "#/components/schemas/CloudRouterCommandRequest"
+          $ref: "#/components/schemas/CloudRouterCommandRequestResponse"
         response:
           $ref: "#/components/schemas/CloudRouterCommandResponse"
         changeLog:
@@ -17524,11 +17821,10 @@ components:
           $ref: "#/components/schemas/StreamSubscriptionSelector"
         sink:
           $ref: "#/components/schemas/StreamSubscriptionSink"
+        operation:
+          $ref: "#/components/schemas/StreamSubscriptionOperation"
         changeLog:
           $ref: "#/components/schemas/Changelog"
-        lastErrorMessage:
-          type: string
-          description: HTTP response from sink type if error occurred
       description: Stream Subscription object
     StreamSubscriptionId:
       type: string
@@ -17587,16 +17883,7 @@ components:
         metricName:
           type: string
           description: Stream alert rule metric name
-          enum:
-            - equinix.fabric.connection.bandwidth_tx.usage
-            - equinix.fabric.connection.bandwidth_rx.usage
-            - equinix.fabric.port.bandwidth_tx.usage
-            - equinix.fabric.port.bandwidth_rx.usage
-            - equinix.fabric.port.packets_erred_tx.count
-            - equinix.fabric.port.packets_erred_rx.count
-            - equinix.fabric.port.packets_dropped_tx.count
-            - equinix.fabric.port.packets_dropped_rx.count
-            - equinix.fabric.metro.<source_metro_code>_<destination_metro_code>.latency
+          example: equinix.fabric.metro.sv_da.latency
         resourceSelector:
           $ref: "#/components/schemas/ResourceSelector"
         windowSize:
@@ -17666,16 +17953,7 @@ components:
         metricName:
           type: string
           description: Stream alert rule metric name
-          enum:
-            - equinix.fabric.connection.bandwidth_tx.usage
-            - equinix.fabric.connection.bandwidth_rx.usage
-            - equinix.fabric.port.bandwidth_tx.usage
-            - equinix.fabric.port.bandwidth_rx.usage
-            - equinix.fabric.port.packets_erred_tx.count
-            - equinix.fabric.port.packets_erred_rx.count
-            - equinix.fabric.port.packets_dropped_tx.count
-            - equinix.fabric.port.packets_dropped_rx.count
-            - equinix.fabric.metro.<source_metro_code>_<destination_metro_code>.latency
+          example: equinix.fabric.metro.sv_da.latency
         resourceSelector:
           $ref: "#/components/schemas/ResourceSelector"
         windowSize:
@@ -17718,16 +17996,7 @@ components:
         metricName:
           type: string
           description: Stream alert rule metric name
-          enum:
-            - equinix.fabric.connection.bandwidth_tx.usage
-            - equinix.fabric.connection.bandwidth_rx.usage
-            - equinix.fabric.port.bandwidth_tx.usage
-            - equinix.fabric.port.bandwidth_rx.usage
-            - equinix.fabric.port.packets_erred_tx.count
-            - equinix.fabric.port.packets_erred_rx.count
-            - equinix.fabric.port.packets_dropped_tx.count
-            - equinix.fabric.port.packets_dropped_rx.count
-            - equinix.fabric.metro.<source_metro_code>_<destination_metro_code>.latency
+          example: equinix.fabric.metro.sv_da.latency
         resourceSelector:
           $ref: "#/components/schemas/ResourceSelector"
         operand:
@@ -17815,7 +18084,12 @@ components:
           description: Preferences for notifications on deployement status changes
           items:
             $ref: "#/components/schemas/SimplifiedNotification"
-      description: "This API provides capability to retrieve user's deployments\nThe response contains the details of the deployment including its state, topology, and providers.\nThe deployment is identified by its UUID.\nThe response also includes a list of notifications preferences for deployment status changes.    \nThe response is in JSON format and follows the OpenAPI specification.\n"
+      description: |
+        This API provides capability to retrieve user's deployments
+        The response contains the details of the deployment including its state, topology, and providers.
+        The deployment is identified by its UUID.
+        The response also includes a list of notifications preferences for deployment status changes.    
+        The response is in JSON format and follows the OpenAPI specification.
     DeploymentId:
       type: string
       description: Deployment UUID
@@ -17940,28 +18214,22 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ProvidersSearchResponse"
-    Error:
+    ClientInterfaces:
       required:
-        - errorCode
-        - errorMessage
+        - description
+        - name
+        - type
       type: object
       properties:
-        errorCode:
-          pattern: ^EQ-\d{7}$
+        type:
           type: string
-        errorMessage:
+          example: TERRAFORM_DOWNLOAD
+        name:
           type: string
-        correlationId:
+          example: terraform-deployment-download
+        description:
           type: string
-        details:
-          type: string
-        help:
-          type: string
-        additionalInfo:
-          type: array
-          items:
-            $ref: "#/components/schemas/PriceError_additionalInfo"
-      description: Error Response with details
+          example: Deployment Terraform Templates in DC
     CloudEventData:
       type: object
       properties:
@@ -18946,13 +19214,42 @@ components:
       description: Service Token action type
       enum:
         - RESEND_EMAIL_NOTIFICATION
-    PortType:
-      type: string
-      description: Type of Port
-      enum:
-        - XF_PORT
-        - IX_PORT
-        - IA_PORT
+    MetroConnectASide:
+      type: object
+      properties:
+        patchPanel:
+          $ref: "#/components/schemas/MetroConnectPatchPanel"
+      description: Metro Connection ASide configuration
+    MetroConnectZSide:
+      type: object
+      properties:
+        patchPanel:
+          $ref: "#/components/schemas/MetroConnectPatchPanel"
+        loas:
+          type: array
+          items:
+            $ref: "#/components/schemas/PortLoa"
+      description: Metro Connection ZSide configuration
+    MetroConnectOrder:
+      type: object
+      properties:
+        purchaseOrderNumber:
+          type: string
+          description: purchase order number
+        orderId:
+          type: string
+          description: Order Identification
+        customerReferenceId:
+          type: string
+          description: Customer order reference Id
+        orderNumber:
+          type: string
+          description: Order Reference Number
+        uuid:
+          type: string
+          description: Equinix-assigned order identifier, this is a derived response attribute
+          format: uuid
+      description: Metro Connect Order
     PortState:
       type: string
       description: Port lifecycle state
@@ -18960,6 +19257,7 @@ components:
         - PENDING
         - PROVISIONING
         - REPROVISIONING
+        - PENDING_CROSS_CONNECT
         - PROVISIONED
         - ACTIVE
         - DEPROVISIONING
@@ -18970,6 +19268,33 @@ components:
         - DELETED
         - TO_BE_ADDED
         - TO_BE_DELETED
+    MetroConnectASideResponse:
+      type: object
+      properties:
+        patchPanel:
+          $ref: "#/components/schemas/MetroConnectPatchPanel"
+        port:
+          $ref: "#/components/schemas/MetroConnectPort"
+      description: Metro Connection ASide configuration
+    MetroConnectZSideResponse:
+      type: object
+      properties:
+        patchPanel:
+          $ref: "#/components/schemas/MetroConnectPatchPanel"
+        port:
+          $ref: "#/components/schemas/MetroConnectPort"
+        loas:
+          type: array
+          items:
+            $ref: "#/components/schemas/PortLoa"
+      description: Metro Connection ZSide configuration
+    PortType:
+      type: string
+      description: Type of Port
+      enum:
+        - XF_PORT
+        - IX_PORT
+        - IA_PORT
     PortOrder:
       type: object
       properties:
@@ -19238,16 +19563,10 @@ components:
         uuid:
           type: string
           description: uuid
-        href:
-          type: string
-          description: Loa uri.
-          format: uri
-          readOnly: true
         type:
           type: string
           description: Loa type
-          enum:
-            - CTR_LOA
+          example: DIGITAL_LOA
       description: Port Loas
     PhysicalPortType:
       type: string
@@ -19853,7 +20172,7 @@ components:
       enum:
         - PING_COMMAND
         - TRACEROUTE_COMMAND
-    CloudRouterCommandRequest:
+    CloudRouterCommandRequestPayload:
       required:
         - destination
         - sourceConnection
@@ -19861,42 +20180,40 @@ components:
       properties:
         destination:
           type: string
-          description: Fabric Cloud Router Ping Command Destination
+          description: Fabric Cloud Router Ping or Traceroute Command Destination
           example: 8.8.8.8
         sourceConnection:
           $ref: "#/components/schemas/CloudRouterCommandRequestConnection"
         timeout:
           type: integer
-          description: Timeout in seconds for Fabric Cloud Router Ping or Traceroute Command
+          description: |
+            Timeout in seconds for Fabric Cloud Router Command:
+              - For `PING_COMMAND`: Packet timeout duration. The default value is 5.
+              - For `TRACEROUTE_COMMAND`: Probe timeout duration.
+                The default value is 2 and it is not configurable.
           example: 2
         dataBytes:
           maximum: 9000
           minimum: 16
           type: integer
-          description: Fabric Cloud Router Ping Command DataBytes
+          description: |
+            Ping Command DataBytes. 
+            This field is only applicable for commands of type `PING_COMMAND`.
           example: 100
           default: 64
-        interval:
-          type: integer
-          description: Time in milliseconds between sending each packet for Fabric Cloud Router Ping Command
-          readOnly: true
-          example: 1000
-          default: 1000
-        count:
-          type: integer
-          description: Total number of ping requests for Fabric Cloud Router Ping Command
-          readOnly: true
-          example: 5
-          default: 5
         probes:
           type: integer
-          description: Number of probes to send for Fabric Cloud Router Traceroute Command
+          description: |
+            Number of probes for Fabric Cloud Router Traceroute Command.
+            This field is only applicable for commands of type `TRACEROUTE_COMMAND` and is not configurable.
           example: 3
           default: 3
         hopsMax:
           maximum: 30
           type: integer
-          description: Maximum number of hops for Fabric Cloud Router Traceroute Command
+          description: |
+            Maximum number of hops for the traceroute command.
+            This field is only applicable for commands of type `TRACEROUTE_COMMAND`.
           example: 20
           default: 20
       description: Fabric Cloud Router Command Request
@@ -19909,6 +20226,62 @@ components:
         - SUCCEEDED
         - FAILED
         - DELETED
+    CloudRouterCommandRequestResponse:
+      type: object
+      properties:
+        destination:
+          type: string
+          description: Fabric Cloud Router Ping or Traceroute Command Destination
+          example: 8.8.8.8
+        sourceConnection:
+          $ref: "#/components/schemas/CloudRouterCommandRequestConnection"
+        timeout:
+          type: integer
+          description: |
+            Timeout in seconds for Fabric Cloud Router Command:
+              - For `PING_COMMAND`: Packet timeout duration. The default value is 5.
+              - For `TRACEROUTE_COMMAND`: Probe timeout duration.
+                The default value is 2 and it is not configurable.
+          example: 2
+        dataBytes:
+          maximum: 9000
+          minimum: 16
+          type: integer
+          description: |
+            Ping Command DataBytes. 
+            This field is only applicable for commands of type `PING_COMMAND`.
+          example: 100
+          default: 64
+        interval:
+          type: integer
+          description: |
+            Time in milliseconds between sending each packet.
+            This field is only applicable for commands of type `PING_COMMAND`.
+          example: 1000
+          default: 1000
+        count:
+          type: integer
+          description: |
+            Total number of ping requests.
+            This field is only applicable for commands of type `PING_COMMAND`.
+          example: 5
+          default: 5
+        probes:
+          type: integer
+          description: |
+            Number of probes for Fabric Cloud Router Traceroute Command.
+            This field is only applicable for commands of type `TRACEROUTE_COMMAND` and is not configurable.
+          example: 3
+          default: 3
+        hopsMax:
+          maximum: 30
+          type: integer
+          description: |
+            Maximum number of hops for the traceroute command.
+            This field is only applicable for commands of type `TRACEROUTE_COMMAND`.
+          example: 20
+          default: 20
+      description: Fabric Cloud Router Command Request
     CloudRouterCommandResponse:
       type: object
       oneOf:
@@ -20345,6 +20718,61 @@ components:
         uuid:
           type: string
           format: uuid
+    StreamSubscriptionOperation:
+      type: object
+      properties:
+        eventsDeliveredCount:
+          type: integer
+          description: count of delivered events
+        metricsDeliveredCount:
+          type: integer
+          description: count of delivered metrics
+        alertsDeliveredCount:
+          type: integer
+          description: count of delivered alerts
+        lastSuccessfulDeliveryDateTime:
+          type: string
+          description: last successful date time of delivered event, metric, or alert
+          format: date-time
+        suspendedDateTime:
+          type: string
+          description: suspended date time of stream subscription delivery for event, metric, or alert
+          format: date-time
+        errors:
+          type: array
+          description: List of error information for stream subscription delivery
+          items:
+            $ref: "#/components/schemas/StreamSubscriptionOperationErrors"
+      description: Stream subscription operational information
+    StreamSubscriptionOperationErrors:
+      type: object
+      properties:
+        errorCode:
+          type: string
+          description: Equinix Observability error code
+        errorMessage:
+          type: string
+          description: Equinix Observability error message
+        dateTime:
+          type: string
+          description: Equinix Observability error date time
+          format: date-time
+        additionalInfo:
+          $ref: "#/components/schemas/StreamSubscriptionOperationAdditionalInfo"
+      description: Error information for stream subscription delivery
+    StreamSubscriptionOperationAdditionalInfo:
+      type: object
+      properties:
+        property:
+          type: string
+          description: Additional attribute for error information
+        statusCode:
+          type: string
+          description: HTTP error status code response from sink type if error occurred
+        reason:
+          type: string
+          description: HTTP error message response from sink type if error occurred
+      description: External error information from subscription sink
     StreamSubscriptionFilter:
       type: object
       properties:
@@ -20414,19 +20842,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/StreamFilterSimpleExpression"
-    VpnTunnelState:
-      type: string
-      description: VPN Tunnel lifecycle state
-      example: PROVISIONED
-      enum:
-        - PROVISIONING
-        - PROVISIONED
-        - DEPROVISIONING
-        - DEPROVISIONED
-        - REPROVISIONING
-        - PROVISIONING_FAILED
-        - DEPROVISIONING_FAILED
-      x-order: 6
     OrchestratorProviders:
       type: object
       description: |
@@ -20788,6 +21203,57 @@ components:
           items:
             $ref: "#/components/schemas/AccessPointSelector"
       description: Connection link protocol,virtual device or network configuration
+    MetroConnectPatchPanel:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Patch Panel ID
+          example: CP:Demarc:1259684
+        portA:
+          type: string
+          description: Patch Panel Port A
+          example: "10"
+        portB:
+          type: string
+          description: Patch Panel Port B
+          example: "11"
+        connectorType:
+          type: string
+          description: Type of Connector
+          example: SC
+        cageUniqueSpaceId:
+          type: string
+          description: Cage Unique Space Id
+          example: SV1:01:002174
+        cabinetUniqueSpaceId:
+          type: string
+          description: Cabinet Unique Space Id
+          example: Demarc
+        ibx:
+          type: string
+          description: IBX identifier
+          example: SV1
+      description: Patch panel object
+    MetroConnectPort:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+          example: https://api.equinix.com/fabric/v4/ports/a8ba52de-faae-43b5-b0b1-6904d37ee063
+        type:
+          type: string
+          description: Port Type
+          example: MC_PORT
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+          example: a8ba52de-faae-43b5-b0b1-6904d37ee063
+        location:
+          $ref: "#/components/schemas/SimplifiedLocation"
+      description: Metro Connect Port
     PortDeviceRedundancy:
       type: object
       properties:
@@ -22722,6 +23188,8 @@ components:
             equinixproject: dadd3ab6-c0af-430c-8216-43d44f08c1c5
             authtype: system
             authid: equinix
+            traceparent: 00-66c62c1af1864fbd979271a60705518f-00f067aa0ba90111-00,
+            tracestate: 71a60705518f,81a607055181
             data:
               message: Neighbor 100.100.100.102 address session state changed to Connect
               auth:
@@ -22740,6 +23208,8 @@ components:
             equinixproject: dadd3ab6-c0af-430c-8216-43d44f08c1c5
             authtype: user
             authid: 123456
+            traceparent: 00-66c62c1af1864fbd979271a60705518f-00f067aa0ba90111-00,
+            tracestate: 71a60705518f,81a607055181
             data:
               message: Connection named TEST-CONNECTION state changed to provisioning
               resource:
@@ -22766,6 +23236,8 @@ components:
             equinixproject: dadd3ab6-c0af-430c-8216-43d44f08c1c5
             authtype: system
             authid: equinix
+            traceparent: 00-66c62c1af1864fbd979271a60705518f-00f067aa0ba90111-00,
+            tracestate: 71a60705518f,81a607055181
             data:
               message: Connection named TEST-CONNECTION state changed to provisioned
               resource:
@@ -22792,6 +23264,8 @@ components:
         equinixproject: dadd3ab6-c0af-430c-8216-43d44f08c1c5
         authtype: user
         authid: 123456
+        traceparent: 00-66c62c1af1864fbd979271a60705518f-00f067aa0ba90111-00,
+        tracestate: 71a60705518f,81a607055181
         data:
           message: Connection named TEST-CONNECTION state changed to provisioning
           resource:
@@ -22818,6 +23292,18 @@ components:
               values:
                 - /fabric/v4/ports/8ac8ecfe-c7cb-4def-9f77-5ce93c19d83d*
                 - /fabric/v4/ports/c8bba3be-5132-4669-bb47-7f1a8811359b*
+            - property: /type
+              operator: IN
+              values:
+                - equinix.fabric.port.status.*
+            - property: /equinixorganization
+              operator: =
+              values:
+                - 526698000597331
+            - property: /equinixproject
+              operator: =
+              values:
+                - dadd3ab6-c0af-430c-8216-43d44f08c1c5
             - property: /time
               operator: ">"
               values:
@@ -32755,7 +33241,7 @@ components:
           - type: NOTIFICATION
             emails:
               - abc@company.com
-    createZsideServiceTokenWithNetwork:
+    createZsideServiceTokenWithNetworkEvplan:
       value:
         type: VC_TOKEN
         name: zside_Network_token
@@ -32772,6 +33258,81 @@ components:
               - type: NETWORK
                 network:
                   type: EVPLAN
+                  uuid: 20d32a80-0d61-4333-bc03-707b591ae2f4
+        project:
+          projectId: 30ad25e2-53dc-11ed-bdc3-0242ac120002
+        expirationDateTime: 2021-03-18T06:43:49.980Z
+        notifications:
+          - type: NOTIFICATION
+            emails:
+              - abc@company.com
+    createZsideServiceTokenWithNetworkEplan:
+      value:
+        type: VC_TOKEN
+        name: zside_Network_token
+        description: Zside_Network_token
+        connection:
+          type: EPLAN_VC
+          allowRemoteConnection: true
+          supportedBandwidths:
+            - 10
+            - 50
+            - 200
+          zSide:
+            accessPointSelectors:
+              - type: NETWORK
+                network:
+                  type: EPLAN
+                  uuid: 20d32a80-0d61-4333-bc03-707b591ae2f4
+        project:
+          projectId: 30ad25e2-53dc-11ed-bdc3-0242ac120002
+        expirationDateTime: 2021-03-18T06:43:49.980Z
+        notifications:
+          - type: NOTIFICATION
+            emails:
+              - abc@company.com
+    createZsideServiceTokenWithNetworkEvptree:
+      value:
+        type: VC_TOKEN
+        name: zside_Network_token
+        description: Zside_Network_token
+        connection:
+          type: EVPTREE_VC
+          allowRemoteConnection: true
+          supportedBandwidths:
+            - 10
+            - 50
+            - 200
+          zSide:
+            accessPointSelectors:
+              - type: NETWORK
+                network:
+                  type: EVPTREE
+                  uuid: 20d32a80-0d61-4333-bc03-707b591ae2f4
+        project:
+          projectId: 30ad25e2-53dc-11ed-bdc3-0242ac120002
+        expirationDateTime: 2021-03-18T06:43:49.980Z
+        notifications:
+          - type: NOTIFICATION
+            emails:
+              - abc@company.com
+    createZsideServiceTokenWithNetworkEptree:
+      value:
+        type: VC_TOKEN
+        name: zside_Network_token
+        description: Zside_Network_token
+        connection:
+          type: EPTREE_VC
+          allowRemoteConnection: true
+          supportedBandwidths:
+            - 10
+            - 50
+            - 200
+          zSide:
+            accessPointSelectors:
+              - type: NETWORK
+                network:
+                  type: EPTREE
                   uuid: 20d32a80-0d61-4333-bc03-707b591ae2f4
         project:
           projectId: 30ad25e2-53dc-11ed-bdc3-0242ac120002
@@ -32859,6 +33420,83 @@ components:
             emails:
               - abc@company.com
               - provider@company.com
+    createZsideServiceTokenWithNetworkEvplan-Response:
+      value:
+        href: https://api.equinix.com/fabric/v4/serviceTokens/7cf92aa3-18b8-435c-b3fc-55e45b1ce964
+        type: VC_TOKEN
+        uuid: 7cf92aa3-18b8-435c-b3fc-55e45b1ce964
+        expirationDateTime: 2025-09-09T00:00:00Z
+        connection:
+          type: EVPLAN_VC
+          allowRemoteConnection: true
+          allowCustomBandwidth: false
+          supportedBandwidths:
+            - 10
+            - 50
+            - 200
+            - 500
+          zSide:
+            accessPointSelectors:
+              type: NETWORK
+              network:
+                href: https://api.equinix.com/fabric/v4/networks/5e17244a-b3e6-4830-aea3-5269d61efd8c
+                uuid: 5e17244a-b3e6-4830-aea3-5269d61efd8c
+                type: EVPLAN
+                name: AUTO-EVPLAN-939087546
+                scope: GLOBAL
+        state: INACTIVE
+        notifications:
+          type: NOTIFICATION
+          emails:
+            - test@equinix.com
+            - user01@equinix.com
+        account:
+          orgId: 90837
+        changelog:
+          createdBy: 890742
+          createdDateTime: 2025-06-11T15:23:19.237Z
+        project:
+          projectId: ac4d34ca-0d9c-4bc2-9aab-195743fee962
+    createZsideServiceTokenWithNetworkEvptree-Response:
+      value:
+        href: https://api.equinix.com/fabric/v4/serviceTokens/543b869e-a9ba-4492-860b-44927ce619f9
+        type: VC_TOKEN
+        uuid: 543b869e-a9ba-4492-860b-44927ce619f9
+        expirationDateTime: 2025-09-09T00:00:00Z
+        connection:
+          type: EVPTREE_VC
+          allowRemoteConnection: true
+          allowCustomBandwidth: false
+          supportedBandwidths:
+            - 10
+            - 50
+            - 200
+            - 500
+            - 1000
+          zSide:
+            accessPointSelectors:
+              type: NETWORK
+              network:
+                href: https://api.equinix.com/fabric/v4/networks/a3536780-6118-4374-ab65-23b17fc4cbbb
+                uuid: a3536780-6118-4374-ab65-23b17fc4cbbb
+                type: EVPTREE
+                name: EVPTREE-AMER-01
+                scope: REGIONAL
+                location:
+                  region: AMER
+        state: INACTIVE
+        notifications:
+          type: NOTIFICATION
+          emails:
+            - test@equinix.com
+            - user01@equinix.com
+        account:
+          orgId: 90837
+        changelog:
+          createdBy: 890742
+          createdDateTime: 2025-06-11T15:54:33.007Z
+        project:
+          projectId: ac4d34ca-0d9c-4bc2-9aab-195743fee962
     Resend_Service_Token:
       value:
         type: RESEND_EMAIL_NOTIFICATION
@@ -32910,6 +33548,201 @@ components:
               operator: =
               values:
                 - 407f8239-254c-4fe2-a378-458f197e17c4
+    ColoMetroConnectCreate:
+      value:
+        type: PROTECTED_FABRIC_MC
+        bandwidth: 10000
+        connectivityDestinationType: COLO
+        aSide:
+          patchPanel:
+            id: CP:Demarc:1259684
+            portA: "10"
+            portB: "11"
+            connectorType: SC
+            cageUniqueSpaceId: SV1:01:002174
+            cabinetUniqueSpaceId: Demarc
+            ibx: SV1
+        zSide:
+          patchPanel:
+            id: CP:Demarc:1259684
+            portA: "10"
+            portB: "11"
+            connectorType: SC
+            cageUniqueSpaceId: SV2:01:002174
+            cabinetUniqueSpaceId: Demarc
+            ibx: SV2
+        order:
+          purchaseOrderNumber: 156576
+        project:
+          projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
+        account:
+          accountNumber: 270848
+        notifications:
+          - type: ALL
+            emails:
+              - test@test.com
+    RemoteMetroConnectCreate:
+      value:
+        type: PROTECTED_FABRIC_MC
+        bandwidth: 10000
+        connectivityDestinationType: REMOTE
+        aSide:
+          patchPanel:
+            id: CP:Demarc:1259684
+            portA: "10"
+            portB: "11"
+            connectorType: SC
+            cageUniqueSpaceId: SV1:01:002174
+            cabinetUniqueSpaceId: Demarc
+            ibx: SV1
+        zSide:
+          patchPanel:
+            ibx: SV2
+          loas:
+            - uuid: 64de7e5-7fe7-41e6-b984-80d5aa159a0e
+        order:
+          purchaseOrderNumber: 156576
+        project:
+          projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
+        account:
+          accountNumber: 270848
+        notifications:
+          - type: ALL
+            emails:
+              - test@test.com
+    ColoMetroConnectResponseExample:
+      value:
+        href: https://api.equinix.com/fabric/v4/metroConnects/06dbb0e3-e55d-4090-8aff-fc5654abaad0
+        uuid: 06dbb0e3-e55d-4090-8aff-fc5654abaad0
+        type: PROTECTED_FABRIC_MC
+        name: My-PMC-Service
+        state: PROVISIONING
+        bandwidth: 10000
+        connectivityDestinationType: COLO
+        connection:
+          href: https://api.equinix.com/fabric/v4/connections/a8ba52de-faae-43b5-b0b1-6904d37ee063
+          type: MC_VC
+          uuid: a8ba52de-faae-43b5-b0b1-6904d37ee063
+        aSide:
+          patchPanel:
+            id: CP:Demarc:1259684
+            portA: "10"
+            portB: "11"
+            connectorType: SC
+            cageUniqueSpaceId: SV1:01:002174
+            cabinetUniqueSpaceId: Demarc
+            ibx: SV1
+          port:
+            href: https://api.equinix.com/fabric/v4/ports/a8ba52de-faae-43b5-b0b1-6904d37ee063
+            type: MC_PORT
+            uuid: a8ba52de-faae-43b5-b0b1-6904d37ee063
+            location:
+              metroHref: https://api.equinix.com/fabric/v4/metros/SV
+              metroCode: SV
+        zSide:
+          patchPanel:
+            id: CP:Demarc:1259684
+            portA: "10"
+            portB: "11"
+            connectorType: SC
+            cageUniqueSpaceId: SV2:01:002174
+            cabinetUniqueSpaceId: Demarc
+            ibx: SV2
+          port:
+            href: https://api.equinix.com/fabric/v4/ports/b8ba52de-faae-43b5-b0b1-6904d37ee063
+            type: MC_PORT
+            uuid: b8ba52de-faae-43b5-b0b1-6904d37ee063
+            location:
+              metroHref: https://api.equinix.com/fabric/v4/metros/SV
+              metroCode: SV
+        order:
+          purchaseOrderNumber: 156576
+          orderNumber: 1-129105284100
+        project:
+          projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
+        account:
+          accountNumber: 270848
+        notifications:
+          - type: ALL
+            emails:
+              - test@test.com
+    RemoteMetroConnectResponseExample:
+      value:
+        href: https://api.equinix.com/fabric/v4/metroConnects/06dbb0e3-e55d-4090-8aff-fc5654abaad0
+        uuid: 06dbb0e3-e55d-4090-8aff-fc5654abaad0
+        type: PROTECTED_FABRIC_MC
+        name: My-PMC-Service
+        state: PROVISIONING
+        bandwidth: 10000
+        connectivityDestinationType: REMOTE
+        connection:
+          href: https://api.equinix.com/fabric/v4/connections/a8ba52de-faae-43b5-b0b1-6904d37ee063
+          type: MC_VC
+          uuid: a8ba52de-faae-43b5-b0b1-6904d37ee063
+        aSide:
+          patchPanel:
+            id: CP:Demarc:1259684
+            portA: "10"
+            portB: "11"
+            connectorType: SC
+            cageUniqueSpaceId: SV1:01:002174
+            cabinetUniqueSpaceId: Demarc
+            ibx: SV1
+          port:
+            href: https://api.equinix.com/fabric/v4/ports/a8ba52de-faae-43b5-b0b1-6904d37ee063
+            type: MC_PORT
+            uuid: a8ba52de-faae-43b5-b0b1-6904d37ee063
+            location:
+              metroHref: https://api.equinix.com/fabric/v4/metros/SV
+              metroCode: SV
+        zSide:
+          patchPanel:
+            ibx: SV2
+          loas:
+            - uuid: 64de7e5-7fe7-41e6-b984-80d5aa159a0e
+              type: DIGITAL_LOA
+          port:
+            href: https://api.equinix.com/fabric/v4/ports/b8ba52de-faae-43b5-b0b1-6904d37ee063
+            type: MC_PORT
+            uuid: b8ba52de-faae-43b5-b0b1-6904d37ee063
+            location:
+              metroHref: https://api.equinix.com/fabric/v4/metros/SV
+              metroCode: SV
+        order:
+          purchaseOrderNumber: 156576
+          orderNumber: 1-129105284100
+        project:
+          projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
+        account:
+          accountNumber: 270848
+        notifications:
+          - type: ALL
+            emails:
+              - test@test.com
+    MetroConnect_400:
+      value:
+        - errorCode: EQ-3057103
+          errorMessage: Metro Connect Service does not exist or does not belong to the user.Please check Metro Connect UUID
+          correlationId: cebc3d33-9037-4a2b-a7af-0ad65602cdec
+          details: Metro Connect Service does not exist or does not belong to the user.Please check Metro Connect UUID
+    MetroConnect_403:
+      value:
+        - errorCode: EQ-3057102
+          errorMessage: Operation not allowed
+          correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+          details: Operation not allowed for current user
+    MetroConnect_404:
+      value:
+        - errorCode: EQ-3057101
+          errorMessage: Metro Connect Service not found or already deleted
+          correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+          details: Metro Connect Service not found or already deleted
+    MetroConnect_500:
+      value:
+        - errorCode: EQ-3057104
+          errorMessage: Internal Server Error
+          correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+          details: Internal Server Error
     metro:
       value:
         pagination:
@@ -33074,95 +33907,164 @@ components:
       value:
         pagination:
           offset: 0
-          limit: 5
-          total: 1
+          limit: 1000
+          total: 2
         data:
-          - href: https://api.equinix.com/fabric/v4/ports/e91484bb-4f65-4ab3-8f77-500dec2f855d
+          - href: https://api.equinix.com/fabric/v4/ports/c4d93b39-02db-2dbc-ace0-30fa5c00ad04
             type: XF_PORT
-            uuid: e91484bb-4f65-4ab3-8f77-500dec2f855d
-            name: test-AT1-Dot1q-L-Secondary-108608
-            state: ACTIVE
+            uuid: c4d93b39-02db-2dbc-ace0-30fa5c00ad04
+            name: gen-l2-qa-01-auto-TY4-L-Qinq-STD-SEC-10G-JUN-598
+            physicalPortsSpeed: 10000
+            physicalPortsType: 10GBASE_LR
+            connectivitySourceType: COLO
+            project:
+              projectId: 333cd592-1709-4238-bb0d-2c2b41896aa1
+            package:
+              code: STANDARD
+            state: REPROVISIONING
+            cvpId: "1616554"
+            operation:
+              connectionCount: 0
+              evplVCCount: 0
+              accessVCCount: 0
+            account:
+              accountNumber: 200559
+              accountName: gen-l2-qa-01-auto-200559
+              orgId: 90946
+              organizationName: gen-l2-qa-01-auto-200551.
+              ucmId: 500DFED2-EBDB-480d-896C-C7870E52D0D8
+              globalCustId: 0017i000011X242AAC
+            changeLog:
+              createdBy: vvyugovskiy-IMPORT_JOB
+              createdDateTime: 2021-06-16T01:46:52Z
+              updatedBy: Order-to-activation
+              updatedDateTime: 2025-04-07T23:03:08.900Z
             bandwidth: 10000
+            availableBandwidth: 10000
             usedBandwidth: 0
-            availableBandwidth: 20000
-            physicalPortSpeed: 10000
+            location:
+              metroHref: https://api.equinix.com/fabric/v4/metros/TY
+              region: APAC
+              metroName: Tokyo
+              metroCode: TY
+              ibx: TY4
+            device:
+              name: sit-tb1-ty-a2.lab
+              redundancy:
+                priority: SECONDARY
+            demarcationPointIbx: TY4
+            tetherIbx: TY4
             redundancy:
               priority: SECONDARY
+            encapsulation:
+              type: QINQ
+              tagProtocolId: 37120
+            lagEnabled: false
+            settings:
+              buyout: false
+            physicalPorts:
+              - type: XF_PHYSICAL_PORT
+                id: 1362185
+                state: TO_BE_ADDED
+                uuid: 01892489-ce9b-7f25-b1f5-d32a5ac6a423
+                tether:
+                  crossConnectId: ECX.05.00001836
+                  cabinetNumber: Demarc
+                  systemName: TY4:01:002181
+                  patchPanel: PP:1240:1089399
+                  patchPanelPortA: "7"
+                  patchPanelPortB: "8"
+                  ibx: TY4
+                demarcationPoint:
+                  patchPanel: PP:Demarc:00002181
+                  patchPanelName: PP:Demarc:00002181
+                  patchPanelPortA: "5"
+                  patchPanelPortB: "6"
+                  ibx: TY4
+                operation:
+                  operationalStatus: UP
+          - href: https://api.equinix.com/fabric/v4/ports/6f0f3015-2d51-4b6e-a98c-1defb4fe88f1
+            type: XF_PORT
+            uuid: 6f0f3015-2d51-4b6e-a98c-1defb4fe88f1
+            name: 200558-SY4-CX-PRI-02
+            physicalPortsSpeed: 10000
+            physicalPortsType: 10GBASE_LR
+            project:
+              projectId: 333cd592-1709-4238-bb0d-2c2b41896aa1
+            package:
+              code: STANDARD
+            state: ACTIVE
+            cvpId: "2000348"
+            operation:
+              connectionCount: 1
+              evplVCCount: 1
+              accessVCCount: 0
+            account:
+              accountNumber: 200558
+              accountName: Gen-L2-Qa-01-Auto-200558
+              orgId: 90946
+              organizationName: gen-l2-qa-01-auto-200551.
+              ucmId: 2D26D682-B62E-495d-AFDF-698EC3B353F8
+              globalCustId: 0017i000011X242AAC
+            changeLog:
+              createdDateTime: 2025-05-06T17:29:30.800Z
+              updatedBy: API
+              updatedDateTime: 2025-05-06T17:29:40.300Z
+            bandwidth: 10000
+            availableBandwidth: 9500
+            usedBandwidth: 500
             location:
-              metroHref: https://api.equinix.com/fabric/v4/metros/AT
-              ibx: AT1
-              metroCode: AT
-              metroName: Atlanta
-              region: AMER
+              metroHref: https://api.equinix.com/fabric/v4/metros/SY
+              region: APAC
+              metroName: Sydney
+              metroCode: SY
+              ibx: SY4
             device:
-              name: dev-m7a2.lab
+              name: sit-tb1-sy-e1.lab
               redundancy:
                 group: "1"
-                priority: SECONDARY
+                priority: PRIMARY
+            demarcationPointIbx: SY4
+            tetherIbx: SY4
+            redundancy:
+              priority: PRIMARY
             encapsulation:
               type: DOT1Q
               tagProtocolId: 33024
             lagEnabled: true
-            package:
-              code: STANDARD
-              type: MSP
             settings:
               buyout: false
-              placeVcOrderPermission: true
-              viewPortPermission: true
             physicalPorts:
-              - state: ACTIVE
-                type: XF_PHYSICAL_PORT
-                id: 6967
-                bandwidth: 10000
+              - type: XF_PHYSICAL_PORT
+                id: 1362737
+                state: ACTIVE
+                uuid: 01892489-ce07-7962-b676-b1a4d8091515
                 tether:
-                  crossConnectId: 100179-A
-                  patchPanel: PP:956:66107
-                  patchPanelPortA: "5"
-                  patchPanelPortB: "42"
-                operation:
-                  operationalStatus: UP
-              - state: ACTIVE
-                type: XF_PHYSICAL_PORT
-                id: 6968
-                bandwidth: 10000
-                tether:
-                  crossConnectId: 100179-A
-                  patchPanel: PP:8118:1586
-                  patchPanelPortA: "92"
-                  patchPanelPortB: "24"
-                operation:
-                  operationalStatus: UP
+                  crossConnectId: "22035616"
+                  cabinetNumber: Demarc
+                  systemName: SY4:01:002204
+                  patchPanel: PP:1240:1089399
+                  patchPanelPortA: "12"
+                  patchPanelPortB: "14"
+                  ibx: SY4
                 demarcationPoint:
-                  ibx: AT1
-                  patchPanel: PP:8118:1586
-                  patchPanelName: PP:8118:1586
-                  patchPanelPortA: "92"
-                  patchPanelPortB: "24"
-            operation:
-              operationalStatus: UP
-              opStatusChangedAt: 2021-06-14T17:21:25.586Z
-              connectionCount: 0
-              evplVcCount: 0
-              fgVcCount: 0
-              accessVcCount: 0
-            account:
-              accountNumber: 100179
-              accountName: L2
-              globalCustId: 007700000090982RG8
-              orgId: 100179
-              organizationName: Cust_Org_100179
-            order:
-              purchaseOrder:
-                startDate: 2020-06-14T17:21:25.586Z
-                endDate: 2020-06-15T17:21:25.586Z
-                type: NEW
-              orderNumber: 1-222078525611
-            changeLog:
-              createdDateTime: 2020-06-14T17:21:25.586Z
-            project:
-              projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
-    COLOSinglePortNonLag:
+                  patchPanel: PP:Demarc:00002204
+                  patchPanelName: PP:Demarc:00002204
+                  patchPanelPortA: "17"
+                  patchPanelPortB: "18"
+                  ibx: SY4
+                operation:
+                  operationalStatus: UP
+    ports-500:
+      value:
+        - errorCode: EQ-3046030
+          errorMessage: Internal error.
+          details: Internal system error
+    ports-500-user-failure:
+      value:
+        - errorCode: IC-USR-014-01
+          errorMessage: Error in getting user's profile
+    coloSinglePortNonLag:
       value:
         type: XF_PORT
         physicalPortsSpeed: 1000
@@ -33205,99 +34107,103 @@ components:
               cageUniqueSpaceId: GV1:01:002174
               patchPanel: CP:Demarc:1259684
               connectorType: SC
-    COLOSinglePortLag:
+    coloSinglePortLag:
       value:
         type: XF_PORT
-        physicalPortsSpeed: 1000
-        physicalPortsType: 1000BASE_LX
         connectivitySourceType: COLO
         location:
-          metroCode: GV
-        demarcationPointIbx: GV1
-        package:
-          code: STANDARD
-        lagEnabled: true
+          metroCode: AT
+        settings:
+          sharedPortType: false
         encapsulation:
           type: DOT1Q
           tagProtocolId: 33024
-        project:
-          projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
         account:
-          accountNumber: 270848
-        notifications:
-          - registeredUsers:
-              - jaguarsuser-port-order
-            type: TECHNICAL
-        order:
-          purchaseOrder:
-            number: 156576
-            amount: 10
-            startDate: 2018-06-11T22:25:52.206Z
-            endDate: 2018-07-11T22:25:52.206Z
-            type: NEW
-          signature:
-            signatory: DELEGATE
-            delegate:
-              firstName: John
-              lastName: Doe
-              email: john.doe@company.com
-        physicalPorts:
-          - demarcationPoint:
-              ibx: GV1
-              cabinetUniqueSpaceId: Demarc
-              cageUniqueSpaceId: GV1:01:002174
-              patchPanel: CP:Demarc:1259684
-              connectorType: SC
-    COLOLagPortNewGroup:
-      value:
-        type: XF_PORT
-        physicalPortsSpeed: 1000
-        physicalPortsType: 1000BASE_LX
-        connectivitySourceType: COLO
-        location:
-          metroCode: GV
-        demarcationPointIbx: GV1
+          accountNumber: "16432"
+        project:
+          projectId: e275485c-7072-439f-943a-c923548b2be5
         package:
           code: STANDARD
+        redundancy:
+          priority: PRIMARY
         lagEnabled: true
+        physicalPorts:
+          - type: XF_PHYSICAL_PORT
+            demarcationPoint:
+              ibx: AT1
+              cageUniqueSpaceId: AT1:02:FE50010
+              cabinetUniqueSpaceId: "9999"
+              patchPanel: CD:9999:186947
+              connectorType: SC
+              patchPanelPortA: 4
+              patchPanelPortB: 5
+        endCustomer:
+          isDisclosed: true
+        physicalPortsSpeed: 1000
+        physicalPortsType: 1000BASE_LX
+        physicalPortsCount: 1
+        demarcationPointIbx: AT1
+        notifications:
+          - type: TECHNICAL
+            registeredUsers:
+              - username
+          - type: NOTIFICATION
+            registeredUsers:
+              - user@equinix.com
+        additionalInfo:
+          - key: lagType
+            value: New
+    coloLagPortNewGroup:
+      value:
+        type: XF_PORT
+        connectivitySourceType: COLO
+        location:
+          metroCode: TR
+        settings:
+          sharedPortType: false
         encapsulation:
           type: DOT1Q
           tagProtocolId: 33024
-        project:
-          projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
         account:
-          accountNumber: 270848
-        notifications:
-          - registeredUsers:
-              - jaguarsuser-port-order
-            type: TECHNICAL
-        order:
-          purchaseOrder:
-            number: 156576
-            amount: 10
-            startDate: 2018-06-11T22:25:52.206Z
-            endDate: 2018-07-11T22:25:52.206Z
-            type: NEW
-          signature:
-            signatory: DELEGATE
-            delegate:
-              firstName: John
-              lastName: Doe
-              email: john.doe@company.com
+          accountNumber: "96127367"
+        package:
+          code: UNLIMITED
+        project:
+          projectId: 66a2d2f7-b79b-49bc-8642-d2b3c1c138b4
+        redundancy:
+          priority: PRIMARY
+        lagEnabled: true
         physicalPorts:
-          - demarcationPoint:
-              ibx: GV1
-              cabinetUniqueSpaceId: Demarc
-              cageUniqueSpaceId: GV1:01:002174
-              patchPanel: CP:Demarc:1259684
-              connectorType: SC
-          - demarcationPoint:
-              ibx: GV1
-              cabinetUniqueSpaceId: Demarc
-              cageUniqueSpaceId: GV1:01:002174
-              patchPanel: CP:Demarc:1259684
-              connectorType: SC
-    COLOAddSecondaryPort:
+          - type: XF_PHYSICAL_PORT
+            demarcationPoint:
+              ibx: TR1
+              cageUniqueSpaceId: TR1:01:JSIT001
+              cabinetUniqueSpaceId: DEM
+              patchPanel: PP:DEM:1265410
+              connectorType: LC
+              patchPanelPortA: null
+        physicalPortsSpeed: 1000
+        physicalPortsType: 1000BASE_LX
+        physicalPortsCount: 1
+        demarcationPointIbx: TR1
+        order:
+          signature:
+            signatory: SELF
+            delegate:
+              email: jaguars-test-user-001@equinix.com
+          purchaseOrder:
+            type: EXEMPTION
+        notifications:
+          - type: TECHNICAL
+            registeredUsers:
+              - jaguars-test-user-001
+          - type: NOTIFICATION
+            registeredUsers:
+              - jaguars-test-user-001
+        additionalInfo:
+          - key: lagType
+            value: New
+    coloAddSecondaryPort:
       value:
         type: XF_PORT
         physicalPortsSpeed: 10000
@@ -33306,11 +34212,10 @@ components:
         location:
           metroCode: GV
         demarcationPointIbx: GV1
-        package:
-          code: STANDARD
         settings:
           sharedPortType: false
-          sharedPortProduct: null
+        package:
+          code: STANDARD
         redundancy:
           priority: SECONDARY
           group: 1f6bdb37-f131-5925-c039-fe1785fad165
@@ -33357,7 +34262,93 @@ components:
               patchPanelPortA: 14
               patchPanelPortB: 15
               connectorType: LC
-    REMOTESinglePortNewGroupLagRequest:
+    COLOSinglePortNonLagCreateDryRun:
+      value:
+        type: XF_PORT
+        physicalPortsSpeed: 1000
+        physicalPortsType: 1000BASE_LX
+        connectivitySourceType: COLO
+        location:
+          metroCode: GV
+        demarcationPointIbx: GV1
+        package:
+          code: STANDARD
+        lagEnabled: false
+        encapsulation:
+          type: DOT1Q
+          tagProtocolId: 33024
+        project:
+          projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931'
+        account:
+          accountNumber: 270848
+        notifications:
+          - registeredUsers:
+              - jaguarsuser-port-order
+            type: TECHNICAL
+        order:
+          purchaseOrder:
+            number: 156576
+            amount: 10
+            startDate: 2018-06-11T22:25:52.206Z
+            endDate: 2018-07-11T22:25:52.206Z
+            type: NEW
+          signature:
+            signatory: DELEGATE
+            delegate:
+              firstName: John
+              lastName: Doe
+              email: john.doe@company.com
+        physicalPorts:
+          - demarcationPoint:
+              ibx: GV1
+              cabinetUniqueSpaceId: Demarc
+              cageUniqueSpaceId: GV1:01:002174
+              patchPanel: CP:Demarc:1259684
+              connectorType: SC
+    COLOSinglePortLagCreateDryRun:
+      value:
+        type: XF_PORT
+        physicalPortsSpeed: 1000
+        physicalPortsType: 1000BASE_LX
+        connectivitySourceType: COLO
+        location:
+          metroCode: GV
+        demarcationPointIbx: GV1
+        package:
+          code: STANDARD
+        lagEnabled: true
+        encapsulation:
+          type: DOT1Q
+          tagProtocolId: 33024
+        project:
+          projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
+        account:
+          accountNumber: 270848
+        notifications:
+          - registeredUsers:
+              - jaguarsuser-port-order
+            type: TECHNICAL
+        order:
+          purchaseOrder:
+            number: 156576
+            amount: 10
+            startDate: 2018-06-11T22:25:52.206Z
+            endDate: 2018-07-11T22:25:52.206Z
+            type: NEW
+          signature:
+            signatory: DELEGATE
+            delegate:
+              firstName: John
+              lastName: Doe
+              email: john.doe@company.com
+        physicalPorts:
+          - demarcationPoint:
+              ibx: GV1
+              cabinetUniqueSpaceId: Demarc
+              cageUniqueSpaceId: GV1:01:002174
+              patchPanel: CP:Demarc:1259684
+              connectorType: SC
+    remoteSinglePortNewGroupLagRequest:
       value:
         type: XF_PORT
         physicalPortsSpeed: 1000
@@ -33367,8 +34358,9 @@ components:
         location:
           metroCode: GV
         demarcationPointIbx: GV1
+        package:
+          code: STANDARD
         settings:
-          packageType: STANDARD
           sharedPortType: false
         lagEnabled: true
         encapsulation:
@@ -33397,47 +34389,42 @@ components:
               firstName: John
               lastName: Doe
               email: john.doe@company.com
-    BMMRSinglePortLag:
+    bmmrSinglePortLag:
       value:
         type: XF_PORT
-        physicalPortsSpeed: 1000
-        physicalPortsType: 1000BASE_LX
         connectivitySourceType: BMMR
-        bmmrType: SELF
-        physicalPortsCount: 1
         location:
-          metroCode: GV
-        demarcationPointIbx: GV1
+          metroCode: SE
+        settings:
+          sharedPortType: false
         package:
           code: STANDARD
-        lagEnabled: true
         encapsulation:
           type: DOT1Q
           tagProtocolId: 33024
-        project:
-          projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
         account:
-          accountNumber: 270848
+          accountNumber: "200551"
+        project:
+          projectId: 333cd592-1709-4238-bb0d-2c2b41896aa1
+        redundancy:
+          priority: PRIMARY
+        lagEnabled: true
+        physicalPortsSpeed: 1000
+        physicalPortsType: 1000BASE_LX
+        physicalPortsCount: 1
+        demarcationPointIbx: SE2
+        bmmrType: SELF
         notifications:
-          - registeredUsers:
-              - jaguarsuser-port-order
-            type: TECHNICAL
-        loas:
-          - uuid: 396e93c2-3b3a-4d47-a9d9-1ea68627374b
-        order:
-          purchaseOrder:
-            number: 156576
-            amount: 10
-            startDate: 2018-06-11T22:25:52.206Z
-            endDate: 2018-07-11T22:25:52.206Z
-            type: NEW
-          signature:
-            signatory: DELEGATE
-            delegate:
-              firstName: John
-              lastName: Doe
-              email: john.doe@company.com
-    BMMRSinglePortNoLag:
+          - type: TECHNICAL
+            registeredUsers:
+              - falconsExternalUser@seller.com
+          - type: NOTIFICATION
+            registeredUsers:
+              - falconsExternalUser@seller.com
+        additionalInfo:
+          - key: lagType
+            value: New
+    bmmrSinglePortNoLag:
       value:
         type: XF_PORT
         physicalPortsSpeed: 1000
@@ -33446,14 +34433,14 @@ components:
         location:
           metroCode: GV
         demarcationPointIbx: GV1
-        package:
-          code: STANDARD
         lagEnabled: false
         encapsulation:
           type: DOT1Q
           tagProtocolId: 33024
         project:
           projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
+        package:
+          code: STANDARD
         account:
           accountNumber: 270848
         order:
@@ -33476,20 +34463,18 @@ components:
         loas:
           - uuid: f47a6f46-e3f8-430e-9459-bfcc0f54f3c3
           - uuid: f47a6f46-e3f8-430e-9459-bfcc0f54f3c4
-    BMMRAddSecondaryPort:
+    bmmrAddSecondaryPort:
       value:
         type: XF_PORT
         physicalPortsSpeed: 10000
         physicalPortsType: 1000BASE_LX
         connectivitySourceType: BMMR
-        bmmrType: SELF|EQUINIX
+        bmmrType: SELF
         location:
           metroCode: GV
         demarcationPointIbx: GV1
-        package:
-          code: STANDARD
         settings:
-          sharedPortProduct: NETWORK_EDGE
+          sharedPortType: false
         redundancy:
           priority: SECONDARY
           group: 1f6bdb37-f131-5925-c039-fe1785fad165
@@ -33499,6 +34484,8 @@ components:
           tagProtocolId: 33024
         project:
           projectId: 567
+        package:
+          code: STANDARD
         account:
           accountNumber: 1000
         order:
@@ -33530,7 +34517,7 @@ components:
         loas:
           - uuid: f47a6f46-e3f8-430e-9459-bfcc0f54f3c3
           - uuid: f47a6f46-e3f8-430e-9459-bfcc0f54f3c4
-    BMMRLagPortNewGroup:
+    bmmrLagPortNewGroup:
       value:
         type: XF_PORT
         physicalPortsSpeed: 1000
@@ -33568,12 +34555,9 @@ components:
               firstName: John
               lastName: Doe
               email: john.doe@company.com
-    COLOSinglePortNonLagResponse:
+    PortCreateDryRunResponse:
       value:
-        href: https://api.equinix.com/fabric/v4/ports/0f6bdb36-e130-4924-b038-ee1785fad166
         type: XF_PORT
-        uuid: 0f6bdb36-e130-4924-b038-ee1785fad166
-        state: PENDING
         physicalPortsType: 10GBASE_L
         physicalPortsSpeed: 10000
         physicalPortsCount: 1
@@ -33583,7 +34567,7 @@ components:
         redundancy:
           group: 1
           priority: PRIMARY
-        lagEnabled: false
+        lagEnabled: true
         encapsulation:
           type: DOT1Q
           tagProtocolId: 33024
@@ -33592,7 +34576,7 @@ components:
         settings:
           sharedPortType: false
         project:
-          projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
+          projectId: 567
         account:
           accountNumber: 1000
         order:
@@ -33614,6 +34598,206 @@ components:
           - type: ESCALATION
             registeredUsers:
               - jaguarsuser-port-order
+    coloSinglePortNonLagResponse:
+      value:
+        href: https://api.equinix.com/fabric/v4/ports/11abfba0-907f-460b-95ff-5a7bda4471ed
+        type: XF_PORT
+        uuid: 11abfba0-907f-460b-95ff-5a7bda4471ed
+        physicalPortsSpeed: 1000
+        physicalPortsType: 1000BASE_LX
+        physicalPortsCount: 1
+        connectivitySourceType: COLO
+        project:
+          projectId: 66a2d2f7-b79b-49bc-8642-d2b3c1c138b4
+        state: PENDING
+        order:
+          orderNumber: 1-233948565342
+          uuid: d8ab29fe-e849-417d-b0a0-946e69dcd2ce
+          purchaseOrder:
+            number: 156576
+            amount: 10
+            startDate: 2018-06-11T22:25:52.206Z
+            endDate: 2018-07-11T22:25:52.206Z
+            type: NEW
+          signature:
+            signatory: DELEGATE
+            delegate:
+              firstName: John
+              lastName: Doe
+              email: john.doe@company.com
+        account:
+          accountNumber: 96127367
+          accountName: Jaguars_toronto__sig
+          ucmId: 86B71B7D-D0CC-4ee9-854D-A2C1AA7FA152
+        changeLog:
+          createdBy: "923209"
+          createdDateTime: 2025-06-11T22:41:39.669Z
+        location:
+          metroCode: TR
+        demarcationPointIbx: TR1
+        redundancy:
+          priority: PRIMARY
+        encapsulation:
+          type: DOT1Q
+          tagProtocolId: 33024
+        lagEnabled: false
+        settings:
+          sharedPortType: false
+        package:
+          code: STANDARD
+        notifications:
+          - type: TECHNICAL
+            registeredUsers:
+              - jaguars-test-user-001
+          - type: NOTIFICATION
+            registeredUsers:
+              - jaguars-test-user-001
+        additionalInfo:
+          - key: quoteReferenceId
+            value: 45954c0c-29ee-43ac-9013-adc2aab9f509
+        physicalPorts:
+          - demarcationPoint:
+              ibx: GV1
+              cabinetUniqueSpaceId: Demarc
+              cageUniqueSpaceId: GV1:01:002174
+              patchPanel: CP:Demarc:1259684
+              connectorType: SC
+    bmmrSinglePortLagResponse:
+      value:
+        href: https://api.equinix.com/fabric/v4/ports/ed9d0b79-ff29-404a-b016-566435093afc
+        type: XF_PORT
+        uuid: ed9d0b79-ff29-404a-b016-566435093afc
+        physicalPortsSpeed: 1000
+        physicalPortsType: 1000BASE_LX
+        physicalPortsCount: 0
+        connectivitySourceType: BMMR
+        project:
+          projectId: 333cd592-1709-4238-bb0d-2c2b41896aa1
+        state: PENDING
+        order:
+          orderNumber: 1-289477804403
+          uuid: b325f02c-69dd-41d2-838b-ea495c873e9d
+        account:
+          accountNumber: 200551
+          accountName: gen-l2-qa-01-auto-200551
+          ucmId: 83C58EBD-E231-4a8b-902E-0CFBE50E32C2
+        changeLog:
+          createdBy: "1067822"
+          createdDateTime: 2025-06-21T00:15:48.414Z
+        location:
+          metroCode: SE
+        demarcationPointIbx: SE2
+        redundancy:
+          priority: PRIMARY
+        encapsulation:
+          type: DOT1Q
+          tagProtocolId: 33024
+        lagEnabled: true
+        package:
+          code: STANDARD
+        settings:
+          sharedPortType: false
+        notifications:
+          - type: TECHNICAL
+            registeredUsers:
+              - falconsExternalUser@seller.com
+          - type: NOTIFICATION
+            registeredUsers:
+              - falconsExternalUser@seller.com
+        additionalInfo:
+          - key: lagType
+            value: New
+          - key: quoteReferenceId
+            value: ee38d4b9-8264-4824-b829-659b72d50b4f
+    remoteSinglePortLagResponse:
+      value:
+        href: https://api.equinix.com/fabric/v4/ports/68adcd26-d66c-489d-9c72-8990b92a288e
+        type: XF_PORT
+        uuid: 68adcd26-d66c-489d-9c72-8990b92a288e
+        physicalPortsSpeed: 1000
+        physicalPortsType: 1000BASE_LX
+        physicalPortsCount: 1
+        connectivitySourceType: REMOTE
+        project:
+          projectId: 333cd592-1709-4238-bb0d-2c2b41896aa1
+        state: PENDING
+        order:
+          orderNumber: 1-289477804403
+          uuid: b325f02c-69dd-41d2-838b-ea495c873e9d
+          purchaseOrder:
+            type: EXEMPTION
+        account:
+          accountNumber: 200551
+          accountName: gen-l2-qa-01-auto-200551
+          ucmId: 83C58EBD-E231-4a8b-902E-0CFBE50E32C2
+        changeLog:
+          createdBy: "1067822"
+          createdDateTime: 2025-06-21T00:15:48.414Z
+        location:
+          metroCode: SE
+        demarcationPointIbx: SE2
+        redundancy:
+          priority: PRIMARY
+        encapsulation:
+          type: DOT1Q
+          tagProtocolId: 33024
+        lagEnabled: true
+        package:
+          code: STANDARD
+        settings:
+          productCode: CX
+          sharedPortType: false
+        notifications:
+          - type: TECHNICAL
+            registeredUsers:
+              - falconsExternalUser@seller.com
+          - type: NOTIFICATION
+            registeredUsers:
+              - falconsExternalUser@seller.com
+        additionalInfo:
+          - key: lagType
+            value: New
+          - key: quoteReferenceId
+            value: ee38d4b9-8264-4824-b829-659b72d50b4f
+    remoteSinglePortLagWithPurchaseOrderExemption:
+      value:
+        type: XF_PORT
+        connectivitySourceType: REMOTE
+        location:
+          metroCode: AT
+        package:
+          code: STANDARD
+        settings:
+          sharedPortType: false
+        encapsulation:
+          type: DOT1Q
+          tagProtocolId: 33024
+        account:
+          accountNumber: "200551"
+        project:
+          projectId: 333cd592-1709-4238-bb0d-2c2b41896aa1
+        redundancy:
+          priority: PRIMARY
+        lagEnabled: true
+        physicalPortsSpeed: 1000
+        physicalPortsType: 1000BASE_LX
+        physicalPortsCount: 1
+        demarcationPointIbx: AT1
+        order:
+          purchaseOrder:
+            type: EXEMPTION
+        notifications:
+          - type: TECHNICAL
+            registeredUsers:
+              - falconsExternalUser@seller.com
+          - type: NOTIFICATION
+            registeredUsers:
+              - falconsExternalUser@seller.com
+        additionalInfo:
+          - key: lagType
+            value: New
+        loas:
+          - uuid: 2f78191c-0920-4f13-b1c7-2cef03d07570
     port-400:
       value:
         - errorCode: EQ-3143101
@@ -33725,6 +34909,15 @@ components:
           errorMessage: ORDER_NOT_BELONG_TO_USER
         - errorCode: EQ-3143138
           errorMessage: ORDER_NOT_FOUND
+    createPortBadRequest:
+      value:
+        - errorCode: EQ-3143004
+          errorMessage: Json syntax error, please check request body
+          details: Unknown json property
+          correlationId: TEST
+          additionalInfo:
+            - property: encapsulation.type
+              reason: Unexpected value 'DOT1'
     port-500:
       value:
         - errorCode: EQ-3143001
@@ -33742,7 +34935,7 @@ components:
         - errorCode: EQ-3143008
           errorMessage: virtual Port not found
           details: connectionDetails[%s].patchPanelName is not valid
-    COLOBulkPort:
+    coloBulkPort:
       value:
         data:
           - type: XF_PORT
@@ -33751,6 +34944,8 @@ components:
             physicalPortsSpeed: 10000
             physicalPortsType: 1000BASE_LX
             connectivitySourceType: BMMR
+            package:
+              code: STANDARD
             location:
               metroCode: AM
             demarcationPointIbx: AM1
@@ -33793,6 +34988,8 @@ components:
             location:
               metroCode: AM
             demarcationPointIbx: AM1
+            package:
+              code: STANDARD
             lagEnabled: false
             encapsulation:
               type: DOT1Q
@@ -33825,7 +35022,180 @@ components:
                   patchPanelPortA: 14
                   patchPanelPortB: 15
                   connectorType: LC
-    COLOBulkPortResponse:
+    bmmrBulkPortRequest:
+      value:
+        data:
+          - type: XF_PORT
+            physicalPortsSpeed: 1000
+            physicalPortsType: 1000BASE_LX
+            connectivitySourceType: BMMR
+            redundancy:
+              priority: PRIMARY
+            location:
+              metroCode: SG
+            demarcationPointIbx: SG4
+            settings:
+              sharedPortType: false
+            lagEnabled: false
+            encapsulation:
+              type: DOT1Q
+              tagProtocolId: 33024
+            account:
+              accountNumber: "715013"
+            notifications:
+              - type: TECHNICAL
+                registeredUsers:
+                  - falconsExternalUser@seller.com
+              - type: NOTIFICATION
+                registeredUsers:
+                  - falconsExternalUser@seller.com
+            project:
+              projectId: 333cd592-1709-4238-bb0d-2c2b41896aa1
+            package:
+              code: STANDARD
+            loas:
+              - uuid: 96cb973f-0eea-4cf1-a93d-23a27f070a98
+            additionalInfo:
+              - key: quoteReferenceId
+                value: fed85cbf-a32f-433f-a109-60e767d599f6
+              - key: InterfaceReferenceId
+                value: "906234"
+            bmmrType: EQUINIX
+            order:
+              uuid: 3fefa958-7bb2-496b-8e9a-14dc92187e7e
+          - type: XF_PORT
+            physicalPortsSpeed: 1000
+            physicalPortsType: 1000BASE_LX
+            connectivitySourceType: BMMR
+            redundancy:
+              priority: SECONDARY
+            location:
+              metroCode: SG
+            demarcationPointIbx: SG4
+            settings:
+              sharedPortType: false
+            lagEnabled: false
+            encapsulation:
+              type: DOT1Q
+              tagProtocolId: 33024
+            account:
+              accountNumber: "715013"
+            notifications:
+              - type: TECHNICAL
+                registeredUsers:
+                  - falconsExternalUser@seller.com
+              - type: NOTIFICATION
+                registeredUsers:
+                  - falconsExternalUser@seller.com
+            project:
+              projectId: 333cd592-1709-4238-bb0d-2c2b41896aa1
+            package:
+              code: STANDARD
+            loas:
+              - uuid: 96cb973f-0eea-4cf1-a93d-23a27f070a98
+            additionalInfo:
+              - key: quoteReferenceId
+                value: fed85cbf-a32f-433f-a109-60e767d599f6
+              - key: InterfaceReferenceId
+                value: "906234"
+            bmmrType: EQUINIX
+            order:
+              uuid: 3fefa958-7bb2-496b-8e9a-14dc92187e7e
+    remoteBulkPortRequest:
+      value:
+        data:
+          - type: XF_PORT
+            physicalPortsSpeed: 1000
+            physicalPortsType: 1000BASE_LX
+            connectivitySourceType: REMOTE
+            redundancy:
+              priority: PRIMARY
+            location:
+              metroCode: SV
+            demarcationPointIbx: SV1
+            settings:
+              sharedPortType: false
+            lagEnabled: false
+            package:
+              code: STANDARD
+            encapsulation:
+              type: DOT1Q
+              tagProtocolId: 33024
+            account:
+              accountNumber: "200551"
+            notifications:
+              - type: TECHNICAL
+                registeredUsers:
+                  - falconsExternalUser@seller.com
+              - type: NOTIFICATION
+                registeredUsers:
+                  - falconsExternalUser@seller.com
+            physicalPorts:
+              - type: XF_PHYSICAL_PORT
+                demarcationPoint:
+                  ibx: SV1
+                  cabinetUniqueSpaceId: Demarc
+                  cageUniqueSpaceId: SV1:01:002121
+                  patchPanel: PP:Demarc:00002121
+                  patchPanelPortA: null
+                  patchPanelPortB: null
+                  connectorType: SC
+            project:
+              projectId: 333cd592-1709-4238-bb0d-2c2b41896aa1
+            additionalInfo:
+              - key: quoteReferenceId
+                value: 82da30e9-6cef-45c3-b772-f657fadb88d2
+              - key: InterfaceReferenceId
+                value: "261376"
+            order:
+              uuid: 3f3a8ac3-1fed-4355-8f81-8fe371dc9328
+          - type: XF_PORT
+            physicalPortsSpeed: 1000
+            physicalPortsType: 1000BASE_LX
+            connectivitySourceType: REMOTE
+            redundancy:
+              priority: SECONDARY
+            location:
+              metroCode: SV
+            demarcationPointIbx: SV1
+            package:
+              code: STANDARD
+            settings:
+              sharedPortType: false
+              sharedPortProduct: null
+            lagEnabled: false
+            encapsulation:
+              type: DOT1Q
+              tagProtocolId: 33024
+            account:
+              accountNumber: "200551"
+            notifications:
+              - type: TECHNICAL
+                registeredUsers:
+                  - falconsExternalUser@seller.com
+              - type: NOTIFICATION
+                registeredUsers:
+                  - falconsExternalUser@seller.com
+            physicalPorts:
+              - type: XF_PHYSICAL_PORT
+                demarcationPoint:
+                  ibx: SV1
+                  cabinetUniqueSpaceId: Demarc
+                  cageUniqueSpaceId: SV1:01:002121
+                  patchPanel: PP:Demarc:00002121
+                  patchPanelPortA: null
+                  patchPanelPortB: null
+                  connectorType: SC
+            project:
+              projectId: 333cd592-1709-4238-bb0d-2c2b41896aa1
+            additionalInfo:
+              - key: quoteReferenceId
+                value: 82da30e9-6cef-45c3-b772-f657fadb88d2
+              - key: InterfaceReferenceId
+                value: "261376"
+            order:
+              uuid: 3f3a8ac3-1fed-4355-8f81-8fe371dc9328
+    coloBulkPortResponse:
       value:
         data:
           - href: https://api.equinix.com/fabric/v4/ports/a6f77b33-96c6-4eeb-8d79-76374d950603
@@ -33849,10 +35219,10 @@ components:
               group: 22f8e668-4754-4564-825d-d1c7889c885a
               priority: PRIMARY
             lagEnabled: false
-            package:
-              code: STANDARD
             settings:
               sharedPortType: false
+            package:
+              code: STANDARD
             project:
               projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
             notifications:
@@ -33867,6 +35237,8 @@ components:
             physicalPortsSpeed: 1000
             physicalPortsType: 1000BASE_LX
             physicalPortsCount: 1
+            package:
+              code: STANDARD
             connectivitySourceType: COLO
             state: PENDING
             order:
@@ -33885,8 +35257,6 @@ components:
             lagEnabled: false
             project:
               projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
-            package:
-              code: STANDARD
             settings:
               sharedPortType: false
             notifications:
@@ -33896,7 +35266,199 @@ components:
               - type: NOTIFICATION
                 registeredUsers:
                   - jaguarsuser-port-order
-    COLOAddToLag:
+    bmmrBulkPortResponse:
+      value:
+        data:
+          - href: https://api.equinix.com/fabric/v4/ports/136c412b-8c9d-429c-8030-de484c1371c4
+            type: XF_PORT
+            uuid: 136c412b-8c9d-429c-8030-de484c1371c4
+            physicalPortsSpeed: 1000
+            physicalPortsType: 1000BASE_LX
+            physicalPortsCount: 0
+            connectivitySourceType: BMMR
+            project:
+              projectId: 333cd592-1709-4238-bb0d-2c2b41896aa1
+            state: PENDING
+            order:
+              orderNumber: 1-293571904079
+              uuid: 3fefa958-7bb2-496b-8e9a-14dc92187e7e
+            account:
+              accountNumber: 715013
+              accountName: Equinix
+              ucmId: A5C6ED82-6DAE-4c3b-B524-67F8B51D65BE
+            changeLog:
+              createdBy: "1067822"
+              createdDateTime: 2025-06-23T20:04:15.549Z
+            location:
+              metroCode: SG
+            demarcationPointIbx: SG4
+            redundancy:
+              group: 57eb2e60-d16a-40ad-8395-6e083ce0d631
+              priority: PRIMARY
+            encapsulation:
+              type: DOT1Q
+              tagProtocolId: 33024
+            lagEnabled: false
+            package:
+              code: STANDARD
+            settings:
+              sharedPortType: false
+            notifications:
+              - type: TECHNICAL
+                registeredUsers:
+                  - falconsExternalUser@seller.com
+              - type: NOTIFICATION
+                registeredUsers:
+                  - falconsExternalUser@seller.com
+            additionalInfo:
+              - key: quoteReferenceId
+                value: fed85cbf-a32f-433f-a109-60e767d599f6
+              - key: InterfaceReferenceId
+                value: "906234"
+              - href: https://api.equinix.com/fabric/v4/ports/57eb2e60-d16a-40ad-8395-6e083ce0d631
+                type: XF_PORT
+                uuid: 57eb2e60-d16a-40ad-8395-6e083ce0d631
+                physicalPortsSpeed: 1000
+                physicalPortsType: 1000BASE_LX
+                physicalPortsCount: 0
+                connectivitySourceType: BMMR
+                project:
+                  projectId: 333cd592-1709-4238-bb0d-2c2b41896aa1
+                state: PENDING
+                order:
+                  orderNumber: 1-293571904079
+                  uuid: 3fefa958-7bb2-496b-8e9a-14dc92187e7e
+                account:
+                  accountNumber: 715013
+                  accountName: Equinix
+                  ucmId: A5C6ED82-6DAE-4c3b-B524-67F8B51D65BE
+                changeLog:
+                  createdBy: "1067822"
+                  createdDateTime: 2025-06-23T20:04:15.549Z
+                location:
+                  metroCode: SG
+                demarcationPointIbx: SG4
+                redundancy:
+                  group: 136c412b-8c9d-429c-8030-de484c1371c4
+                  priority: SECONDARY
+                encapsulation:
+                  type: DOT1Q
+                  tagProtocolId: 33024
+                lagEnabled: false
+                settings:
+                  sharedPortType: false
+                package:
+                  code: STANDARD
+                notifications:
+                  - type: TECHNICAL
+                    registeredUsers:
+                      - falconsExternalUser@seller.com
+                  - type: NOTIFICATION
+                    registeredUsers:
+                      - falconsExternalUser@seller.com
+                additionalInfo:
+                  - key: quoteReferenceId
+                    value: fed85cbf-a32f-433f-a109-60e767d599f6
+                  - key: InterfaceReferenceId
+                    value: "906234"
+    remoteBulkPortResponse:
+      value:
+        data:
+          - href: https://api.equinix.com/fabric/v4/ports/9042c980-0a8d-4d53-b0fb-73388db92a3b
+            type: XF_PORT
+            uuid: 9042c980-0a8d-4d53-b0fb-73388db92a3b
+            physicalPortsSpeed: 1000
+            physicalPortsType: 1000BASE_LX
+            physicalPortsCount: 1
+            connectivitySourceType: REMOTE
+            project:
+              projectId: 333cd592-1709-4238-bb0d-2c2b41896aa1
+            state: PENDING
+            order:
+              orderNumber: 1-293571904094
+              uuid: 3f3a8ac3-1fed-4355-8f81-8fe371dc9328
+            account:
+              accountNumber: 200551
+              accountName: gen-l2-qa-01-auto-200551
+              ucmId: 83C58EBD-E231-4a8b-902E-0CFBE50E32C2
+            changeLog:
+              createdBy: "1067822"
+              createdDateTime: 2025-06-23T21:28:48.386Z
+            location:
+              metroCode: SV
+            demarcationPointIbx: SV1
+            redundancy:
+              group: 44cea0ee-1a05-4347-a39b-c11dfde4b591
+              priority: PRIMARY
+            encapsulation:
+              type: DOT1Q
+              tagProtocolId: 33024
+            lagEnabled: false
+            package:
+              code: STANDARD
+            settings:
+              productCode: CX
+              sharedPortType: false
+            notifications:
+              - type: TECHNICAL
+                registeredUsers:
+                  - falconsExternalUser@seller.com
+              - type: NOTIFICATION
+                registeredUsers:
+                  - falconsExternalUser@seller.com
+            additionalInfo:
+              - key: quoteReferenceId
+                value: 82da30e9-6cef-45c3-b772-f657fadb88d2
+              - key: InterfaceReferenceId
+                value: "261376"
+          - href: https://api.equinix.com/fabric/v4/ports/44cea0ee-1a05-4347-a39b-c11dfde4b591
+            type: XF_PORT
+            uuid: 44cea0ee-1a05-4347-a39b-c11dfde4b591
+            physicalPortsSpeed: 1000
+            physicalPortsType: 1000BASE_LX
+            physicalPortsCount: 1
+            connectivitySourceType: REMOTE
+            project:
+              projectId: 333cd592-1709-4238-bb0d-2c2b41896aa1
+            state: PENDING
+            order:
+              orderNumber: 1-293571904094
+              uuid: 3f3a8ac3-1fed-4355-8f81-8fe371dc9328
+            account:
+              accountNumber: 200551
+              accountName: gen-l2-qa-01-auto-200551
+              ucmId: 83C58EBD-E231-4a8b-902E-0CFBE50E32C2
+            changeLog:
+              createdBy: "1067822"
+              createdDateTime: 2025-06-23T21:28:48.386Z
+            location:
+              metroCode: SV
+            demarcationPointIbx: SV1
+            redundancy:
+              group: 9042c980-0a8d-4d53-b0fb-73388db92a3b
+              priority: SECONDARY
+            encapsulation:
+              type: DOT1Q
+              tagProtocolId: 33024
+            lagEnabled: false
+            package:
+              code: STANDARD
+            settings:
+              productCode: CX
+              sharedPortType: false
+            notifications:
+              - type: TECHNICAL
+                registeredUsers:
+                  - falconsExternalUser@seller.com
+              - type: NOTIFICATION
+                registeredUsers:
+                  - falconsExternalUser@seller.com
+            additionalInfo:
+              - key: quoteReferenceId
+                value: 82da30e9-6cef-45c3-b772-f657fadb88d2
+              - key: InterfaceReferenceId
+                value: "261376"
+    coloAddToLag:
       value:
         data:
           - type: XF_PHYSICAL_PORT
@@ -33955,7 +35517,7 @@ components:
               - registeredUsers:
                   - jaguarsuser-port-order
                 type: NOTIFICATION
-    REMOTEAddToLag:
+    remoteAddToLag:
       value:
         data:
           - type: XF_PHYSICAL_PORT
@@ -33981,7 +35543,7 @@ components:
               accountReferenceId: 17829Id
           - loas:
               - uuid: 64de7e5-7fe7-41e6-b984-80d5aa159a0e
-    BMMRAddToLag:
+    bmmrAddToLag:
       value:
         data:
           - type: XF_PHYSICAL_PORT
@@ -34020,7 +35582,7 @@ components:
                   email: john.doe@company.com
           - loas:
               - uuid: 64de7e5-7fe7-41e6-b984-80d5aa159a0e
-    COLOAddToLagResponse:
+    coloAddToLagResponse:
       value:
         data:
           - type: XF_PHYSICAL_PORT
@@ -34034,10 +35596,11 @@ components:
               ibx: GV1
             order:
               orderNumber: 1-210210611904
+              uuid: bdfa360d-8ffb-4394-8905-56ea6ae3e87d
             notifications:
-              - registeredUsers:
+              - type: NOTIFICATION
+                registeredUsers:
                   - jaguarsuser-port-order
-                type: NOTIFICATION
           - type: XF_PHYSICAL_PORT
             demarcationPoint:
               cabinetUniqueSpaceId: Demarc
@@ -34049,90 +35612,150 @@ components:
               ibx: GV1
             order:
               orderNumber: 1-210210611904
+              uuid: bdfa360d-8ffb-4394-8905-56ea6ae3e87d
             notifications:
-              - registeredUsers:
+              - type: NOTIFICATION
+                registeredUsers:
                   - jaguarsuser-port-order
-                type: NOTIFICATION
     portByUUID:
       value:
-        href: https://api.equinix.com/fabric/v4/ports/e91484bb-4f65-4ab3-8f77-500dec2f855d
+        href: https://api.equinix.com/fabric/v4/ports/44c5712b-d704-4ca5-9b42-ee6be32ee06a
+        type: XF_PORT
+        uuid: 44c5712b-d704-4ca5-9b42-ee6be32ee06a
+        name: 270843-DA1-CX-PRI-33
+        physicalPortsSpeed: 1000
+        physicalPortsType: 1000BASE_LX
+        project:
+          projectId: 66a2d2f7-b79b-49bc-8642-d2b3c1c138b4
+        package:
+          code: UNLIMITED
+        state: ACTIVE
+        cvpId: "2000833"
+        connectivitySourceType: COLO
+        operation:
+          operationalStatus: UP
+          connectionCount: 10
+          evplVCCount: 10
+          accessVCCount: 0
+        account:
+          accountNumber: 270843
+          accountName: ctr-sit-account1
+          orgId: 93055
+          organizationName: ctr-sit-account1-270843
+          ucmId: 64726950-A62C-4749-98E2-5AA4CA44284F
+          globalCustId: 0016u000003JZ3XAAW
+        change:
+          uuid: ed41e367-e09d-4c2f-b6ab-30506de4437f
+          type: PORT_UPDATE
+          status: COMPLETED
+          data:
+            op: REPLACE
+            path: /encapsulation
+            value:
+              type: QINQ
+              tagProtocolId: 34984
+          createdDateTime: 2025-05-29T20:38:45.630759Z
+          updatedDateTime: 2025-05-29T20:38:49.330822Z
+        changeLog:
+          createdBy: qa-automation
+          createdDateTime: 2025-05-21T18:12:18.300Z
+          updatedBy: qa-automation
+          updatedDateTime: 2025-05-29T20:38:48.900Z
+        bandwidth: 1000
+        availableBandwidth: 500
+        usedBandwidth: 500
+        location:
+          metroHref: https://api.equinix.com/fabric/v4/metros/DA
+          region: AMER
+          metroName: Dallas
+          metroCode: DA
+          ibx: DA1
+        device:
+          name: qa3-da-a1.lab
+          redundancy:
+            priority: PRIMARY
+        demarcationPointIbx: DA1
+        tetherIbx: DA1
+        redundancy:
+          priority: PRIMARY
+        encapsulation:
+          type: QINQ
+          tagProtocolId: 34984
+        lagEnabled: false
+        settings:
+          buyout: true
+          viewPortPermission: true
+          placeVcOrderPermission: true
+        physicalPorts:
+          - type: XF_PHYSICAL_PORT
+            id: 1426359
+            state: ADDED
+            bandwidth: 0
+            uuid: 0189244a-f3ac-7258-a8b4-3167af899305
+            tether:
+              crossConnectId: "513213223"
+              ibx: DA1
+            demarcationPoint:
+              ibx: DA1
+            operation:
+              operationalStatus: UP
+    portDryRunDelete:
+      value:
         type: XF_PORT
         uuid: e91484bb-4f65-4ab3-8f77-500dec2f855d
         name: test-AT1-Dot1q-L-Secondary-108608
-        state: ACTIVE
-        bandwidth: 10000
-        usedBandwidth: 0
-        availableBandwidth: 20000
+        physicalPortsType: 10GBASE_L
         physicalPortsSpeed: 10000
-        physicalPortsType: 1000BASE_LX
-        connectivitySourceType: COLO
-        redundancy:
-          group: "1"
-          priority: Secondary
+        physicalPortsCount: 1
         location:
-          metroHref: https://api.equinix.com/fabric/v4/metros/AT
-          ibx: AT1
-          metroCode: AT
-          metroName: Atlanta
-          region: AMER
-        device:
-          name: dev-m7a2.lab
-          redundancy:
-            group: "1"
-            priority: Secondary
+          metroCode: AM
+        demarcationPointIbx: AM1
+        redundancy:
+          group: 1
+          priority: PRIMARY
+        lagEnabled: true
         encapsulation:
           type: DOT1Q
           tagProtocolId: 33024
-        lagEnabled: true
         package:
           code: STANDARD
-          type: MSP
         settings:
-          buyout: false
-          placeVcOrderPermission: true
-          viewPortPermission: true
-        physicalPorts:
-          - state: PROVISIONED
-            type: XF_PHYSICAL_PORT
-            id: 6967
-            bandwidth: 10000
-            tether:
-              crossConnectId: 100179-A
-              patchPanel: PP:8118:1586
-              patchPanelPortA: "92"
-              patchPanelPortB: "24"
-            demarcationPoint:
-              ibx: AT1
-              patchPanel: PP:8118:1586
-              patchPanelName: PP:8118:1586
-              patchPanelPortA: "92"
-              patchPanelPortB: "24"
-          - state: PROVISIONED
-            type: XF_PHYSICAL_PORT
-            id: 6968
-            bandwidth: 10000
-            tether:
-              crossConnectId: 100179-A
-              patchPanel: PP:8118:1586
-              patchPanelPortA: "92"
-              patchPanelPortB: "24"
-        operation:
-          operationalStatus: UP
-          opStatusChangedAt: 2021-06-14T17:21:25.586Z
-          connectionCount: 0
-          evplVcCount: 0
-          fgVcCount: 0
-          accessVcCount: 0
-        account:
-          accountNumber: 100179
-          accountName: L2
-          globalCustId: 007700000090982RG8
-          orgId: 100179
-          organizationName: Cust_Org_100179
-        changeLog:
-          createdDateTime: 2018-06-14T17:21:25.587Z
+          sharedPortType: false
         project:
-          projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
+          projectId: 567
+        account:
+          accountNumber: 1000
+        order:
+          orderNumber: 1-207799950758
+          signature:
+            signatory: DELEGATE
+            delegate:
+              email: testEmail1@equinix.com
+        notifications:
+          - type: TECHNICAL
+            registeredUsers:
+              - jaguarsuser-port-order
+          - type: NOTIFICATION
+            registeredUsers:
+              - jaguarsuser-port-order
+          - type: PEERING
+            registeredUsers:
+              - jaguarsuser-port-order
+          - type: ESCALATION
+            registeredUsers:
+              - jaguarsuser-port-order
+        physicalPorts:
+          tether:
+            crossConnectId: 100179-A
+            patchPanel: PP:8118:1586
+            patchPanelPortA: "92"
+            patchPanelPortB: "24"
+          demarcationPoint:
+            ibx: AT1
+            patchPanel: PP:8118:1586
+            patchPanelName: PP:8118:1586
+            patchPanelPortA: "92"
+            patchPanelPortB: "24"
     portDelete:
       value:
         href: https://api.equinix.com/fabric/v4/ports/e91484bb-4f65-4ab3-8f77-500dec2f855d
@@ -34188,11 +35811,172 @@ components:
           organizationName: Cust_Org_100179
         changeLog:
           createdDateTime: 2018-06-14T17:21:25.587Z
-    PortUpdateNameRequest:
+    portUpdateNameRequest:
       value:
         - op: replace
           path: /name
           value: 1234-ibx-port
+    PortUpdateNameDryRunRequest:
+      value:
+        - op: replace
+          path: /name
+          value: 1234-ibx-port
+    PortUpdateDryRunResponse:
+      value:
+        pagination:
+          offset: 0
+          limit: 5
+          total: 1
+        data:
+          - href: https://api.equinix.com/fabric/v4/ports/e91484bb-4f65-4ab3-8f77-500dec2f855d
+            type: XF_PORT
+            uuid: e91484bb-4f65-4ab3-8f77-500dec2f855d
+            name: test-AT1-Dot1q-L-Secondary-108608
+            state: ACTIVE
+            bandwidth: 10000
+            usedBandwidth: 0
+            availableBandwidth: 20000
+            physicalPortSpeed: 10000
+            redundancy:
+              priority: SECONDARY
+            location:
+              metroHref: https://api.equinix.com/fabric/v4/metros/AT
+              ibx: AT1
+              metroCode: AT
+              metroName: Atlanta
+              region: AMER
+            device:
+              name: dev-m7a2.lab
+              redundancy:
+                group: "1"
+                priority: SECONDARY
+            encapsulation:
+              type: DOT1Q
+              tagProtocolId: 33024
+            lagEnabled: true
+            package:
+              code: STANDARD
+              type: MSP
+            settings:
+              buyout: false
+              placeVcOrderPermission: true
+              viewPortPermission: true
+            physicalPorts:
+              - state: ACTIVE
+                type: XF_PHYSICAL_PORT
+                id: 6967
+                bandwidth: 10000
+                tether:
+                  crossConnectId: 100179-A
+                  patchPanel: PP:956:66107
+                  patchPanelPortA: "5"
+                  patchPanelPortB: "42"
+                operation:
+                  operationalStatus: UP
+              - state: ACTIVE
+                type: XF_PHYSICAL_PORT
+                id: 6968
+                bandwidth: 10000
+                tether:
+                  crossConnectId: 100179-A
+                  patchPanel: PP:8118:1586
+                  patchPanelPortA: "92"
+                  patchPanelPortB: "24"
+                operation:
+                  operationalStatus: UP
+                demarcationPoint:
+                  ibx: AT1
+                  patchPanel: PP:8118:1586
+                  patchPanelName: PP:8118:1586
+                  patchPanelPortA: "92"
+                  patchPanelPortB: "24"
+            operation:
+              operationalStatus: UP
+              opStatusChangedAt: 2021-06-14T17:21:25.586Z
+              connectionCount: 0
+              evplVcCount: 0
+              fgVcCount: 0
+              accessVcCount: 0
+            account:
+              accountNumber: 100179
+              accountName: L2
+              globalCustId: 007700000090982RG8
+              orgId: 100179
+              organizationName: Cust_Org_100179
+            order:
+              purchaseOrder:
+                startDate: 2020-06-14T17:21:25.586Z
+                endDate: 2020-06-15T17:21:25.586Z
+                type: NEW
+              orderNumber: 1-222078525611
+            changeLog:
+              createdDateTime: 2020-06-14T17:21:25.586Z
+            project:
+              projectId: 8f23b36f-db8f-44c8-a6e5-606e1b485931
+    portPatchResponse202:
+      value:
+        href: https://api.equinix.com/fabric/v4/ports/44c5712b-d704-4ca5-9b42-ee6be32ee06a
+        type: XF_PORT
+        uuid: 08693250-e67f-431f-b1ac-d3204263876a
+        name: 290061-SV1-NE-Shared-CX-PRI-01
+        physicalPortsSpeed: 10000
+        physicalPortsType: 10GBASE_LR
+        physicalPortsCount: 1
+        project:
+          projectId: "377533000114703"
+        state: REPROVISIONING
+        cvpId: "2001190"
+        account:
+          accountNumber: 290061
+          ucmId: BD8EB6F3-F8EF-40dc-8AAF-032B85804920
+        change:
+          type: PORT_UPDATE
+          status: REQUESTED
+          data:
+            op: REPLACE
+            path: /encapsulation
+            value:
+              type: DOT1Q
+              tagProtocolId: 33024
+        bandwidth: 10000
+        location:
+          metroName: Silicon Valley
+          metroCode: SV
+        device:
+          name: qa3-sv-em-e3.lab
+          redundancy:
+            priority: PRIMARY
+          configModel: UPF
+        demarcationPointIbx: SV5
+        encapsulation:
+          type: QINQ
+          tagProtocolId: 37120
+        lagEnabled: true
+        settings:
+          buyout: false
+        additionalInfo:
+          - key: crossConnectId
+            value: 21918108-A
+        package:
+          code: STANDARD
+        physicalPorts:
+          - tether:
+              crossConnectId: 21918108-A
+              patchPanel: CP:Demarc:1257694
+              patchPanelPortA: "21"
+              patchPanelPortB: "22"
+            demarcationPoint:
+              patchPanelPortA: "18"
+              patchPanelPortB: "19"
+              ibx: SV1
+    portPatchMultipleConnections400Response:
+      value:
+        - errorCode: EQ-3143253
+          errorMessage: Port is used by one or more Connections, connectors, subscriptions and/or tokens
+          details: There are 9 Connections/ connectors/ subscriptions/ tokens associated to this port
+          correlationId: TEST
+          additionalInfo:
+            - property: /uuid
     LinkProtocolGetQinqResponseExample:
       value:
         pagination:
@@ -34390,31 +36174,104 @@ components:
         - errorCode: EQ-3035002
           errorMessage: Access Forbidden
           correlationId: UnAuthorized User- Cannot perform action
-    PortSearchByProjectId:
+    portSearchByProjectId:
       value:
         filter:
           or:
             - and:
-                - operator: =
-                  property: /project/projectId
-                  values:
-                    - 30ad25e2-53dc-11ed-bdc3-0242ac120002
-                - operator: =
-                  property: /state
+                - property: /state
+                  operator: =
                   values:
                     - ACTIVE
-                - operator: =
-                  property: /settings/productCode
+                    - REPROVISIONING
+                - property: /settings/productCode
+                  operator: =
                   values:
                     - CX
+                - property: /project/projectId
+                  operator: =
+                  values:
+                    - 66a2d2f7-b79b-49bc-8642-d2b3c1c138b4
         pagination:
-          limit: 25
+          limit: 1000
           offset: 0
-          total: 0
         sort:
           - property: /device/name
             direction: DESC
-    PortSearchByDemarcationIbx:
+    portSearchByOptionalFilters:
+      value:
+        filter:
+          or:
+            - and:
+                - property: /device/name
+                  operator: =
+                  values:
+                    - qa3-sv-em-e3.lab
+                - property: /physicalPorts/tether/crossConnectId
+                  operator: =
+                  values:
+                    - 21918108-A
+                - property: /physicalPorts/interface/name
+                  operator: =
+                  values:
+                    - et-0/0/0
+                - property: /uuid
+                  operator: =
+                  values:
+                    - 08693250-e67f-431f-b1ac-d3204263876a
+                - property: /name
+                  operator: =
+                  values:
+                    - port-name
+                - property: /account/orgId
+                  operator: =
+                  values:
+                    - 94513
+                - property: /account/accountNumber
+                  operator: =
+                  values:
+                    - 290061
+                - property: /location/metroCode
+                  operator: =
+                  values:
+                    - SV
+        pagination:
+          limit: 1000
+          offset: 0
+        sort:
+          - property: /device/name
+            direction: DESC
+    portSearchInvalidProjectRequest:
+      value:
+        - errorCode: EQ-3046110
+          errorMessage: ProjectID required.
+          details: ProjectId and ports are not found for the user
+          correlationId: TEST
+          additionalInfo:
+            - property: /project/projectId
+              reason: " before searching for ports, assign project and ports"
+    portSearchInvalidRequest:
+      value:
+        - errorCode: EQ-3046116
+          errorMessage: JSON syntax error.
+          details: Unknown json property
+          correlationId: TEST
+          additionalInfo:
+            - property: filter.or.[0].and.[1].property
+              reason: Unexpected value '/settings/productCod'
+    portSearchInvalidSearchFieldProperty:
+      value:
+        - errorCode: EQ-3046116
+          errorMessage: JSON syntax error.
+          details: Please refer the contracts for correct fields
+          correlationId: TEST
+    portSearchInvalidSearchFieldArgument:
+      value:
+        - errorCode: EQ-3046112
+          errorMessage: Invalid argument value.
+          details: Please refer the contracts for correct fields
+          correlationId: TEST
+    portSearchByDemarcationIbx:
       value:
         filter:
           - and:
@@ -36037,7 +37894,15 @@ components:
             count: 5
             interval: 1000
           response:
-            output: "PING 8.8.8.8 (8.8.8.8): 100 data bytes\n108 bytes from 8.8.8.8: icmp_seq=0 ttl=117 time=9.839 ms\n108 bytes from 8.8.8.8: icmp_seq=1 ttl=117 time=16.051 ms\n108 bytes from 8.8.8.8: icmp_seq=2 ttl=117 time=9.271 ms\n108 bytes from 8.8.8.8: icmp_seq=3 ttl=117 time=26.771 ms \n--- 8.8.8.8 ping statistics ---\n4 packets transmitted, 4 packets received, 0.0% packet loss\nround-trip min/avg/max/stddev = 9.271/15.483/26.771/7.039 ms"
+            output: |-
+              PING 8.8.8.8 (8.8.8.8): 100 data bytes
+              108 bytes from 8.8.8.8: icmp_seq=0 ttl=117 time=9.839 ms
+              108 bytes from 8.8.8.8: icmp_seq=1 ttl=117 time=16.051 ms
+              108 bytes from 8.8.8.8: icmp_seq=2 ttl=117 time=9.271 ms
+              108 bytes from 8.8.8.8: icmp_seq=3 ttl=117 time=26.771 ms 
+              --- 8.8.8.8 ping statistics ---
+              4 packets transmitted, 4 packets received, 0.0% packet loss
+              round-trip min/avg/max/stddev = 9.271/15.483/26.771/7.039 ms
             outputStructuredPing:
               destinationIp: 8.8.8.8
               destinationName: 8.8.8.8
@@ -36211,7 +38076,15 @@ components:
             count: 5
             interval: 1000
           response:
-            output: "PING 8.8.8.8 (8.8.8.8): 100 data bytes\n108 bytes from 8.8.8.8: icmp_seq=0 ttl=117 time=9.839 ms\n108 bytes from 8.8.8.8: icmp_seq=1 ttl=117 time=16.051 ms\n108 bytes from 8.8.8.8: icmp_seq=2 ttl=117 time=9.271 ms\n108 bytes from 8.8.8.8: icmp_seq=3 ttl=117 time=26.771 ms \n--- 8.8.8.8 ping statistics ---\n4 packets transmitted, 4 packets received, 0.0% packet loss\nround-trip min/avg/max/stddev = 9.271/15.483/26.771/7.039 ms"
+            output: |-
+              PING 8.8.8.8 (8.8.8.8): 100 data bytes
+              108 bytes from 8.8.8.8: icmp_seq=0 ttl=117 time=9.839 ms
+              108 bytes from 8.8.8.8: icmp_seq=1 ttl=117 time=16.051 ms
+              108 bytes from 8.8.8.8: icmp_seq=2 ttl=117 time=9.271 ms
+              108 bytes from 8.8.8.8: icmp_seq=3 ttl=117 time=26.771 ms 
+              --- 8.8.8.8 ping statistics ---
+              4 packets transmitted, 4 packets received, 0.0% packet loss
+              round-trip min/avg/max/stddev = 9.271/15.483/26.771/7.039 ms
             outputStructuredPing:
               destinationIp: 8.8.8.8
               destinationName: 8.8.8.8
@@ -36273,7 +38146,15 @@ components:
           count: 5
           interval: 1000
         response:
-          output: "PING 8.8.8.8 (8.8.8.8): 100 data bytes\n108 bytes from 8.8.8.8: icmp_seq=0 ttl=117 time=9.839 ms\n108 bytes from 8.8.8.8: icmp_seq=1 ttl=117 time=16.051 ms\n108 bytes from 8.8.8.8: icmp_seq=2 ttl=117 time=9.271 ms\n108 bytes from 8.8.8.8: icmp_seq=3 ttl=117 time=26.771 ms \n--- 8.8.8.8 ping statistics ---\n4 packets transmitted, 4 packets received, 0.0% packet loss\nround-trip min/avg/max/stddev = 9.271/15.483/26.771/7.039 ms"
+          output: |-
+            PING 8.8.8.8 (8.8.8.8): 100 data bytes
+            108 bytes from 8.8.8.8: icmp_seq=0 ttl=117 time=9.839 ms
+            108 bytes from 8.8.8.8: icmp_seq=1 ttl=117 time=16.051 ms
+            108 bytes from 8.8.8.8: icmp_seq=2 ttl=117 time=9.271 ms
+            108 bytes from 8.8.8.8: icmp_seq=3 ttl=117 time=26.771 ms 
+            --- 8.8.8.8 ping statistics ---
+            4 packets transmitted, 4 packets received, 0.0% packet loss
+            round-trip min/avg/max/stddev = 9.271/15.483/26.771/7.039 ms
           outputStructuredPing:
             destinationIp: 8.8.8.8
             destinationName: 8.8.8.8
@@ -39519,6 +41400,11 @@ components:
               batchEnabled: false
               batchSizeMax: 50
               batchWaitTimeMax: 5
+            operation:
+              eventsDeliveredCount: 0
+              metricsDeliveredCount: 0
+              alertsDeliveredCount: 0
+              errors: []
             changeLog:
               createdDateTime: 2024-05-06T16:21:18.545214Z
     StreamSubscriptionPostRequestExampleSimpleDefaultSplunk:
@@ -39723,6 +41609,11 @@ components:
           batchEnabled: false
           batchSizeMax: 50
           batchWaitTimeMax: 5
+        operation:
+          eventsDeliveredCount: 0
+          metricsDeliveredCount: 0
+          alertsDeliveredCount: 0
+          errors: []
         changeLog:
           createdDateTime: 2024-05-06T16:21:18.545214Z
     StreamSubscriptionPutRequestExample:
@@ -39875,6 +41766,274 @@ components:
           createdDateTime: 2024-05-06T16:21:18.545214Z
           updatedBy: user
           updatedDateTime: 2025-02-04T00:20:54.511118575Z
+    VpnGatewayCreate:
+      value:
+        type: INFRA_VPN_GW
+        name: My-VPN-Gateway
+        description: my test gateway
+        localAsn: 65432
+        location:
+          metroCode: SV
+        account:
+          accountNumber: 123
+        project:
+          projectId: b1baecec-b7e7-453b-89fc-b35757bfcdbf
+    VpnGatewayPostResponseExample:
+      value:
+        href: https://api.equinix.com/fabric/v4/vpnGateways/c93a9ca0-bb56-490b-8bce-4b2bdaeb4d46
+        uuid: c93a9ca0-bb56-490b-8bce-4b2bdaeb4d46
+        type: INFRA_VPN_GW
+        name: My-VPN-Gateway
+        description: my test gateway
+        state: PROVISIONING
+        location:
+          metroHref: https://api.equinix.com/fabric/v4/metros/SV
+          metroCode: SV
+        localAsn: 65432
+        project:
+          projectId: b1baecec-b7e7-453b-89fc-b35757bfcdbf
+        account:
+          accountNumber: 123
+        changeLog:
+          createdBy: abc@xyz.com
+          createdByFullName: abc
+          createdByEmail: abc@xyz.com
+          createdDateTime: 2025-04-21T01:11:11.117Z
+    VpnGateway_400_InvalidName:
+      value:
+        - errorCode: EQ-8010022
+          errorMessage: Name is minimum 0 and up to 50 characters in length
+          correlationId: fc7a32c8-2b99-4915-bb4b-eb42bbba668e
+          details: Name is minimum 0 and up to 50 characters in length
+          additionalInfo:
+            - property: /name
+              reason: Name is minimum 0 and up to 50 characters in length
+    VpnGateway_401:
+      value:
+        - errorCode: EQ-8010001
+          errorMessage: User not found in request or invalid.
+          correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+          additionalInfo:
+            - reason: You are unauthorized to perform this operation
+    VpnGateway_403:
+      value:
+        - errorCode: EQ-8010002
+          errorMessage: Operation not allowed
+          correlationId: 8a72af9d-23f7-4b90-8237-0987130b42dd
+          details: Operation not allowed for current user
+    VpnGateway_415:
+      value:
+        - errorCode: EQ-8010016
+          errorMessage: Unsupported media type, please check the request's Content-Type or Content-Encoding
+          correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+          additionalInfo:
+            - property: contentType
+              reason: The payload format is in an unsupported format
+    VpnGateway_500:
+      value:
+        - errorCode: EQ-8010030
+          errorMessage: Internal Server Error
+          correlationId: f9018571-1001-4422-978b-bfa38ed6b92e
+          details: Internal Server Error
+    VpnGatewayGetResponseExample:
+      value:
+        href: https://api.equinix.com/fabric/v4/vpnGateways/c93a9ca0-bb56-490b-8bce-4b2bdaeb4d46
+        uuid: c93a9ca0-bb56-490b-8bce-4b2bdaeb4d46
+        type: INFRA_VPN_GW
+        name: My-VPN-Gateway
+        description: my test gateway
+        state: PROVISIONED
+        location:
+          metroHref: https://api.equinix.com/fabric/v4/metros/SV
+          metroCode: SV
+        localAsn: 65432
+        project:
+          projectId: b1baecec-b7e7-453b-89fc-b35757bfcdbf
+        account:
+          accountNumber: 123
+        change:
+          type: INFRA_VPN_GW_UPDATE
+          status: COMPLETED
+          createdDateTime: 2025-03-28T04:12:36.607Z
+          updatedDateTime: 2025-03-10T05:00:00Z
+          data:
+            - op: replace
+              path: /name
+              value: My-VpnGateway
+        changeLog:
+          createdBy: abc@xyz.com
+          createdByFullName: abc
+          createdByEmail: abc@xyz.com
+          createdDateTime: 2025-04-21T01:11:11.117Z
+          updatedBy: abc@xyz.com
+          updatedByFullName: abc
+          updatedByEmail: abc@xyz.com
+          updatedDateTime: 2025-04-22T02:22:22.227Z
+        attachment:
+          href: https://api.equinix.com/fabric/v4/routers/6658cc3b-18e0-437c-b972-62b51a419a1e
+          type: XF_ROUTER
+          attachmentStatus: ATTACHED
+        links:
+          - href: https://api.equinix.com/fabric/v4/vpnInterfaces/search
+            rel: searchVpnInterfaces
+            method: POST
+            contentType: application/json
+            authenticate: true
+          - href: https://api.equinix.com/fabric/v4/routers/search
+            rel: searchRouters
+            method: POST
+            contentType: application/json
+            authenticate: true
+    VpnGateway_404:
+      value:
+        - errorCode: EQ-8010020
+          errorMessage: VPN Gateway not found or already deleted
+          correlationId: 9b6baf30-3eb0-458c-af8b-fff3fae32bc7
+          details: VPN Gateway not found or already deleted
+    VpnGatewayDeleteResponseExample:
+      value:
+        href: https://api.equinix.com/fabric/v4/vpnGateways/c93a9ca0-bb56-490b-8bce-4b2bdaeb4d46
+        uuid: c93a9ca0-bb56-490b-8bce-4b2bdaeb4d46
+        type: INFRA_VPN_GW
+        name: My-VPN-Gateway
+        description: my test gateway
+        state: DEPROVISIONING
+        location:
+          metroHref: https://api.equinix.com/fabric/v4/metros/SV
+          metroCode: SV
+        localAsn: 65432
+        project:
+          projectId: b1baecec-b7e7-453b-89fc-b35757bfcdbf
+        account:
+          accountNumber: 123
+        change:
+          type: INFRA_VPN_GW_UPDATE
+          status: COMPLETED
+          createdDateTime: 2025-03-28T04:12:36.607Z
+          updatedDateTime: 2025-03-10T05:00:00Z
+          data:
+            - op: replace
+              path: /name
+              value: My-VpnGateway
+        changeLog:
+          createdBy: abc@xyz.com
+          createdByFullName: abc
+          createdByEmail: abc@xyz.com
+          createdDateTime: 2025-04-21T01:11:11.117Z
+          updatedBy: abc@xyz.com
+          updatedByFullName: abc
+          updatedByEmail: abc@xyz.com
+          updatedDateTime: 2025-04-22T02:22:22.227Z
+          deletedBy: abc@xyz.com
+          deletedByFullName: abc
+          deletedByEmail: abc@xyz.com
+          deletedDateTime: 2025-04-23T03:33:33.337Z
+    VpnGateway_400_InvalidState:
+      value:
+        - errorCode: EQ-8010030
+          errorMessage: Cannot delete VPN Gateway in transient state
+          correlationId: 09fbe616-e563-438e-9b1b-56632d1611ff
+          details: Cannot delete VPN Gateway in transient state.
+    VpnGatewaySearchFilterByStatus:
+      value:
+        filter:
+          and:
+            - property: /state
+              operator: =
+              values:
+                - PROVISIONED
+            - property: /project/projectId
+              operator: =
+              values:
+                - b1baecec-b7e7-453b-89fc-b35757bfcdbf
+        pagination:
+          offset: 0
+          limit: 20
+        sort:
+          - direction: DESC
+            property: /changeLog/createdDateTime
+    VpnGatewaySearchFilterByName:
+      value:
+        filter:
+          and:
+            - property: /name
+              operator: =
+              values:
+                - test-
+            - property: /project/projectId
+              operator: =
+              values:
+                - 6658cc3b-18e0-437c-b972-62b51a419a1e
+        pagination:
+          offset: 0
+          limit: 20
+        sort:
+          - direction: DESC
+            property: /changeLog/createdDateTime
+    VpnGatewaySearchFilterOrAnd:
+      value:
+        filter:
+          and:
+            - or:
+                - property: /name
+                  operator: =
+                  values:
+                    - abc
+            - property: /project/projectId
+              operator: =
+              values:
+                - b1baecec-b7e7-453b-89fc-b35757bfcdbf
+    VpnGatewaySearchExample:
+      value:
+        pagination:
+          offset: 20
+          limit: 20
+          total: 100
+          next: /search?offset=40&limit=20
+          previous: /search?offset=0&limit=20
+        data:
+          - href: https://api.equinix.com/fabric/v4/vpnGateways/c93a9ca0-bb56-490b-8bce-4b2bdaeb4d46
+            uuid: c93a9ca0-bb56-490b-8bce-4b2bdaeb4d46
+            type: INFRA_VPN_GW
+            name: My-VPN-Gateway
+            description: my test gateway
+            state: PROVISIONED
+            location:
+              metroHref: https://api.equinix.com/fabric/v4/metros/SV
+              metroCode: SV
+            localAsn: 65432
+            project:
+              projectId: b1baecec-b7e7-453b-89fc-b35757bfcdbf
+            account:
+              accountNumber: 123
+            changeLog:
+              createdBy: abc@xyz.com
+              createdByFullName: abc
+              createdByEmail: abc@xyz.com
+              createdDateTime: 2025-04-21T01:11:11.117Z
+              updatedBy: abc@xyz.com
+              updatedByFullName: abc
+              updatedByEmail: abc@xyz.com
+              updatedDateTime: 2025-04-22T02:22:22.227Z
+    VpnGateway_400_InvalidSorting:
+      value:
+        - errorCode: EQ-8010039
+          errorMessage: Invalid value for sorting direction.
+          correlationId: 11091aa7-322a-461e-b6af-40fd10543c94
+          additionalInfo:
+            - reason: Only accept DESC and ASC for sorting direction.
+    VpnGatewayInterfaceAttachmentPutResponseExample:
+      value:
+        href: https://api.equinix.com/fabric/v4/vpnGateways/c93a9ca0-bb56-490b-8bce-4b2bdaeb4d46/vpnInterfaces/6658cc3b-18e0-437c-b972-62b51a419a1e
+        type: IFACE_IPSEC_VPN
+        uuid: 6658cc3b-18e0-437c-b972-62b51a419a1e
+        attachmentStatus: ATTACHING
+    VpnGatewayInterfaceAttachmentDeleteResponseExample:
+      value:
+        href: https://api.equinix.com/fabric/v4/vpnGateways/c93a9ca0-bb56-490b-8bce-4b2bdaeb4d46/vpnInterfaces/6658cc3b-18e0-437c-b972-62b51a419a1e
+        type: IFACE_IPSEC_VPN
+        uuid: 6658cc3b-18e0-437c-b972-62b51a419a1e
+        attachmentStatus: DETACHING
     VpnInterfaceCreate:
       value:
         type: IFACE_IPSEC_VPN
@@ -40350,6 +42509,53 @@ components:
           errorMessage: Cannot delete VPN Tunnel in transient state
           correlationId: 09fbe616-e563-438e-9b1b-56632d1611ff
           details: Cannot delete VPN Tunnel in transient state.
+    VpnTunnelUpdateEnabled:
+      value:
+        - op: replace
+          path: /enabled
+          value: true
+    VpnTunnelUpdateResponseExample:
+      value:
+        href: https://api.equinix.com/fabric/v4/vpnInterfaces/6658cc3b-18e0-437c-b972-62b51a419a1e/tunnels/aee72df9-dec8-4c89-8f18-c4d0ef203656
+        uuid: aee72df9-dec8-4c89-8f18-c4d0ef203656
+        type: IPSEC_IPv4
+        name: My-Tunnel
+        description: ipsec tunnel configuration
+        state: PROVISIONED
+        isInitiator: true
+        tunnelLocalInsideCidr: 192.168.1.1/30
+        tunnelRemoteInsideCidr: 192.168.1.2/30
+        customerPeerIp: 1.2.3.43
+        mtu: 1500
+        enabled: true
+        isNatT: false
+        authentication:
+          type: PSK
+          ikeVersion: ikev2
+          preSharedKey: EBY8EAY_yo2
+          phase1DhGroup: 2
+          phase1EncryptAlgorithm: AES_CBC
+          phase1IntegrityAlgorithm: HMAC_SHA1
+          phase2DhGroup: 2
+          phase2EncryptAlgorithm: AES_CTR
+          phase2IntegrityAlgorithm: HMAC_SHA2_256
+        operation:
+          operationalStatus: UP
+          opStatusChangedAt: 2025-03-20T08:10:26.132Z
+        change:
+          type: IPSEC_IPv4_UPDATE
+          status: COMPLETED
+          createdDateTime: 2025-03-28T04:12:36.607Z
+          updatedDateTime: 2025-03-10T05:00:00Z
+          data:
+            - op: replace
+              path: /enabled
+              value: true
+        changeLog:
+          createdBy: testBuyer
+          createdDateTime: 2025-03-28T04:12:36.607Z
+          updatedBy: testBuyer
+          updatedDateTime: 2025-03-10T05:00:00Z
     VpnTunnelSearchFilterByStatus:
       value:
         filter:
@@ -40443,6 +42649,245 @@ components:
     VpnTunnel_400_InvalidSorting:
       value:
         - errorCode: EQ-8030039
+          errorMessage: Invalid value for sorting direction.
+          correlationId: 11091aa7-322a-461e-b6af-40fd10543c94
+          additionalInfo:
+            - reason: Only accept DESC and ASC for sorting direction.
+    VpnRoutingProtocolCreate:
+      value:
+        type: BGP_IPv4
+        name: My-BgpPeer
+        description: this is my test bgp
+        localPeerIp: 200.200.2.0
+        remotePeerIp: 100.100.1.0
+        authentication:
+          type: MD5
+          key: 8a9d5f3ca2b4a5fd7e8b6d8a9c5f3e2b1a7
+        enabled: true
+        localAsn: 65432
+        remoteAsn: 65219
+    VpnRoutingProtocolPostResponseExample:
+      value:
+        href: https://api.equinix.com/fabric/v4/vpnInterfaces/6658cc3b-18e0-437c-b972-62b51a419a1e/tunnels/aee72df9-dec8-4c89-8f18-c4d0ef203656/routingProtocols/80932bb5-1d3e-457a-b067-0ace6a3a0268
+        uuid: 80932bb5-1d3e-457a-b067-0ace6a3a0268
+        type: BGP_IPv4
+        name: My-BgpPeer
+        description: this is my test bgp
+        localPeerIp: 200.200.2.0
+        remotePeerIp: 100.100.1.0
+        authentication:
+          type: MD5
+          key: 8a9d5f3ca2b4a5fd7e8b6d8a9c5f3e2b1a7
+        enabled: true
+        localAsn: 65432
+        remoteAsn: 65219
+        state: PROVISIONED
+        operation:
+          operationalStatus: UP
+          opStatusChangedAt: 2025-03-20T08:10:26.132Z
+        changeLog:
+          createdBy: testBuyer
+          createdDateTime: 2025-03-28T04:12:36.607Z
+    VpnRoutingProtocol_400_InvalidName:
+      value:
+        - errorCode: EQ-8040022
+          errorMessage: Name is minimum 0 and up to 50 characters in length
+          correlationId: fc7a32c8-2b99-4915-bb4b-eb42bbba668e
+          details: Name is minimum 0 and up to 50 characters in length
+          additionalInfo:
+            - property: /name
+              reason: Name is minimum 0 and up to 50 characters in length
+    VpnRoutingProtocol_401:
+      value:
+        - errorCode: EQ-8040001
+          errorMessage: User not found in request or invalid.
+          correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+          additionalInfo:
+            - reason: You are unauthorized to perform this operation
+    VpnRoutingProtocol_403:
+      value:
+        - errorCode: EQ-8040002
+          errorMessage: Operation not allowed
+          correlationId: 8a72af9d-23f7-4b90-8237-0987130b42dd
+          details: Operation not allowed for current user
+    VpnRoutingProtocol_415:
+      value:
+        - errorCode: EQ-8040016
+          errorMessage: Unsupported media type, please check the request's Content-Type or Content-Encoding
+          correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+          additionalInfo:
+            - property: contentType
+              reason: The payload format is in an unsupported format
+    VpnRoutingProtocol_500:
+      value:
+        - errorCode: EQ-8040030
+          errorMessage: Internal Server Error
+          correlationId: f9018571-1001-4422-978b-bfa38ed6b92e
+          details: Internal Server Error
+    VpnRoutingProtocolGetResponseExample:
+      value:
+        href: https://api.equinix.com/fabric/v4/vpnInterfaces/6658cc3b-18e0-437c-b972-62b51a419a1e/tunnels/aee72df9-dec8-4c89-8f18-c4d0ef203656/routingProtocols/80932bb5-1d3e-457a-b067-0ace6a3a0268
+        uuid: 80932bb5-1d3e-457a-b067-0ace6a3a0268
+        type: BGP_IPv4
+        name: My-BgpPeer
+        description: this is my test bgp
+        localPeerIp: 200.200.2.0
+        remotePeerIp: 100.100.1.0
+        authentication:
+          type: MD5
+          key: 8a9d5f3ca2b4a5fd7e8b6d8a9c5f3e2b1a7
+        enabled: true
+        localAsn: 65432
+        remoteAsn: 65219
+        state: PROVISIONED
+        operation:
+          operationalStatus: UP
+          opStatusChangedAt: 2025-03-20T08:10:26.132Z
+        change:
+          type: BGP_IPv4_UPDATE
+          status: COMPLETED
+          createdDateTime: 2025-03-28T04:12:36.607Z
+          updatedDateTime: 2025-03-10T05:00:00Z
+          data:
+            - op: replace
+              path: /name
+              value: Update-bgp
+        changeLog:
+          createdBy: testBuyer
+          createdDateTime: 2025-03-28T04:12:36.607Z
+          updatedBy: testBuyer
+          updatedDateTime: 2025-03-10T05:00:00Z
+    VpnRoutingProtocol_404:
+      value:
+        - errorCode: EQ-8040020
+          errorMessage: VPN Routing Protocol not found or already deleted
+          correlationId: 9b6baf30-3eb0-458c-af8b-fff3fae32bc7
+          details: VPN Routing Protocol not found or already deleted
+    VpnRoutingProtocolDeleteResponseExample:
+      value:
+        href: https://api.equinix.com/fabric/v4/vpnInterfaces/6658cc3b-18e0-437c-b972-62b51a419a1e/tunnels/aee72df9-dec8-4c89-8f18-c4d0ef203656/routingProtocols/80932bb5-1d3e-457a-b067-0ace6a3a0268
+        uuid: 80932bb5-1d3e-457a-b067-0ace6a3a0268
+        type: BGP_IPv4
+        name: My-BgpPeer
+        description: this is my test bgp
+        localPeerIp: 200.200.2.0
+        remotePeerIp: 100.100.1.0
+        authentication:
+          type: MD5
+          key: 8a9d5f3ca2b4a5fd7e8b6d8a9c5f3e2b1a7
+        enabled: true
+        localAsn: 65432
+        remoteAsn: 65219
+        state: DEPROVISIONING
+        operation:
+          operationalStatus: UP
+          opStatusChangedAt: 2025-03-20T08:10:26.132Z
+        change:
+          type: BGP_IPv4_UPDATE
+          status: COMPLETED
+          createdDateTime: 2025-03-28T04:12:36.607Z
+          updatedDateTime: 2025-03-10T05:00:00Z
+          data:
+            - op: replace
+              path: /name
+              value: Update-bgp
+        changeLog:
+          createdBy: testBuyer
+          createdDateTime: 2025-03-28T04:12:36.607Z
+          updatedBy: testBuyer
+          updatedDateTime: 2025-03-10T05:00:00Z
+          deletedBy: testBuyer
+          deletedDateTime: 2025-03-15T12:20:06Z
+    VpnRoutingProtocol_400_InvalidState:
+      value:
+        - errorCode: EQ-8040030
+          errorMessage: Cannot delete VPN Routing Protocol in transient state
+          correlationId: 09fbe616-e563-438e-9b1b-56632d1611ff
+          details: Cannot delete VPN Routing Protocol in transient state.
+    VpnRoutingProtocolSearchFilterByStatus:
+      value:
+        filter:
+          and:
+            - property: /state
+              operator: =
+              values:
+                - PROVISIONED
+        pagination:
+          offset: 0
+          limit: 20
+        sort:
+          - direction: DESC
+            property: /changeLog/createdDateTime
+    VpnRoutingProtocolSearchFilterByName:
+      value:
+        filter:
+          and:
+            - property: /name
+              operator: =
+              values:
+                - test-
+        pagination:
+          offset: 0
+          limit: 20
+        sort:
+          - direction: DESC
+            property: /changeLog/createdDateTime
+    VpnRoutingProtocolSearchFilterOrAnd:
+      value:
+        filter:
+          and:
+            - or:
+                - property: /name
+                  operator: =
+                  values:
+                    - abc
+            - property: /state
+              operator: =
+              values:
+                - PROVISIONED
+    VpnRoutingProtocolSearchExample:
+      value:
+        pagination:
+          offset: 20
+          limit: 20
+          total: 100
+          next: /search?offset=40&limit=20
+          previous: /search?offset=0&limit=20
+        data:
+          - href: https://api.equinix.com/fabric/v4/vpnInterfaces/6658cc3b-18e0-437c-b972-62b51a419a1e/tunnels/aee72df9-dec8-4c89-8f18-c4d0ef203656/routingProtocols/80932bb5-1d3e-457a-b067-0ace6a3a0268
+            uuid: 80932bb5-1d3e-457a-b067-0ace6a3a0268
+            type: BGP_IPv4
+            name: My-BgpPeer
+            description: this is my test bgp
+            localPeerIp: 200.200.2.0
+            remotePeerIp: 100.100.1.0
+            authentication:
+              type: MD5
+              key: 8a9d5f3ca2b4a5fd7e8b6d8a9c5f3e2b1a7
+            enabled: true
+            localAsn: 65432
+            remoteAsn: 65219
+            state: PROVISIONED
+            operation:
+              operationalStatus: UP
+              opStatusChangedAt: 2025-03-20T08:10:26.132Z
+            change:
+              type: BGP_IPv4_UPDATE
+              status: COMPLETED
+              createdDateTime: 2025-03-28T04:12:36.607Z
+              updatedDateTime: 2025-03-10T05:00:00Z
+              data:
+                - op: replace
+                  path: /name
+                  value: Update-bgp
+            changeLog:
+              createdBy: testBuyer
+              createdDateTime: 2025-03-28T04:12:36.607Z
+              updatedBy: testBuyer
+              updatedDateTime: 2025-03-10T05:00:00Z
+    VpnRoutingProtocol_400_InvalidSorting:
+      value:
+        - errorCode: EQ-8040039
           errorMessage: Invalid value for sorting direction.
           correlationId: 11091aa7-322a-461e-b6af-40fd10543c94
           additionalInfo:
@@ -40784,6 +43229,31 @@ components:
                 - DIRECT_CONNECT
                 - VPC
                 - SUBNET
+    client-interfaces-create:
+      value:
+        type: TERRAFORM_DOWNLOAD
+        name: Terraform Deployment Templates
+        description: Deployment Terraform Templates in DC
+    client-interfaces-400-invalid-name:
+      value:
+        - errorCode: EQ-3223013
+          errorMessage: Name field must not exceed 50 characters
+          correlationId: fc7a32c8-2b99-4915-bb4b-eb42bbba668e
+    client-interfaces-401:
+      value:
+        - errorCode: EQ-3223012
+          errorMessage: User not found in request or invalid.
+          correlationId: c82ff3bc-de07-47e5-b3ec-53a009d01515
+    client-interfaces-404:
+      value:
+        - errorCode: EQ-3223018
+          errorMessage: Templates not found
+          correlationId: 9b6baf30-3eb0-458c-af8b-fff3fae32bc7
+    client-interfaces-500:
+      value:
+        - errorCode: EQ-3223004
+          errorMessage: Internal Server Error
+          correlationId: f9018571-1001-4422-978b-bfa38ed6b92e
   headers:
     ETag:
       description: response header - identifier for a specific version of a resource.

@@ -31,7 +31,7 @@ public enum MetricAssetType {
   
   CONNECTIONS("connections"),
   
-  ROUTERS("routers");
+  METROS("metros");
 
   private String value;
 

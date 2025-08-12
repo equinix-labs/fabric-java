@@ -5,7 +5,6 @@ All URIs are relative to *https://api.equinix.com*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**addToLag**](PortsApi.md#addToLag) | **POST** /fabric/v4/ports/{portId}/physicalPorts/bulk | Add to Lag |
-| [**createBulkPort**](PortsApi.md#createBulkPort) | **POST** /fabric/v4/ports/bulk | Create Port |
 | [**createPort**](PortsApi.md#createPort) | **POST** /fabric/v4/ports | Create Port |
 | [**deletePort**](PortsApi.md#deletePort) | **DELETE** /fabric/v4/ports/{portId} | Delete a single port |
 | [**getPortByUuid**](PortsApi.md#getPortByUuid) | **GET** /fabric/v4/ports/{portId} | Get Port by uuid |
@@ -83,84 +82,18 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful operation |  -  |
+| **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |
 | **404** | Not Found |  -  |
-| **500** | Internal server error |  -  |
-
-<a name="createBulkPort"></a>
-# **createBulkPort**
-> BulkPort createBulkPort(bulkPortRequest)
-
-Create Port
-
-Create Port creates Equinix Fabric? Port.&lt;font color&#x3D;\&quot;red\&quot;&gt; &lt;sup color&#x3D;&#39;red&#39;&gt;Preview&lt;/sup&gt;&lt;/font&gt;
-
-### Example
-```java
-// Import classes:
-import com.equinix.openapi.fabric.ApiClient;
-import com.equinix.openapi.fabric.ApiException;
-import com.equinix.openapi.fabric.Configuration;
-import com.equinix.openapi.fabric.auth.*;
-import com.equinix.openapi.fabric.models.*;
-import com.equinix.openapi.fabric.v4.api.PortsApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://api.equinix.com");
-    
-    // Configure HTTP bearer authorization: BearerAuth
-    HttpBearerAuth BearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("BearerAuth");
-    BearerAuth.setBearerToken("BEARER TOKEN");
-
-    PortsApi apiInstance = new PortsApi(defaultClient);
-    BulkPortRequest bulkPortRequest = new BulkPortRequest(); // BulkPortRequest | 
-    try {
-      BulkPort result = apiInstance.createBulkPort(bulkPortRequest);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling PortsApi#createBulkPort");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **bulkPortRequest** | [**BulkPortRequest**](BulkPortRequest.md)|  | |
-
-### Return type
-
-[**BulkPort**](BulkPort.md)
-
-### Authorization
-
-[BearerAuth](../README.md#BearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **201** | Successful operation for COLO Bulk Port |  -  |
+| **500** | Internal Server Error |  -  |
 
 <a name="createPort"></a>
 # **createPort**
-> Port createPort(portRequest)
+> Port createPort(portRequest, dryRun)
 
 Create Port
 
-Creates Equinix Fabric? Port.
+Creates Equinix Fabric™ Port.
 
 ### Example
 ```java
@@ -183,8 +116,9 @@ public class Example {
 
     PortsApi apiInstance = new PortsApi(defaultClient);
     PortRequest portRequest = new PortRequest(); // PortRequest | 
+    Boolean dryRun = false; // Boolean | option to verify that API calls will succeed
     try {
-      Port result = apiInstance.createPort(portRequest);
+      Port result = apiInstance.createPort(portRequest, dryRun);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling PortsApi#createPort");
@@ -202,6 +136,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **portRequest** | [**PortRequest**](PortRequest.md)|  | |
+| **dryRun** | **Boolean**| option to verify that API calls will succeed | [optional] [default to false] |
 
 ### Return type
 
@@ -219,13 +154,15 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **201** | Successful operation for COLO Single Port Non Lag |  -  |
+| **200** | Successful operation |  -  |
+| **201** | Successful operation |  -  |
 | **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
 | **500** | Internal Server Error |  -  |
 
 <a name="deletePort"></a>
 # **deletePort**
-> Port deletePort(portId)
+> Port deletePort(portId, dryRun)
 
 Delete a single port
 
@@ -252,8 +189,9 @@ public class Example {
 
     PortsApi apiInstance = new PortsApi(defaultClient);
     UUID portId = UUID.randomUUID(); // UUID | Port UUID
+    Boolean dryRun = false; // Boolean | option to verify that API calls will succeed
     try {
-      Port result = apiInstance.deletePort(portId);
+      Port result = apiInstance.deletePort(portId, dryRun);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling PortsApi#deletePort");
@@ -271,6 +209,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **portId** | **UUID**| Port UUID | |
+| **dryRun** | **Boolean**| option to verify that API calls will succeed | [optional] [default to false] |
 
 ### Return type
 
@@ -288,6 +227,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+| **200** | Successful operation |  -  |
 | **202** | Accepted |  -  |
 | **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |
@@ -429,7 +369,10 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successful operation |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
+| **500** | Service Unavailable |  -  |
 
 <a name="getVlans"></a>
 # **getVlans**
@@ -569,10 +512,11 @@ public class Example {
 | **400** | Bad request |  -  |
 | **401** | Unauthorized |  -  |
 | **404** | Not Found |  -  |
+| **500** | Service Unavailable |  -  |
 
 <a name="updatePortByUuid"></a>
 # **updatePortByUuid**
-> AllPortsResponse updatePortByUuid(portId, portChangeOperation)
+> AllPortsResponse updatePortByUuid(portId, portChangeOperation, dryRun)
 
 Update by UUID
 
@@ -600,8 +544,9 @@ public class Example {
     PortsApi apiInstance = new PortsApi(defaultClient);
     UUID portId = UUID.randomUUID(); // UUID | Port UUID
     List<PortChangeOperation> portChangeOperation = Arrays.asList(); // List<PortChangeOperation> | 
+    Boolean dryRun = false; // Boolean | option to verify that API calls will succeed
     try {
-      AllPortsResponse result = apiInstance.updatePortByUuid(portId, portChangeOperation);
+      AllPortsResponse result = apiInstance.updatePortByUuid(portId, portChangeOperation, dryRun);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling PortsApi#updatePortByUuid");
@@ -620,6 +565,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **portId** | **UUID**| Port UUID | |
 | **portChangeOperation** | [**List&lt;PortChangeOperation&gt;**](PortChangeOperation.md)|  | |
+| **dryRun** | **Boolean**| option to verify that API calls will succeed | [optional] [default to false] |
 
 ### Return type
 
@@ -637,6 +583,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+| **200** | Successful operation |  -  |
 | **202** | Successful operation |  -  |
 | **400** | Bad request |  -  |
 | **403** | Forbidden |  -  |

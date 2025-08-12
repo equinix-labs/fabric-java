@@ -84,6 +84,10 @@ public class CloudEvent {
   @SerializedName(SERIALIZED_NAME_SEVERITYTEXT)
   private String severitytext;
 
+  public static final String SERIALIZED_NAME_EQUINIXORGANIZATION = "equinixorganization";
+  @SerializedName(SERIALIZED_NAME_EQUINIXORGANIZATION)
+  private UUID equinixorganization;
+
   public static final String SERIALIZED_NAME_EQUINIXPROJECT = "equinixproject";
   @SerializedName(SERIALIZED_NAME_EQUINIXPROJECT)
   private UUID equinixproject;
@@ -95,6 +99,14 @@ public class CloudEvent {
   public static final String SERIALIZED_NAME_AUTHID = "authid";
   @SerializedName(SERIALIZED_NAME_AUTHID)
   private String authid;
+
+  public static final String SERIALIZED_NAME_TRACEPARENT = "traceparent";
+  @SerializedName(SERIALIZED_NAME_TRACEPARENT)
+  private String traceparent;
+
+  public static final String SERIALIZED_NAME_TRACESTATE = "tracestate";
+  @SerializedName(SERIALIZED_NAME_TRACESTATE)
+  private String tracestate;
 
   public static final String SERIALIZED_NAME_DATA = "data";
   @SerializedName(SERIALIZED_NAME_DATA)
@@ -300,6 +312,28 @@ public class CloudEvent {
   }
 
 
+  public CloudEvent equinixorganization(UUID equinixorganization) {
+    
+    this.equinixorganization = equinixorganization;
+    return this;
+  }
+
+   /**
+   * Equinix organization identifier
+   * @return equinixorganization
+  **/
+  @javax.annotation.Nullable
+
+  public UUID getEquinixorganization() {
+    return equinixorganization;
+  }
+
+
+  public void setEquinixorganization(UUID equinixorganization) {
+    this.equinixorganization = equinixorganization;
+  }
+
+
   public CloudEvent equinixproject(UUID equinixproject) {
     
     this.equinixproject = equinixproject;
@@ -363,6 +397,50 @@ public class CloudEvent {
 
   public void setAuthid(String authid) {
     this.authid = authid;
+  }
+
+
+  public CloudEvent traceparent(String traceparent) {
+    
+    this.traceparent = traceparent;
+    return this;
+  }
+
+   /**
+   * Cloud Event traceparent
+   * @return traceparent
+  **/
+  @javax.annotation.Nullable
+
+  public String getTraceparent() {
+    return traceparent;
+  }
+
+
+  public void setTraceparent(String traceparent) {
+    this.traceparent = traceparent;
+  }
+
+
+  public CloudEvent tracestate(String tracestate) {
+    
+    this.tracestate = tracestate;
+    return this;
+  }
+
+   /**
+   * Cloud Event tracestate
+   * @return tracestate
+  **/
+  @javax.annotation.Nullable
+
+  public String getTracestate() {
+    return tracestate;
+  }
+
+
+  public void setTracestate(String tracestate) {
+    this.tracestate = tracestate;
   }
 
 
@@ -451,16 +529,19 @@ public class CloudEvent {
         Objects.equals(this.datacontenttype, cloudEvent.datacontenttype) &&
         Objects.equals(this.severitynumber, cloudEvent.severitynumber) &&
         Objects.equals(this.severitytext, cloudEvent.severitytext) &&
+        Objects.equals(this.equinixorganization, cloudEvent.equinixorganization) &&
         Objects.equals(this.equinixproject, cloudEvent.equinixproject) &&
         Objects.equals(this.authtype, cloudEvent.authtype) &&
         Objects.equals(this.authid, cloudEvent.authid) &&
+        Objects.equals(this.traceparent, cloudEvent.traceparent) &&
+        Objects.equals(this.tracestate, cloudEvent.tracestate) &&
         Objects.equals(this.data, cloudEvent.data)&&
         Objects.equals(this.additionalProperties, cloudEvent.additionalProperties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(spec, source, id, type, subject, dataschema, datacontenttype, severitynumber, severitytext, equinixproject, authtype, authid, data, additionalProperties);
+    return Objects.hash(spec, source, id, type, subject, dataschema, datacontenttype, severitynumber, severitytext, equinixorganization, equinixproject, authtype, authid, traceparent, tracestate, data, additionalProperties);
   }
 
   @Override
@@ -476,9 +557,12 @@ public class CloudEvent {
     sb.append("    datacontenttype: ").append(toIndentedString(datacontenttype)).append("\n");
     sb.append("    severitynumber: ").append(toIndentedString(severitynumber)).append("\n");
     sb.append("    severitytext: ").append(toIndentedString(severitytext)).append("\n");
+    sb.append("    equinixorganization: ").append(toIndentedString(equinixorganization)).append("\n");
     sb.append("    equinixproject: ").append(toIndentedString(equinixproject)).append("\n");
     sb.append("    authtype: ").append(toIndentedString(authtype)).append("\n");
     sb.append("    authid: ").append(toIndentedString(authid)).append("\n");
+    sb.append("    traceparent: ").append(toIndentedString(traceparent)).append("\n");
+    sb.append("    tracestate: ").append(toIndentedString(tracestate)).append("\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("    additionalProperties: ").append(toIndentedString(additionalProperties)).append("\n");
     sb.append("}");
@@ -512,9 +596,12 @@ public class CloudEvent {
     openapiFields.add("datacontenttype");
     openapiFields.add("severitynumber");
     openapiFields.add("severitytext");
+    openapiFields.add("equinixorganization");
     openapiFields.add("equinixproject");
     openapiFields.add("authtype");
     openapiFields.add("authid");
+    openapiFields.add("traceparent");
+    openapiFields.add("tracestate");
     openapiFields.add("data");
 
     // a set of required properties/fields (JSON key names)
@@ -560,6 +647,9 @@ public class CloudEvent {
       if ((jsonObj.get("severitytext") != null && !jsonObj.get("severitytext").isJsonNull()) && !jsonObj.get("severitytext").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `severitytext` to be a primitive type in the JSON string but got `%s`", jsonObj.get("severitytext").toString()));
       }
+      if ((jsonObj.get("equinixorganization") != null && !jsonObj.get("equinixorganization").isJsonNull()) && !jsonObj.get("equinixorganization").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `equinixorganization` to be a primitive type in the JSON string but got `%s`", jsonObj.get("equinixorganization").toString()));
+      }
       if ((jsonObj.get("equinixproject") != null && !jsonObj.get("equinixproject").isJsonNull()) && !jsonObj.get("equinixproject").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `equinixproject` to be a primitive type in the JSON string but got `%s`", jsonObj.get("equinixproject").toString()));
       }
@@ -568,6 +658,12 @@ public class CloudEvent {
       }
       if ((jsonObj.get("authid") != null && !jsonObj.get("authid").isJsonNull()) && !jsonObj.get("authid").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `authid` to be a primitive type in the JSON string but got `%s`", jsonObj.get("authid").toString()));
+      }
+      if ((jsonObj.get("traceparent") != null && !jsonObj.get("traceparent").isJsonNull()) && !jsonObj.get("traceparent").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `traceparent` to be a primitive type in the JSON string but got `%s`", jsonObj.get("traceparent").toString()));
+      }
+      if ((jsonObj.get("tracestate") != null && !jsonObj.get("tracestate").isJsonNull()) && !jsonObj.get("tracestate").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `tracestate` to be a primitive type in the JSON string but got `%s`", jsonObj.get("tracestate").toString()));
       }
       // validate the optional field `data`
       if (jsonObj.get("data") != null && !jsonObj.get("data").isJsonNull()) {

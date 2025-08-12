@@ -157,7 +157,7 @@ public class ServiceTokensApi {
 
     /**
      * Create Service Token
-     * Create Service Tokens generates Equinix Fabric? service tokens. These tokens authorize users to access protected resources and services.
+     * Create Service Tokens generates Equinix Fabric™ service tokens. These tokens authorize users to access protected resources and services.
      * @param serviceToken  (required)
      * @param dryRun option to verify that API calls will succeed (optional, default to false)
      * @return ServiceToken
@@ -179,7 +179,7 @@ public class ServiceTokensApi {
 
     /**
      * Create Service Token
-     * Create Service Tokens generates Equinix Fabric? service tokens. These tokens authorize users to access protected resources and services.
+     * Create Service Tokens generates Equinix Fabric™ service tokens. These tokens authorize users to access protected resources and services.
      * @param serviceToken  (required)
      * @param dryRun option to verify that API calls will succeed (optional, default to false)
      * @return ApiResponse&lt;ServiceToken&gt;
@@ -202,7 +202,7 @@ public class ServiceTokensApi {
 
     /**
      * Create Service Token (asynchronously)
-     * Create Service Tokens generates Equinix Fabric? service tokens. These tokens authorize users to access protected resources and services.
+     * Create Service Tokens generates Equinix Fabric™ service tokens. These tokens authorize users to access protected resources and services.
      * @param serviceToken  (required)
      * @param dryRun option to verify that API calls will succeed (optional, default to false)
      * @param _callback The callback to be executed when the API call finishes

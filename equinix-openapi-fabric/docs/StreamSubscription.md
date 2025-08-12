@@ -18,8 +18,8 @@ Stream Subscription object
 |**metricSelector** | [**StreamSubscriptionSelector**](StreamSubscriptionSelector.md) |  |  [optional] |
 |**eventSelector** | [**StreamSubscriptionSelector**](StreamSubscriptionSelector.md) |  |  [optional] |
 |**sink** | [**StreamSubscriptionSink**](StreamSubscriptionSink.md) |  |  [optional] |
+|**operation** | [**StreamSubscriptionOperation**](StreamSubscriptionOperation.md) |  |  [optional] |
 |**changeLog** | [**Changelog**](Changelog.md) |  |  [optional] |
-|**lastErrorMessage** | **String** | HTTP response from sink type if error occurred |  [optional] |
 
 
 

@@ -91,7 +91,9 @@ public class StatisticsApi {
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
+     * @deprecated
      */
+    @Deprecated
     public okhttp3.Call getConnectionStatsByPortUuidCall(String connectionId, OffsetDateTime startDateTime, OffsetDateTime endDateTime, ViewPoint viewPoint, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
@@ -149,6 +151,7 @@ public class StatisticsApi {
         return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
+    @Deprecated
     @SuppressWarnings("rawtypes")
     private okhttp3.Call getConnectionStatsByPortUuidValidateBeforeCall(String connectionId, OffsetDateTime startDateTime, OffsetDateTime endDateTime, ViewPoint viewPoint, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'connectionId' is set
@@ -176,8 +179,8 @@ public class StatisticsApi {
     }
 
     /**
-     * Get Stats by uuid
-     * This API provides service-level metrics so that you can view access and gather key information required to manage service subscription sizing and capacity
+     * Get Stats by uuid **(DEPRECATED)**
+     * This API provides service-level metrics so that you can view access and gather key information required to manage service subscription sizing and capacity **(DEPRECATED)**
      * @param connectionId Connection UUID (required)
      * @param startDateTime startDateTime (required)
      * @param endDateTime endDateTime (required)
@@ -191,15 +194,17 @@ public class StatisticsApi {
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
+     * @deprecated
      */
+    @Deprecated
     public Statistics getConnectionStatsByPortUuid(String connectionId, OffsetDateTime startDateTime, OffsetDateTime endDateTime, ViewPoint viewPoint) throws ApiException {
         ApiResponse<Statistics> localVarResp = getConnectionStatsByPortUuidWithHttpInfo(connectionId, startDateTime, endDateTime, viewPoint);
         return localVarResp.getData();
     }
 
     /**
-     * Get Stats by uuid
-     * This API provides service-level metrics so that you can view access and gather key information required to manage service subscription sizing and capacity
+     * Get Stats by uuid **(DEPRECATED)**
+     * This API provides service-level metrics so that you can view access and gather key information required to manage service subscription sizing and capacity **(DEPRECATED)**
      * @param connectionId Connection UUID (required)
      * @param startDateTime startDateTime (required)
      * @param endDateTime endDateTime (required)
@@ -213,7 +218,9 @@ public class StatisticsApi {
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
+     * @deprecated
      */
+    @Deprecated
     public ApiResponse<Statistics> getConnectionStatsByPortUuidWithHttpInfo(String connectionId, OffsetDateTime startDateTime, OffsetDateTime endDateTime, ViewPoint viewPoint) throws ApiException {
         okhttp3.Call localVarCall = getConnectionStatsByPortUuidValidateBeforeCall(connectionId, startDateTime, endDateTime, viewPoint, null);
         Type localVarReturnType = new TypeToken<Statistics>(){}.getType();
@@ -221,8 +228,8 @@ public class StatisticsApi {
     }
 
     /**
-     * Get Stats by uuid (asynchronously)
-     * This API provides service-level metrics so that you can view access and gather key information required to manage service subscription sizing and capacity
+     * Get Stats by uuid **(DEPRECATED)** (asynchronously)
+     * This API provides service-level metrics so that you can view access and gather key information required to manage service subscription sizing and capacity **(DEPRECATED)**
      * @param connectionId Connection UUID (required)
      * @param startDateTime startDateTime (required)
      * @param endDateTime endDateTime (required)
@@ -237,7 +244,9 @@ public class StatisticsApi {
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
+     * @deprecated
      */
+    @Deprecated
     public okhttp3.Call getConnectionStatsByPortUuidAsync(String connectionId, OffsetDateTime startDateTime, OffsetDateTime endDateTime, ViewPoint viewPoint, final ApiCallback<Statistics> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getConnectionStatsByPortUuidValidateBeforeCall(connectionId, startDateTime, endDateTime, viewPoint, _callback);
@@ -261,7 +270,9 @@ public class StatisticsApi {
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
+     * @deprecated
      */
+    @Deprecated
     public okhttp3.Call getPortStatsByPortUuidCall(UUID portId, OffsetDateTime startDateTime, OffsetDateTime endDateTime, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
@@ -315,6 +326,7 @@ public class StatisticsApi {
         return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
+    @Deprecated
     @SuppressWarnings("rawtypes")
     private okhttp3.Call getPortStatsByPortUuidValidateBeforeCall(UUID portId, OffsetDateTime startDateTime, OffsetDateTime endDateTime, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'portId' is set
@@ -337,8 +349,8 @@ public class StatisticsApi {
     }
 
     /**
-     * Get Stats by uuid
-     * This API provides service-level traffic metrics so that you can view access and gather key information required to manage service subscription sizing and capacity.
+     * Get Stats by uuid **(DEPRECATED)**
+     * This API provides service-level traffic metrics so that you can view access and gather key information required to manage service subscription sizing and capacity.**(DEPRECATED)**
      * @param portId Port UUID (required)
      * @param startDateTime startDateTime (required)
      * @param endDateTime endDateTime (required)
@@ -352,15 +364,17 @@ public class StatisticsApi {
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
+     * @deprecated
      */
+    @Deprecated
     public Statistics getPortStatsByPortUuid(UUID portId, OffsetDateTime startDateTime, OffsetDateTime endDateTime) throws ApiException {
         ApiResponse<Statistics> localVarResp = getPortStatsByPortUuidWithHttpInfo(portId, startDateTime, endDateTime);
         return localVarResp.getData();
     }
 
     /**
-     * Get Stats by uuid
-     * This API provides service-level traffic metrics so that you can view access and gather key information required to manage service subscription sizing and capacity.
+     * Get Stats by uuid **(DEPRECATED)**
+     * This API provides service-level traffic metrics so that you can view access and gather key information required to manage service subscription sizing and capacity.**(DEPRECATED)**
      * @param portId Port UUID (required)
      * @param startDateTime startDateTime (required)
      * @param endDateTime endDateTime (required)
@@ -374,7 +388,9 @@ public class StatisticsApi {
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
+     * @deprecated
      */
+    @Deprecated
     public ApiResponse<Statistics> getPortStatsByPortUuidWithHttpInfo(UUID portId, OffsetDateTime startDateTime, OffsetDateTime endDateTime) throws ApiException {
         okhttp3.Call localVarCall = getPortStatsByPortUuidValidateBeforeCall(portId, startDateTime, endDateTime, null);
         Type localVarReturnType = new TypeToken<Statistics>(){}.getType();
@@ -382,8 +398,8 @@ public class StatisticsApi {
     }
 
     /**
-     * Get Stats by uuid (asynchronously)
-     * This API provides service-level traffic metrics so that you can view access and gather key information required to manage service subscription sizing and capacity.
+     * Get Stats by uuid **(DEPRECATED)** (asynchronously)
+     * This API provides service-level traffic metrics so that you can view access and gather key information required to manage service subscription sizing and capacity.**(DEPRECATED)**
      * @param portId Port UUID (required)
      * @param startDateTime startDateTime (required)
      * @param endDateTime endDateTime (required)
@@ -398,7 +414,9 @@ public class StatisticsApi {
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
+     * @deprecated
      */
+    @Deprecated
     public okhttp3.Call getPortStatsByPortUuidAsync(UUID portId, OffsetDateTime startDateTime, OffsetDateTime endDateTime, final ApiCallback<Statistics> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getPortStatsByPortUuidValidateBeforeCall(portId, startDateTime, endDateTime, _callback);

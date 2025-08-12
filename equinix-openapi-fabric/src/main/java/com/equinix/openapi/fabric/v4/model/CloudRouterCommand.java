@@ -14,7 +14,7 @@ package com.equinix.openapi.fabric.v4.model;
 import java.util.Objects;
 import java.util.Arrays;
 import com.equinix.openapi.fabric.v4.model.Changelog;
-import com.equinix.openapi.fabric.v4.model.CloudRouterCommandRequest;
+import com.equinix.openapi.fabric.v4.model.CloudRouterCommandRequestResponse;
 import com.equinix.openapi.fabric.v4.model.CloudRouterCommandResponse;
 import com.equinix.openapi.fabric.v4.model.CloudRouterCommandState;
 import com.equinix.openapi.fabric.v4.model.CloudRouterCommandType;
@@ -83,7 +83,7 @@ public class CloudRouterCommand {
 
   public static final String SERIALIZED_NAME_REQUEST = "request";
   @SerializedName(SERIALIZED_NAME_REQUEST)
-  private CloudRouterCommandRequest request;
+  private CloudRouterCommandRequestResponse request;
 
   public static final String SERIALIZED_NAME_RESPONSE = "response";
   @SerializedName(SERIALIZED_NAME_RESPONSE)
@@ -250,7 +250,7 @@ public class CloudRouterCommand {
   }
 
 
-  public CloudRouterCommand request(CloudRouterCommandRequest request) {
+  public CloudRouterCommand request(CloudRouterCommandRequestResponse request) {
     
     this.request = request;
     return this;
@@ -262,12 +262,12 @@ public class CloudRouterCommand {
   **/
   @javax.annotation.Nullable
 
-  public CloudRouterCommandRequest getRequest() {
+  public CloudRouterCommandRequestResponse getRequest() {
     return request;
   }
 
 
-  public void setRequest(CloudRouterCommandRequest request) {
+  public void setRequest(CloudRouterCommandRequestResponse request) {
     this.request = request;
   }
 
@@ -470,7 +470,7 @@ public class CloudRouterCommand {
       }
       // validate the optional field `request`
       if (jsonObj.get("request") != null && !jsonObj.get("request").isJsonNull()) {
-        CloudRouterCommandRequest.validateJsonObject(jsonObj.getAsJsonObject("request"));
+        CloudRouterCommandRequestResponse.validateJsonObject(jsonObj.getAsJsonObject("request"));
       }
       // validate the optional field `response`
       if (jsonObj.get("response") != null && !jsonObj.get("response").isJsonNull()) {
